@@ -38,6 +38,8 @@
     <!-- main css -->
     <link rel="stylesheet" href="assets/css/style.css">
 
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+
 
     <!-- role css -->
     <style>
@@ -100,7 +102,7 @@
             .dropdown-toggle::after {
                 margin-left: 11em;
             }
-        }   
+        }
     </style>
 
 </head>
@@ -329,12 +331,13 @@
                                 class="text-primary-600 text-xl line-height-1"></iconify-icon>
                             Facebook
                         </button>
-                        <button type="button"
+                        <!-- <button type="button"
                             class="fw-semibold text-primary-light py-16 px-24 w-50 border radius-12 text-md d-flex align-items-center justify-content-center gap-12 line-height-1 bg-hover-primary-50">
                             <iconify-icon icon="logos:google-icon"
                                 class="text-primary-600 text-xl line-height-1"></iconify-icon>
                             Google
-                        </button>
+                        </button> -->
+                        <div id="googleBtn"></div>
                     </div>
                     <div class="mt-32 text-center text-sm">
                         <p class="mb-0">Don’t have an account? <a href="sign-up.html"
@@ -398,6 +401,28 @@
                 $("#roleDropdownBtn").focus();
             }
         });
+
+
+        window.onload = function () {
+            google.accounts.id.initialize({
+                client_id: "268530584126-ma6bqcqq25suer37mu1qv8qepu8a96ul.apps.googleusercontent.com",
+                callback: handleCredentialResponse
+            });
+
+            google.accounts.id.renderButton(
+                document.getElementById("googleBtn"),
+                { theme: "outline", size: "large", width: "100%" }
+            );
+        };
+
+        function handleCredentialResponse(response) {
+            console.log("Google Token", response.credential);
+
+            // send token to backend
+            // window.location.href = "/dashboard";
+        }
+
+
 
         // ================== Password Show Hide Js Start ==========
         function initializePasswordToggle(toggleSelector) {
