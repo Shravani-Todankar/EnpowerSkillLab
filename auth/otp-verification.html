@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>OTP Verification — Enpower Skill Lab</title>
+
+  <!-- Keep the same CSS/assets used by sign-in.html (Enpower styles). -->
+  <link rel="stylesheet" href="assets/css/remixicon.css">
+  <link rel="stylesheet" href="assets/css/lib/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+
+  <!-- Iconify -->
+  <script src="assets/js/lib/iconify-icon.min.js" defer></script>
+
+  <style>
+    /* Small OTP-specific overrides so inputs match sign-in look */
+    .otp-row { display:flex; gap:0.75rem; justify-content:space-between; }
+    .otp-input {
+      width:4.25rem;
+      height:4.25rem;
+      text-align:center;
+      font-size:1.4rem;
+      border-radius:12px;
+      border:1px solid #E6E6F0;
+      background:#FBFAFF;
+      outline:none;
+    }
+    .otp-input:focus { box-shadow:0 0 0 4px rgba(108,92,231,0.08); border-color: #6C5CE7; }
+    .resend-link { color:var(--enpower-purple, #6C5CE7); font-weight:600; text-decoration: none; }
+    .resend-link:hover { text-decoration:underline; }
+    /* keep spacing consistent with the sign-in page */
+    .otp-action-row { margin-top:1.25rem; }
+  </style>
+</head>
+<body>
+
+<section class="auth bg-base d-flex flex-wrap">
+  <!-- Left illustration column (kept original OTP image per your choice) -->
+  <div class="auth-left d-lg-block d-none">
+    <div class="d-flex align-items-center flex-column h-100 justify-content-center">
+      <!-- original OTP illustration preserved from the uploaded resend-otp file -->
+      <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuB3m9evUkibmNnW5SQkF6QZQgKTA3AhZWsndfsW4KVMr8W97EKvad8AJ6a4440-U5o6ATA4Peabr5eNGPmC6dyB0VOcBKcvx40jZ03vyXak1SdmIOYfYAx7VsHJWY6Dwy65QfI6QkiDa-aF3uEVeNkSh983rTZQQCzU5v6BbioZSqdQ19_JTwUQVc5mv4s04ns0tvJ1xZTXdbmsP2Ts6RzysRqNC3_9yBKJslkkcDKE9fhQM4vzs2EjKVkUZ_TU1GGWAzoID1nVlzc"
+           alt="OTP Illustration" class="img-fluid w-75">
+    </div>
+  </div>
+
+  <!-- Right form — using the same container/classes/spacing as sign-in.html -->
+  <div class="auth-right py-32 px-24 d-flex flex-column justify-content-center">
+    <div class="max-w-464-px mx-auto w-100">
+      <div class="mb-24">
+        <!-- Use same branding block as sign-in (logo is optional; keeps visual parity) -->
+        <a href="index.html" class="mb-24 max-w-290-px d-inline-block">
+          <img src="/assets/images/enpower-logo.svg" alt="Enpower Logo" class="signup-logo">
+        </a>
+        <h4 class="mb-12">OTP Verification</h4>
+        <p class="mb-32 text-secondary-light text-lg">Enter the One-Time Password sent to your email address to continue.</p>
+      </div>
+
+      <form action="#" id="otp-form" class="mb-0">
+        <!-- helper text (keeps same typographic scale as sign-in) -->
+        <div class="mb-16">
+          <label class="form-label fw-semibold mb-2">Enter your OTP</label>
+          <p class="text-sm text-secondary-light mb-2">We’ve sent a 5-digit code to <strong>your-email@example.com</strong></p>
+        </div>
+
+        <!-- OTP inputs -->
+        <div class="icon-field mb-16">
+          <div class="w-100 otp-row">
+            <input type="text" maxlength="1" class="otp-input" id="otp-1" inputmode="numeric" autocomplete="one-time-code">
+            <input type="text" maxlength="1" class="otp-input" id="otp-2" inputmode="numeric" autocomplete="one-time-code">
+            <input type="text" maxlength="1" class="otp-input" id="otp-3" inputmode="numeric" autocomplete="one-time-code">
+            <input type="text" maxlength="1" class="otp-input" id="otp-4" inputmode="numeric" autocomplete="one-time-code">
+            <input type="text" maxlength="1" class="otp-input" id="otp-5" inputmode="numeric" autocomplete="one-time-code">
+          </div>
+        </div>
+
+        <!-- Resend / timer / actions — styled to match sign-in CTA sizes -->
+        <div class="otp-action-row d-flex align-items-center justify-content-between">
+          <div>
+            <button type="button" id="resend-btn" class="btn btn-link p-0 resend-link">Send Again</button>
+            <span id="resend-timer" class="text-secondary-light ms-2"> (00:59)</span>
+          </div>
+
+          <div class="text-end">
+            <button type="submit" class="btn btn-primary px-12 py-12 radius-12">Continue</button>
+          </div>
+        </div>
+
+        <div class="mt-32 text-center text-sm">
+          <p class="mb-0">Need to sign in instead? <a href="sign-in.html" class="text-primary-600 fw-semibold">Sign In</a></p>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- keep the same JS assets used in sign-in.html for consistency -->
+<script src="assets/js/lib/jquery-3.7.1.min.js"></script>
+<script src="assets/js/lib/bootstrap.bundle.min.js"></script>
+<script src="assets/js/app.js"></script>
+
+<script>
+  // OTP input navigation (kept from original resend-otp page behavior)
+  (function () {
+    const otpInputs = Array.from(document.querySelectorAll(".otp-input"));
+    otpInputs.forEach((input, index) => {
+      input.addEventListener("input", (e) => {
+        const val = e.target.value.replace(/[^0-9]/g, '');
+        e.target.value = val;
+        if (val.length === 1 && index < otpInputs.length - 1) {
+          otpInputs[index + 1].focus();
+        }
+      });
+
+      input.addEventListener("keydown", (e) => {
+        if (e.key === "Backspace" && e.target.value.length === 0 && index > 0) {
+          otpInputs[index - 1].focus();
+        }
+      });
+
+      input.addEventListener("paste", (e) => {
+        e.preventDefault();
+        const paste = (e.clipboardData || window.clipboardData).getData('text').trim().slice(0, otpInputs.length);
+        for (let i = 0; i < paste.length; i++) {
+          if (/\d/.test(paste[i])) otpInputs[i].value = paste[i];
+        }
+        // focus next empty input
+        for (let i = 0; i < otpInputs.length; i++) {
+          if (!otpInputs[i].value) { otpInputs[i].focus(); break; }
+        }
+      });
+    });
+
+    // Example resend timer + UI (simple client-side impl)
+    let countdown = 59;
+    const timerEl = document.getElementById('resend-timer');
+    const resendBtn = document.getElementById('resend-btn');
+    let timerInterval = setInterval(() => {
+      if (countdown <= 0) {
+        clearInterval(timerInterval);
+        timerEl.textContent = '';
+        resendBtn.removeAttribute('disabled');
+        resendBtn.classList.remove('text-muted');
+      } else {
+        const mm = String(Math.floor(countdown / 60)).padStart(2, '0');
+        const ss = String(countdown % 60).padStart(2, '0');
+        timerEl.textContent = ` (${mm}:${ss})`;
+        countdown--;
+        resendBtn.setAttribute('disabled', 'true');
+      }
+    }, 1000);
+
+    // clicking resend (demo client-only behavior)
+    resendBtn.addEventListener('click', () => {
+      // Trigger your API to resend OTP here.
+      // For demo: reset timer
+      countdown = 59;
+      resendBtn.setAttribute('disabled', 'true');
+      timerInterval = setInterval(() => {
+        if (countdown <= 0) {
+          clearInterval(timerInterval);
+          timerEl.textContent = '';
+          resendBtn.removeAttribute('disabled');
+        } else {
+          const mm = String(Math.floor(countdown / 60)).padStart(2, '0');
+          const ss = String(countdown % 60).padStart(2, '0');
+          timerEl.textContent = ` (${mm}:${ss})`;
+          countdown--;
+        }
+      }, 1000);
+    });
+
+    // Example validation on submit
+    document.getElementById('otp-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const code = otpInputs.map(i => i.value).join('');
+      if (code.length !== otpInputs.length || /\D/.test(code)) {
+        alert('Please enter the full OTP.');
+        return;
+      }
+      // Submit the OTP to your backend here (AJAX / form submit)
+      // For demo:
+      console.log('Submitting OTP:', code);
+      // window.location.href = '/dashboard';
+    });
+  })();
+</script>
+
+</body>
+</html>
