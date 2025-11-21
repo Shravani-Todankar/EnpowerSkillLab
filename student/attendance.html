@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Attendance Report - Enpower Skill Lab</title>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="student-dashboard.css">
+</head>
+
+<body>
+    <!-- Mobile sidebar overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside id="sidebar" class="sidebar">
+            <div class="sidebar-header">
+                <img src="../assets/images/enpower-logo.svg" alt="Enpower Logo" class="sidebar-logo" />
+                <button id="closeSidebar" class="sidebar-close">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+            <nav class="sidebar-nav">
+                <p class="menu-label">menu</p>
+                <a href="student-dashboard.html">
+                    <span class="material-symbols-outlined">dashboard</span>
+                    My Profile
+                </a>
+                <a href="attendance.html" class="active">
+                    <span class="material-symbols-outlined">calendar_month</span>
+                    Attendance
+                </a>
+                <a href="lms.html">
+                    <span class="material-symbols-outlined">school</span>
+                    LMS
+                </a>
+                <a href="leaderboard.html">
+                    <span class="material-symbols-outlined">leaderboard</span>
+                    Leader Board
+                </a>
+                <a href="assessment.html">
+                    <span class="material-symbols-outlined">quiz</span>
+                    Assessment
+                </a>
+                <a href="reports.html">
+                    <span class="material-symbols-outlined">assessment</span>
+                    Reports
+                </a>
+                <a href="badges.html">
+                    <span class="material-symbols-outlined">military_tech</span>
+                    Badges
+                </a>
+                <a href="event-calendar.html">
+                    <span class="material-symbols-outlined">event</span>
+                    Event Calendar
+                </a>
+                <a href="#">
+                    <span class="material-symbols-outlined">newspaper</span>
+                    Newsletter
+                </a>
+                <a href="#">
+                    <span class="material-symbols-outlined">campaign</span>
+                    Announcements
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="header">
+                <div class="header-left">
+                    <button id="menuToggle">
+                        <span class="material-symbols-outlined">menu</span>
+                    </button>
+                    <button class="fullscreen-btn">
+                        <span class="material-symbols-outlined">fullscreen</span>
+                    </button>
+                </div>
+                <div class="header-right">
+                    <div class="notification-wrapper">
+                        <button>
+                            <span class="material-symbols-outlined">notifications</span>
+                        </button>
+                        <span class="notification-badge">1</span>
+                    </div>
+                    <div class="user-info">
+                        <img alt="Kunal's avatar" class="user-avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDcIJndixMoK4d7aUwjLNvUwGvQtwhoZp4zrBYHVGp_UbVoliCXsHU6Px_N4mBzfACwz3nJ2LpxL3Ws-XZbgIozb_cRIXJSxDOB2E2kzyb17yyplKyWeyRDLc-fj9vfq0_snyn1Sph7cn21sgjjyZvpAiuZIPF2nmJa_WqFLafr9reOBS1SXMU7f3XdOpsHE_wug6-xsGVmdXkOvYSvf5KdZDEIYmVUz-mfuhm5JroeQp4NP7_6_8NM9c77yCwB6A0DQSdxijqgA9Y" />
+                        <span class="user-name">kunal</span>
+                        <span class="material-symbols-outlined user-dropdown">expand_more</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Content -->
+            <div class="content-wrapper">
+                <div class="page-content">
+                    <div class="page-header">
+                        <h1 class="page-title">Attendance Report</h1>
+                        <p class="page-subtitle">View your complete attendance history and statistics</p>
+                    </div>
+
+                    <div class="card">
+                        <div class="legend">
+                            <span class="legend-item">
+                                <span class="legend-dot blue"></span>P - Present
+                            </span>
+                            <span class="legend-item">
+                                <span class="legend-dot purple"></span>L - Leave
+                            </span>
+                            <span class="legend-item">
+                                <span class="legend-dot red"></span>A - Absent
+                            </span>
+                        </div>
+
+                        <div class="charts-wrapper">
+                            <div class="chart-container">
+                                <svg class="rotate-90" width="120" height="120">
+                                    <circle cx="60" cy="60" fill="none" r="50" stroke="#fecaca" stroke-width="10"></circle>
+                                    <circle cx="60" cy="60" fill="none" r="50" stroke="#ef4444" stroke-dasharray="314" stroke-dashoffset="314" stroke-width="10"></circle>
+                                </svg>
+                                <div class="chart-label">
+                                    <span class="chart-percent">0%</span>
+                                    <span class="chart-text">Overall</span>
+                                </div>
+                            </div>
+                            <div class="chart-container">
+                                <svg class="rotate-90" width="120" height="120">
+                                    <circle cx="60" cy="60" fill="none" r="50" stroke="#fecaca" stroke-width="10"></circle>
+                                    <circle cx="60" cy="60" fill="none" r="50" stroke="#ef4444" stroke-dasharray="314" stroke-dashoffset="314" stroke-width="10"></circle>
+                                </svg>
+                                <div class="chart-label">
+                                    <span class="chart-percent">0%</span>
+                                    <span class="chart-text">Nov 2025</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="status-badges">
+                            <span class="status-badge">
+                                <span class="legend-dot yellow"></span>Today NOT MARKED
+                            </span>
+                            <span class="status-badge">
+                                <span class="legend-dot yellow"></span>Yesterday NOT MARKED
+                            </span>
+                        </div>
+
+                        <div class="stats-grid">
+                            <div class="stat-card blue">
+                                <p class="stat-label blue">PRESENTS</p>
+                                <p class="stat-value blue">0</p>
+                                <p class="stat-period blue">This Month</p>
+                            </div>
+                            <div class="stat-card purple">
+                                <p class="stat-label purple">LEAVES</p>
+                                <p class="stat-value purple">0</p>
+                                <p class="stat-period purple">This Month</p>
+                            </div>
+                            <div class="stat-card red">
+                                <p class="stat-label red">ABSENTS</p>
+                                <p class="stat-value red">0</p>
+                                <p class="stat-period red">This Month</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Sidebar toggle functionality for both mobile and desktop
+        const menuToggle = document.getElementById('menuToggle');
+        const closeSidebar = document.getElementById('closeSidebar');
+        const sidebar = document.getElementById('sidebar');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+        function toggleSidebar() {
+            if (window.innerWidth >= 1024) {
+                sidebar.classList.toggle('collapsed');
+            } else {
+                sidebar.classList.add('active');
+                sidebarOverlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closeSidebarFunc() {
+            sidebar.classList.remove('active');
+            sidebarOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        menuToggle.addEventListener('click', toggleSidebar);
+        closeSidebar.addEventListener('click', closeSidebarFunc);
+        sidebarOverlay.addEventListener('click', closeSidebarFunc);
+
+        const sidebarLinks = sidebar.querySelectorAll('a');
+        sidebarLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth < 1024) {
+                    closeSidebarFunc();
+                }
+            });
+        });
+
+        window.addEventListener('resize', () => {
+            if (window.innerWidth >= 1024) {
+                closeSidebarFunc();
+            } else {
+                sidebar.classList.remove('collapsed');
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -31,35 +31,35 @@
             </div>
             <nav class="sidebar-nav">
                 <p class="menu-label">menu</p>
-                <a href="#" class="active">
+                <a href="student-dashboard.html" class="active">
                     <span class="material-symbols-outlined">dashboard</span>
                     My Profile
                 </a>
-                <a href="#">
+                <a href="attendance.html">
                     <span class="material-symbols-outlined">calendar_month</span>
                     Attendance
                 </a>
-                <a href="#">
+                <a href="lms.html">
                     <span class="material-symbols-outlined">school</span>
                     LMS
                 </a>
-                <a href="#">
+                <a href="leaderboard.html">
                     <span class="material-symbols-outlined">leaderboard</span>
                     Leader Board
                 </a>
-                <a href="#">
+                <a href="assessment.html">
                     <span class="material-symbols-outlined">quiz</span>
                     Assessment
                 </a>
-                <a href="#">
+                <a href="reports.html">
                     <span class="material-symbols-outlined">assessment</span>
                     Reports
                 </a>
-                <a href="#">
+                <a href="badges.html">
                     <span class="material-symbols-outlined">military_tech</span>
                     Badges
                 </a>
-                <a href="#">
+                <a href="event-calendar.html">
                     <span class="material-symbols-outlined">event</span>
                     Event Calendar
                 </a>
@@ -153,6 +153,97 @@
                             </div> -->
                         </div>
                     </div>
+
+                    <!-- Gamification Card -->
+                    <div class="card gamification-card">
+                        <h3 class="gamification-title">Your Progress</h3>
+
+                        <!-- XP Points Section -->
+                        <div class="xp-section">
+                            <div class="xp-header">
+                                <span class="material-symbols-outlined xp-icon">stars</span>
+                                <div>
+                                    <p class="xp-label">Experience Points</p>
+                                    <p class="xp-value">2,450 XP</p>
+                                </div>
+                            </div>
+                            <div class="xp-progress">
+                                <div class="xp-progress-bar">
+                                    <div class="xp-progress-fill" style="width: 65%;"></div>
+                                </div>
+                                <p class="xp-progress-text">1,550 XP to Level 6</p>
+                            </div>
+                        </div>
+
+                        <!-- Streak Section -->
+                        <div class="streak-section">
+                            <div class="streak-item">
+                                <span class="material-symbols-outlined streak-icon fire">local_fire_department</span>
+                                <div>
+                                    <p class="streak-value">7 Days</p>
+                                    <p class="streak-label">Current Streak</p>
+                                </div>
+                            </div>
+                            <div class="streak-item">
+                                <span class="material-symbols-outlined streak-icon trophy">emoji_events</span>
+                                <div>
+                                    <p class="streak-value">21 Days</p>
+                                    <p class="streak-label">Best Streak</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Badges Section -->
+                        <div class="badges-section">
+                            <div class="badges-header">
+                                <h4 class="badges-title">Recent Badges</h4>
+                                <a href="badges.html" class="badges-link">View All <span class="material-symbols-outlined align-middle">arrow_forward</span></a>
+                            </div>
+                            <div class="badges-grid">
+                                <div class="badge-item">
+                                    <span class="material-symbols-outlined badge-icon gold">military_tech</span>
+                                    <p class="badge-name">Top Performer</p>
+                                </div>
+                                <div class="badge-item">
+                                    <span class="material-symbols-outlined badge-icon silver">school</span>
+                                    <p class="badge-name">Quick Learner</p>
+                                </div>
+                                <div class="badge-item">
+                                    <span class="material-symbols-outlined badge-icon bronze">workspace_premium</span>
+                                    <p class="badge-name">Consistent</p>
+                                </div>
+                                <div class="badge-item locked">
+                                    <span class="material-symbols-outlined badge-icon">lock</span>
+                                    <p class="badge-name">Mystery</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Leaderboard Section -->
+                        <div class="leaderboard-section">
+                            <div class="leaderboard-header">
+                                <h4 class="leaderboard-title">Leaderboard Position</h4>
+                                <span class="leaderboard-period">This Month</span>
+                            </div>
+                            <div class="leaderboard-rank">
+                                <div class="rank-badge">
+                                    <span class="material-symbols-outlined rank-icon">leaderboard</span>
+                                    <span class="rank-number">#12</span>
+                                </div>
+                                <div class="rank-info">
+                                    <p class="rank-text">Out of 150 students</p>
+                                    <p class="rank-change positive">
+                                        <span class="material-symbols-outlined">trending_up</span>
+                                        +3 from last month
+                                    </p>
+                                </div>
+                            </div>
+                            <a href="leaderboard.html" class="leaderboard-cta">
+                                View Full Leaderboard
+                                <span class="material-symbols-outlined">arrow_forward</span>
+                            </a>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Main Column -->
@@ -177,10 +268,12 @@
                     <div class="reports-grid">
                         <!-- Attendance Report -->
                         <div>
-                            <div class="report-header">
-                                <span class="report-number">1</span>
-                                <h3 class="report-title">Attendance Report</h3>
-                            </div>
+                            <a href="attendance.html" class="report-link">
+                                <div class="report-header">
+                                    <span class="report-number">1</span>
+                                    <h3 class="report-title">Attendance Report</h3>
+                                </div>
+                            </a>
                             <div class="card">
                                 <div class="legend">
                                     <span class="legend-item">
@@ -313,7 +406,76 @@
                             </div>
                         </div>
 
+                        <!-- Event Calendar -->
+                        <div>
+                            <a href="event-calendar.html" class="report-link">
+                                <div class="report-header">
+                                    <span class="report-number">4</span>
+                                    <h3 class="report-title">Event Calendar</h3>
+                                </div>
+                            </a>
+                            <div class="card calendar-card">
+                                <!-- Calendar Header -->
+                                <div class="calendar-header">
+                                    <div class="calendar-month">
+                                        <button class="calendar-nav-btn" id="prevMonth">
+                                            <span class="material-symbols-outlined">chevron_left</span>
+                                        </button>
+                                        <h4 class="calendar-month-title">November 2025</h4>
+                                        <button class="calendar-nav-btn" id="nextMonth">
+                                            <span class="material-symbols-outlined">chevron_right</span>
+                                        </button>
+                                    </div>
+                                    <button class="calendar-view-btn">
+                                        <span class="material-symbols-outlined">event</span>
+                                        View Full Calendar
+                                    </button>
+                                </div>
 
+                                <!-- Upcoming Events List -->
+                                <div class="events-list">
+                                    <h5 class="events-title">Upcoming Events</h5>
+
+                                    <div class="event-item">
+                                        <div class="event-date">
+                                            <span class="event-day">22</span>
+                                            <span class="event-month">NOV</span>
+                                        </div>
+                                        <div class="event-details">
+                                            <h6 class="event-name">Science Fair Competition</h6>
+                                            <p class="event-time">
+                                                <span class="material-symbols-outlined">schedule</span>
+                                                10:00 AM - 2:00 PM
+                                            </p>
+                                            <p class="event-location">
+                                                <span class="material-symbols-outlined">location_on</span>
+                                                School Auditorium
+                                            </p>
+                                        </div>
+                                        <span class="event-badge academic">Academic</span>
+                                    </div>
+
+                                    <div class="event-item">
+                                        <div class="event-date">
+                                            <span class="event-day">25</span>
+                                            <span class="event-month">NOV</span>
+                                        </div>
+                                        <div class="event-details">
+                                            <h6 class="event-name">Parent-Teacher Meeting</h6>
+                                            <p class="event-time">
+                                                <span class="material-symbols-outlined">schedule</span>
+                                                9:00 AM - 12:00 PM
+                                            </p>
+                                            <p class="event-location">
+                                                <span class="material-symbols-outlined">location_on</span>
+                                                Class 9 Rooms
+                                            </p>
+                                        </div>
+                                        <span class="event-badge meeting">Meeting</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
                     </div>
                 </div>
