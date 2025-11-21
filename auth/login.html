@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Successful</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="assets/css/lib/bootstrap.min.css">
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="assets/css/remixicon.css">
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+
+    <style>
+        .success-left {
+            background: #f3e8ff;
+            /* soft lavender like screenshot */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            min-height: 100vh;
+        }
+
+        .success-left img {
+            max-width: 600px;
+            border-radius: 12px;
+            object-fit: cover;
+        }
+
+        .success-icon {
+            width: 64px;
+            height: 64px;
+            background: #d1fae5;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+        }
+
+        .success-icon i {
+            font-size: 32px;
+            color: #10b981;
+        }
+
+        .auth-right-content {
+            display: flex;
+            flex-direction: column;
+            gap:12px;
+            padding: 0px;
+            max-width: 420px;
+            margin: auto;
+            text-align: center;
+        }
+
+        .login-head{
+            font-size: 35px !important;
+        }
+
+        .login-des{
+            font-size: 18px !important;
+        }
+
+        .btn-purple {
+            background: #6d28d9 !important;
+            color: #fff;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            padding: 14px 16px;
+        }
+
+        .btn-purple:hover {
+            background: #5a21b5 !important;
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="d-flex flex-wrap">
+
+        <!-- LEFT IMAGE -->
+        <div class="col-lg-6 col-12 success-left">
+            <img src="https://lms.eskooly.com/assets/images/splash/banner-group-image01.png" alt="Success Illustration">
+        </div>
+
+        <!-- RIGHT PANEL -->
+        <div class="col-lg-6 col-12 d-flex align-items-center">
+            <div class="auth-right-content">
+
+                <div class="success-icon">
+                    <i class="ri-check-line"></i>
+                </div>
+
+                <h2 class="fw-bold mb-2 login-head">Login Successful!</h2>
+                <p class="text-secondary-light mb-4 login-des">
+                    Welcome to your Dashboard! You have<br />successfully logged in.
+                </p>
+
+                <a href="../wowdash-admin/index.html" class="btn btn-purple w-100 mb-4">
+                    Go to Dashboard
+                </a>
+
+                <p class="text-sm text-secondary-light">
+                    Not you? <a href="sign-in.html" class="fw-semibold text-primary-600">Sign Out</a>
+                </p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- JS -->
+    <script src="assets/js/lib/jquery-3.7.1.min.js"></script>
+    <script src="assets/js/lib/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/app.js"></script>
+
+</body>
+
+</html>
