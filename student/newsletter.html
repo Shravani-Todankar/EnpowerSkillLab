@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Newsletter - Enpower Skill Lab</title>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="student-dashboard.css">
+    <link rel="stylesheet" href="newsletter.css">
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- Include Sidebar Component -->
+        <div id="sidebar-container"></div>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Include Header Component -->
+            <div id="header-container"></div>
+
+            <div class="content-wrapper">
+                <div class="page-content">
+                    <div class="page-header">
+                        <h1 class="page-title">School Newsletter</h1>
+                        <p class="page-subtitle">Stay updated with the latest news and events from Enpower Skill Lab</p>
+                    </div>
+
+                    <!-- Filter Categories -->
+                    <div class="filter-categories">
+                        <button class="category-btn active" data-category="all">
+                            <span class="material-symbols-outlined">view_module</span>
+                            All News
+                        </button>
+                        <button class="category-btn" data-category="academic">
+                            <span class="material-symbols-outlined">school</span>
+                            Academic
+                        </button>
+                        <button class="category-btn" data-category="events">
+                            <span class="material-symbols-outlined">event</span>
+                            Events
+                        </button>
+                        <button class="category-btn" data-category="sports">
+                            <span class="material-symbols-outlined">sports</span>
+                            Sports
+                        </button>
+                        <button class="category-btn" data-category="achievements">
+                            <span class="material-symbols-outlined">emoji_events</span>
+                            Achievements
+                        </button>
+                        <button class="category-btn" data-category="announcements">
+                            <span class="material-symbols-outlined">campaign</span>
+                            Announcements
+                        </button>
+                    </div>
+
+                    <!-- Featured News -->
+                    <div class="featured-section">
+                        <h3 class="section-title">Featured Story</h3>
+                        <div class="featured-card" data-category="events">
+                            <div class="featured-image">
+                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBjUPtwv8FgyXtvHTG9MZa-jC1hP1kYCnxRw&s" alt="Annual Function">
+                                <div class="featured-badge">Featured</div>
+                            </div>
+                            <div class="featured-content">
+                                <div class="news-meta">
+                                    <span class="news-category events">Events</span>
+                                    <span class="news-date">
+                                        <span class="material-symbols-outlined">schedule</span>
+                                        November 20, 2025
+                                    </span>
+                                </div>
+                                <h2 class="featured-title">Annual Function 2025: A Grand Success</h2>
+                                <p class="featured-description">
+                                    Our school's Annual Function was a spectacular event showcasing the incredible talents of our students.
+                                    From mesmerizing dance performances to powerful drama presentations, the evening was filled with memorable moments.
+                                    Special thanks to all participants, teachers, and parents who made this event unforgettable.
+                                </p>
+                                <div class="featured-footer">
+                                    <div class="author-info">
+                                        <div class="author-avatar">
+                                            <span class="material-symbols-outlined">person</span>
+                                        </div>
+                                        <div class="author-details">
+                                            <span class="author-name">Principal's Office</span>
+                                            <span class="author-role">Administration</span>
+                                        </div>
+                                    </div>
+                                    <button class="read-more-btn">
+                                        Read More
+                                        <span class="material-symbols-outlined">arrow_forward</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Latest News Grid -->
+                    <div class="news-section">
+                        <h3 class="section-title">Latest News</h3>
+                        <div class="news-grid">
+                            <!-- News Article 1 -->
+                            <div class="news-card" data-category="academic">
+                                <div class="news-image">
+                                    <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?w=400&h=250&fit=crop" alt="Science Fair">
+                                    <div class="image-overlay"></div>
+                                </div>
+                                <div class="news-content">
+                                    <div class="news-meta">
+                                        <span class="news-category academic">Academic</span>
+                                        <span class="news-date">
+                                            <span class="material-symbols-outlined">schedule</span>
+                                            Nov 18, 2025
+                                        </span>
+                                    </div>
+                                    <h4 class="news-title">Science Fair Winners Announced</h4>
+                                    <p class="news-excerpt">
+                                        Congratulations to all participants of the Inter-School Science Fair.
+                                        Our students won first place in the robotics category!
+                                    </p>
+                                    <div class="news-footer">
+                                        <span class="read-time">
+                                            <span class="material-symbols-outlined">timer</span>
+                                            3 min read
+                                        </span>
+                                        <button class="news-link">
+                                            Read More
+                                            <span class="material-symbols-outlined">arrow_forward</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- News Article 2 -->
+                            <div class="news-card" data-category="sports">
+                                <div class="news-image">
+                                    <img src="https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=400&h=250&fit=crop" alt="Sports Day">
+                                    <div class="image-overlay"></div>
+                                </div>
+                                <div class="news-content">
+                                    <div class="news-meta">
+                                        <span class="news-category sports">Sports</span>
+                                        <span class="news-date">
+                                            <span class="material-symbols-outlined">schedule</span>
+                                            Nov 15, 2025
+                                        </span>
+                                    </div>
+                                    <h4 class="news-title">Sports Day Preparations in Full Swing</h4>
+                                    <p class="news-excerpt">
+                                        Get ready for the most exciting Sports Day ever! Students are practicing hard
+                                        for various events scheduled for December 5th.
+                                    </p>
+                                    <div class="news-footer">
+                                        <span class="read-time">
+                                            <span class="material-symbols-outlined">timer</span>
+                                            2 min read
+                                        </span>
+                                        <button class="news-link">
+                                            Read More
+                                            <span class="material-symbols-outlined">arrow_forward</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- News Article 3 -->
+                            <div class="news-card" data-category="achievements">
+                                <div class="news-image">
+                                    <img src="https://images.unsplash.com/photo-1607827448299-a099b845e5d2?w=400&h=250&fit=crop" alt="Mathematics Olympiad">
+                                    <div class="image-overlay"></div>
+                                </div>
+                                <div class="news-content">
+                                    <div class="news-meta">
+                                        <span class="news-category achievements">Achievements</span>
+                                        <span class="news-date">
+                                            <span class="material-symbols-outlined">schedule</span>
+                                            Nov 12, 2025
+                                        </span>
+                                    </div>
+                                    <h4 class="news-title">Students Excel in Mathematics Olympiad</h4>
+                                    <p class="news-excerpt">
+                                        Three of our students secured top positions in the Regional Mathematics Olympiad.
+                                        Proud moment for Enpower Skill Lab!
+                                    </p>
+                                    <div class="news-footer">
+                                        <span class="read-time">
+                                            <span class="material-symbols-outlined">timer</span>
+                                            4 min read
+                                        </span>
+                                        <button class="news-link">
+                                            Read More
+                                            <span class="material-symbols-outlined">arrow_forward</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- News Article 4 -->
+                            <div class="news-card" data-category="events">
+                                <div class="news-image">
+                                    <img src="https://images.unsplash.com/photo-1519406596751-0a3ccc4937fe?w=400&h=250&fit=crop" alt="Cultural Week">
+                                    <div class="image-overlay"></div>
+                                </div>
+                                <div class="news-content">
+                                    <div class="news-meta">
+                                        <span class="news-category events">Events</span>
+                                        <span class="news-date">
+                                            <span class="material-symbols-outlined">schedule</span>
+                                            Nov 10, 2025
+                                        </span>
+                                    </div>
+                                    <h4 class="news-title">Cultural Week: Celebrating Diversity</h4>
+                                    <p class="news-excerpt">
+                                        Join us for Cultural Week from December 1-7. Experience diverse cultures through
+                                        food, music, dance, and art exhibitions.
+                                    </p>
+                                    <div class="news-footer">
+                                        <span class="read-time">
+                                            <span class="material-symbols-outlined">timer</span>
+                                            3 min read
+                                        </span>
+                                        <button class="news-link">
+                                            Read More
+                                            <span class="material-symbols-outlined">arrow_forward</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- News Article 5 -->
+                            <div class="news-card" data-category="announcements">
+                                <div class="news-image">
+                                    <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=400&h=250&fit=crop" alt="Library Expansion">
+                                    <div class="image-overlay"></div>
+                                </div>
+                                <div class="news-content">
+                                    <div class="news-meta">
+                                        <span class="news-category announcements">Announcements</span>
+                                        <span class="news-date">
+                                            <span class="material-symbols-outlined">schedule</span>
+                                            Nov 8, 2025
+                                        </span>
+                                    </div>
+                                    <h4 class="news-title">New Library Wing Opens Next Month</h4>
+                                    <p class="news-excerpt">
+                                        Exciting news! Our expanded library with 5,000 new books and digital resources
+                                        will be inaugurated on December 15th.
+                                    </p>
+                                    <div class="news-footer">
+                                        <span class="read-time">
+                                            <span class="material-symbols-outlined">timer</span>
+                                            2 min read
+                                        </span>
+                                        <button class="news-link">
+                                            Read More
+                                            <span class="material-symbols-outlined">arrow_forward</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- News Article 6 -->
+                            <div class="news-card" data-category="academic">
+                                <div class="news-image">
+                                    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=400&h=250&fit=crop" alt="Coding Workshop">
+                                    <div class="image-overlay"></div>
+                                </div>
+                                <div class="news-content">
+                                    <div class="news-meta">
+                                        <span class="news-category academic">Academic</span>
+                                        <span class="news-date">
+                                            <span class="material-symbols-outlined">schedule</span>
+                                            Nov 5, 2025
+                                        </span>
+                                    </div>
+                                    <h4 class="news-title">Free Coding Workshop for Students</h4>
+                                    <p class="news-excerpt">
+                                        Learn Python, JavaScript, and web development from industry experts.
+                                        Workshop starts November 25th. Limited seats available!
+                                    </p>
+                                    <div class="news-footer">
+                                        <span class="read-time">
+                                            <span class="material-symbols-outlined">timer</span>
+                                            3 min read
+                                        </span>
+                                        <button class="news-link">
+                                            Read More
+                                            <span class="material-symbols-outlined">arrow_forward</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Newsletter Subscription -->
+                    <div class="card subscription-card">
+                        <div class="subscription-content">
+                            <div class="subscription-icon">
+                                <span class="material-symbols-outlined">mail</span>
+                            </div>
+                            <div class="subscription-text">
+                                <h3 class="subscription-title">Subscribe to Our Newsletter</h3>
+                                <p class="subscription-description">
+                                    Get the latest news and updates delivered directly to your inbox every week.
+                                </p>
+                            </div>
+                        </div>
+                        <form class="subscription-form">
+                            <input type="email" placeholder="Enter your email address" class="email-input" required>
+                            <button type="submit" class="subscribe-btn">
+                                <span class="material-symbols-outlined">send</span>
+                                Subscribe
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Archive Section -->
+                    <div class="card archive-card">
+                        <h3 class="section-title">Newsletter Archives</h3>
+                        <div class="archive-list">
+                            <div class="archive-item">
+                                <div class="archive-icon">
+                                    <span class="material-symbols-outlined">description</span>
+                                </div>
+                                <div class="archive-info">
+                                    <h4 class="archive-title">November 2025 Newsletter</h4>
+                                    <p class="archive-meta">Published: Nov 1, 2025 • 12 Articles</p>
+                                </div>
+                                <button class="archive-download">
+                                    <span class="material-symbols-outlined">download</span>
+                                </button>
+                            </div>
+
+                            <div class="archive-item">
+                                <div class="archive-icon">
+                                    <span class="material-symbols-outlined">description</span>
+                                </div>
+                                <div class="archive-info">
+                                    <h4 class="archive-title">October 2025 Newsletter</h4>
+                                    <p class="archive-meta">Published: Oct 1, 2025 • 15 Articles</p>
+                                </div>
+                                <button class="archive-download">
+                                    <span class="material-symbols-outlined">download</span>
+                                </button>
+                            </div>
+
+                            <div class="archive-item">
+                                <div class="archive-icon">
+                                    <span class="material-symbols-outlined">description</span>
+                                </div>
+                                <div class="archive-info">
+                                    <h4 class="archive-title">September 2025 Newsletter</h4>
+                                    <p class="archive-meta">Published: Sep 1, 2025 • 14 Articles</p>
+                                </div>
+                                <button class="archive-download">
+                                    <span class="material-symbols-outlined">download</span>
+                                </button>
+                            </div>
+
+                            <div class="archive-item">
+                                <div class="archive-icon">
+                                    <span class="material-symbols-outlined">description</span>
+                                </div>
+                                <div class="archive-info">
+                                    <h4 class="archive-title">August 2025 Newsletter</h4>
+                                    <p class="archive-meta">Published: Aug 1, 2025 • 10 Articles</p>
+                                </div>
+                                <button class="archive-download">
+                                    <span class="material-symbols-outlined">download</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Load Sidebar and Header Components
+        Promise.all([
+            fetch('sidebar.html').then(response => response.text()),
+            fetch('header.html').then(response => response.text())
+        ]).then(([sidebarHTML, headerHTML]) => {
+            document.getElementById('sidebar-container').innerHTML = sidebarHTML;
+            document.getElementById('header-container').innerHTML = headerHTML;
+            initializeSidebar();
+        });
+
+        function initializeSidebar() {
+            const menuToggle = document.getElementById('menuToggle');
+            const closeSidebar = document.getElementById('closeSidebar');
+            const sidebar = document.getElementById('sidebar');
+            const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+            function toggleSidebar() {
+                if (window.innerWidth >= 1024) {
+                    sidebar.classList.toggle('collapsed');
+                } else {
+                    sidebar.classList.add('active');
+                    sidebarOverlay.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                }
+            }
+
+            function closeSidebarFunc() {
+                sidebar.classList.remove('active');
+                sidebarOverlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+
+            menuToggle.addEventListener('click', toggleSidebar);
+            closeSidebar.addEventListener('click', closeSidebarFunc);
+            sidebarOverlay.addEventListener('click', closeSidebarFunc);
+
+            const sidebarLinks = sidebar.querySelectorAll('a');
+            sidebarLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (window.innerWidth < 1024) {
+                        closeSidebarFunc();
+                    }
+                });
+            });
+
+            window.addEventListener('resize', () => {
+                if (window.innerWidth >= 1024) {
+                    closeSidebarFunc();
+                } else {
+                    sidebar.classList.remove('collapsed');
+                }
+            });
+
+            setActiveLink();
+        }
+
+        function setActiveLink() {
+            const currentPage = window.location.pathname.split('/').pop();
+            const navLinks = {
+                'student-dashboard.html': 'nav-dashboard',
+                'attendance.html': 'nav-attendance',
+                'lms.html': 'nav-lms',
+                'leaderboard.html': 'nav-leaderboard',
+                'assessment.html': 'nav-assessment',
+                'reports.html': 'nav-reports',
+                'badges.html': 'nav-badges',
+                'event-calendar.html': 'nav-event-calendar',
+                'newsletter.html': 'nav-newsletter',
+                'announcements.html': 'nav-announcements'
+            };
+
+            const sidebar = document.getElementById('sidebar');
+            const sidebarLinks = sidebar.querySelectorAll('a');
+            sidebarLinks.forEach(link => link.classList.remove('active'));
+
+            if (navLinks[currentPage]) {
+                const activeLink = document.getElementById(navLinks[currentPage]);
+                if (activeLink) {
+                    activeLink.classList.add('active');
+                }
+            }
+        }
+
+        // Category filter functionality
+        const categoryBtns = document.querySelectorAll('.category-btn');
+        const newsCards = document.querySelectorAll('.news-card');
+        const featuredCard = document.querySelector('.featured-card');
+
+        categoryBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all buttons
+                categoryBtns.forEach(b => b.classList.remove('active'));
+                // Add active class to clicked button
+                btn.classList.add('active');
+
+                const category = btn.getAttribute('data-category');
+
+                // Filter news cards
+                newsCards.forEach(card => {
+                    if (category === 'all' || card.getAttribute('data-category') === category) {
+                        card.style.display = 'flex';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+
+                // Show/hide featured card
+                if (category === 'all' || featuredCard.getAttribute('data-category') === category) {
+                    featuredCard.parentElement.style.display = 'block';
+                } else {
+                    featuredCard.parentElement.style.display = 'none';
+                }
+            });
+        });
+
+        // Newsletter subscription
+        const subscriptionForm = document.querySelector('.subscription-form');
+        subscriptionForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = subscriptionForm.querySelector('.email-input').value;
+            alert(`Thank you for subscribing with: ${email}`);
+            subscriptionForm.reset();
+        });
+
+        // Archive download
+        const downloadBtns = document.querySelectorAll('.archive-download');
+        downloadBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const archiveTitle = btn.parentElement.querySelector('.archive-title').textContent;
+                alert(`Downloading: ${archiveTitle}`);
+            });
+        });
+    </script>
+</body>
+
+</html>

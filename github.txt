@@ -1,0 +1,30 @@
+Github Commands:
+
+Create a New Repository on GitHub
+
+Go to https://github.com/new.
+
+Enter repository name.
+
+Choose Public/Private.
+
+Click Create Repository.
+
+Copy your repo URL
+
+
+git init ( This creates a .git folder and starts tracking your project. )
+
+git remote add origin https://github.com/USERNAME/REPO.git ( Connect Your VS Code Project to GitHub Repo )
+
+git add . ( Add All Files to Git )
+
+git commit -m "Initial commit" ( Commit Your Code )
+
+git push -u origin main ( Push Code to GitHub (First Push) )
+
+
+mainly needed: 
+git add .
+git commit -m "message"
+git push
