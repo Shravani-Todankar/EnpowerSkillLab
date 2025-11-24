@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>My Badges - Enpower Skill Lab</title>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="student-dashboard.css">
+    <link rel="stylesheet" href="badges.css">
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- Include Sidebar Component -->
+        <div id="sidebar-container"></div>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Include Header Component -->
+            <div id="header-container"></div>
+
+            <div class="content-wrapper">
+                <div class="page-content">
+                    <div class="page-header">
+                        <h1 class="page-title">My Badges & Achievements</h1>
+                        <p class="page-subtitle">Track your progress and celebrate your accomplishments</p>
+                    </div>
+
+                    <!-- Stats Overview -->
+                    <div class="stats-overview">
+                        <div class="stat-card purple">
+                            <div class="stat-icon">
+                                <span class="material-symbols-outlined">workspace_premium</span>
+                            </div>
+                            <div class="stat-info">
+                                <span class="stat-value">24</span>
+                                <span class="stat-label">Total Badges</span>
+                            </div>
+                        </div>
+                        <div class="stat-card green">
+                            <div class="stat-icon">
+                                <span class="material-symbols-outlined">emoji_events</span>
+                            </div>
+                            <div class="stat-info">
+                                <span class="stat-value">18</span>
+                                <span class="stat-label">Earned Badges</span>
+                            </div>
+                        </div>
+                        <div class="stat-card orange">
+                            <div class="stat-icon">
+                                <span class="material-symbols-outlined">trending_up</span>
+                            </div>
+                            <div class="stat-info">
+                                <span class="stat-value">6</span>
+                                <span class="stat-label">In Progress</span>
+                            </div>
+                        </div>
+                        <div class="stat-card blue">
+                            <div class="stat-icon">
+                                <span class="material-symbols-outlined">military_tech</span>
+                            </div>
+                            <div class="stat-info">
+                                <span class="stat-value">75%</span>
+                                <span class="stat-label">Completion Rate</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Filter Tabs -->
+                    <div class="filter-tabs">
+                        <button class="filter-tab active" data-filter="all">
+                            <span class="material-symbols-outlined">view_module</span>
+                            All Badges
+                        </button>
+                        <button class="filter-tab" data-filter="earned">
+                            <span class="material-symbols-outlined">check_circle</span>
+                            Earned
+                        </button>
+                        <button class="filter-tab" data-filter="locked">
+                            <span class="material-symbols-outlined">lock</span>
+                            Locked
+                        </button>
+                        <button class="filter-tab" data-filter="progress">
+                            <span class="material-symbols-outlined">hourglass_empty</span>
+                            In Progress
+                        </button>
+                    </div>
+
+                    <!-- Badges Grid -->
+                    <div class="badges-section">
+                        <h3 class="section-title">Academic Excellence</h3>
+                        <div class="badges-grid">
+                            <!-- Badge 1 - Earned -->
+                            <div class="badge-card earned" data-status="earned">
+                                <div class="badge-icon-wrapper">
+                                    <div class="badge-icon academic">
+                                        <span class="material-symbols-outlined">school</span>
+                                    </div>
+                                    <div class="badge-glow"></div>
+                                </div>
+                                <h4 class="badge-name">Honor Student</h4>
+                                <p class="badge-description">Maintain GPA above 3.5 for a semester</p>
+                                <div class="badge-progress">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 100%;"></div>
+                                    </div>
+                                    <span class="progress-text">100% Complete</span>
+                                </div>
+                                <span class="badge-date">Earned on Nov 15, 2025</span>
+                            </div>
+
+                            <!-- Badge 2 - Earned -->
+                            <div class="badge-card earned" data-status="earned">
+                                <div class="badge-icon-wrapper">
+                                    <div class="badge-icon science">
+                                        <span class="material-symbols-outlined">science</span>
+                                    </div>
+                                    <div class="badge-glow"></div>
+                                </div>
+                                <h4 class="badge-name">Science Champion</h4>
+                                <p class="badge-description">Score 90+ in all science assessments</p>
+                                <div class="badge-progress">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 100%;"></div>
+                                    </div>
+                                    <span class="progress-text">100% Complete</span>
+                                </div>
+                                <span class="badge-date">Earned on Oct 28, 2025</span>
+                            </div>
+
+                            <!-- Badge 3 - In Progress -->
+                            <div class="badge-card progress" data-status="progress">
+                                <div class="badge-icon-wrapper">
+                                    <div class="badge-icon math">
+                                        <span class="material-symbols-outlined">calculate</span>
+                                    </div>
+                                </div>
+                                <h4 class="badge-name">Math Master</h4>
+                                <p class="badge-description">Complete 50 advanced math problems</p>
+                                <div class="badge-progress">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 68%;"></div>
+                                    </div>
+                                    <span class="progress-text">34/50 Problems</span>
+                                </div>
+                                <span class="badge-requirement">16 more to unlock</span>
+                            </div>
+
+                            <!-- Badge 4 - Locked -->
+                            <div class="badge-card locked" data-status="locked">
+                                <div class="badge-icon-wrapper">
+                                    <div class="badge-icon locked-icon">
+                                        <span class="material-symbols-outlined">lock</span>
+                                    </div>
+                                </div>
+                                <h4 class="badge-name">Perfect Scorer</h4>
+                                <p class="badge-description">Score 100% in any assessment</p>
+                                <div class="badge-progress">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 0%;"></div>
+                                    </div>
+                                    <span class="progress-text">Not Started</span>
+                                </div>
+                                <span class="badge-requirement">Score 100% to unlock</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Skills & Competency Badges -->
+                    <div class="badges-section">
+                        <h3 class="section-title">Skills & Competency</h3>
+                        <div class="badges-grid">
+                            <!-- Badge 5 - Earned -->
+                            <div class="badge-card earned" data-status="earned">
+                                <div class="badge-icon-wrapper">
+                                    <div class="badge-icon communication">
+                                        <span class="material-symbols-outlined">record_voice_over</span>
+                                    </div>
+                                    <div class="badge-glow"></div>
+                                </div>
+                                <h4 class="badge-name">Great Communicator</h4>
+                                <p class="badge-description">Excel in presentation and communication</p>
+                                <div class="badge-progress">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 100%;"></div>
+                                    </div>
+                                    <span class="progress-text">100% Complete</span>
+                                </div>
+                                <span class="badge-date">Earned on Nov 10, 2025</span>
+                            </div>
+
+                            <!-- Badge 6 - Earned -->
+                            <div class="badge-card earned" data-status="earned">
+                                <div class="badge-icon-wrapper">
+                                    <div class="badge-icon teamwork">
+                                        <span class="material-symbols-outlined">groups</span>
+                                    </div>
+                                    <div class="badge-glow"></div>
+                                </div>
+                                <h4 class="badge-name">Team Player</h4>
+                                <p class="badge-description">Complete 5 group projects successfully</p>
+                                <div class="badge-progress">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 100%;"></div>
+                                    </div>
+                                    <span class="progress-text">100% Complete</span>
+                                </div>
+                                <span class="badge-date">Earned on Nov 5, 2025</span>
+                            </div>
+
+                            <!-- Badge 7 - In Progress -->
+                            <div class="badge-card progress" data-status="progress">
+                                <div class="badge-icon-wrapper">
+                                    <div class="badge-icon leadership">
+                                        <span class="material-symbols-outlined">supervisor_account</span>
+                                    </div>
+                                </div>
+                                <h4 class="badge-name">Future Leader</h4>
+                                <p class="badge-description">Lead 3 team projects</p>
+                                <div class="badge-progress">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 66%;"></div>
+                                    </div>
+                                    <span class="progress-text">2/3 Projects</span>
+                                </div>
+                                <span class="badge-requirement">1 more to unlock</span>
+                            </div>
+
+                            <!-- Badge 8 - In Progress -->
+                            <div class="badge-card progress" data-status="progress">
+                                <div class="badge-icon-wrapper">
+                                    <div class="badge-icon critical">
+                                        <span class="material-symbols-outlined">psychology</span>
+                                    </div>
+                                </div>
+                                <h4 class="badge-name">Critical Thinker</h4>
+                                <p class="badge-description">Score 85+ in critical thinking assessments</p>
+                                <div class="badge-progress">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 80%;"></div>
+                                    </div>
+                                    <span class="progress-text">4/5 Assessments</span>
+                                </div>
+                                <span class="badge-requirement">1 more to unlock</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Attendance & Participation -->
+                    <div class="badges-section">
+                        <h3 class="section-title">Attendance & Participation</h3>
+                        <div class="badges-grid">
+                            <!-- Badge 9 - Earned -->
+                            <div class="badge-card earned" data-status="earned">
+                                <div class="badge-icon-wrapper">
+                                    <div class="badge-icon attendance">
+                                        <span class="material-symbols-outlined">event_available</span>
+                                    </div>
+                                    <div class="badge-glow"></div>
+                                </div>
+                                <h4 class="badge-name">Perfect Attendance</h4>
+                                <p class="badge-description">100% attendance for a month</p>
+                                <div class="badge-progress">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 100%;"></div>
+                                    </div>
+                                    <span class="progress-text">100% Complete</span>
+                                </div>
+                                <span class="badge-date">Earned on Nov 1, 2025</span>
+                            </div>
+
+                            <!-- Badge 10 - Earned -->
+                            <div class="badge-card earned" data-status="earned">
+                                <div class="badge-icon-wrapper">
+                                    <div class="badge-icon participation">
+                                        <span class="material-symbols-outlined">thumb_up</span>
+                                    </div>
+                                    <div class="badge-glow"></div>
+                                </div>
+                                <h4 class="badge-name">Active Participant</h4>
+                                <p class="badge-description">Participate in 20 class discussions</p>
+                                <div class="badge-progress">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 100%;"></div>
+                                    </div>
+                                    <span class="progress-text">100% Complete</span>
+                                </div>
+                                <span class="badge-date">Earned on Oct 20, 2025</span>
+                            </div>
+
+                            <!-- Badge 11 - In Progress -->
+                            <div class="badge-card progress" data-status="progress">
+                                <div class="badge-icon-wrapper">
+                                    <div class="badge-icon punctual">
+                                        <span class="material-symbols-outlined">schedule</span>
+                                    </div>
+                                </div>
+                                <h4 class="badge-name">Always On Time</h4>
+                                <p class="badge-description">Be punctual for 30 consecutive days</p>
+                                <div class="badge-progress">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 73%;"></div>
+                                    </div>
+                                    <span class="progress-text">22/30 Days</span>
+                                </div>
+                                <span class="badge-requirement">8 more days to unlock</span>
+                            </div>
+
+                            <!-- Badge 12 - Locked -->
+                            <div class="badge-card locked" data-status="locked">
+                                <div class="badge-icon-wrapper">
+                                    <div class="badge-icon locked-icon">
+                                        <span class="material-symbols-outlined">lock</span>
+                                    </div>
+                                </div>
+                                <h4 class="badge-name">Semester Star</h4>
+                                <p class="badge-description">95% attendance for entire semester</p>
+                                <div class="badge-progress">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 0%;"></div>
+                                    </div>
+                                    <span class="progress-text">Not Started</span>
+                                </div>
+                                <span class="badge-requirement">Complete semester to unlock</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Special Achievements -->
+                    <div class="badges-section">
+                        <h3 class="section-title">Special Achievements</h3>
+                        <div class="badges-grid">
+                            <!-- Badge 13 - Earned -->
+                            <div class="badge-card earned" data-status="earned">
+                                <div class="badge-icon-wrapper">
+                                    <div class="badge-icon special">
+                                        <span class="material-symbols-outlined">star</span>
+                                    </div>
+                                    <div class="badge-glow"></div>
+                                </div>
+                                <h4 class="badge-name">Early Achiever</h4>
+                                <p class="badge-description">Complete course 2 weeks ahead of schedule</p>
+                                <div class="badge-progress">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 100%;"></div>
+                                    </div>
+                                    <span class="progress-text">100% Complete</span>
+                                </div>
+                                <span class="badge-date">Earned on Oct 15, 2025</span>
+                            </div>
+
+                            <!-- Badge 14 - Earned -->
+                            <div class="badge-card earned" data-status="earned">
+                                <div class="badge-icon-wrapper">
+                                    <div class="badge-icon innovation">
+                                        <span class="material-symbols-outlined">lightbulb</span>
+                                    </div>
+                                    <div class="badge-glow"></div>
+                                </div>
+                                <h4 class="badge-name">Innovator</h4>
+                                <p class="badge-description">Present creative solution in project</p>
+                                <div class="badge-progress">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 100%;"></div>
+                                    </div>
+                                    <span class="progress-text">100% Complete</span>
+                                </div>
+                                <span class="badge-date">Earned on Oct 8, 2025</span>
+                            </div>
+
+                            <!-- Badge 15 - In Progress -->
+                            <div class="badge-card progress" data-status="progress">
+                                <div class="badge-icon-wrapper">
+                                    <div class="badge-icon mentor">
+                                        <span class="material-symbols-outlined">diversity_3</span>
+                                    </div>
+                                </div>
+                                <h4 class="badge-name">Peer Mentor</h4>
+                                <p class="badge-description">Help 10 classmates with their studies</p>
+                                <div class="badge-progress">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 70%;"></div>
+                                    </div>
+                                    <span class="progress-text">7/10 Students</span>
+                                </div>
+                                <span class="badge-requirement">3 more to unlock</span>
+                            </div>
+
+                            <!-- Badge 16 - Locked -->
+                            <div class="badge-card locked" data-status="locked">
+                                <div class="badge-icon-wrapper">
+                                    <div class="badge-icon locked-icon">
+                                        <span class="material-symbols-outlined">lock</span>
+                                    </div>
+                                </div>
+                                <h4 class="badge-name">Hall of Fame</h4>
+                                <p class="badge-description">Top performer of the year</p>
+                                <div class="badge-progress">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 0%;"></div>
+                                    </div>
+                                    <span class="progress-text">Not Started</span>
+                                </div>
+                                <span class="badge-requirement">Achieve top rank to unlock</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Achievements Timeline -->
+                    <div class="card achievements-timeline">
+                        <h3 class="section-title">Recent Achievements</h3>
+                        <div class="timeline">
+                            <div class="timeline-item">
+                                <div class="timeline-dot purple"></div>
+                                <div class="timeline-content">
+                                    <div class="timeline-badge">
+                                        <div class="timeline-badge-icon academic">
+                                            <span class="material-symbols-outlined">school</span>
+                                        </div>
+                                        <div class="timeline-info">
+                                            <h5 class="timeline-title">Honor Student</h5>
+                                            <p class="timeline-description">Maintained GPA above 3.5</p>
+                                        </div>
+                                    </div>
+                                    <span class="timeline-date">Nov 15, 2025</span>
+                                </div>
+                            </div>
+
+                            <div class="timeline-item">
+                                <div class="timeline-dot green"></div>
+                                <div class="timeline-content">
+                                    <div class="timeline-badge">
+                                        <div class="timeline-badge-icon communication">
+                                            <span class="material-symbols-outlined">record_voice_over</span>
+                                        </div>
+                                        <div class="timeline-info">
+                                            <h5 class="timeline-title">Great Communicator</h5>
+                                            <p class="timeline-description">Excelled in presentations</p>
+                                        </div>
+                                    </div>
+                                    <span class="timeline-date">Nov 10, 2025</span>
+                                </div>
+                            </div>
+
+                            <div class="timeline-item">
+                                <div class="timeline-dot blue"></div>
+                                <div class="timeline-content">
+                                    <div class="timeline-badge">
+                                        <div class="timeline-badge-icon teamwork">
+                                            <span class="material-symbols-outlined">groups</span>
+                                        </div>
+                                        <div class="timeline-info">
+                                            <h5 class="timeline-title">Team Player</h5>
+                                            <p class="timeline-description">Completed 5 group projects</p>
+                                        </div>
+                                    </div>
+                                    <span class="timeline-date">Nov 5, 2025</span>
+                                </div>
+                            </div>
+
+                            <div class="timeline-item">
+                                <div class="timeline-dot orange"></div>
+                                <div class="timeline-content">
+                                    <div class="timeline-badge">
+                                        <div class="timeline-badge-icon attendance">
+                                            <span class="material-symbols-outlined">event_available</span>
+                                        </div>
+                                        <div class="timeline-info">
+                                            <h5 class="timeline-title">Perfect Attendance</h5>
+                                            <p class="timeline-description">100% attendance for October</p>
+                                        </div>
+                                    </div>
+                                    <span class="timeline-date">Nov 1, 2025</span>
+                                </div>
+                            </div>
+
+                            <div class="timeline-item">
+                                <div class="timeline-dot purple"></div>
+                                <div class="timeline-content">
+                                    <div class="timeline-badge">
+                                        <div class="timeline-badge-icon science">
+                                            <span class="material-symbols-outlined">science</span>
+                                        </div>
+                                        <div class="timeline-info">
+                                            <h5 class="timeline-title">Science Champion</h5>
+                                            <p class="timeline-description">Scored 90+ in all assessments</p>
+                                        </div>
+                                    </div>
+                                    <span class="timeline-date">Oct 28, 2025</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Load Sidebar and Header Components
+        Promise.all([
+            fetch('sidebar.html').then(response => response.text()),
+            fetch('header.html').then(response => response.text())
+        ]).then(([sidebarHTML, headerHTML]) => {
+            document.getElementById('sidebar-container').innerHTML = sidebarHTML;
+            document.getElementById('header-container').innerHTML = headerHTML;
+            initializeSidebar();
+        });
+
+        function initializeSidebar() {
+            const menuToggle = document.getElementById('menuToggle');
+            const closeSidebar = document.getElementById('closeSidebar');
+            const sidebar = document.getElementById('sidebar');
+            const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+            function toggleSidebar() {
+                if (window.innerWidth >= 1024) {
+                    sidebar.classList.toggle('collapsed');
+                } else {
+                    sidebar.classList.add('active');
+                    sidebarOverlay.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                }
+            }
+
+            function closeSidebarFunc() {
+                sidebar.classList.remove('active');
+                sidebarOverlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+
+            menuToggle.addEventListener('click', toggleSidebar);
+            closeSidebar.addEventListener('click', closeSidebarFunc);
+            sidebarOverlay.addEventListener('click', closeSidebarFunc);
+
+            const sidebarLinks = sidebar.querySelectorAll('a');
+            sidebarLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (window.innerWidth < 1024) {
+                        closeSidebarFunc();
+                    }
+                });
+            });
+
+            window.addEventListener('resize', () => {
+                if (window.innerWidth >= 1024) {
+                    closeSidebarFunc();
+                } else {
+                    sidebar.classList.remove('collapsed');
+                }
+            });
+
+            setActiveLink();
+        }
+
+        function setActiveLink() {
+            const currentPage = window.location.pathname.split('/').pop();
+            const navLinks = {
+                'student-dashboard.html': 'nav-dashboard',
+                'attendance.html': 'nav-attendance',
+                'lms.html': 'nav-lms',
+                'leaderboard.html': 'nav-leaderboard',
+                'assessment.html': 'nav-assessment',
+                'reports.html': 'nav-reports',
+                'badges.html': 'nav-badges',
+                'event-calendar.html': 'nav-event-calendar',
+                'newsletter.html': 'nav-newsletter',
+                'announcements.html': 'nav-announcements'
+            };
+
+            const sidebar = document.getElementById('sidebar');
+            const sidebarLinks = sidebar.querySelectorAll('a');
+            sidebarLinks.forEach(link => link.classList.remove('active'));
+
+            if (navLinks[currentPage]) {
+                const activeLink = document.getElementById(navLinks[currentPage]);
+                if (activeLink) {
+                    activeLink.classList.add('active');
+                }
+            }
+        }
+
+        // Filter functionality
+        const filterTabs = document.querySelectorAll('.filter-tab');
+        const badgeCards = document.querySelectorAll('.badge-card');
+
+        filterTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active class from all tabs
+                filterTabs.forEach(t => t.classList.remove('active'));
+                // Add active class to clicked tab
+                tab.classList.add('active');
+
+                const filter = tab.getAttribute('data-filter');
+
+                // Filter badges
+                badgeCards.forEach(card => {
+                    if (filter === 'all') {
+                        card.style.display = 'flex';
+                    } else {
+                        const status = card.getAttribute('data-status');
+                        if (status === filter) {
+                            card.style.display = 'flex';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    }
+                });
+            });
+        });
+
+        // Animate progress bars on page load
+        window.addEventListener('load', () => {
+            const progressFills = document.querySelectorAll('.progress-fill');
+            progressFills.forEach((fill, index) => {
+                const width = fill.style.width;
+                fill.style.width = '0%';
+                setTimeout(() => {
+                    fill.style.width = width;
+                }, 100 + (index * 50));
+            });
+        });
+    </script>
+</body>
+
+</html>
