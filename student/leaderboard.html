@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Leaderboard - Enpower Skill Lab</title>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="student-dashboard.css">
+    <link rel="stylesheet" href="leaderboard.css">
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- Include Sidebar Component -->
+        <div id="sidebar-container"></div>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Include Header Component -->
+            <div id="header-container"></div>
+
+            <div class="content-wrapper">
+                <div class="page-content">
+                    <div class="page-header">
+                        <h1 class="page-title">Leaderboard</h1>
+                        <p class="page-subtitle">Compete with your peers and track your progress</p>
+                    </div>
+
+                    <!-- Current User Rank Card -->
+                    <div class="card current-rank-card">
+                        <div class="rank-header">
+                            <h3 class="rank-title">Your Current Ranking</h3>
+                            <span class="rank-period">November 2025</span>
+                        </div>
+                        <div class="rank-content">
+                            <div class="rank-position">
+                                <span class="rank-number">#12</span>
+                                <span class="rank-label">Overall Rank</span>
+                            </div>
+                            <div class="rank-stats">
+                                <div class="rank-stat">
+                                    <span class="stat-icon">
+                                        <span class="material-symbols-outlined">stars</span>
+                                    </span>
+                                    <div class="stat-info">
+                                        <span class="stat-value">2,450</span>
+                                        <span class="stat-label">Total Points</span>
+                                    </div>
+                                </div>
+                                <div class="rank-stat">
+                                    <span class="stat-icon">
+                                        <span class="material-symbols-outlined">trending_up</span>
+                                    </span>
+                                    <div class="stat-info">
+                                        <span class="stat-value">+3</span>
+                                        <span class="stat-label">This Week</span>
+                                    </div>
+                                </div>
+                                <div class="rank-stat">
+                                    <span class="stat-icon">
+                                        <span class="material-symbols-outlined">emoji_events</span>
+                                    </span>
+                                    <div class="stat-info">
+                                        <span class="stat-value">150</span>
+                                        <span class="stat-label">To Next Rank</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Filter Tabs -->
+                    <div class="filter-tabs">
+                        <button class="filter-tab active" data-filter="overall">
+                            <span class="material-symbols-outlined">emoji_events</span>
+                            Overall
+                        </button>
+                        <button class="filter-tab" data-filter="weekly">
+                            <span class="material-symbols-outlined">calendar_today</span>
+                            Weekly
+                        </button>
+                        <button class="filter-tab" data-filter="monthly">
+                            <span class="material-symbols-outlined">calendar_month</span>
+                            Monthly
+                        </button>
+                        <button class="filter-tab" data-filter="class">
+                            <span class="material-symbols-outlined">school</span>
+                            My Class
+                        </button>
+                    </div>
+
+                    <!-- Top 3 Podium -->
+                    <div class="podium-section">
+                        <h3 class="section-title">Top Performers</h3>
+                        <div class="podium">
+                            <!-- 2nd Place -->
+                            <div class="podium-item second">
+                                <div class="podium-avatar">
+                                    <div class="avatar-circle silver">
+                                        <span class="avatar-text">AK</span>
+                                    </div>
+                                    <div class="rank-badge silver">
+                                        <span class="material-symbols-outlined">looks_two</span>
+                                    </div>
+                                </div>
+                                <h4 class="podium-name">Ananya Kumar</h4>
+                                <p class="podium-class">Class 9-B</p>
+                                <div class="podium-points">
+                                    <span class="material-symbols-outlined">stars</span>
+                                    3,120 pts
+                                </div>
+                            </div>
+
+                            <!-- 1st Place -->
+                            <div class="podium-item first">
+                                <div class="podium-crown">
+                                    <span class="material-symbols-outlined">emoji_events</span>
+                                </div>
+                                <div class="podium-avatar">
+                                    <div class="avatar-circle gold">
+                                        <span class="avatar-text">KD</span>
+                                    </div>
+                                    <div class="rank-badge gold">
+                                        <span class="material-symbols-outlined">looks_one</span>
+                                    </div>
+                                </div>
+                                <h4 class="podium-name">Kunal Darji</h4>
+                                <p class="podium-class">Class 9-A</p>
+                                <div class="podium-points">
+                                    <span class="material-symbols-outlined">stars</span>
+                                    3,580 pts
+                                </div>
+                            </div>
+
+                            <!-- 3rd Place -->
+                            <div class="podium-item third">
+                                <div class="podium-avatar">
+                                    <div class="avatar-circle bronze">
+                                        <span class="avatar-text">PM</span>
+                                    </div>
+                                    <div class="rank-badge bronze">
+                                        <span class="material-symbols-outlined">looks_3</span>
+                                    </div>
+                                </div>
+                                <h4 class="podium-name">Priya Mehta</h4>
+                                <p class="podium-class">Class 9-A</p>
+                                <div class="podium-points">
+                                    <span class="material-symbols-outlined">stars</span>
+                                    2,890 pts
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Leaderboard Table -->
+                    <div class="card leaderboard-card">
+                        <div class="leaderboard-header">
+                            <h3 class="section-title">Rankings</h3>
+                            <div class="search-box">
+                                <span class="material-symbols-outlined">search</span>
+                                <input type="text" placeholder="Search students..." id="searchInput">
+                            </div>
+                        </div>
+
+                        <div class="leaderboard-table">
+                            <!-- Rank 4 -->
+                            <div class="leaderboard-row">
+                                <div class="rank-col">
+                                    <span class="rank-number">4</span>
+                                </div>
+                                <div class="student-col">
+                                    <div class="student-avatar">
+                                        <span class="avatar-text">SK</span>
+                                    </div>
+                                    <div class="student-info">
+                                        <span class="student-name">Sanjay Kumar</span>
+                                        <span class="student-class">Class 9-B</span>
+                                    </div>
+                                </div>
+                                <div class="points-col">
+                                    <span class="points-value">2,750</span>
+                                    <span class="points-label">points</span>
+                                </div>
+                                <div class="trend-col">
+                                    <span class="trend-badge up">
+                                        <span class="material-symbols-outlined">arrow_upward</span>
+                                        +2
+                                    </span>
+                                </div>
+                            </div>
+
+                            <!-- Rank 5 -->
+                            <div class="leaderboard-row">
+                                <div class="rank-col">
+                                    <span class="rank-number">5</span>
+                                </div>
+                                <div class="student-col">
+                                    <div class="student-avatar">
+                                        <span class="avatar-text">NP</span>
+                                    </div>
+                                    <div class="student-info">
+                                        <span class="student-name">Neha Patel</span>
+                                        <span class="student-class">Class 9-C</span>
+                                    </div>
+                                </div>
+                                <div class="points-col">
+                                    <span class="points-value">2,680</span>
+                                    <span class="points-label">points</span>
+                                </div>
+                                <div class="trend-col">
+                                    <span class="trend-badge down">
+                                        <span class="material-symbols-outlined">arrow_downward</span>
+                                        -1
+                                    </span>
+                                </div>
+                            </div>
+
+                            <!-- Rank 6 -->
+                            <div class="leaderboard-row">
+                                <div class="rank-col">
+                                    <span class="rank-number">6</span>
+                                </div>
+                                <div class="student-col">
+                                    <div class="student-avatar">
+                                        <span class="avatar-text">VG</span>
+                                    </div>
+                                    <div class="student-info">
+                                        <span class="student-name">Vikram Gupta</span>
+                                        <span class="student-class">Class 9-A</span>
+                                    </div>
+                                </div>
+                                <div class="points-col">
+                                    <span class="points-value">2,620</span>
+                                    <span class="points-label">points</span>
+                                </div>
+                                <div class="trend-col">
+                                    <span class="trend-badge same">
+                                        <span class="material-symbols-outlined">remove</span>
+                                        0
+                                    </span>
+                                </div>
+                            </div>
+
+                            <!-- Rank 7 -->
+                            <div class="leaderboard-row">
+                                <div class="rank-col">
+                                    <span class="rank-number">7</span>
+                                </div>
+                                <div class="student-col">
+                                    <div class="student-avatar">
+                                        <span class="avatar-text">AS</span>
+                                    </div>
+                                    <div class="student-info">
+                                        <span class="student-name">Aisha Singh</span>
+                                        <span class="student-class">Class 9-B</span>
+                                    </div>
+                                </div>
+                                <div class="points-col">
+                                    <span class="points-value">2,580</span>
+                                    <span class="points-label">points</span>
+                                </div>
+                                <div class="trend-col">
+                                    <span class="trend-badge up">
+                                        <span class="material-symbols-outlined">arrow_upward</span>
+                                        +4
+                                    </span>
+                                </div>
+                            </div>
+
+                            <!-- Rank 8 -->
+                            <div class="leaderboard-row">
+                                <div class="rank-col">
+                                    <span class="rank-number">8</span>
+                                </div>
+                                <div class="student-col">
+                                    <div class="student-avatar">
+                                        <span class="avatar-text">RV</span>
+                                    </div>
+                                    <div class="student-info">
+                                        <span class="student-name">Rohit Verma</span>
+                                        <span class="student-class">Class 9-C</span>
+                                    </div>
+                                </div>
+                                <div class="points-col">
+                                    <span class="points-value">2,530</span>
+                                    <span class="points-label">points</span>
+                                </div>
+                                <div class="trend-col">
+                                    <span class="trend-badge up">
+                                        <span class="material-symbols-outlined">arrow_upward</span>
+                                        +1
+                                    </span>
+                                </div>
+                            </div>
+
+                            <!-- Rank 9 -->
+                            <div class="leaderboard-row">
+                                <div class="rank-col">
+                                    <span class="rank-number">9</span>
+                                </div>
+                                <div class="student-col">
+                                    <div class="student-avatar">
+                                        <span class="avatar-text">SM</span>
+                                    </div>
+                                    <div class="student-info">
+                                        <span class="student-name">Sneha Malhotra</span>
+                                        <span class="student-class">Class 9-A</span>
+                                    </div>
+                                </div>
+                                <div class="points-col">
+                                    <span class="points-value">2,510</span>
+                                    <span class="points-label">points</span>
+                                </div>
+                                <div class="trend-col">
+                                    <span class="trend-badge down">
+                                        <span class="material-symbols-outlined">arrow_downward</span>
+                                        -2
+                                    </span>
+                                </div>
+                            </div>
+
+                            <!-- Rank 10 -->
+                            <div class="leaderboard-row">
+                                <div class="rank-col">
+                                    <span class="rank-number">10</span>
+                                </div>
+                                <div class="student-col">
+                                    <div class="student-avatar">
+                                        <span class="avatar-text">KJ</span>
+                                    </div>
+                                    <div class="student-info">
+                                        <span class="student-name">Karan Joshi</span>
+                                        <span class="student-class">Class 9-B</span>
+                                    </div>
+                                </div>
+                                <div class="points-col">
+                                    <span class="points-value">2,490</span>
+                                    <span class="points-label">points</span>
+                                </div>
+                                <div class="trend-col">
+                                    <span class="trend-badge same">
+                                        <span class="material-symbols-outlined">remove</span>
+                                        0
+                                    </span>
+                                </div>
+                            </div>
+
+                            <!-- Rank 11 -->
+                            <div class="leaderboard-row">
+                                <div class="rank-col">
+                                    <span class="rank-number">11</span>
+                                </div>
+                                <div class="student-col">
+                                    <div class="student-avatar">
+                                        <span class="avatar-text">TK</span>
+                                    </div>
+                                    <div class="student-info">
+                                        <span class="student-name">Tanvi Kapoor</span>
+                                        <span class="student-class">Class 9-C</span>
+                                    </div>
+                                </div>
+                                <div class="points-col">
+                                    <span class="points-value">2,470</span>
+                                    <span class="points-label">points</span>
+                                </div>
+                                <div class="trend-col">
+                                    <span class="trend-badge up">
+                                        <span class="material-symbols-outlined">arrow_upward</span>
+                                        +1
+                                    </span>
+                                </div>
+                            </div>
+
+                            <!-- Current User - Rank 12 -->
+                            <div class="leaderboard-row current-user">
+                                <div class="rank-col">
+                                    <span class="rank-number">12</span>
+                                </div>
+                                <div class="student-col">
+                                    <div class="student-avatar">
+                                        <span class="avatar-text">YO</span>
+                                    </div>
+                                    <div class="student-info">
+                                        <span class="student-name">You</span>
+                                        <span class="student-class">Class 9-A</span>
+                                    </div>
+                                </div>
+                                <div class="points-col">
+                                    <span class="points-value">2,450</span>
+                                    <span class="points-label">points</span>
+                                </div>
+                                <div class="trend-col">
+                                    <span class="trend-badge up">
+                                        <span class="material-symbols-outlined">arrow_upward</span>
+                                        +3
+                                    </span>
+                                </div>
+                            </div>
+
+                            <!-- Rank 13 -->
+                            <div class="leaderboard-row">
+                                <div class="rank-col">
+                                    <span class="rank-number">13</span>
+                                </div>
+                                <div class="student-col">
+                                    <div class="student-avatar">
+                                        <span class="avatar-text">DM</span>
+                                    </div>
+                                    <div class="student-info">
+                                        <span class="student-name">Deepak Mishra</span>
+                                        <span class="student-class">Class 9-B</span>
+                                    </div>
+                                </div>
+                                <div class="points-col">
+                                    <span class="points-value">2,420</span>
+                                    <span class="points-label">points</span>
+                                </div>
+                                <div class="trend-col">
+                                    <span class="trend-badge down">
+                                        <span class="material-symbols-outlined">arrow_downward</span>
+                                        -1
+                                    </span>
+                                </div>
+                            </div>
+
+                            <!-- Rank 14 -->
+                            <div class="leaderboard-row">
+                                <div class="rank-col">
+                                    <span class="rank-number">14</span>
+                                </div>
+                                <div class="student-col">
+                                    <div class="student-avatar">
+                                        <span class="avatar-text">PC</span>
+                                    </div>
+                                    <div class="student-info">
+                                        <span class="student-name">Pooja Chauhan</span>
+                                        <span class="student-class">Class 9-C</span>
+                                    </div>
+                                </div>
+                                <div class="points-col">
+                                    <span class="points-value">2,380</span>
+                                    <span class="points-label">points</span>
+                                </div>
+                                <div class="trend-col">
+                                    <span class="trend-badge up">
+                                        <span class="material-symbols-outlined">arrow_upward</span>
+                                        +2
+                                    </span>
+                                </div>
+                            </div>
+
+                            <!-- Rank 15 -->
+                            <div class="leaderboard-row">
+                                <div class="rank-col">
+                                    <span class="rank-number">15</span>
+                                </div>
+                                <div class="student-col">
+                                    <div class="student-avatar">
+                                        <span class="avatar-text">AR</span>
+                                    </div>
+                                    <div class="student-info">
+                                        <span class="student-name">Amit Rao</span>
+                                        <span class="student-class">Class 9-A</span>
+                                    </div>
+                                </div>
+                                <div class="points-col">
+                                    <span class="points-value">2,350</span>
+                                    <span class="points-label">points</span>
+                                </div>
+                                <div class="trend-col">
+                                    <span class="trend-badge same">
+                                        <span class="material-symbols-outlined">remove</span>
+                                        0
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Points Breakdown -->
+                    <div class="card points-breakdown-card">
+                        <h3 class="section-title">How to Earn Points</h3>
+                        <div class="points-grid">
+                            <div class="point-item">
+                                <div class="point-icon academic">
+                                    <span class="material-symbols-outlined">menu_book</span>
+                                </div>
+                                <div class="point-info">
+                                    <h4 class="point-title">Complete Assignment</h4>
+                                    <p class="point-value">+50 points</p>
+                                </div>
+                            </div>
+
+                            <div class="point-item">
+                                <div class="point-icon quiz">
+                                    <span class="material-symbols-outlined">quiz</span>
+                                </div>
+                                <div class="point-info">
+                                    <h4 class="point-title">Pass Quiz (80%+)</h4>
+                                    <p class="point-value">+100 points</p>
+                                </div>
+                            </div>
+
+                            <div class="point-item">
+                                <div class="point-icon perfect">
+                                    <span class="material-symbols-outlined">verified</span>
+                                </div>
+                                <div class="point-info">
+                                    <h4 class="point-title">Perfect Score</h4>
+                                    <p class="point-value">+150 points</p>
+                                </div>
+                            </div>
+
+                            <div class="point-item">
+                                <div class="point-icon attendance">
+                                    <span class="material-symbols-outlined">event_available</span>
+                                </div>
+                                <div class="point-info">
+                                    <h4 class="point-title">Perfect Attendance</h4>
+                                    <p class="point-value">+75 points/week</p>
+                                </div>
+                            </div>
+
+                            <div class="point-item">
+                                <div class="point-icon participation">
+                                    <span class="material-symbols-outlined">hand_gesture</span>
+                                </div>
+                                <div class="point-info">
+                                    <h4 class="point-title">Class Participation</h4>
+                                    <p class="point-value">+25 points</p>
+                                </div>
+                            </div>
+
+                            <div class="point-item">
+                                <div class="point-icon badge">
+                                    <span class="material-symbols-outlined">workspace_premium</span>
+                                </div>
+                                <div class="point-info">
+                                    <h4 class="point-title">Earn New Badge</h4>
+                                    <p class="point-value">+200 points</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Load Sidebar and Header Components
+        Promise.all([
+            fetch('sidebar.html').then(response => response.text()),
+            fetch('header.html').then(response => response.text())
+        ]).then(([sidebarHTML, headerHTML]) => {
+            document.getElementById('sidebar-container').innerHTML = sidebarHTML;
+            document.getElementById('header-container').innerHTML = headerHTML;
+            initializeSidebar();
+        });
+
+        function initializeSidebar() {
+            const menuToggle = document.getElementById('menuToggle');
+            const closeSidebar = document.getElementById('closeSidebar');
+            const sidebar = document.getElementById('sidebar');
+            const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+            function toggleSidebar() {
+                if (window.innerWidth >= 1024) {
+                    sidebar.classList.toggle('collapsed');
+                } else {
+                    sidebar.classList.add('active');
+                    sidebarOverlay.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                }
+            }
+
+            function closeSidebarFunc() {
+                sidebar.classList.remove('active');
+                sidebarOverlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+
+            menuToggle.addEventListener('click', toggleSidebar);
+            closeSidebar.addEventListener('click', closeSidebarFunc);
+            sidebarOverlay.addEventListener('click', closeSidebarFunc);
+
+            const sidebarLinks = sidebar.querySelectorAll('a');
+            sidebarLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (window.innerWidth < 1024) {
+                        closeSidebarFunc();
+                    }
+                });
+            });
+
+            window.addEventListener('resize', () => {
+                if (window.innerWidth >= 1024) {
+                    closeSidebarFunc();
+                } else {
+                    sidebar.classList.remove('collapsed');
+                }
+            });
+
+            setActiveLink();
+        }
+
+        function setActiveLink() {
+            const currentPage = window.location.pathname.split('/').pop();
+            const navLinks = {
+                'student-dashboard.html': 'nav-dashboard',
+                'attendance.html': 'nav-attendance',
+                'lms.html': 'nav-lms',
+                'leaderboard.html': 'nav-leaderboard',
+                'assessment.html': 'nav-assessment',
+                'reports.html': 'nav-reports',
+                'badges.html': 'nav-badges',
+                'event-calendar.html': 'nav-event-calendar',
+                'newsletter.html': 'nav-newsletter',
+                'announcements.html': 'nav-announcements'
+            };
+
+            const sidebar = document.getElementById('sidebar');
+            const sidebarLinks = sidebar.querySelectorAll('a');
+            sidebarLinks.forEach(link => link.classList.remove('active'));
+
+            if (navLinks[currentPage]) {
+                const activeLink = document.getElementById(navLinks[currentPage]);
+                if (activeLink) {
+                    activeLink.classList.add('active');
+                }
+            }
+        }
+
+        // Filter functionality
+        const filterTabs = document.querySelectorAll('.filter-tab');
+        filterTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                filterTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                const filter = tab.getAttribute('data-filter');
+                console.log('Filter changed to:', filter);
+                // Here you would typically load different data based on the filter
+            });
+        });
+
+        // Search functionality
+        const searchInput = document.getElementById('searchInput');
+        const leaderboardRows = document.querySelectorAll('.leaderboard-row');
+
+        searchInput.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+
+            leaderboardRows.forEach(row => {
+                const studentName = row.querySelector('.student-name').textContent.toLowerCase();
+                if (studentName.includes(searchTerm)) {
+                    row.style.display = 'flex';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,1212 @@
+/* ============================================
+   LEADERBOARD PAGE — SPECIFIC CSS
+   ============================================ */
+
+/* Override grid layout for full-screen content */
+.content-wrapper {
+    display: block !important;
+    grid-template-columns: 1fr !important;
+    max-width: 100%;
+}
+
+/* Page Layout */
+.page-content {
+    width: 100%;
+    max-width: 100%;
+}
+
+.page-header {
+    margin-bottom: 32px;
+}
+
+.page-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--heading-light);
+    margin: 0 0 8px 0;
+}
+
+body.dark .page-title {
+    color: var(--heading-dark);
+}
+
+.page-subtitle {
+    font-size: 1rem;
+    color: var(--gray-500);
+    margin: 0;
+}
+
+body.dark .page-subtitle {
+    color: var(--gray-400);
+}
+
+/* Current Rank Card */
+.current-rank-card {
+    margin-bottom: 32px;
+    padding: 32px;
+    background: linear-gradient(135deg, #faf5ff 0%, #f3e5f5 50%, #fdf4ff 100%);
+    border: 2px solid #e9d5ff;
+    box-shadow: 0 4px 20px rgba(168, 85, 247, 0.1);
+}
+
+body.dark .current-rank-card {
+    background: linear-gradient(135deg, rgba(107, 39, 126, 0.15), rgba(107, 39, 126, 0.05));
+    border-color: rgba(168, 85, 247, 0.3);
+}
+
+.rank-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.rank-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--heading-light);
+    margin: 0;
+}
+
+body.dark .rank-title {
+    color: var(--heading-dark);
+}
+
+.rank-period {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #6b277e;
+    padding: 6px 12px;
+    background-color: rgba(107, 39, 126, 0.1);
+    border-radius: 6px;
+}
+
+body.dark .rank-period {
+    color: #c084fc;
+    background-color: rgba(192, 132, 252, 0.1);
+}
+
+.rank-content {
+    display: flex;
+    align-items: center;
+    gap: 48px;
+}
+
+.rank-position {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 24px 32px;
+    background: linear-gradient(135deg, #6b277e, #8b3a9e);
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(107, 39, 126, 0.3);
+}
+
+.rank-number {
+    font-size: 3rem;
+    font-weight: 700;
+    color: white;
+    line-height: 1;
+}
+
+.rank-label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.rank-stats {
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+}
+
+.rank-stat {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.rank-stat .stat-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #c084fc, #e9d5ff);
+    box-shadow: 0 4px 12px rgba(192, 132, 252, 0.3);
+}
+
+.rank-stat .stat-icon .material-symbols-outlined {
+    font-size: 1.75rem;
+    color: white;
+}
+
+.rank-stat .stat-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.rank-stat .stat-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--heading-light);
+    line-height: 1;
+}
+
+body.dark .rank-stat .stat-value {
+    color: var(--heading-dark);
+}
+
+.rank-stat .stat-label {
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--gray-600);
+}
+
+body.dark .rank-stat .stat-label {
+    color: var(--gray-400);
+}
+
+/* Filter Tabs */
+.filter-tabs {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+}
+
+.filter-tab {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    background-color: var(--card-light);
+    border: 2px solid var(--border-light);
+    border-radius: 12px;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--heading-light);
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+body.dark .filter-tab {
+    background-color: var(--card-dark);
+    border-color: var(--border-dark);
+    color: var(--heading-dark);
+}
+
+.filter-tab .material-symbols-outlined {
+    font-size: 1.25rem;
+}
+
+.filter-tab:hover {
+    background: linear-gradient(135deg, #f3e5f5, #faf5ff);
+    border-color: #c084fc;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(107, 39, 126, 0.2);
+}
+
+body.dark .filter-tab:hover {
+    background: linear-gradient(135deg, rgba(107, 39, 126, 0.2), rgba(107, 39, 126, 0.1));
+    border-color: rgba(168, 85, 247, 0.5);
+}
+
+.filter-tab.active {
+    background: linear-gradient(135deg, #6b277e, #8b3a9e);
+    color: white;
+    border-color: #6b277e;
+}
+
+.filter-tab.active:hover {
+    transform: translateY(-2px);
+}
+
+/* Podium Section */
+.podium-section {
+    margin-bottom: 32px;
+}
+
+.section-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--heading-light);
+    margin: 0 0 24px 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+body.dark .section-title {
+    color: var(--heading-dark);
+}
+
+.section-title::before {
+    content: '';
+    width: 4px;
+    height: 32px;
+    background: linear-gradient(180deg, #6b277e, #c084fc);
+    border-radius: 2px;
+}
+
+.podium {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 24px;
+    padding: 32px;
+    background: linear-gradient(135deg, #faf5ff, #f3e5f5);
+    border: 2px solid #e9d5ff;
+    border-radius: 20px;
+    box-shadow: 0 4px 12px rgba(168, 85, 247, 0.1);
+}
+
+body.dark .podium {
+    background: linear-gradient(135deg, rgba(107, 39, 126, 0.15), rgba(107, 39, 126, 0.05));
+    border-color: rgba(168, 85, 247, 0.3);
+}
+
+.podium-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 24px 20px;
+    background-color: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    position: relative;
+    transition: all 0.3s;
+    min-width: 200px;
+}
+
+body.dark .podium-item {
+    background-color: var(--card-dark);
+}
+
+.podium-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 24px rgba(107, 39, 126, 0.2);
+}
+
+.podium-item.first {
+    order: 2;
+    padding-top: 48px;
+    border: 3px solid #fbbf24;
+}
+
+.podium-item.second {
+    order: 1;
+    border: 3px solid #94a3b8;
+}
+
+.podium-item.third {
+    order: 3;
+    border: 3px solid #cd7f32;
+}
+
+.podium-crown {
+    position: absolute;
+    top: -24px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, #fbbf24, #fcd34d);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(251, 191, 36, 0.5);
+    animation: bounce 2s ease-in-out infinite;
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateX(-50%) translateY(0);
+    }
+    50% {
+        transform: translateX(-50%) translateY(-8px);
+    }
+}
+
+.podium-crown .material-symbols-outlined {
+    font-size: 2rem;
+    color: white;
+}
+
+.podium-avatar {
+    position: relative;
+    margin-bottom: 16px;
+}
+
+.avatar-circle {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: white;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.avatar-circle.gold {
+    background: linear-gradient(135deg, #fbbf24, #fcd34d);
+}
+
+.avatar-circle.silver {
+    background: linear-gradient(135deg, #94a3b8, #cbd5e1);
+}
+
+.avatar-circle.bronze {
+    background: linear-gradient(135deg, #cd7f32, #e59551);
+}
+
+.rank-badge {
+    position: absolute;
+    bottom: -8px;
+    right: -8px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 3px solid white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+body.dark .rank-badge {
+    border-color: var(--card-dark);
+}
+
+.rank-badge.gold {
+    background-color: #fbbf24;
+}
+
+.rank-badge.silver {
+    background-color: #94a3b8;
+}
+
+.rank-badge.bronze {
+    background-color: #cd7f32;
+}
+
+.rank-badge .material-symbols-outlined {
+    font-size: 1.125rem;
+    color: white;
+}
+
+.podium-name {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--heading-light);
+    margin: 0 0 4px 0;
+    text-align: center;
+}
+
+body.dark .podium-name {
+    color: var(--heading-dark);
+}
+
+.podium-class {
+    font-size: 0.875rem;
+    color: var(--gray-600);
+    margin: 0 0 12px 0;
+}
+
+body.dark .podium-class {
+    color: var(--gray-400);
+}
+
+.podium-points {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #6b277e;
+    padding: 8px 16px;
+    background-color: rgba(107, 39, 126, 0.1);
+    border-radius: 8px;
+}
+
+body.dark .podium-points {
+    color: #c084fc;
+    background-color: rgba(192, 132, 252, 0.1);
+}
+
+.podium-points .material-symbols-outlined {
+    font-size: 1.25rem;
+}
+
+/* Leaderboard Card */
+.leaderboard-card {
+    margin-bottom: 32px;
+    padding: 32px;
+}
+
+.leaderboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.search-box {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 16px;
+    background-color: var(--gray-100);
+    border: 2px solid var(--border-light);
+    border-radius: 10px;
+    min-width: 280px;
+}
+
+body.dark .search-box {
+    background-color: var(--gray-800);
+    border-color: var(--border-dark);
+}
+
+.search-box .material-symbols-outlined {
+    font-size: 1.25rem;
+    color: var(--gray-500);
+}
+
+.search-box input {
+    border: none;
+    background: transparent;
+    font-size: 0.9375rem;
+    color: var(--heading-light);
+    outline: none;
+    flex: 1;
+}
+
+body.dark .search-box input {
+    color: var(--heading-dark);
+}
+
+.search-box input::placeholder {
+    color: var(--gray-500);
+}
+
+/* Leaderboard Table */
+.leaderboard-table {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.leaderboard-row {
+    display: flex;
+    align-items: center;
+    padding: 16px 20px;
+    background: linear-gradient(135deg, #faf5ff, #f3e5f5);
+    border: 2px solid #e9d5ff;
+    border-radius: 12px;
+    transition: all 0.3s;
+}
+
+body.dark .leaderboard-row {
+    background: linear-gradient(135deg, rgba(107, 39, 126, 0.15), rgba(107, 39, 126, 0.05));
+    border-color: rgba(168, 85, 247, 0.3);
+}
+
+.leaderboard-row:hover {
+    transform: translateX(8px);
+    box-shadow: 0 4px 16px rgba(107, 39, 126, 0.2);
+}
+
+.leaderboard-row.current-user {
+    background: linear-gradient(135deg, #6b277e, #8b3a9e);
+    border-color: #6b277e;
+}
+
+.leaderboard-row.current-user * {
+    color: white !important;
+}
+
+.rank-col {
+    min-width: 60px;
+}
+
+.rank-col .rank-number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: #6b277e;
+    background-color: rgba(107, 39, 126, 0.1);
+    border-radius: 8px;
+}
+
+body.dark .rank-col .rank-number {
+    color: #c084fc;
+    background-color: rgba(192, 132, 252, 0.1);
+}
+
+.student-col {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex: 1;
+}
+
+.student-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #c084fc, #e9d5ff);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    color: white;
+    box-shadow: 0 2px 8px rgba(192, 132, 252, 0.3);
+    flex-shrink: 0;
+}
+
+.student-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.student-name {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--heading-light);
+}
+
+body.dark .student-name {
+    color: var(--heading-dark);
+}
+
+.student-class {
+    font-size: 0.8125rem;
+    color: var(--gray-600);
+}
+
+body.dark .student-class {
+    color: var(--gray-400);
+}
+
+.points-col {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
+    min-width: 100px;
+}
+
+.points-value {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--heading-light);
+}
+
+body.dark .points-value {
+    color: var(--heading-dark);
+}
+
+.points-label {
+    font-size: 0.75rem;
+    color: var(--gray-500);
+}
+
+body.dark .points-label {
+    color: var(--gray-400);
+}
+
+.trend-col {
+    min-width: 80px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.trend-badge {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+
+.trend-badge .material-symbols-outlined {
+    font-size: 1rem;
+}
+
+.trend-badge.up {
+    background-color: rgba(34, 197, 94, 0.1);
+    color: #22c55e;
+}
+
+.trend-badge.down {
+    background-color: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
+}
+
+.trend-badge.same {
+    background-color: var(--gray-200);
+    color: var(--gray-600);
+}
+
+body.dark .trend-badge.same {
+    background-color: var(--gray-700);
+    color: var(--gray-400);
+}
+
+/* Points Breakdown */
+.points-breakdown-card {
+    padding: 32px;
+    margin-bottom: 32px;
+}
+
+.points-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.point-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px;
+    background: linear-gradient(135deg, #faf5ff, #f3e5f5);
+    border: 2px solid #e9d5ff;
+    border-radius: 12px;
+    transition: all 0.3s;
+}
+
+body.dark .point-item {
+    background: linear-gradient(135deg, rgba(107, 39, 126, 0.15), rgba(107, 39, 126, 0.05));
+    border-color: rgba(168, 85, 247, 0.3);
+}
+
+.point-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(107, 39, 126, 0.2);
+}
+
+.point-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.point-icon .material-symbols-outlined {
+    font-size: 1.75rem;
+    color: white;
+}
+
+.point-icon.academic {
+    background: linear-gradient(135deg, #6b277e, #8b3a9e);
+    box-shadow: 0 4px 12px rgba(107, 39, 126, 0.3);
+}
+
+.point-icon.quiz {
+    background: linear-gradient(135deg, #3b82f6, #60a5fa);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.point-icon.perfect {
+    background: linear-gradient(135deg, #22c55e, #4ade80);
+    box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3);
+}
+
+.point-icon.attendance {
+    background: linear-gradient(135deg, #06b6d4, #22d3ee);
+    box-shadow: 0 4px 12px rgba(6, 182, 212, 0.3);
+}
+
+.point-icon.participation {
+    background: linear-gradient(135deg, #f59e0b, #fbbf24);
+    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+}
+
+.point-icon.badge {
+    background: linear-gradient(135deg, #8b5cf6, #a78bfa);
+    box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+}
+
+.point-info {
+    flex: 1;
+}
+
+.point-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--heading-light);
+    margin: 0 0 4px 0;
+}
+
+body.dark .point-title {
+    color: var(--heading-dark);
+}
+
+.point-value {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: #6b277e;
+    margin: 0;
+}
+
+body.dark .point-value {
+    color: #c084fc;
+}
+
+/* Responsive Styles */
+@media (max-width: 1024px) {
+    .podium {
+        padding: 24px;
+    }
+
+    .podium-item {
+        min-width: 180px;
+    }
+
+    .points-grid {
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .page-header {
+        margin-bottom: 24px;
+    }
+
+    .page-title {
+        font-size: 1.5rem;
+    }
+
+    .page-subtitle {
+        font-size: 0.9375rem;
+    }
+
+    .current-rank-card {
+        padding: 20px;
+    }
+
+    .rank-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+        margin-bottom: 20px;
+    }
+
+    .rank-content {
+        flex-direction: column;
+        gap: 24px;
+    }
+
+    .rank-position {
+        width: 100%;
+        padding: 20px 24px;
+    }
+
+    .rank-number {
+        font-size: 2.5rem;
+    }
+
+    .rank-stats {
+        width: 100%;
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .rank-stat {
+        width: 100%;
+    }
+
+    .rank-stat .stat-icon {
+        width: 48px;
+        height: 48px;
+    }
+
+    .rank-stat .stat-icon .material-symbols-outlined {
+        font-size: 1.5rem;
+    }
+
+    .filter-tabs {
+        gap: 8px;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+
+    .filter-tabs::-webkit-scrollbar {
+        display: none;
+    }
+
+    .filter-tab {
+        padding: 10px 20px;
+        font-size: 0.875rem;
+        white-space: nowrap;
+        flex-shrink: 0;
+    }
+
+    .section-title {
+        font-size: 1.25rem;
+        margin-bottom: 20px;
+    }
+
+    .section-title::before {
+        width: 3px;
+        height: 24px;
+    }
+
+    .podium {
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+    }
+
+    .podium-item {
+        width: 100%;
+        max-width: 320px;
+    }
+
+    .podium-item.first {
+        order: 1;
+    }
+
+    .podium-item.second {
+        order: 2;
+    }
+
+    .podium-item.third {
+        order: 3;
+    }
+
+    .leaderboard-card {
+        padding: 20px;
+    }
+
+    .leaderboard-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+    }
+
+    .search-box {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .leaderboard-row {
+        padding: 12px 16px;
+    }
+
+    .rank-col {
+        min-width: 50px;
+    }
+
+    .rank-col .rank-number {
+        width: 36px;
+        height: 36px;
+        font-size: 1rem;
+    }
+
+    .student-avatar {
+        width: 40px;
+        height: 40px;
+        font-size: 0.875rem;
+    }
+
+    .student-name {
+        font-size: 0.9375rem;
+    }
+
+    .student-class {
+        font-size: 0.75rem;
+    }
+
+    .points-col {
+        min-width: 80px;
+    }
+
+    .points-value {
+        font-size: 1rem;
+    }
+
+    .trend-col {
+        min-width: 70px;
+    }
+
+    .trend-badge {
+        padding: 4px 8px;
+        font-size: 0.8125rem;
+    }
+
+    .points-breakdown-card {
+        padding: 20px;
+    }
+
+    .points-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .point-item {
+        padding: 16px;
+    }
+
+    .point-icon {
+        width: 48px;
+        height: 48px;
+    }
+
+    .point-icon .material-symbols-outlined {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .page-title {
+        font-size: 1.25rem;
+    }
+
+    .page-subtitle {
+        font-size: 0.875rem;
+    }
+
+    .current-rank-card {
+        padding: 16px;
+    }
+
+    .rank-title {
+        font-size: 1.125rem;
+    }
+
+    .rank-period {
+        font-size: 0.75rem;
+        padding: 4px 8px;
+    }
+
+    .rank-position {
+        padding: 16px 20px;
+    }
+
+    .rank-number {
+        font-size: 2rem;
+    }
+
+    .rank-label {
+        font-size: 0.75rem;
+    }
+
+    .rank-stat .stat-icon {
+        width: 40px;
+        height: 40px;
+    }
+
+    .rank-stat .stat-icon .material-symbols-outlined {
+        font-size: 1.25rem;
+    }
+
+    .rank-stat .stat-value {
+        font-size: 1.25rem;
+    }
+
+    .rank-stat .stat-label {
+        font-size: 0.75rem;
+    }
+
+    .filter-tab {
+        padding: 8px 16px;
+        font-size: 0.8125rem;
+    }
+
+    .section-title {
+        font-size: 1.125rem;
+    }
+
+    .podium {
+        padding: 16px;
+    }
+
+    .podium-item {
+        padding: 20px 16px;
+    }
+
+    .podium-item.first {
+        padding-top: 44px;
+    }
+
+    .avatar-circle {
+        width: 64px;
+        height: 64px;
+        font-size: 1.25rem;
+    }
+
+    .rank-badge {
+        width: 28px;
+        height: 28px;
+    }
+
+    .rank-badge .material-symbols-outlined {
+        font-size: 1rem;
+    }
+
+    .podium-name {
+        font-size: 1rem;
+    }
+
+    .podium-class {
+        font-size: 0.75rem;
+    }
+
+    .podium-points {
+        font-size: 0.875rem;
+        padding: 6px 12px;
+    }
+
+    .leaderboard-card {
+        padding: 16px;
+    }
+
+    .leaderboard-row {
+        padding: 10px 12px;
+        gap: 8px;
+    }
+
+    .rank-col {
+        min-width: 40px;
+    }
+
+    .rank-col .rank-number {
+        width: 32px;
+        height: 32px;
+        font-size: 0.875rem;
+    }
+
+    .student-col {
+        gap: 12px;
+    }
+
+    .student-avatar {
+        width: 36px;
+        height: 36px;
+        font-size: 0.75rem;
+    }
+
+    .student-name {
+        font-size: 0.875rem;
+    }
+
+    .student-class {
+        font-size: 0.6875rem;
+    }
+
+    .points-col {
+        min-width: 70px;
+    }
+
+    .points-value {
+        font-size: 0.9375rem;
+    }
+
+    .trend-col {
+        min-width: 60px;
+    }
+
+    .trend-badge {
+        padding: 4px 6px;
+        font-size: 0.75rem;
+        gap: 2px;
+    }
+
+    .trend-badge .material-symbols-outlined {
+        font-size: 0.875rem;
+    }
+
+    .points-breakdown-card {
+        padding: 16px;
+    }
+
+    .point-item {
+        padding: 12px;
+        gap: 12px;
+    }
+
+    .point-icon {
+        width: 40px;
+        height: 40px;
+    }
+
+    .point-icon .material-symbols-outlined {
+        font-size: 1.25rem;
+    }
+
+    .point-title {
+        font-size: 0.875rem;
+    }
+
+    .point-value {
+        font-size: 0.8125rem;
+    }
+}
+
+@media (max-width: 360px) {
+    .page-title {
+        font-size: 1.125rem;
+    }
+
+    .rank-number {
+        font-size: 1.75rem;
+    }
+
+    .rank-stat .stat-value {
+        font-size: 1.125rem;
+    }
+
+    .filter-tab {
+        padding: 6px 12px;
+        font-size: 0.75rem;
+    }
+
+    .filter-tab .material-symbols-outlined {
+        font-size: 1rem;
+    }
+
+    .leaderboard-row {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .student-col {
+        flex: 1 1 100%;
+        order: 1;
+    }
+
+    .rank-col {
+        order: 2;
+    }
+
+    .points-col {
+        order: 3;
+    }
+
+    .trend-col {
+        order: 4;
+    }
+}
