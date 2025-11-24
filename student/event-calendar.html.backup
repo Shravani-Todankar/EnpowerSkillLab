@@ -18,14 +18,90 @@
 </head>
 
 <body>
+    <!-- Mobile sidebar overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
     <div class="dashboard-container">
-        <!-- Include Sidebar Component -->
-        <div id="sidebar-container"></div>
+        <!-- Sidebar -->
+        <aside id="sidebar" class="sidebar">
+            <div class="sidebar-header">
+                <img src="../assets/images/enpower-logo.svg" alt="Enpower Logo" class="sidebar-logo" />
+                <button id="closeSidebar" class="sidebar-close">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+            <nav class="sidebar-nav">
+                <p class="menu-label">menu</p>
+                <a href="student-dashboard.html">
+                    <span class="material-symbols-outlined">dashboard</span>
+                    My Profile
+                </a>
+                <a href="attendance.html">
+                    <span class="material-symbols-outlined">calendar_month</span>
+                    Attendance
+                </a>
+                <a href="lms.html">
+                    <span class="material-symbols-outlined">school</span>
+                    LMS
+                </a>
+                <a href="leaderboard.html">
+                    <span class="material-symbols-outlined">leaderboard</span>
+                    Leader Board
+                </a>
+                <a href="assessment.html">
+                    <span class="material-symbols-outlined">quiz</span>
+                    Assessment
+                </a>
+                <a href="reports.html">
+                    <span class="material-symbols-outlined">assessment</span>
+                    Reports
+                </a>
+                <a href="badges.html">
+                    <span class="material-symbols-outlined">military_tech</span>
+                    Badges
+                </a>
+                <a href="event-calendar.html" class="active">
+                    <span class="material-symbols-outlined">event</span>
+                    Event Calendar
+                </a>
+                <a href="#">
+                    <span class="material-symbols-outlined">newspaper</span>
+                    Newsletter
+                </a>
+                <a href="#">
+                    <span class="material-symbols-outlined">campaign</span>
+                    Announcements
+                </a>
+            </nav>
+        </aside>
 
         <!-- Main Content -->
         <main class="main-content">
-            <!-- Include Header Component -->
-            <div id="header-container"></div>
+            <!-- Header -->
+            <header class="header">
+                <div class="header-left">
+                    <button id="menuToggle">
+                        <span class="material-symbols-outlined">menu</span>
+                    </button>
+                    <button class="fullscreen-btn">
+                        <span class="material-symbols-outlined">fullscreen</span>
+                    </button>
+                </div>
+                <div class="header-right">
+                    <div class="notification-wrapper">
+                        <button>
+                            <span class="material-symbols-outlined">notifications</span>
+                        </button>
+                        <span class="notification-badge">1</span>
+                    </div>
+                    <div class="user-info">
+                        <img alt="Kunal's avatar" class="user-avatar"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDcIJndixMoK4d7aUwjLNvUwGvQtwhoZp4zrBYHVGp_UbVoliCXsHU6Px_N4mBzfACwz3nJ2LpxL3Ws-XZbgIozb_cRIXJSxDOB2E2kzyb17yyplKyWeyRDLc-fj9vfq0_snyn1Sph7cn21sgjjyZvpAiuZIPF2nmJa_WqFLafr9reOBS1SXMU7f3XdOpsHE_wug6-xsGVmdXkOvYSvf5KdZDEIYmVUz-mfuhm5JroeQp4NP7_6_8NM9c77yCwB6A0DQSdxijqgA9Y" />
+                        <span class="user-name">kunal</span>
+                        <span class="material-symbols-outlined user-dropdown">expand_more</span>
+                    </div>
+                </div>
+            </header>
 
             <!-- Content -->
             <div class="content-wrapper event-calendar">
@@ -188,92 +264,48 @@
     </div>
 
     <script>
-        // Load Sidebar and Header Components
-        Promise.all([
-            fetch('sidebar.html').then(response => response.text()),
-            fetch('header.html').then(response => response.text())
-        ]).then(([sidebarHTML, headerHTML]) => {
-            // Insert both components
-            document.getElementById('sidebar-container').innerHTML = sidebarHTML;
-            document.getElementById('header-container').innerHTML = headerHTML;
+        // Sidebar toggle functionality for both mobile and desktop
+        const menuToggle = document.getElementById('menuToggle');
+        const closeSidebar = document.getElementById('closeSidebar');
+        const sidebar = document.getElementById('sidebar');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
 
-            // Initialize sidebar functionality after both components are loaded
-            initializeSidebar();
+        function toggleSidebar() {
+            if (window.innerWidth >= 1024) {
+                sidebar.classList.toggle('collapsed');
+            } else {
+                sidebar.classList.add('active');
+                sidebarOverlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closeSidebarFunc() {
+            sidebar.classList.remove('active');
+            sidebarOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        menuToggle.addEventListener('click', toggleSidebar);
+        closeSidebar.addEventListener('click', closeSidebarFunc);
+        sidebarOverlay.addEventListener('click', closeSidebarFunc);
+
+        const sidebarLinks = sidebar.querySelectorAll('a');
+        sidebarLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth < 1024) {
+                    closeSidebarFunc();
+                }
+            });
         });
 
-        function initializeSidebar() {
-            const menuToggle = document.getElementById('menuToggle');
-            const closeSidebar = document.getElementById('closeSidebar');
-            const sidebar = document.getElementById('sidebar');
-            const sidebarOverlay = document.getElementById('sidebarOverlay');
-
-            function toggleSidebar() {
-                if (window.innerWidth >= 1024) {
-                    sidebar.classList.toggle('collapsed');
-                } else {
-                    sidebar.classList.add('active');
-                    sidebarOverlay.classList.add('active');
-                    document.body.style.overflow = 'hidden';
-                }
+        window.addEventListener('resize', () => {
+            if (window.innerWidth >= 1024) {
+                closeSidebarFunc();
+            } else {
+                sidebar.classList.remove('collapsed');
             }
-
-            function closeSidebarFunc() {
-                sidebar.classList.remove('active');
-                sidebarOverlay.classList.remove('active');
-                document.body.style.overflow = '';
-            }
-
-            menuToggle.addEventListener('click', toggleSidebar);
-            closeSidebar.addEventListener('click', closeSidebarFunc);
-            sidebarOverlay.addEventListener('click', closeSidebarFunc);
-
-            const sidebarLinks = sidebar.querySelectorAll('a');
-            sidebarLinks.forEach(link => {
-                link.addEventListener('click', () => {
-                    if (window.innerWidth < 1024) {
-                        closeSidebarFunc();
-                    }
-                });
-            });
-
-            window.addEventListener('resize', () => {
-                if (window.innerWidth >= 1024) {
-                    closeSidebarFunc();
-                } else {
-                    sidebar.classList.remove('collapsed');
-                }
-            });
-
-            // Set active link
-            setActiveLink();
-        }
-
-        function setActiveLink() {
-            const currentPage = window.location.pathname.split('/').pop();
-            const navLinks = {
-                'student-dashboard.html': 'nav-dashboard',
-                'attendance.html': 'nav-attendance',
-                'lms.html': 'nav-lms',
-                'leaderboard.html': 'nav-leaderboard',
-                'assessment.html': 'nav-assessment',
-                'reports.html': 'nav-reports',
-                'badges.html': 'nav-badges',
-                'event-calendar.html': 'nav-event-calendar',
-                'newsletter.html': 'nav-newsletter',
-                'announcements.html': 'nav-announcements'
-            };
-
-            const sidebar = document.getElementById('sidebar');
-            const sidebarLinks = sidebar.querySelectorAll('a');
-            sidebarLinks.forEach(link => link.classList.remove('active'));
-
-            if (navLinks[currentPage]) {
-                const activeLink = document.getElementById(navLinks[currentPage]);
-                if (activeLink) {
-                    activeLink.classList.add('active');
-                }
-            }
-        }
+        });
 
         // Calendar functionality
         const events = [

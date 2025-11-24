@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>My Reports - Enpower Skill Lab</title>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="student-dashboard.css">
+    <link rel="stylesheet" href="reports.css">
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- Include Sidebar Component -->
+        <div id="sidebar-container"></div>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Include Header Component -->
+            <div id="header-container"></div>
+            <div class="content-wrapper">
+                <div class="page-content">
+                    <div class="page-header">
+                        <h1 class="page-title">My Reports</h1>
+                        <p class="page-subtitle">Access and download all your academic and performance reports</p>
+                    </div>
+
+                    <!-- Performance Overview -->
+                    <div class="performance-grid">
+                        <div class="card performance-card blue">
+                            <span class="performance-label">Overall GPA</span>
+                            <span class="performance-value">3.85</span>
+                            <span class="performance-trend">
+                                <span class="material-symbols-outlined">trending_up</span>
+                                +0.12 from last month
+                            </span>
+                        </div>
+                        <div class="card performance-card green">
+                            <span class="performance-label">Attendance Rate</span>
+                            <span class="performance-value">92%</span>
+                            <span class="performance-trend">
+                                <span class="material-symbols-outlined">trending_up</span>
+                                +3% from last month
+                            </span>
+                        </div>
+                        <div class="card performance-card purple">
+                            <span class="performance-label">Assignments Completed</span>
+                            <span class="performance-value">45/48</span>
+                            <span class="performance-trend">
+                                <span class="material-symbols-outlined">trending_up</span>
+                                94% completion rate
+                            </span>
+                        </div>
+                        <div class="card performance-card orange">
+                            <span class="performance-label">Average Score</span>
+                            <span class="performance-value">87%</span>
+                            <span class="performance-trend negative">
+                                <span class="material-symbols-outlined">trending_down</span>
+                                -2% from last month
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Competency Heatmap -->
+                    <div class="card heatmap-card">
+                        <div class="chart-header">
+                            <h4 class="chart-title">Competency Heatmap</h4>
+                            <span class="chart-period">Last 3 Months</span>
+                        </div>
+                        <div class="heatmap-container">
+                            <div class="heatmap-grid">
+                                <div class="heatmap-row">
+                                    <span class="heatmap-label">Technical Skills</span>
+                                    <div class="heatmap-cells">
+                                        <div class="heatmap-cell high" data-value="92%">
+                                            <span class="heatmap-tooltip">Week 1: 92%</span>
+                                        </div>
+                                        <div class="heatmap-cell high" data-value="90%">
+                                            <span class="heatmap-tooltip">Week 2: 90%</span>
+                                        </div>
+                                        <div class="heatmap-cell high" data-value="88%">
+                                            <span class="heatmap-tooltip">Week 3: 88%</span>
+                                        </div>
+                                        <div class="heatmap-cell high" data-value="91%">
+                                            <span class="heatmap-tooltip">Week 4: 91%</span>
+                                        </div>
+                                        <div class="heatmap-cell medium" data-value="85%">
+                                            <span class="heatmap-tooltip">Week 5: 85%</span>
+                                        </div>
+                                        <div class="heatmap-cell high" data-value="88%">
+                                            <span class="heatmap-tooltip">Week 6: 88%</span>
+                                        </div>
+                                        <div class="heatmap-cell high" data-value="93%">
+                                            <span class="heatmap-tooltip">Week 7: 93%</span>
+                                        </div>
+                                        <div class="heatmap-cell high" data-value="89%">
+                                            <span class="heatmap-tooltip">Week 8: 89%</span>
+                                        </div>
+                                        <div class="heatmap-cell high" data-value="90%">
+                                            <span class="heatmap-tooltip">Week 9: 90%</span>
+                                        </div>
+                                        <div class="heatmap-cell high" data-value="94%">
+                                            <span class="heatmap-tooltip">Week 10: 94%</span>
+                                        </div>
+                                        <div class="heatmap-cell high" data-value="91%">
+                                            <span class="heatmap-tooltip">Week 11: 91%</span>
+                                        </div>
+                                        <div class="heatmap-cell high" data-value="92%">
+                                            <span class="heatmap-tooltip">Week 12: 92%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="heatmap-row">
+                                    <span class="heatmap-label">Communication</span>
+                                    <div class="heatmap-cells">
+                                        <div class="heatmap-cell medium" data-value="78%">
+                                            <span class="heatmap-tooltip">Week 1: 78%</span>
+                                        </div>
+                                        <div class="heatmap-cell medium" data-value="80%">
+                                            <span class="heatmap-tooltip">Week 2: 80%</span>
+                                        </div>
+                                        <div class="heatmap-cell medium" data-value="75%">
+                                            <span class="heatmap-tooltip">Week 3: 75%</span>
+                                        </div>
+                                        <div class="heatmap-cell medium" data-value="82%">
+                                            <span class="heatmap-tooltip">Week 4: 82%</span>
+                                        </div>
+                                        <div class="heatmap-cell medium" data-value="79%">
+                                            <span class="heatmap-tooltip">Week 5: 79%</span>
+                                        </div>
+                                        <div class="heatmap-cell medium" data-value="83%">
+                                            <span class="heatmap-tooltip">Week 6: 83%</span>
+                                        </div>
+                                        <div class="heatmap-cell high" data-value="85%">
+                                            <span class="heatmap-tooltip">Week 7: 85%</span>
+                                        </div>
+                                        <div class="heatmap-cell medium" data-value="81%">
+                                            <span class="heatmap-tooltip">Week 8: 81%</span>
+                                        </div>
+                                        <div class="heatmap-cell medium" data-value="84%">
+                                            <span class="heatmap-tooltip">Week 9: 84%</span>
+                                        </div>
+                                        <div class="heatmap-cell high" data-value="86%">
+                                            <span class="heatmap-tooltip">Week 10: 86%</span>
+                                        </div>
+                                        <div class="heatmap-cell medium" data-value="82%">
+                                            <span class="heatmap-tooltip">Week 11: 82%</span>
+                                        </div>
+                                        <div class="heatmap-cell medium" data-value="83%">
+                                            <span class="heatmap-tooltip">Week 12: 83%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="heatmap-row">
+                                    <span class="heatmap-label">Problem Solving</span>
+                                    <div class="heatmap-cells">
+                                        <div class="heatmap-cell high" data-value="88%">
+                                            <span class="heatmap-tooltip">Week 1: 88%</span>
+                                        </div>
+                                        <div class="heatmap-cell high" data-value="89%">
+                                            <span class="heatmap-tooltip">Week 2: 89%</span>
+                                        </div>
+                                        <div class="heatmap-cell high" data-value="91%">
+                                            <span class="heatmap-tooltip">Week 3: 91%</span>
+                                        </div>
+                                        <div class="heatmap-cell high" data-value="87%">
+                                            <span class="heatmap-tooltip">Week 4: 87%</span>
+                                        </div>
+                                        <div class="heatmap-cell high" data-value="92%">
+                                            <span class="heatmap-tooltip">Week 5: 92%</span>
+                                        </div>
+                                        <div class="heatmap-cell high" data-value="90%">
+                                            <span class="heatmap-tooltip">Week 6: 90%</span>
+                                        </div>
+                                        <div class="heatmap-cell high" data-value="89%">
+                                            <span class="heatmap-tooltip">Week 7: 89%</span>
+                                        </div>
+                                        <div class="heatmap-cell high" data-value="93%">
+                                            <span class="heatmap-tooltip">Week 8: 93%</span>
+                                        </div>
+                                        <div class="heatmap-cell high" data-value="91%">
+                                            <span class="heatmap-tooltip">Week 9: 91%</span>
+                                        </div>
+                                        <div class="heatmap-cell high" data-value="90%">
+                                            <span class="heatmap-tooltip">Week 10: 90%</span>
+                                        </div>
+                                        <div class="heatmap-cell high" data-value="94%">
+                                            <span class="heatmap-tooltip">Week 11: 94%</span>
+                                        </div>
+                                        <div class="heatmap-cell high" data-value="92%">
+                                            <span class="heatmap-tooltip">Week 12: 92%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="heatmap-row">
+                                    <span class="heatmap-label">Teamwork</span>
+                                    <div class="heatmap-cells">
+                                        <div class="heatmap-cell medium" data-value="82%">
+                                            <span class="heatmap-tooltip">Week 1: 82%</span>
+                                        </div>
+                                        <div class="heatmap-cell medium" data-value="84%">
+                                            <span class="heatmap-tooltip">Week 2: 84%</span>
+                                        </div>
+                                        <div class="heatmap-cell high" data-value="85%">
+                                            <span class="heatmap-tooltip">Week 3: 85%</span>
+                                        </div>
+                                        <div class="heatmap-cell medium" data-value="83%">
+                                            <span class="heatmap-tooltip">Week 4: 83%</span>
+                                        </div>
+                                        <div class="heatmap-cell high" data-value="86%">
+                                            <span class="heatmap-tooltip">Week 5: 86%</span>
+                                        </div>
+                                        <div class="heatmap-cell high" data-value="85%">
+                                            <span class="heatmap-tooltip">Week 6: 85%</span>
+                                        </div>
+                                        <div class="heatmap-cell high" data-value="87%">
+                                            <span class="heatmap-tooltip">Week 7: 87%</span>
+                                        </div>
+                                        <div class="heatmap-cell medium" data-value="84%">
+                                            <span class="heatmap-tooltip">Week 8: 84%</span>
+                                        </div>
+                                        <div class="heatmap-cell high" data-value="88%">
+                                            <span class="heatmap-tooltip">Week 9: 88%</span>
+                                        </div>
+                                        <div class="heatmap-cell high" data-value="86%">
+                                            <span class="heatmap-tooltip">Week 10: 86%</span>
+                                        </div>
+                                        <div class="heatmap-cell high" data-value="87%">
+                                            <span class="heatmap-tooltip">Week 11: 87%</span>
+                                        </div>
+                                        <div class="heatmap-cell high" data-value="89%">
+                                            <span class="heatmap-tooltip">Week 12: 89%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="heatmap-row">
+                                    <span class="heatmap-label">Critical Thinking</span>
+                                    <div class="heatmap-cells">
+                                        <div class="heatmap-cell low" data-value="68%">
+                                            <span class="heatmap-tooltip">Week 1: 68%</span>
+                                        </div>
+                                        <div class="heatmap-cell low" data-value="70%">
+                                            <span class="heatmap-tooltip">Week 2: 70%</span>
+                                        </div>
+                                        <div class="heatmap-cell medium" data-value="72%">
+                                            <span class="heatmap-tooltip">Week 3: 72%</span>
+                                        </div>
+                                        <div class="heatmap-cell medium" data-value="75%">
+                                            <span class="heatmap-tooltip">Week 4: 75%</span>
+                                        </div>
+                                        <div class="heatmap-cell medium" data-value="73%">
+                                            <span class="heatmap-tooltip">Week 5: 73%</span>
+                                        </div>
+                                        <div class="heatmap-cell medium" data-value="76%">
+                                            <span class="heatmap-tooltip">Week 6: 76%</span>
+                                        </div>
+                                        <div class="heatmap-cell medium" data-value="78%">
+                                            <span class="heatmap-tooltip">Week 7: 78%</span>
+                                        </div>
+                                        <div class="heatmap-cell medium" data-value="80%">
+                                            <span class="heatmap-tooltip">Week 8: 80%</span>
+                                        </div>
+                                        <div class="heatmap-cell medium" data-value="79%">
+                                            <span class="heatmap-tooltip">Week 9: 79%</span>
+                                        </div>
+                                        <div class="heatmap-cell medium" data-value="81%">
+                                            <span class="heatmap-tooltip">Week 10: 81%</span>
+                                        </div>
+                                        <div class="heatmap-cell medium" data-value="83%">
+                                            <span class="heatmap-tooltip">Week 11: 83%</span>
+                                        </div>
+                                        <div class="heatmap-cell medium" data-value="82%">
+                                            <span class="heatmap-tooltip">Week 12: 82%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="heatmap-legend">
+                                <span class="legend-title">Performance Level:</span>
+                                <div class="legend-items">
+                                    <span class="legend-item"><span class="legend-box low"></span>0-70%</span>
+                                    <span class="legend-item"><span class="legend-box medium"></span>71-84%</span>
+                                    <span class="legend-item"><span class="legend-box high"></span>85-100%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Analytics Charts -->
+                    <div class="charts-section">
+                        <!-- Weekly Study Hours -->
+                        <div class="card chart-card">
+                            <div class="chart-header">
+                                <h4 class="chart-title">Weekly Study Hours</h4>
+                                <span class="chart-period">Last 4 Weeks</span>
+                            </div>
+                            <div class="bar-chart">
+                                <div class="bar-item">
+                                    <span class="bar-label">Week 1</span>
+                                    <div class="bar-wrapper">
+                                        <div class="bar-fill blue" style="width: 75%;">
+                                            <span class="bar-value">30h</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="bar-item">
+                                    <span class="bar-label">Week 2</span>
+                                    <div class="bar-wrapper">
+                                        <div class="bar-fill green" style="width: 85%;">
+                                            <span class="bar-value">34h</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="bar-item">
+                                    <span class="bar-label">Week 3</span>
+                                    <div class="bar-wrapper">
+                                        <div class="bar-fill purple" style="width: 90%;">
+                                            <span class="bar-value">36h</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="bar-item">
+                                    <span class="bar-label">Week 4</span>
+                                    <div class="bar-wrapper">
+                                        <div class="bar-fill orange" style="width: 100%;">
+                                            <span class="bar-value">40h</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Engagement Metrics -->
+                        <div class="card chart-card">
+                            <div class="chart-header">
+                                <h4 class="chart-title">Engagement Metrics</h4>
+                                <span class="chart-period">This Month</span>
+                            </div>
+                            <div class="circular-chart-container" style="position: relative; height: 200px;">
+                                <svg class="circular-chart" width="180" height="180" viewBox="0 0 180 180">
+                                    <circle cx="90" cy="90" r="70" fill="none" stroke="#f3e5f5" stroke-width="15"></circle>
+                                    <circle id="engagementCircle" cx="90" cy="90" r="70" fill="none" stroke="#86efac" stroke-width="15"
+                                            stroke-dasharray="439.8" stroke-dashoffset="43.98" stroke-linecap="round"></circle>
+                                </svg>
+                                <div class="chart-center-text">
+                                    <span class="chart-percentage">90%</span>
+                                    <span class="chart-label">Active Rate</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Assignment Completion Trend -->
+                        <div class="card chart-card">
+                            <div class="chart-header">
+                                <h4 class="chart-title">Assignment Completion</h4>
+                                <span class="chart-period">Last 6 Months</span>
+                            </div>
+                            <div class="line-chart-container">
+                                <svg class="line-chart" viewBox="0 0 400 200">
+                                    <defs>
+                                        <linearGradient id="gradient2" x1="0%" y1="0%" x2="0%" y2="100%">
+                                            <stop offset="0%" style="stop-color:#86efac;stop-opacity:0.3" />
+                                            <stop offset="100%" style="stop-color:#d1fae5;stop-opacity:0" />
+                                        </linearGradient>
+                                    </defs>
+
+                                    <!-- Grid lines -->
+                                    <line class="chart-grid-line" x1="50" y1="40" x2="50" y2="160"></line>
+                                    <line class="chart-grid-line" x1="50" y1="160" x2="380" y2="160"></line>
+
+                                    <!-- Area under line -->
+                                    <path class="chart-area" style="fill: url(#gradient2);" d="M 80 110 L 130 105 L 180 95 L 230 90 L 280 85 L 330 75 L 330 160 L 80 160 Z"></path>
+
+                                    <!-- Line -->
+                                    <path class="chart-line" style="stroke: #86efac;" d="M 80 110 L 130 105 L 180 95 L 230 90 L 280 85 L 330 75"></path>
+
+                                    <!-- Data points -->
+                                    <circle class="chart-dot" style="fill: #86efac;" cx="80" cy="110" r="4"></circle>
+                                    <circle class="chart-dot" style="fill: #86efac;" cx="130" cy="105" r="4"></circle>
+                                    <circle class="chart-dot" style="fill: #86efac;" cx="180" cy="95" r="4"></circle>
+                                    <circle class="chart-dot" style="fill: #86efac;" cx="230" cy="90" r="4"></circle>
+                                    <circle class="chart-dot" style="fill: #86efac;" cx="280" cy="85" r="4"></circle>
+                                    <circle class="chart-dot" style="fill: #86efac;" cx="330" cy="75" r="4"></circle>
+
+                                    <!-- Labels -->
+                                    <text class="chart-axis-label" x="70" y="175" text-anchor="middle">Jun</text>
+                                    <text class="chart-axis-label" x="120" y="175" text-anchor="middle">Jul</text>
+                                    <text class="chart-axis-label" x="170" y="175" text-anchor="middle">Aug</text>
+                                    <text class="chart-axis-label" x="220" y="175" text-anchor="middle">Sep</text>
+                                    <text class="chart-axis-label" x="270" y="175" text-anchor="middle">Oct</text>
+                                    <text class="chart-axis-label" x="320" y="175" text-anchor="middle">Nov</text>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Student Competency Report -->
+                    <div class="card report-card featured-report">
+                        <div class="report-header">
+                            <div class="report-icon-wrapper competency">
+                                <span class="material-symbols-outlined">verified</span>
+                            </div>
+                            <div class="report-info">
+                                <h2 class="report-title">Student Competency Report</h2>
+                                <p class="report-description">Comprehensive evaluation of your skills, competencies, and learning progress</p>
+                            </div>
+                        </div>
+                        <div class="report-details">
+                            <div class="report-meta">
+                                <div class="meta-item">
+                                    <span class="material-symbols-outlined">calendar_today</span>
+                                    <span>Last Updated: Nov 20, 2025</span>
+                                </div>
+                                <div class="meta-item">
+                                    <span class="material-symbols-outlined">insert_chart</span>
+                                    <span>Overall Score: 85%</span>
+                                </div>
+                            </div>
+                            <div class="competency-highlights">
+                                <h4 class="highlights-title">Key Highlights</h4>
+                                <div class="highlights-grid">
+                                    <div class="highlight-item">
+                                        <span class="highlight-label">Technical Skills</span>
+                                        <div class="highlight-bar">
+                                            <div class="highlight-fill" style="width: 88%;"></div>
+                                        </div>
+                                        <span class="highlight-value">88%</span>
+                                    </div>
+                                    <div class="highlight-item">
+                                        <span class="highlight-label">Communication</span>
+                                        <div class="highlight-bar">
+                                            <div class="highlight-fill" style="width: 82%;"></div>
+                                        </div>
+                                        <span class="highlight-value">82%</span>
+                                    </div>
+                                    <div class="highlight-item">
+                                        <span class="highlight-label">Problem Solving</span>
+                                        <div class="highlight-bar">
+                                            <div class="highlight-fill" style="width: 90%;"></div>
+                                        </div>
+                                        <span class="highlight-value">90%</span>
+                                    </div>
+                                    <div class="highlight-item">
+                                        <span class="highlight-label">Teamwork</span>
+                                        <div class="highlight-bar">
+                                            <div class="highlight-fill" style="width: 85%;"></div>
+                                        </div>
+                                        <span class="highlight-value">85%</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="report-actions">
+                                <button class="btn-download primary" onclick="downloadCompetencyReport()">
+                                    <span class="material-symbols-outlined">download</span>
+                                    Download PDF
+                                </button>
+                                <button class="btn-view-detail">
+                                    <span class="material-symbols-outlined">visibility</span>
+                                    View Details
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Other Reports Section -->
+                    <div class="reports-section">
+                        <h3 class="section-title">Academic Reports</h3>
+                        <div class="reports-grid">
+                            <!-- Progress Report -->
+                            <div class="card report-card">
+                                <div class="report-header-compact">
+                                    <div class="report-icon-wrapper progress">
+                                        <span class="material-symbols-outlined">trending_up</span>
+                                    </div>
+                                    <div>
+                                        <h3 class="report-title-compact">Progress Report</h3>
+                                        <p class="report-date">Nov 2025</p>
+                                    </div>
+                                </div>
+                                <p class="report-summary">Monthly overview of your academic progress across all subjects</p>
+                                <div class="report-stats">
+                                    <div class="stat-item">
+                                        <span class="stat-label">Subjects</span>
+                                        <span class="stat-value">8</span>
+                                    </div>
+                                    <div class="stat-item">
+                                        <span class="stat-label">Avg Score</span>
+                                        <span class="stat-value">87%</span>
+                                    </div>
+                                </div>
+                                <button class="btn-download secondary">
+                                    <span class="material-symbols-outlined">download</span>
+                                    Download
+                                </button>
+                            </div>
+
+                            <!-- Attendance Report -->
+                            <div class="card report-card">
+                                <div class="report-header-compact">
+                                    <div class="report-icon-wrapper attendance">
+                                        <span class="material-symbols-outlined">event_available</span>
+                                    </div>
+                                    <div>
+                                        <h3 class="report-title-compact">Attendance Report</h3>
+                                        <p class="report-date">Nov 2025</p>
+                                    </div>
+                                </div>
+                                <p class="report-summary">Detailed attendance record with present, absent, and leave days</p>
+                                <div class="report-stats">
+                                    <div class="stat-item">
+                                        <span class="stat-label">Present</span>
+                                        <span class="stat-value">18</span>
+                                    </div>
+                                    <div class="stat-item">
+                                        <span class="stat-label">Percentage</span>
+                                        <span class="stat-value">90%</span>
+                                    </div>
+                                </div>
+                                <button class="btn-download secondary">
+                                    <span class="material-symbols-outlined">download</span>
+                                    Download
+                                </button>
+                            </div>
+
+                            <!-- Assessment Report -->
+                            <div class="card report-card">
+                                <div class="report-header-compact">
+                                    <div class="report-icon-wrapper assessment">
+                                        <span class="material-symbols-outlined">assignment</span>
+                                    </div>
+                                    <div>
+                                        <h3 class="report-title-compact">Assessment Report</h3>
+                                        <p class="report-date">Q2 2025</p>
+                                    </div>
+                                </div>
+                                <p class="report-summary">Comprehensive analysis of test scores and quiz performance</p>
+                                <div class="report-stats">
+                                    <div class="stat-item">
+                                        <span class="stat-label">Tests</span>
+                                        <span class="stat-value">12</span>
+                                    </div>
+                                    <div class="stat-item">
+                                        <span class="stat-label">Avg Score</span>
+                                        <span class="stat-value">85%</span>
+                                    </div>
+                                </div>
+                                <button class="btn-download secondary">
+                                    <span class="material-symbols-outlined">download</span>
+                                    Download
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Performance Reports Section -->
+                    <div class="reports-section">
+                        <h3 class="section-title">Performance Reports</h3>
+                        <div class="reports-grid">
+                            <!-- Skills Assessment -->
+                            <div class="card report-card">
+                                <div class="report-header-compact">
+                                    <div class="report-icon-wrapper skills">
+                                        <span class="material-symbols-outlined">psychology</span>
+                                    </div>
+                                    <div>
+                                        <h3 class="report-title-compact">Skills Assessment</h3>
+                                        <p class="report-date">Nov 2025</p>
+                                    </div>
+                                </div>
+                                <p class="report-summary">Evaluation of technical and soft skills development</p>
+                                <div class="report-stats">
+                                    <div class="stat-item">
+                                        <span class="stat-label">Skills Tested</span>
+                                        <span class="stat-value">15</span>
+                                    </div>
+                                    <div class="stat-item">
+                                        <span class="stat-label">Proficiency</span>
+                                        <span class="stat-value">84%</span>
+                                    </div>
+                                </div>
+                                <button class="btn-download secondary">
+                                    <span class="material-symbols-outlined">download</span>
+                                    Download
+                                </button>
+                            </div>
+
+                            <!-- Learning Analytics -->
+                            <div class="card report-card">
+                                <div class="report-header-compact">
+                                    <div class="report-icon-wrapper analytics">
+                                        <span class="material-symbols-outlined">monitoring</span>
+                                    </div>
+                                    <div>
+                                        <h3 class="report-title-compact">Learning Analytics</h3>
+                                        <p class="report-date">Nov 2025</p>
+                                    </div>
+                                </div>
+                                <p class="report-summary">Insights into your learning patterns and engagement metrics</p>
+                                <div class="report-stats">
+                                    <div class="stat-item">
+                                        <span class="stat-label">Study Hours</span>
+                                        <span class="stat-value">42h</span>
+                                    </div>
+                                    <div class="stat-item">
+                                        <span class="stat-label">Engagement</span>
+                                        <span class="stat-value">91%</span>
+                                    </div>
+                                </div>
+                                <button class="btn-download secondary">
+                                    <span class="material-symbols-outlined">download</span>
+                                    Download
+                                </button>
+                            </div>
+
+                            <!-- Behavioral Report -->
+                            <div class="card report-card">
+                                <div class="report-header-compact">
+                                    <div class="report-icon-wrapper behavioral">
+                                        <span class="material-symbols-outlined">psychology_alt</span>
+                                    </div>
+                                    <div>
+                                        <h3 class="report-title-compact">Behavioral Report</h3>
+                                        <p class="report-date">Q2 2025</p>
+                                    </div>
+                                </div>
+                                <p class="report-summary">Assessment of conduct, discipline, and social interactions</p>
+                                <div class="report-stats">
+                                    <div class="stat-item">
+                                        <span class="stat-label">Rating</span>
+                                        <span class="stat-value">A+</span>
+                                    </div>
+                                    <div class="stat-item">
+                                        <span class="stat-label">Score</span>
+                                        <span class="stat-value">95%</span>
+                                    </div>
+                                </div>
+                                <button class="btn-download secondary">
+                                    <span class="material-symbols-outlined">download</span>
+                                    Download
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Report History -->
+                    <div class="reports-section">
+                        <h3 class="section-title">Report History</h3>
+                        <div class="card report-history-card">
+                            <div class="history-list">
+                                <div class="history-item">
+                                    <div class="history-icon">
+                                        <span class="material-symbols-outlined">description</span>
+                                    </div>
+                                    <div class="history-details">
+                                        <h4 class="history-title">Student Competency Report - October 2025</h4>
+                                        <p class="history-date">Downloaded on Oct 25, 2025 at 3:45 PM</p>
+                                    </div>
+                                    <button class="btn-redownload">
+                                        <span class="material-symbols-outlined">download</span>
+                                    </button>
+                                </div>
+                                <div class="history-item">
+                                    <div class="history-icon">
+                                        <span class="material-symbols-outlined">description</span>
+                                    </div>
+                                    <div class="history-details">
+                                        <h4 class="history-title">Progress Report - October 2025</h4>
+                                        <p class="history-date">Downloaded on Oct 20, 2025 at 10:30 AM</p>
+                                    </div>
+                                    <button class="btn-redownload">
+                                        <span class="material-symbols-outlined">download</span>
+                                    </button>
+                                </div>
+                                <div class="history-item">
+                                    <div class="history-icon">
+                                        <span class="material-symbols-outlined">description</span>
+                                    </div>
+                                    <div class="history-details">
+                                        <h4 class="history-title">Assessment Report - Q1 2025</h4>
+                                        <p class="history-date">Downloaded on Sep 30, 2025 at 2:15 PM</p>
+                                    </div>
+                                    <button class="btn-redownload">
+                                        <span class="material-symbols-outlined">download</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Load Sidebar and Header Components
+        Promise.all([
+            fetch('sidebar.html').then(response => response.text()),
+            fetch('header.html').then(response => response.text())
+        ]).then(([sidebarHTML, headerHTML]) => {
+            // Insert both components
+            document.getElementById('sidebar-container').innerHTML = sidebarHTML;
+            document.getElementById('header-container').innerHTML = headerHTML;
+
+            // Initialize sidebar functionality after both components are loaded
+            initializeSidebar();
+        });
+
+        function initializeSidebar() {
+            const menuToggle = document.getElementById('menuToggle');
+            const closeSidebar = document.getElementById('closeSidebar');
+            const sidebar = document.getElementById('sidebar');
+            const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+            function toggleSidebar() {
+                if (window.innerWidth >= 1024) {
+                    sidebar.classList.toggle('collapsed');
+                } else {
+                    sidebar.classList.add('active');
+                    sidebarOverlay.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                }
+            }
+
+            function closeSidebarFunc() {
+                sidebar.classList.remove('active');
+                sidebarOverlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+
+            menuToggle.addEventListener('click', toggleSidebar);
+            closeSidebar.addEventListener('click', closeSidebarFunc);
+            sidebarOverlay.addEventListener('click', closeSidebarFunc);
+
+            const sidebarLinks = sidebar.querySelectorAll('a');
+            sidebarLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (window.innerWidth < 1024) {
+                        closeSidebarFunc();
+                    }
+                });
+            });
+
+            window.addEventListener('resize', () => {
+                if (window.innerWidth >= 1024) {
+                    closeSidebarFunc();
+                } else {
+                    sidebar.classList.remove('collapsed');
+                }
+            });
+
+            // Set active link
+            setActiveLink();
+        }
+
+        function setActiveLink() {
+            const currentPage = window.location.pathname.split('/').pop();
+            const navLinks = {
+                'student-dashboard.html': 'nav-dashboard',
+                'attendance.html': 'nav-attendance',
+                'lms.html': 'nav-lms',
+                'leaderboard.html': 'nav-leaderboard',
+                'assessment.html': 'nav-assessment',
+                'reports.html': 'nav-reports',
+                'badges.html': 'nav-badges',
+                'event-calendar.html': 'nav-event-calendar',
+                'newsletter.html': 'nav-newsletter',
+                'announcements.html': 'nav-announcements'
+            };
+
+            const sidebar = document.getElementById('sidebar');
+            const sidebarLinks = sidebar.querySelectorAll('a');
+            sidebarLinks.forEach(link => link.classList.remove('active'));
+
+            if (navLinks[currentPage]) {
+                const activeLink = document.getElementById(navLinks[currentPage]);
+                if (activeLink) {
+                    activeLink.classList.add('active');
+                }
+            }
+        }
+
+        // Download Student Competency Report as PDF
+        function downloadCompetencyReport() {
+            // Show download notification
+            showNotification('Preparing your Competency Report for download...');
+
+            // Simulate PDF generation and download
+            setTimeout(() => {
+                // In production, this would call your backend API to generate the PDF
+                // For now, we'll simulate the download
+                const link = document.createElement('a');
+                link.href = '#'; // Replace with actual PDF URL from backend
+                link.download = 'Student_Competency_Report_Nov_2025.pdf';
+
+                // Show success message
+                showNotification('Your Competency Report has been downloaded successfully!', 'success');
+
+                // In a real implementation, you would trigger actual download:
+                // link.click();
+            }, 1500);
+        }
+
+        // Notification system
+        function showNotification(message, type = 'info') {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.className = `notification notification-${type}`;
+            notification.innerHTML = `
+                <span class="material-symbols-outlined">${type === 'success' ? 'check_circle' : 'info'}</span>
+                <span>${message}</span>
+            `;
+
+            // Add to body
+            document.body.appendChild(notification);
+
+            // Trigger animation
+            setTimeout(() => notification.classList.add('show'), 10);
+
+            // Remove after 3 seconds
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+
+        // Add download functionality to other report buttons
+        document.addEventListener('DOMContentLoaded', () => {
+            const downloadButtons = document.querySelectorAll('.btn-download.secondary');
+            downloadButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const reportCard = this.closest('.report-card');
+                    const reportTitle = reportCard.querySelector('.report-title-compact').textContent;
+                    showNotification(`Downloading ${reportTitle}...`);
+
+                    setTimeout(() => {
+                        showNotification(`${reportTitle} downloaded successfully!`, 'success');
+                    }, 1000);
+                });
+            });
+
+            // Add redownload functionality
+            const redownloadButtons = document.querySelectorAll('.btn-redownload');
+            redownloadButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const historyItem = this.closest('.history-item');
+                    const reportTitle = historyItem.querySelector('.history-title').textContent;
+                    showNotification(`Re-downloading ${reportTitle}...`);
+
+                    setTimeout(() => {
+                        showNotification(`${reportTitle} downloaded successfully!`, 'success');
+                    }, 1000);
+                });
+            });
+
+            // View details functionality
+            const viewDetailButton = document.querySelector('.btn-view-detail');
+            if (viewDetailButton) {
+                viewDetailButton.addEventListener('click', function() {
+                    showNotification('Opening detailed competency report...', 'info');
+                    // In production, this would navigate to a detailed view page
+                });
+            }
+
+            // Animate charts on page load
+            animateCharts();
+        });
+
+        // Chart animations
+        function animateCharts() {
+            // Animate engagement circular chart
+            const engagementCircle = document.getElementById('engagementCircle');
+            if (engagementCircle) {
+                const percentage = 90;
+                const circumference = 2 * Math.PI * 70; // 2πr where r=70
+                const offset = circumference - (percentage / 100) * circumference;
+
+                setTimeout(() => {
+                    engagementCircle.style.strokeDashoffset = offset;
+                }, 100);
+            }
+
+            // Animate bar charts
+            const barFills = document.querySelectorAll('.bar-fill');
+            barFills.forEach((bar, index) => {
+                const width = bar.style.width;
+                bar.style.width = '0%';
+                setTimeout(() => {
+                    bar.style.width = width;
+                }, 200 + (index * 100));
+            });
+
+            // Animate highlight bars in competency section
+            const highlightFills = document.querySelectorAll('.highlight-fill');
+            highlightFills.forEach((bar, index) => {
+                const width = bar.style.width;
+                bar.style.width = '0%';
+                setTimeout(() => {
+                    bar.style.width = width;
+                }, 300 + (index * 150));
+            });
+
+            // Animate heatmap cells
+            const heatmapCells = document.querySelectorAll('.heatmap-cell');
+            heatmapCells.forEach((cell, index) => {
+                cell.style.opacity = '0';
+                cell.style.transform = 'scale(0)';
+                setTimeout(() => {
+                    cell.style.opacity = '1';
+                    cell.style.transform = 'scale(1)';
+                }, 100 + (index * 20));
+            });
+        }
+    </script>
+</body>
+
+</html>

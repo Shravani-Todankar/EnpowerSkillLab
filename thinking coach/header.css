@@ -1,0 +1,192 @@
+/* ============================================
+   HEADER COMPONENT — STYLES
+   ============================================ */
+
+/* Header */
+.header {
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 32px;
+    border-bottom: 1px solid var(--border-light);
+    background-color: var(--card-light);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+body.dark .header {
+    border-bottom-color: var(--border-dark);
+    background-color: var(--card-dark);
+}
+
+.header-left,
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.header button {
+    background: none;
+    border: none;
+    color: var(--heading-light);
+    cursor: pointer;
+    padding: 8px;
+}
+
+body.dark .header button {
+    color: var(--heading-dark);
+}
+
+.app-store-btn,
+.play-store-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    font-size: 0.875rem;
+    border-radius: 9999px;
+    border: none;
+    cursor: pointer;
+}
+
+.app-store-btn {
+    background-color: rgba(59, 130, 246, 0.1);
+    color: var(--blue-600);
+}
+
+.play-store-btn {
+    background-color: #9333EA;
+    color: white;
+}
+
+.app-store-btn svg,
+.play-store-btn svg {
+    width: 20px;
+    height: 20px;
+}
+
+.notification-wrapper {
+    position: relative;
+}
+
+.notification-badge {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: var(--red-500);
+    color: white;
+    font-size: 0.75rem;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.user-name {
+    font-weight: 600;
+    color: var(--heading-light);
+}
+
+body.dark .user-name {
+    color: var(--heading-dark);
+}
+
+/* Hidden utility classes */
+.fullscreen-btn {
+    display: none;
+}
+
+.user-dropdown {
+    display: none;
+}
+
+/* Responsive Styles */
+@media (max-width: 1023px) {
+    .header {
+        padding: 0 12px;
+        height: 64px;
+    }
+
+    .header-left,
+    .header-right {
+        gap: 8px;
+    }
+
+    .app-store-btn,
+    .play-store-btn {
+        display: none;
+    }
+
+    .user-name,
+    .user-dropdown {
+        display: none;
+    }
+
+    .user-avatar {
+        width: 32px;
+        height: 32px;
+    }
+}
+
+@media (min-width: 640px) {
+    .user-name,
+    .user-dropdown {
+        display: block;
+    }
+
+    .fullscreen-btn {
+        display: block;
+    }
+}
+
+@media (min-width: 768px) {
+    .header {
+        padding: 0 32px;
+    }
+
+    .header-left,
+    .header-right {
+        gap: 16px;
+    }
+}
+
+@media (min-width: 1280px) {
+    .app-store-btn,
+    .play-store-btn {
+        display: flex;
+    }
+}
+
+@media (max-width: 479px) {
+    .header {
+        padding: 0 8px;
+        height: 56px;
+    }
+
+    .header button {
+        padding: 4px;
+    }
+
+    .notification-badge {
+        width: 14px;
+        height: 14px;
+        font-size: 0.625rem;
+    }
+}

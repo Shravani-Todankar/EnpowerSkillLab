@@ -11,7 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="student-dashboard.css">
+    <link rel="stylesheet" href="teacher-dashboard.css">
     <link rel="stylesheet" href="attendance.css">
 </head>
 
@@ -27,8 +27,45 @@
             <div class="content-wrapper">
                 <div class="page-content">
                     <div class="page-header">
-                        <h1 class="page-title">My Attendance Report</h1>
-                        <p class="page-subtitle">View your complete attendance history and statistics</p>
+                        <h1 class="page-title">Attendance Management</h1>
+                        <p class="page-subtitle">Mark attendance, view reports, and manage notifications</p>
+                    </div>
+
+                    <!-- Mark Attendance Section -->
+                    <div class="card mark-attendance-card">
+                        <div class="section-header">
+                            <h2 class="section-title">
+                                <span class="material-symbols-outlined">edit_calendar</span>
+                                Mark Attendance
+                            </h2>
+                        </div>
+                        <div class="mark-attendance-content">
+                            <div class="date-selector">
+                                <label for="attendanceDate">Select Date</label>
+                                <input type="date" id="attendanceDate" class="date-input">
+                            </div>
+                            <div class="attendance-status-buttons">
+                                <button class="status-btn present-btn" data-status="present">
+                                    <span class="material-symbols-outlined">check_circle</span>
+                                    Present
+                                </button>
+                                <button class="status-btn leave-btn" data-status="leave">
+                                    <span class="material-symbols-outlined">event_busy</span>
+                                    Leave
+                                </button>
+                                <button class="status-btn absent-btn" data-status="absent">
+                                    <span class="material-symbols-outlined">cancel</span>
+                                    Absent
+                                </button>
+                            </div>
+                            <div class="selected-status" id="selectedStatus">
+                                <p class="status-message">Please select attendance status</p>
+                            </div>
+                            <button class="submit-attendance-btn" id="submitAttendance">
+                                <span class="material-symbols-outlined">save</span>
+                                Submit Attendance
+                            </button>
+                        </div>
                     </div>
 
                     <!-- Attendance Report Section -->
@@ -140,6 +177,86 @@
                             </div>
                         </div>
                     </div>
+
+                    <!-- Parent Notification Section -->
+                    <div class="card parent-notification-card">
+                        <div class="section-header">
+                            <h2 class="section-title">
+                                <span class="material-symbols-outlined">notifications_active</span>
+                                Parent Notification
+                            </h2>
+                        </div>
+                        <div class="notification-content">
+                            <div class="notification-settings">
+                                <div class="setting-item">
+                                    <label class="toggle-label">
+                                        <input type="checkbox" class="toggle-checkbox" id="notifyAbsent" checked>
+                                        <span class="toggle-slider"></span>
+                                        <span class="toggle-text">Notify on Absent</span>
+                                    </label>
+                                </div>
+                                <div class="setting-item">
+                                    <label class="toggle-label">
+                                        <input type="checkbox" class="toggle-checkbox" id="notifyLeave" checked>
+                                        <span class="toggle-slider"></span>
+                                        <span class="toggle-text">Notify on Leave</span>
+                                    </label>
+                                </div>
+                                <div class="setting-item">
+                                    <label class="toggle-label">
+                                        <input type="checkbox" class="toggle-checkbox" id="dailyReport">
+                                        <span class="toggle-slider"></span>
+                                        <span class="toggle-text">Send Daily Report</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="notification-history">
+                                <h3 class="history-title">Recent Notifications</h3>
+                                <div class="notification-list">
+                                    <div class="notification-item">
+                                        <div class="notification-icon absent">
+                                            <span class="material-symbols-outlined">cancel</span>
+                                        </div>
+                                        <div class="notification-details">
+                                            <h4 class="notification-title">Absent Alert</h4>
+                                            <p class="notification-message">Student marked absent on Nov 20, 2025</p>
+                                            <span class="notification-time">2 days ago</span>
+                                        </div>
+                                    </div>
+                                    <div class="notification-item">
+                                        <div class="notification-icon leave">
+                                            <span class="material-symbols-outlined">event_busy</span>
+                                        </div>
+                                        <div class="notification-details">
+                                            <h4 class="notification-title">Leave Request</h4>
+                                            <p class="notification-message">Student on leave on Nov 18, 2025</p>
+                                            <span class="notification-time">4 days ago</span>
+                                        </div>
+                                    </div>
+                                    <div class="notification-item">
+                                        <div class="notification-icon present">
+                                            <span class="material-symbols-outlined">check_circle</span>
+                                        </div>
+                                        <div class="notification-details">
+                                            <h4 class="notification-title">Perfect Attendance</h4>
+                                            <p class="notification-message">5 consecutive days present</p>
+                                            <span class="notification-time">1 week ago</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="send-notification">
+                                <h3 class="send-title">Send Custom Notification</h3>
+                                <textarea class="notification-textarea" placeholder="Type your message to parents..."></textarea>
+                                <button class="send-notification-btn">
+                                    <span class="material-symbols-outlined">send</span>
+                                    Send to Parents
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </main>
@@ -233,6 +350,63 @@
             }
         }
 
+        // Mark Attendance Functionality
+        const attendanceDate = document.getElementById('attendanceDate');
+        const statusButtons = document.querySelectorAll('.status-btn');
+        const selectedStatus = document.getElementById('selectedStatus');
+        const submitBtn = document.getElementById('submitAttendance');
+        let currentStatus = null;
+
+        // Set today's date as default
+        const today = new Date().toISOString().split('T')[0];
+        attendanceDate.value = today;
+
+        // Handle status button clicks
+        statusButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all buttons
+                statusButtons.forEach(b => b.classList.remove('active'));
+
+                // Add active class to clicked button
+                btn.classList.add('active');
+
+                // Update current status
+                currentStatus = btn.dataset.status;
+
+                // Update status message
+                const statusMessages = {
+                    'present': 'Status selected: <strong style="color: var(--blue-500);">Present</strong>',
+                    'leave': 'Status selected: <strong style="color: var(--purple-500);">Leave</strong>',
+                    'absent': 'Status selected: <strong style="color: var(--red-500);">Absent</strong>'
+                };
+
+                selectedStatus.innerHTML = `<p class="status-message">${statusMessages[currentStatus]}</p>`;
+            });
+        });
+
+        // Handle submit attendance
+        submitBtn.addEventListener('click', () => {
+            if (!currentStatus) {
+                alert('Please select an attendance status');
+                return;
+            }
+
+            const date = attendanceDate.value;
+            if (!date) {
+                alert('Please select a date');
+                return;
+            }
+
+            // Here you would typically send this to your backend
+            console.log('Submitting attendance:', { date, status: currentStatus });
+            alert(`Attendance marked as ${currentStatus} for ${date}`);
+
+            // Reset form
+            statusButtons.forEach(b => b.classList.remove('active'));
+            currentStatus = null;
+            selectedStatus.innerHTML = '<p class="status-message">Please select attendance status</p>';
+        });
+
         // Attendance Calendar Functionality
         const reportMonth = document.getElementById('reportMonth');
         const reportYear = document.getElementById('reportYear');
@@ -314,6 +488,26 @@
         // Update calendar when month/year changes
         reportMonth.addEventListener('change', renderAttendanceCalendar);
         reportYear.addEventListener('change', renderAttendanceCalendar);
+
+        // Send Notification Functionality
+        const sendNotificationBtn = document.querySelector('.send-notification-btn');
+        const notificationTextarea = document.querySelector('.notification-textarea');
+
+        sendNotificationBtn.addEventListener('click', () => {
+            const message = notificationTextarea.value.trim();
+
+            if (!message) {
+                alert('Please enter a message');
+                return;
+            }
+
+            // Here you would typically send this to your backend
+            console.log('Sending notification:', message);
+            alert('Notification sent to parents successfully!');
+
+            // Clear textarea
+            notificationTextarea.value = '';
+        });
     </script>
 </body>
 

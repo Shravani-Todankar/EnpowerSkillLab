@@ -1,0 +1,370 @@
+/* ============================================
+   EVENT CALENDAR — EXTRACTED MODULE CSS ONLY
+   ============================================ */
+
+/* Wrapper */
+.content-wrapper.event-calendar {
+    display: flex;
+}
+
+/* Calendar Card */
+.calendar-card {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+/* Header */
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.calendar-month {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.calendar-nav-btn {
+    background: none;
+    border: 1px solid var(--border-light);
+    border-radius: 8px;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--heading-light);
+    transition: all 0.2s;
+}
+
+.calendar-nav-btn:hover {
+    background-color: var(--gray-100);
+}
+
+.calendar-month-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--heading-light);
+    margin: 0;
+    min-width: 150px;
+    text-align: center;
+}
+
+.calendar-today-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background-color: transparent;
+    color: var(--blue-500);
+    border: 1px solid var(--blue-500);
+    border-radius: 8px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.calendar-today-btn:hover {
+    background-color: var(--blue-500);
+    color: white;
+}
+
+/* Grid */
+.calendar-grid-container {
+    margin-top: 24px;
+}
+
+.calendar-weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.calendar-weekday {
+    text-align: center;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--gray-600);
+    padding: 12px 8px;
+}
+
+.calendar-days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+}
+
+.calendar-day {
+    aspect-ratio: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    border-radius: 8px;
+    background-color: var(--gray-100);
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+}
+
+.calendar-day:hover {
+    background-color: var(--gray-200);
+    transform: scale(1.05);
+}
+
+.calendar-day.other-month {
+    opacity: 0.4;
+    cursor: default;
+}
+
+.calendar-day.today {
+    background-color: var(--blue-500);
+    color: white;
+    font-weight: 700;
+}
+
+.calendar-day.today:hover {
+    background-color: var(--blue-600);
+}
+
+.day-number {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--heading-light);
+}
+
+.calendar-day.today .day-number {
+    color: white;
+}
+
+.calendar-day.has-event {
+    background-color: rgba(59, 130, 246, 0.1);
+    border: 2px solid var(--blue-500);
+}
+
+.event-indicators {
+    display: flex;
+    gap: 4px;
+    margin-top: 4px;
+}
+
+.event-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+}
+
+.event-dot.academic {
+    background-color: var(--blue-500);
+}
+
+.event-dot.meeting {
+    background-color: var(--purple-500);
+}
+
+.event-dot.sports {
+    background-color: var(--green-500);
+}
+
+.event-dot.cultural {
+    background-color: #F97316;
+}
+
+/* Event Details Panel */
+.event-details-panel {
+    margin-top: 24px;
+    padding: 20px;
+    background-color: var(--gray-100);
+    border-radius: 12px;
+    border-left: 4px solid var(--blue-500);
+}
+
+.event-details-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.event-details-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--heading-light);
+}
+
+.event-details-close {
+    background: none;
+    border: none;
+    color: var(--gray-500);
+    cursor: pointer;
+    padding: 4px;
+}
+
+.event-details-content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.event-detail-item {
+    padding: 16px;
+    background-color: white;
+    border-radius: 8px;
+}
+
+.event-detail-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 12px;
+    gap: 12px;
+}
+
+.event-detail-name {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--heading-light);
+}
+
+.event-detail-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.875rem;
+    color: var(--gray-600);
+    margin-top: 8px;
+}
+
+/* Events List */
+.events-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.events-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--heading-light);
+    border-bottom: 1px solid var(--border-light);
+    padding-bottom: 8px;
+}
+
+.event-item {
+    display: flex;
+    gap: 16px;
+    padding: 16px;
+    background-color: var(--gray-100);
+    border-radius: 12px;
+    border-left: 4px solid var(--blue-500);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.event-item:hover {
+    transform: translateX(4px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.event-date {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-width: 60px;
+    height: 60px;
+    background-color: var(--blue-500);
+    border-radius: 12px;
+    color: white;
+}
+
+.event-day {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.event-month {
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-top: 4px;
+}
+
+.event-details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.event-name {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--heading-light);
+}
+
+.event-badge {
+    padding: 4px 12px;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+/* Badge Colors */
+.event-badge.academic {
+    background-color: rgba(59, 130, 246, 0.1);
+    color: var(--blue-600);
+}
+
+.event-badge.meeting {
+    background-color: rgba(168, 85, 247, 0.1);
+    color: var(--purple-600);
+}
+
+.event-badge.sports {
+    background-color: rgba(34, 197, 94, 0.1);
+    color: var(--green-500);
+}
+
+.event-badge.cultural {
+    background-color: rgba(249, 115, 22, 0.1);
+    color: #F97316;
+}
+
+/* Mobile (max-width: 600px) */
+@media (max-width: 600px) {
+    /* Reduce spacing */
+    .calendar-weekdays,
+    .calendar-days {
+        gap: 4px;
+    }
+
+    /* Reduce column count (scrollable horizontally) */
+    .calendar-grid-container {
+        overflow-x: auto;
+    }
+
+    .calendar-weekdays,
+    .calendar-days {
+        width: max-content;
+        grid-template-columns: repeat(7, 50px);
+        /* fixed width for better visibility */
+    }
+
+    .calendar-day {
+        width: 50px;
+        height: 50px;
+        padding: 4px;
+    }
+
+    .day-number {
+        font-size: 0.8rem;
+    }
+}
