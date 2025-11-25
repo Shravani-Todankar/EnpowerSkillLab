@@ -14,6 +14,9 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="student-dashboard.css">
+
+    <!-- Header JS -->
+    <script src="header.js"></script>
 </head>
 
 <body>
@@ -121,7 +124,7 @@
                         <div class="badges-section">
                             <div class="badges-header">
                                 <h4 class="badges-title">Recent Badges</h4>
-                                <a href="#" class="badges-link">View All <span class="material-symbols-outlined align-middle">arrow_forward</span></a>
+                                <a href="badges.html" class="badges-link">View All <span class="material-symbols-outlined align-middle">arrow_forward</span></a>
                             </div>
                             <div class="badges-grid">
                                 <div class="badge-item">
@@ -162,7 +165,7 @@
                                     </p>
                                 </div>
                             </div>
-                            <a href="#" class="leaderboard-cta">
+                            <a href="leaderboard.html" class="leaderboard-cta">
                                 View Full Leaderboard
                                 <span class="material-symbols-outlined">arrow_forward</span>
                             </a>
@@ -186,6 +189,59 @@
                         </div>
                         <img alt="Student studying on a laptop" class="banner-image"
                             src="https://lh3.googleusercontent.com/aida-public/AB6AXuBcy6ovydF5IExA3XKkx0GchtIWBM9ooE93nId8J9cUFn9tg-hy2Pxy0aWnAQZLRJltvp6TuWJKEeXJvKgbB98fjqlsvBmmFNH0UXB-2SFDx9tkZ2nZZJSyj6apTzz--AuBJ4Rt0CVnoSvxUgJtnPy2tGFqvmjAGgJ_0XcpdKZ5p1FvUiwt1Um83Pu3tlH5_zmBQjsSIojhctiaqorwWjkXeLLCE8eP3WUxsG829kUTqHR49WOtvKfA9JfmrIxzC7VdcgYb3YWapnU" />
+                    </div>
+
+                    <!-- Student Count Cards Container -->
+                    <div class="stats-cards-container">
+                        <!-- Main Student Count Card -->
+                        <div class="card stats-overview-card stats-main-card">
+                            <div class="stats-card-glow"></div>
+                            <div class="stats-overview-header">
+                                <div class="stats-content">
+                                    <h3 class="stats-label">
+                                        <span class="material-symbols-outlined stats-label-icon">school</span>
+                                        Total Registered Students
+                                    </h3>
+                                    <div class="stats-count-wrapper">
+                                        <p class="stats-count" id="studentCount">0</p>
+                                        <span class="stats-count-plus">+</span>
+                                    </div>
+                                    <p class="stats-subtitle">Active learners in the system</p>
+                                </div>
+                            </div>
+                            <div class="stats-badge">
+                                <span class="material-symbols-outlined">trending_up</span>
+                                <span>All Active Students</span>
+                            </div>
+                        </div>
+
+                        <!-- Statistics Breakdown Card -->
+                        <div class="card stats-breakdown-card">
+                            <h3 class="stats-breakdown-title">
+                                <span class="material-symbols-outlined">analytics</span>
+                                Student Analytics
+                            </h3>
+                            <div class="stats-breakdown-grid">
+                                <div class="stats-breakdown-item">
+                                    <div class="stats-breakdown-icon-wrapper new-students">
+                                        <span class="material-symbols-outlined">person_add</span>
+                                    </div>
+                                    <div class="stats-breakdown-content">
+                                        <p class="stats-breakdown-value" id="newStudents">0</p>
+                                        <p class="stats-breakdown-label">New This Month</p>
+                                    </div>
+                                </div>
+                                <div class="stats-breakdown-item">
+                                    <div class="stats-breakdown-icon-wrapper active-students">
+                                        <span class="material-symbols-outlined">verified</span>
+                                    </div>
+                                    <div class="stats-breakdown-content">
+                                        <p class="stats-breakdown-value" id="activeStudents">0</p>
+                                        <p class="stats-breakdown-label">Active Today</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     <!-- Reports Grid -->
@@ -497,6 +553,62 @@
                 }
             }
         }
+
+        // Animated counter function
+        function animateCounter(element, target, duration = 2000) {
+            const start = 0;
+            const increment = target / (duration / 16); // 60 FPS
+            let current = start;
+
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    element.textContent = target.toLocaleString();
+                    clearInterval(timer);
+                } else {
+                    element.textContent = Math.floor(current).toLocaleString();
+                }
+            }, 16);
+        }
+
+        // Fetch and display student count with animation
+        async function fetchStudentCount() {
+            try {
+                // Replace this URL with your actual API endpoint
+                const response = await fetch('/api/students/count');
+                const data = await response.json();
+
+                // Animate the main student count
+                animateCounter(
+                    document.getElementById('studentCount'),
+                    data.totalStudents || 150,
+                    2000
+                );
+
+                // Animate new students count
+                animateCounter(
+                    document.getElementById('newStudents'),
+                    data.newThisMonth || 12,
+                    1500
+                );
+
+                // Animate active students count
+                animateCounter(
+                    document.getElementById('activeStudents'),
+                    data.activeToday || 89,
+                    1800
+                );
+            } catch (error) {
+                console.error('Error fetching student count:', error);
+                // Fallback to demo data with animation
+                animateCounter(document.getElementById('studentCount'), 150, 2000);
+                animateCounter(document.getElementById('newStudents'), 12, 1500);
+                animateCounter(document.getElementById('activeStudents'), 89, 1800);
+            }
+        }
+
+        // Call the function when page loads
+        fetchStudentCount();
     </script>
 </body>
 
