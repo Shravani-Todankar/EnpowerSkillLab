@@ -1,0 +1,59 @@
+<!-- Header Component -->
+<link rel="stylesheet" href="header.css">
+
+<header class="header">
+    <div class="header-left">
+        <button id="menuToggle">
+            <span class="material-symbols-outlined">menu</span>
+        </button>
+        <button class="fullscreen-btn">
+            <span class="material-symbols-outlined">fullscreen</span>
+        </button>
+    </div>
+    <div class="header-right">
+        <div class="notification-wrapper">
+            <button>
+                <span class="material-symbols-outlined">notifications</span>
+            </button>
+            <span class="notification-badge">1</span>
+        </div>
+        <div class="user-info-wrapper">
+            <div class="user-info" id="userInfoToggle">
+                <img alt="Kunal's avatar" class="user-avatar"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDcIJndixMoK4d7aUwjLNvUwGvQtwhoZp4zrBYHVGp_UbVoliCXsHU6Px_N4mBzfACwz3nJ2LpxL3Ws-XZbgIozb_cRIXJSxDOB2E2kzyb17yyplKyWeyRDLc-fj9vfq0_snyn1Sph7cn21sgjjyZvpAiuZIPF2nmJa_WqFLafr9reOBS1SXMU7f3XdOpsHE_wug6-xsGVmdXkOvYSvf5KdZDEIYmVUz-mfuhm5JroeQp4NP7_6_8NM9c77yCwB6A0DQSdxijqgA9Y" />
+                <span class="user-name">kunal</span>
+                <span class="material-symbols-outlined user-dropdown">expand_more</span>
+            </div>
+
+            <!-- User Dropdown Menu -->
+            <div class="user-dropdown-menu" id="userDropdownMenu">
+                <div class="dropdown-header">
+                    <img alt="Kunal's avatar" class="dropdown-avatar"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuDcIJndixMoK4d7aUwjLNvUwGvQtwhoZp4zrBYHVGp_UbVoliCXsHU6Px_N4mBzfACwz3nJ2LpxL3Ws-XZbgIozb_cRIXJSxDOB2E2kzyb17yyplKyWeyRDLc-fj9vfq0_snyn1Sph7cn21sgjjyZvpAiuZIPF2nmJa_WqFLafr9reOBS1SXMU7f3XdOpsHE_wug6-xsGVmdXkOvYSvf5KdZDEIYmVUz-mfuhm5JroeQp4NP7_6_8NM9c77yCwB6A0DQSdxijqgA9Y" />
+                    <div class="dropdown-user-info">
+                        <h4 class="dropdown-user-name">Kunal</h4>
+                        <p class="dropdown-user-email">kunal@student.com</p>
+                    </div>
+                </div>
+                <div class="dropdown-divider"></div>
+                <a href="profile.html" class="dropdown-item" id="profileBtn">
+                    <span class="material-symbols-outlined">account_circle</span>
+                    <span>Profile</span>
+                </a>
+                <a href="account-settings.html" class="dropdown-item" id="accountSettingsBtn">
+                    <span class="material-symbols-outlined">settings</span>
+                    <span>Account Settings</span>
+                </a>
+                <a href="admin-dashboard.html" class="dropdown-item">
+                    <span class="material-symbols-outlined">dashboard</span>
+                    <span>Dashboard</span>
+                </a>
+                <div class="dropdown-divider"></div>
+                <a href="#" class="dropdown-item logout-item" id="logoutBtn">
+                    <span class="material-symbols-outlined">logout</span>
+                    <span>Logout</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</header>
