@@ -2860,3 +2860,9 @@ body.dark .progress-bar {
         font-size: 0.75rem;
     }
 }
+
+@media (min-width: 1550px) {
+    .reports-grid > div:nth-child(4) {
+        margin-top: -190px;
+    }
+}

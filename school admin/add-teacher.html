@@ -184,6 +184,9 @@
                     setActiveMenuItem();
                 }, 200);
             });
+
+            // Initialize form validation
+            initializeFormValidation();
         });
 
         function setActiveMenuItem() {
@@ -207,6 +210,560 @@
                 if (dropdown) {
                     dropdown.classList.add('active');
                 }
+            }
+        }
+
+        // ==========================================
+        // FORM VALIDATION FUNCTIONALITY
+        // ==========================================
+
+        function initializeFormValidation() {
+            const form = document.querySelector('form');
+
+            // Get all form inputs
+            const teacherName = document.getElementById('teacher-name');
+            const mobileNo = document.getElementById('mobile-no');
+            const teacherRole = document.getElementById('teacher-role');
+            const picture = document.getElementById('picture');
+            const dateOfJoining = document.getElementById('date-of-joining');
+            const monthlySalary = document.getElementById('monthly-salary');
+            const guardianName = document.getElementById('guardian-name');
+            const gender = document.getElementById('gender');
+            const experience = document.getElementById('experience');
+            const nationalId = document.getElementById('national-id');
+            const religion = document.getElementById('religion');
+            const email = document.getElementById('email');
+            const education = document.getElementById('education');
+            const bloodGroup = document.getElementById('blood-group');
+            const dob = document.getElementById('dob');
+            const homeAddress = document.getElementById('home-address');
+
+            // Add blur event listeners for real-time validation
+            if (teacherName) {
+                teacherName.addEventListener('blur', function() {
+                    validateName(this);
+                });
+            }
+
+            if (mobileNo) {
+                mobileNo.addEventListener('blur', function() {
+                    if (this.value.trim()) {
+                        validatePhone(this);
+                    } else {
+                        clearError(this);
+                    }
+                });
+            }
+
+            if (teacherRole) {
+                teacherRole.addEventListener('change', function() {
+                    validateRequired(this, 'Please select a teacher role');
+                });
+            }
+
+            if (picture) {
+                picture.addEventListener('change', function() {
+                    validateFileSize(this);
+                });
+            }
+
+            if (dateOfJoining) {
+                dateOfJoining.addEventListener('blur', function() {
+                    validateDate(this, 'Please select a valid date of joining');
+                });
+            }
+
+            if (monthlySalary) {
+                monthlySalary.addEventListener('blur', function() {
+                    validateSalary(this);
+                });
+            }
+
+            if (email) {
+                email.addEventListener('blur', function() {
+                    if (this.value.trim()) {
+                        validateEmail(this);
+                    } else {
+                        clearError(this);
+                    }
+                });
+            }
+
+            if (experience) {
+                experience.addEventListener('blur', function() {
+                    if (this.value.trim()) {
+                        validateExperience(this);
+                    } else {
+                        clearError(this);
+                    }
+                });
+            }
+
+            if (dob) {
+                dob.addEventListener('blur', function() {
+                    if (this.value.trim()) {
+                        validateDateOfBirth(this);
+                    } else {
+                        clearError(this);
+                    }
+                });
+            }
+
+            if (guardianName) {
+                guardianName.addEventListener('blur', function() {
+                    if (this.value.trim()) {
+                        validateGuardianName(this);
+                    } else {
+                        clearError(this);
+                    }
+                });
+            }
+
+            if (gender) {
+                gender.addEventListener('change', function() {
+                    if (this.value && this.value !== 'Select') {
+                        clearError(this);
+                    }
+                });
+            }
+
+            if (nationalId) {
+                nationalId.addEventListener('blur', function() {
+                    if (this.value.trim()) {
+                        validateNationalId(this);
+                    } else {
+                        clearError(this);
+                    }
+                });
+            }
+
+            if (religion) {
+                religion.addEventListener('change', function() {
+                    if (this.value && this.value !== 'Select') {
+                        clearError(this);
+                    }
+                });
+            }
+
+            if (education) {
+                education.addEventListener('blur', function() {
+                    if (this.value.trim()) {
+                        validateEducation(this);
+                    } else {
+                        clearError(this);
+                    }
+                });
+            }
+
+            if (bloodGroup) {
+                bloodGroup.addEventListener('change', function() {
+                    if (this.value && this.value !== 'Select') {
+                        clearError(this);
+                    }
+                });
+            }
+
+            if (homeAddress) {
+                homeAddress.addEventListener('blur', function() {
+                    if (this.value.trim()) {
+                        validateHomeAddress(this);
+                    } else {
+                        clearError(this);
+                    }
+                });
+            }
+
+            // Form submission validation
+            if (form) {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+
+                    // Validate all required fields
+                    const isNameValid = validateName(teacherName);
+                    const isRoleValid = validateRequired(teacherRole, 'Please select a teacher role');
+                    const isDateValid = validateDate(dateOfJoining, 'Please select a valid date of joining');
+                    const isSalaryValid = validateSalary(monthlySalary);
+
+                    // Validate optional fields if they have values
+                    let isPhoneValid = true;
+                    let isEmailValid = true;
+                    let isExperienceValid = true;
+                    let isDobValid = true;
+                    let isFileValid = true;
+                    let isGuardianNameValid = true;
+                    let isNationalIdValid = true;
+                    let isEducationValid = true;
+                    let isHomeAddressValid = true;
+
+                    if (mobileNo && mobileNo.value.trim()) {
+                        isPhoneValid = validatePhone(mobileNo);
+                    }
+
+                    if (email && email.value.trim()) {
+                        isEmailValid = validateEmail(email);
+                    }
+
+                    if (experience && experience.value.trim()) {
+                        isExperienceValid = validateExperience(experience);
+                    }
+
+                    if (dob && dob.value.trim()) {
+                        isDobValid = validateDateOfBirth(dob);
+                    }
+
+                    if (picture && picture.files.length > 0) {
+                        isFileValid = validateFileSize(picture);
+                    }
+
+                    if (guardianName && guardianName.value.trim()) {
+                        isGuardianNameValid = validateGuardianName(guardianName);
+                    }
+
+                    if (nationalId && nationalId.value.trim()) {
+                        isNationalIdValid = validateNationalId(nationalId);
+                    }
+
+                    if (education && education.value.trim()) {
+                        isEducationValid = validateEducation(education);
+                    }
+
+                    if (homeAddress && homeAddress.value.trim()) {
+                        isHomeAddressValid = validateHomeAddress(homeAddress);
+                    }
+
+                    // Check if all validations passed
+                    if (isNameValid && isRoleValid && isDateValid && isSalaryValid &&
+                        isPhoneValid && isEmailValid && isExperienceValid && isDobValid && isFileValid &&
+                        isGuardianNameValid && isNationalIdValid && isEducationValid && isHomeAddressValid) {
+                        // All validations passed
+                        alert('Form submitted successfully!');
+                        // Here you would normally submit the form data to the server
+                        // form.submit();
+                    } else {
+                        // Scroll to first error
+                        const firstError = document.querySelector('.error-message');
+                        if (firstError) {
+                            firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        }
+                    }
+                });
+            }
+        }
+
+        // Validation Functions
+        function validateName(input) {
+            const value = input.value.trim();
+
+            if (!value) {
+                showError(input, 'Teacher name is required');
+                return false;
+            }
+
+            if (value.length < 2) {
+                showError(input, 'Name must be at least 2 characters long');
+                return false;
+            }
+
+            if (!/^[a-zA-Z\s]+$/.test(value)) {
+                showError(input, 'Name should only contain letters and spaces');
+                return false;
+            }
+
+            clearError(input);
+            return true;
+        }
+
+        function validatePhone(input) {
+            const value = input.value.trim();
+
+            if (!value) {
+                clearError(input);
+                return true;
+            }
+
+            // Remove spaces and common phone number characters
+            const cleanedPhone = value.replace(/[\s\-\(\)]/g, '');
+
+            // Check if it starts with + and has 10-15 digits
+            if (!/^\+?[0-9]{10,15}$/.test(cleanedPhone)) {
+                showError(input, 'Please enter a valid phone number (e.g., +44xxxxxxxxxx)');
+                return false;
+            }
+
+            clearError(input);
+            return true;
+        }
+
+        function validateRequired(input, message) {
+            const value = input.value.trim();
+
+            if (!value || value === 'Select') {
+                showError(input, message);
+                return false;
+            }
+
+            clearError(input);
+            return true;
+        }
+
+        function validateFileSize(input) {
+            if (input.files.length === 0) {
+                clearError(input);
+                return true;
+            }
+
+            const file = input.files[0];
+            const maxSize = 100 * 1024; // 100KB in bytes
+
+            if (file.size > maxSize) {
+                showError(input, 'File size must be less than 100KB');
+                return false;
+            }
+
+            // Check if file is an image
+            if (!file.type.startsWith('image/')) {
+                showError(input, 'Please upload an image file');
+                return false;
+            }
+
+            clearError(input);
+            return true;
+        }
+
+        function validateDate(input, message) {
+            const value = input.value.trim();
+
+            if (!value) {
+                showError(input, message);
+                return false;
+            }
+
+            const selectedDate = new Date(value);
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+
+            if (selectedDate > today) {
+                showError(input, 'Date of joining cannot be in the future');
+                return false;
+            }
+
+            clearError(input);
+            return true;
+        }
+
+        function validateSalary(input) {
+            const value = input.value.trim();
+
+            if (!value) {
+                showError(input, 'Monthly salary is required');
+                return false;
+            }
+
+            // Remove commas and currency symbols
+            const cleanedValue = value.replace(/[,\s₹$€£]/g, '');
+
+            if (!/^[0-9]+(\.[0-9]{1,2})?$/.test(cleanedValue)) {
+                showError(input, 'Please enter a valid salary amount');
+                return false;
+            }
+
+            const salary = parseFloat(cleanedValue);
+
+            if (salary <= 0) {
+                showError(input, 'Salary must be greater than 0');
+                return false;
+            }
+
+            if (salary > 10000000) {
+                showError(input, 'Please enter a realistic salary amount');
+                return false;
+            }
+
+            clearError(input);
+            return true;
+        }
+
+        function validateEmail(input) {
+            const value = input.value.trim();
+
+            if (!value) {
+                clearError(input);
+                return true;
+            }
+
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            if (!emailRegex.test(value)) {
+                showError(input, 'Please enter a valid email address');
+                return false;
+            }
+
+            clearError(input);
+            return true;
+        }
+
+        function validateExperience(input) {
+            const value = input.value.trim();
+
+            if (!value) {
+                clearError(input);
+                return true;
+            }
+
+            // Allow formats like "5 years", "2.5 years", "1 year", or just "5"
+            if (!/^[0-9]+(\.[0-9]+)?(\s*(year|years|yr|yrs|months?|mo))?$/i.test(value)) {
+                showError(input, 'Please enter valid experience (e.g., 5 years, 2.5 years)');
+                return false;
+            }
+
+            clearError(input);
+            return true;
+        }
+
+        function validateDateOfBirth(input) {
+            const value = input.value.trim();
+
+            if (!value) {
+                clearError(input);
+                return true;
+            }
+
+            const dob = new Date(value);
+            const today = new Date();
+
+            // Calculate age
+            let age = today.getFullYear() - dob.getFullYear();
+            const monthDiff = today.getMonth() - dob.getMonth();
+
+            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < dob.getDate())) {
+                age--;
+            }
+
+            if (dob > today) {
+                showError(input, 'Date of birth cannot be in the future');
+                return false;
+            }
+
+            if (age < 18) {
+                showError(input, 'Teacher must be at least 18 years old');
+                return false;
+            }
+
+            if (age > 100) {
+                showError(input, 'Please enter a valid date of birth');
+                return false;
+            }
+
+            clearError(input);
+            return true;
+        }
+
+        function validateGuardianName(input) {
+            const value = input.value.trim();
+
+            if (!value) {
+                clearError(input);
+                return true;
+            }
+
+            if (value.length < 2) {
+                showError(input, 'Name must be at least 2 characters long');
+                return false;
+            }
+
+            if (!/^[a-zA-Z\s]+$/.test(value)) {
+                showError(input, 'Name should only contain letters and spaces');
+                return false;
+            }
+
+            clearError(input);
+            return true;
+        }
+
+        function validateNationalId(input) {
+            const value = input.value.trim();
+
+            if (!value) {
+                clearError(input);
+                return true;
+            }
+
+            // Remove spaces and dashes
+            const cleanedId = value.replace(/[\s\-]/g, '');
+
+            // Check if it's alphanumeric and has reasonable length (5-20 characters)
+            if (!/^[a-zA-Z0-9]{5,20}$/.test(cleanedId)) {
+                showError(input, 'Please enter a valid National ID (5-20 alphanumeric characters)');
+                return false;
+            }
+
+            clearError(input);
+            return true;
+        }
+
+        function validateEducation(input) {
+            const value = input.value.trim();
+
+            if (!value) {
+                clearError(input);
+                return true;
+            }
+
+            if (value.length < 2) {
+                showError(input, 'Education field must be at least 2 characters long');
+                return false;
+            }
+
+            if (value.length > 100) {
+                showError(input, 'Education field is too long (max 100 characters)');
+                return false;
+            }
+
+            clearError(input);
+            return true;
+        }
+
+        function validateHomeAddress(input) {
+            const value = input.value.trim();
+
+            if (!value) {
+                clearError(input);
+                return true;
+            }
+
+            if (value.length < 5) {
+                showError(input, 'Address must be at least 5 characters long');
+                return false;
+            }
+
+            if (value.length > 200) {
+                showError(input, 'Address is too long (max 200 characters)');
+                return false;
+            }
+
+            clearError(input);
+            return true;
+        }
+
+        // Error Display Functions
+        function showError(input, message) {
+            clearError(input);
+
+            input.classList.add('input-error');
+
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'error-message';
+            errorDiv.textContent = message;
+
+            input.parentElement.appendChild(errorDiv);
+        }
+
+        function clearError(input) {
+            input.classList.remove('input-error');
+
+            const errorMessage = input.parentElement.querySelector('.error-message');
+            if (errorMessage) {
+                errorMessage.remove();
             }
         }
     </script>
