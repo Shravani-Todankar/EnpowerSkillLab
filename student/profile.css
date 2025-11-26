@@ -194,6 +194,10 @@
     box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
+.profile-basic-input.error {
+    border-color: #ef4444;
+}
+
 /* Profile Header Actions */
 .profile-header-actions {
     display: flex;
@@ -351,6 +355,19 @@
 .profile-info-input:focus {
     outline: none;
     border-color: var(--primary-color);
+}
+
+.profile-info-input.error {
+    border-color: #ef4444;
+}
+
+/* Error message */
+.error-message {
+    display: block;
+    color: #ef4444;
+    font-size: 0.75rem;
+    margin-top: 0.25rem;
+    font-weight: 400;
 }
 
 /* Emergency Card */

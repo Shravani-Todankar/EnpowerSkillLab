@@ -131,17 +131,30 @@
                                 <div class="profile-info-item">
                                     <label class="profile-info-label">Date of Birth</label>
                                     <p class="profile-info-value editable-field" data-field="dob">15 March, 2010</p>
-                                    <input type="text" class="profile-info-input" data-field="dob" value="15 March, 2010" style="display: none;">
+                                    <input type="date" class="profile-info-input" data-field="dob" value="2010-03-15" style="display: none;">
                                 </div>
                                 <div class="profile-info-item">
                                     <label class="profile-info-label">Gender</label>
                                     <p class="profile-info-value editable-field" data-field="gender">Male</p>
-                                    <input type="text" class="profile-info-input" data-field="gender" value="Male" style="display: none;">
+                                    <select class="profile-info-input" data-field="gender" style="display: none;">
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
+                                        <option value="Other">Other</option>
+                                    </select>
                                 </div>
                                 <div class="profile-info-item">
                                     <label class="profile-info-label">Blood Group</label>
                                     <p class="profile-info-value editable-field" data-field="bloodGroup">O+</p>
-                                    <input type="text" class="profile-info-input" data-field="bloodGroup" value="O+" style="display: none;">
+                                    <select class="profile-info-input" data-field="bloodGroup" style="display: none;">
+                                        <option value="A+">A+</option>
+                                        <option value="A-">A-</option>
+                                        <option value="B+">B+</option>
+                                        <option value="B-">B-</option>
+                                        <option value="AB+">AB+</option>
+                                        <option value="AB-">AB-</option>
+                                        <option value="O+">O+</option>
+                                        <option value="O-">O-</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -422,7 +435,175 @@
             }
         }
 
-        // Helper function to initialize card toggle buttons
+        // Validation functions
+        function validateName(name) {
+            if (!name || name.trim().length === 0) {
+                return { valid: false, message: 'Name cannot be empty' };
+            }
+            if (name.trim().length < 2) {
+                return { valid: false, message: 'Name must be at least 2 characters long' };
+            }
+            if (!/^[a-zA-Z\s.]+$/.test(name)) {
+                return { valid: false, message: 'Name can only contain letters, spaces, and periods' };
+            }
+            return { valid: true };
+        }
+
+        function validateEmail(email) {
+            if (!email || email.trim().length === 0) {
+                return { valid: false, message: 'Email cannot be empty' };
+            }
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                return { valid: false, message: 'Please enter a valid email address' };
+            }
+            return { valid: true };
+        }
+
+        function validatePhone(phone) {
+            if (!phone || phone.trim().length === 0) {
+                return { valid: false, message: 'Phone number cannot be empty' };
+            }
+            // Indian phone number format: +91 followed by 10 digits
+            const phoneRegex = /^(\+91[\s]?)?[6-9]\d{4}[\s]?\d{5}$/;
+            if (!phoneRegex.test(phone.replace(/\s/g, ''))) {
+                return { valid: false, message: 'Please enter a valid Indian phone number (10 digits starting with 6-9)' };
+            }
+            return { valid: true };
+        }
+
+        function validateDate(date) {
+            if (!date || date.trim().length === 0) {
+                return { valid: false, message: 'Date cannot be empty' };
+            }
+            // Allow various date formats
+            return { valid: true };
+        }
+
+        function validateGender(gender) {
+            if (!gender || gender.trim().length === 0) {
+                return { valid: false, message: 'Gender cannot be empty' };
+            }
+            const validGenders = ['male', 'female', 'other'];
+            if (!validGenders.includes(gender.toLowerCase())) {
+                return { valid: false, message: 'Gender must be Male, Female, or Other' };
+            }
+            return { valid: true };
+        }
+
+        function validateBloodGroup(bloodGroup) {
+            if (!bloodGroup || bloodGroup.trim().length === 0) {
+                return { valid: false, message: 'Blood group cannot be empty' };
+            }
+            const validBloodGroups = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
+            if (!validBloodGroups.includes(bloodGroup.toUpperCase())) {
+                return { valid: false, message: 'Please enter a valid blood group (A+, A-, B+, B-, AB+, AB-, O+, O-)' };
+            }
+            return { valid: true };
+        }
+
+        function validateAddress(address) {
+            if (!address || address.trim().length === 0) {
+                return { valid: false, message: 'Address cannot be empty' };
+            }
+            if (address.trim().length < 10) {
+                return { valid: false, message: 'Address must be at least 10 characters long' };
+            }
+            return { valid: true };
+        }
+
+        function validateOccupation(occupation) {
+            if (!occupation || occupation.trim().length === 0) {
+                return { valid: false, message: 'Occupation cannot be empty' };
+            }
+            if (!/^[a-zA-Z\s]+$/.test(occupation)) {
+                return { valid: false, message: 'Occupation can only contain letters and spaces' };
+            }
+            return { valid: true };
+        }
+
+        function validateText(text, fieldName) {
+            if (!text || text.trim().length === 0) {
+                return { valid: false, message: `${fieldName} cannot be empty` };
+            }
+            return { valid: true };
+        }
+
+        function validateField(fieldName, value) {
+            switch(fieldName) {
+                case 'fullName':
+                case 'fatherName':
+                case 'motherName':
+                case 'emergencyName':
+                    return validateName(value);
+                case 'email':
+                    return validateEmail(value);
+                case 'phone':
+                case 'fatherPhone':
+                case 'motherPhone':
+                case 'emergencyPhone':
+                    return validatePhone(value);
+                case 'dob':
+                    return validateDate(value);
+                case 'gender':
+                    return validateGender(value);
+                case 'bloodGroup':
+                    return validateBloodGroup(value);
+                case 'address':
+                    return validateAddress(value);
+                case 'fatherOccupation':
+                case 'motherOccupation':
+                    return validateOccupation(value);
+                case 'nationality':
+                case 'religion':
+                case 'category':
+                case 'previousSchool':
+                case 'emergencyRelation':
+                    return validateText(value, fieldName.replace(/([A-Z])/g, ' $1').trim());
+                default:
+                    return { valid: true };
+            }
+        }
+
+        // Helper function to show/hide error message
+        function showError(inputElem, message) {
+            // Remove existing error message if any
+            const existingError = inputElem.parentElement.querySelector('.error-message');
+            if (existingError) {
+                existingError.remove();
+            }
+
+            // Add error class to input
+            inputElem.classList.add('error');
+
+            // Create and append error message
+            const errorSpan = document.createElement('span');
+            errorSpan.className = 'error-message';
+            errorSpan.textContent = message;
+            inputElem.parentElement.appendChild(errorSpan);
+        }
+
+        function clearError(inputElem) {
+            // Remove error class
+            inputElem.classList.remove('error');
+
+            // Remove error message
+            const errorMessage = inputElem.parentElement.querySelector('.error-message');
+            if (errorMessage) {
+                errorMessage.remove();
+            }
+        }
+
+        // Helper function to format date for display
+        function formatDate(dateString) {
+            if (!dateString) return '';
+            const date = new Date(dateString);
+            const months = ['January', 'February', 'March', 'April', 'May', 'June',
+                          'July', 'August', 'September', 'October', 'November', 'December'];
+            return `${date.getDate()} ${months[date.getMonth()]}, ${date.getFullYear()}`;
+        }
+
+        // Helper function to initialize card toggle buttons with validation
         function initializeCardToggle(cardName, ...fieldNames) {
             const toggleBtn = document.getElementById(`${cardName}ToggleBtn`);
             const toggleIcon = document.getElementById(`${cardName}ToggleIcon`);
@@ -437,20 +618,49 @@
                     // Switch to Save mode
                     toggleIcon.textContent = 'check';
                     toggleText.textContent = 'Save';
+                    toggleBtn.style.background = 'var(--green-600)';
+                    toggleBtn.style.borderColor = '#16a34a';
 
                     // Show input fields for all specified fields
                     fieldNames.forEach(fieldName => {
                         const valueElem = document.querySelector(`[data-field="${fieldName}"].profile-info-value`);
-                        const inputElem = document.querySelector(`input[data-field="${fieldName}"].profile-info-input`);
+                        const inputElem = document.querySelector(`[data-field="${fieldName}"].profile-info-input`);
 
                         if (valueElem && inputElem) {
+                            // Set current value to input/select
+                            if (inputElem.tagName === 'SELECT') {
+                                inputElem.value = valueElem.textContent.trim();
+                            }
+
                             valueElem.style.display = 'none';
                             inputElem.style.display = 'block';
+                            // Clear any existing errors
+                            clearError(inputElem);
                         }
                     });
 
                     isEditing = true;
                 } else {
+                    // Validate all fields before saving
+                    let allValid = true;
+
+                    fieldNames.forEach(fieldName => {
+                        const inputElem = document.querySelector(`[data-field="${fieldName}"].profile-info-input`);
+                        if (inputElem) {
+                            const validation = validateField(fieldName, inputElem.value);
+                            if (!validation.valid) {
+                                allValid = false;
+                                showError(inputElem, validation.message);
+                            } else {
+                                clearError(inputElem);
+                            }
+                        }
+                    });
+
+                    if (!allValid) {
+                        return;
+                    }
+
                     // Switch to Edit mode
                     toggleIcon.textContent = 'edit';
                     toggleText.textContent = 'Edit';
@@ -460,12 +670,18 @@
                     // Save values and hide inputs
                     fieldNames.forEach(fieldName => {
                         const valueElem = document.querySelector(`[data-field="${fieldName}"].profile-info-value`);
-                        const inputElem = document.querySelector(`input[data-field="${fieldName}"].profile-info-input`);
+                        const inputElem = document.querySelector(`[data-field="${fieldName}"].profile-info-input`);
 
                         if (valueElem && inputElem) {
-                            valueElem.textContent = inputElem.value;
+                            // Format the value for display
+                            if (inputElem.type === 'date') {
+                                valueElem.textContent = formatDate(inputElem.value);
+                            } else {
+                                valueElem.textContent = inputElem.value;
+                            }
                             valueElem.style.display = 'block';
                             inputElem.style.display = 'none';
+                            clearError(inputElem);
                         }
                     });
 
@@ -522,23 +738,62 @@
                         // Switch to Save mode
                         headerToggleIcon.textContent = 'check';
                         headerToggleText.textContent = 'Save';
+                        headerToggleBtn.style.background = 'var(--green-600)';
+                        headerToggleBtn.style.borderColor = '#16a34a';
 
                         // Show input fields
                         if (headerName && headerNameInput) {
                             headerName.style.display = 'none';
                             headerNameInput.style.display = 'block';
+                            clearError(headerNameInput);
                         }
                         if (headerEmail && headerEmailInput) {
                             headerEmail.style.display = 'none';
                             headerEmailInput.style.display = 'block';
+                            clearError(headerEmailInput);
                         }
                         if (headerPhone && headerPhoneInput) {
                             headerPhone.style.display = 'none';
                             headerPhoneInput.style.display = 'block';
+                            clearError(headerPhoneInput);
                         }
 
                         isHeaderEditing = true;
                     } else {
+                        // Validate fields before saving
+                        let allValid = true;
+
+                        // Validate name
+                        const nameValidation = validateName(headerNameInput.value);
+                        if (!nameValidation.valid) {
+                            allValid = false;
+                            showError(headerNameInput, nameValidation.message);
+                        } else {
+                            clearError(headerNameInput);
+                        }
+
+                        // Validate email
+                        const emailValidation = validateEmail(headerEmailInput.value);
+                        if (!emailValidation.valid) {
+                            allValid = false;
+                            showError(headerEmailInput, emailValidation.message);
+                        } else {
+                            clearError(headerEmailInput);
+                        }
+
+                        // Validate phone
+                        const phoneValidation = validatePhone(headerPhoneInput.value);
+                        if (!phoneValidation.valid) {
+                            allValid = false;
+                            showError(headerPhoneInput, phoneValidation.message);
+                        } else {
+                            clearError(headerPhoneInput);
+                        }
+
+                        if (!allValid) {
+                            return;
+                        }
+
                         // Switch to Edit mode
                         headerToggleIcon.textContent = 'edit';
                         headerToggleText.textContent = 'Edit';
@@ -550,16 +805,19 @@
                             headerName.textContent = headerNameInput.value;
                             headerName.style.display = 'block';
                             headerNameInput.style.display = 'none';
+                            clearError(headerNameInput);
                         }
                         if (headerEmail && headerEmailInput) {
                             headerEmail.textContent = headerEmailInput.value;
                             headerEmail.style.display = 'block';
                             headerEmailInput.style.display = 'none';
+                            clearError(headerEmailInput);
                         }
                         if (headerPhone && headerPhoneInput) {
                             headerPhone.textContent = headerPhoneInput.value;
                             headerPhone.style.display = 'block';
                             headerPhoneInput.style.display = 'none';
+                            clearError(headerPhoneInput);
                         }
 
                         isHeaderEditing = false;
