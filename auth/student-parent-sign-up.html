@@ -40,19 +40,11 @@
 
     <style>
         /* Custom Radio Button Design - Matching Form Fields */
-
-        button#roleDropdownBtn {
+        .mb-20.signup-radio {
             display: flex;
-            align-items: center;
-            padding: 0px !important;
-            gap: 10px;
-            justify-content: center;
-        }
-
-        iconify-icon.select-your-role-icon {
-            color: grey;
-            font-size: 20px;
-            margin-left: -15px;
+            gap: 25px;
+            margin-block-end: 0 !important;
+            padding: 0px 0px 5px 10px;
         }
 
         .user-type-radio-group {
@@ -151,58 +143,28 @@
                         <input type="text" class="form-control h-56-px bg-neutral-50 radius-12" placeholder="Username">
                     </div>
 
-                    <div class="mb-16">
-                        <div class="icon-field position-relative">
-
-                            <!-- Icon -->
-                            <span class="icon top-50 translate-middle-y" style="left: 16px; position: absolute;">
-                                <iconify-icon icon="mdi:account-supervisor-circle-outline"></iconify-icon>
-                            </span>
-
-                            <!-- Dropdown Wrapper -->
-                            <div class="dropdown w-100">
-
-                                <!-- Dropdown Button -->
-                                <button class="btn w-100 text-start h-56-px bg-neutral-50 radius-12 px-48 
-                           border border-neutral-300 text-neutral-600 dropdown-toggle" type="button"
-                                    id="roleDropdownBtn" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <iconify-icon icon="mdi:shield-account" -
-                                        class="select-your-role-icon"></iconify-icon>
-                                    Select Your Role
-                                </button>
-
-                                <!-- Dropdown Menu -->
-                                <ul class="dropdown-menu w-100" aria-labelledby="roleDropdownBtn">
-                                    <li><a class="dropdown-item px-16 py-8 role-option"
-                                            data-value="Thinking Coach">Thinking
-                                            Coach</a></li>
-                                    <li><a class="dropdown-item px-16 py-8 role-option" data-value="School Admin">School
-                                            Admin</a></li>
-                                    <li><a class="dropdown-item px-16 py-8 role-option"
-                                            data-value="Master Teacher">Master
-                                            Teacher ( Program Co-ordinator )</a></li>
-                                    <li><a class="dropdown-item px-16 py-8 role-option"
-                                            data-value="Principal">Principal</a>
-                                    </li>
-                                    <li><a class="dropdown-item px-16 py-8 role-option" data-value="Admin">Admin</a>
-                                    </li>
-                                    <li><a class="dropdown-item px-16 py-8 role-option" data-value="Super Admin">Super
-                                            Admin</a></li>
-                                    <li><a class="dropdown-item px-16 py-8 role-option" data-value="Trustee">Trustee</a>
-                                    </li>
-                                    <li><a class="dropdown-item px-16 py-8 role-option" data-value="Lab Support">Lab
-                                            Support</a>
-                                    </li>
-                                </ul>
+                    <!-- User Type Radio Buttons -->
+                    <div class="mb-20 signup-radio">
+                        <label class="form-label text-sm fw-semibold text-primary-light mb-12">Select User Type</label>
+                        <div class="user-type-radio-group">
+                            <div class="form-check">
+                                <label class="form-check-label" for="userTypeStudent">
+                                    <input class="form-check-input" type="radio" name="user-type" id="userTypeStudent"
+                                        value="Student">
+                                    Student
+                                </label>
                             </div>
-
-                            <!-- Hidden input to submit selected role -->
-                            <input type="hidden" id="role" name="role">
+                            <div class="form-check">
+                                <label class="form-check-label" for="userTypeParent">
+                                    <input class="form-check-input" type="radio" name="user-type" id="userTypeParent"
+                                        value="Parent">
+                                    Parent
+                                </label>
+                            </div>
                         </div>
-
                         <!-- Validation Error -->
-                        <p id="role-error" class="text-danger text-sm mt-2 d-none">
-                            Please select a role.
+                        <p id="user-type-error" class="text-danger text-sm mt-2 d-none">
+                            Please select a user type.
                         </p>
                     </div>
 
