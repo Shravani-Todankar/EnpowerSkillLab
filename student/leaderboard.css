@@ -325,9 +325,12 @@ body.dark .podium-item {
 }
 
 @keyframes bounce {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: translateX(-50%) translateY(0);
     }
+
     50% {
         transform: translateX(-50%) translateY(-8px);
     }
@@ -816,10 +819,11 @@ body.dark .point-value {
     .rank-content {
         flex-direction: column;
         gap: 24px;
+        align-items: flex-start;
     }
 
     .rank-position {
-        width: 100%;
+        width: 50%;
         padding: 20px 24px;
     }
 
@@ -829,8 +833,10 @@ body.dark .point-value {
 
     .rank-stats {
         width: 100%;
-        flex-direction: column;
-        gap: 16px;
+        gap: 10px;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        justify-content: center;
     }
 
     .rank-stat {
@@ -962,7 +968,7 @@ body.dark .point-value {
     }
 
     .points-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
         gap: 16px;
     }
 

@@ -415,12 +415,12 @@ body.dark .input-success {
     }
 
     .form-legend {
-        flex-direction: column;
+        flex-direction: row;
         gap: 0.5rem;
     }
 
     .form-actions {
-        flex-direction: column;
+        flex-direction: row;
         width: 100%;
     }
 

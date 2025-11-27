@@ -92,15 +92,15 @@ body.dark .featured-report {
 }
 
 .report-icon-wrapper.skills {
-    background: linear-gradient(135deg, #5e226f,#d68bea);
+    background: linear-gradient(135deg, #5e226f, #d68bea);
 }
 
 .report-icon-wrapper.analytics {
-    background: linear-gradient(135deg, #5e226f,#d68bea);
+    background: linear-gradient(135deg, #5e226f, #d68bea);
 }
 
 .report-icon-wrapper.behavioral {
-    background: linear-gradient(135deg, #5e226f,#d68bea);
+    background: linear-gradient(135deg, #5e226f, #d68bea);
 }
 
 .report-info {
@@ -1303,11 +1303,18 @@ body.dark .performance-trend.negative {
     .legend-items {
         flex-wrap: wrap;
     }
+
+    .history-list {
+        display: grid;
+        /* flex-direction: column; */
+        /* gap: 16px; */
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 
 @media (max-width: 480px) {
     .performance-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
     }
 
     .bar-label {
