@@ -104,6 +104,56 @@
 
                 <!-- Content Grid -->
                 <div class="content-grid">
+                    <!-- Quick Actions -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                <span class="material-symbols-outlined">bolt</span>
+                                Quick Actions
+                            </h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="quick-actions-grid">
+                                <a href="add-student.html" class="quick-action-item">
+                                    <div class="quick-action-icon students">
+                                        <span class="material-symbols-outlined">person_add</span>
+                                    </div>
+                                    <div class="quick-action-label">Add Student</div>
+                                </a>
+                                <a href="add-teacher.html" class="quick-action-item">
+                                    <div class="quick-action-icon teachers">
+                                        <span class="material-symbols-outlined">badge</span>
+                                    </div>
+                                    <div class="quick-action-label">Add Teacher</div>
+                                </a>
+                                <a href="add-class.html" class="quick-action-item">
+                                    <div class="quick-action-icon classes">
+                                        <span class="material-symbols-outlined">add_circle</span>
+                                    </div>
+                                    <div class="quick-action-label">Create Class</div>
+                                </a>
+                                <a href="assign-subjects.html" class="quick-action-item">
+                                    <div class="quick-action-icon subjects">
+                                        <span class="material-symbols-outlined">assignment</span>
+                                    </div>
+                                    <div class="quick-action-label">Assign Subjects</div>
+                                </a>
+                                <a href="upload-student-csv.html" class="quick-action-item">
+                                    <div class="quick-action-icon upload">
+                                        <span class="material-symbols-outlined">upload_file</span>
+                                    </div>
+                                    <div class="quick-action-label">Upload CSV</div>
+                                </a>
+                                <a href="assessment-overview.html" class="quick-action-item">
+                                    <div class="quick-action-icon assessment">
+                                        <span class="material-symbols-outlined">quiz</span>
+                                    </div>
+                                    <div class="quick-action-label">Assessments</div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- Recent Activities -->
                     <div class="card">
                         <div class="card-header">
@@ -155,63 +205,20 @@
                                         <div class="activity-time">2 days ago</div>
                                     </div>
                                 </div>
+                                <div class="activity-item">
+                                    <div class="activity-icon student">
+                                        <span class="material-symbols-outlined">school</span>
+                                    </div>
+                                    <div class="activity-content">
+                                        <div class="activity-title">Student attendance marked</div>
+                                        <div class="activity-description">Class 10-B attendance completed</div>
+                                        <div class="activity-time">3 days ago</div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Quick Actions -->
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title">
-                                <span class="material-symbols-outlined">bolt</span>
-                                Quick Actions
-                            </h3>
-                        </div>
-                        <div class="card-body">
-                            <div class="quick-actions-grid">
-                                <a href="add-student.html" class="quick-action-item">
-                                    <div class="quick-action-icon students">
-                                        <span class="material-symbols-outlined">person_add</span>
-                                    </div>
-                                    <div class="quick-action-label">Add Student</div>
-                                </a>
-                                <a href="add-teacher.html" class="quick-action-item">
-                                    <div class="quick-action-icon teachers">
-                                        <span class="material-symbols-outlined">badge</span>
-                                    </div>
-                                    <div class="quick-action-label">Add Teacher</div>
-                                </a>
-                                <a href="add-class.html" class="quick-action-item">
-                                    <div class="quick-action-icon classes">
-                                        <span class="material-symbols-outlined">add_circle</span>
-                                    </div>
-                                    <div class="quick-action-label">Create Class</div>
-                                </a>
-                                <a href="assign-subjects.html" class="quick-action-item">
-                                    <div class="quick-action-icon subjects">
-                                        <span class="material-symbols-outlined">assignment</span>
-                                    </div>
-                                    <div class="quick-action-label">Assign Subjects</div>
-                                </a>
-                                <a href="upload-student-csv.html" class="quick-action-item">
-                                    <div class="quick-action-icon upload">
-                                        <span class="material-symbols-outlined">upload_file</span>
-                                    </div>
-                                    <div class="quick-action-label">Upload CSV</div>
-                                </a>
-                                <a href="assessment-overview.html" class="quick-action-item">
-                                    <div class="quick-action-icon assessment">
-                                        <span class="material-symbols-outlined">quiz</span>
-                                    </div>
-                                    <div class="quick-action-label">Assessments</div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Bottom Grid -->
-                <div class="bottom-grid">
                     <!-- Upcoming Events -->
                     <div class="card">
                         <div class="card-header">
@@ -259,7 +266,10 @@
                             </div>
                         </div>
                     </div>
+                </div>
 
+                <!-- Bottom Grid -->
+                <div class="bottom-grid">
                     <!-- Class Distribution -->
                     <div class="card">
                         <div class="card-header">
@@ -304,6 +314,41 @@
                                     </div>
                                     <div class="distribution-bar">
                                         <div class="distribution-fill" style="width: 75%;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Announcements -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                <span class="material-symbols-outlined">campaign</span>
+                                Announcements
+                            </h3>
+                            <a href="#" class="card-action">View All</a>
+                        </div>
+                        <div class="card-body">
+                            <div class="activity-list">
+                                <div class="activity-item">
+                                    <div class="activity-icon class">
+                                        <span class="material-symbols-outlined">notifications_active</span>
+                                    </div>
+                                    <div class="activity-content">
+                                        <div class="activity-title">Holiday Notice</div>
+                                        <div class="activity-description">School will remain closed on December 15th</div>
+                                        <div class="activity-time">1 hour ago</div>
+                                    </div>
+                                </div>
+                                <div class="activity-item">
+                                    <div class="activity-icon assessment">
+                                        <span class="material-symbols-outlined">info</span>
+                                    </div>
+                                    <div class="activity-content">
+                                        <div class="activity-title">Fee Reminder</div>
+                                        <div class="activity-description">Last date for fee payment is December 5th</div>
+                                        <div class="activity-time">2 days ago</div>
                                     </div>
                                 </div>
                             </div>

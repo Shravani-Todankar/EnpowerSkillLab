@@ -451,6 +451,7 @@ body.dark .info-list {
     display: flex;
     align-items: center;
     min-height: 200px;
+    z-index: 0;
 }
 
 .banner-content {
@@ -623,33 +624,24 @@ body.dark .chart-text {
     color: var(--gray-400);
 }
 
-.status-badges {
-    display: flex;
-    justify-content: center;
-    gap: 16px;
-    margin-bottom: 24px;
-}
-
-.status-badge {
-    font-size: 0.75rem;
-    padding: 4px 12px;
-    background-color: #FEF3C7;
-    color: var(--yellow-800);
-    border-radius: 9999px;
-    display: flex;
-    align-items: center;
-}
-
 body.dark .status-badge {
     background-color: rgba(161, 98, 7, 0.5);
     color: var(--yellow-300);
 }
 
-.stats-grid {
+/* .stats-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 16px;
     text-align: center;
+} */
+
+.stats-grid.attendence-grid {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
 }
 
 .stat-card {
@@ -659,22 +651,22 @@ body.dark .status-badge {
 
 .stat-card.blue {
     background-color: rgba(59, 130, 246, 0.1);
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 body.dark .stat-card.blue {
     background-color: rgba(59, 130, 246, 0.3);
 }
 
-.stat-card.purple {
-    background-color: rgba(168, 85, 247, 0.1);
-}
-
-body.dark .stat-card.purple {
-    background-color: rgba(168, 85, 247, 0.3);
-}
-
 .stat-card.red {
     background-color: rgba(239, 68, 68, 0.1);
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 body.dark .stat-card.red {
@@ -2587,7 +2579,7 @@ body.dark .progress-bar {
     }
 
     .reports-grid>div:nth-child(4) {
-        margin-top: -230px;
+        margin-top: -130px;
     }
 }
 
@@ -2882,6 +2874,16 @@ body.dark .progress-bar {
 
 @media (min-width: 1550px) {
     .reports-grid>div:nth-child(4) {
-        margin-top: -190px;
+        margin-top: -140px;
     }
+}
+
+.stats-grid.stud-dash-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+
+.stat-card.blue.stud1, .stat-card.red.stud2 {
+    width: auto;
 }

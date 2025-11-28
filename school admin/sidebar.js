@@ -39,9 +39,11 @@ function initializeSidebar() {
     closeSidebar.addEventListener('click', closeSidebarFunc);
     sidebarOverlay.addEventListener('click', closeSidebarFunc);
 
-    const sidebarLinks = sidebar.querySelectorAll('a');
+    // Only close sidebar when clicking on actual navigation links (not dropdown toggles)
+    const sidebarLinks = sidebar.querySelectorAll('.sidebar-dropdown-menu a, .sidebar-nav > a:not(.sidebar-dropdown-toggle)');
     sidebarLinks.forEach(link => {
-        link.addEventListener('click', () => {
+        link.addEventListener('click', (e) => {
+            // Only close sidebar on mobile when clicking actual page links
             if (window.innerWidth < 1024) {
                 closeSidebarFunc();
             }

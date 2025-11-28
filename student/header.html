@@ -12,10 +12,66 @@
     </div>
     <div class="header-right">
         <div class="notification-wrapper">
-            <button>
+            <button id="notificationToggle">
                 <span class="material-symbols-outlined">notifications</span>
             </button>
-            <span class="notification-badge">1</span>
+            <span class="notification-badge">4</span>
+
+            <!-- Notification Dropdown Menu -->
+            <div class="notification-dropdown-menu" id="notificationDropdownMenu">
+                <div class="notification-dropdown-header">
+                    <h4 class="notification-dropdown-title">Notifications</h4>
+                    <span class="notification-count">4 new</span>
+                </div>
+                <div class="notification-dropdown-body">
+                    <a href="#" class="notification-item unread">
+                        <div class="notification-icon bg-blue">
+                            <span class="material-symbols-outlined">assignment</span>
+                        </div>
+                        <div class="notification-content">
+                            <p class="notification-text"><strong>New Assignment Posted</strong></p>
+                            <p class="notification-description">Mathematics homework due by Friday</p>
+                            <span class="notification-time">10 minutes ago</span>
+                        </div>
+                    </a>
+
+                    <a href="#" class="notification-item unread">
+                        <div class="notification-icon bg-green">
+                            <span class="material-symbols-outlined">grade</span>
+                        </div>
+                        <div class="notification-content">
+                            <p class="notification-text"><strong>Grade Published</strong></p>
+                            <p class="notification-description">Your Science test results are available</p>
+                            <span class="notification-time">2 hours ago</span>
+                        </div>
+                    </a>
+
+                    <a href="#" class="notification-item unread">
+                        <div class="notification-icon bg-orange">
+                            <span class="material-symbols-outlined">event</span>
+                        </div>
+                        <div class="notification-content">
+                            <p class="notification-text"><strong>Upcoming Test</strong></p>
+                            <p class="notification-description">History exam scheduled for next Monday</p>
+                            <span class="notification-time">4 hours ago</span>
+                        </div>
+                    </a>
+
+                    <a href="#" class="notification-item unread">
+                        <div class="notification-icon bg-purple">
+                            <span class="material-symbols-outlined">emoji_events</span>
+                        </div>
+                        <div class="notification-content">
+                            <p class="notification-text"><strong>Achievement Unlocked</strong></p>
+                            <p class="notification-description">You earned a Perfect Attendance badge!</p>
+                            <span class="notification-time">1 day ago</span>
+                        </div>
+                    </a>
+                </div>
+                <div class="notification-dropdown-footer">
+                    <a href="#" class="notification-footer-link">View All Notifications</a>
+                </div>
+            </div>
         </div>
         <div class="user-info-wrapper">
             <div class="user-info" id="userInfoToggle">
