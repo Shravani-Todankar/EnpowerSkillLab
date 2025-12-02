@@ -410,7 +410,6 @@ body.dark .notification-dropdown-footer {
     padding: 8px 16px;
     border-radius: 8px;
 }
-
 .notification-footer-link:hover {
     background: linear-gradient(135deg, #2563EB 0%, #7C3AED 100%);
     -webkit-background-clip: text;

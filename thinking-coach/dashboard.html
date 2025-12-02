@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Thinking Coach Dashboard - Enpower Skill Lab</title>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+        rel="stylesheet" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="sidebar.css">
+    <link rel="stylesheet" href="header.css">
+
+    <!-- Sidebar JS -->
+    <script src="sidebar.js"></script>
+    <!-- Header JS -->
+    <script src="header.js"></script>
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- Include Sidebar Component -->
+        <div id="sidebar-container"></div>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Include Header Component -->
+            <div id="header-container"></div>
+
+            <!-- Dashboard Content -->
+            <div class="dashboard-page">
+                <!-- Page Header -->
+                <div class="page-header">
+                    <div class="page-header-content">
+                        <h1 class="page-title">
+                            <span class="material-symbols-outlined page-title-icon">dashboard</span>
+                            Dashboard
+                        </h1>
+                        <p class="page-subtitle">Welcome back! Here's your overview for today</p>
+                    </div>
+                </div>
+
+                <!-- Stats Cards -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon assignments">
+                            <span class="material-symbols-outlined">assignment</span>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-value">24</div>
+                            <div class="stat-label">Total Assignments</div>
+                            <div class="stat-change positive">
+                                <span class="material-symbols-outlined">trending_up</span>
+                                +5 this month
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon pending">
+                            <span class="material-symbols-outlined">pending_actions</span>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-value">18</div>
+                            <div class="stat-label">Pending Submissions</div>
+                            <div class="stat-change warning">
+                                <span class="material-symbols-outlined">schedule</span>
+                                Awaiting review
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon students">
+                            <span class="material-symbols-outlined">groups</span>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-value">156</div>
+                            <div class="stat-label">Students Enrolled</div>
+                            <div class="stat-change positive">
+                                <span class="material-symbols-outlined">trending_up</span>
+                                +12 this semester
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon feedback">
+                            <span class="material-symbols-outlined">rate_review</span>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-value">89</div>
+                            <div class="stat-label">Feedback Given</div>
+                            <div class="stat-change positive">
+                                <span class="material-symbols-outlined">trending_up</span>
+                                +23 this week
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Content Grid -->
+                <div class="content-grid">
+                    <!-- Quick Actions -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                <span class="material-symbols-outlined">bolt</span>
+                                Quick Actions
+                            </h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="quick-actions-grid">
+                                <a href="create-assignment.html" class="quick-action-item">
+                                    <div class="quick-action-icon create">
+                                        <span class="material-symbols-outlined">add_circle</span>
+                                    </div>
+                                    <div class="quick-action-label">Create Assignment</div>
+                                </a>
+                                <a href="rate-assignments.html" class="quick-action-item">
+                                    <div class="quick-action-icon rate">
+                                        <span class="material-symbols-outlined">star_rate</span>
+                                    </div>
+                                    <div class="quick-action-label">Rate Assignments</div>
+                                </a>
+                                <a href="mark-attendance.html" class="quick-action-item">
+                                    <div class="quick-action-icon attendance">
+                                        <span class="material-symbols-outlined">how_to_reg</span>
+                                    </div>
+                                    <div class="quick-action-label">Mark Attendance</div>
+                                </a>
+                                <a href="add-feedback.html" class="quick-action-item">
+                                    <div class="quick-action-icon feedback-icon">
+                                        <span class="material-symbols-outlined">feedback</span>
+                                    </div>
+                                    <div class="quick-action-label">Add Feedback</div>
+                                </a>
+                                <a href="student-submissions.html" class="quick-action-item">
+                                    <div class="quick-action-icon submissions">
+                                        <span class="material-symbols-outlined">assignment_turned_in</span>
+                                    </div>
+                                    <div class="quick-action-label">View Submissions</div>
+                                </a>
+                                <a href="competency-reports.html" class="quick-action-item">
+                                    <div class="quick-action-icon reports">
+                                        <span class="material-symbols-outlined">analytics</span>
+                                    </div>
+                                    <div class="quick-action-label">Competency Reports</div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Submissions -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                <span class="material-symbols-outlined">assignment_turned_in</span>
+                                Recent Submissions
+                            </h3>
+                            <a href="student-submissions.html" class="card-action">View All</a>
+                        </div>
+                        <div class="card-body">
+                            <div class="activity-list">
+                                <div class="activity-item">
+                                    <div class="activity-icon student">
+                                        <span class="material-symbols-outlined">person</span>
+                                    </div>
+                                    <div class="activity-content">
+                                        <div class="activity-title">Critical Thinking Exercise</div>
+                                        <div class="activity-description">Submitted by John Doe - Grade 10</div>
+                                        <div class="activity-time">15 minutes ago</div>
+                                    </div>
+                                </div>
+                                <div class="activity-item">
+                                    <div class="activity-icon student">
+                                        <span class="material-symbols-outlined">person</span>
+                                    </div>
+                                    <div class="activity-content">
+                                        <div class="activity-title">Problem Solving Task</div>
+                                        <div class="activity-description">Submitted by Sarah Smith - Grade 9</div>
+                                        <div class="activity-time">1 hour ago</div>
+                                    </div>
+                                </div>
+                                <div class="activity-item">
+                                    <div class="activity-icon student">
+                                        <span class="material-symbols-outlined">person</span>
+                                    </div>
+                                    <div class="activity-content">
+                                        <div class="activity-title">Logical Reasoning Assignment</div>
+                                        <div class="activity-description">Submitted by Mike Johnson - Grade 11</div>
+                                        <div class="activity-time">2 hours ago</div>
+                                    </div>
+                                </div>
+                                <div class="activity-item">
+                                    <div class="activity-icon student">
+                                        <span class="material-symbols-outlined">person</span>
+                                    </div>
+                                    <div class="activity-content">
+                                        <div class="activity-title">Creative Thinking Project</div>
+                                        <div class="activity-description">Submitted by Emma Wilson - Grade 10</div>
+                                        <div class="activity-time">3 hours ago</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Upcoming Classes -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                <span class="material-symbols-outlined">event</span>
+                                Upcoming Classes
+                            </h3>
+                            <a href="event-management.html" class="card-action">View Schedule</a>
+                        </div>
+                        <div class="card-body">
+                            <div class="event-list">
+                                <div class="event-item">
+                                    <div class="event-date">
+                                        <div class="event-day">01</div>
+                                        <div class="event-month">DEC</div>
+                                    </div>
+                                    <div class="event-details">
+                                        <div class="event-title">Critical Thinking Workshop</div>
+                                        <div class="event-time">10:00 AM - 11:30 AM</div>
+                                    </div>
+                                    <span class="event-badge academic">Grade 10-A</span>
+                                </div>
+                                <div class="event-item">
+                                    <div class="event-date">
+                                        <div class="event-day">01</div>
+                                        <div class="event-month">DEC</div>
+                                    </div>
+                                    <div class="event-details">
+                                        <div class="event-title">Problem Solving Session</div>
+                                        <div class="event-time">2:00 PM - 3:30 PM</div>
+                                    </div>
+                                    <span class="event-badge meeting">Grade 9-B</span>
+                                </div>
+                                <div class="event-item">
+                                    <div class="event-date">
+                                        <div class="event-day">02</div>
+                                        <div class="event-month">DEC</div>
+                                    </div>
+                                    <div class="event-details">
+                                        <div class="event-title">Logical Reasoning Class</div>
+                                        <div class="event-time">9:00 AM - 10:30 AM</div>
+                                    </div>
+                                    <span class="event-badge sports">Grade 11-A</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bottom Grid -->
+                <div class="bottom-grid">
+                    <!-- Student Performance Overview -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                <span class="material-symbols-outlined">analytics</span>
+                                Student Performance Overview
+                            </h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="distribution-list">
+                                <div class="distribution-item">
+                                    <div class="distribution-info">
+                                        <div class="distribution-label">Excellent (90-100%)</div>
+                                        <div class="distribution-value">42 students</div>
+                                    </div>
+                                    <div class="distribution-bar">
+                                        <div class="distribution-fill" style="width: 85%;"></div>
+                                    </div>
+                                </div>
+                                <div class="distribution-item">
+                                    <div class="distribution-info">
+                                        <div class="distribution-label">Good (75-89%)</div>
+                                        <div class="distribution-value">68 students</div>
+                                    </div>
+                                    <div class="distribution-bar">
+                                        <div class="distribution-fill" style="width: 70%;"></div>
+                                    </div>
+                                </div>
+                                <div class="distribution-item">
+                                    <div class="distribution-info">
+                                        <div class="distribution-label">Average (60-74%)</div>
+                                        <div class="distribution-value">32 students</div>
+                                    </div>
+                                    <div class="distribution-bar">
+                                        <div class="distribution-fill" style="width: 50%;"></div>
+                                    </div>
+                                </div>
+                                <div class="distribution-item">
+                                    <div class="distribution-info">
+                                        <div class="distribution-label">Needs Improvement (<60%)</div>
+                                        <div class="distribution-value">14 students</div>
+                                    </div>
+                                    <div class="distribution-bar">
+                                        <div class="distribution-fill" style="width: 30%;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Feedback -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                <span class="material-symbols-outlined">rate_review</span>
+                                Recent Feedback
+                            </h3>
+                            <a href="feedback-history.html" class="card-action">View All</a>
+                        </div>
+                        <div class="card-body">
+                            <div class="activity-list">
+                                <div class="activity-item">
+                                    <div class="activity-icon feedback-given">
+                                        <span class="material-symbols-outlined">comment</span>
+                                    </div>
+                                    <div class="activity-content">
+                                        <div class="activity-title">Excellent critical analysis</div>
+                                        <div class="activity-description">Feedback given to Alex Brown for Critical Thinking Task</div>
+                                        <div class="activity-time">30 minutes ago</div>
+                                    </div>
+                                </div>
+                                <div class="activity-item">
+                                    <div class="activity-icon feedback-given">
+                                        <span class="material-symbols-outlined">comment</span>
+                                    </div>
+                                    <div class="activity-content">
+                                        <div class="activity-title">Good problem-solving approach</div>
+                                        <div class="activity-description">Feedback given to Lisa Davis for Logic Exercise</div>
+                                        <div class="activity-time">2 hours ago</div>
+                                    </div>
+                                </div>
+                                <div class="activity-item">
+                                    <div class="activity-icon feedback-given">
+                                        <span class="material-symbols-outlined">comment</span>
+                                    </div>
+                                    <div class="activity-content">
+                                        <div class="activity-title">Creative thinking needs work</div>
+                                        <div class="activity-description">Feedback given to Tom Anderson for Creative Project</div>
+                                        <div class="activity-time">Yesterday</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Load Sidebar and Header Components
+        document.addEventListener('DOMContentLoaded', function() {
+            Promise.all([
+                fetch('sidebar.html').then(response => response.text()),
+                fetch('header.html').then(response => response.text())
+            ]).then(([sidebarHTML, headerHTML]) => {
+                document.getElementById('sidebar-container').innerHTML = sidebarHTML;
+                document.getElementById('header-container').innerHTML = headerHTML;
+
+                // Wait a bit for sidebar.js to initialize
+                setTimeout(() => {
+                    setActivePage();
+                }, 200);
+            });
+        });
+
+        function setActivePage() {
+            // Set dashboard as active
+            const dashboardLink = document.getElementById('nav-dashboard');
+            if (dashboardLink) {
+                dashboardLink.classList.add('active');
+            }
+        }
+    </script>
+</body>
+
+</html>

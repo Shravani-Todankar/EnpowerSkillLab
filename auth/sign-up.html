@@ -148,7 +148,7 @@
                         <span class="icon top-50 translate-middle-y">
                             <iconify-icon icon="f7:person"></iconify-icon>
                         </span>
-                        <input type="text" class="form-control h-56-px bg-neutral-50 radius-12" placeholder="Username">
+                        <input type="text" name="username" class="form-control h-56-px bg-neutral-50 radius-12" placeholder="Username">
                     </div>
 
                     <div class="mb-16">
@@ -180,7 +180,7 @@
                                             Admin</a></li>
                                     <li><a class="dropdown-item px-16 py-8 role-option"
                                             data-value="Master Teacher">Master
-                                            Teacher ( Program Co-ordinator )</a></li>
+                                            Teacher</a></li>
                                     <li><a class="dropdown-item px-16 py-8 role-option"
                                             data-value="Principal">Principal</a>
                                     </li>
@@ -210,7 +210,7 @@
                         <span class="icon top-50 translate-middle-y">
                             <iconify-icon icon="mage:email"></iconify-icon>
                         </span>
-                        <input type="email" class="form-control h-56-px bg-neutral-50 radius-12" placeholder="Email">
+                        <input type="email" name="email" class="form-control h-56-px bg-neutral-50 radius-12" placeholder="Email">
                     </div>
                     <div class="mb-20">
                         <div class="position-relative ">
@@ -218,7 +218,7 @@
                                 <span class="icon top-50 translate-middle-y">
                                     <iconify-icon icon="solar:lock-password-outline"></iconify-icon>
                                 </span>
-                                <input type="password" class="form-control h-56-px bg-neutral-50 radius-12"
+                                <input type="password" name="password" class="form-control h-56-px bg-neutral-50 radius-12"
                                     id="your-password" placeholder="Password">
                             </div>
                             <span
@@ -307,21 +307,107 @@
     <script src="assets/js/app.js"></script>
 
     <script>
-        // ================== User Type Radio Button Js Start ==========
-        $('input[name="user-type"]').on("change", function () {
-            // hide validation message when user selects an option
-            $("#user-type-error").addClass("d-none");
-        });
-
-        // On form submit - validate user type
-        $("form").on("submit", function (e) {
-            if (!$('input[name="user-type"]:checked').val()) {
+        // ================== Role Dropdown Js Start ==========
+        $(document).ready(function() {
+            // Handle role selection
+            $('.role-option').on('click', function(e) {
                 e.preventDefault();
-                $("#user-type-error").removeClass("d-none");
-                $('input[name="user-type"]').first().focus();
+                const selectedRole = $(this).data('value');
+                const buttonText = $(this).text().trim();
+
+                // Update button text
+                $('#roleDropdownBtn').html(`
+                    <iconify-icon icon="mdi:shield-account" class="select-your-role-icon"></iconify-icon>
+                    ${buttonText}
+                `);
+
+                // Update hidden input
+                $('#role').val(selectedRole);
+
+                // Hide error message if visible
+                $('#role-error').addClass('d-none');
+            });
+        });
+        // ================== Role Dropdown Js End ==========
+
+        // ================== Form Validation Js Start ==========
+        $("form").on("submit", function (e) {
+            e.preventDefault();
+            let isValid = true;
+
+            // Get form values
+            const username = $('input[placeholder="Username"]').val().trim();
+            const role = $('#role').val();
+            const email = $('input[type="email"]').val().trim();
+            const password = $('#your-password').val();
+            const termsAccepted = $('#condition').is(':checked');
+
+            // Clear all previous errors
+            $('.text-danger').addClass('d-none');
+            $('.form-control').removeClass('border-danger');
+
+            // Validate Username
+            if (!username) {
+                isValid = false;
+                $('input[placeholder="Username"]').addClass('border-danger');
+                $('input[placeholder="Username"]').after('<p class="text-danger text-sm mt-1">Username is required.</p>');
+            } else if (username.length < 3) {
+                isValid = false;
+                $('input[placeholder="Username"]').addClass('border-danger');
+                $('input[placeholder="Username"]').after('<p class="text-danger text-sm mt-1">Username must be at least 3 characters.</p>');
+            }
+
+            // Validate Role
+            if (!role) {
+                isValid = false;
+                $('#role-error').removeClass('d-none');
+            }
+
+            // Validate Email
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!email) {
+                isValid = false;
+                $('input[type="email"]').addClass('border-danger');
+                $('input[type="email"]').after('<p class="text-danger text-sm mt-1">Email is required.</p>');
+            } else if (!emailRegex.test(email)) {
+                isValid = false;
+                $('input[type="email"]').addClass('border-danger');
+                $('input[type="email"]').after('<p class="text-danger text-sm mt-1">Please enter a valid email address.</p>');
+            }
+
+            // Validate Password
+            if (!password) {
+                isValid = false;
+                $('#your-password').addClass('border-danger');
+                $('#your-password').parent().after('<p class="text-danger text-sm mt-1">Password is required.</p>');
+            } else if (password.length < 8) {
+                isValid = false;
+                $('#your-password').addClass('border-danger');
+                $('#your-password').parent().after('<p class="text-danger text-sm mt-1">Password must be at least 8 characters.</p>');
+            }
+
+            // Validate Terms & Conditions
+            if (!termsAccepted) {
+                isValid = false;
+                $('#condition').parent().after('<p class="text-danger text-sm mt-1">You must agree to the Terms & Conditions.</p>');
+            }
+
+            // If form is valid, redirect
+            if (isValid) {
+                window.location.href = 'otp-verification.html';
             }
         });
-        // ================== User Type Radio Button Js End ==========
+
+        // Clear error messages on input
+        $('input').on('input', function() {
+            $(this).removeClass('border-danger');
+            $(this).parent().next('.text-danger').remove();
+        });
+
+        $('#condition').on('change', function() {
+            $(this).parent().next('.text-danger').remove();
+        });
+        // ================== Form Validation Js End ==========
 
         // ================== Password Show Hide Js Start ==========
         function initializePasswordToggle(toggleSelector) {

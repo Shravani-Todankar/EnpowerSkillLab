@@ -62,19 +62,33 @@ function initializeSidebar() {
     function setActiveLink() {
         const currentPage = window.location.pathname.split('/').pop();
         const navLinks = {
-            'admin-dashboard.html': 'nav-dashboard',
-            'teacher-list.html': 'nav-teacher-list',
-            'add-teacher.html': 'nav-add-teacher',
-            'upload-teacher-csv.html': 'nav-upload-teacher-csv',
-            'student-list.html': 'nav-student-list',
-            'add-student.html': 'nav-add-student',
-            'upload-student-csv.html': 'nav-upload-student-csv',
-            'class-list.html': 'nav-class-list',
-            'add-class.html': 'nav-add-class',
-            'classes-subjects.html': 'nav-classes-subjects',
-            'assign-subjects.html': 'nav-assign-subjects',
-            'assessment-overview.html': 'nav-assessment-overview',
-            'lms-overview.html': 'nav-lms-overview'
+            'dashboard.html': 'nav-dashboard',
+            'school-list.html': 'nav-school-list',
+            'add-school.html': 'nav-add-school',
+            'school-details.html': 'nav-school-details',
+            'school-admins.html': 'nav-school-admins',
+            'program-coordinators.html': 'nav-program-coordinators',
+            'thinking-coaches.html': 'nav-thinking-coaches',
+            'bulk-upload.html': 'nav-bulk-upload',
+            'learning-pillars.html': 'nav-learning-pillars',
+            'competencies.html': 'nav-competencies',
+            'profiles.html': 'nav-profiles',
+            'weightage-mapping.html': 'nav-weightage-mapping',
+            'academic-year-locking.html': 'nav-academic-year-locking',
+            'lessons-library.html': 'nav-lessons-library',
+            'add-lesson.html': 'nav-add-lesson',
+            'categories-modules.html': 'nav-categories-modules',
+            'assessment-monitoring.html': 'nav-assessment-monitoring',
+            'attendance-monitoring.html': 'nav-attendance-monitoring',
+            'lms-monitoring.html': 'nav-lms-monitoring',
+            'multi-school-comparison.html': 'nav-multi-school-comparison',
+            'platform-analytics.html': 'nav-platform-analytics',
+            'download-reports.html': 'nav-download-reports',
+            'system-settings.html': 'nav-system-settings',
+            'terms-privacy.html': 'nav-terms-privacy',
+            'billing.html': 'nav-billing',
+            'profile.html': 'nav-profile',
+            'change-password.html': 'nav-change-password'
         };
 
         // Remove all active classes

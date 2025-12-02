@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Super Admin Dashboard - Enpower Skill Lab</title>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+        rel="stylesheet" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="dashboard.css">
+    <!-- Sidebar JS -->
+    <script src="sidebar.js"></script>
+    <!-- Header JS -->
+    <script src="header.js"></script>
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- Include Sidebar Component -->
+        <div id="sidebar-container"></div>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Include Header Component -->
+            <div id="header-container"></div>
+
+            <!-- Dashboard Content -->
+            <div class="dashboard-page">
+                <!-- Page Header -->
+                <div class="page-header">
+                    <div class="page-header-content">
+                        <h1 class="page-title">
+                            <span class="material-symbols-outlined page-title-icon">dashboard</span>
+                            Dashboard
+                        </h1>
+                        <p class="page-subtitle">Platform Overview & Analytics</p>
+                    </div>
+                    <!-- <div class="page-header-actions">
+                        <button class="btn-primary">
+                            <span class="material-symbols-outlined">download</span>
+                            Export Report
+                        </button>
+                    </div> -->
+                </div>
+
+                <!-- Platform Overview Stats -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon schools">
+                            <span class="material-symbols-outlined">school</span>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-value">45</div>
+                            <div class="stat-label">Total Schools</div>
+                            <div class="stat-change positive">
+                                <span class="material-symbols-outlined">trending_up</span>
+                                +5 new this month
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon teachers">
+                            <span class="material-symbols-outlined">groups</span>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-value">3,240</div>
+                            <div class="stat-label">Total Teachers</div>
+                            <div class="stat-change positive">
+                                <span class="material-symbols-outlined">trending_up</span>
+                                +8% from last month
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon students">
+                            <span class="material-symbols-outlined">person</span>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-value">52,840</div>
+                            <div class="stat-label">Total Students</div>
+                            <div class="stat-change positive">
+                                <span class="material-symbols-outlined">trending_up</span>
+                                +12% from last month
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon active">
+                            <span class="material-symbols-outlined">check_circle</span>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-value">42</div>
+                            <div class="stat-label">Active Schools</div>
+                            <div class="stat-change neutral">
+                                <span class="material-symbols-outlined">remove</span>
+                                93% active rate
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Main Content Grid -->
+                <div class="content-grid">
+                    <!-- Assessment Completion Heatmap -->
+                    <div class="card heatmap-card">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                <span class="material-symbols-outlined">grid_on</span>
+                                Assessment Completion Heatmap
+                            </h3>
+                            <div class="card-header-actions">
+                                <select class="filter-dropdown">
+                                    <option>Last 7 Days</option>
+                                    <option>Last 30 Days</option>
+                                    <option>Last 90 Days</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="heatmap-container">
+                                <!-- Days of the week labels -->
+                                <div class="heatmap-labels">
+                                    <span>Mon</span>
+                                    <span>Tue</span>
+                                    <span>Wed</span>
+                                    <span>Thu</span>
+                                    <span>Fri</span>
+                                    <span>Sat</span>
+                                    <span>Sun</span>
+                                </div>
+
+                                <!-- Week 1 -->
+                                <div class="heatmap-row">
+                                    <div class="heatmap-cell" data-value="85" style="--intensity: 0.85;" title="85% completion">
+                                        <span class="cell-value">85%</span>
+                                    </div>
+                                    <div class="heatmap-cell" data-value="78" style="--intensity: 0.78;" title="78% completion">
+                                        <span class="cell-value">78%</span>
+                                    </div>
+                                    <div class="heatmap-cell" data-value="92" style="--intensity: 0.92;" title="92% completion">
+                                        <span class="cell-value">92%</span>
+                                    </div>
+                                    <div class="heatmap-cell" data-value="88" style="--intensity: 0.88;" title="88% completion">
+                                        <span class="cell-value">88%</span>
+                                    </div>
+                                    <div class="heatmap-cell" data-value="95" style="--intensity: 0.95;" title="95% completion">
+                                        <span class="cell-value">95%</span>
+                                    </div>
+                                    <div class="heatmap-cell" data-value="45" style="--intensity: 0.45;" title="45% completion">
+                                        <span class="cell-value">45%</span>
+                                    </div>
+                                    <div class="heatmap-cell" data-value="32" style="--intensity: 0.32;" title="32% completion">
+                                        <span class="cell-value">32%</span>
+                                    </div>
+                                </div>
+
+                                <!-- Week 2 -->
+                                <div class="heatmap-row">
+                                    <div class="heatmap-cell" data-value="82" style="--intensity: 0.82;" title="82% completion">
+                                        <span class="cell-value">82%</span>
+                                    </div>
+                                    <div class="heatmap-cell" data-value="89" style="--intensity: 0.89;" title="89% completion">
+                                        <span class="cell-value">89%</span>
+                                    </div>
+                                    <div class="heatmap-cell" data-value="91" style="--intensity: 0.91;" title="91% completion">
+                                        <span class="cell-value">91%</span>
+                                    </div>
+                                    <div class="heatmap-cell" data-value="87" style="--intensity: 0.87;" title="87% completion">
+                                        <span class="cell-value">87%</span>
+                                    </div>
+                                    <div class="heatmap-cell" data-value="93" style="--intensity: 0.93;" title="93% completion">
+                                        <span class="cell-value">93%</span>
+                                    </div>
+                                    <div class="heatmap-cell" data-value="48" style="--intensity: 0.48;" title="48% completion">
+                                        <span class="cell-value">48%</span>
+                                    </div>
+                                    <div class="heatmap-cell" data-value="38" style="--intensity: 0.38;" title="38% completion">
+                                        <span class="cell-value">38%</span>
+                                    </div>
+                                </div>
+
+                                <!-- Week 3 -->
+                                <div class="heatmap-row">
+                                    <div class="heatmap-cell" data-value="86" style="--intensity: 0.86;" title="86% completion">
+                                        <span class="cell-value">86%</span>
+                                    </div>
+                                    <div class="heatmap-cell" data-value="84" style="--intensity: 0.84;" title="84% completion">
+                                        <span class="cell-value">84%</span>
+                                    </div>
+                                    <div class="heatmap-cell" data-value="90" style="--intensity: 0.90;" title="90% completion">
+                                        <span class="cell-value">90%</span>
+                                    </div>
+                                    <div class="heatmap-cell" data-value="88" style="--intensity: 0.88;" title="88% completion">
+                                        <span class="cell-value">88%</span>
+                                    </div>
+                                    <div class="heatmap-cell" data-value="94" style="--intensity: 0.94;" title="94% completion">
+                                        <span class="cell-value">94%</span>
+                                    </div>
+                                    <div class="heatmap-cell" data-value="52" style="--intensity: 0.52;" title="52% completion">
+                                        <span class="cell-value">52%</span>
+                                    </div>
+                                    <div class="heatmap-cell" data-value="41" style="--intensity: 0.41;" title="41% completion">
+                                        <span class="cell-value">41%</span>
+                                    </div>
+                                </div>
+
+                                <!-- Week 4 -->
+                                <div class="heatmap-row">
+                                    <div class="heatmap-cell" data-value="83" style="--intensity: 0.83;" title="83% completion">
+                                        <span class="cell-value">83%</span>
+                                    </div>
+                                    <div class="heatmap-cell" data-value="87" style="--intensity: 0.87;" title="87% completion">
+                                        <span class="cell-value">87%</span>
+                                    </div>
+                                    <div class="heatmap-cell" data-value="89" style="--intensity: 0.89;" title="89% completion">
+                                        <span class="cell-value">89%</span>
+                                    </div>
+                                    <div class="heatmap-cell" data-value="91" style="--intensity: 0.91;" title="91% completion">
+                                        <span class="cell-value">91%</span>
+                                    </div>
+                                    <div class="heatmap-cell" data-value="0" style="--intensity: 0;" title="No data">
+                                        <span class="cell-value">-</span>
+                                    </div>
+                                    <div class="heatmap-cell" data-value="0" style="--intensity: 0;" title="No data">
+                                        <span class="cell-value">-</span>
+                                    </div>
+                                    <div class="heatmap-cell" data-value="0" style="--intensity: 0;" title="No data">
+                                        <span class="cell-value">-</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Heatmap Legend -->
+                            <div class="heatmap-legend">
+                                <span class="legend-label">Completion Rate:</span>
+                                <div class="legend-gradient">
+                                    <span>0%</span>
+                                    <div class="legend-bar"></div>
+                                    <span>100%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- LMS Usage Summary -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                <span class="material-symbols-outlined">library_books</span>
+                                LMS Usage Summary
+                            </h3>
+                            <a href="lms-monitoring.html" class="card-action">View Details</a>
+                        </div>
+                        <div class="card-body">
+                            <div class="lms-stats-grid">
+                                <div class="lms-stat-item">
+                                    <div class="lms-stat-icon lessons">
+                                        <span class="material-symbols-outlined">auto_stories</span>
+                                    </div>
+                                    <div class="lms-stat-content">
+                                        <div class="lms-stat-value">1,248</div>
+                                        <div class="lms-stat-label">Total Lessons</div>
+                                    </div>
+                                </div>
+
+                                <div class="lms-stat-item">
+                                    <div class="lms-stat-icon active-users">
+                                        <span class="material-symbols-outlined">person_check</span>
+                                    </div>
+                                    <div class="lms-stat-content">
+                                        <div class="lms-stat-value">48,320</div>
+                                        <div class="lms-stat-label">Active Users</div>
+                                    </div>
+                                </div>
+
+                                <div class="lms-stat-item">
+                                    <div class="lms-stat-icon completion">
+                                        <span class="material-symbols-outlined">task_alt</span>
+                                    </div>
+                                    <div class="lms-stat-content">
+                                        <div class="lms-stat-value">87%</div>
+                                        <div class="lms-stat-label">Avg. Completion</div>
+                                    </div>
+                                </div>
+
+                                <div class="lms-stat-item">
+                                    <div class="lms-stat-icon time">
+                                        <span class="material-symbols-outlined">schedule</span>
+                                    </div>
+                                    <div class="lms-stat-content">
+                                        <div class="lms-stat-value">3.2hrs</div>
+                                        <div class="lms-stat-label">Avg. Time/Day</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Usage Breakdown -->
+                            <div class="usage-breakdown">
+                                <h4 class="breakdown-title">Weekly Engagement</h4>
+                                <div class="breakdown-list">
+                                    <div class="breakdown-item">
+                                        <div class="breakdown-info">
+                                            <span class="breakdown-label">Video Lessons</span>
+                                            <span class="breakdown-value">12,480 views</span>
+                                        </div>
+                                        <div class="breakdown-bar">
+                                            <div class="breakdown-fill" style="width: 85%;" data-color="primary"></div>
+                                        </div>
+                                        <span class="breakdown-percentage">85%</span>
+                                    </div>
+
+                                    <div class="breakdown-item">
+                                        <div class="breakdown-info">
+                                            <span class="breakdown-label">Interactive Modules</span>
+                                            <span class="breakdown-value">8,340 completions</span>
+                                        </div>
+                                        <div class="breakdown-bar">
+                                            <div class="breakdown-fill" style="width: 72%;" data-color="success"></div>
+                                        </div>
+                                        <span class="breakdown-percentage">72%</span>
+                                    </div>
+
+                                    <div class="breakdown-item">
+                                        <div class="breakdown-info">
+                                            <span class="breakdown-label">Assignments</span>
+                                            <span class="breakdown-value">6,125 submissions</span>
+                                        </div>
+                                        <div class="breakdown-bar">
+                                            <div class="breakdown-fill" style="width: 68%;" data-color="warning"></div>
+                                        </div>
+                                        <span class="breakdown-percentage">68%</span>
+                                    </div>
+
+                                    <div class="breakdown-item">
+                                        <div class="breakdown-info">
+                                            <span class="breakdown-label">Quizzes</span>
+                                            <span class="breakdown-value">9,840 attempts</span>
+                                        </div>
+                                        <div class="breakdown-bar">
+                                            <div class="breakdown-fill" style="width: 78%;" data-color="info"></div>
+                                        </div>
+                                        <span class="breakdown-percentage">78%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bottom Grid -->
+                <div class="bottom-grid">
+                    <!-- School Performance -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                <span class="material-symbols-outlined">leaderboard</span>
+                                Top Performing Schools
+                            </h3>
+                            <a href="multi-school-comparison.html" class="card-action">View All</a>
+                        </div>
+                        <div class="card-body">
+                            <div class="school-list">
+                                <div class="school-item">
+                                    <div class="school-rank rank-1">1</div>
+                                    <div class="school-info">
+                                        <div class="school-name">Delhi Public School</div>
+                                        <div class="school-stats">
+                                            <span>2,340 students</span> • <span>98% completion</span>
+                                        </div>
+                                    </div>
+                                    <div class="school-score">98%</div>
+                                </div>
+
+                                <div class="school-item">
+                                    <div class="school-rank rank-2">2</div>
+                                    <div class="school-info">
+                                        <div class="school-name">Ryan International School</div>
+                                        <div class="school-stats">
+                                            <span>1,890 students</span> • <span>96% completion</span>
+                                        </div>
+                                    </div>
+                                    <div class="school-score">96%</div>
+                                </div>
+
+                                <div class="school-item">
+                                    <div class="school-rank rank-3">3</div>
+                                    <div class="school-info">
+                                        <div class="school-name">Modern School</div>
+                                        <div class="school-stats">
+                                            <span>1,650 students</span> • <span>95% completion</span>
+                                        </div>
+                                    </div>
+                                    <div class="school-score">95%</div>
+                                </div>
+
+                                <div class="school-item">
+                                    <div class="school-rank">4</div>
+                                    <div class="school-info">
+                                        <div class="school-name">St. Mary's School</div>
+                                        <div class="school-stats">
+                                            <span>1,420 students</span> • <span>93% completion</span>
+                                        </div>
+                                    </div>
+                                    <div class="school-score">93%</div>
+                                </div>
+
+                                <div class="school-item">
+                                    <div class="school-rank">5</div>
+                                    <div class="school-info">
+                                        <div class="school-name">Cambridge School</div>
+                                        <div class="school-stats">
+                                            <span>1,280 students</span> • <span>91% completion</span>
+                                        </div>
+                                    </div>
+                                    <div class="school-score">91%</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Actions -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                <span class="material-symbols-outlined">bolt</span>
+                                Quick Actions
+                            </h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="quick-actions-grid">
+                                <a href="add-school.html" class="quick-action-item">
+                                    <div class="quick-action-icon schools">
+                                        <span class="material-symbols-outlined">add_business</span>
+                                    </div>
+                                    <div class="quick-action-label">Add School</div>
+                                </a>
+
+                                <a href="school-admins.html" class="quick-action-item">
+                                    <div class="quick-action-icon admins">
+                                        <span class="material-symbols-outlined">admin_panel_settings</span>
+                                    </div>
+                                    <div class="quick-action-label">Manage Admins</div>
+                                </a>
+
+                                <a href="add-lesson.html" class="quick-action-item">
+                                    <div class="quick-action-icon lessons">
+                                        <span class="material-symbols-outlined">note_add</span>
+                                    </div>
+                                    <div class="quick-action-label">Add Lesson</div>
+                                </a>
+
+                                <a href="platform-analytics.html" class="quick-action-item">
+                                    <div class="quick-action-icon analytics">
+                                        <span class="material-symbols-outlined">analytics</span>
+                                    </div>
+                                    <div class="quick-action-label">View Analytics</div>
+                                </a>
+
+                                <a href="system-settings.html" class="quick-action-item">
+                                    <div class="quick-action-icon settings">
+                                        <span class="material-symbols-outlined">settings</span>
+                                    </div>
+                                    <div class="quick-action-label">Settings</div>
+                                </a>
+
+                                <a href="download-reports.html" class="quick-action-item">
+                                    <div class="quick-action-icon reports">
+                                        <span class="material-symbols-outlined">file_download</span>
+                                    </div>
+                                    <div class="quick-action-label">Download Reports</div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Activities -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                <span class="material-symbols-outlined">history</span>
+                                Recent Platform Activities
+                            </h3>
+                            <a href="#" class="card-action">View All</a>
+                        </div>
+                        <div class="card-body">
+                            <div class="activity-list">
+                                <div class="activity-item">
+                                    <div class="activity-icon school">
+                                        <span class="material-symbols-outlined">school</span>
+                                    </div>
+                                    <div class="activity-content">
+                                        <div class="activity-title">New school registered</div>
+                                        <div class="activity-description">Green Valley International School onboarded</div>
+                                        <div class="activity-time">2 hours ago</div>
+                                    </div>
+                                </div>
+
+                                <div class="activity-item">
+                                    <div class="activity-icon admin">
+                                        <span class="material-symbols-outlined">admin_panel_settings</span>
+                                    </div>
+                                    <div class="activity-content">
+                                        <div class="activity-title">School admin assigned</div>
+                                        <div class="activity-description">John Smith assigned to manage Delhi Public School</div>
+                                        <div class="activity-time">5 hours ago</div>
+                                    </div>
+                                </div>
+
+                                <div class="activity-item">
+                                    <div class="activity-icon lesson">
+                                        <span class="material-symbols-outlined">library_add</span>
+                                    </div>
+                                    <div class="activity-content">
+                                        <div class="activity-title">New lesson published</div>
+                                        <div class="activity-description">Advanced Mathematics module added to LMS</div>
+                                        <div class="activity-time">1 day ago</div>
+                                    </div>
+                                </div>
+
+                                <div class="activity-item">
+                                    <div class="activity-icon assessment">
+                                        <span class="material-symbols-outlined">assignment_turned_in</span>
+                                    </div>
+                                    <div class="activity-content">
+                                        <div class="activity-title">Assessment completed</div>
+                                        <div class="activity-description">Mid-term assessments for 15 schools completed</div>
+                                        <div class="activity-time">2 days ago</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Load Sidebar and Header Components
+        document.addEventListener('DOMContentLoaded', function() {
+            Promise.all([
+                fetch('sidebar.html').then(response => response.text()),
+                fetch('header.html').then(response => response.text())
+            ]).then(([sidebarHTML, headerHTML]) => {
+                document.getElementById('sidebar-container').innerHTML = sidebarHTML;
+                document.getElementById('header-container').innerHTML = headerHTML;
+
+                // Wait a bit for sidebar.js to initialize, then set active state
+                setTimeout(() => {
+                    setActiveMenuItem();
+                }, 200);
+            });
+        });
+
+        function setActiveMenuItem() {
+            const currentPage = window.location.pathname.split('/').pop();
+            const navDashboard = document.getElementById('nav-dashboard');
+            if (navDashboard && currentPage === 'dashboard.html') {
+                navDashboard.classList.add('active');
+            }
+        }
+    </script>
+</body>
+
+</html>

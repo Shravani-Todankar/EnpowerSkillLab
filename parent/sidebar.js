@@ -39,9 +39,11 @@ function initializeSidebar() {
     closeSidebar.addEventListener('click', closeSidebarFunc);
     sidebarOverlay.addEventListener('click', closeSidebarFunc);
 
-    const sidebarLinks = sidebar.querySelectorAll('a');
+    // Only close sidebar when clicking on actual navigation links (not dropdown toggles)
+    const sidebarLinks = sidebar.querySelectorAll('.sidebar-dropdown-menu a, .sidebar-nav > a:not(.sidebar-dropdown-toggle)');
     sidebarLinks.forEach(link => {
-        link.addEventListener('click', () => {
+        link.addEventListener('click', (e) => {
+            // Only close sidebar on mobile when clicking actual page links
             if (window.innerWidth < 1024) {
                 closeSidebarFunc();
             }
@@ -60,16 +62,20 @@ function initializeSidebar() {
     function setActiveLink() {
         const currentPage = window.location.pathname.split('/').pop();
         const navLinks = {
-            'student-dashboard.html': 'nav-dashboard',
-            'attendance.html': 'nav-attendance',
-            'lms.html': 'nav-lms',
-            'leaderboard.html': 'nav-leaderboard',
-            'assessment.html': 'nav-assessment',
-            'reports.html': 'nav-reports',
-            'badges.html': 'nav-badges',
-            'event-calendar.html': 'nav-event-calendar',
-            'newsletter.html': 'nav-newsletter',
-            'announcements.html': 'nav-announcements'
+            'dashboard.html': 'nav-dashboard',
+            'switch-child.html': 'nav-switch-child',
+            'child-performance-summary.html': 'nav-child-performance',
+            'daily-monthly-attendance.html': 'nav-attendance',
+            'skill-passport.html': 'nav-skill-passport',
+            'assessment-summary.html': 'nav-assessment-summary',
+            'lesson-progress.html': 'nav-lesson-progress',
+            'suggested-lessons.html': 'nav-suggested-lessons',
+            'download-report.html': 'nav-download-report',
+            'notices.html': 'nav-notices',
+            'events.html': 'nav-events',
+            'announcements.html': 'nav-announcements',
+            'profile.html': 'nav-profile',
+            'change-password.html': 'nav-change-password'
         };
 
         // Remove all active classes
@@ -86,4 +92,45 @@ function initializeSidebar() {
 
     // Initialize active link
     setActiveLink();
+
+    // Initialize dropdown functionality
+    initializeDropdowns();
+}
+
+function initializeDropdowns() {
+    const dropdownToggles = document.querySelectorAll('.sidebar-dropdown-toggle');
+
+    dropdownToggles.forEach(toggle => {
+        toggle.addEventListener('click', function(e) {
+            e.preventDefault();
+
+            const dropdown = this.closest('.sidebar-dropdown');
+            const isActive = dropdown.classList.contains('active');
+
+            // Close all other dropdowns
+            document.querySelectorAll('.sidebar-dropdown').forEach(d => {
+                if (d !== dropdown) {
+                    d.classList.remove('active');
+                }
+            });
+
+            // Toggle current dropdown
+            if (isActive) {
+                dropdown.classList.remove('active');
+            } else {
+                dropdown.classList.add('active');
+            }
+        });
+    });
+
+    // Keep dropdown open if a child link is active
+    const activeDropdownLinks = document.querySelectorAll('.sidebar-dropdown-menu a');
+    activeDropdownLinks.forEach(link => {
+        if (link.classList.contains('active')) {
+            const dropdown = link.closest('.sidebar-dropdown');
+            if (dropdown) {
+                dropdown.classList.add('active');
+            }
+        }
+    });
 }

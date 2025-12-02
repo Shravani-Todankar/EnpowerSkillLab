@@ -1,0 +1,206 @@
+<!-- Sidebar Component -->
+<link rel="stylesheet" href="sidebar.css">
+
+<!-- Mobile sidebar overlay -->
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<!-- Sidebar -->
+<aside id="sidebar" class="sidebar">
+    <div class="sidebar-header">
+        <img src="../assets/images/enpower-logo.svg" alt="Enpower Logo" class="sidebar-logo" />
+        <button id="closeSidebar" class="sidebar-close">
+            <span class="material-symbols-outlined">close</span>
+        </button>
+    </div>
+    <nav class="sidebar-nav">
+        <!-- Dashboard Section -->
+        <a href="admin-dashboard.html" id="nav-dashboard" class="sidebar-nav-link">
+            <span class="material-symbols-outlined">dashboard</span>
+            Dashboard
+        </a>
+
+        <!-- Users Section -->
+        <div class="sidebar-dropdown">
+            <a href="#" class="sidebar-dropdown-toggle" id="users-dropdown">
+                <span class="material-symbols-outlined">group</span>
+                Users
+                <span class="material-symbols-outlined dropdown-icon">expand_more</span>
+            </a>
+            <div class="sidebar-dropdown-menu">
+                <a href="teacher-list.html" id="nav-teacher-list">
+                    <span class="material-symbols-outlined">psychology</span>
+                    Teachers (Thinking Coaches)
+                </a>
+                <a href="add-teacher.html" id="nav-add-teacher">
+                    <span class="material-symbols-outlined">person_add</span>
+                    Add Teacher
+                </a>
+                <a href="student-list.html" id="nav-student-list">
+                    <span class="material-symbols-outlined">school</span>
+                    Students
+                </a>
+                <a href="add-student.html" id="nav-add-student">
+                    <span class="material-symbols-outlined">person_add</span>
+                    Add Student
+                </a>
+                <a href="parent-list.html" id="nav-parent-list">
+                    <span class="material-symbols-outlined">family_restroom</span>
+                    Parents
+                </a>
+                <a href="add-parent.html" id="nav-add-parent">
+                    <span class="material-symbols-outlined">person_add</span>
+                    Add Parent
+                </a>
+                <a href="bulk-upload-students.html" id="nav-bulk-upload">
+                    <span class="material-symbols-outlined">upload_file</span>
+                    Bulk Upload (Students)
+                </a>
+            </div>
+        </div>
+
+        <!-- Classes Section -->
+        <div class="sidebar-dropdown">
+            <a href="#" class="sidebar-dropdown-toggle" id="classes-dropdown">
+                <span class="material-symbols-outlined">class</span>
+                Classes
+                <span class="material-symbols-outlined dropdown-icon">expand_more</span>
+            </a>
+            <div class="sidebar-dropdown-menu">
+                <a href="class-list.html" id="nav-class-list">
+                    <span class="material-symbols-outlined">list</span>
+                    Class List
+                </a>
+                <a href="add-class.html" id="nav-add-class">
+                    <span class="material-symbols-outlined">add_circle</span>
+                    Add Class
+                </a>
+                <a href="assign-teacher.html" id="nav-assign-teacher">
+                    <span class="material-symbols-outlined">assignment_ind</span>
+                    Assign Teacher
+                </a>
+            </div>
+        </div>
+
+        <!-- Assessments Section -->
+        <div class="sidebar-dropdown">
+            <a href="#" class="sidebar-dropdown-toggle" id="assessments-dropdown">
+                <span class="material-symbols-outlined">quiz</span>
+                Assessments
+                <span class="material-symbols-outlined dropdown-icon">expand_more</span>
+            </a>
+            <div class="sidebar-dropdown-menu">
+                <a href="assessment-overview.html" id="nav-assessment-overview">
+                    <span class="material-symbols-outlined">analytics</span>
+                    Assessment Overview
+                </a>
+                <a href="assessment-scheduling.html" id="nav-assessment-scheduling">
+                    <span class="material-symbols-outlined">event</span>
+                    Assessment Scheduling
+                </a>
+                <a href="review-teacher-inputs.html" id="nav-review-teacher-inputs">
+                    <span class="material-symbols-outlined">rate_review</span>
+                    Review Teacher Inputs
+                </a>
+            </div>
+        </div>
+
+        <!-- Attendance Section -->
+        <div class="sidebar-dropdown">
+            <a href="#" class="sidebar-dropdown-toggle" id="attendance-dropdown">
+                <span class="material-symbols-outlined">how_to_reg</span>
+                Attendance
+                <span class="material-symbols-outlined dropdown-icon">expand_more</span>
+            </a>
+            <div class="sidebar-dropdown-menu">
+                <a href="attendance-summary.html" id="nav-attendance-summary">
+                    <span class="material-symbols-outlined">summarize</span>
+                    Attendance Summary
+                </a>
+                <a href="class-attendance-logs.html" id="nav-class-attendance-logs">
+                    <span class="material-symbols-outlined">fact_check</span>
+                    Class-wise Attendance Logs
+                </a>
+            </div>
+        </div>
+
+        <!-- LMS Section -->
+        <div class="sidebar-dropdown">
+            <a href="#" class="sidebar-dropdown-toggle" id="lms-dropdown">
+                <span class="material-symbols-outlined">library_books</span>
+                LMS
+                <span class="material-symbols-outlined dropdown-icon">expand_more</span>
+            </a>
+            <div class="sidebar-dropdown-menu">
+                <a href="lessons-overview.html" id="nav-lessons-overview">
+                    <span class="material-symbols-outlined">auto_stories</span>
+                    Lessons Overview
+                </a>
+                <a href="student-lesson-progress.html" id="nav-student-lesson-progress">
+                    <span class="material-symbols-outlined">trending_up</span>
+                    Student Lesson Progress
+                </a>
+            </div>
+        </div>
+
+        <!-- Reports Section -->
+        <div class="sidebar-dropdown">
+            <a href="#" class="sidebar-dropdown-toggle" id="reports-dropdown">
+                <span class="material-symbols-outlined">assessment</span>
+                Reports
+                <span class="material-symbols-outlined dropdown-icon">expand_more</span>
+            </a>
+            <div class="sidebar-dropdown-menu">
+                <a href="school-analytics.html" id="nav-school-analytics">
+                    <span class="material-symbols-outlined">insights</span>
+                    School Analytics
+                </a>
+                <a href="download-student-reports.html" id="nav-download-student-reports">
+                    <span class="material-symbols-outlined">file_download</span>
+                    Download Student Reports
+                </a>
+            </div>
+        </div>
+
+        <!-- Events Section -->
+        <div class="sidebar-dropdown">
+            <a href="#" class="sidebar-dropdown-toggle" id="events-dropdown">
+                <span class="material-symbols-outlined">event</span>
+                Events
+                <span class="material-symbols-outlined dropdown-icon">expand_more</span>
+            </a>
+            <div class="sidebar-dropdown-menu">
+                <a href="create-school-events.html" id="nav-create-events">
+                    <span class="material-symbols-outlined">add_circle</span>
+                    Create School Events
+                </a>
+                <a href="event-list.html" id="nav-event-list">
+                    <span class="material-symbols-outlined">list</span>
+                    Event List
+                </a>
+            </div>
+        </div>
+
+        <!-- My Account Section -->
+        <div class="sidebar-dropdown">
+            <a href="#" class="sidebar-dropdown-toggle" id="account-dropdown">
+                <span class="material-symbols-outlined">account_circle</span>
+                My Account
+                <span class="material-symbols-outlined dropdown-icon">expand_more</span>
+            </a>
+            <div class="sidebar-dropdown-menu">
+                <a href="my-profile.html" id="nav-my-profile">
+                    <span class="material-symbols-outlined">person</span>
+                    Profile
+                </a>
+                <a href="change-password.html" id="nav-change-password">
+                    <span class="material-symbols-outlined">lock</span>
+                    Change Password
+                </a>
+                <a href="../auth/sign-in.html" id="nav-logout">
+                    <span class="material-symbols-outlined">logout</span>
+                    Logout
+                </a>
+            </div>
+        </div>
+    </nav>
+</aside>
