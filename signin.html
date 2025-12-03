@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ENpower - Sign In</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+    <!-- google -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+
+    <!-- Iconify -->
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+
+    <!-- Custom Style -->
+    <style>
+        body {
+            font-family: "Poppins", sans-serif;
+            background: #f8f9ff;
+        }
+
+        .left-section {
+            background: url('/assets/images/form image.png') no-repeat center;
+            background-size: cover;
+            min-height: 100vh;
+            width: 50%;
+        }
+
+        .right-section {
+            width: 50%;
+        }
+
+        .form-container {
+            max-width: 420px;
+            margin: auto;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-wrapper iconify-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            font-size: 20px;
+            transform: translateY(-50%);
+            color: #7b7b7b;
+        }
+
+        .main-head {
+            font-weight: 500 !important;
+        }
+
+        .form-control {
+            height: 52px;
+            border-radius: 12px;
+            padding-left: 45px;
+            background: #f2f2f7;
+            border: 1px solid #e0e0e0;
+        }
+
+        .form-control.error {
+            border-color: red !important;
+        }
+
+        .error-text {
+            color: red;
+            font-size: 13px;
+            margin-top: 5px;
+        }
+
+        .toggle-eye {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 20px;
+            cursor: pointer;
+            color: #7b7b7b;
+        }
+
+        .btn-primary {
+            height: 52px;
+            border-radius: 12px;
+            background: #6b30ee;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background: #5b25db;
+        }
+
+        .social-btn {
+            border: 1px solid #dedede;
+            border-radius: 12px;
+            padding: 12px 16px;
+            width: 48%;
+            background: white;
+        }
+
+        .divider {
+            text-align: center;
+            margin: 25px 0;
+            position: relative;
+        }
+
+        .divider:before,
+        .divider:after {
+            content: "";
+            width: 35%;
+            height: 1px;
+            background: #d9d9d9;
+            position: absolute;
+            top: 50%;
+        }
+
+        .divider:before {
+            left: 0;
+        }
+
+        .divider:after {
+            right: 0;
+        }
+
+        .d-flex.justify-content-between.mb-3.fp-con {
+            margin-top: 2rem;
+        }
+
+        a.text-primary.fw-semibold.fg-text,
+        a.text-primary.fw-semibold.su-text {
+            text-decoration: none;
+            color: rgb(198, 128, 236) !important;
+            font-weight: 500 !important;
+        }
+
+        .su-text-p {
+            margin-top: 3rem !important;
+        }
+
+        #googleBtn div {
+            border-radius: 12px !important;
+            height: 52px !important;
+        }
+
+        .nsm7Bb-HzV7m-LgbsSe-Bz112c {
+            display: flex;
+        }
+
+        .login-button {
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* ============================
+   RESPONSIVE DESIGN
+===============================*/
+
+        /* Medium Devices - Tablets */
+        @media (max-width: 991px) {
+
+            .left-section {
+                display: none !important;
+            }
+
+            .right-section {
+                width: 100% !important;
+                padding: 40px 20px !important;
+                margin-top: 30px;
+            }
+
+            .form-container {
+                max-width: 100% !important;
+                width: 100%;
+            }
+
+            .social-btn {
+                width: 100% !important;
+            }
+
+            #googleBtn {
+                width: 100% !important;
+            }
+
+            .login-button {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .si-text {
+                margin-top: 10px;
+            }
+        }
+
+        /* Small Devices - Mobiles */
+        @media (max-width: 576px) {
+
+            body {
+                padding: 0 !important;
+            }
+
+            .right-section {
+                padding: 30px 15px !important;
+                margin-top: 40px;
+            }
+
+            .form-control {
+                height: 48px !important;
+                padding-left: 42px !important;
+            }
+
+            .toggle-eye {
+                right: 12px !important;
+            }
+
+            .divider:before,
+            .divider:after {
+                width: 28% !important;
+            }
+
+            .social-btn {
+                padding: 10px 12px !important;
+            }
+
+            .main-head {
+                font-size: 22px !important;
+            }
+
+            p.text-muted {
+                font-size: 14px !important;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container-fluid">
+        <div class="row">
+
+            <!-- LEFT ILLUSTRATION -->
+            <div class="col-lg-7 d-none d-lg-block left-section"></div>
+
+            <!-- RIGHT FORM -->
+            <div class="col-lg-5 d-flex align-items-center p-5 right-section">
+                <div class="form-container w-100">
+
+                    <!-- Logo -->
+                    <img src="assets/images/enpower-logo.svg" width="160" class="mb-4">
+
+                    <h3 class="fw-bold mb-2 main-head">Sign In to your Account</h3>
+                    <p class="text-muted mb-4">Welcome back! Please enter your detail</p>
+
+                    <!-- Form -->
+                    <form id="signinForm" novalidate>
+
+                        <!-- ROLE SELECT -->
+                        <div class="mb-3 input-wrapper position-relative">
+                            <iconify-icon icon="mdi:account-circle-outline"></iconify-icon>
+
+                            <select class="form-control" id="role" style="appearance: none; padding-right: 40px;">
+                                <option value="" disabled hidden selected>Select Your Role</option>
+                                <option>Student</option>
+                                <option>Parent</option>
+                                <option>Thinking Coach</option>
+                                <option>School Admin</option>
+                                <option>Program Co-ordinator</option>
+                                <option>Super Admin</option>
+                            </select>
+
+                            <!-- Arrow Icon -->
+                            <span class="bi bi-chevron-down"
+                                style="position:absolute; right:15px; top:50%; transform:translateY(-50%); pointer-events:none; color:#7b7b7b; font-size:16px;">
+                            </span>
+                            <div class="error-text" id="roleError"></div>
+                        </div>
+
+                        <!-- EMAIL -->
+                        <div class="mb-3 input-wrapper">
+                            <iconify-icon icon="mdi:email-outline"></iconify-icon>
+                            <input type="email" class="form-control" id="email" placeholder="Email">
+                            <div class="error-text" id="emailError"></div>
+                        </div>
+
+                        <!-- PASSWORD -->
+                        <div class="mb-3 input-wrapper position-relative">
+                            <iconify-icon icon="mdi:lock-outline"></iconify-icon>
+                            <input type="password" class="form-control" id="password" placeholder="Password">
+
+                            <i class="bi bi-eye toggle-eye" id="togglePassword"></i>
+
+                            <div class="error-text" id="passwordError"></div>
+                        </div>
+
+                        <!-- Remember + Forgot -->
+                        <div class="d-flex justify-content-between mb-3 fp-con">
+                            <div>
+                                <input type="checkbox" id="remember">
+                                <label for="remember" class="ms-1">Remember me</label>
+                            </div>
+                            <a href="#" class="text-primary fw-semibold fg-text">Forgot Password?</a>
+                        </div>
+
+                        <!-- Sign In button -->
+                        <button type="submit" class="btn btn-primary w-100 si-text">Sign In</button>
+
+                        <!-- Divider -->
+                        <div class="divider">Or sign in with</div>
+
+                        <!-- Social Login -->
+                        <div class="d-flex gap-2 login-button">
+                            <button type="button" class="social-btn d-flex align-items-center justify-content-center">
+                                <img width="20" src="https://cdn-icons-png.flaticon.com/512/733/733547.png">
+                                <span class="ms-2">Facebook</span>
+                            </button>
+
+                            <!-- <button type="button" class="social-btn d-flex align-items-center justify-content-center">
+                                <img width="20" src="https://cdn-icons-png.flaticon.com/512/300/300221.png">
+                                <span class="ms-2">Google</span>
+                            </button> -->
+                            <!-- GOOGLE SIGN-IN BUTTON (AUTO-RENDERED) -->
+                            <div id="googleBtn" style="width: 50%;"></div>
+
+                        </div>
+
+                        <!-- Bottom link -->
+                        <p class="text-center mt-4 su-text-p">
+                            Don’t have an account?
+                            <a href="#" class="text-primary fw-semibold su-text">Sign Up</a>
+                        </p>
+
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- VALIDATION SCRIPT -->
+    <script>
+        const form = document.getElementById("signinForm");
+
+        form.addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            let valid = true;
+
+            // Fields
+            const role = document.getElementById("role");
+            const email = document.getElementById("email");
+            const password = document.getElementById("password");
+
+            // Errors
+            const roleError = document.getElementById("roleError");
+            const emailError = document.getElementById("emailError");
+            const passwordError = document.getElementById("passwordError");
+
+            // Reset errors
+            roleError.textContent = "";
+            emailError.textContent = "";
+            passwordError.textContent = "";
+
+            role.classList.remove("error");
+            email.classList.remove("error");
+            password.classList.remove("error");
+
+            // Validation
+            if (role.value === "") {
+                roleError.textContent = "Please select your role";
+                role.classList.add("error");
+                valid = false;
+            }
+
+            if (email.value.trim() === "") {
+                emailError.textContent = "Email is required";
+                email.classList.add("error");
+                valid = false;
+            } else if (!/^\S+@\S+\.\S+$/.test(email.value)) {
+                emailError.textContent = "Enter a valid email";
+                email.classList.add("error");
+                valid = false;
+            }
+
+            if (password.value.trim() === "") {
+                passwordError.textContent = "Password is required";
+                password.classList.add("error");
+                valid = false;
+            }
+
+            if (valid) {
+                alert("Form submitted successfully!");
+            }
+        });
+
+        // Password Show/Hide
+        document.getElementById("togglePassword").addEventListener("click", function () {
+            const pass = document.getElementById("password");
+            const type = pass.type === "password" ? "text" : "password";
+            pass.type = type;
+
+            this.classList.toggle("bi-eye");
+            this.classList.toggle("bi-eye-slash");
+        });
+
+        // google
+        window.onload = function () {
+            google.accounts.id.initialize({
+                client_id: "268530584126-ma6bqcqq25suer37mu1qv8qepu8a96ul.apps.googleusercontent.com",
+                callback: handleCredentialResponse
+            });
+
+            google.accounts.id.renderButton(
+                document.getElementById("googleBtn"),
+                { theme: "outline", size: "large", width: "100%" }
+            );
+        };
+
+        function handleCredentialResponse(response) {
+            console.log("Google Token", response.credential);
+
+            // send token to backend
+            // window.location.href = "/dashboard";
+        }
+
+    </script>
+
+</body>
+
+</html>

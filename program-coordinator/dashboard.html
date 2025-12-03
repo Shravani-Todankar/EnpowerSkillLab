@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Program Coordinator Dashboard - Enpower Skill Lab</title>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+        rel="stylesheet" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="dashboard.css">
+    <!-- Sidebar JS -->
+    <script src="sidebar.js"></script>
+    <!-- Header JS -->
+    <script src="header.js"></script>
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- Include Sidebar Component -->
+        <div id="sidebar-container"></div>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Include Header Component -->
+            <div id="header-container"></div>
+
+            <!-- Dashboard Content -->
+            <div class="dashboard-page">
+                <!-- Page Header -->
+                <div class="page-header">
+                    <div class="page-header-content">
+                        <h1 class="page-title">
+                            <span class="material-symbols-outlined page-title-icon">dashboard</span>
+                            Dashboard
+                        </h1>
+                        <p class="page-subtitle">Welcome back! Monitor and manage your assigned schools</p>
+                    </div>
+                    <div class="page-header-actions">
+                        <button class="btn-secondary">
+                            <span class="material-symbols-outlined">download</span>
+                            Export Report
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Stats Overview -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon schools">
+                            <span class="material-symbols-outlined">school</span>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-value">12</div>
+                            <div class="stat-label">Assigned Schools</div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon teachers">
+                            <span class="material-symbols-outlined">groups</span>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-value">89</div>
+                            <div class="stat-label">Active Teachers</div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon students">
+                            <span class="material-symbols-outlined">diversity_3</span>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-value">2,456</div>
+                            <div class="stat-label">Total Students</div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon alerts">
+                            <span class="material-symbols-outlined">notifications_active</span>
+                        </div>
+                        <div class="stat-content">
+                            <div class="stat-value">7</div>
+                            <div class="stat-label">Pending Alerts</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Assigned Schools Overview -->
+                <div class="card schools-overview-card">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            <span class="material-symbols-outlined">school</span>
+                            Assigned Schools Overview
+                        </h3>
+                        <a href="assigned-schools.html" class="card-action">View All Schools</a>
+                    </div>
+                    <div class="card-body">
+                        <div class="schools-table-wrapper">
+                            <table class="schools-table">
+                                <thead>
+                                    <tr>
+                                        <th>School Name</th>
+                                        <th>Location</th>
+                                        <th>Teachers</th>
+                                        <th>Students</th>
+                                        <th>Avg. Performance</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <div class="school-name">
+                                                <span class="school-avatar">DP</span>
+                                                Delhi Public School
+                                            </div>
+                                        </td>
+                                        <td>New Delhi</td>
+                                        <td>15</td>
+                                        <td>420</td>
+                                        <td>
+                                            <div class="performance-badge excellent">92%</div>
+                                        </td>
+                                        <td><span class="status-badge active">Active</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="school-name">
+                                                <span class="school-avatar">KV</span>
+                                                Kendriya Vidyalaya
+                                            </div>
+                                        </td>
+                                        <td>Mumbai</td>
+                                        <td>12</td>
+                                        <td>350</td>
+                                        <td>
+                                            <div class="performance-badge good">88%</div>
+                                        </td>
+                                        <td><span class="status-badge active">Active</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="school-name">
+                                                <span class="school-avatar">SA</span>
+                                                St. Andrews Academy
+                                            </div>
+                                        </td>
+                                        <td>Bangalore</td>
+                                        <td>10</td>
+                                        <td>280</td>
+                                        <td>
+                                            <div class="performance-badge good">85%</div>
+                                        </td>
+                                        <td><span class="status-badge active">Active</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="school-name">
+                                                <span class="school-avatar">GD</span>
+                                                Green Dale School
+                                            </div>
+                                        </td>
+                                        <td>Pune</td>
+                                        <td>8</td>
+                                        <td>195</td>
+                                        <td>
+                                            <div class="performance-badge average">78%</div>
+                                        </td>
+                                        <td><span class="status-badge active">Active</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="school-name">
+                                                <span class="school-avatar">MB</span>
+                                                Modern Bridge School
+                                            </div>
+                                        </td>
+                                        <td>Hyderabad</td>
+                                        <td>7</td>
+                                        <td>168</td>
+                                        <td>
+                                            <div class="performance-badge needs-attention">72%</div>
+                                        </td>
+                                        <td><span class="status-badge warning">Needs Attention</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Main Content Grid -->
+                <div class="content-grid">
+                    <!-- Academic Performance Trends -->
+                    <div class="card performance-trends-card">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                <span class="material-symbols-outlined">trending_up</span>
+                                Academic Performance Trends
+                            </h3>
+                            <a href="school-performance.html" class="card-action">Detailed Analysis</a>
+                        </div>
+                        <div class="card-body">
+                            <div class="trends-list">
+                                <div class="trend-item">
+                                    <div class="trend-header">
+                                        <div class="trend-subject">
+                                            <div class="trend-icon mathematics">
+                                                <span class="material-symbols-outlined">calculate</span>
+                                            </div>
+                                            <div class="trend-info">
+                                                <div class="trend-title">Mathematics</div>
+                                                <div class="trend-subtitle">Average across all schools</div>
+                                            </div>
+                                        </div>
+                                        <div class="trend-value up">
+                                            <span class="material-symbols-outlined">arrow_upward</span>
+                                            +5.2%
+                                        </div>
+                                    </div>
+                                    <div class="trend-progress-bar">
+                                        <div class="trend-progress-fill mathematics" style="width: 86%;"></div>
+                                    </div>
+                                    <div class="trend-stats">
+                                        <span>Current: 86%</span>
+                                        <span>Previous: 80.8%</span>
+                                    </div>
+                                </div>
+
+                                <div class="trend-item">
+                                    <div class="trend-header">
+                                        <div class="trend-subject">
+                                            <div class="trend-icon science">
+                                                <span class="material-symbols-outlined">science</span>
+                                            </div>
+                                            <div class="trend-info">
+                                                <div class="trend-title">Science</div>
+                                                <div class="trend-subtitle">Average across all schools</div>
+                                            </div>
+                                        </div>
+                                        <div class="trend-value up">
+                                            <span class="material-symbols-outlined">arrow_upward</span>
+                                            +3.8%
+                                        </div>
+                                    </div>
+                                    <div class="trend-progress-bar">
+                                        <div class="trend-progress-fill science" style="width: 82%;"></div>
+                                    </div>
+                                    <div class="trend-stats">
+                                        <span>Current: 82%</span>
+                                        <span>Previous: 78.2%</span>
+                                    </div>
+                                </div>
+
+                                <div class="trend-item">
+                                    <div class="trend-header">
+                                        <div class="trend-subject">
+                                            <div class="trend-icon english">
+                                                <span class="material-symbols-outlined">menu_book</span>
+                                            </div>
+                                            <div class="trend-info">
+                                                <div class="trend-title">English</div>
+                                                <div class="trend-subtitle">Average across all schools</div>
+                                            </div>
+                                        </div>
+                                        <div class="trend-value down">
+                                            <span class="material-symbols-outlined">arrow_downward</span>
+                                            -1.2%
+                                        </div>
+                                    </div>
+                                    <div class="trend-progress-bar">
+                                        <div class="trend-progress-fill english" style="width: 79%;"></div>
+                                    </div>
+                                    <div class="trend-stats">
+                                        <span>Current: 79%</span>
+                                        <span>Previous: 80.2%</span>
+                                    </div>
+                                </div>
+
+                                <div class="trend-item">
+                                    <div class="trend-header">
+                                        <div class="trend-subject">
+                                            <div class="trend-icon social">
+                                                <span class="material-symbols-outlined">public</span>
+                                            </div>
+                                            <div class="trend-info">
+                                                <div class="trend-title">Social Studies</div>
+                                                <div class="trend-subtitle">Average across all schools</div>
+                                            </div>
+                                        </div>
+                                        <div class="trend-value up">
+                                            <span class="material-symbols-outlined">arrow_upward</span>
+                                            +2.5%
+                                        </div>
+                                    </div>
+                                    <div class="trend-progress-bar">
+                                        <div class="trend-progress-fill social" style="width: 84%;"></div>
+                                    </div>
+                                    <div class="trend-stats">
+                                        <span>Current: 84%</span>
+                                        <span>Previous: 81.5%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Assessment Quality Alerts -->
+                    <div class="card alerts-card">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                <span class="material-symbols-outlined">warning</span>
+                                Assessment Quality Alerts
+                            </h3>
+                            <a href="assessment-monitoring.html" class="card-action">View All Alerts</a>
+                        </div>
+                        <div class="card-body">
+                            <div class="alerts-list">
+                                <div class="alert-item critical">
+                                    <div class="alert-icon">
+                                        <span class="material-symbols-outlined">error</span>
+                                    </div>
+                                    <div class="alert-content">
+                                        <div class="alert-title">Score Inconsistency Detected</div>
+                                        <div class="alert-description">Modern Bridge School - Grade 5A Math Assessment shows unusual score pattern</div>
+                                        <div class="alert-meta">
+                                            <span class="alert-school">Modern Bridge School</span>
+                                            <span class="alert-time">2 hours ago</span>
+                                        </div>
+                                    </div>
+                                    <button class="btn-review">Review</button>
+                                </div>
+
+                                <div class="alert-item high">
+                                    <div class="alert-icon">
+                                        <span class="material-symbols-outlined">flag</span>
+                                    </div>
+                                    <div class="alert-content">
+                                        <div class="alert-title">Pending Verification</div>
+                                        <div class="alert-description">15 assessments from Green Dale School awaiting approval</div>
+                                        <div class="alert-meta">
+                                            <span class="alert-school">Green Dale School</span>
+                                            <span class="alert-time">5 hours ago</span>
+                                        </div>
+                                    </div>
+                                    <button class="btn-review">Review</button>
+                                </div>
+
+                                <div class="alert-item medium">
+                                    <div class="alert-icon">
+                                        <span class="material-symbols-outlined">info</span>
+                                    </div>
+                                    <div class="alert-content">
+                                        <div class="alert-title">Low Completion Rate</div>
+                                        <div class="alert-description">St. Andrews Academy has only 65% assessment completion for this week</div>
+                                        <div class="alert-meta">
+                                            <span class="alert-school">St. Andrews Academy</span>
+                                            <span class="alert-time">1 day ago</span>
+                                        </div>
+                                    </div>
+                                    <button class="btn-review">Review</button>
+                                </div>
+
+                                <div class="alert-item low">
+                                    <div class="alert-icon">
+                                        <span class="material-symbols-outlined">check_circle</span>
+                                    </div>
+                                    <div class="alert-content">
+                                        <div class="alert-title">Quality Check Passed</div>
+                                        <div class="alert-description">Delhi Public School assessments meet all quality standards</div>
+                                        <div class="alert-meta">
+                                            <span class="alert-school">Delhi Public School</span>
+                                            <span class="alert-time">2 days ago</span>
+                                        </div>
+                                    </div>
+                                    <button class="btn-review" disabled>Resolved</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bottom Section -->
+                <div class="bottom-grid">
+                    <!-- Teacher Performance Summary -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                <span class="material-symbols-outlined">person_search</span>
+                                Teacher Performance Summary
+                            </h3>
+                            <a href="thinking-coach-performance.html" class="card-action">View Details</a>
+                        </div>
+                        <div class="card-body">
+                            <div class="teacher-summary-list">
+                                <div class="teacher-summary-item">
+                                    <div class="teacher-summary-header">
+                                        <span class="teacher-summary-label">Excellent Performance</span>
+                                        <span class="teacher-summary-count">42 teachers</span>
+                                    </div>
+                                    <div class="teacher-summary-bar">
+                                        <div class="teacher-summary-fill excellent" style="width: 47%;"></div>
+                                    </div>
+                                </div>
+
+                                <div class="teacher-summary-item">
+                                    <div class="teacher-summary-header">
+                                        <span class="teacher-summary-label">Good Performance</span>
+                                        <span class="teacher-summary-count">31 teachers</span>
+                                    </div>
+                                    <div class="teacher-summary-bar">
+                                        <div class="teacher-summary-fill good" style="width: 35%;"></div>
+                                    </div>
+                                </div>
+
+                                <div class="teacher-summary-item">
+                                    <div class="teacher-summary-header">
+                                        <span class="teacher-summary-label">Needs Improvement</span>
+                                        <span class="teacher-summary-count">16 teachers</span>
+                                    </div>
+                                    <div class="teacher-summary-bar">
+                                        <div class="teacher-summary-fill needs-improvement" style="width: 18%;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Actions -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                <span class="material-symbols-outlined">bolt</span>
+                                Quick Actions
+                            </h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="quick-actions-grid">
+                                <button class="quick-action-btn">
+                                    <span class="material-symbols-outlined">school</span>
+                                    <span>Compare Schools</span>
+                                </button>
+                                <button class="quick-action-btn">
+                                    <span class="material-symbols-outlined">assessment</span>
+                                    <span>Generate Report</span>
+                                </button>
+                                <button class="quick-action-btn">
+                                    <span class="material-symbols-outlined">verified</span>
+                                    <span>Approve Assessments</span>
+                                </button>
+                                <button class="quick-action-btn">
+                                    <span class="material-symbols-outlined">how_to_reg</span>
+                                    <span>Check Attendance</span>
+                                </button>
+                                <button class="quick-action-btn">
+                                    <span class="material-symbols-outlined">library_books</span>
+                                    <span>LMS Overview</span>
+                                </button>
+                                <button class="quick-action-btn">
+                                    <span class="material-symbols-outlined">person_add</span>
+                                    <span>Add Teacher</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Load Sidebar and Header Components
+        document.addEventListener('DOMContentLoaded', function() {
+            Promise.all([
+                fetch('sidebar.html').then(response => response.text()),
+                fetch('header.html').then(response => response.text())
+            ]).then(([sidebarHTML, headerHTML]) => {
+                document.getElementById('sidebar-container').innerHTML = sidebarHTML;
+                document.getElementById('header-container').innerHTML = headerHTML;
+
+                // Wait a bit for sidebar.js to initialize, then set active state
+                setTimeout(() => {
+                    setActiveMenuItem();
+                }, 200);
+            });
+        });
+
+        function setActiveMenuItem() {
+            const currentPage = window.location.pathname.split('/').pop();
+            const navDashboard = document.getElementById('nav-dashboard');
+            if (navDashboard && currentPage === 'dashboard.html') {
+                navDashboard.classList.add('active');
+            }
+        }
+    </script>
+</body>
+
+</html>
