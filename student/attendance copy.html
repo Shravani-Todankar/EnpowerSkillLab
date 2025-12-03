@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Attendance Report - Enpower Skill Lab</title>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="student-dashboard.css">
+    <!-- Header JS -->
+    <script src="header.js"></script>
+    <link rel="stylesheet" href="attendance.css">
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- Include Sidebar Component -->
+        <div id="sidebar-container"></div>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Include Header Component -->
+            <div id="header-container"></div>
+            <div class="content-wrapper">
+                <div class="page-content">
+                    <div class="page-header">
+                        <h1 class="page-title">My Attendance Report</h1>
+                        <p class="page-subtitle">View your complete attendance history and statistics</p>
+                    </div>
+
+                    <!-- Attendance Report Section -->
+                    <div class="card attendance-report-card">
+                        <div class="section-header">
+                            <h2 class="section-title">
+                                <span class="material-symbols-outlined">assessment</span>
+                                Attendance Report
+                            </h2>
+                            <div class="report-controls">
+                                <select class="month-selector" id="reportMonth">
+                                    <option value="0">January</option>
+                                    <option value="1">February</option>
+                                    <option value="2">March</option>
+                                    <option value="3">April</option>
+                                    <option value="4">May</option>
+                                    <option value="5">June</option>
+                                    <option value="6">July</option>
+                                    <option value="7">August</option>
+                                    <option value="8">September</option>
+                                    <option value="9">October</option>
+                                    <option value="10" selected>November</option>
+                                    <option value="11">December</option>
+                                </select>
+                                <select class="year-selector" id="reportYear">
+                                    <option value="2024">2024</option>
+                                    <option value="2025" selected>2025</option>
+                                    <option value="2026">2026</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="legend">
+                            <span class="legend-item">
+                                <span class="legend-dot blue"></span>P - Present
+                            </span>
+                            <span class="legend-item">
+                                <span class="legend-dot red"></span>A - Absent
+                            </span>
+                        </div>
+
+                        <div class="charts-wrapper">
+                            <div class="chart-container">
+                                <svg class="rotate-90" width="120" height="120">
+                                    <circle cx="60" cy="60" fill="none" r="50" stroke="#fecaca" stroke-width="10"></circle>
+                                    <circle cx="60" cy="60" fill="none" r="50" stroke="#ef4444" stroke-dasharray="314" stroke-dashoffset="314" stroke-width="10"></circle>
+                                </svg>
+                                <div class="chart-label">
+                                    <span class="chart-percent">0%</span>
+                                    <span class="chart-text">Overall</span>
+                                </div>
+                            </div>
+                            <div class="chart-container">
+                                <svg class="rotate-90" width="120" height="120">
+                                    <circle cx="60" cy="60" fill="none" r="50" stroke="#fecaca" stroke-width="10"></circle>
+                                    <circle cx="60" cy="60" fill="none" r="50" stroke="#ef4444" stroke-dasharray="314" stroke-dashoffset="314" stroke-width="10"></circle>
+                                </svg>
+                                <div class="chart-label">
+                                    <span class="chart-percent">0%</span>
+                                    <span class="chart-text">Nov 2025</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="stats-grid attendence-grid">
+                            <div class="stat-card blue">
+                                <p class="stat-label blue">PRESENTS</p>
+                                <p class="stat-value blue">0</p>
+                                <p class="stat-period blue">This Month</p>
+                            </div>
+                            <div class="stat-card red">
+                                <p class="stat-label red">ABSENTS</p>
+                                <p class="stat-value red">0</p>
+                                <p class="stat-period red">This Month</p>
+                            </div>
+                        </div>
+
+                        <!-- Monthly Calendar View -->
+                        <div class="monthly-calendar">
+                            <h3 class="calendar-title">Monthly View</h3>
+                            <div class="calendar-weekdays">
+                                <div class="weekday-label">Sun</div>
+                                <div class="weekday-label">Mon</div>
+                                <div class="weekday-label">Tue</div>
+                                <div class="weekday-label">Wed</div>
+                                <div class="weekday-label">Thu</div>
+                                <div class="weekday-label">Fri</div>
+                                <div class="weekday-label">Sat</div>
+                            </div>
+                            <div class="calendar-grid" id="attendanceCalendar">
+                                <!-- Calendar will be generated by JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            
+        </main>
+    </div>
+
+    <script>
+        // Load Sidebar and Header Components
+        Promise.all([
+            fetch('sidebar.html').then(response => response.text()),
+            fetch('header.html').then(response => response.text())
+        ]).then(([sidebarHTML, headerHTML]) => {
+            // Insert both components
+            document.getElementById('sidebar-container').innerHTML = sidebarHTML;
+            document.getElementById('header-container').innerHTML = headerHTML;
+
+            // Initialize sidebar functionality after both components are loaded
+            initializeSidebar();
+        });
+
+        function initializeSidebar() {
+            const menuToggle = document.getElementById('menuToggle');
+            const closeSidebar = document.getElementById('closeSidebar');
+            const sidebar = document.getElementById('sidebar');
+            const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+            function toggleSidebar() {
+                if (window.innerWidth >= 1024) {
+                    sidebar.classList.toggle('collapsed');
+                } else {
+                    sidebar.classList.add('active');
+                    sidebarOverlay.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                }
+            }
+
+            function closeSidebarFunc() {
+                sidebar.classList.remove('active');
+                sidebarOverlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+
+            menuToggle.addEventListener('click', toggleSidebar);
+            closeSidebar.addEventListener('click', closeSidebarFunc);
+            sidebarOverlay.addEventListener('click', closeSidebarFunc);
+
+            const sidebarLinks = sidebar.querySelectorAll('a');
+            sidebarLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (window.innerWidth < 1024) {
+                        closeSidebarFunc();
+                    }
+                });
+            });
+
+            window.addEventListener('resize', () => {
+                if (window.innerWidth >= 1024) {
+                    closeSidebarFunc();
+                } else {
+                    sidebar.classList.remove('collapsed');
+                }
+            });
+
+            // Set active link
+            setActiveLink();
+        }
+
+        function setActiveLink() {
+            const currentPage = window.location.pathname.split('/').pop();
+            const navLinks = {
+                'student-dashboard.html': 'nav-dashboard',
+                'attendance.html': 'nav-attendance',
+                'lms.html': 'nav-lms',
+                'leaderboard.html': 'nav-leaderboard',
+                'assessment.html': 'nav-assessment',
+                'reports.html': 'nav-reports',
+                'badges.html': 'nav-badges',
+                'event-calendar.html': 'nav-event-calendar',
+                'newsletter.html': 'nav-newsletter',
+                'announcements.html': 'nav-announcements'
+            };
+
+            const sidebar = document.getElementById('sidebar');
+            const sidebarLinks = sidebar.querySelectorAll('a');
+            sidebarLinks.forEach(link => link.classList.remove('active'));
+
+            if (navLinks[currentPage]) {
+                const activeLink = document.getElementById(navLinks[currentPage]);
+                if (activeLink) {
+                    activeLink.classList.add('active');
+                }
+            }
+        }
+
+        // Attendance Calendar Functionality
+        const reportMonth = document.getElementById('reportMonth');
+        const reportYear = document.getElementById('reportYear');
+        const attendanceCalendar = document.getElementById('attendanceCalendar');
+
+        // Sample attendance data (replace with actual data from backend)
+        const attendanceData = {
+            '2025-11-01': 'present',
+            '2025-11-02': 'present',
+            '2025-11-03': 'present',
+            '2025-11-04': 'present',
+            '2025-11-05': 'present',
+            '2025-11-08': 'present',
+            '2025-11-09': 'absent',
+            '2025-11-10': 'present',
+            '2025-11-11': 'present',
+            '2025-11-12': 'present',
+            '2025-11-15': 'present',
+            '2025-11-16': 'present',
+            '2025-11-17': 'present',
+            '2025-11-18': 'present',
+            '2025-11-19': 'present'
+        };
+
+        function renderAttendanceCalendar() {
+            const month = parseInt(reportMonth.value);
+            const year = parseInt(reportYear.value);
+
+            const firstDay = new Date(year, month, 1).getDay();
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+            const daysInPrevMonth = new Date(year, month, 0).getDate();
+
+            attendanceCalendar.innerHTML = '';
+
+            // Previous month days
+            for (let i = firstDay - 1; i >= 0; i--) {
+                const cell = document.createElement('div');
+                cell.className = 'calendar-cell other-month';
+                cell.textContent = daysInPrevMonth - i;
+                attendanceCalendar.appendChild(cell);
+            }
+
+            // Current month days
+            const currentDate = new Date();
+            for (let day = 1; day <= daysInMonth; day++) {
+                const cell = document.createElement('div');
+                cell.className = 'calendar-cell';
+                cell.textContent = day;
+
+                const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+
+                // Add attendance status class
+                if (attendanceData[dateStr]) {
+                    cell.classList.add(attendanceData[dateStr]);
+                }
+
+                // Mark today
+                if (day === currentDate.getDate() && month === currentDate.getMonth() && year === currentDate.getFullYear()) {
+                    cell.classList.add('today');
+                }
+
+                attendanceCalendar.appendChild(cell);
+            }
+
+            // Next month days
+            const totalCells = attendanceCalendar.children.length;
+            const remainingCells = 42 - totalCells;
+            for (let i = 1; i <= remainingCells; i++) {
+                const cell = document.createElement('div');
+                cell.className = 'calendar-cell other-month';
+                cell.textContent = i;
+                attendanceCalendar.appendChild(cell);
+            }
+        }
+
+        // Initialize calendar
+        renderAttendanceCalendar();
+
+        // Update calendar when month/year changes
+        reportMonth.addEventListener('change', renderAttendanceCalendar);
+        reportYear.addEventListener('change', renderAttendanceCalendar);
+    </script>
+</body>
+
+</html>

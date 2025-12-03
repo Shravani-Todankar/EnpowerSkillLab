@@ -10,8 +10,20 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
 
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.dataTables.min.css">
+
     <!-- Custom CSS -->
     <link rel="stylesheet" href="student-list.css">
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
+
     <!-- Sidebar JS -->
     <script src="sidebar.js"></script>
     <!-- Header JS -->
@@ -32,12 +44,6 @@
             <div class="student-list-page">
                 <!-- Controls Row -->
                 <div class="controls-row">
-                    <!-- Search Box -->
-                    <div class="search-wrapper">
-                        <span class="material-symbols-outlined search-icon">search</span>
-                        <input type="text" class="search-input" placeholder="Search students by name, ID, or class..." id="searchInput">
-                    </div>
-
                     <!-- Action Buttons -->
                     <div class="action-buttons">
                         <button class="upload-csv-btn" id="uploadCSVBtn">
@@ -294,33 +300,45 @@
             });
         });
 
-        // Search functionality
-        const searchInput = document.getElementById('searchInput');
-        searchInput.addEventListener('keyup', function() {
-            const searchTerm = this.value.toLowerCase();
-            const tableRows = document.querySelectorAll('.students-table tbody tr');
-
-            tableRows.forEach(row => {
-                const id = row.querySelector('.student-id').textContent.toLowerCase();
-                const name = row.querySelector('.student-name').textContent.toLowerCase();
-                const classText = row.querySelector('.class-badge').textContent.toLowerCase();
-
-                if (id.includes(searchTerm) || name.includes(searchTerm) || classText.includes(searchTerm)) {
-                    row.style.display = '';
-                } else {
-                    row.style.display = 'none';
-                }
+        // Initialize DataTables
+        $(document).ready(function() {
+            const table = $('.students-table').DataTable({
+                responsive: true,
+                pageLength: 10,
+                lengthMenu: [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
+                language: {
+                    search: "_INPUT_",
+                    searchPlaceholder: "Search students...",
+                    lengthMenu: "Show _MENU_ entries",
+                    info: "Showing _START_ to _END_ of _TOTAL_ students",
+                    infoEmpty: "No students found",
+                    infoFiltered: "(filtered from _MAX_ total students)",
+                    paginate: {
+                        first: "First",
+                        last: "Last",
+                        next: "Next",
+                        previous: "Previous"
+                    }
+                },
+                columnDefs: [
+                    {
+                        targets: 0, // Image column
+                        orderable: false
+                    },
+                    {
+                        targets: -1, // Actions column
+                        orderable: false,
+                        searchable: false
+                    }
+                ],
+                order: [[1, 'asc']] // Default sort by Student ID
             });
-        });
 
-        // Delete button confirmation
-        const deleteButtons = document.querySelectorAll('.delete-btn');
-        deleteButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                const studentName = this.getAttribute('aria-label').replace('Delete ', '');
+            // Delete button confirmation (using event delegation for DataTables)
+            $('.students-table').on('click', '.delete-btn', function() {
+                const studentName = $(this).attr('aria-label').replace('Delete ', '');
                 if (confirm(`Are you sure you want to delete ${studentName}?`)) {
-                    // Add delete logic here
-                    this.closest('tr').remove();
+                    table.row($(this).closest('tr')).remove().draw();
                 }
             });
         });

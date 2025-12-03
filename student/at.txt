@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Attendance Report - Session Based</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f8f4fc 0%, #faf7fc 100%);
+            color: #1a202c;
+            padding: 30px 40px;
+        }
+
+        /* Header */
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        .page-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: #6b277e;
+            margin-bottom: 8px;
+        }
+
+        .page-subtitle {
+            color: #718096;
+            font-size: 15px;
+        }
+
+        .user-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .notification-bell {
+            position: relative;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #f5ebf7 0%, #e9d5f0 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .notification-bell:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(107, 39, 126, 0.3);
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: #ef4444;
+            color: white;
+            font-size: 10px;
+            font-weight: 700;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 12px;
+            border-radius: 12px;
+            background: white;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(107, 39, 126, 0.1);
+            border: 2px solid #f5ebf7;
+            transition: all 0.3s ease;
+        }
+
+        .user-profile:hover {
+            border-color: #A67DB1;
+            box-shadow: 0 4px 12px rgba(107, 39, 126, 0.2);
+        }
+
+        .user-avatar {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #6b277e 0%, #A67DB1 100%);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        /* Report Section */
+        .report-card {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 4px 12px rgba(107, 39, 126, 0.08);
+            margin-bottom: 30px;
+            border: 2px solid #f5ebf7;
+        }
+
+        .report-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .report-title {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 20px;
+            font-weight: 700;
+            color: #6b277e;
+        }
+
+        .report-filters {
+            display: flex;
+            gap: 12px;
+        }
+
+        select {
+            padding: 10px 16px;
+            border: 2px solid #e9d5f0;
+            border-radius: 10px;
+            background: white;
+            color: #4a5568;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            outline: none;
+            transition: all 0.2s;
+        }
+
+        select:hover {
+            border-color: #A67DB1;
+            background: #f5ebf7;
+        }
+
+        select:focus {
+            border-color: #6b277e;
+            background: #f5ebf7;
+            box-shadow: 0 0 0 3px rgba(107, 39, 126, 0.1);
+        }
+
+        /* Legend */
+        .legend {
+            display: flex;
+            gap: 24px;
+            margin-bottom: 30px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: #4a5568;
+        }
+
+        .legend-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .legend-dot.present {
+            background: #6b277e;
+        }
+
+        .legend-dot.absent {
+            background: #ef4444;
+        }
+
+        /* Stats Row */
+        .stats-row {
+            display: grid;
+            grid-template-columns: 200px 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .stat-circle-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .stat-circle {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            border: 8px solid;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .stat-circle:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(107, 39, 126, 0.2);
+        }
+
+        .stat-circle.overall {
+            border-color: #e9d5f0;
+            background: linear-gradient(135deg, #ffffff 0%, #f5ebf7 100%);
+        }
+
+        .stat-percentage {
+            font-size: 36px;
+            font-weight: 800;
+            color: #6b277e;
+        }
+
+        .stat-label {
+            font-size: 13px;
+            color: #718096;
+            margin-top: 4px;
+        }
+
+        .stat-box {
+            background: linear-gradient(135deg, #f5ebf7 0%, #e9d5f0 100%);
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            border: 2px solid #e9d5f0;
+            transition: all 0.3s ease;
+        }
+
+        .stat-box:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(107, 39, 126, 0.15);
+            border-color: #A67DB1;
+        }
+
+        .stat-box.absent-box {
+            background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+            border: 2px solid #fecaca;
+        }
+
+        .stat-box.absent-box:hover {
+            border-color: #fca5a5;
+            box-shadow: 0 6px 16px rgba(239, 68, 68, 0.15);
+        }
+
+        .stat-box-label {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .stat-box-label.present {
+            color: #6b277e;
+        }
+
+        .stat-box-label.absent {
+            color: #dc2626;
+        }
+
+        .stat-box-value {
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 4px;
+        }
+
+        .stat-box-value.present {
+            color: #6b277e;
+        }
+
+        .stat-box-value.absent {
+            color: #991b1b;
+        }
+
+        .stat-box-subtitle {
+            font-size: 13px;
+            color: #64748b;
+        }
+
+        /* Session View */
+        .session-view-header {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 25px;
+            color: #6b277e;
+        }
+
+        .month-section {
+            margin-bottom: 35px;
+        }
+
+        .month-header {
+            font-size: 16px;
+            font-weight: 700;
+            color: #6b277e;
+            margin-bottom: 15px;
+            padding: 12px 16px;
+            background: linear-gradient(135deg, #f5ebf7 0%, #e9d5f0 100%);
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 2px solid #c4a3d1;
+        }
+
+        .month-range {
+            font-size: 13px;
+            color: #A67DB1;
+            font-weight: 500;
+        }
+
+        .sessions-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+
+        .session-card {
+            background: white;
+            border: 2px solid;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .session-card.present {
+            background: linear-gradient(135deg, #f5ebf7 0%, #e9d5f0 100%);
+            border-color: #A67DB1;
+        }
+
+        .session-card.absent {
+            background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+            border-color: #fca5a5;
+        }
+
+        .session-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .session-card.present:hover {
+            box-shadow: 0 8px 20px rgba(107, 39, 126, 0.2);
+            border-color: #6b277e;
+        }
+
+        .session-card.absent:hover {
+            box-shadow: 0 8px 20px rgba(239, 68, 68, 0.2);
+        }
+
+        .session-number {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .session-number.present {
+            color: #6b277e;
+        }
+
+        .session-number.absent {
+            color: #991b1b;
+        }
+
+        .session-week {
+            font-size: 12px;
+            color: #64748b;
+            margin-bottom: 8px;
+        }
+
+        .session-status {
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .session-status.present {
+            color: #6b277e;
+        }
+
+        .session-status.absent {
+            color: #dc2626;
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            margin: 30px 0;
+            background: linear-gradient(135deg, #f5ebf7 0%, #e9d5f0 100%);
+            border-radius: 12px;
+            padding: 20px;
+            border: 2px solid #c4a3d1;
+            box-shadow: 0 2px 8px rgba(107, 39, 126, 0.1);
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #6b277e;
+        }
+
+        .progress-bar-bg {
+            width: 100%;
+            height: 12px;
+            background: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid #c4a3d1;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #6b277e 0%, #A67DB1 100%);
+            border-radius: 10px;
+            transition: width 0.5s ease;
+            box-shadow: 0 2px 4px rgba(107, 39, 126, 0.3);
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .sessions-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .stats-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 20px;
+            }
+            .sessions-grid {
+                grid-template-columns: 1fr;
+            }
+            .stats-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .report-card {
+            animation: fadeIn 0.5s ease;
+        }
+
+        .session-card {
+            animation: fadeIn 0.3s ease;
+        }
+
+        /* Add shine effect on hover */
+        .stat-percentage {
+            position: relative;
+            background: linear-gradient(135deg, #6b277e 0%, #A67DB1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Report Card -->
+    <div class="report-card">
+        <div class="report-header">
+            <div class="page-header">
+                        <h1 class="page-title">My Attendance Report</h1>
+                        <p class="page-subtitle">View your complete attendance history and statistics</p>
+                    </div>
+            <div class="report-filters">
+                <select id="monthFilter" onchange="renderSessions()">
+                    <option value="all">All Months</option>
+                </select>
+                <select id="yearFilter">
+                    <option value="2025">2025</option>
+                    <option value="2024">2024</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="legend">
+            <div class="legend-item">
+                <span class="legend-dot present"></span>
+                <span>P - Present</span>
+            </div>
+            <div class="legend-item">
+                <span class="legend-dot absent"></span>
+                <span>A - Absent</span>
+            </div>
+        </div>
+
+        <div class="stats-row">
+            <div class="stat-circle-container">
+                <div class="stat-circle overall">
+                    <div class="stat-percentage" id="overallPercent">0%</div>
+                    <div class="stat-label">Overall</div>
+                </div>
+            </div>
+            
+            <div class="stat-box">
+                <div class="stat-box-label present">PRESENTS</div>
+                <div class="stat-box-value present" id="presentCount">0</div>
+                <div class="stat-box-subtitle">Total Sessions</div>
+            </div>
+
+            <div class="stat-box absent-box">
+                <div class="stat-box-label absent">ABSENTS</div>
+                <div class="stat-box-value absent" id="absentCount">0</div>
+                <div class="stat-box-subtitle">Total Sessions</div>
+            </div>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="progress-container">
+            <div class="progress-label">
+                <span>Year Progress</span>
+                <span id="progressText">0/48 Sessions</span>
+            </div>
+            <div class="progress-bar-bg">
+                <div class="progress-bar-fill" id="progressBar" style="width: 0%"></div>
+            </div>
+        </div>
+
+        <div class="session-view-header">Session-wise Attendance</div>
+        <div id="sessionsContainer"></div>
+    </div>
+
+    <script>
+        const months = [
+            "January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"
+        ];
+
+        // Populate month dropdown
+        const monthDropdown = document.getElementById("monthFilter");
+        months.forEach((m, i) => {
+            monthDropdown.innerHTML += `<option value="${i}">${m}</option>`;
+        });
+
+        // Generate 48 sessions with random attendance (Replace with actual data)
+        const TOTAL_SESSIONS = 48;
+        let attendanceData = {};
+
+        for (let i = 1; i <= TOTAL_SESSIONS; i++) {
+            attendanceData[i] = Math.random() > 0.3 ? "P" : "A"; // 70% present rate
+        }
+
+        function updateStats() {
+            let presentCount = 0;
+            let absentCount = 0;
+
+            for (let i = 1; i <= TOTAL_SESSIONS; i++) {
+                if (attendanceData[i] === "P") presentCount++;
+                else absentCount++;
+            }
+
+            const percentage = Math.round((presentCount / TOTAL_SESSIONS) * 100);
+
+            document.getElementById('overallPercent').textContent = percentage + '%';
+            document.getElementById('presentCount').textContent = presentCount;
+            document.getElementById('absentCount').textContent = absentCount;
+            document.getElementById('progressText').textContent = presentCount + '/' + TOTAL_SESSIONS + ' Sessions';
+            document.getElementById('progressBar').style.width = percentage + '%';
+
+            // Update circle color based on percentage
+            const circle = document.querySelector('.stat-circle.overall');
+            const percentText = document.getElementById('overallPercent');
+            
+            if (percentage >= 75) {
+                circle.style.borderColor = '#e9d5f0';
+                circle.style.background = 'linear-gradient(135deg, #ffffff 0%, #f5ebf7 100%)';
+            } else if (percentage >= 50) {
+                circle.style.borderColor = '#c4a3d1';
+                circle.style.background = 'linear-gradient(135deg, #f5ebf7 0%, #e9d5f0 100%)';
+                percentText.style.background = 'linear-gradient(135deg, #A67DB1 0%, #6b277e 100%)';
+                percentText.style.webkitBackgroundClip = 'text';
+                percentText.style.webkitTextFillColor = 'transparent';
+                percentText.style.backgroundClip = 'text';
+            } else {
+                circle.style.borderColor = '#fecaca';
+                circle.style.background = 'linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%)';
+                percentText.style.background = '#991b1b';
+                percentText.style.webkitBackgroundClip = 'text';
+                percentText.style.webkitTextFillColor = 'transparent';
+                percentText.style.backgroundClip = 'text';
+            }
+        }
+
+        function getWeekOfMonth(sessionInMonth) {
+            return `Week ${sessionInMonth}`;
+        }
+
+        function renderSessions() {
+            const container = document.getElementById('sessionsContainer');
+            container.innerHTML = '';
+            const selectedMonth = document.getElementById('monthFilter').value;
+
+            for (let month = 0; month < 12; month++) {
+                if (selectedMonth !== "all" && selectedMonth != month) continue;
+
+                const startSession = month * 4 + 1;
+                const endSession = startSession + 3;
+
+                const monthSection = document.createElement('div');
+                monthSection.className = 'month-section';
+
+                const monthHeader = document.createElement('div');
+                monthHeader.className = 'month-header';
+                monthHeader.innerHTML = `
+                    <span>${months[month]}</span>
+                    <span class="month-range">Sessions ${startSession} - ${endSession}</span>
+                `;
+
+                const sessionsGrid = document.createElement('div');
+                sessionsGrid.className = 'sessions-grid';
+
+                for (let s = 0; s < 4; s++) {
+                    const sessionNum = startSession + s;
+                    const status = attendanceData[sessionNum];
+                    
+                    const sessionCard = document.createElement('div');
+                    sessionCard.className = `session-card ${status === 'P' ? 'present' : 'absent'}`;
+                    sessionCard.innerHTML = `
+                        <div class="session-number ${status === 'P' ? 'present' : 'absent'}">
+                            Session ${sessionNum}
+                        </div>
+                        <div class="session-week">${getWeekOfMonth(s + 1)}</div>
+                        <div class="session-status ${status === 'P' ? 'present' : 'absent'}">
+                            ${status === 'P' ? '✓ Present' : '✗ Absent'}
+                        </div>
+                    `;
+
+                    sessionsGrid.appendChild(sessionCard);
+                }
+
+                monthSection.appendChild(monthHeader);
+                monthSection.appendChild(sessionsGrid);
+                container.appendChild(monthSection);
+            }
+        }
+
+        // Initialize
+        updateStats();
+        renderSessions();
+    </script>
+
+</body>
+
+</html>

@@ -26,107 +26,72 @@
         <main class="main-content">
             <!-- Include Header Component -->
             <div id="header-container"></div>
-            <div class="content-wrapper">
-                <div class="page-content">
+            <!-- Report Card -->
+            <div class="report-card">
+                <div class="report-header">
                     <div class="page-header">
                         <h1 class="page-title">My Attendance Report</h1>
                         <p class="page-subtitle">View your complete attendance history and statistics</p>
                     </div>
-
-                    <!-- Attendance Report Section -->
-                    <div class="card attendance-report-card">
-                        <div class="section-header">
-                            <h2 class="section-title">
-                                <span class="material-symbols-outlined">assessment</span>
-                                Attendance Report
-                            </h2>
-                            <div class="report-controls">
-                                <select class="month-selector" id="reportMonth">
-                                    <option value="0">January</option>
-                                    <option value="1">February</option>
-                                    <option value="2">March</option>
-                                    <option value="3">April</option>
-                                    <option value="4">May</option>
-                                    <option value="5">June</option>
-                                    <option value="6">July</option>
-                                    <option value="7">August</option>
-                                    <option value="8">September</option>
-                                    <option value="9">October</option>
-                                    <option value="10" selected>November</option>
-                                    <option value="11">December</option>
-                                </select>
-                                <select class="year-selector" id="reportYear">
-                                    <option value="2024">2024</option>
-                                    <option value="2025" selected>2025</option>
-                                    <option value="2026">2026</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="legend">
-                            <span class="legend-item">
-                                <span class="legend-dot blue"></span>P - Present
-                            </span>
-                            <span class="legend-item">
-                                <span class="legend-dot red"></span>A - Absent
-                            </span>
-                        </div>
-
-                        <div class="charts-wrapper">
-                            <div class="chart-container">
-                                <svg class="rotate-90" width="120" height="120">
-                                    <circle cx="60" cy="60" fill="none" r="50" stroke="#fecaca" stroke-width="10"></circle>
-                                    <circle cx="60" cy="60" fill="none" r="50" stroke="#ef4444" stroke-dasharray="314" stroke-dashoffset="314" stroke-width="10"></circle>
-                                </svg>
-                                <div class="chart-label">
-                                    <span class="chart-percent">0%</span>
-                                    <span class="chart-text">Overall</span>
-                                </div>
-                            </div>
-                            <div class="chart-container">
-                                <svg class="rotate-90" width="120" height="120">
-                                    <circle cx="60" cy="60" fill="none" r="50" stroke="#fecaca" stroke-width="10"></circle>
-                                    <circle cx="60" cy="60" fill="none" r="50" stroke="#ef4444" stroke-dasharray="314" stroke-dashoffset="314" stroke-width="10"></circle>
-                                </svg>
-                                <div class="chart-label">
-                                    <span class="chart-percent">0%</span>
-                                    <span class="chart-text">Nov 2025</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="stats-grid attendence-grid">
-                            <div class="stat-card blue">
-                                <p class="stat-label blue">PRESENTS</p>
-                                <p class="stat-value blue">0</p>
-                                <p class="stat-period blue">This Month</p>
-                            </div>
-                            <div class="stat-card red">
-                                <p class="stat-label red">ABSENTS</p>
-                                <p class="stat-value red">0</p>
-                                <p class="stat-period red">This Month</p>
-                            </div>
-                        </div>
-
-                        <!-- Monthly Calendar View -->
-                        <div class="monthly-calendar">
-                            <h3 class="calendar-title">Monthly View</h3>
-                            <div class="calendar-weekdays">
-                                <div class="weekday-label">Sun</div>
-                                <div class="weekday-label">Mon</div>
-                                <div class="weekday-label">Tue</div>
-                                <div class="weekday-label">Wed</div>
-                                <div class="weekday-label">Thu</div>
-                                <div class="weekday-label">Fri</div>
-                                <div class="weekday-label">Sat</div>
-                            </div>
-                            <div class="calendar-grid" id="attendanceCalendar">
-                                <!-- Calendar will be generated by JavaScript -->
-                            </div>
-                        </div>
+                    <div class="report-filters">
+                        <select id="monthFilter" onchange="renderSessions()">
+                            <option value="all">All Months</option>
+                        </select>
+                        <select id="yearFilter">
+                            <option value="2025">2025</option>
+                            <option value="2024">2024</option>
+                        </select>
                     </div>
                 </div>
+
+                <div class="legend">
+                    <div class="legend-item">
+                        <span class="legend-dot present"></span>
+                        <span>P - Present</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-dot absent"></span>
+                        <span>A - Absent</span>
+                    </div>
+                </div>
+
+                <div class="stats-row">
+                    <div class="stat-circle-container">
+                        <div class="stat-circle overall">
+                            <div class="stat-percentage" id="overallPercent">0%</div>
+                            <div class="stat-label">Overall</div>
+                        </div>
+                    </div>
+
+                    <div class="stat-box">
+                        <div class="stat-box-label present">PRESENTS</div>
+                        <div class="stat-box-value present" id="presentCount">0</div>
+                        <div class="stat-box-subtitle">Total Sessions</div>
+                    </div>
+
+                    <div class="stat-box absent-box">
+                        <div class="stat-box-label absent">ABSENTS</div>
+                        <div class="stat-box-value absent" id="absentCount">0</div>
+                        <div class="stat-box-subtitle">Total Sessions</div>
+                    </div>
+                </div>
+
+                <!-- Progress Bar -->
+                <div class="progress-container">
+                    <div class="progress-label">
+                        <span>Year Progress</span>
+                        <span id="progressText">0/48 Sessions</span>
+                    </div>
+                    <div class="progress-bar-bg">
+                        <div class="progress-bar-fill" id="progressBar" style="width: 0%"></div>
+                    </div>
+                </div>
+
+                <div class="session-view-header">Session-wise Attendance</div>
+                <div id="sessionsContainer"></div>
             </div>
+            
+            
         </main>
     </div>
 
@@ -218,87 +183,123 @@
             }
         }
 
-        // Attendance Calendar Functionality
-        const reportMonth = document.getElementById('reportMonth');
-        const reportYear = document.getElementById('reportYear');
-        const attendanceCalendar = document.getElementById('attendanceCalendar');
+        // Attendance Report Functionality
+        const months = [
+            "January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"
+        ];
 
-        // Sample attendance data (replace with actual data from backend)
-        const attendanceData = {
-            '2025-11-01': 'present',
-            '2025-11-02': 'present',
-            '2025-11-03': 'present',
-            '2025-11-04': 'present',
-            '2025-11-05': 'present',
-            '2025-11-08': 'present',
-            '2025-11-09': 'absent',
-            '2025-11-10': 'present',
-            '2025-11-11': 'present',
-            '2025-11-12': 'present',
-            '2025-11-15': 'present',
-            '2025-11-16': 'present',
-            '2025-11-17': 'present',
-            '2025-11-18': 'present',
-            '2025-11-19': 'present'
-        };
+        // Populate month dropdown
+        const monthDropdown = document.getElementById("monthFilter");
+        months.forEach((m, i) => {
+            monthDropdown.innerHTML += `<option value="${i}">${m}</option>`;
+        });
 
-        function renderAttendanceCalendar() {
-            const month = parseInt(reportMonth.value);
-            const year = parseInt(reportYear.value);
+        // Generate 48 sessions with random attendance (Replace with actual data)
+        const TOTAL_SESSIONS = 48;
+        let attendanceData = {};
 
-            const firstDay = new Date(year, month, 1).getDay();
-            const daysInMonth = new Date(year, month + 1, 0).getDate();
-            const daysInPrevMonth = new Date(year, month, 0).getDate();
+        for (let i = 1; i <= TOTAL_SESSIONS; i++) {
+            attendanceData[i] = Math.random() > 0.3 ? "P" : "A"; // 70% present rate
+        }
 
-            attendanceCalendar.innerHTML = '';
+        function updateStats() {
+            let presentCount = 0;
+            let absentCount = 0;
 
-            // Previous month days
-            for (let i = firstDay - 1; i >= 0; i--) {
-                const cell = document.createElement('div');
-                cell.className = 'calendar-cell other-month';
-                cell.textContent = daysInPrevMonth - i;
-                attendanceCalendar.appendChild(cell);
+            for (let i = 1; i <= TOTAL_SESSIONS; i++) {
+                if (attendanceData[i] === "P") presentCount++;
+                else absentCount++;
             }
 
-            // Current month days
-            const currentDate = new Date();
-            for (let day = 1; day <= daysInMonth; day++) {
-                const cell = document.createElement('div');
-                cell.className = 'calendar-cell';
-                cell.textContent = day;
+            const percentage = Math.round((presentCount / TOTAL_SESSIONS) * 100);
 
-                const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+            document.getElementById('overallPercent').textContent = percentage + '%';
+            document.getElementById('presentCount').textContent = presentCount;
+            document.getElementById('absentCount').textContent = absentCount;
+            document.getElementById('progressText').textContent = presentCount + '/' + TOTAL_SESSIONS + ' Sessions';
+            document.getElementById('progressBar').style.width = percentage + '%';
 
-                // Add attendance status class
-                if (attendanceData[dateStr]) {
-                    cell.classList.add(attendanceData[dateStr]);
-                }
+            // Update circle color based on percentage
+            const circle = document.querySelector('.stat-circle.overall');
+            const percentText = document.getElementById('overallPercent');
 
-                // Mark today
-                if (day === currentDate.getDate() && month === currentDate.getMonth() && year === currentDate.getFullYear()) {
-                    cell.classList.add('today');
-                }
-
-                attendanceCalendar.appendChild(cell);
-            }
-
-            // Next month days
-            const totalCells = attendanceCalendar.children.length;
-            const remainingCells = 42 - totalCells;
-            for (let i = 1; i <= remainingCells; i++) {
-                const cell = document.createElement('div');
-                cell.className = 'calendar-cell other-month';
-                cell.textContent = i;
-                attendanceCalendar.appendChild(cell);
+            if (percentage >= 75) {
+                circle.style.borderColor = '#e9d5f0';
+                circle.style.background = 'linear-gradient(135deg, #ffffff 0%, #f5ebf7 100%)';
+            } else if (percentage >= 50) {
+                circle.style.borderColor = '#c4a3d1';
+                circle.style.background = 'linear-gradient(135deg, #f5ebf7 0%, #e9d5f0 100%)';
+                percentText.style.background = 'linear-gradient(135deg, #A67DB1 0%, #6b277e 100%)';
+                percentText.style.webkitBackgroundClip = 'text';
+                percentText.style.webkitTextFillColor = 'transparent';
+                percentText.style.backgroundClip = 'text';
+            } else {
+                circle.style.borderColor = '#fecaca';
+                circle.style.background = 'linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%)';
+                percentText.style.background = '#991b1b';
+                percentText.style.webkitBackgroundClip = 'text';
+                percentText.style.webkitTextFillColor = 'transparent';
+                percentText.style.backgroundClip = 'text';
             }
         }
 
-        // Initialize calendar
-        renderAttendanceCalendar();
+        function getWeekOfMonth(sessionInMonth) {
+            return `Week ${sessionInMonth}`;
+        }
 
-        // Update calendar when month/year changes
-        reportMonth.addEventListener('change', renderAttendanceCalendar);
-        reportYear.addEventListener('change', renderAttendanceCalendar);
+        function renderSessions() {
+            const container = document.getElementById('sessionsContainer');
+            container.innerHTML = '';
+            const selectedMonth = document.getElementById('monthFilter').value;
+
+            for (let month = 0; month < 12; month++) {
+                if (selectedMonth !== "all" && selectedMonth != month) continue;
+
+                const startSession = month * 4 + 1;
+                const endSession = startSession + 3;
+
+                const monthSection = document.createElement('div');
+                monthSection.className = 'month-section';
+
+                const monthHeader = document.createElement('div');
+                monthHeader.className = 'month-header';
+                monthHeader.innerHTML = `
+                    <span>${months[month]}</span>
+                    <span class="month-range">Sessions ${startSession} - ${endSession}</span>
+                `;
+
+                const sessionsGrid = document.createElement('div');
+                sessionsGrid.className = 'sessions-grid';
+
+                for (let s = 0; s < 4; s++) {
+                    const sessionNum = startSession + s;
+                    const status = attendanceData[sessionNum];
+
+                    const sessionCard = document.createElement('div');
+                    sessionCard.className = `session-card ${status === 'P' ? 'present' : 'absent'}`;
+                    sessionCard.innerHTML = `
+                        <div class="session-number ${status === 'P' ? 'present' : 'absent'}">
+                            Session ${sessionNum}
+                        </div>
+                        <div class="session-week">${getWeekOfMonth(s + 1)}</div>
+                        <div class="session-status ${status === 'P' ? 'present' : 'absent'}">
+                            ${status === 'P' ? '✓ Present' : '✗ Absent'}
+                        </div>
+                    `;
+
+                    sessionsGrid.appendChild(sessionCard);
+                }
+
+                monthSection.appendChild(monthHeader);
+                monthSection.appendChild(sessionsGrid);
+                container.appendChild(monthSection);
+            }
+        }
+
+        // Initialize
+        updateStats();
+        renderSessions();
     </script>
 </body>
 

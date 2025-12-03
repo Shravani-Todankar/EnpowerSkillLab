@@ -10,7 +10,20 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
         rel="stylesheet" />
+
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.dataTables.min.css">
+
     <link rel="stylesheet" href="teacher-list.css">
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
+
     <!-- Sidebar JS -->
     <script src="sidebar.js"></script>
     <!-- Header JS -->
@@ -30,12 +43,12 @@
             <!-- Teacher List Content -->
             <div class="teacher-list-page">
                 <div class="controls-row">
-                    <div class="search-wrapper">
-                        <span class="material-icons-outlined search-icon">search</span>
-                        <input class="search-input" placeholder="Search Teacher" type="text" />
-                    </div>
                     <div class="action-buttons">
-                        <a href="upload-teacher-csv.html" class="upload-csv-btn">
+                        <a href="#" class="download-sample-btn">
+                            <span class="material-icons-outlined">download</span>
+                            <span>Download Sample CSV</span>
+                        </a>
+                        <a href="#" class="upload-csv-btn">
                             <span class="material-icons-outlined">upload_file</span>
                             <span>Upload CSV</span>
                         </a>
@@ -364,6 +377,8 @@
                     </div>
                 </div>
             </div>
+
+            
         </main>
     </div>
 
@@ -408,46 +423,39 @@
             }
         }
 
-        // Search functionality
-        function initializeSearch() {
-            const searchInput = document.querySelector('.search-input');
-            const tableRows = document.querySelectorAll('.teachers-table tbody tr');
-
-            if (searchInput) {
-                searchInput.addEventListener('input', function(e) {
-                    const searchTerm = e.target.value.toLowerCase().trim();
-
-                    tableRows.forEach(row => {
-                        const teacherId = row.cells[0]?.textContent.toLowerCase() || '';
-                        const teacherName = row.cells[1]?.textContent.toLowerCase() || '';
-                        const designation = row.cells[2]?.textContent.toLowerCase() || '';
-                        const contact = row.cells[3]?.textContent.toLowerCase() || '';
-                        const status = row.cells[4]?.textContent.toLowerCase() || '';
-
-                        // Check if search term matches any column
-                        const matches = teacherId.includes(searchTerm) ||
-                                      teacherName.includes(searchTerm) ||
-                                      designation.includes(searchTerm) ||
-                                      contact.includes(searchTerm) ||
-                                      status.includes(searchTerm);
-
-                        // Show or hide row based on match
-                        if (matches) {
-                            row.style.display = '';
-                        } else {
-                            row.style.display = 'none';
-                        }
-                    });
-                });
-            }
-        }
-
-        // Initialize search after DOM is loaded
-        document.addEventListener('DOMContentLoaded', function() {
-            // Wait a bit for the table to be rendered
-            setTimeout(() => {
-                initializeSearch();
-            }, 300);
+        // Initialize DataTables
+        $(document).ready(function() {
+            $('.teachers-table').DataTable({
+                responsive: true,
+                pageLength: 10,
+                lengthMenu: [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
+                language: {
+                    search: "_INPUT_",
+                    searchPlaceholder: "Search teachers...",
+                    lengthMenu: "Show _MENU_ entries",
+                    info: "Showing _START_ to _END_ of _TOTAL_ teachers",
+                    infoEmpty: "No teachers found",
+                    infoFiltered: "(filtered from _MAX_ total teachers)",
+                    paginate: {
+                        first: "First",
+                        last: "Last",
+                        next: "Next",
+                        previous: "Previous"
+                    }
+                },
+                columnDefs: [
+                    {
+                        targets: -1, // Actions column
+                        orderable: false,
+                        searchable: false
+                    },
+                    {
+                        targets: 4, // Status column
+                        orderable: true
+                    }
+                ],
+                order: [[0, 'asc']] // Default sort by Teacher ID
+            });
         });
     </script>
 
