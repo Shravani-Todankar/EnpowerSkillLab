@@ -183,10 +183,10 @@ body.dark .notification-dropdown-header {
     gap: 8px;
 }
 
-.notification-dropdown-title::before {
+/* .notification-dropdown-title::before {
     content: '🔔';
     font-size: 1.125rem;
-}
+} */
 
 body.dark .notification-dropdown-title {
     color: var(--heading-dark);
@@ -242,7 +242,7 @@ body.dark .notification-dropdown-body::-webkit-scrollbar-thumb {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     border-bottom: 1px solid rgba(0, 0, 0, 0.04);
     position: relative;
-    margin: 0 8px;
+    margin: 8px 8px;
     border-radius: 12px;
 }
 
@@ -316,9 +316,10 @@ body.dark .notification-item.unread {
     box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4), inset 0 -2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.notification-content {
+.notification-content-header {
     flex: 1;
     min-width: 0;
+    gap:0;
 }
 
 .notification-text {

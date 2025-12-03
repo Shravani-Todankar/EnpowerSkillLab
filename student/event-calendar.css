@@ -62,8 +62,8 @@
     gap: 8px;
     padding: 8px 16px;
     background-color: transparent;
-    color: var(--blue-500);
-    border: 1px solid var(--blue-500);
+    color: #C084FC;
+    border: 1px solid #6f429c;
     border-radius: 8px;
     font-size: 0.875rem;
     font-weight: 500;
@@ -72,7 +72,7 @@
 }
 
 .calendar-today-btn:hover {
-    background-color: var(--blue-500);
+    background-color: #6f429c;
     color: white;
 }
 
@@ -103,7 +103,7 @@
 }
 
 .calendar-day {
-    aspect-ratio: 1;
+    aspect-ratio: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -133,7 +133,7 @@
 }
 
 .calendar-day.today:hover {
-    background-color: var(--blue-600);
+    background-color: var(--blue-500);
 }
 
 .day-number {
@@ -147,8 +147,8 @@
 }
 
 .calendar-day.has-event {
-    background-color: rgba(59, 130, 246, 0.1);
-    border: 2px solid var(--blue-500);
+    background-color: #d8b3fdbb;
+    border: 2px solid #C084FC;
 }
 
 .event-indicators {
