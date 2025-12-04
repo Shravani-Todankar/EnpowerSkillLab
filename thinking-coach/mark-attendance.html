@@ -11,8 +11,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="teacher-dashboard.css">
-    <link rel="stylesheet" href="attendance.css">
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="mark-attendance.css">
 </head>
 
 <body>
@@ -27,8 +27,8 @@
             <div class="content-wrapper">
                 <div class="page-content">
                     <div class="page-header">
-                        <h1 class="page-title">Attendance Management</h1>
-                        <p class="page-subtitle">Mark attendance, view reports, and manage notifications</p>
+                        <h1 class="page-title">Session Attendance Management</h1>
+                        <p class="page-subtitle">Mark attendance for 48 sessions (4 sessions per month)</p>
                     </div>
 
                     <!-- Mark Attendance Section -->
@@ -36,14 +36,59 @@
                         <div class="section-header">
                             <h2 class="section-title">
                                 <span class="material-symbols-outlined">edit_calendar</span>
-                                Mark Attendance
+                                Mark Session Attendance
                             </h2>
                         </div>
                         <div class="mark-attendance-content">
-                            <div class="date-selector">
-                                <label for="attendanceDate">Select Date</label>
-                                <input type="date" id="attendanceDate" class="date-input">
+                            <!-- Session Selection -->
+                            <div class="session-selector-wrapper">
+                                <div class="session-selector">
+                                    <label for="monthSelect">Select Month</label>
+                                    <select id="monthSelect" class="month-select">
+                                        <option value="0">January</option>
+                                        <option value="1">February</option>
+                                        <option value="2">March</option>
+                                        <option value="3">April</option>
+                                        <option value="4">May</option>
+                                        <option value="5">June</option>
+                                        <option value="6">July</option>
+                                        <option value="7">August</option>
+                                        <option value="8">September</option>
+                                        <option value="9">October</option>
+                                        <option value="10">November</option>
+                                        <option value="11">December</option>
+                                    </select>
+                                </div>
+                                <div class="session-selector">
+                                    <label for="sessionSelect">Select Session</label>
+                                    <select id="sessionSelect" class="session-select">
+                                        <option value="1">Session 1</option>
+                                        <option value="2">Session 2</option>
+                                        <option value="3">Session 3</option>
+                                        <option value="4">Session 4</option>
+                                    </select>
+                                </div>
                             </div>
+
+                            <!-- Session Info Display -->
+                            <div class="session-info-card">
+                                <div class="session-info-header">
+                                    <span class="material-symbols-outlined">event</span>
+                                    <span id="sessionInfoText">Session 1 of January</span>
+                                </div>
+                                <div class="session-details">
+                                    <div class="detail-item">
+                                        <span class="detail-label">Session Number:</span>
+                                        <span class="detail-value" id="sessionNumber">1 of 48</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-label">Current Status:</span>
+                                        <span class="detail-value" id="currentStatus">Not Marked</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Attendance Status Buttons -->
                             <div class="attendance-status-buttons">
                                 <button class="status-btn present-btn" data-status="present">
                                     <span class="material-symbols-outlined">check_circle</span>
@@ -58,12 +103,14 @@
                                     Absent
                                 </button>
                             </div>
+
                             <div class="selected-status" id="selectedStatus">
-                                <p class="status-message">Please select attendance status</p>
+                                <p class="status-message">Please select attendance status for this session</p>
                             </div>
+
                             <button class="submit-attendance-btn" id="submitAttendance">
                                 <span class="material-symbols-outlined">save</span>
-                                Submit Attendance
+                                Submit Session Attendance
                             </button>
                         </div>
                     </div>
@@ -73,10 +120,11 @@
                         <div class="section-header">
                             <h2 class="section-title">
                                 <span class="material-symbols-outlined">assessment</span>
-                                Attendance Report
+                                Session Attendance Report
                             </h2>
                             <div class="report-controls">
                                 <select class="month-selector" id="reportMonth">
+                                    <option value="all">All Months</option>
                                     <option value="0">January</option>
                                     <option value="1">February</option>
                                     <option value="2">March</option>
@@ -87,13 +135,8 @@
                                     <option value="7">August</option>
                                     <option value="8">September</option>
                                     <option value="9">October</option>
-                                    <option value="10" selected>November</option>
+                                    <option value="10">November</option>
                                     <option value="11">December</option>
-                                </select>
-                                <select class="year-selector" id="reportYear">
-                                    <option value="2024">2024</option>
-                                    <option value="2025" selected>2025</option>
-                                    <option value="2026">2026</option>
                                 </select>
                             </div>
                         </div>
@@ -108,72 +151,63 @@
                             <span class="legend-item">
                                 <span class="legend-dot red"></span>A - Absent
                             </span>
+                            <span class="legend-item">
+                                <span class="legend-dot gray"></span>N - Not Marked
+                            </span>
                         </div>
 
+                        <!-- Overall Statistics -->
                         <div class="charts-wrapper">
                             <div class="chart-container">
                                 <svg class="rotate-90" width="120" height="120">
-                                    <circle cx="60" cy="60" fill="none" r="50" stroke="#fecaca" stroke-width="10"></circle>
-                                    <circle cx="60" cy="60" fill="none" r="50" stroke="#ef4444" stroke-dasharray="314" stroke-dashoffset="314" stroke-width="10"></circle>
+                                    <circle cx="60" cy="60" fill="none" r="50" stroke="#e5e7eb" stroke-width="10"></circle>
+                                    <circle cx="60" cy="60" fill="none" r="50" stroke="#6b277e" stroke-dasharray="314" stroke-dashoffset="235" stroke-width="10"></circle>
                                 </svg>
                                 <div class="chart-label">
-                                    <span class="chart-percent">0%</span>
+                                    <span class="chart-percent" id="overallPercent">25%</span>
                                     <span class="chart-text">Overall</span>
                                 </div>
                             </div>
                             <div class="chart-container">
                                 <svg class="rotate-90" width="120" height="120">
-                                    <circle cx="60" cy="60" fill="none" r="50" stroke="#fecaca" stroke-width="10"></circle>
-                                    <circle cx="60" cy="60" fill="none" r="50" stroke="#ef4444" stroke-dasharray="314" stroke-dashoffset="314" stroke-width="10"></circle>
+                                    <circle cx="60" cy="60" fill="none" r="50" stroke="#e5e7eb" stroke-width="10"></circle>
+                                    <circle cx="60" cy="60" fill="none" r="50" stroke="#6b277e" stroke-dasharray="314" stroke-dashoffset="157" stroke-width="10"></circle>
                                 </svg>
                                 <div class="chart-label">
-                                    <span class="chart-percent">0%</span>
-                                    <span class="chart-text">Nov 2025</span>
+                                    <span class="chart-percent" id="monthPercent">50%</span>
+                                    <span class="chart-text" id="monthLabel">This Month</span>
                                 </div>
                             </div>
-                        </div>
-
-                        <div class="status-badges">
-                            <span class="status-badge">
-                                <span class="legend-dot yellow"></span>Today NOT MARKED
-                            </span>
-                            <span class="status-badge">
-                                <span class="legend-dot yellow"></span>Yesterday NOT MARKED
-                            </span>
                         </div>
 
                         <div class="stats-grid">
                             <div class="stat-card blue">
                                 <p class="stat-label blue">PRESENTS</p>
-                                <p class="stat-value blue">0</p>
-                                <p class="stat-period blue">This Month</p>
+                                <p class="stat-value blue" id="presentCount">12</p>
+                                <p class="stat-period blue">Out of 48</p>
                             </div>
                             <div class="stat-card purple">
                                 <p class="stat-label purple">LEAVES</p>
-                                <p class="stat-value purple">0</p>
-                                <p class="stat-period purple">This Month</p>
+                                <p class="stat-value purple" id="leaveCount">2</p>
+                                <p class="stat-period purple">Out of 48</p>
                             </div>
                             <div class="stat-card red">
                                 <p class="stat-label red">ABSENTS</p>
-                                <p class="stat-value red">0</p>
-                                <p class="stat-period red">This Month</p>
+                                <p class="stat-value red" id="absentCount">3</p>
+                                <p class="stat-period red">Out of 48</p>
+                            </div>
+                            <div class="stat-card gray">
+                                <p class="stat-label gray">NOT MARKED</p>
+                                <p class="stat-value gray" id="notMarkedCount">31</p>
+                                <p class="stat-period gray">Out of 48</p>
                             </div>
                         </div>
 
-                        <!-- Monthly Calendar View -->
-                        <div class="monthly-calendar">
-                            <h3 class="calendar-title">Monthly View</h3>
-                            <div class="calendar-weekdays">
-                                <div class="weekday-label">Sun</div>
-                                <div class="weekday-label">Mon</div>
-                                <div class="weekday-label">Tue</div>
-                                <div class="weekday-label">Wed</div>
-                                <div class="weekday-label">Thu</div>
-                                <div class="weekday-label">Fri</div>
-                                <div class="weekday-label">Sat</div>
-                            </div>
-                            <div class="calendar-grid" id="attendanceCalendar">
-                                <!-- Calendar will be generated by JavaScript -->
+                        <!-- Session Grid View -->
+                        <div class="sessions-view">
+                            <h3 class="calendar-title">Sessions Overview</h3>
+                            <div id="sessionsGrid" class="sessions-grid">
+                                <!-- Sessions will be generated by JavaScript -->
                             </div>
                         </div>
                     </div>
@@ -204,9 +238,9 @@
                                 </div>
                                 <div class="setting-item">
                                     <label class="toggle-label">
-                                        <input type="checkbox" class="toggle-checkbox" id="dailyReport">
+                                        <input type="checkbox" class="toggle-checkbox" id="sessionReport">
                                         <span class="toggle-slider"></span>
-                                        <span class="toggle-text">Send Daily Report</span>
+                                        <span class="toggle-text">Send Session Report</span>
                                     </label>
                                 </div>
                             </div>
@@ -219,8 +253,8 @@
                                             <span class="material-symbols-outlined">cancel</span>
                                         </div>
                                         <div class="notification-details">
-                                            <h4 class="notification-title">Absent Alert</h4>
-                                            <p class="notification-message">Student marked absent on Nov 20, 2025</p>
+                                            <h4 class="notification-title">Absent Alert - Session 12</h4>
+                                            <p class="notification-message">Student marked absent for March Session 4</p>
                                             <span class="notification-time">2 days ago</span>
                                         </div>
                                     </div>
@@ -229,8 +263,8 @@
                                             <span class="material-symbols-outlined">event_busy</span>
                                         </div>
                                         <div class="notification-details">
-                                            <h4 class="notification-title">Leave Request</h4>
-                                            <p class="notification-message">Student on leave on Nov 18, 2025</p>
+                                            <h4 class="notification-title">Leave - Session 11</h4>
+                                            <p class="notification-message">Student on leave for March Session 3</p>
                                             <span class="notification-time">4 days ago</span>
                                         </div>
                                     </div>
@@ -240,7 +274,7 @@
                                         </div>
                                         <div class="notification-details">
                                             <h4 class="notification-title">Perfect Attendance</h4>
-                                            <p class="notification-message">5 consecutive days present</p>
+                                            <p class="notification-message">5 consecutive sessions attended</p>
                                             <span class="notification-time">1 week ago</span>
                                         </div>
                                     </div>
@@ -274,6 +308,7 @@
 
             // Initialize sidebar functionality after both components are loaded
             initializeSidebar();
+            initializeSidebarDropdowns();
         });
 
         function initializeSidebar() {
@@ -326,8 +361,8 @@
         function setActiveLink() {
             const currentPage = window.location.pathname.split('/').pop();
             const navLinks = {
-                'student-dashboard.html': 'nav-dashboard',
-                'attendance.html': 'nav-attendance',
+                'dashboard.html': 'nav-dashboard',
+                'mark-attendance.html': 'nav-attendance',
                 'lms.html': 'nav-lms',
                 'leaderboard.html': 'nav-leaderboard',
                 'assessment.html': 'nav-assessment',
@@ -350,16 +385,105 @@
             }
         }
 
+        function initializeSidebarDropdowns() {
+            const dropdownToggles = document.querySelectorAll('.sidebar-dropdown-toggle');
+
+            dropdownToggles.forEach(toggle => {
+                toggle.addEventListener('click', function(e) {
+                    e.preventDefault();
+
+                    const dropdownParent = this.closest('.sidebar-dropdown');
+                    const isActive = dropdownParent.classList.contains('active');
+
+                    // Close all other dropdowns
+                    document.querySelectorAll('.sidebar-dropdown').forEach(dropdown => {
+                        dropdown.classList.remove('active');
+                    });
+
+                    // Toggle current dropdown
+                    if (!isActive) {
+                        dropdownParent.classList.add('active');
+                    }
+                });
+            });
+
+            // Close dropdown when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!e.target.closest('.sidebar-dropdown')) {
+                    document.querySelectorAll('.sidebar-dropdown').forEach(dropdown => {
+                        dropdown.classList.remove('active');
+                    });
+                }
+            });
+        }
+
+        // Session-based Attendance System
+        const TOTAL_SESSIONS = 48;
+        const SESSIONS_PER_MONTH = 4;
+        const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+        // Sample attendance data (session_number: status)
+        // In production, this would come from your backend
+        const attendanceData = {
+            1: 'present',
+            2: 'present',
+            3: 'present',
+            4: 'leave',
+            5: 'present',
+            6: 'present',
+            7: 'present',
+            8: 'absent',
+            9: 'present',
+            10: 'present',
+            11: 'present',
+            12: 'absent'
+        };
+
         // Mark Attendance Functionality
-        const attendanceDate = document.getElementById('attendanceDate');
+        const monthSelect = document.getElementById('monthSelect');
+        const sessionSelect = document.getElementById('sessionSelect');
         const statusButtons = document.querySelectorAll('.status-btn');
         const selectedStatus = document.getElementById('selectedStatus');
         const submitBtn = document.getElementById('submitAttendance');
-        let currentStatus = null;
+        const sessionInfoText = document.getElementById('sessionInfoText');
+        const sessionNumber = document.getElementById('sessionNumber');
+        const currentStatus = document.getElementById('currentStatus');
 
-        // Set today's date as default
-        const today = new Date().toISOString().split('T')[0];
-        attendanceDate.value = today;
+        let selectedAttendanceStatus = null;
+        let currentSessionNumber = 1;
+
+        // Set current month as default
+        const today = new Date();
+        monthSelect.value = today.getMonth();
+
+        function updateSessionInfo() {
+            const month = parseInt(monthSelect.value);
+            const session = parseInt(sessionSelect.value);
+
+            currentSessionNumber = (month * SESSIONS_PER_MONTH) + session;
+
+            sessionInfoText.textContent = `Session ${session} of ${MONTHS[month]}`;
+            sessionNumber.textContent = `${currentSessionNumber} of ${TOTAL_SESSIONS}`;
+
+            // Update current status
+            const status = attendanceData[currentSessionNumber];
+            if (status) {
+                const statusText = status.charAt(0).toUpperCase() + status.slice(1);
+                currentStatus.textContent = statusText;
+                currentStatus.style.color = status === 'present' ? 'var(--blue-500)' : status === 'leave' ? 'var(--purple-500)' : 'var(--red-500)';
+            } else {
+                currentStatus.textContent = 'Not Marked';
+                currentStatus.style.color = 'var(--gray-500)';
+            }
+
+            // Reset selection
+            statusButtons.forEach(b => b.classList.remove('active'));
+            selectedAttendanceStatus = null;
+            selectedStatus.innerHTML = '<p class="status-message">Please select attendance status for this session</p>';
+        }
+
+        monthSelect.addEventListener('change', updateSessionInfo);
+        sessionSelect.addEventListener('change', updateSessionInfo);
 
         // Handle status button clicks
         statusButtons.forEach(btn => {
@@ -371,7 +495,7 @@
                 btn.classList.add('active');
 
                 // Update current status
-                currentStatus = btn.dataset.status;
+                selectedAttendanceStatus = btn.dataset.status;
 
                 // Update status message
                 const statusMessages = {
@@ -380,114 +504,120 @@
                     'absent': 'Status selected: <strong style="color: var(--red-500);">Absent</strong>'
                 };
 
-                selectedStatus.innerHTML = `<p class="status-message">${statusMessages[currentStatus]}</p>`;
+                selectedStatus.innerHTML = `<p class="status-message">${statusMessages[selectedAttendanceStatus]}</p>`;
             });
         });
 
         // Handle submit attendance
         submitBtn.addEventListener('click', () => {
-            if (!currentStatus) {
+            if (!selectedAttendanceStatus) {
                 alert('Please select an attendance status');
                 return;
             }
 
-            const date = attendanceDate.value;
-            if (!date) {
-                alert('Please select a date');
-                return;
-            }
-
             // Here you would typically send this to your backend
-            console.log('Submitting attendance:', { date, status: currentStatus });
-            alert(`Attendance marked as ${currentStatus} for ${date}`);
+            console.log('Submitting attendance:', {
+                sessionNumber: currentSessionNumber,
+                month: MONTHS[parseInt(monthSelect.value)],
+                session: sessionSelect.value,
+                status: selectedAttendanceStatus
+            });
 
-            // Reset form
-            statusButtons.forEach(b => b.classList.remove('active'));
-            currentStatus = null;
-            selectedStatus.innerHTML = '<p class="status-message">Please select attendance status</p>';
+            // Update local data
+            attendanceData[currentSessionNumber] = selectedAttendanceStatus;
+
+            alert(`Session ${currentSessionNumber} attendance marked as ${selectedAttendanceStatus}`);
+
+            // Update displays
+            updateSessionInfo();
+            renderSessionsGrid();
+            updateStatistics();
         });
 
-        // Attendance Calendar Functionality
+        // Initialize
+        updateSessionInfo();
+
+        // Attendance Report Functionality
         const reportMonth = document.getElementById('reportMonth');
-        const reportYear = document.getElementById('reportYear');
-        const attendanceCalendar = document.getElementById('attendanceCalendar');
+        const sessionsGrid = document.getElementById('sessionsGrid');
 
-        // Sample attendance data (replace with actual data from backend)
-        const attendanceData = {
-            '2025-11-01': 'present',
-            '2025-11-02': 'present',
-            '2025-11-03': 'leave',
-            '2025-11-04': 'present',
-            '2025-11-05': 'present',
-            '2025-11-08': 'present',
-            '2025-11-09': 'absent',
-            '2025-11-10': 'present',
-            '2025-11-11': 'present',
-            '2025-11-12': 'present',
-            '2025-11-15': 'present',
-            '2025-11-16': 'present',
-            '2025-11-17': 'leave',
-            '2025-11-18': 'present',
-            '2025-11-19': 'present'
-        };
+        function getSessionLabel(sessionNum) {
+            const month = Math.floor((sessionNum - 1) / SESSIONS_PER_MONTH);
+            const session = ((sessionNum - 1) % SESSIONS_PER_MONTH) + 1;
+            return `${MONTHS[month]} S${session}`;
+        }
 
-        function renderAttendanceCalendar() {
-            const month = parseInt(reportMonth.value);
-            const year = parseInt(reportYear.value);
+        function renderSessionsGrid() {
+            const filterMonth = reportMonth.value;
+            sessionsGrid.innerHTML = '';
 
-            const firstDay = new Date(year, month, 1).getDay();
-            const daysInMonth = new Date(year, month + 1, 0).getDate();
-            const daysInPrevMonth = new Date(year, month, 0).getDate();
+            for (let i = 1; i <= TOTAL_SESSIONS; i++) {
+                const month = Math.floor((i - 1) / SESSIONS_PER_MONTH);
 
-            attendanceCalendar.innerHTML = '';
-
-            // Previous month days
-            for (let i = firstDay - 1; i >= 0; i--) {
-                const cell = document.createElement('div');
-                cell.className = 'calendar-cell other-month';
-                cell.textContent = daysInPrevMonth - i;
-                attendanceCalendar.appendChild(cell);
-            }
-
-            // Current month days
-            const currentDate = new Date();
-            for (let day = 1; day <= daysInMonth; day++) {
-                const cell = document.createElement('div');
-                cell.className = 'calendar-cell';
-                cell.textContent = day;
-
-                const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-
-                // Add attendance status class
-                if (attendanceData[dateStr]) {
-                    cell.classList.add(attendanceData[dateStr]);
+                // Filter by month if selected
+                if (filterMonth !== 'all' && month !== parseInt(filterMonth)) {
+                    continue;
                 }
 
-                // Mark today
-                if (day === currentDate.getDate() && month === currentDate.getMonth() && year === currentDate.getFullYear()) {
-                    cell.classList.add('today');
-                }
+                const sessionCard = document.createElement('div');
+                sessionCard.className = 'session-card';
 
-                attendanceCalendar.appendChild(cell);
-            }
+                const status = attendanceData[i] || 'not-marked';
+                sessionCard.classList.add(status);
 
-            // Next month days
-            const totalCells = attendanceCalendar.children.length;
-            const remainingCells = 42 - totalCells;
-            for (let i = 1; i <= remainingCells; i++) {
-                const cell = document.createElement('div');
-                cell.className = 'calendar-cell other-month';
-                cell.textContent = i;
-                attendanceCalendar.appendChild(cell);
+                const sessionLabel = getSessionLabel(i);
+                const statusIcon = status === 'present' ? 'check_circle' :
+                                 status === 'leave' ? 'event_busy' :
+                                 status === 'absent' ? 'cancel' : 'schedule';
+
+                const statusText = status === 'not-marked' ? 'Not Marked' : status.charAt(0).toUpperCase() + status.slice(1);
+
+                sessionCard.innerHTML = `
+                    <div class="session-card-header">
+                        <span class="session-label">Session ${i}</span>
+                        <span class="material-symbols-outlined session-icon">${statusIcon}</span>
+                    </div>
+                    <div class="session-card-body">
+                        <span class="session-month-label">${sessionLabel}</span>
+                        <span class="session-status-text">${statusText}</span>
+                    </div>
+                `;
+
+                sessionsGrid.appendChild(sessionCard);
             }
         }
 
-        // Initialize calendar
-        renderAttendanceCalendar();
+        function updateStatistics() {
+            let present = 0, leave = 0, absent = 0, notMarked = 0;
 
-        // Update calendar when month/year changes
-        reportMonth.addEventListener('change', renderAttendanceCalendar);
-        reportYear.addEventListener('change', renderAttendanceCalendar);
+            for (let i = 1; i <= TOTAL_SESSIONS; i++) {
+                const status = attendanceData[i];
+                if (status === 'present') present++;
+                else if (status === 'leave') leave++;
+                else if (status === 'absent') absent++;
+                else notMarked++;
+            }
+
+            document.getElementById('presentCount').textContent = present;
+            document.getElementById('leaveCount').textContent = leave;
+            document.getElementById('absentCount').textContent = absent;
+            document.getElementById('notMarkedCount').textContent = notMarked;
+
+            // Update charts
+            const overallPercentage = Math.round((present / TOTAL_SESSIONS) * 100);
+            document.getElementById('overallPercent').textContent = overallPercentage + '%';
+
+            // Calculate stroke dashoffset (314 is circumference, goes from 314 to 0)
+            const overallOffset = 314 - (314 * (present / TOTAL_SESSIONS));
+            document.querySelector('.charts-wrapper .chart-container:first-child circle:last-child').setAttribute('stroke-dashoffset', overallOffset);
+        }
+
+        // Initialize sessions grid
+        renderSessionsGrid();
+        updateStatistics();
+
+        // Update grid when filter changes
+        reportMonth.addEventListener('change', renderSessionsGrid);
 
         // Send Notification Functionality
         const sendNotificationBtn = document.querySelector('.send-notification-btn');

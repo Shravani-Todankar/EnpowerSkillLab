@@ -59,12 +59,12 @@ body.dark .header button {
 }
 
 .app-store-btn {
-    background-color: rgba(59, 130, 246, 0.1);
+    background-color: rgba(107, 39, 126, 0.1);
     color: var(--blue-600);
 }
 
 .play-store-btn {
-    background-color: #9333EA;
+    background-color: #6b277e;
     color: white;
 }
 
@@ -164,13 +164,13 @@ body.dark .notification-dropdown-menu::before {
     align-items: center;
     justify-content: space-between;
     padding: 20px 24px;
-    border-bottom: 2px solid rgba(59, 130, 246, 0.1);
-    background: linear-gradient(135deg, rgba(59, 130, 246, 0.03) 0%, rgba(139, 92, 246, 0.03) 100%);
+    border-bottom: 2px solid rgba(107, 39, 126, 0.1);
+    background: linear-gradient(135deg, rgba(107, 39, 126, 0.03) 0%, rgba(107, 39, 126, 0.03) 100%);
 }
 
 body.dark .notification-dropdown-header {
-    border-bottom-color: rgba(59, 130, 246, 0.15);
-    background: linear-gradient(135deg, rgba(59, 130, 246, 0.08) 0%, rgba(139, 92, 246, 0.08) 100%);
+    border-bottom-color: rgba(107, 39, 126, 0.15);
+    background: linear-gradient(135deg, rgba(107, 39, 126, 0.08) 0%, rgba(107, 39, 126, 0.08) 100%);
 }
 
 .notification-dropdown-title {
@@ -196,15 +196,15 @@ body.dark .notification-dropdown-title {
     font-size: 0.813rem;
     font-weight: 700;
     color: white;
-    background: linear-gradient(135deg, #3B82F6 0%, #8B5CF6 100%);
+    background: linear-gradient(135deg, #6b277e 0%, #A67DB1 100%);
     padding: 6px 14px;
     border-radius: 20px;
-    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+    box-shadow: 0 4px 12px rgba(107, 39, 126, 0.3);
     letter-spacing: 0.3px;
 }
 
 body.dark .notification-count {
-    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+    box-shadow: 0 4px 12px rgba(107, 39, 126, 0.4);
 }
 
 .notification-dropdown-body {
@@ -255,23 +255,23 @@ body.dark .notification-item {
 }
 
 .notification-item:hover {
-    background: linear-gradient(135deg, rgba(59, 130, 246, 0.08) 0%, rgba(139, 92, 246, 0.08) 100%);
+    background: linear-gradient(135deg, rgba(107, 39, 126, 0.08) 0%, rgba(107, 39, 126, 0.08) 100%);
     /* transform: translateX(4px);
-    box-shadow: -4px 0 0 0 #3B82F6, 0 4px 12px rgba(59, 130, 246, 0.15); */
+    box-shadow: -4px 0 0 0 #6b277e, 0 4px 12px rgba(107, 39, 126, 0.15); */
     margin-right: 4px;
 }
 
 body.dark .notification-item:hover {
-    background: linear-gradient(135deg, rgba(59, 130, 246, 0.12) 0%, rgba(139, 92, 246, 0.12) 100%);
-    box-shadow: -4px 0 0 0 #3B82F6, 0 4px 12px rgba(59, 130, 246, 0.25);
+    background: linear-gradient(135deg, rgba(107, 39, 126, 0.12) 0%, rgba(107, 39, 126, 0.12) 100%);
+    box-shadow: -4px 0 0 0 #6b277e, 0 4px 12px rgba(107, 39, 126, 0.25);
 }
 
 .notification-item.unread {
-    background: linear-gradient(135deg, rgba(59, 130, 246, 0.06) 0%, rgba(139, 92, 246, 0.06) 100%);
+    background: linear-gradient(135deg, rgba(107, 39, 126, 0.06) 0%, rgba(107, 39, 126, 0.06) 100%);
 }
 
 body.dark .notification-item.unread {
-    background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+    background: linear-gradient(135deg, rgba(107, 39, 126, 0.1) 0%, rgba(107, 39, 126, 0.1) 100%);
 }
 
 .notification-icon {
@@ -297,8 +297,8 @@ body.dark .notification-item.unread {
 }
 
 .notification-icon.bg-blue {
-    background: linear-gradient(135deg, #3B82F6 0%, #2563EB 100%);
-    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4), inset 0 -2px 8px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(135deg, #6b277e 0%, #A67DB1 100%);
+    box-shadow: 0 4px 12px rgba(107, 39, 126, 0.4), inset 0 -2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .notification-icon.bg-green {
@@ -312,8 +312,8 @@ body.dark .notification-item.unread {
 }
 
 .notification-icon.bg-purple {
-    background: linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%);
-    box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4), inset 0 -2px 8px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(135deg, #6b277e 0%, #A67DB1 100%);
+    box-shadow: 0 4px 12px rgba(107, 39, 126, 0.4), inset 0 -2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .notification-content-header {
@@ -376,7 +376,7 @@ body.dark .notification-description {
 
 .notification-time::before {
     content: '•';
-    color: #3B82F6;
+    color: #6b277e;
     font-weight: 700;
 }
 
@@ -386,20 +386,20 @@ body.dark .notification-time {
 
 .notification-dropdown-footer {
     padding: 16px 24px;
-    border-top: 2px solid rgba(59, 130, 246, 0.1);
+    border-top: 2px solid rgba(107, 39, 126, 0.1);
     text-align: center;
-    background: linear-gradient(135deg, rgba(59, 130, 246, 0.02) 0%, rgba(139, 92, 246, 0.02) 100%);
+    background: linear-gradient(135deg, rgba(107, 39, 126, 0.02) 0%, rgba(107, 39, 126, 0.02) 100%);
 }
 
 body.dark .notification-dropdown-footer {
-    border-top-color: rgba(59, 130, 246, 0.15);
-    background: linear-gradient(135deg, rgba(59, 130, 246, 0.05) 0%, rgba(139, 92, 246, 0.05) 100%);
+    border-top-color: rgba(107, 39, 126, 0.15);
+    background: linear-gradient(135deg, rgba(107, 39, 126, 0.05) 0%, rgba(107, 39, 126, 0.05) 100%);
 }
 
 .notification-footer-link {
     font-size: 0.938rem;
     font-weight: 700;
-    background: linear-gradient(135deg, #3B82F6 0%, #8B5CF6 100%);
+    background: linear-gradient(135deg, #6b277e 0%, #A67DB1 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -412,7 +412,7 @@ body.dark .notification-dropdown-footer {
     border-radius: 8px;
 }
 .notification-footer-link:hover {
-    background: linear-gradient(135deg, #2563EB 0%, #7C3AED 100%);
+    background: linear-gradient(135deg, #6b277e 0%, #A67DB1 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -885,7 +885,7 @@ body.dark .profile-image-section {
     align-items: center;
     gap: 8px;
     padding: 10px 24px;
-    background-color: var(--blue-500);
+    background-color: #6b277e;
     color: white;
     border: none;
     border-radius: 8px;
@@ -896,9 +896,9 @@ body.dark .profile-image-section {
 }
 
 .btn-upload-image:hover {
-    background-color: var(--blue-600);
+    background-color: #A67DB1;
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+    box-shadow: 0 4px 12px rgba(107, 39, 126, 0.3);
 }
 
 /* Form Styles */
@@ -938,7 +938,7 @@ body.dark .form-input {
 .form-input:focus {
     outline: none;
     border-color: var(--blue-500);
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    box-shadow: 0 0 0 3px rgba(107, 39, 126, 0.1);
 }
 
 .form-input:read-only {
@@ -979,7 +979,7 @@ body.dark .btn-edit {
 }
 
 .btn-edit:hover {
-    background-color: var(--blue-500);
+    background-color: #6b277e;
     color: white;
 }
 
@@ -990,7 +990,7 @@ body.dark .btn-edit {
     gap: 8px;
     width: 100%;
     padding: 12px 24px;
-    background-color: var(--blue-500);
+    background-color: #6b277e;
     color: white;
     border: none;
     border-radius: 8px;
@@ -1002,9 +1002,9 @@ body.dark .btn-edit {
 }
 
 .btn-primary:hover {
-    background-color: var(--blue-600);
+    background-color: #A67DB1;
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+    box-shadow: 0 4px 12px rgba(107, 39, 126, 0.3);
 }
 
 /* Settings Tabs */
@@ -1039,12 +1039,12 @@ body.dark .settings-tab {
 }
 
 .settings-tab:hover {
-    color: var(--blue-500);
+    color: #6b277e;
 }
 
 .settings-tab.active {
-    color: var(--blue-500);
-    border-bottom-color: var(--blue-500);
+    color: #6b277e;
+    border-bottom-color: #6b277e;
 }
 
 .settings-tab .material-symbols-outlined {
@@ -1097,7 +1097,7 @@ body.dark .settings-section-title {
 }
 
 .toggle-password:hover {
-    color: var(--blue-500);
+    color: #6b277e;
 }
 
 .form-hint {
@@ -1170,7 +1170,7 @@ body.dark .form-select {
 
 .form-select:focus {
     outline: none;
-    border-color: var(--blue-500);
+    border-color: #6b277e;
 }
 
 /* Toggle Switch */
@@ -1216,7 +1216,7 @@ body.dark .toggle-slider {
 }
 
 .toggle-switch input:checked + .toggle-slider {
-    background-color: var(--blue-500);
+    background-color: #6b277e;
 }
 
 .toggle-switch input:checked + .toggle-slider:before {

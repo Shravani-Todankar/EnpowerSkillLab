@@ -100,7 +100,7 @@ body.dark .form-legend {
 }
 
 .legend-indicator.required {
-    background-color: #6366F1;
+    background-color: #A67DB1;
 }
 
 .legend-indicator.optional {
@@ -203,7 +203,7 @@ body.dark .form-label {
 }
 
 .form-label.required {
-    color: #6366F1;
+    color: #A67DB1;
 }
 
 .form-label.optional {
@@ -245,7 +245,7 @@ body.dark .form-input::placeholder {
 .form-input:focus,
 .form-select:focus {
     outline: none;
-    border-color: #6366F1;
+    border-color: #A67DB1;
     box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
 }
 
@@ -279,7 +279,7 @@ body.dark .input-icon {
     border: none;
     border-radius: 9999px;
     background-color: rgba(99, 102, 241, 0.1);
-    color: #6366F1;
+    color: #A67DB1;
     font-size: 0.875rem;
     font-weight: 600;
     cursor: pointer;
@@ -350,12 +350,12 @@ body.dark .file-size-note {
 }
 
 .btn-submit {
-    background-color: #6366F1;
+    background-color: #A67DB1;
     color: #ffffff;
 }
 
 .btn-submit:hover {
-    background-color: #4F46E5;
+    background-color: #6b277e;
 }
 
 .btn .material-icons-outlined {

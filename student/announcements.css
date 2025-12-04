@@ -78,7 +78,7 @@ body.dark .page-subtitle {
 .filter-btn:hover {
     background-color: var(--blue-600);
     transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(59, 130, 246, 0.3);
+    box-shadow: 0 4px 8px rgba(107, 39, 126, 0.3);
 }
 
 .mark-read-btn {
@@ -247,9 +247,9 @@ body.dark .announcement-card {
 }
 
 .schedule-badge {
-    background-color: rgba(59, 130, 246, 0.15);
+    background-color: rgba(107, 39, 126, 0.15);
     color: var(--blue-600);
-    border: 1px solid rgba(59, 130, 246, 0.3);
+    border: 1px solid rgba(107, 39, 126, 0.3);
 }
 
 .event-badge {
@@ -306,7 +306,7 @@ body.dark .announcement-card {
 }
 
 .schedule-icon {
-    background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(37, 99, 235, 0.2));
+    background: linear-gradient(135deg, rgba(107, 39, 126, 0.2), rgba(107, 39, 126, 0.2));
 }
 
 .schedule-icon .material-symbols-outlined {
@@ -458,7 +458,7 @@ body.dark .announcement-footer {
 .announcement-btn:not(.secondary):hover {
     background-color: var(--blue-600);
     transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(59, 130, 246, 0.3);
+    box-shadow: 0 4px 8px rgba(107, 39, 126, 0.3);
 }
 
 .announcement-btn.secondary {

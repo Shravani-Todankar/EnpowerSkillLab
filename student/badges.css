@@ -109,7 +109,7 @@ body.dark .stat-card {
 
 .stat-card.blue .stat-icon {
     background: linear-gradient(135deg, #3b82f6, #60a5fa);
-    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+    box-shadow: 0 4px 12px rgba(107, 39, 126, 0.3);
 }
 
 .stat-icon .material-symbols-outlined {
@@ -336,7 +336,7 @@ body.dark .badge-card {
 
 .badge-icon.science {
     background: linear-gradient(135deg, #3b82f6, #60a5fa);
-    box-shadow: 0 8px 24px rgba(59, 130, 246, 0.3);
+    box-shadow: 0 8px 24px rgba(107, 39, 126, 0.3);
 }
 
 .badge-icon.math {
@@ -351,7 +351,7 @@ body.dark .badge-card {
 
 .badge-icon.teamwork {
     background: linear-gradient(135deg, #8b5cf6, #a78bfa);
-    box-shadow: 0 8px 24px rgba(139, 92, 246, 0.3);
+    box-shadow: 0 8px 24px rgba(107, 39, 126, 0.3);
 }
 
 .badge-icon.leadership {

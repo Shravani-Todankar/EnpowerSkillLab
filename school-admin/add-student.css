@@ -51,7 +51,7 @@ body.dark {
 }
 
 body.dark .form-header {
-    background: linear-gradient(135deg, #4338CA 0%, #4F46E5 100%);
+    background: linear-gradient(135deg, #A67DB1 0%, #6b277e 100%);
 }
 
 .page-title {
@@ -97,7 +97,7 @@ body.dark .form-legend {
 }
 
 .legend-indicator.required {
-    background-color: #6366F1;
+    background-color: #A67DB1;
 }
 
 .legend-indicator.optional {
@@ -155,7 +155,7 @@ body.dark .section-title {
 
 .section-title .material-symbols-outlined {
     font-size: 1.75rem;
-    color: #4F46E5;
+    color: #6b277e;
 }
 
 body.dark .section-title .material-symbols-outlined {
@@ -222,8 +222,8 @@ body.dark .form-textarea {
 
 .form-input:focus,
 .form-textarea:focus {
-    border-color: #4F46E5;
-    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+    border-color: #6b277e;
+    box-shadow: 0 0 0 3px rgba(107, 39, 126, 0.1);
 }
 
 body.dark .form-input:focus,
@@ -365,7 +365,7 @@ body.dark .photo-preview {
     align-items: center;
     gap: 0.5rem;
     padding: 0.75rem 1.5rem;
-    background-color: #4F46E5;
+    background-color: #6b277e;
     color: #ffffff;
     border: none;
     border-radius: 0.5rem;
@@ -377,9 +377,9 @@ body.dark .photo-preview {
 }
 
 .upload-photo-btn:hover {
-    background-color: #4338CA;
+    background-color: #A67DB1;
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+    box-shadow: 0 4px 12px rgba(107, 39, 126, 0.3);
 }
 
 .upload-photo-btn .material-symbols-outlined {
@@ -652,7 +652,7 @@ body.dark .btn-cancel:hover {
 .btn-reset:focus-visible,
 .btn-submit:focus-visible,
 .upload-photo-btn:focus-visible {
-    outline: 2px solid #4F46E5;
+    outline: 2px solid #6b277e;
     outline-offset: 2px;
 }
 

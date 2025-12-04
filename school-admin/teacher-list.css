@@ -103,8 +103,8 @@ body.dark .search-input {
 }
 
 .search-input:focus {
-    border-color: #4F46E5;
-    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+    border-color: #6b277e;
+    box-shadow: 0 0 0 3px rgba(107, 39, 126, 0.1);
 }
 
 .search-input::placeholder {
@@ -221,7 +221,7 @@ body.dark .upload-csv-btn:focus {
     justify-content: center;
     gap: 0.5rem;
     flex: 1;
-    background-color: #4F46E5;
+    background-color: #6b277e;
     color: #ffffff;
     font-weight: 500;
     font-size: 1rem;
@@ -241,16 +241,16 @@ body.dark .upload-csv-btn:focus {
 }
 
 .add-teacher-btn:hover {
-    background-color: #4338CA;
+    background-color: #A67DB1;
 }
 
 .add-teacher-btn:focus {
     outline: none;
-    box-shadow: 0 0 0 2px #F3F4F6, 0 0 0 4px #4F46E5;
+    box-shadow: 0 0 0 2px #F3F4F6, 0 0 0 4px #6b277e;
 }
 
 body.dark .add-teacher-btn:focus {
-    box-shadow: 0 0 0 2px #111827, 0 0 0 4px #4F46E5;
+    box-shadow: 0 0 0 2px #111827, 0 0 0 4px #6b277e;
 }
 
 /* Table Container */
@@ -693,7 +693,7 @@ body.dark .dataTables_wrapper .dataTables_length select {
 }
 
 .dataTables_wrapper .dataTables_length select:focus {
-    border-color: #4F46E5;
+    border-color: #6b277e;
 }
 
 .dataTables_wrapper .dataTables_length label {
@@ -728,8 +728,8 @@ body.dark .dataTables_wrapper .dataTables_filter input {
 }
 
 .dataTables_wrapper .dataTables_filter input:focus {
-    border-color: #4F46E5;
-    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+    border-color: #6b277e;
+    box-shadow: 0 0 0 3px rgba(107, 39, 126, 0.1);
 }
 
 .dataTables_wrapper .dataTables_filter label {
@@ -792,14 +792,14 @@ body.dark .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
 }
 
 .dataTables_wrapper .dataTables_paginate .paginate_button.current {
-    background: linear-gradient(135deg, #4F46E5 0%, #4338CA 100%) !important;
-    border-color: #4F46E5 !important;
+    background: linear-gradient(135deg, #6b277e 0%, #A67DB1 100%) !important;
+    border-color: #6b277e !important;
     color: #ffffff !important;
 }
 
 .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
-    background: linear-gradient(135deg, #4338CA 0%, #3730A3 100%) !important;
-    border-color: #4338CA !important;
+    background: linear-gradient(135deg, #A67DB1 0%, #6b277e 100%) !important;
+    border-color: #A67DB1 !important;
     color: #ffffff !important;
 }
 
@@ -837,13 +837,13 @@ body.dark .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hov
 .dataTables_wrapper table.dataTable thead .sorting_asc:before {
     content: "↑";
     opacity: 1;
-    color: #4F46E5;
+    color: #6b277e;
 }
 
 .dataTables_wrapper table.dataTable thead .sorting_desc:before {
     content: "↓";
     opacity: 1;
-    color: #4F46E5;
+    color: #6b277e;
 }
 
 .dataTables_wrapper table.dataTable thead .sorting:after,

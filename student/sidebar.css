@@ -98,13 +98,13 @@ body.dark .sidebar-nav a:hover {
 }
 
 .sidebar-nav a.active {
-    background-color: rgba(59, 130, 246, 0.1);
+    background-color: rgba(107, 39, 126, 0.1);
     color: var(--primary);
     border-left: 4px solid var(--primary);
 }
 
 body.dark .sidebar-nav a.active {
-    background-color: rgba(59, 130, 246, 0.3);
+    background-color: rgba(107, 39, 126, 0.3);
 }
 
 .sidebar-nav a .material-symbols-outlined {

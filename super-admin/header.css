@@ -64,7 +64,7 @@ body.dark .header button {
 }
 
 .play-store-btn {
-    background-color: #9333EA;
+    background-color: #6b277e;
     color: white;
 }
 
@@ -196,15 +196,15 @@ body.dark .notification-dropdown-title {
     font-size: 0.813rem;
     font-weight: 700;
     color: white;
-    background: linear-gradient(135deg, #3B82F6 0%, #8B5CF6 100%);
+    background: linear-gradient(135deg, #6b277e 0%, #A67DB1 100%);
     padding: 6px 14px;
     border-radius: 20px;
-    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+    box-shadow: 0 4px 12px rgba(107, 39, 126, 0.3);
     letter-spacing: 0.3px;
 }
 
 body.dark .notification-count {
-    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+    box-shadow: 0 4px 12px rgba(107, 39, 126, 0.4);
 }
 
 .notification-dropdown-body {
@@ -297,7 +297,7 @@ body.dark .notification-item.unread {
 }
 
 .notification-icon.bg-blue {
-    background: linear-gradient(135deg, #3B82F6 0%, #2563EB 100%);
+    background: linear-gradient(135deg, #6b277e 0%, #A67DB1 100%);
     box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4), inset 0 -2px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -312,7 +312,7 @@ body.dark .notification-item.unread {
 }
 
 .notification-icon.bg-purple {
-    background: linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%);
+    background: linear-gradient(135deg, #6b277e 0%, #A67DB1 100%);
     box-shadow: 0 4px 12px rgba(139, 92, 246, 0.4), inset 0 -2px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -398,7 +398,7 @@ body.dark .notification-dropdown-footer {
 .notification-footer-link {
     font-size: 0.938rem;
     font-weight: 700;
-    background: linear-gradient(135deg, #3B82F6 0%, #8B5CF6 100%);
+    background: linear-gradient(135deg, #6b277e 0%, #A67DB1 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -411,7 +411,7 @@ body.dark .notification-dropdown-footer {
     border-radius: 8px;
 }
 .notification-footer-link:hover {
-    background: linear-gradient(135deg, #2563EB 0%, #7C3AED 100%);
+    background: linear-gradient(135deg, #6b277e 0%, #A67DB1 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -793,7 +793,7 @@ body.dark .modal-title {
 
 .modal-title .material-symbols-outlined {
     font-size: 1.75rem;
-    color: var(--blue-500);
+    color: #6b277e;
 }
 
 .modal-close {
@@ -884,7 +884,7 @@ body.dark .profile-image-section {
     align-items: center;
     gap: 8px;
     padding: 10px 24px;
-    background-color: var(--blue-500);
+    background-color: #6b277e;
     color: white;
     border: none;
     border-radius: 8px;
@@ -895,9 +895,9 @@ body.dark .profile-image-section {
 }
 
 .btn-upload-image:hover {
-    background-color: var(--blue-600);
+    background-color: #A67DB1;
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+    box-shadow: 0 4px 12px rgba(107, 39, 126, 0.3);
 }
 
 /* Form Styles */
@@ -936,7 +936,7 @@ body.dark .form-input {
 
 .form-input:focus {
     outline: none;
-    border-color: var(--blue-500);
+    border-color: #6b277e;
     box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
@@ -978,7 +978,7 @@ body.dark .btn-edit {
 }
 
 .btn-edit:hover {
-    background-color: var(--blue-500);
+    background-color: #6b277e;
     color: white;
 }
 
@@ -989,7 +989,7 @@ body.dark .btn-edit {
     gap: 8px;
     width: 100%;
     padding: 12px 24px;
-    background-color: var(--blue-500);
+    background-color: #6b277e;
     color: white;
     border: none;
     border-radius: 8px;
@@ -1001,9 +1001,9 @@ body.dark .btn-edit {
 }
 
 .btn-primary:hover {
-    background-color: var(--blue-600);
+    background-color: #A67DB1;
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+    box-shadow: 0 4px 12px rgba(107, 39, 126, 0.3);
 }
 
 /* Settings Tabs */
@@ -1038,12 +1038,12 @@ body.dark .settings-tab {
 }
 
 .settings-tab:hover {
-    color: var(--blue-500);
+    color: #6b277e;
 }
 
 .settings-tab.active {
-    color: var(--blue-500);
-    border-bottom-color: var(--blue-500);
+    color: #6b277e;
+    border-bottom-color: #6b277e;
 }
 
 .settings-tab .material-symbols-outlined {
@@ -1096,7 +1096,7 @@ body.dark .settings-section-title {
 }
 
 .toggle-password:hover {
-    color: var(--blue-500);
+    color: #6b277e;
 }
 
 .form-hint {
@@ -1169,7 +1169,7 @@ body.dark .form-select {
 
 .form-select:focus {
     outline: none;
-    border-color: var(--blue-500);
+    border-color: #6b277e;
 }
 
 /* Toggle Switch */
@@ -1215,7 +1215,7 @@ body.dark .toggle-slider {
 }
 
 .toggle-switch input:checked + .toggle-slider {
-    background-color: var(--blue-500);
+    background-color: #6b277e;
 }
 
 .toggle-switch input:checked + .toggle-slider:before {

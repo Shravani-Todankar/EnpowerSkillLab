@@ -176,7 +176,7 @@
                     <span class="material-symbols-outlined">lock</span>
                     Change Password
                 </a>
-                <a href="../auth/sign-in.html" id="nav-logout">
+                <a href="../signin.html" id="nav-logout">
                     <span class="material-symbols-outlined">logout</span>
                     Logout
                 </a>
@@ -184,3 +184,42 @@
         </div>
     </nav>
 </aside>
+
+<script>
+    // Sidebar Dropdown Functionality
+    document.addEventListener('DOMContentLoaded', function() {
+        initializeSidebarDropdowns();
+    });
+
+    function initializeSidebarDropdowns() {
+        const dropdownToggles = document.querySelectorAll('.sidebar-dropdown-toggle');
+
+        dropdownToggles.forEach(toggle => {
+            toggle.addEventListener('click', function(e) {
+                e.preventDefault();
+
+                const dropdownParent = this.closest('.sidebar-dropdown');
+                const isActive = dropdownParent.classList.contains('active');
+
+                // Close all other dropdowns
+                document.querySelectorAll('.sidebar-dropdown').forEach(dropdown => {
+                    dropdown.classList.remove('active');
+                });
+
+                // Toggle current dropdown
+                if (!isActive) {
+                    dropdownParent.classList.add('active');
+                }
+            });
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.sidebar-dropdown')) {
+                document.querySelectorAll('.sidebar-dropdown').forEach(dropdown => {
+                    dropdown.classList.remove('active');
+                });
+            }
+        });
+    }
+</script>

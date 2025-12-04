@@ -728,7 +728,7 @@ body.dark .point-item {
 
 .point-icon.quiz {
     background: linear-gradient(135deg, #3b82f6, #60a5fa);
-    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+    box-shadow: 0 4px 12px rgba(107, 39, 126, 0.3);
 }
 
 .point-icon.perfect {
@@ -748,7 +748,7 @@ body.dark .point-item {
 
 .point-icon.badge {
     background: linear-gradient(135deg, #8b5cf6, #a78bfa);
-    box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+    box-shadow: 0 4px 12px rgba(107, 39, 126, 0.3);
 }
 
 .point-info {

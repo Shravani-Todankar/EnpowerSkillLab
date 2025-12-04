@@ -121,7 +121,7 @@
 .form-input:focus {
     outline: none;
     border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    box-shadow: 0 0 0 3px rgba(107, 39, 126, 0.1);
 }
 
 .form-hint {
@@ -207,8 +207,8 @@
 
 /* Password Requirements */
 .password-requirements {
-    background: rgba(59, 130, 246, 0.05);
-    border: 1px solid rgba(59, 130, 246, 0.1);
+    background: rgba(107, 39, 126, 0.05);
+    border: 1px solid rgba(107, 39, 126, 0.1);
     border-radius: 8px;
     padding: 1rem;
     margin-bottom: 1.5rem;
@@ -271,7 +271,7 @@
 .btn-primary:hover {
     background: var(--primary-hover);
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+    box-shadow: 0 4px 12px rgba(107, 39, 126, 0.3);
 }
 
 .btn-primary .material-symbols-outlined {
@@ -298,7 +298,7 @@
     background: var(--primary-color);
     color: white;
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+    box-shadow: 0 4px 12px rgba(107, 39, 126, 0.2);
 }
 
 .btn-secondary .material-symbols-outlined {
@@ -360,8 +360,8 @@
 
 /* Current Info Box */
 .current-info-box {
-    background: rgba(59, 130, 246, 0.05);
-    border: 1px solid rgba(59, 130, 246, 0.1);
+    background: rgba(107, 39, 126, 0.05);
+    border: 1px solid rgba(107, 39, 126, 0.1);
     border-radius: 8px;
     padding: 1rem;
     margin-bottom: 1.5rem;
@@ -385,8 +385,8 @@
     display: flex;
     align-items: flex-start;
     gap: 0.75rem;
-    background: rgba(59, 130, 246, 0.05);
-    border: 1px solid rgba(59, 130, 246, 0.1);
+    background: rgba(107, 39, 126, 0.05);
+    border: 1px solid rgba(107, 39, 126, 0.1);
     border-radius: 8px;
     padding: 1rem;
     margin-bottom: 1.5rem;
@@ -458,14 +458,14 @@
 }
 
 .session-item.current-session {
-    background: rgba(59, 130, 246, 0.05);
+    background: rgba(107, 39, 126, 0.05);
     border-color: var(--primary-color);
 }
 
 .session-icon {
     width: 48px;
     height: 48px;
-    background: rgba(59, 130, 246, 0.1);
+    background: rgba(107, 39, 126, 0.1);
     border-radius: 8px;
     display: flex;
     align-items: center;
@@ -637,15 +637,15 @@
 /* Dark mode support */
 @media (prefers-color-scheme: dark) {
     .password-requirements {
-        background: rgba(59, 130, 246, 0.1);
+        background: rgba(107, 39, 126, 0.1);
     }
 
     .current-info-box,
     .info-box {
-        background: rgba(59, 130, 246, 0.1);
+        background: rgba(107, 39, 126, 0.1);
     }
 
     .session-item.current-session {
-        background: rgba(59, 130, 246, 0.1);
+        background: rgba(107, 39, 126, 0.1);
     }
 }

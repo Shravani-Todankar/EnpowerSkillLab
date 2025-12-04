@@ -59,7 +59,7 @@
 .btn-edit-mode:hover {
     background: var(--primary-hover);
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+    box-shadow: 0 4px 12px rgba(107, 39, 126, 0.3);
 }
 
 .btn-edit-mode .material-symbols-outlined {
@@ -104,7 +104,7 @@
 
 .profile-avatar-wrapper:hover {
     transform: scale(1.05);
-    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+    box-shadow: 0 4px 12px rgba(107, 39, 126, 0.3);
 }
 
 .profile-avatar-wrapper:hover .profile-avatar-overlay {
@@ -191,7 +191,7 @@
 .profile-basic-input:focus {
     outline: none;
     border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    box-shadow: 0 0 0 3px rgba(107, 39, 126, 0.1);
 }
 
 .profile-basic-input.error {
@@ -215,7 +215,7 @@
     justify-content: center;
     gap: 0.5rem;
     padding: 0.625rem 1.25rem;
-    border: 1px solid #9333EA;
+    border: 1px solid #6b277e;
     border-radius: 6px;
     font-size: 0.9rem;
     font-weight: 500;
@@ -224,7 +224,7 @@
     font-family: 'Poppins', sans-serif;
     white-space: nowrap;
     background: var(--primary-color);
-    color: #9333EA;
+    color: #6b277e;
 }
 
 .btn-header-toggle .material-symbols-outlined {
@@ -253,7 +253,7 @@
 }
 
 .profile-badge.class {
-    background: rgba(59, 130, 246, 0.1);
+    background: rgba(107, 39, 126, 0.1);
     color: var(--primary-color);
 }
 
@@ -530,7 +530,7 @@
     }
 
     .profile-badge.class {
-        background: rgba(59, 130, 246, 0.2);
+        background: rgba(107, 39, 126, 0.2);
     }
 
     .emergency-card {

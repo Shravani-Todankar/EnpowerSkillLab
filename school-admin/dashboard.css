@@ -1,13 +1,13 @@
 /* Admin Dashboard Styles */
 
 :root {
-    --primary-color: #3b82f6;
-    --primary-hover: #2563eb;
+    --primary-color: #6b277e;
+    --primary-hover: #A67DB1;
     --success-color: #10b981;
     --warning-color: #f59e0b;
     --danger-color: #ef4444;
     --info-color: #06b6d4;
-    --purple-color: #8b5cf6;
+    --purple-color: #6b277e;
 
     --text-color: #1f2937;
     --text-secondary: #6b7280;
@@ -16,9 +16,9 @@
     --border-color: #e5e7eb;
 
     --green-600: #16a34a;
-    --blue-600: #2563eb;
+    --blue-600: #6b277e;
     --orange-600: #ea580c;
-    --purple-600: #9333ea;
+    --purple-600: #6b277e;
     --red-500: #ef4444;
 }
 
@@ -128,7 +128,7 @@ body {
 .btn-primary:hover {
     background: var(--primary-hover);
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+    box-shadow: 0 4px 12px rgba(107, 39, 126, 0.3);
 }
 
 /* Stats Grid */
@@ -552,7 +552,7 @@ body {
 }
 
 .quick-action-icon.classes {
-    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    background: linear-gradient(135deg, #6b277e 0%, #A67DB1 100%);
 }
 
 .quick-action-icon.subjects {
@@ -636,7 +636,7 @@ body {
 .event-item:hover {
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
     transform: translateY(-2px);
-    border-color: rgba(59, 130, 246, 0.2);
+    border-color: rgba(107, 39, 126, 0.2);
 }
 
 .event-item:hover::after {
@@ -720,7 +720,7 @@ body {
 }
 
 .event-badge.meeting {
-    background: linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(59, 130, 246, 0.1) 100%);
+    background: linear-gradient(135deg, rgba(107, 39, 126, 0.15) 0%, rgba(107, 39, 126, 0.1) 100%);
     color: var(--primary-color);
 }
 
