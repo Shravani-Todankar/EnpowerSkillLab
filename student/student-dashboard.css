@@ -1078,7 +1078,7 @@ body.dark .leaderboard-period {
     justify-content: center;
     width: 80px;
     height: 80px;
-    background: linear-gradient(135deg, #22C55E, #6b277e);
+    background: linear-gradient(135deg, #d12bff, #00b8ff);
     border-radius: 50%;
     position: relative;
 }
@@ -1298,7 +1298,7 @@ body.dark .stats-label {
 .stats-count {
     font-size: 3.5rem;
     font-weight: 800;
-    background: linear-gradient(135deg, #6b277e, #6b277e, #EC4899);
+    background: linear-gradient(135deg, #3cc4ff, #f000ff, #6b277e);
     background-size: 200% auto;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
