@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Student List - Enpower Skill Lab</title>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
+
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.dataTables.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="student-list.css">
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
+
+    <!-- Sidebar JS -->
+    <script src="sidebar.js"></script>
+    <!-- Header JS -->
+    <script src="header.js"></script>
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- Include Sidebar Component -->
+        <div id="sidebar-container"></div>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Include Header Component -->
+            <div id="header-container"></div>
+
+            <!-- Student List Page -->
+            <div class="student-list-page">
+                <!-- Controls Row -->
+                <div class="controls-row">
+                    <!-- Action Buttons -->
+                    <div class="action-buttons">
+                        <button class="upload-csv-btn" id="uploadCSVBtn">
+                            <span class="material-symbols-outlined">upload_file</span>
+                            <span>Upload CSV</span>
+                        </button>
+                        <input type="file" id="csvFileInput" accept=".csv" style="display: none;">
+                        <a href="add-student.html" class="add-student-btn">
+                            <span class="material-symbols-outlined">person_add</span>
+                            <span>Add New Student</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Table Container -->
+                <div class="table-container">
+                    <div class="table-scroll">
+                        <table class="students-table">
+                            <thead>
+                                <tr>
+                                    <th>Image</th>
+                                    <th>Student ID</th>
+                                    <th>Student Name</th>
+                                    <th>Class</th>
+                                    <th class="text-center">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <img alt="Avatar of Rahul Kumar" class="student-avatar"
+                                            src="https://ui-avatars.com/api/?name=RK&background=3b82f6&color=fff&size=128" />
+                                    </td>
+                                    <td><span class="student-id">S8X4K2</span></td>
+                                    <td>
+                                        <div class="student-info">
+                                            <span class="student-name">Rahul Kumar</span>
+                                        </div>
+                                    </td>
+                                    <td><span class="class-badge">Class 9-A</span></td>
+                                    <td>
+                                        <div class="actions-cell">
+                                            <button aria-label="Edit Rahul Kumar" class="action-btn edit-btn" title="Edit">
+                                                <span class="material-symbols-outlined">edit</span>
+                                            </button>
+                                            <button aria-label="View Rahul Kumar's profile" class="action-btn view-btn" title="View">
+                                                <span class="material-symbols-outlined">visibility</span>
+                                            </button>
+                                            <button aria-label="Delete Rahul Kumar" class="action-btn delete-btn" title="Delete">
+                                                <span class="material-symbols-outlined">delete</span>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <img alt="Avatar of Priya Sharma" class="student-avatar"
+                                            src="https://ui-avatars.com/api/?name=PS&background=8b5cf6&color=fff&size=128" />
+                                    </td>
+                                    <td><span class="student-id">P3M9V7</span></td>
+                                    <td>
+                                        <div class="student-info">
+                                            <span class="student-name">Priya Sharma</span>
+                                        </div>
+                                    </td>
+                                    <td><span class="class-badge">Class 10-B</span></td>
+                                    <td>
+                                        <div class="actions-cell">
+                                            <button aria-label="Edit Priya Sharma" class="action-btn edit-btn" title="Edit">
+                                                <span class="material-symbols-outlined">edit</span>
+                                            </button>
+                                            <button aria-label="View Priya Sharma's profile" class="action-btn view-btn" title="View">
+                                                <span class="material-symbols-outlined">visibility</span>
+                                            </button>
+                                            <button aria-label="Delete Priya Sharma" class="action-btn delete-btn" title="Delete">
+                                                <span class="material-symbols-outlined">delete</span>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <img alt="Avatar of Amit Verma" class="student-avatar"
+                                            src="https://ui-avatars.com/api/?name=AV&background=10b981&color=fff&size=128" />
+                                    </td>
+                                    <td><span class="student-id">S5L8N1</span></td>
+                                    <td>
+                                        <div class="student-info">
+                                            <span class="student-name">Amit Verma</span>
+                                        </div>
+                                    </td>
+                                    <td><span class="class-badge">Class 9-C</span></td>
+                                    <td>
+                                        <div class="actions-cell">
+                                            <button aria-label="Edit Amit Verma" class="action-btn edit-btn" title="Edit">
+                                                <span class="material-symbols-outlined">edit</span>
+                                            </button>
+                                            <button aria-label="View Amit Verma's profile" class="action-btn view-btn" title="View">
+                                                <span class="material-symbols-outlined">visibility</span>
+                                            </button>
+                                            <button aria-label="Delete Amit Verma" class="action-btn delete-btn" title="Delete">
+                                                <span class="material-symbols-outlined">delete</span>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <img alt="Avatar of Sneha Patel" class="student-avatar"
+                                            src="https://ui-avatars.com/api/?name=SP&background=f59e0b&color=fff&size=128" />
+                                    </td>
+                                    <td><span class="student-id">K7R2X9</span></td>
+                                    <td>
+                                        <div class="student-info">
+                                            <span class="student-name">Sneha Patel</span>
+                                        </div>
+                                    </td>
+                                    <td><span class="class-badge">Class 11-A</span></td>
+                                    <td>
+                                        <div class="actions-cell">
+                                            <button aria-label="Edit Sneha Patel" class="action-btn edit-btn" title="Edit">
+                                                <span class="material-symbols-outlined">edit</span>
+                                            </button>
+                                            <button aria-label="View Sneha Patel's profile" class="action-btn view-btn" title="View">
+                                                <span class="material-symbols-outlined">visibility</span>
+                                            </button>
+                                            <button aria-label="Delete Sneha Patel" class="action-btn delete-btn" title="Delete">
+                                                <span class="material-symbols-outlined">delete</span>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <img alt="Avatar of Vikram Singh" class="student-avatar"
+                                            src="https://ui-avatars.com/api/?name=VS&background=ef4444&color=fff&size=128" />
+                                    </td>
+                                    <td><span class="student-id">M4N8P3</span></td>
+                                    <td>
+                                        <div class="student-info">
+                                            <span class="student-name">Vikram Singh</span>
+                                        </div>
+                                    </td>
+                                    <td><span class="class-badge">Class 12-B</span></td>
+                                    <td>
+                                        <div class="actions-cell">
+                                            <button aria-label="Edit Vikram Singh" class="action-btn edit-btn" title="Edit">
+                                                <span class="material-symbols-outlined">edit</span>
+                                            </button>
+                                            <button aria-label="View Vikram Singh's profile" class="action-btn view-btn" title="View">
+                                                <span class="material-symbols-outlined">visibility</span>
+                                            </button>
+                                            <button aria-label="Delete Vikram Singh" class="action-btn delete-btn" title="Delete">
+                                                <span class="material-symbols-outlined">delete</span>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <img alt="Avatar of Anjali Gupta" class="student-avatar"
+                                            src="https://ui-avatars.com/api/?name=AG&background=06b6d4&color=fff&size=128" />
+                                    </td>
+                                    <td><span class="student-id">Q6T5Y1</span></td>
+                                    <td>
+                                        <div class="student-info">
+                                            <span class="student-name">Anjali Gupta</span>
+                                        </div>
+                                    </td>
+                                    <td><span class="class-badge">Class 10-A</span></td>
+                                    <td>
+                                        <div class="actions-cell">
+                                            <button aria-label="Edit Anjali Gupta" class="action-btn edit-btn" title="Edit">
+                                                <span class="material-symbols-outlined">edit</span>
+                                            </button>
+                                            <button aria-label="View Anjali Gupta's profile" class="action-btn view-btn" title="View">
+                                                <span class="material-symbols-outlined">visibility</span>
+                                            </button>
+                                            <button aria-label="Delete Anjali Gupta" class="action-btn delete-btn" title="Delete">
+                                                <span class="material-symbols-outlined">delete</span>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <img alt="Avatar of Rohan Mehta" class="student-avatar"
+                                            src="https://ui-avatars.com/api/?name=RM&background=ec4899&color=fff&size=128" />
+                                    </td>
+                                    <td><span class="student-id">W2E7H4</span></td>
+                                    <td>
+                                        <div class="student-info">
+                                            <span class="student-name">Rohan Mehta</span>
+                                        </div>
+                                    </td>
+                                    <td><span class="class-badge">Class 9-B</span></td>
+                                    <td>
+                                        <div class="actions-cell">
+                                            <button aria-label="Edit Rohan Mehta" class="action-btn edit-btn" title="Edit">
+                                                <span class="material-symbols-outlined">edit</span>
+                                            </button>
+                                            <button aria-label="View Rohan Mehta's profile" class="action-btn view-btn" title="View">
+                                                <span class="material-symbols-outlined">visibility</span>
+                                            </button>
+                                            <button aria-label="Delete Rohan Mehta" class="action-btn delete-btn" title="Delete">
+                                                <span class="material-symbols-outlined">delete</span>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <img alt="Avatar of Neha Reddy" class="student-avatar"
+                                            src="https://ui-avatars.com/api/?name=NR&background=a855f7&color=fff&size=128" />
+                                    </td>
+                                    <td><span class="student-id">L9B3K6</span></td>
+                                    <td>
+                                        <div class="student-info">
+                                            <span class="student-name">Neha Reddy</span>
+                                        </div>
+                                    </td>
+                                    <td><span class="class-badge">Class 11-C</span></td>
+                                    <td>
+                                        <div class="actions-cell">
+                                            <button aria-label="Edit Neha Reddy" class="action-btn edit-btn" title="Edit">
+                                                <span class="material-symbols-outlined">edit</span>
+                                            </button>
+                                            <button aria-label="View Neha Reddy's profile" class="action-btn view-btn" title="View">
+                                                <span class="material-symbols-outlined">visibility</span>
+                                            </button>
+                                            <button aria-label="Delete Neha Reddy" class="action-btn delete-btn" title="Delete">
+                                                <span class="material-symbols-outlined">delete</span>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Load Sidebar and Header Components
+        document.addEventListener('DOMContentLoaded', function() {
+            Promise.all([
+                fetch('sidebar.html').then(response => response.text()),
+                fetch('header.html').then(response => response.text())
+            ]).then(([sidebarHTML, headerHTML]) => {
+                document.getElementById('sidebar-container').innerHTML = sidebarHTML;
+                document.getElementById('header-container').innerHTML = headerHTML;
+                // Call header initialization directly instead of relying on DOMContentLoaded
+                if (typeof initializeHeader === 'function') {
+                    initializeHeader();
+                }
+            });
+        });
+
+        // Initialize DataTables
+        $(document).ready(function() {
+            const table = $('.students-table').DataTable({
+                responsive: true,
+                pageLength: 10,
+                lengthMenu: [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
+                language: {
+                    search: "_INPUT_",
+                    searchPlaceholder: "Search students...",
+                    lengthMenu: "Show _MENU_ entries",
+                    info: "Showing _START_ to _END_ of _TOTAL_ students",
+                    infoEmpty: "No students found",
+                    infoFiltered: "(filtered from _MAX_ total students)",
+                    paginate: {
+                        first: "First",
+                        last: "Last",
+                        next: "Next",
+                        previous: "Previous"
+                    }
+                },
+                columnDefs: [
+                    {
+                        targets: 0, // Image column
+                        orderable: false
+                    },
+                    {
+                        targets: -1, // Actions column
+                        orderable: false,
+                        searchable: false
+                    }
+                ],
+                order: [[1, 'asc']] // Default sort by Student ID
+            });
+
+            // Delete button confirmation (using event delegation for DataTables)
+            $('.students-table').on('click', '.delete-btn', function() {
+                const studentName = $(this).attr('aria-label').replace('Delete ', '');
+                if (confirm(`Are you sure you want to delete ${studentName}?`)) {
+                    table.row($(this).closest('tr')).remove().draw();
+                }
+            });
+        });
+
+        // CSV Upload functionality
+        const uploadCSVBtn = document.getElementById('uploadCSVBtn');
+        const csvFileInput = document.getElementById('csvFileInput');
+
+        uploadCSVBtn.addEventListener('click', function() {
+            csvFileInput.click();
+        });
+
+        csvFileInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                if (file.type === 'text/csv' || file.name.endsWith('.csv')) {
+                    console.log('CSV file selected:', file.name);
+                    // Add your CSV processing logic here
+                    alert(`File "${file.name}" selected successfully!\n\nCSV processing logic can be added here.`);
+
+                    // Example: Read CSV file
+                    const reader = new FileReader();
+                    reader.onload = function(event) {
+                        const csvData = event.target.result;
+                        console.log('CSV Content:', csvData);
+                        // Process CSV data here
+                    };
+                    reader.readAsText(file);
+
+                    // Reset file input
+                    csvFileInput.value = '';
+                } else {
+                    alert('Please select a valid CSV file.');
+                    csvFileInput.value = '';
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
