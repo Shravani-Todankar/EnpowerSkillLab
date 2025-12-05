@@ -109,14 +109,13 @@ body.dark .sidebar-nav a:hover {
 }
 
 .sidebar-nav a.active {
-    background-color: rgba(59, 130, 246, 0.1);
-    color: #3b82f6;
-    border-left: 4px solid #3b82f6;
-    padding-left: 12px;
+    background-color: rgba(107, 39, 126, 0.1);
+    color: #6b277e;
+    border-left: 4px solid #6b277e;
 }
 
 body.dark .sidebar-nav a.active {
-    background-color: rgba(59, 130, 246, 0.3);
+    background-color: rgba(107, 39, 126, 0.3);
 }
 
 .sidebar-nav a .material-symbols-outlined,

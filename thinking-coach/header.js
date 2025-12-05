@@ -1,10 +1,17 @@
 // Header functionality
-document.addEventListener('DOMContentLoaded', function() {
-    // Wait a bit for header to be loaded
-    setTimeout(initializeHeader, 100);
-});
+let isHeaderInitialized = false;
+let retryCount = 0;
+const MAX_RETRIES = 20; // Max 2 seconds of retries
+
+// Note: initializeHeader should be called explicitly from the HTML page
+// after the header HTML is loaded via fetch, not via DOMContentLoaded
 
 function initializeHeader() {
+    // Prevent multiple initializations
+    if (isHeaderInitialized) {
+        return;
+    }
+
     // User dropdown toggle
     const userInfoToggle = document.getElementById('userInfoToggle');
     const userDropdownMenu = document.getElementById('userDropdownMenu');
@@ -14,10 +21,18 @@ function initializeHeader() {
     const notificationDropdownMenu = document.getElementById('notificationDropdownMenu');
 
     if (!userInfoToggle || !userDropdownMenu || !notificationToggle || !notificationDropdownMenu) {
-        // Retry if elements not found yet
-        setTimeout(initializeHeader, 100);
+        // Retry if elements not found yet, but limit retries
+        retryCount++;
+        if (retryCount < MAX_RETRIES) {
+            setTimeout(initializeHeader, 100);
+        } else {
+            console.error('Header elements not found after maximum retries');
+        }
         return;
     }
+
+    // Mark as initialized to prevent duplicate event listeners
+    isHeaderInitialized = true;
 
     // User dropdown toggle
     userInfoToggle.addEventListener('click', (e) => {
@@ -52,7 +67,7 @@ function initializeHeader() {
             e.preventDefault();
             if (confirm('Are you sure you want to logout?')) {
                 // Add logout logic here
-                window.location.href = '../auth/sign-in.html';
+                // window.location.href = '/login';
             }
         });
     }
@@ -60,10 +75,16 @@ function initializeHeader() {
     // Fullscreen functionality
     const fullscreenBtn = document.querySelector('.fullscreen-btn');
     if (fullscreenBtn) {
-        fullscreenBtn.addEventListener('click', function() {
+        fullscreenBtn.addEventListener('click', function () {
             toggleFullscreen();
         });
     }
+
+    // Listen for fullscreen change events to update icon (only add once)
+    document.addEventListener('fullscreenchange', updateFullscreenIcon);
+    document.addEventListener('webkitfullscreenchange', updateFullscreenIcon);
+    document.addEventListener('mozfullscreenchange', updateFullscreenIcon);
+    document.addEventListener('MSFullscreenChange', updateFullscreenIcon);
 }
 
 function toggleFullscreen() {
@@ -104,12 +125,6 @@ function toggleFullscreen() {
         }
     }
 }
-
-// Listen for fullscreen change events to update icon
-document.addEventListener('fullscreenchange', updateFullscreenIcon);
-document.addEventListener('webkitfullscreenchange', updateFullscreenIcon);
-document.addEventListener('mozfullscreenchange', updateFullscreenIcon);
-document.addEventListener('MSFullscreenChange', updateFullscreenIcon);
 
 function updateFullscreenIcon() {
     const fullscreenIcon = document.querySelector('.fullscreen-btn .material-symbols-outlined');

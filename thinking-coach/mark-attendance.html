@@ -309,6 +309,10 @@
             // Initialize sidebar functionality after both components are loaded
             initializeSidebar();
             initializeSidebarDropdowns();
+            // Call header initialization directly instead of relying on DOMContentLoaded
+            if (typeof initializeHeader === 'function') {
+                initializeHeader();
+            }
         });
 
         function initializeSidebar() {

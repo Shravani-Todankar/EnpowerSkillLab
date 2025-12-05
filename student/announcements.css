@@ -56,8 +56,7 @@ body.dark .page-subtitle {
     flex-wrap: wrap;
 }
 
-.filter-btn,
-.mark-read-btn {
+.filter-btn {
     display: flex;
     align-items: center;
     gap: 8px;
@@ -68,9 +67,6 @@ body.dark .page-subtitle {
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
-}
-
-.filter-btn {
     background-color: var(--blue-500);
     color: white;
 }
@@ -81,28 +77,165 @@ body.dark .page-subtitle {
     box-shadow: 0 4px 8px rgba(107, 39, 126, 0.3);
 }
 
-.mark-read-btn {
+.filter-btn .material-symbols-outlined {
+    font-size: 1.25rem;
+}
+
+/* Read Status Toggle */
+.read-status-toggle {
+    display: flex;
+    gap: 0;
     background-color: var(--gray-100);
-    color: var(--gray-700);
+    border-radius: 8px;
+    padding: 4px;
 }
 
-body.dark .mark-read-btn {
+body.dark .read-status-toggle {
     background-color: var(--gray-800);
-    color: var(--gray-300);
 }
 
-.mark-read-btn:hover {
+.status-toggle-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background-color: transparent;
+    color: var(--gray-600);
+}
+
+body.dark .status-toggle-btn {
+    color: var(--gray-400);
+}
+
+.status-toggle-btn:hover:not(.active) {
     background-color: var(--gray-200);
-    transform: translateY(-2px);
 }
 
-body.dark .mark-read-btn:hover {
+body.dark .status-toggle-btn:hover:not(.active) {
     background-color: var(--gray-700);
 }
 
-.filter-btn .material-symbols-outlined,
-.mark-read-btn .material-symbols-outlined {
+.status-toggle-btn.active {
+    background-color: var(--blue-500);
+    color: white;
+    box-shadow: 0 2px 8px rgba(107, 39, 126, 0.25);
+}
+
+.status-toggle-btn .material-symbols-outlined {
     font-size: 1.25rem;
+}
+
+/* Reading Progress Container */
+.reading-progress-container {
+    display: none;
+    background: linear-gradient(135deg, rgba(107, 39, 126, 0.1), rgba(107, 39, 126, 0.05));
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 32px;
+    border: 2px solid rgba(107, 39, 126, 0.2);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+body.dark .reading-progress-container {
+    background: linear-gradient(135deg, rgba(107, 39, 126, 0.2), rgba(107, 39, 126, 0.1));
+    border-color: rgba(107, 39, 126, 0.3);
+}
+
+.progress-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    gap: 16px;
+}
+
+.progress-text {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.progress-label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--gray-600);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+body.dark .progress-label {
+    color: var(--gray-400);
+}
+
+.progress-stats {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--heading-light);
+}
+
+body.dark .progress-stats {
+    color: var(--heading-dark);
+}
+
+.progress-percentage {
+    font-size: 2rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--blue-500), var(--purple-500));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.progress-bar-wrapper {
+    height: 12px;
+    background-color: rgba(107, 39, 126, 0.1);
+    border-radius: 9999px;
+    overflow: hidden;
+    position: relative;
+}
+
+body.dark .progress-bar-wrapper {
+    background-color: rgba(107, 39, 126, 0.2);
+}
+
+.progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--blue-500), var(--purple-500));
+    border-radius: 9999px;
+    transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.progress-bar-fill::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.3),
+        transparent
+    );
+    animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(100%);
+    }
 }
 
 /* Filter Section */
@@ -177,39 +310,45 @@ body.dark .filter-chip {
 
 /* Announcement Card */
 .announcement-card {
-    background-color: var(--card-light);
+    background-color: white;
     border-radius: 16px;
     padding: 24px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     border: 2px solid transparent;
-    cursor: pointer;
 }
 
 body.dark .announcement-card {
-    background-color: var(--card-dark);
+    background-color: var(--gray-900);
 }
 
 .announcement-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+}
+
+/* Unread Card Styling */
+.announcement-card.unread {
+    /* border-left: 5px solid var(--blue-500); */
+    box-shadow: 0 4px 12px rgba(107, 39, 126, 0.15);
+}
+
+.announcement-card.unread:hover {
+    box-shadow: 0 12px 28px rgba(107, 39, 126, 0.25);
 }
 
 /* Unread Indicator */
-.announcement-card.unread {
-    border-left: 4px solid var(--blue-500);
-}
-
 .announcement-unread-indicator {
     position: absolute;
-    top: 24px;
-    right: 24px;
-    width: 12px;
-    height: 12px;
+    top: 20px;
+    right: 20px;
+    width: 14px;
+    height: 14px;
     border-radius: 50%;
-    background-color: var(--blue-500);
+    background: linear-gradient(135deg, var(--blue-500), var(--purple-500));
     animation: pulse 2s infinite;
+    box-shadow: 0 0 0 0 rgba(107, 39, 126, 0.5);
 }
 
 @keyframes pulse {
@@ -218,8 +357,8 @@ body.dark .announcement-card {
         transform: scale(1);
     }
     50% {
-        opacity: 0.6;
-        transform: scale(1.1);
+        opacity: 0.7;
+        transform: scale(1.2);
     }
 }
 
@@ -450,15 +589,46 @@ body.dark .announcement-footer {
     transition: all 0.3s ease;
 }
 
-.announcement-btn:not(.secondary) {
+.announcement-btn:not(.secondary):not(.mark-read-btn) {
     background-color: var(--blue-500);
     color: white;
 }
 
-.announcement-btn:not(.secondary):hover {
+.announcement-btn:not(.secondary):not(.mark-read-btn):hover {
     background-color: var(--blue-600);
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(107, 39, 126, 0.3);
+}
+
+.announcement-btn.mark-read-btn {
+    background: linear-gradient(135deg, var(--blue-500), var(--purple-500));
+    color: white;
+    font-weight: 700;
+    position: relative;
+    overflow: hidden;
+}
+
+.announcement-btn.mark-read-btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.announcement-btn.mark-read-btn:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.announcement-btn.mark-read-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(107, 39, 126, 0.4);
 }
 
 .announcement-btn.secondary {
@@ -482,6 +652,68 @@ body.dark .announcement-btn.secondary:hover {
 
 .announcement-btn .material-symbols-outlined {
     font-size: 1.125rem;
+}
+
+/* Read Overlay Animation */
+.read-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(107, 39, 126, 0.95), rgba(168, 85, 247, 0.95));
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+    z-index: 10;
+}
+
+.announcement-card.marking-read .read-overlay {
+    opacity: 1;
+}
+
+.read-check {
+    font-size: 5rem !important;
+    color: white;
+    animation: checkmark-appear 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes checkmark-appear {
+    0% {
+        transform: scale(0) rotate(-180deg);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.2) rotate(10deg);
+    }
+    100% {
+        transform: scale(1) rotate(0deg);
+        opacity: 1;
+    }
+}
+
+/* Read Checkmark for Archived Cards */
+.read-checkmark {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, #10B981, #059669);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.read-checkmark .material-symbols-outlined {
+    font-size: 1.5rem !important;
+    color: white;
 }
 
 /* Category-specific card hover effects */
@@ -510,6 +742,12 @@ body.dark .announcement-btn.secondary:hover {
 }
 
 /* Responsive Styles */
+@media (max-width: 1200px) {
+    .announcements-grid {
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    }
+}
+
 @media (max-width: 1023px) {
     .announcements-page {
         padding: 20px;
@@ -533,15 +771,21 @@ body.dark .announcement-btn.secondary:hover {
         width: 100%;
     }
 
-    .filter-btn,
-    .mark-read-btn {
+    .filter-btn {
         flex: 1;
         justify-content: center;
     }
 
+    .reading-progress-container {
+        padding: 20px;
+    }
+
+    .progress-percentage {
+        font-size: 1.5rem;
+    }
+
     .announcements-grid {
         grid-template-columns: 1fr;
-        gap: 16px;
     }
 
     .announcement-card {
@@ -588,10 +832,22 @@ body.dark .announcement-btn.secondary:hover {
         font-size: 0.875rem;
     }
 
-    .filter-btn,
-    .mark-read-btn {
+    .filter-btn {
         padding: 8px 16px;
         font-size: 0.875rem;
+    }
+
+    .reading-progress-container {
+        padding: 16px;
+    }
+
+    .progress-info {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .progress-percentage {
+        align-self: flex-end;
     }
 
     .announcement-card {
@@ -632,6 +888,15 @@ body.dark .announcement-btn.secondary:hover {
     .filter-chip {
         font-size: 0.8125rem;
         padding: 6px 12px;
+    }
+
+    .read-checkmark {
+        width: 32px;
+        height: 32px;
+    }
+
+    .read-checkmark .material-symbols-outlined {
+        font-size: 1.25rem !important;
     }
 }
 

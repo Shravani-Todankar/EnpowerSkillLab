@@ -17,6 +17,22 @@
     <!-- Header JS -->
     <script src="header.js"></script>
     <link rel="stylesheet" href="announcements.css">
+
+    <style>
+        /* Prevent FOUC - hide containers until loaded */
+        #sidebar-container:empty,
+        #header-container:empty {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        #sidebar-container.loaded,
+        #header-container.loaded {
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.2s ease-in;
+        }
+    </style>
 </head>
 
 <body>
@@ -45,10 +61,34 @@
                             <span class="material-symbols-outlined">filter_list</span>
                             Filter
                         </button>
-                        <button class="mark-read-btn" id="markAllReadBtn">
-                            <span class="material-symbols-outlined">done_all</span>
-                            Mark All Read
-                        </button>
+                        <div class="read-status-toggle">
+                            <button class="status-toggle-btn active" id="allBtn" data-status="all">
+                                <span class="material-symbols-outlined">grid_view</span>
+                                All
+                            </button>
+                            <button class="status-toggle-btn" id="unreadBtn" data-status="unread">
+                                <span class="material-symbols-outlined">mark_email_unread</span>
+                                Unread
+                            </button>
+                            <button class="status-toggle-btn" id="readBtn" data-status="read">
+                                <span class="material-symbols-outlined">mark_email_read</span>
+                                Read
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reading Progress Bar -->
+                <div class="reading-progress-container">
+                    <div class="progress-info">
+                        <div class="progress-text">
+                            <span class="progress-label">Reading Progress</span>
+                            <span class="progress-stats" id="progressStats">4 of 8 announcements read</span>
+                        </div>
+                        <span class="progress-percentage" id="progressPercentage">50%</span>
+                    </div>
+                    <div class="progress-bar-wrapper">
+                        <div class="progress-bar-fill" id="progressBarFill" style="width: 50%;"></div>
                     </div>
                 </div>
 
@@ -87,343 +127,367 @@
                 </div>
 
                 <!-- Announcements Grid -->
-                <div class="announcements-grid">
-                    <!-- Urgent Announcement -->
-                    <div class="announcement-card urgent unread" data-category="urgent">
-                        <div class="announcement-badge urgent-badge">
-                            <span class="material-symbols-outlined">error</span>
-                            Urgent
-                        </div>
-                        <div class="announcement-unread-indicator"></div>
-                        <div class="announcement-header">
-                            <div class="announcement-icon urgent-icon">
-                                <span class="material-symbols-outlined">warning</span>
-                            </div>
-                            <div class="announcement-meta">
-                                <h3 class="announcement-title">Emergency School Closure - Tomorrow</h3>
-                                <div class="announcement-info">
-                                    <span class="announcement-date">
-                                        <span class="material-symbols-outlined">calendar_today</span>
-                                        Today, 10:30 AM
-                                    </span>
-                                    <span class="announcement-author">
-                                        <span class="material-symbols-outlined">person</span>
-                                        Principal's Office
-                                    </span>
+                <div class="announcements-grid" id="announcementsGrid">
+                            <!-- Urgent Announcement -->
+                            <div class="announcement-card urgent unread" data-category="urgent">
+                                <div class="announcement-badge urgent-badge">
+                                    <span class="material-symbols-outlined">error</span>
+                                    Urgent
+                                </div>
+                                <div class="announcement-unread-indicator"></div>
+                                <div class="announcement-header">
+                                    <div class="announcement-icon urgent-icon">
+                                        <span class="material-symbols-outlined">warning</span>
+                                    </div>
+                                    <div class="announcement-meta">
+                                        <h3 class="announcement-title">Emergency School Closure - Tomorrow</h3>
+                                        <div class="announcement-info">
+                                            <span class="announcement-date">
+                                                <span class="material-symbols-outlined">calendar_today</span>
+                                                Today, 10:30 AM
+                                            </span>
+                                            <span class="announcement-author">
+                                                <span class="material-symbols-outlined">person</span>
+                                                Principal's Office
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="announcement-content">
+                                    <p>Due to unforeseen circumstances, the school will remain closed tomorrow (November 26, 2025). All classes and activities are cancelled. Regular schedule will resume from November 27, 2025.</p>
+                                </div>
+                                <div class="announcement-footer">
+                                    <button class="announcement-btn">
+                                        <span class="material-symbols-outlined">visibility</span>
+                                        View Details
+                                    </button>
+                                    <button class="announcement-btn mark-read-btn">
+                                        <span class="material-symbols-outlined">done_all</span>
+                                        Mark as Read
+                                    </button>
+                                </div>
+                                <div class="read-overlay">
+                                    <span class="material-symbols-outlined read-check">check_circle</span>
                                 </div>
                             </div>
-                        </div>
-                        <div class="announcement-content">
-                            <p>Due to unforeseen circumstances, the school will remain closed tomorrow (November 26, 2025). All classes and activities are cancelled. Regular schedule will resume from November 27, 2025.</p>
-                        </div>
-                        <div class="announcement-footer">
-                            <button class="announcement-btn">
-                                <span class="material-symbols-outlined">visibility</span>
-                                View Details
-                            </button>
-                            <button class="announcement-btn secondary">
-                                <span class="material-symbols-outlined">bookmark</span>
-                                Save
-                            </button>
-                        </div>
-                    </div>
 
-                    <!-- Schedule Change Announcement -->
-                    <div class="announcement-card schedule unread" data-category="schedule">
-                        <div class="announcement-badge schedule-badge">
-                            <span class="material-symbols-outlined">schedule</span>
-                            Schedule Change
-                        </div>
-                        <div class="announcement-unread-indicator"></div>
-                        <div class="announcement-header">
-                            <div class="announcement-icon schedule-icon">
-                                <span class="material-symbols-outlined">access_time</span>
-                            </div>
-                            <div class="announcement-meta">
-                                <h3 class="announcement-title">Class Timing Changes - Mathematics</h3>
-                                <div class="announcement-info">
-                                    <span class="announcement-date">
-                                        <span class="material-symbols-outlined">calendar_today</span>
-                                        Nov 24, 2025
-                                    </span>
-                                    <span class="announcement-author">
-                                        <span class="material-symbols-outlined">person</span>
-                                        Academic Coordinator
-                                    </span>
+                            <!-- Schedule Change Announcement -->
+                            <div class="announcement-card schedule unread" data-category="schedule">
+                                <div class="announcement-badge schedule-badge">
+                                    <span class="material-symbols-outlined">schedule</span>
+                                    Schedule Change
+                                </div>
+                                <div class="announcement-unread-indicator"></div>
+                                <div class="announcement-header">
+                                    <div class="announcement-icon schedule-icon">
+                                        <span class="material-symbols-outlined">access_time</span>
+                                    </div>
+                                    <div class="announcement-meta">
+                                        <h3 class="announcement-title">Class Timing Changes - Mathematics</h3>
+                                        <div class="announcement-info">
+                                            <span class="announcement-date">
+                                                <span class="material-symbols-outlined">calendar_today</span>
+                                                Nov 24, 2025
+                                            </span>
+                                            <span class="announcement-author">
+                                                <span class="material-symbols-outlined">person</span>
+                                                Academic Coordinator
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="announcement-content">
+                                    <p><strong>Effective from November 27, 2025:</strong></p>
+                                    <ul>
+                                        <li>Mathematics class for Class 9 will now be from 10:00 AM - 11:00 AM (Changed from 9:00 AM - 10:00 AM)</li>
+                                        <li>Physics class will move to 9:00 AM - 10:00 AM slot</li>
+                                    </ul>
+                                    <p>Please update your schedules accordingly.</p>
+                                </div>
+                                <div class="announcement-footer">
+                                    <button class="announcement-btn">
+                                        <span class="material-symbols-outlined">calendar_add_on</span>
+                                        Add to Calendar
+                                    </button>
+                                    <button class="announcement-btn mark-read-btn">
+                                        <span class="material-symbols-outlined">done_all</span>
+                                        Mark as Read
+                                    </button>
+                                </div>
+                                <div class="read-overlay">
+                                    <span class="material-symbols-outlined read-check">check_circle</span>
                                 </div>
                             </div>
-                        </div>
-                        <div class="announcement-content">
-                            <p><strong>Effective from November 27, 2025:</strong></p>
-                            <ul>
-                                <li>Mathematics class for Class 9 will now be from 10:00 AM - 11:00 AM (Changed from 9:00 AM - 10:00 AM)</li>
-                                <li>Physics class will move to 9:00 AM - 10:00 AM slot</li>
-                            </ul>
-                            <p>Please update your schedules accordingly.</p>
-                        </div>
-                        <div class="announcement-footer">
-                            <button class="announcement-btn">
-                                <span class="material-symbols-outlined">calendar_add_on</span>
-                                Add to Calendar
-                            </button>
-                            <button class="announcement-btn secondary">
-                                <span class="material-symbols-outlined">share</span>
-                                Share
-                            </button>
-                        </div>
-                    </div>
 
-                    <!-- Event Announcement -->
-                    <div class="announcement-card event" data-category="event">
-                        <div class="announcement-badge event-badge">
-                            <span class="material-symbols-outlined">celebration</span>
-                            Event
-                        </div>
-                        <div class="announcement-header">
-                            <div class="announcement-icon event-icon">
-                                <span class="material-symbols-outlined">party_mode</span>
-                            </div>
-                            <div class="announcement-meta">
-                                <h3 class="announcement-title">Annual Day Function 2025</h3>
-                                <div class="announcement-info">
-                                    <span class="announcement-date">
-                                        <span class="material-symbols-outlined">calendar_today</span>
-                                        Nov 22, 2025
-                                    </span>
-                                    <span class="announcement-author">
-                                        <span class="material-symbols-outlined">person</span>
-                                        Event Committee
-                                    </span>
+                            <!-- Exam Announcement -->
+                            <div class="announcement-card exam unread" data-category="exam">
+                                <div class="announcement-badge exam-badge">
+                                    <span class="material-symbols-outlined">quiz</span>
+                                    Exam
+                                </div>
+                                <div class="announcement-unread-indicator"></div>
+                                <div class="announcement-header">
+                                    <div class="announcement-icon exam-icon">
+                                        <span class="material-symbols-outlined">edit_note</span>
+                                    </div>
+                                    <div class="announcement-meta">
+                                        <h3 class="announcement-title">Mid-Term Examination Schedule Released</h3>
+                                        <div class="announcement-info">
+                                            <span class="announcement-date">
+                                                <span class="material-symbols-outlined">calendar_today</span>
+                                                Nov 23, 2025
+                                            </span>
+                                            <span class="announcement-author">
+                                                <span class="material-symbols-outlined">person</span>
+                                                Examination Cell
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="announcement-content">
+                                    <p>The Mid-Term examination schedule for all classes has been released.</p>
+                                    <p><strong>Examination Period:</strong> December 8-14, 2025</p>
+                                    <p><strong>Important Instructions:</strong></p>
+                                    <ul>
+                                        <li>Students must report 15 minutes before exam start time</li>
+                                        <li>Carry admit card and student ID</li>
+                                        <li>No electronic devices allowed in exam hall</li>
+                                        <li>Detailed time table available on student portal</li>
+                                    </ul>
+                                </div>
+                                <div class="announcement-footer">
+                                    <button class="announcement-btn">
+                                        <span class="material-symbols-outlined">file_download</span>
+                                        View Time Table
+                                    </button>
+                                    <button class="announcement-btn mark-read-btn">
+                                        <span class="material-symbols-outlined">done_all</span>
+                                        Mark as Read
+                                    </button>
+                                </div>
+                                <div class="read-overlay">
+                                    <span class="material-symbols-outlined read-check">check_circle</span>
                                 </div>
                             </div>
-                        </div>
-                        <div class="announcement-content">
-                            <p>We are excited to announce our Annual Day Function on <strong>December 15, 2025</strong> at 5:00 PM in the School Auditorium.</p>
-                            <p><strong>Program Highlights:</strong></p>
-                            <ul>
-                                <li>Cultural performances by students</li>
-                                <li>Award ceremony for outstanding performers</li>
-                                <li>Guest speaker session</li>
-                                <li>Refreshments for all attendees</li>
-                            </ul>
-                            <p>Dress Code: Formal attire. Parents and guardians are cordially invited.</p>
-                        </div>
-                        <div class="announcement-footer">
-                            <button class="announcement-btn">
-                                <span class="material-symbols-outlined">check_circle</span>
-                                Confirm Attendance
-                            </button>
-                            <button class="announcement-btn secondary">
-                                <span class="material-symbols-outlined">info</span>
-                                More Info
-                            </button>
-                        </div>
-                    </div>
 
-                    <!-- Holiday Announcement -->
-                    <div class="announcement-card holiday" data-category="holiday">
-                        <div class="announcement-badge holiday-badge">
-                            <span class="material-symbols-outlined">beach_access</span>
-                            Holiday
-                        </div>
-                        <div class="announcement-header">
-                            <div class="announcement-icon holiday-icon">
-                                <span class="material-symbols-outlined">wb_sunny</span>
-                            </div>
-                            <div class="announcement-meta">
-                                <h3 class="announcement-title">Winter Break Schedule</h3>
-                                <div class="announcement-info">
-                                    <span class="announcement-date">
-                                        <span class="material-symbols-outlined">calendar_today</span>
-                                        Nov 20, 2025
-                                    </span>
-                                    <span class="announcement-author">
-                                        <span class="material-symbols-outlined">person</span>
-                                        Administration
-                                    </span>
+                            <!-- Event Registration -->
+                            <div class="announcement-card event unread" data-category="event">
+                                <div class="announcement-badge event-badge">
+                                    <span class="material-symbols-outlined">celebration</span>
+                                    Event
+                                </div>
+                                <div class="announcement-unread-indicator"></div>
+                                <div class="announcement-header">
+                                    <div class="announcement-icon event-icon">
+                                        <span class="material-symbols-outlined">emoji_events</span>
+                                    </div>
+                                    <div class="announcement-meta">
+                                        <h3 class="announcement-title">Science Fair Registration Open</h3>
+                                        <div class="announcement-info">
+                                            <span class="announcement-date">
+                                                <span class="material-symbols-outlined">calendar_today</span>
+                                                Nov 18, 2025
+                                            </span>
+                                            <span class="announcement-author">
+                                                <span class="material-symbols-outlined">person</span>
+                                                Science Department
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="announcement-content">
+                                    <p>Registration for the Inter-School Science Fair 2025 is now open!</p>
+                                    <p><strong>Event Date:</strong> January 15, 2026</p>
+                                    <p><strong>Registration Deadline:</strong> December 10, 2025</p>
+                                    <p>Students can participate individually or in teams of up to 3 members. Exciting prizes await the winners!</p>
+                                </div>
+                                <div class="announcement-footer">
+                                    <button class="announcement-btn">
+                                        <span class="material-symbols-outlined">app_registration</span>
+                                        Register Now
+                                    </button>
+                                    <button class="announcement-btn mark-read-btn">
+                                        <span class="material-symbols-outlined">done_all</span>
+                                        Mark as Read
+                                    </button>
+                                </div>
+                                <div class="read-overlay">
+                                    <span class="material-symbols-outlined read-check">check_circle</span>
                                 </div>
                             </div>
-                        </div>
-                        <div class="announcement-content">
-                            <p><strong>Winter Break Dates:</strong> December 24, 2025 - January 5, 2026</p>
-                            <p>School will reopen on <strong>January 6, 2026</strong> with regular classes.</p>
-                            <p>All pending assignments should be submitted before December 23, 2025. Enjoy your holidays and stay safe!</p>
-                        </div>
-                        <div class="announcement-footer">
-                            <button class="announcement-btn">
-                                <span class="material-symbols-outlined">download</span>
-                                Download Calendar
-                            </button>
-                        </div>
-                    </div>
 
-                    <!-- Exam Announcement -->
-                    <div class="announcement-card exam unread" data-category="exam">
-                        <div class="announcement-badge exam-badge">
-                            <span class="material-symbols-outlined">quiz</span>
-                            Exam
-                        </div>
-                        <div class="announcement-unread-indicator"></div>
-                        <div class="announcement-header">
-                            <div class="announcement-icon exam-icon">
-                                <span class="material-symbols-outlined">edit_note</span>
-                            </div>
-                            <div class="announcement-meta">
-                                <h3 class="announcement-title">Mid-Term Examination Schedule Released</h3>
-                                <div class="announcement-info">
-                                    <span class="announcement-date">
-                                        <span class="material-symbols-outlined">calendar_today</span>
-                                        Nov 23, 2025
-                                    </span>
-                                    <span class="announcement-author">
-                                        <span class="material-symbols-outlined">person</span>
-                                        Examination Cell
-                                    </span>
+                    <!-- Event Announcement (Read) -->
+                            <div class="announcement-card event" data-category="event">
+                                <div class="announcement-badge event-badge">
+                                    <span class="material-symbols-outlined">celebration</span>
+                                    Event
+                                </div>
+                                <div class="announcement-header">
+                                    <div class="announcement-icon event-icon">
+                                        <span class="material-symbols-outlined">party_mode</span>
+                                    </div>
+                                    <div class="announcement-meta">
+                                        <h3 class="announcement-title">Annual Day Function 2025</h3>
+                                        <div class="announcement-info">
+                                            <span class="announcement-date">
+                                                <span class="material-symbols-outlined">calendar_today</span>
+                                                Nov 22, 2025
+                                            </span>
+                                            <span class="announcement-author">
+                                                <span class="material-symbols-outlined">person</span>
+                                                Event Committee
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="announcement-content">
+                                    <p>We are excited to announce our Annual Day Function on <strong>December 15, 2025</strong> at 5:00 PM in the School Auditorium.</p>
+                                    <p><strong>Program Highlights:</strong></p>
+                                    <ul>
+                                        <li>Cultural performances by students</li>
+                                        <li>Award ceremony for outstanding performers</li>
+                                        <li>Guest speaker session</li>
+                                        <li>Refreshments for all attendees</li>
+                                    </ul>
+                                    <p>Dress Code: Formal attire. Parents and guardians are cordially invited.</p>
+                                </div>
+                                <div class="announcement-footer">
+                                    <button class="announcement-btn">
+                                        <span class="material-symbols-outlined">check_circle</span>
+                                        Confirm Attendance
+                                    </button>
+                                    <button class="announcement-btn secondary">
+                                        <span class="material-symbols-outlined">info</span>
+                                        More Info
+                                    </button>
+                                </div>
+                                <div class="read-checkmark">
+                                    <span class="material-symbols-outlined">check_circle</span>
                                 </div>
                             </div>
-                        </div>
-                        <div class="announcement-content">
-                            <p>The Mid-Term examination schedule for all classes has been released.</p>
-                            <p><strong>Examination Period:</strong> December 8-14, 2025</p>
-                            <p><strong>Important Instructions:</strong></p>
-                            <ul>
-                                <li>Students must report 15 minutes before exam start time</li>
-                                <li>Carry admit card and student ID</li>
-                                <li>No electronic devices allowed in exam hall</li>
-                                <li>Detailed time table available on student portal</li>
-                            </ul>
-                        </div>
-                        <div class="announcement-footer">
-                            <button class="announcement-btn">
-                                <span class="material-symbols-outlined">file_download</span>
-                                View Time Table
-                            </button>
-                            <button class="announcement-btn secondary">
-                                <span class="material-symbols-outlined">print</span>
-                                Print
-                            </button>
-                        </div>
-                    </div>
 
-                    <!-- General Announcement -->
-                    <div class="announcement-card general" data-category="general">
-                        <div class="announcement-badge general-badge">
-                            <span class="material-symbols-outlined">info</span>
-                            General
-                        </div>
-                        <div class="announcement-header">
-                            <div class="announcement-icon general-icon">
-                                <span class="material-symbols-outlined">notifications</span>
-                            </div>
-                            <div class="announcement-meta">
-                                <h3 class="announcement-title">Library Timings Extended</h3>
-                                <div class="announcement-info">
-                                    <span class="announcement-date">
-                                        <span class="material-symbols-outlined">calendar_today</span>
-                                        Nov 21, 2025
-                                    </span>
-                                    <span class="announcement-author">
-                                        <span class="material-symbols-outlined">person</span>
-                                        Library Department
-                                    </span>
+                            <!-- Holiday Announcement (Read) -->
+                            <div class="announcement-card holiday" data-category="holiday">
+                                <div class="announcement-badge holiday-badge">
+                                    <span class="material-symbols-outlined">beach_access</span>
+                                    Holiday
+                                </div>
+                                <div class="announcement-header">
+                                    <div class="announcement-icon holiday-icon">
+                                        <span class="material-symbols-outlined">wb_sunny</span>
+                                    </div>
+                                    <div class="announcement-meta">
+                                        <h3 class="announcement-title">Winter Break Schedule</h3>
+                                        <div class="announcement-info">
+                                            <span class="announcement-date">
+                                                <span class="material-symbols-outlined">calendar_today</span>
+                                                Nov 20, 2025
+                                            </span>
+                                            <span class="announcement-author">
+                                                <span class="material-symbols-outlined">person</span>
+                                                Administration
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="announcement-content">
+                                    <p><strong>Winter Break Dates:</strong> December 24, 2025 - January 5, 2026</p>
+                                    <p>School will reopen on <strong>January 6, 2026</strong> with regular classes.</p>
+                                    <p>All pending assignments should be submitted before December 23, 2025. Enjoy your holidays and stay safe!</p>
+                                </div>
+                                <div class="announcement-footer">
+                                    <button class="announcement-btn">
+                                        <span class="material-symbols-outlined">download</span>
+                                        Download Calendar
+                                    </button>
+                                </div>
+                                <div class="read-checkmark">
+                                    <span class="material-symbols-outlined">check_circle</span>
                                 </div>
                             </div>
-                        </div>
-                        <div class="announcement-content">
-                            <p>Starting from December 1, 2025, the library will remain open until 7:00 PM on weekdays to help students prepare for upcoming exams.</p>
-                            <p><strong>New Timings:</strong></p>
-                            <ul>
-                                <li>Monday to Friday: 8:00 AM - 7:00 PM</li>
-                                <li>Saturday: 9:00 AM - 5:00 PM</li>
-                                <li>Sunday: Closed</li>
-                            </ul>
-                        </div>
-                        <div class="announcement-footer">
-                            <button class="announcement-btn">
-                                <span class="material-symbols-outlined">location_on</span>
-                                Get Directions
-                            </button>
-                        </div>
-                    </div>
 
-                    <!-- Another Schedule Change -->
-                    <div class="announcement-card schedule" data-category="schedule">
-                        <div class="announcement-badge schedule-badge">
-                            <span class="material-symbols-outlined">schedule</span>
-                            Schedule Change
-                        </div>
-                        <div class="announcement-header">
-                            <div class="announcement-icon schedule-icon">
-                                <span class="material-symbols-outlined">event_busy</span>
-                            </div>
-                            <div class="announcement-meta">
-                                <h3 class="announcement-title">Sports Period Rescheduled</h3>
-                                <div class="announcement-info">
-                                    <span class="announcement-date">
-                                        <span class="material-symbols-outlined">calendar_today</span>
-                                        Nov 19, 2025
-                                    </span>
-                                    <span class="announcement-author">
-                                        <span class="material-symbols-outlined">person</span>
-                                        Sports Department
-                                    </span>
+                            <!-- General Announcement (Read) -->
+                            <div class="announcement-card general" data-category="general">
+                                <div class="announcement-badge general-badge">
+                                    <span class="material-symbols-outlined">info</span>
+                                    General
+                                </div>
+                                <div class="announcement-header">
+                                    <div class="announcement-icon general-icon">
+                                        <span class="material-symbols-outlined">notifications</span>
+                                    </div>
+                                    <div class="announcement-meta">
+                                        <h3 class="announcement-title">Library Timings Extended</h3>
+                                        <div class="announcement-info">
+                                            <span class="announcement-date">
+                                                <span class="material-symbols-outlined">calendar_today</span>
+                                                Nov 21, 2025
+                                            </span>
+                                            <span class="announcement-author">
+                                                <span class="material-symbols-outlined">person</span>
+                                                Library Department
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="announcement-content">
+                                    <p>Starting from December 1, 2025, the library will remain open until 7:00 PM on weekdays to help students prepare for upcoming exams.</p>
+                                    <p><strong>New Timings:</strong></p>
+                                    <ul>
+                                        <li>Monday to Friday: 8:00 AM - 7:00 PM</li>
+                                        <li>Saturday: 9:00 AM - 5:00 PM</li>
+                                        <li>Sunday: Closed</li>
+                                    </ul>
+                                </div>
+                                <div class="announcement-footer">
+                                    <button class="announcement-btn">
+                                        <span class="material-symbols-outlined">location_on</span>
+                                        Get Directions
+                                    </button>
+                                </div>
+                                <div class="read-checkmark">
+                                    <span class="material-symbols-outlined">check_circle</span>
                                 </div>
                             </div>
-                        </div>
-                        <div class="announcement-content">
-                            <p>Due to ground maintenance work, all sports periods scheduled for this week have been rescheduled to next week.</p>
-                            <p>Regular sports activities will resume from December 2, 2025.</p>
-                        </div>
-                        <div class="announcement-footer">
-                            <button class="announcement-btn secondary">
-                                <span class="material-symbols-outlined">contact_support</span>
-                                Contact Sports Dept
-                            </button>
-                        </div>
-                    </div>
 
-                    <!-- Event Registration -->
-                    <div class="announcement-card event unread" data-category="event">
-                        <div class="announcement-badge event-badge">
-                            <span class="material-symbols-outlined">celebration</span>
-                            Event
-                        </div>
-                        <div class="announcement-unread-indicator"></div>
-                        <div class="announcement-header">
-                            <div class="announcement-icon event-icon">
-                                <span class="material-symbols-outlined">emoji_events</span>
-                            </div>
-                            <div class="announcement-meta">
-                                <h3 class="announcement-title">Science Fair Registration Open</h3>
-                                <div class="announcement-info">
-                                    <span class="announcement-date">
-                                        <span class="material-symbols-outlined">calendar_today</span>
-                                        Nov 18, 2025
-                                    </span>
-                                    <span class="announcement-author">
-                                        <span class="material-symbols-outlined">person</span>
-                                        Science Department
-                                    </span>
+                            <!-- Schedule Change (Read) -->
+                            <div class="announcement-card schedule" data-category="schedule">
+                                <div class="announcement-badge schedule-badge">
+                                    <span class="material-symbols-outlined">schedule</span>
+                                    Schedule Change
+                                </div>
+                                <div class="announcement-header">
+                                    <div class="announcement-icon schedule-icon">
+                                        <span class="material-symbols-outlined">event_busy</span>
+                                    </div>
+                                    <div class="announcement-meta">
+                                        <h3 class="announcement-title">Sports Period Rescheduled</h3>
+                                        <div class="announcement-info">
+                                            <span class="announcement-date">
+                                                <span class="material-symbols-outlined">calendar_today</span>
+                                                Nov 19, 2025
+                                            </span>
+                                            <span class="announcement-author">
+                                                <span class="material-symbols-outlined">person</span>
+                                                Sports Department
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="announcement-content">
+                                    <p>Due to ground maintenance work, all sports periods scheduled for this week have been rescheduled to next week.</p>
+                                    <p>Regular sports activities will resume from December 2, 2025.</p>
+                                </div>
+                                <div class="announcement-footer">
+                                    <button class="announcement-btn secondary">
+                                        <span class="material-symbols-outlined">contact_support</span>
+                                        Contact Sports Dept
+                                    </button>
+                                </div>
+                                <div class="read-checkmark">
+                                    <span class="material-symbols-outlined">check_circle</span>
                                 </div>
                             </div>
-                        </div>
-                        <div class="announcement-content">
-                            <p>Registration for the Inter-School Science Fair 2025 is now open!</p>
-                            <p><strong>Event Date:</strong> January 15, 2026</p>
-                            <p><strong>Registration Deadline:</strong> December 10, 2025</p>
-                            <p>Students can participate individually or in teams of up to 3 members. Exciting prizes await the winners!</p>
-                        </div>
-                        <div class="announcement-footer">
-                            <button class="announcement-btn">
-                                <span class="material-symbols-outlined">app_registration</span>
-                                Register Now
-                            </button>
-                            <button class="announcement-btn secondary">
-                                <span class="material-symbols-outlined">help</span>
-                                Guidelines
-                            </button>
-                        </div>
-                    </div>
                 </div>
             </div>
         </main>
@@ -437,7 +501,19 @@
         ]).then(([sidebarHTML, headerHTML]) => {
             document.getElementById('sidebar-container').innerHTML = sidebarHTML;
             document.getElementById('header-container').innerHTML = headerHTML;
-            initializeSidebar();
+
+            // Use setTimeout to ensure DOM has parsed the inserted HTML
+            setTimeout(() => {
+                initializeSidebar();
+                // Call header initialization directly instead of relying on DOMContentLoaded
+                if (typeof initializeHeader === 'function') {
+                    initializeHeader();
+                }
+
+                // Mark containers as loaded to make them visible with smooth transition
+                document.getElementById('sidebar-container').classList.add('loaded');
+                document.getElementById('header-container').classList.add('loaded');
+            }, 0);
         });
 
         function initializeSidebar() {
@@ -545,21 +621,117 @@
             });
         });
 
-        // Mark all as read
-        const markAllReadBtn = document.getElementById('markAllReadBtn');
-        markAllReadBtn.addEventListener('click', () => {
-            const unreadCards = document.querySelectorAll('.announcement-card.unread');
-            unreadCards.forEach(card => {
-                card.classList.remove('unread');
+        // Update reading progress
+        function updateProgress() {
+            const totalCards = document.querySelectorAll('.announcement-card').length;
+            const readCards = document.querySelectorAll('.announcement-card:not(.unread)').length;
+            const percentage = Math.round((readCards / totalCards) * 100);
+
+            document.getElementById('progressStats').textContent = `${readCards} of ${totalCards} announcements read`;
+            document.getElementById('progressPercentage').textContent = `${percentage}%`;
+            document.getElementById('progressBarFill').style.width = `${percentage}%`;
+        }
+
+        // Toggle buttons functionality
+        const allBtn = document.getElementById('allBtn');
+        const unreadBtn = document.getElementById('unreadBtn');
+        const readBtn = document.getElementById('readBtn');
+
+        allBtn.addEventListener('click', () => {
+            // Update active state
+            allBtn.classList.add('active');
+            unreadBtn.classList.remove('active');
+            readBtn.classList.remove('active');
+
+            // Show all announcements
+            announcementCards.forEach(card => {
+                card.style.display = 'block';
             });
         });
 
-        // Mark individual announcement as read on click
-        announcementCards.forEach(card => {
-            card.addEventListener('click', () => {
-                card.classList.remove('unread');
+        unreadBtn.addEventListener('click', () => {
+            // Update active state
+            unreadBtn.classList.add('active');
+            allBtn.classList.remove('active');
+            readBtn.classList.remove('active');
+
+            // Show only unread announcements
+            announcementCards.forEach(card => {
+                if (card.classList.contains('unread')) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
             });
         });
+
+        readBtn.addEventListener('click', () => {
+            // Update active state
+            readBtn.classList.add('active');
+            allBtn.classList.remove('active');
+            unreadBtn.classList.remove('active');
+
+            // Show only read announcements
+            announcementCards.forEach(card => {
+                if (!card.classList.contains('unread')) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+
+        // Mark as Read functionality
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('.mark-read-btn')) {
+                e.stopPropagation();
+                const card = e.target.closest('.announcement-card');
+
+                // Add reading animation
+                card.classList.add('marking-read');
+
+                setTimeout(() => {
+                    // Move card from unread to read
+                    card.classList.remove('unread');
+                    card.classList.remove('marking-read');
+
+                    // Remove Mark as Read button
+                    const markReadBtn = card.querySelector('.mark-read-btn');
+                    if (markReadBtn) {
+                        markReadBtn.remove();
+                    }
+
+                    // Remove unread indicator
+                    const unreadIndicator = card.querySelector('.announcement-unread-indicator');
+                    if (unreadIndicator) {
+                        unreadIndicator.remove();
+                    }
+
+                    // Remove read overlay
+                    const readOverlay = card.querySelector('.read-overlay');
+                    if (readOverlay) {
+                        readOverlay.remove();
+                    }
+
+                    // Add read checkmark
+                    const checkmark = document.createElement('div');
+                    checkmark.className = 'read-checkmark';
+                    checkmark.innerHTML = '<span class="material-symbols-outlined">check_circle</span>';
+                    card.appendChild(checkmark);
+
+                    // Update progress
+                    updateProgress();
+
+                    // If currently viewing unread only, hide the card
+                    if (unreadBtn.classList.contains('active')) {
+                        card.style.display = 'none';
+                    }
+                }, 600);
+            }
+        });
+
+        // Initial progress
+        updateProgress();
     </script>
 </body>
 

@@ -1,10 +1,26 @@
 // Header functionality
-document.addEventListener('DOMContentLoaded', function() {
-    // Wait a bit for header to be loaded
-    setTimeout(initializeHeader, 100);
-});
+let isHeaderInitialized = false;
+let retryCount = 0;
+const MAX_RETRIES = 20; // Max 2 seconds of retries
+
+// Note: initializeHeader should be called explicitly from the HTML page
+// after the header HTML is loaded via fetch, not via DOMContentLoaded
+
+// Reset function to clear state (useful for reinitialization)
+function resetHeaderState() {
+    isHeaderInitialized = false;
+    retryCount = 0;
+}
 
 function initializeHeader() {
+    // Reset state first to ensure clean initialization
+    if (!isHeaderInitialized) {
+        resetHeaderState();
+    } else {
+        // Already initialized, skip
+        return;
+    }
+
     // User dropdown toggle
     const userInfoToggle = document.getElementById('userInfoToggle');
     const userDropdownMenu = document.getElementById('userDropdownMenu');
@@ -12,12 +28,22 @@ function initializeHeader() {
     // Notification dropdown toggle
     const notificationToggle = document.getElementById('notificationToggle');
     const notificationDropdownMenu = document.getElementById('notificationDropdownMenu');
+    const notificationWrapper = document.querySelector('.notification-wrapper');
+    const userInfoWrapper = document.querySelector('.user-info-wrapper');
 
     if (!userInfoToggle || !userDropdownMenu || !notificationToggle || !notificationDropdownMenu) {
-        // Retry if elements not found yet
-        setTimeout(initializeHeader, 100);
+        // Retry if elements not found yet, but limit retries
+        retryCount++;
+        if (retryCount < MAX_RETRIES) {
+            setTimeout(initializeHeader, 100);
+        } else {
+            console.error('Header elements not found after maximum retries');
+        }
         return;
     }
+
+    // Mark as initialized to prevent duplicate event listeners
+    isHeaderInitialized = true;
 
     // User dropdown toggle
     userInfoToggle.addEventListener('click', (e) => {
@@ -37,10 +63,10 @@ function initializeHeader() {
 
     // Close dropdowns when clicking outside
     document.addEventListener('click', (e) => {
-        if (!userDropdownMenu.contains(e.target) && !userInfoToggle.contains(e.target)) {
+        if (userInfoWrapper && !userInfoWrapper.contains(e.target)) {
             userDropdownMenu.classList.remove('active');
         }
-        if (!notificationDropdownMenu.contains(e.target) && !notificationToggle.contains(e.target)) {
+        if (notificationWrapper && !notificationWrapper.contains(e.target)) {
             notificationDropdownMenu.classList.remove('active');
         }
     });
@@ -64,6 +90,12 @@ function initializeHeader() {
             toggleFullscreen();
         });
     }
+
+    // Listen for fullscreen change events to update icon (only add once)
+    document.addEventListener('fullscreenchange', updateFullscreenIcon);
+    document.addEventListener('webkitfullscreenchange', updateFullscreenIcon);
+    document.addEventListener('mozfullscreenchange', updateFullscreenIcon);
+    document.addEventListener('MSFullscreenChange', updateFullscreenIcon);
 }
 
 function toggleFullscreen() {
@@ -104,12 +136,6 @@ function toggleFullscreen() {
         }
     }
 }
-
-// Listen for fullscreen change events to update icon
-document.addEventListener('fullscreenchange', updateFullscreenIcon);
-document.addEventListener('webkitfullscreenchange', updateFullscreenIcon);
-document.addEventListener('mozfullscreenchange', updateFullscreenIcon);
-document.addEventListener('MSFullscreenChange', updateFullscreenIcon);
 
 function updateFullscreenIcon() {
     const fullscreenIcon = document.querySelector('.fullscreen-btn .material-symbols-outlined');

@@ -333,6 +333,10 @@
             ]).then(([sidebarHTML, headerHTML]) => {
                 document.getElementById('sidebar-container').innerHTML = sidebarHTML;
                 document.getElementById('header-container').innerHTML = headerHTML;
+                // Call header initialization directly instead of relying on DOMContentLoaded
+                if (typeof initializeHeader === 'function') {
+                    initializeHeader();
+                }
             });
         });
 

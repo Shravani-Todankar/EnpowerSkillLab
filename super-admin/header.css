@@ -3,7 +3,7 @@
    ============================================ */
 
 /* Header */
-:root{
+:root {
     --card-light: #ffffff;
     --border-light: #e5e7eb;
 }
@@ -98,9 +98,12 @@ body.dark .header button {
 }
 
 @keyframes pulse-badge {
-    0%, 100% {
+
+    0%,
+    100% {
         box-shadow: 0 2px 8px rgba(239, 68, 68, 0.5), 0 0 0 0 rgba(239, 68, 68, 0.7);
     }
+
     50% {
         box-shadow: 0 2px 8px rgba(239, 68, 68, 0.5), 0 0 0 6px rgba(239, 68, 68, 0);
     }
@@ -183,10 +186,10 @@ body.dark .notification-dropdown-header {
     gap: 8px;
 }
 
-.notification-dropdown-title::before {
+/* .notification-dropdown-title::before {
     content: '🔔';
     font-size: 1.125rem;
-}
+} */
 
 body.dark .notification-dropdown-title {
     color: var(--heading-dark);
@@ -242,7 +245,7 @@ body.dark .notification-dropdown-body::-webkit-scrollbar-thumb {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     border-bottom: 1px solid rgba(0, 0, 0, 0.04);
     position: relative;
-    margin: 0 8px;
+    margin: 8px 8px;
     border-radius: 12px;
 }
 
@@ -410,6 +413,7 @@ body.dark .notification-dropdown-footer {
     padding: 8px 16px;
     border-radius: 8px;
 }
+
 .notification-footer-link:hover {
     background: linear-gradient(135deg, #6b277e 0%, #A67DB1 100%);
     -webkit-background-clip: text;
@@ -618,6 +622,7 @@ body.dark .dropdown-item .material-symbols-outlined {
 }
 
 @media (min-width: 640px) {
+
     .user-name,
     .user-dropdown {
         display: block;
@@ -640,6 +645,7 @@ body.dark .dropdown-item .material-symbols-outlined {
 }
 
 @media (min-width: 1280px) {
+
     .app-store-btn,
     .play-store-btn {
         display: flex;
@@ -1214,11 +1220,11 @@ body.dark .toggle-slider {
     transition: 0.4s;
 }
 
-.toggle-switch input:checked + .toggle-slider {
+.toggle-switch input:checked+.toggle-slider {
     background-color: #6b277e;
 }
 
-.toggle-switch input:checked + .toggle-slider:before {
+.toggle-switch input:checked+.toggle-slider:before {
     transform: translateX(24px);
 }
 
