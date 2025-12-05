@@ -13,6 +13,27 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="dashboard.css">
     <link rel="stylesheet" href="mark-attendance.css">
+
+    <!-- Sidebar JS -->
+    <script src="sidebar.js"></script>
+    <!-- Header JS -->
+    <script src="header.js"></script>
+
+    <style>
+        /* Prevent FOUC - hide containers until loaded */
+        #sidebar-container:empty,
+        #header-container:empty {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        #sidebar-container.loaded,
+        #header-container.loaded {
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.2s ease-in;
+        }
+    </style>
 </head>
 
 <body>
@@ -306,13 +327,20 @@
             document.getElementById('sidebar-container').innerHTML = sidebarHTML;
             document.getElementById('header-container').innerHTML = headerHTML;
 
-            // Initialize sidebar functionality after both components are loaded
-            initializeSidebar();
-            initializeSidebarDropdowns();
-            // Call header initialization directly instead of relying on DOMContentLoaded
-            if (typeof initializeHeader === 'function') {
-                initializeHeader();
-            }
+            // Use setTimeout to ensure DOM has parsed the inserted HTML
+            setTimeout(() => {
+                // Initialize sidebar functionality after both components are loaded
+                initializeSidebar();
+                initializeSidebarDropdowns();
+                // Call header initialization directly instead of relying on DOMContentLoaded
+                if (typeof initializeHeader === 'function') {
+                    initializeHeader();
+                }
+
+                // Mark containers as loaded to make them visible with smooth transition
+                document.getElementById('sidebar-container').classList.add('loaded');
+                document.getElementById('header-container').classList.add('loaded');
+            }, 0);
         });
 
         function initializeSidebar() {

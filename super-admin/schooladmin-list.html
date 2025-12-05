@@ -18,6 +18,22 @@
   <script src="header.js"></script>
 
   <style>
+    /* Prevent FOUC - hide containers until loaded */
+    #sidebar-container:empty,
+    #header-container:empty {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    #sidebar-container.loaded,
+    #header-container.loaded {
+      opacity: 1;
+      visibility: visible;
+      transition: opacity 0.2s ease-in;
+    }
+  </style>
+
+  <style>
     :root {
       --primary: #6B21A8;
       --background-light: #F3F4F6;
@@ -532,13 +548,19 @@
       ]).then(([sidebarHTML, headerHTML]) => {
         document.getElementById('sidebar-container').innerHTML = sidebarHTML;
         document.getElementById('header-container').innerHTML = headerHTML;
-        // Call header initialization directly instead of relying on DOMContentLoaded
-        if (typeof initializeHeader === 'function') {
-          initializeHeader();
-        }
 
-        // Wait a bit for sidebar.js to initialize, then set active state
+        // Use setTimeout to ensure DOM has parsed the inserted HTML
         setTimeout(() => {
+          // Call header initialization directly instead of relying on DOMContentLoaded
+          if (typeof initializeHeader === 'function') {
+            initializeHeader();
+          }
+
+          // Mark containers as loaded to make them visible with smooth transition
+          document.getElementById('sidebar-container').classList.add('loaded');
+          document.getElementById('header-container').classList.add('loaded');
+
+          // Wait a bit for sidebar.js to initialize, then set active state
           setActiveMenuItem();
         }, 200);
       });

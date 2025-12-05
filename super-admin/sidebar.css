@@ -230,7 +230,6 @@ body.dark .sidebar-dropdown-menu a:hover {
     color: #7c3aed;
     font-weight: 600;
     border-left: 4px solid #7c3aed;
-    padding-left: 48px !important;
 }
 
 body.dark .sidebar-dropdown-menu a.active {

@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Parent List</title>
+  <title>Program Coordinator List</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -49,40 +49,11 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    .dataTables_wrapper,
-    table {
-      font-family: 'Poppins', sans-serif;
-    }
-
-    .dataTables_wrapper .dataTables_length label,
-    .dataTables_wrapper .dataTables_filter label,
-    .dataTables_wrapper .dataTables_info,
-    .dataTables_wrapper .dataTables_paginate .paginate_button {
-      font-size: 0.95rem;
-      font-weight: 400;
-    }
-
-    .dataTables_wrapper .form-select,
-    .dataTables_wrapper .form-control {
-      font-size: 0.95rem;
-      font-weight: 400;
-    }
-
-    body.dark {
-      background-color: var(--background-dark);
-      color: #d1d5db;
-    }
-
     .card {
       border: 1px solid rgba(0, 0, 0, 0.04);
       border-radius: var(--card-radius);
       box-shadow: var(--shadow);
       background-color: #fff;
-    }
-
-    body.dark .card {
-      background-color: #1f2937;
-      border-color: #374151;
     }
 
     .btn-white {
@@ -94,16 +65,6 @@
     .btn-white:hover {
       background-color: #f9fafb;
       color: #111827;
-    }
-
-    body.dark .btn-white {
-      background-color: #374151;
-      color: #e5e7eb;
-      border-color: #4b5563;
-    }
-
-    body.dark .btn-white:hover {
-      background-color: #4b5563;
     }
 
     .btn-primary {
@@ -132,6 +93,11 @@
       font-weight: 700;
       color: #fff;
       font-size: 0.8rem;
+      flex-shrink: 0;
+    }
+
+    .bg-indigo-100 {
+      background: #ccdcff;
     }
 
     .table> :not(caption)>*>* {
@@ -146,20 +112,6 @@
       text-transform: uppercase;
       border-bottom: 1px solid #e5e7eb;
       background: #f9fafb;
-    }
-
-    body.dark .table thead th {
-      color: #9ca3af;
-      background: rgba(55, 65, 81, 0.7);
-      border-color: #374151;
-    }
-
-    .table tbody td {
-      color: #111827;
-    }
-
-    body.dark .table tbody td {
-      color: #e5e7eb;
     }
 
     .status-active {
@@ -186,14 +138,26 @@
       gap: 0.25rem;
     }
 
-    body.dark .status-active {
-      background-color: rgba(16, 185, 129, 0.18);
-      color: #34d399;
+    .badge-pill {
+      border-radius: 999px;
+      padding: 0.3rem 0.65rem;
+      font-size: 0.75rem;
+      font-weight: 600;
     }
 
-    body.dark .status-inactive {
-      background-color: rgba(248, 113, 113, 0.18);
-      color: #fca5a5;
+    .dataTables_wrapper,
+    table {
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .dataTables_wrapper .dataTables_length label,
+    .dataTables_wrapper .dataTables_filter label,
+    .dataTables_wrapper .dataTables_info,
+    .dataTables_wrapper .dataTables_paginate .paginate_button,
+    .dataTables_wrapper .form-select,
+    .dataTables_wrapper .form-control {
+      font-size: 0.95rem;
+      font-weight: 400;
     }
 
     .dashboard-container {
@@ -243,7 +207,8 @@
       font-size: 20px;
       font-weight: 600;
     }
-    div.dataTables_wrapper div.dataTables_length select{
+
+    div.dataTables_wrapper div.dataTables_length select {
       width: 70px !important;
     }
   </style>
@@ -258,11 +223,15 @@
     <main class="main-content">
       <!-- Include Header Component -->
       <div id="header-container"></div>
+
       <div class="py-4 py-sm-5 py-lg-5">
         <div class="container-xl" style="max-width: 1200px;">
           <header
             class="mb-4 d-flex flex-column flex-lg-row align-items-start align-items-lg-center justify-content-between gap-3">
-            <h1 class="h4 mb-0 fw-bold text-dark">Parent List</h1>
+            <div>
+
+              <h1 class="h4 mb-0 fw-bold text-dark">Program Coordinator List</h1>
+            </div>
             <div class="d-flex flex-wrap gap-2 align-items-center justify-content-start justify-content-lg-end">
 
               <button class="btn-gradient btn-download">
@@ -281,40 +250,42 @@
               </button>
 
             </div>
-
           </header>
 
           <main class="card">
             <div class="table-responsive">
-              <table id="parentTable" class="table mb-0 align-middle">
+              <table id="coordinatorTable" class="table mb-0 align-middle">
                 <thead>
                   <tr>
-                    <th scope="col">Parent ID</th>
+                    <th scope="col">Coordinator ID</th>
                     <th scope="col">
                       <div class="d-inline-flex align-items-center gap-1">
-                        Parent Name
+                        Name
                         <span class="material-symbols-outlined" style="font-size:16px;">arrow_upward</span>
                       </div>
                     </th>
                     <th scope="col">Contact Information</th>
-                    <th scope="col">Child's Name</th>
-                    <th scope="col">Child's Grade/Class</th>
+                    <th scope="col">Programs Managed</th>
                     <th scope="col">Status</th>
                     <th scope="col">Actions</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr class="border-top-0">
-                    <td class="text-muted text-monospace">P7Y5D3</td>
-                    <td class="fw-normal">
+                    <td class="text-muted text-monospace">C10234</td>
+                    <td class="fw-semibold">
                       <div class="d-flex align-items-center gap-3">
-                        <div class="initial-badge" style="background-color:#f97316;">SM</div>
-                        <span class="fw-normal">Sanjay Mehta</span>
+                        <div class="initial-badge" style="background-color:#f97316;">RJ</div>
+                        <span>Rohan Joshi</span>
                       </div>
                     </td>
-                    <td class="text-muted">sanjay.mehta@example.com</td>
-                    <td class="fw-normal text-dark">Aarav Mehta</td>
-                    <td class="text-muted">Grade 10</td>
+                    <td class="text-muted">rohan.joshi@example.com</td>
+                    <td>
+                      <div class="d-flex flex-wrap gap-2">
+                        <span class="badge bg-primary-subtle text-primary fw-semibold badge-pill">LMS Management</span>
+                        <span class="badge bg-indigo-100 text-primary fw-semibold badge-pill">Attendance</span>
+                      </div>
+                    </td>
                     <td><span class="status-active">Active</span></td>
                     <td>
                       <div class="d-flex align-items-center gap-3 text-muted">
@@ -326,16 +297,19 @@
                     </td>
                   </tr>
                   <tr>
-                    <td class="text-muted text-monospace">P4C8E5</td>
-                    <td class="fw-normal">
+                    <td class="text-muted text-monospace">C10235</td>
+                    <td class="fw-semibold">
                       <div class="d-flex align-items-center gap-3">
-                        <div class="initial-badge" style="background-color:#6366f1;">AV</div>
-                        <span class="fw-normal">Anita Verma</span>
+                        <div class="initial-badge" style="background-color:#6366f1;">PS</div>
+                        <span>Priya Singh</span>
                       </div>
                     </td>
-                    <td class="text-muted">anita.verma@example.com</td>
-                    <td class="fw-normal text-dark">Riya Verma</td>
-                    <td class="text-muted">Grade 9</td>
+                    <td class="text-muted">priya.singh@example.com</td>
+                    <td>
+                      <div class="d-flex flex-wrap gap-2">
+                        <span class="badge bg-success-subtle text-success fw-semibold badge-pill">Assessments</span>
+                      </div>
+                    </td>
                     <td><span class="status-active">Active</span></td>
                     <td>
                       <div class="d-flex align-items-center gap-3 text-muted">
@@ -347,16 +321,22 @@
                     </td>
                   </tr>
                   <tr>
-                    <td class="text-muted text-monospace">P2R6F4</td>
-                    <td class="fw-normal">
+                    <td class="text-muted text-monospace">C10236</td>
+                    <td class="fw-semibold">
                       <div class="d-flex align-items-center gap-3">
-                        <div class="initial-badge" style="background-color:#3b82f6;">RS</div>
-                        <span class="fw-normal">Ravi Sharma</span>
+                        <div class="initial-badge" style="background-color:#3b82f6;">AS</div>
+                        <span>Aditya Sharma</span>
                       </div>
                     </td>
-                    <td class="text-muted">ravi.sharma@example.com</td>
-                    <td class="fw-normal text-dark">Kavya Sharma</td>
-                    <td class="text-muted">Grade 11</td>
+                    <td class="text-muted">aditya.sharma@example.com</td>
+                    <td>
+                      <div class="d-flex flex-wrap gap-2">
+                        <span class="badge bg-danger-subtle text-danger fw-semibold badge-pill">Schools
+                          monitoring</span>
+                        <span class="badge bg-primary-subtle text-primary fw-semibold badge-pill">Teacher
+                          monitoring</span>
+                      </div>
+                    </td>
                     <td><span class="status-inactive">Inactive</span></td>
                     <td>
                       <div class="d-flex align-items-center gap-3 text-muted">
@@ -368,16 +348,19 @@
                     </td>
                   </tr>
                   <tr>
-                    <td class="text-muted text-monospace">P8P1U6</td>
-                    <td class="fw-normal">
+                    <td class="text-muted text-monospace">C10237</td>
+                    <td class="fw-semibold">
                       <div class="d-flex align-items-center gap-3">
-                        <div class="initial-badge" style="background-color:#ef4444;">MJ</div>
-                        <span class="fw-normal">Meena Joshi</span>
+                        <div class="initial-badge" style="background-color:#ef4444;">NG</div>
+                        <span>Neha Gupta</span>
                       </div>
                     </td>
-                    <td class="text-muted">meena.joshi@example.com</td>
-                    <td class="fw-normal text-dark">Arjun Joshi</td>
-                    <td class="text-muted">Grade 8</td>
+                    <td class="text-muted">neha.gupta@example.com</td>
+                    <td>
+                      <div class="d-flex flex-wrap gap-2">
+                        <span class="badge bg-primary-subtle text-primary fw-semibold badge-pill">Academics Data</span>
+                      </div>
+                    </td>
                     <td><span class="status-active">Active</span></td>
                     <td>
                       <div class="d-flex align-items-center gap-3 text-muted">
@@ -389,16 +372,21 @@
                     </td>
                   </tr>
                   <tr>
-                    <td class="text-muted text-monospace">P9W3Q8</td>
-                    <td class="fw-normal">
+                    <td class="text-muted text-monospace">C10238</td>
+                    <td class="fw-semibold">
                       <div class="d-flex align-items-center gap-3">
                         <div class="initial-badge" style="background-color:#10b981;">VK</div>
-                        <span class="fw-normal">Vikram Kumar</span>
+                        <span>Vikram Kumar</span>
                       </div>
                     </td>
                     <td class="text-muted">vikram.kumar@example.com</td>
-                    <td class="fw-normal text-dark">Pooja Kumar</td>
-                    <td class="text-muted">Grade 12</td>
+                    <td>
+                      <div class="d-flex flex-wrap gap-2">
+                        <span class="badge bg-primary-subtle text-primary fw-semibold badge-pill">LMS Management</span>
+                        <span class="badge bg-danger-subtle text-danger fw-semibold badge-pill">Attendance</span>
+                        <span class="badge bg-primary-subtle text-primary fw-semibold badge-pill">Academics Data</span>
+                      </div>
+                    </td>
                     <td><span class="status-active">Active</span></td>
                     <td>
                       <div class="d-flex align-items-center gap-3 text-muted">
@@ -410,100 +398,21 @@
                     </td>
                   </tr>
                   <tr>
-                    <td class="text-muted text-monospace">P1B4Z9</td>
-                    <td class="fw-normal">
-                      <div class="d-flex align-items-center gap-3">
-                        <div class="initial-badge" style="background-color:#f43f5e;">SP</div>
-                        <span class="fw-normal">Sunita Patel</span>
-                      </div>
-                    </td>
-                    <td class="text-muted">sunita.patel@example.com</td>
-                    <td class="fw-normal text-dark">Rohan Patel</td>
-                    <td class="text-muted">Grade 9</td>
-                    <td><span class="status-active">Active</span></td>
-                    <td>
-                      <div class="d-flex align-items-center gap-3 text-muted">
-                        <button class="btn btn-link p-0 text-decoration-none text-muted"><span
-                            class="material-symbols-outlined">edit</span></button>
-                        <button class="btn btn-link p-0 text-decoration-none text-muted"><span
-                            class="material-symbols-outlined">visibility</span></button>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="text-muted text-monospace">P6G2J7</td>
-                    <td class="fw-normal">
-                      <div class="d-flex align-items-center gap-3">
-                        <div class="initial-badge" style="background-color:#ec4899;">RG</div>
-                        <span class="fw-normal">Raj Gupta</span>
-                      </div>
-                    </td>
-                    <td class="text-muted">raj.gupta@example.com</td>
-                    <td class="fw-normal text-dark">Ananya Gupta</td>
-                    <td class="text-muted">Grade 10</td>
-                    <td><span class="status-active">Active</span></td>
-                    <td>
-                      <div class="d-flex align-items-center gap-3 text-muted">
-                        <button class="btn btn-link p-0 text-decoration-none text-muted"><span
-                            class="material-symbols-outlined">edit</span></button>
-                        <button class="btn btn-link p-0 text-decoration-none text-muted"><span
-                            class="material-symbols-outlined">visibility</span></button>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="text-muted text-monospace">P3M9V7</td>
-                    <td class="fw-normal">
-                      <div class="d-flex align-items-center gap-3">
-                        <div class="initial-badge" style="background-color:#a855f7;">DP</div>
-                        <span class="fw-normal">Deepa Pandey</span>
-                      </div>
-                    </td>
-                    <td class="text-muted">deepa@example.com</td>
-                    <td class="fw-normal text-dark">Aditya Pandey</td>
-                    <td class="text-muted">Class B</td>
-                    <td><span class="status-inactive">Inactive</span></td>
-                    <td>
-                      <div class="d-flex align-items-center gap-3 text-muted">
-                        <button class="btn btn-link p-0 text-decoration-none text-muted"><span
-                            class="material-symbols-outlined">edit</span></button>
-                        <button class="btn btn-link p-0 text-decoration-none text-muted"><span
-                            class="material-symbols-outlined">visibility</span></button>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="text-muted text-monospace">P3X7T2</td>
-                    <td class="fw-normal">
-                      <div class="d-flex align-items-center gap-3">
-                        <div class="initial-badge" style="background-color:#14b8a6;">HR</div>
-                        <span class="fw-normal">Harish Reddy</span>
-                      </div>
-                    </td>
-                    <td class="text-muted">harish.reddy@example.com</td>
-                    <td class="fw-normal text-dark">Ishaan Reddy</td>
-                    <td class="text-muted">Grade 11</td>
-                    <td><span class="status-active">Active</span></td>
-                    <td>
-                      <div class="d-flex align-items-center gap-3 text-muted">
-                        <button class="btn btn-link p-0 text-decoration-none text-muted"><span
-                            class="material-symbols-outlined">edit</span></button>
-                        <button class="btn btn-link p-0 text-decoration-none text-muted"><span
-                            class="material-symbols-outlined">visibility</span></button>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="text-muted text-monospace">P5L8N1</td>
+                    <td class="text-muted text-monospace">C10239</td>
                     <td class="fw-semibold">
                       <div class="d-flex align-items-center gap-3">
-                        <div class="initial-badge" style="background-color:#8b5cf6;">ST</div>
-                        <span>Seema Todankar</span>
+                        <div class="initial-badge" style="background-color:#f43f5e;">AP</div>
+                        <span>Anjali Patel</span>
                       </div>
                     </td>
-                    <td class="text-muted">seema@example.com</td>
-                    <td class="fw-semibold text-dark">Vihaan Todankar</td>
-                    <td class="text-muted">Class C</td>
+                    <td class="text-muted">anjali.patel@example.com</td>
+                    <td>
+                      <div class="d-flex flex-wrap gap-2">
+                        <span class="badge bg-primary-subtle text-primary fw-semibold badge-pill">Teacher
+                          monitoring</span>
+                        <span class="badge bg-success-subtle text-success fw-semibold badge-pill">Assessments</span>
+                      </div>
+                    </td>
                     <td><span class="status-active">Active</span></td>
                     <td>
                       <div class="d-flex align-items-center gap-3 text-muted">
@@ -561,23 +470,22 @@
       }
     }
 
-
     $(function () {
-      $('#parentTable').DataTable({
+      $('#coordinatorTable').DataTable({
         paging: true,
-        pageLength: 10,
-        lengthMenu: [5, 10, 25, 50],
+        pageLength: 6,
+        lengthMenu: [6, 10, 25, 50],
         order: [[1, 'asc']],
         columnDefs: [
-          { orderable: false, targets: 6 }
+          { orderable: false, targets: [3, 5] }
         ],
         language: {
-          search: 'Search parents:',
+          search: 'Search coordinators:',
           lengthMenu: 'Show _MENU_ entries',
-          info: 'Showing _START_ to _END_ of _TOTAL_ parents',
-          infoEmpty: 'No parents to show',
+          info: 'Showing _START_ to _END_ of _TOTAL_ coordinators',
+          infoEmpty: 'No coordinators to show',
           infoFiltered: '(_MAX_ total)',
-          zeroRecords: 'No matching parents found',
+          zeroRecords: 'No matching coordinators found',
           paginate: {
             next: 'Next',
             previous: 'Previous'
