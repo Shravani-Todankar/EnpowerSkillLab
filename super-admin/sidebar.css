@@ -155,6 +155,17 @@ body.dark .sidebar-dropdown-toggle:hover {
     background-color: #374151;
 }
 
+.sidebar-dropdown-toggle.active {
+    background-color: rgba(107, 39, 126, 0.1);
+    color: #6b277e;
+    font-weight: 600;
+}
+
+body.dark .sidebar-dropdown-toggle.active {
+    background-color: rgba(107, 39, 126, 0.3);
+    color: #A67DB1;
+}
+
 .sidebar-dropdown-toggle .material-symbols-outlined:not(.dropdown-icon) {
     margin: 0;
     width: 24px;

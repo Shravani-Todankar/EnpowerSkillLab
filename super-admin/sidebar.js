@@ -62,43 +62,91 @@ function initializeSidebar() {
     function setActiveLink() {
         const currentPage = window.location.pathname.split('/').pop();
         const navLinks = {
+            // Dashboard
             'dashboard.html': 'nav-dashboard',
+
+            // Schools
             'school-list.html': 'nav-school-list',
-            'add-school.html': 'nav-add-school',
+            'onboard-school.html': 'nav-add-school',
             'school-details.html': 'nav-school-details',
-            'school-admins.html': 'nav-school-admins',
-            'program-coordinators.html': 'nav-program-coordinators',
-            'thinking-coaches.html': 'nav-thinking-coaches',
+
+            // Users - School Admins
+            'schooladmin-list.html': 'nav-school-admins',
+            'onboard-school-admin.html': 'nav-add-school-admins',
+
+            // Users - Program Coordinators
+            'program-coordinator-list.html': 'nav-program-coordinators',
+            'onboard-pc.html': 'nav-add-program-coordinators',
+
+            // Users - Thinking Coaches
+            'teacher-list.html': 'nav-thinking-coaches',
+            'add-teacher.html': 'nav-add-thinking-coaches',
+
+            // Users - Students
+            'student-list.html': 'nav-students-list',
+            'add-student.html': 'nav-add-student',
+
+            // Users - Parents
+            'parent-list.html': 'nav-parent-list',
+            'onboard-parent.html': 'nav-add-parent',
+
+            // Users - Bulk Upload
             'bulk-upload.html': 'nav-bulk-upload',
+
+            // Academics
             'learning-pillars.html': 'nav-learning-pillars',
             'competencies.html': 'nav-competencies',
             'profiles.html': 'nav-profiles',
             'weightage-mapping.html': 'nav-weightage-mapping',
             'academic-year-locking.html': 'nav-academic-year-locking',
+
+            // LMS Management
             'lessons-library.html': 'nav-lessons-library',
             'add-lesson.html': 'nav-add-lesson',
             'categories-modules.html': 'nav-categories-modules',
+
+            // Monitoring
             'assessment-monitoring.html': 'nav-assessment-monitoring',
             'attendance-monitoring.html': 'nav-attendance-monitoring',
             'lms-monitoring.html': 'nav-lms-monitoring',
             'multi-school-comparison.html': 'nav-multi-school-comparison',
+
+            // Reports & Analytics
             'platform-analytics.html': 'nav-platform-analytics',
             'download-reports.html': 'nav-download-reports',
+
+            // Settings
             'system-settings.html': 'nav-system-settings',
             'terms-privacy.html': 'nav-terms-privacy',
             'billing.html': 'nav-billing',
+
+            // My Account
             'profile.html': 'nav-profile',
             'change-password.html': 'nav-change-password'
         };
 
-        // Remove all active classes
+        // Remove all active classes from links
         sidebarLinks.forEach(link => link.classList.remove('active'));
+
+        // Remove all active classes from dropdown toggles
+        document.querySelectorAll('.sidebar-dropdown-toggle').forEach(toggle => {
+            toggle.classList.remove('active');
+        });
 
         // Add active class to current page link
         if (navLinks[currentPage]) {
             const activeLink = document.getElementById(navLinks[currentPage]);
             if (activeLink) {
                 activeLink.classList.add('active');
+
+                // Also add active class to parent dropdown toggle if link is inside a dropdown
+                const parentDropdown = activeLink.closest('.sidebar-dropdown');
+                if (parentDropdown) {
+                    const dropdownToggle = parentDropdown.querySelector('.sidebar-dropdown-toggle');
+                    if (dropdownToggle) {
+                        dropdownToggle.classList.add('active');
+                    }
+                }
             }
         }
     }
