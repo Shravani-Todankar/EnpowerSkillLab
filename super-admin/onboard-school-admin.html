@@ -392,6 +392,18 @@
             .onboard-school-admin-container {
                 padding: 30px;
             }
+
+            .stepper::before {
+                content: '';
+                position: absolute;
+                top: 20px;
+                left: 50px;
+                right: 0;
+                height: 2px;
+                background: #e5e5e7;
+                z-index: 0;
+                width: 250px;
+            }
         }
 
         @media (max-width: 640px) {
@@ -463,12 +475,14 @@
                             <div class="form-row">
                                 <div class="form-group">
                                     <label>Full Name <span class="required">*</span></label>
-                                    <input type="text" name="fullName" id="fullName" placeholder="Enter full name" required>
+                                    <input type="text" name="fullName" id="fullName" placeholder="Enter full name"
+                                        required>
                                     <span class="error-message" id="fullNameError"></span>
                                 </div>
                                 <div class="form-group">
                                     <label>Email Address <span class="required">*</span></label>
-                                    <input type="email" name="email" id="email" placeholder="admin@example.com" required>
+                                    <input type="email" name="email" id="email" placeholder="admin@example.com"
+                                        required>
                                     <span class="error-message" id="emailError"></span>
                                 </div>
                             </div>
@@ -476,7 +490,8 @@
                             <div class="form-row">
                                 <div class="form-group">
                                     <label>Phone Number <span class="required">*</span></label>
-                                    <input type="tel" name="phone" id="phone" placeholder="+91 XXXXX XXXXX" required maxlength="10">
+                                    <input type="tel" name="phone" id="phone" placeholder="+91 XXXXX XXXXX" required
+                                        maxlength="10">
                                     <span class="error-message" id="phoneError"></span>
                                 </div>
                             </div>
@@ -519,7 +534,8 @@
                                             <span class="material-symbols-outlined">add_a_photo</span>
                                             <span class="photo-preview-text">Upload Photo</span>
                                         </div>
-                                        <input type="file" id="profilePhoto" name="profilePhoto" accept="image/*" class="photo-input">
+                                        <input type="file" id="profilePhoto" name="profilePhoto" accept="image/*"
+                                            class="photo-input">
                                         <button type="button" class="upload-photo-btn" id="uploadPhotoBtn">
                                             <span class="material-symbols-outlined">upload</span>
                                             Choose Photo

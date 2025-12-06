@@ -577,6 +577,18 @@ body.dark .btn-back:hover {
         width: 100%;
         justify-content: space-between;
     }
+
+    .stepper::before {
+        content: '';
+        position: absolute;
+        top: 20px;
+        left: 80px;
+        right: 0;
+        height: 2px;
+        background: #E5E7EB;
+        z-index: 0;
+        width: 440px;
+    }
 }
 
 @media (max-width: 480px) {

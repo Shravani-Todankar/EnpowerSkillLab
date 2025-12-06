@@ -475,6 +475,18 @@
             .onboard-school-container {
                 padding: 30px;
             }
+
+            .stepper::before {
+                content: '';
+                position: absolute;
+                top: 20px;
+                left: 20px;
+                right: 0;
+                height: 2px;
+                background: #e5e5e7;
+                z-index: 0;
+                width: 300px;
+            }
         }
 
         @media (max-width: 640px) {
@@ -561,12 +573,14 @@
                             <div class="form-row">
                                 <div class="form-group">
                                     <label>School Name <span class="required">*</span></label>
-                                    <input type="text" name="schoolName" id="schoolName" placeholder="Name of School" required>
+                                    <input type="text" name="schoolName" id="schoolName" placeholder="Name of School"
+                                        required>
                                     <span class="error-message" id="schoolNameError"></span>
                                 </div>
                                 <div class="form-group">
                                     <label>School Code / Unique ID <span class="required">*</span></label>
-                                    <input type="text" name="schoolCode" id="schoolCode" placeholder="e.g. SCH-12345" required>
+                                    <input type="text" name="schoolCode" id="schoolCode" placeholder="e.g. SCH-12345"
+                                        required>
                                     <span class="error-message" id="schoolCodeError"></span>
                                 </div>
                             </div>
@@ -589,7 +603,8 @@
                             <div class="form-row full">
                                 <div class="form-group">
                                     <label>School Address <span class="required">*</span></label>
-                                    <input type="text" name="address" id="address" placeholder="123 Education Lane" required>
+                                    <input type="text" name="address" id="address" placeholder="123 Education Lane"
+                                        required>
                                     <span class="error-message" id="addressError"></span>
                                 </div>
                             </div>
@@ -610,7 +625,8 @@
                             <div class="form-row">
                                 <div class="form-group">
                                     <label>Pincode <span class="required">*</span></label>
-                                    <input type="text" name="pincode" id="pincode" placeholder="e.g. 62701" required maxlength="10">
+                                    <input type="text" name="pincode" id="pincode" placeholder="e.g. 62701" required
+                                        maxlength="10">
                                     <span class="error-message" id="pincodeError"></span>
                                 </div>
                                 <div class="form-group">
@@ -635,12 +651,14 @@
                             <div class="form-row">
                                 <div class="form-group">
                                     <label>Official School Email <span class="required">*</span></label>
-                                    <input type="email" name="schoolEmail" id="schoolEmail" placeholder="school@example.com" required>
+                                    <input type="email" name="schoolEmail" id="schoolEmail"
+                                        placeholder="school@example.com" required>
                                     <span class="error-message" id="schoolEmailError"></span>
                                 </div>
                                 <div class="form-group">
                                     <label>School Phone Number <span class="required">*</span></label>
-                                    <input type="tel" name="schoolPhone" id="schoolPhone" placeholder="+1 (555) 123-4567" required>
+                                    <input type="tel" name="schoolPhone" id="schoolPhone"
+                                        placeholder="+91 XXXXX XXXXX" required>
                                     <span class="error-message" id="schoolPhoneError"></span>
                                 </div>
                             </div>
@@ -648,12 +666,14 @@
                             <div class="form-row">
                                 <div class="form-group">
                                     <label>Alternate Phone Number</label>
-                                    <input type="tel" name="alternatePhone" id="alternatePhone" placeholder="+1 (555) 987-6543">
+                                    <input type="tel" name="alternatePhone" id="alternatePhone"
+                                        placeholder="+91 XXXXX XXXXX">
                                     <span class="error-message" id="alternatePhoneError"></span>
                                 </div>
                                 <div class="form-group">
                                     <label>Website URL</label>
-                                    <input type="url" name="website" id="website" placeholder="https://www.schoolwebsite.com">
+                                    <input type="url" name="website" id="website"
+                                        placeholder="https://www.schoolwebsite.com">
                                     <span class="error-message" id="websiteError"></span>
                                 </div>
                             </div>
@@ -668,7 +688,8 @@
                             <div class="form-row">
                                 <div class="form-group">
                                     <label>Full Name <span class="required">*</span></label>
-                                    <input type="text" name="contactName" id="contactName" placeholder="John Doe" required>
+                                    <input type="text" name="contactName" id="contactName" placeholder="John Doe"
+                                        required>
                                     <span class="error-message" id="contactNameError"></span>
                                 </div>
                                 <div class="form-group">
@@ -688,12 +709,14 @@
                             <div class="form-row">
                                 <div class="form-group">
                                     <label>Contact Email <span class="required">*</span></label>
-                                    <input type="email" name="contactEmail" id="contactEmail" placeholder="john.doe@school.com" required>
+                                    <input type="email" name="contactEmail" id="contactEmail"
+                                        placeholder="john.doe@school.com" required>
                                     <span class="error-message" id="contactEmailError"></span>
                                 </div>
                                 <div class="form-group">
                                     <label>Contact Phone Number <span class="required">*</span></label>
-                                    <input type="tel" name="contactPhone" id="contactPhone" placeholder="+1 (555) 234-5678" required>
+                                    <input type="tel" name="contactPhone" id="contactPhone"
+                                        placeholder="+91 XXXXX XXXXX" required>
                                     <span class="error-message" id="contactPhoneError"></span>
                                 </div>
                             </div>
@@ -708,12 +731,14 @@
                             <div class="form-row">
                                 <div class="form-group">
                                     <label>Admin Name <span class="required">*</span></label>
-                                    <input type="text" name="adminName" id="adminName" placeholder="Admin Full Name" required>
+                                    <input type="text" name="adminName" id="adminName" placeholder="Admin Full Name"
+                                        required>
                                     <span class="error-message" id="adminNameError"></span>
                                 </div>
                                 <div class="form-group">
                                     <label>Admin Email (Login Email) <span class="required">*</span></label>
-                                    <input type="email" name="adminEmail" id="adminEmail" placeholder="admin@school.com" required>
+                                    <input type="email" name="adminEmail" id="adminEmail" placeholder="admin@school.com"
+                                        required>
                                     <span class="error-message" id="adminEmailError"></span>
                                 </div>
                             </div>
@@ -721,7 +746,8 @@
                             <div class="form-row">
                                 <div class="form-group">
                                     <label>Admin Phone Number <span class="required">*</span></label>
-                                    <input type="tel" name="adminPhone" id="adminPhone" placeholder="+1 (555) 345-6789" required>
+                                    <input type="tel" name="adminPhone" id="adminPhone" placeholder="+91 XXXXX XXXXX"
+                                        required>
                                     <span class="error-message" id="adminPhoneError"></span>
                                 </div>
                                 <div class="form-group">
@@ -949,7 +975,7 @@
                 validate: (value) => {
                     if (!value.trim()) return 'School phone number is required';
                     const cleanPhone = value.replace(/\D/g, '');
-                    if (cleanPhone.length < 10 || cleanPhone.length > 15) return 'Phone number must be between 10 and 15 digits';
+                    if (cleanPhone.length < 10 || cleanPhone.length > 15) return 'Phone number must be 10 digits';
                     return '';
                 }
             },
@@ -957,7 +983,7 @@
                 validate: (value) => {
                     if (!value || value.trim() === '') return '';
                     const cleanPhone = value.replace(/\D/g, '');
-                    if (cleanPhone.length < 10 || cleanPhone.length > 15) return 'Phone number must be between 10 and 15 digits';
+                    if (cleanPhone.length < 10 || cleanPhone.length > 15) return 'Phone number must be 10 digits';
                     return '';
                 }
             },
@@ -998,7 +1024,7 @@
                 validate: (value) => {
                     if (!value.trim()) return 'Contact phone number is required';
                     const cleanPhone = value.replace(/\D/g, '');
-                    if (cleanPhone.length < 10 || cleanPhone.length > 15) return 'Phone number must be between 10 and 15 digits';
+                    if (cleanPhone.length < 10 || cleanPhone.length > 15) return 'Phone number must be 10 digits';
                     return '';
                 }
             },
@@ -1024,7 +1050,7 @@
                 validate: (value) => {
                     if (!value.trim()) return 'Admin phone number is required';
                     const cleanPhone = value.replace(/\D/g, '');
-                    if (cleanPhone.length < 10 || cleanPhone.length > 15) return 'Phone number must be between 10 and 15 digits';
+                    if (cleanPhone.length < 10 || cleanPhone.length > 15) return 'Phone number must be 10 digits';
                     return '';
                 }
             },
@@ -1077,7 +1103,7 @@
             const field = document.getElementById(fieldName);
             if (field) {
                 // Validate on blur
-                field.addEventListener('blur', function() {
+                field.addEventListener('blur', function () {
                     const error = validators[fieldName].validate(this.value);
                     if (error) {
                         showError(fieldName, error);
@@ -1087,7 +1113,7 @@
                 });
 
                 // Clear error on input
-                field.addEventListener('input', function() {
+                field.addEventListener('input', function () {
                     clearError(fieldName);
                 });
             }
