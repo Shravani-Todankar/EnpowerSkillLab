@@ -234,6 +234,13 @@
             padding-right: 40px;
         }
 
+        .form-group select:disabled {
+            background-color: #f9fafb;
+            color: #9ca3af;
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
         .form-group input.error,
         .form-group select.error {
             border-color: #d32f2f;
@@ -625,7 +632,7 @@
                                     <span class="error-message" id="fullNameError"></span>
                                 </div>
                                 <div class="form-group">
-                                    <label>Email Address <span class="required">*</span></label>
+                                    <label>Email Address ( Used For Log In ) <span class="required">*</span></label>
                                     <input type="email" id="email" name="email" placeholder="parent@example.com"
                                         required>
                                     <span class="error-message" id="emailError"></span>
@@ -652,92 +659,41 @@
                         <div class="form-section" id="step2" style="display: none;">
                             <h2>Student Mapping</h2>
 
-                            <div class="form-row full">
+                            <div class="form-row">
                                 <div class="form-group">
-                                    <label>Select Student(s) <span class="required">*</span></label>
-                                    <div class="multi-select-container">
-                                        <div class="selected-items" id="selectedStudents">
-                                            <span class="placeholder">Select student(s) to map</span>
-                                        </div>
-                                        <div class="multi-select-dropdown" id="studentsDropdown">
-                                            <div class="search-box">
-                                                <input type="text" id="studentSearch" placeholder="Search students...">
-                                            </div>
-                                            <div class="options-list">
-                                                <label class="checkbox-option">
-                                                    <input type="checkbox" name="students" value="student1">
-                                                    <div class="student-info">
-                                                        <span class="student-name">Aarav Sharma</span>
-                                                        <span class="student-details">Class 10-A • Roll No: 15</span>
-                                                    </div>
-                                                </label>
-                                                <label class="checkbox-option">
-                                                    <input type="checkbox" name="students" value="student2">
-                                                    <div class="student-info">
-                                                        <span class="student-name">Diya Patel</span>
-                                                        <span class="student-details">Class 9-B • Roll No: 22</span>
-                                                    </div>
-                                                </label>
-                                                <label class="checkbox-option">
-                                                    <input type="checkbox" name="students" value="student3">
-                                                    <div class="student-info">
-                                                        <span class="student-name">Arjun Kumar</span>
-                                                        <span class="student-details">Class 11-C • Roll No: 08</span>
-                                                    </div>
-                                                </label>
-                                                <label class="checkbox-option">
-                                                    <input type="checkbox" name="students" value="student4">
-                                                    <div class="student-info">
-                                                        <span class="student-name">Ananya Singh</span>
-                                                        <span class="student-details">Class 10-A • Roll No: 12</span>
-                                                    </div>
-                                                </label>
-                                                <label class="checkbox-option">
-                                                    <input type="checkbox" name="students" value="student5">
-                                                    <div class="student-info">
-                                                        <span class="student-name">Rohan Mehta</span>
-                                                        <span class="student-details">Class 12-B • Roll No: 05</span>
-                                                    </div>
-                                                </label>
-                                                <label class="checkbox-option">
-                                                    <input type="checkbox" name="students" value="student6">
-                                                    <div class="student-info">
-                                                        <span class="student-name">Kavya Reddy</span>
-                                                        <span class="student-details">Class 9-A • Roll No: 18</span>
-                                                    </div>
-                                                </label>
-                                                <label class="checkbox-option">
-                                                    <input type="checkbox" name="students" value="student7">
-                                                    <div class="student-info">
-                                                        <span class="student-name">Vihaan Gupta</span>
-                                                        <span class="student-details">Class 11-A • Roll No: 25</span>
-                                                    </div>
-                                                </label>
-                                                <label class="checkbox-option">
-                                                    <input type="checkbox" name="students" value="student8">
-                                                    <div class="student-info">
-                                                        <span class="student-name">Ishita Desai</span>
-                                                        <span class="student-details">Class 10-C • Roll No: 14</span>
-                                                    </div>
-                                                </label>
-                                                <label class="checkbox-option">
-                                                    <input type="checkbox" name="students" value="student9">
-                                                    <div class="student-info">
-                                                        <span class="student-name">Aditya Joshi</span>
-                                                        <span class="student-details">Class 9-C • Roll No: 09</span>
-                                                    </div>
-                                                </label>
-                                                <label class="checkbox-option">
-                                                    <input type="checkbox" name="students" value="student10">
-                                                    <div class="student-info">
-                                                        <span class="student-name">Sara Nair</span>
-                                                        <span class="student-details">Class 12-A • Roll No: 11</span>
-                                                    </div>
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <span class="error-message" id="studentsError"></span>
+                                    <label>School <span class="required">*</span></label>
+                                    <select id="school" name="school" required>
+                                        <option value="">Select school</option>
+                                        <option value="school1">Springfield High School</option>
+                                        <option value="school2">Riverside Academy</option>
+                                        <option value="school3">Green Valley School</option>
+                                        <option value="school4">Oakwood International</option>
+                                    </select>
+                                    <span class="error-message" id="schoolError"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Grade <span class="required">*</span></label>
+                                    <select id="grade" name="grade" required disabled>
+                                        <option value="">Select grade</option>
+                                    </select>
+                                    <span class="error-message" id="gradeError"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Section <span class="required">*</span></label>
+                                    <select id="class" name="class" required disabled>
+                                        <option value="">Select class</option>
+                                    </select>
+                                    <span class="error-message" id="classError"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Student <span class="required">*</span></label>
+                                    <select id="student" name="student" required disabled>
+                                        <option value="">Select student</option>
+                                    </select>
+                                    <span class="error-message" id="studentError"></span>
                                 </div>
                             </div>
                         </div>
@@ -844,7 +800,7 @@
                                         maxlength="6">
                                     <span class="error-message" id="pincodeError"></span>
                                 </div>
-                                <div class="form-group">
+                                <!-- <div class="form-group">
                                     <label>Country</label>
                                     <select id="country" name="country">
                                         <option value="">Select country</option>
@@ -854,7 +810,7 @@
                                         <option value="canada">Canada</option>
                                         <option value="australia">Australia</option>
                                     </select>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
 
@@ -1093,81 +1049,216 @@
             }
         });
 
-        // Multi-select dropdown functionality
-        const selectedItemsContainer = document.getElementById('selectedStudents');
-        const dropdown = document.getElementById('studentsDropdown');
-        const checkboxes = document.querySelectorAll('input[name="students"]');
-        const searchInput = document.getElementById('studentSearch');
-
-        selectedItemsContainer.addEventListener('click', function () {
-            dropdown.classList.toggle('active');
-            selectedItemsContainer.classList.toggle('active');
-        });
-
-        // Close dropdown when clicking outside
-        document.addEventListener('click', function (e) {
-            if (!e.target.closest('.multi-select-container')) {
-                dropdown.classList.remove('active');
-                selectedItemsContainer.classList.remove('active');
+        // Cascading Dropdown Data Structure
+        const cascadingData = {
+            school1: {
+                name: 'Springfield High School',
+                grades: {
+                    'Grade 9': { name: 'Grade 9', classes: ['Section A', 'Section B', 'Section C'] },
+                    'Grade 10': { name: 'Grade 10', classes: ['Section A', 'Section B', 'Section C'] },
+                    'Grade 11': { name: 'Grade 11', classes: ['Section A', 'Section B'] },
+                    'Grade 12': { name: 'Grade 12', classes: ['Section A', 'Section B'] }
+                },
+                students: {
+                    'Grade 9-Section A': [
+                        { id: 's1', name: 'Aarav Sharma', rollNo: '15' },
+                        { id: 's2', name: 'Diya Patel', rollNo: '22' }
+                    ],
+                    'Grade 10-Section A': [
+                        { id: 's3', name: 'Ananya Singh', rollNo: '12' },
+                        { id: 's4', name: 'Rohan Mehta', rollNo: '05' }
+                    ],
+                    'Grade 11-Section A': [
+                        { id: 's5', name: 'Vihaan Gupta', rollNo: '25' }
+                    ],
+                    'Grade 12-Section A': [
+                        { id: 's6', name: 'Sara Nair', rollNo: '11' }
+                    ],
+                    'Grade 9-Section B': [
+                        { id: 's7', name: 'Kavya Reddy', rollNo: '18' }
+                    ],
+                    'Grade 10-Section B': [
+                        { id: 's8', name: 'Ishita Desai', rollNo: '14' }
+                    ],
+                    'Grade 11-Section B': [
+                        { id: 's9', name: 'Arjun Kumar', rollNo: '08' }
+                    ],
+                    'Grade 12-Section B': [
+                        { id: 's10', name: 'Aditya Joshi', rollNo: '09' }
+                    ],
+                    'Grade 9-Section C': [
+                        { id: 's11', name: 'Priya Sharma', rollNo: '03' }
+                    ],
+                    'Grade 10-Section C': [
+                        { id: 's12', name: 'Karan Verma', rollNo: '07' }
+                    ]
+                }
+            },
+            school2: {
+                name: 'Riverside Academy',
+                grades: {
+                    'Grade 9': { name: 'Grade 9', classes: ['Section A', 'Section B'] },
+                    'Grade 10': { name: 'Grade 10', classes: ['Section A', 'Section B'] },
+                    'Grade 11': { name: 'Grade 11', classes: ['Section A'] }
+                },
+                students: {
+                    'Grade 9-Section A': [
+                        { id: 's13', name: 'Riya Kapoor', rollNo: '10' }
+                    ],
+                    'Grade 10-Section A': [
+                        { id: 's14', name: 'Aryan Singh', rollNo: '20' }
+                    ],
+                    'Grade 11-Section A': [
+                        { id: 's15', name: 'Neha Gupta', rollNo: '15' }
+                    ],
+                    'Grade 9-Section B': [
+                        { id: 's16', name: 'Vikram Joshi', rollNo: '05' }
+                    ],
+                    'Grade 10-Section B': [
+                        { id: 's17', name: 'Sana Khan', rollNo: '12' }
+                    ]
+                }
+            },
+            school3: {
+                name: 'Green Valley School',
+                grades: {
+                    'Grade 9': { name: 'Grade 9', classes: ['Section A', 'Section B'] },
+                    'Grade 10': { name: 'Grade 10', classes: ['Section A', 'Section B'] }
+                },
+                students: {
+                    'Grade 9-Section A': [
+                        { id: 's18', name: 'Amit Patel', rollNo: '08' }
+                    ],
+                    'Grade 10-Section A': [
+                        { id: 's19', name: 'Pooja Reddy', rollNo: '14' }
+                    ],
+                    'Grade 9-Section B': [
+                        { id: 's20', name: 'Rahul Kumar', rollNo: '06' }
+                    ],
+                    'Grade 10-Section B': [
+                        { id: 's21', name: 'Sneha Singh', rollNo: '11' }
+                    ]
+                }
+            },
+            school4: {
+                name: 'Oakwood International',
+                grades: {
+                    'Grade 9': { name: 'Grade 9', classes: ['Section A'] },
+                    'Grade 10': { name: 'Grade 10', classes: ['Section A'] },
+                    'Grade 11': { name: 'Grade 11', classes: ['Section A'] },
+                    'Grade 12': { name: 'Grade 12', classes: ['Section A'] }
+                },
+                students: {
+                    'Grade 9-Section A': [
+                        { id: 's22', name: 'Deepak Mehta', rollNo: '09' }
+                    ],
+                    'Grade 10-Section A': [
+                        { id: 's23', name: 'Simran Kaur', rollNo: '16' }
+                    ],
+                    'Grade 11-Section A': [
+                        { id: 's24', name: 'Mohit Sharma', rollNo: '04' }
+                    ],
+                    'Grade 12-Section A': [
+                        { id: 's25', name: 'Anjali Verma', rollNo: '13' }
+                    ]
+                }
             }
-        });
+        };
 
-        // Handle checkbox changes
-        checkboxes.forEach(checkbox => {
-            checkbox.addEventListener('change', function () {
-                updateSelectedStudents();
-            });
-        });
+        // Cascading Dropdown Functionality
+        const schoolSelect = document.getElementById('school');
+        const classSelect = document.getElementById('class');
+        const gradeSelect = document.getElementById('grade');
+        const studentSelect = document.getElementById('student');
 
-        function updateSelectedStudents() {
-            const selected = Array.from(checkboxes)
-                .filter(cb => cb.checked)
-                .map(cb => {
-                    const studentInfo = cb.parentElement.querySelector('.student-info');
-                    return {
-                        value: cb.value,
-                        label: studentInfo.querySelector('.student-name').textContent
-                    };
-                });
+        // School dropdown change handler
+        schoolSelect.addEventListener('change', function() {
+            const selectedSchool = this.value;
 
-            if (selected.length === 0) {
-                selectedItemsContainer.innerHTML = '<span class="placeholder">Select student(s) to map</span>';
+            // Reset and disable dependent dropdowns
+            gradeSelect.innerHTML = '<option value="">Select grade</option>';
+            classSelect.innerHTML = '<option value="">Select class</option>';
+            studentSelect.innerHTML = '<option value="">Select student</option>';
+            classSelect.disabled = true;
+            studentSelect.disabled = true;
+
+            if (selectedSchool) {
+                // Enable and populate grade dropdown
+                gradeSelect.disabled = false;
+                const grades = cascadingData[selectedSchool].grades;
+
+                for (const [key, value] of Object.entries(grades)) {
+                    const option = document.createElement('option');
+                    option.value = key;
+                    option.textContent = value.name;
+                    gradeSelect.appendChild(option);
+                }
             } else {
-                selectedItemsContainer.innerHTML = selected.map(item => `
-                    <span class="selected-tag">
-                        ${item.label}
-                        <span class="remove" data-value="${item.value}">×</span>
-                    </span>
-                `).join('');
+                gradeSelect.disabled = true;
+            }
 
-                // Add remove handlers
-                selectedItemsContainer.querySelectorAll('.remove').forEach(btn => {
-                    btn.addEventListener('click', function (e) {
-                        e.stopPropagation();
-                        const value = this.getAttribute('data-value');
-                        const checkbox = document.querySelector(`input[value="${value}"]`);
-                        checkbox.checked = false;
-                        updateSelectedStudents();
-                    });
+            clearError('school');
+        });
+
+        // Grade dropdown change handler
+        gradeSelect.addEventListener('change', function() {
+            const selectedSchool = schoolSelect.value;
+            const selectedGrade = this.value;
+
+            // Reset and disable dependent dropdowns
+            classSelect.innerHTML = '<option value="">Select class</option>';
+            studentSelect.innerHTML = '<option value="">Select student</option>';
+            studentSelect.disabled = true;
+
+            if (selectedSchool && selectedGrade) {
+                // Enable and populate class dropdown
+                classSelect.disabled = false;
+                const classes = cascadingData[selectedSchool].grades[selectedGrade].classes;
+
+                classes.forEach(className => {
+                    const option = document.createElement('option');
+                    option.value = className;
+                    option.textContent = className;
+                    classSelect.appendChild(option);
                 });
+            } else {
+                classSelect.disabled = true;
             }
 
-            // Clear border error if students are selected
-            if (selected.length > 0) {
-                selectedItemsContainer.classList.remove('error');
-                clearError('students');
+            clearError('grade');
+        });
+
+        // Class dropdown change handler
+        classSelect.addEventListener('change', function() {
+            const selectedSchool = schoolSelect.value;
+            const selectedGrade = gradeSelect.value;
+            const selectedClass = this.value;
+
+            // Reset student dropdown
+            studentSelect.innerHTML = '<option value="">Select student</option>';
+
+            if (selectedSchool && selectedGrade && selectedClass) {
+                // Enable and populate student dropdown
+                studentSelect.disabled = false;
+                const key = `${selectedGrade}-${selectedClass}`;
+                const students = cascadingData[selectedSchool].students[key] || [];
+
+                students.forEach(student => {
+                    const option = document.createElement('option');
+                    option.value = student.id;
+                    option.textContent = `${student.name} (Roll No: ${student.rollNo})`;
+                    studentSelect.appendChild(option);
+                });
+            } else {
+                studentSelect.disabled = true;
             }
-        }
 
-        // Search functionality
-        searchInput.addEventListener('input', function () {
-            const searchTerm = this.value.toLowerCase();
-            const options = document.querySelectorAll('.checkbox-option');
+            clearError('class');
+        });
 
-            options.forEach(option => {
-                const text = option.textContent.toLowerCase();
-                option.style.display = text.includes(searchTerm) ? 'flex' : 'none';
-            });
+        // Student dropdown change handler
+        studentSelect.addEventListener('change', function() {
+            clearError('student');
         });
 
         // Initialize
@@ -1253,18 +1344,28 @@
                 }
             });
 
-            // Special validation for multi-select students in step 2
+            // Special validation for cascading dropdowns in step 2
             if (currentStep === 2) {
-                const selectedStudents = document.querySelectorAll('input[name="students"]:checked');
-                const selectedItemsContainer = document.getElementById('selectedStudents');
+                const schoolValue = document.getElementById('school').value;
+                const classValue = document.getElementById('class').value;
+                const gradeValue = document.getElementById('grade').value;
+                const studentValue = document.getElementById('student').value;
 
-                if (selectedStudents.length === 0) {
+                if (!schoolValue) {
                     isValid = false;
-                    selectedItemsContainer.classList.add('error');
-                    showError('students', 'Please select at least one student');
-                } else {
-                    selectedItemsContainer.classList.remove('error');
-                    clearError('students');
+                    showError('school', 'Please select a school');
+                }
+                if (!classValue) {
+                    isValid = false;
+                    showError('class', 'Please select a class');
+                }
+                if (!gradeValue) {
+                    isValid = false;
+                    showError('grade', 'Please select a grade');
+                }
+                if (!studentValue) {
+                    isValid = false;
+                    showError('student', 'Please select a student');
                 }
             }
 
@@ -1298,12 +1399,7 @@
             const inputs = currentStepElement.querySelectorAll('input, select');
 
             inputs.forEach(input => {
-                if (input.type === 'checkbox' && input.name === 'students') {
-                    if (!formData.students) formData.students = [];
-                    if (input.checked && !formData.students.includes(input.value)) {
-                        formData.students.push(input.value);
-                    }
-                } else if (input.type === 'radio' && input.name === 'relationship') {
+                if (input.type === 'radio' && input.name === 'relationship') {
                     if (input.checked) {
                         formData[input.name] = input.value;
                     }

@@ -367,7 +367,7 @@
 
         .multi-select-dropdown {
             position: absolute;
-            top: calc(100% + 4px);
+            top: calc(2% + 4px);
             left: 0;
             right: 0;
             background: white;
@@ -629,7 +629,7 @@
                                         maxlength="10">
                                     <span class="error-message" id="pincodeError"></span>
                                 </div>
-                                <div class="form-group">
+                                <!-- <div class="form-group">
                                     <label>Country <span class="required">*</span></label>
                                     <select name="country" id="country" required>
                                         <option value="">Select a country</option>
@@ -640,7 +640,7 @@
                                         <option value="au">Australia</option>
                                     </select>
                                     <span class="error-message" id="countryError"></span>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
 
@@ -750,16 +750,6 @@
                                         required>
                                     <span class="error-message" id="adminPhoneError"></span>
                                 </div>
-                                <div class="form-group">
-                                    <label>Password <span class="required">*</span></label>
-                                    <div style="position: relative;">
-                                        <input type="password" name="password" id="password"
-                                            placeholder="Enter password" required>
-                                        <button type="button" class="btn-generate"
-                                            id="generatePassword">Auto-generate</button>
-                                    </div>
-                                    <span class="error-message" id="passwordError"></span>
-                                </div>
                             </div>
                         </div>
 
@@ -829,6 +819,7 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <span class="error-message" id="coachesError"></span>
                                 </div>
                             </div>
                         </div>
@@ -1054,18 +1045,6 @@
                     return '';
                 }
             },
-            password: {
-                validate: (value) => {
-                    if (!value) return 'Password is required';
-                    if (value.length < 8) return 'Password must be at least 8 characters';
-                    if (value.length > 50) return 'Password cannot exceed 50 characters';
-                    if (!/[A-Z]/.test(value)) return 'Password must contain at least one uppercase letter';
-                    if (!/[a-z]/.test(value)) return 'Password must contain at least one lowercase letter';
-                    if (!/[0-9]/.test(value)) return 'Password must contain at least one number';
-                    if (!/[!@#$%^&*]/.test(value)) return 'Password must contain at least one special character (!@#$%^&*)';
-                    return '';
-                }
-            },
             programCoordinator: {
                 validate: (value) => {
                     if (!value) return 'Program coordinator is required';
@@ -1206,12 +1185,21 @@
             if (currentStep === 5) {
                 const selectedCoaches = document.querySelectorAll('input[name="coaches"]:checked');
                 const selectedItemsContainer = document.getElementById('selectedCoaches');
+                const coachesError = document.getElementById('coachesError');
 
                 if (selectedCoaches.length === 0) {
                     isValid = false;
                     selectedItemsContainer.classList.add('error');
+                    if (coachesError) {
+                        coachesError.textContent = 'Please select at least one thinking coach';
+                        coachesError.style.display = 'block';
+                    }
                 } else {
                     selectedItemsContainer.classList.remove('error');
+                    if (coachesError) {
+                        coachesError.textContent = '';
+                        coachesError.style.display = 'none';
+                    }
                 }
             }
 
@@ -1233,22 +1221,6 @@
                 }
             });
         }
-
-        // Password generator
-        document.getElementById('generatePassword').addEventListener('click', function () {
-            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*';
-            let password = '';
-            for (let i = 0; i < 12; i++) {
-                password += chars.charAt(Math.floor(Math.random() * chars.length));
-            }
-            document.getElementById('password').value = password;
-            document.getElementById('password').type = 'text';
-
-            // Copy to clipboard
-            navigator.clipboard.writeText(password).then(() => {
-                alert('Password generated and copied to clipboard!');
-            });
-        });
 
         // Multi-select dropdown functionality
         const selectedItemsContainer = document.getElementById('selectedCoaches');
@@ -1308,7 +1280,12 @@
 
             // Clear border error if coaches are selected
             if (selected.length > 0) {
-                selectedItemsContainer.style.borderColor = '#d2d2d7';
+                selectedItemsContainer.classList.remove('error');
+                const coachesError = document.getElementById('coachesError');
+                if (coachesError) {
+                    coachesError.textContent = '';
+                    coachesError.style.display = 'none';
+                }
             }
         }
 
