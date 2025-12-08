@@ -8,13 +8,18 @@
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+        rel="stylesheet" />
 
-    <!-- Custom CSS -->
     <link rel="stylesheet" href="add-student.css">
-    <!-- Sidebar JS -->
+
+    <!-- Sidebar & Header CSS -->
+    <link rel="stylesheet" href="sidebar.css">
+    <link rel="stylesheet" href="header.css">
+
+    <!-- Sidebar & Header JS -->
     <script src="sidebar.js"></script>
-    <!-- Header JS -->
     <script src="header.js"></script>
 
     <style>
@@ -38,12 +43,10 @@
     <div class="dashboard-container">
         <!-- Include Sidebar Component -->
         <div id="sidebar-container"></div>
-
         <!-- Main Content -->
         <main class="main-content">
             <!-- Include Header Component -->
             <div id="header-container"></div>
-
             <!-- Add Student Page -->
             <div class="add-student-page">
                 <!-- Add Student Form -->
@@ -53,21 +56,38 @@
                         <h1 class="page-title">
                             Add New Student
                         </h1>
-                        <p class="page-subtitle">Fill in the student information below to add a new student to the system</p>
-                        <div class="form-legend">
-                            <div class="legend-item">
-                                <span class="legend-indicator required"></span>
-                                <span>Required*</span>
+                        <p class="page-subtitle">Fill in the student information below to add a new student to the
+                            system</p>
+                    </div>
+
+                    <!-- Progress Stepper -->
+                    <div class="stepper-container">
+                        <div class="stepper">
+                            <div class="step active" data-step="1">
+                                <div class="step-icon">1</div>
+                                <div class="step-label">Personal Info</div>
                             </div>
-                            <div class="legend-item">
-                                <span class="legend-indicator optional"></span>
-                                <span>Optional</span>
+                            <div class="step" data-step="2">
+                                <div class="step-icon">2</div>
+                                <div class="step-label">Academic Info</div>
+                            </div>
+                            <div class="step" data-step="3">
+                                <div class="step-icon">3</div>
+                                <div class="step-label">Parent/Guardian</div>
+                            </div>
+                            <div class="step" data-step="4">
+                                <div class="step-icon">4</div>
+                                <div class="step-label">Address Details</div>
+                            </div>
+                            <div class="step" data-step="5">
+                                <div class="step-icon">5</div>
+                                <div class="step-label">Health Info</div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Personal Information Section -->
-                    <div class="form-section">
+                    <!-- Step 1: Personal Information -->
+                    <div class="form-section step-content" id="step1">
                         <div class="section-header">
                             <h2 class="section-title">
                                 <span class="material-symbols-outlined">person</span>
@@ -82,7 +102,8 @@
                                         <span class="material-symbols-outlined">add_a_photo</span>
                                         <span class="photo-preview-text">Upload Photo</span>
                                     </div>
-                                    <input type="file" id="studentPhoto" name="studentPhoto" accept="image/*" class="photo-input">
+                                    <input type="file" id="studentPhoto" name="studentPhoto" accept="image/*"
+                                        class="photo-input">
                                     <button type="button" class="upload-photo-btn" id="uploadPhotoBtn">
                                         <span class="material-symbols-outlined">upload</span>
                                         Choose Photo
@@ -92,19 +113,24 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="firstName" class="form-label">First Name <span class="required">*</span></label>
-                                <input type="text" id="firstName" name="firstName" class="form-input" placeholder="Enter first name" required>
+                                <label for="firstName" class="form-label">First Name <span
+                                        class="required">*</span></label>
+                                <input type="text" id="firstName" name="firstName" class="form-input"
+                                    placeholder="Enter first name" required>
                                 <span class="error-message" id="firstNameError"></span>
                             </div>
 
                             <div class="form-group">
-                                <label for="lastName" class="form-label">Last Name <span class="required">*</span></label>
-                                <input type="text" id="lastName" name="lastName" class="form-input" placeholder="Enter last name" required>
+                                <label for="lastName" class="form-label">Last Name <span
+                                        class="required">*</span></label>
+                                <input type="text" id="lastName" name="lastName" class="form-input"
+                                    placeholder="Enter last name" required>
                                 <span class="error-message" id="lastNameError"></span>
                             </div>
 
                             <div class="form-group">
-                                <label for="dateOfBirth" class="form-label">Date of Birth <span class="required">*</span></label>
+                                <label for="dateOfBirth" class="form-label">Date of Birth <span
+                                        class="required">*</span></label>
                                 <input type="date" id="dateOfBirth" name="dateOfBirth" class="form-input" required>
                                 <span class="error-message" id="dateOfBirthError"></span>
                             </div>
@@ -133,24 +159,27 @@
                                     <option value="O+">O+</option>
                                     <option value="O-">O-</option>
                                 </select>
+                                <span class="error-message" id="bloodGroupError"></span>
                             </div>
 
                             <div class="form-group">
-                                <label for="email" class="form-label">Email Address</label>
-                                <input type="email" id="email" name="email" class="form-input" placeholder="student@example.com">
+                                <label for="email" class="form-label">Email Address ( Used For Log In ) <span class="required">*</span></label>
+                                <input type="email" id="email" name="email" class="form-input"
+                                    placeholder="student@example.com" required>
                                 <span class="error-message" id="emailError"></span>
                             </div>
 
                             <div class="form-group">
                                 <label for="phone" class="form-label">Phone Number</label>
-                                <input type="tel" id="phone" name="phone" class="form-input" placeholder="+91 XXXXX XXXXX">
+                                <input type="tel" id="phone" name="phone" class="form-input"
+                                    placeholder="+91 XXXXX XXXXX">
                                 <span class="error-message" id="phoneError"></span>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Academic Information Section -->
-                    <div class="form-section">
+                    <!-- Step 2: Academic Information -->
+                    <div class="form-section step-content" id="step2" style="display: none;">
                         <div class="section-header">
                             <h2 class="section-title">
                                 <span class="material-symbols-outlined">school</span>
@@ -158,6 +187,21 @@
                             </h2>
                         </div>
                         <div class="form-grid">
+                            <div class="form-group">
+                                <label for="studentID" class="form-label">Student ID <span
+                                        class="required">*</span></label>
+                                <input type="text" id="studentID" name="studentID" class="form-input"
+                                    placeholder="Auto-generated" readonly>
+                                <p class="field-hint">Auto-generated upon submission</p>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="admissionDate" class="form-label">Admission Date <span
+                                        class="required">*</span></label>
+                                <input type="date" id="admissionDate" name="admissionDate" class="form-input" required>
+                                <span class="error-message" id="admissionDateError"></span>
+                            </div>
+
                             <div class="form-group">
                                 <label for="class" class="form-label">Class <span class="required">*</span></label>
                                 <select id="class" name="class" class="form-input" required>
@@ -183,31 +227,24 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="rollNumber" class="form-label">Roll Number</label>
-                                <input type="text" id="rollNumber" name="rollNumber" class="form-input" placeholder="Enter roll number">
+                                <label for="rollNumber" class="form-label">Roll Number <span
+                                        class="required">*</span></label>
+                                <input type="text" id="rollNumber" name="rollNumber" class="form-input"
+                                    placeholder="Enter roll number" required>
+                                <span class="error-message" id="rollNumberError"></span>
                             </div>
 
-                            <div class="form-group">
-                                <label for="admissionDate" class="form-label">Admission Date <span class="required">*</span></label>
-                                <input type="date" id="admissionDate" name="admissionDate" class="form-input" required>
-                                <span class="error-message" id="admissionDateError"></span>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="studentID" class="form-label">Student ID</label>
-                                <input type="text" id="studentID" name="studentID" class="form-input" placeholder="Auto-generated" readonly>
-                                <p class="field-hint">This will be auto-generated upon submission</p>
-                            </div>
-
-                            <div class="form-group">
+                            <!-- <div class="form-group">
                                 <label for="previousSchool" class="form-label">Previous School</label>
-                                <input type="text" id="previousSchool" name="previousSchool" class="form-input" placeholder="Enter previous school name">
-                            </div>
+                                <input type="text" id="previousSchool" name="previousSchool" class="form-input"
+                                    placeholder="Enter previous school name">
+                                <span class="error-message" id="previousSchoolError"></span>
+                            </div> -->
                         </div>
                     </div>
 
-                    <!-- Parent/Guardian Information Section -->
-                    <div class="form-section">
+                    <!-- Step 3: Parent/Guardian Information -->
+                    <div class="form-section step-content" id="step3" style="display: none;">
                         <div class="section-header">
                             <h2 class="section-title">
                                 <span class="material-symbols-outlined">family_restroom</span>
@@ -216,106 +253,191 @@
                         </div>
                         <div class="form-grid">
                             <div class="form-group">
-                                <label for="guardianName" class="form-label">Guardian Name <span class="required">*</span></label>
-                                <input type="text" id="guardianName" name="guardianName" class="form-input" placeholder="Enter guardian name" required>
+                                <label for="fatherName" class="form-label">Father's Name <span
+                                        class="required">*</span></label>
+                                <input type="text" id="fatherName" name="fatherName" class="form-input"
+                                    placeholder="Enter father's name" required>
+                                <span class="error-message" id="fatherNameError"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="fatherOccupation" class="form-label">Father's Occupation</label>
+                                <input type="text" id="fatherOccupation" name="fatherOccupation" class="form-input"
+                                    placeholder="Enter occupation">
+                                <span class="error-message" id="fatherOccupationError"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="fatherPhone" class="form-label">Father's Phone <span
+                                        class="required">*</span></label>
+                                <input type="tel" id="fatherPhone" name="fatherPhone" class="form-input"
+                                    placeholder="+91 XXXXX XXXXX" required>
+                                <span class="error-message" id="fatherPhoneError"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="fatherEmail" class="form-label">Father's Email</label>
+                                <input type="email" id="fatherEmail" name="fatherEmail" class="form-input"
+                                    placeholder="father@example.com">
+                                <span class="error-message" id="fatherEmailError"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="motherName" class="form-label">Mother's Name <span
+                                        class="required">*</span></label>
+                                <input type="text" id="motherName" name="motherName" class="form-input"
+                                    placeholder="Enter mother's name" required>
+                                <span class="error-message" id="motherNameError"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="motherOccupation" class="form-label">Mother's Occupation</label>
+                                <input type="text" id="motherOccupation" name="motherOccupation" class="form-input"
+                                    placeholder="Enter occupation">
+                                <span class="error-message" id="motherOccupationError"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="motherPhone" class="form-label">Mother's Phone <span
+                                        class="required">*</span></label>
+                                <input type="tel" id="motherPhone" name="motherPhone" class="form-input"
+                                    placeholder="+91 XXXXX XXXXX" required>
+                                <span class="error-message" id="motherPhoneError"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="motherEmail" class="form-label">Mother's Email</label>
+                                <input type="email" id="motherEmail" name="motherEmail" class="form-input"
+                                    placeholder="mother@example.com">
+                                <span class="error-message" id="motherEmailError"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="guardianName" class="form-label">Guardian's Name (if applicable)</label>
+                                <input type="text" id="guardianName" name="guardianName" class="form-input"
+                                    placeholder="Enter guardian's name">
                                 <span class="error-message" id="guardianNameError"></span>
                             </div>
 
                             <div class="form-group">
-                                <label for="relationship" class="form-label">Relationship <span class="required">*</span></label>
-                                <select id="relationship" name="relationship" class="form-input" required>
-                                    <option value="" disabled selected hidden>Select relationship</option>
-                                    <option value="father">Father</option>
-                                    <option value="mother">Mother</option>
-                                    <option value="guardian">Legal Guardian</option>
-                                    <option value="other">Other</option>
-                                </select>
-                                <span class="error-message" id="relationshipError"></span>
+                                <label for="guardianRelation" class="form-label">Relation with Guardian</label>
+                                <input type="text" id="guardianRelation" name="guardianRelation" class="form-input"
+                                    placeholder="e.g., Uncle, Aunt">
+                                <span class="error-message" id="guardianRelationError"></span>
                             </div>
 
                             <div class="form-group">
-                                <label for="guardianPhone" class="form-label">Guardian Phone <span class="required">*</span></label>
-                                <input type="tel" id="guardianPhone" name="guardianPhone" class="form-input" placeholder="+91 XXXXX XXXXX" required>
+                                <label for="guardianPhone" class="form-label">Guardian's Phone</label>
+                                <input type="tel" id="guardianPhone" name="guardianPhone" class="form-input"
+                                    placeholder="+91 XXXXX XXXXX">
                                 <span class="error-message" id="guardianPhoneError"></span>
                             </div>
 
-                            <div class="form-group">
-                                <label for="guardianEmail" class="form-label">Guardian Email</label>
-                                <input type="email" id="guardianEmail" name="guardianEmail" class="form-input" placeholder="guardian@example.com">
-                                <span class="error-message" id="guardianEmailError"></span>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="occupation" class="form-label">Guardian Occupation</label>
-                                <input type="text" id="occupation" name="occupation" class="form-input" placeholder="Enter occupation">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="emergencyContact" class="form-label">Emergency Contact</label>
-                                <input type="tel" id="emergencyContact" name="emergencyContact" class="form-input" placeholder="+91 XXXXX XXXXX">
+                            <!-- <div class="form-group">
+                                <label for="emergencyContact" class="form-label">Emergency Contact <span
+                                        class="required">*</span></label>
+                                <input type="tel" id="emergencyContact" name="emergencyContact" class="form-input"
+                                    placeholder="+91 XXXXX XXXXX" required>
                                 <span class="error-message" id="emergencyContactError"></span>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
 
-                    <!-- Address Information Section -->
-                    <div class="form-section">
+                    <!-- Step 4: Address Details -->
+                    <div class="form-section step-content" id="step4" style="display: none;">
                         <div class="section-header">
                             <h2 class="section-title">
                                 <span class="material-symbols-outlined">home</span>
-                                Address Information
+                                Address Details
                             </h2>
                         </div>
                         <div class="form-grid">
                             <div class="form-group full-width">
-                                <label for="address" class="form-label">Street Address <span class="required">*</span></label>
-                                <textarea id="address" name="address" class="form-textarea" rows="3" placeholder="Enter complete street address" required></textarea>
+                                <label for="address" class="form-label">Address Line 1 <span
+                                        class="required">*</span></label>
+                                <input type="text" id="address" name="address" class="form-input"
+                                    placeholder="House No., Street, Area" required>
                                 <span class="error-message" id="addressError"></span>
+                            </div>
+
+                            <div class="form-group full-width">
+                                <label for="address2" class="form-label">Address Line 2</label>
+                                <input type="text" id="address2" name="address2" class="form-input"
+                                    placeholder="Landmark, Colony">
+                                <span class="error-message" id="address2Error"></span>
                             </div>
 
                             <div class="form-group">
                                 <label for="city" class="form-label">City <span class="required">*</span></label>
-                                <input type="text" id="city" name="city" class="form-input" placeholder="Enter city" required>
+                                <input type="text" id="city" name="city" class="form-input" placeholder="Enter city"
+                                    required>
                                 <span class="error-message" id="cityError"></span>
                             </div>
 
                             <div class="form-group">
                                 <label for="state" class="form-label">State <span class="required">*</span></label>
-                                <input type="text" id="state" name="state" class="form-input" placeholder="Enter state" required>
+                                <input type="text" id="state" name="state" class="form-input" placeholder="Enter state"
+                                    required>
                                 <span class="error-message" id="stateError"></span>
                             </div>
 
                             <div class="form-group">
                                 <label for="pinCode" class="form-label">PIN Code <span class="required">*</span></label>
-                                <input type="text" id="pinCode" name="pinCode" class="form-input" placeholder="Enter PIN code" required>
+                                <input type="text" id="pinCode" name="pinCode" class="form-input"
+                                    placeholder="Enter PIN code" required maxlength="6">
                                 <span class="error-message" id="pinCodeError"></span>
                             </div>
 
-                            <div class="form-group">
+                            <!-- <div class="form-group">
                                 <label for="country" class="form-label">Country <span class="required">*</span></label>
-                                <input type="text" id="country" name="country" class="form-input" value="India" required>
+                                <select id="country" name="country" class="form-input" required>
+                                    <option value="" disabled selected hidden>Select country</option>
+                                    <option value="India">India</option>
+                                    <option value="USA">United States</option>
+                                    <option value="UK">United Kingdom</option>
+                                    <option value="Canada">Canada</option>
+                                    <option value="Australia">Australia</option>
+                                </select>
                                 <span class="error-message" id="countryError"></span>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
 
-                    <!-- Additional Information Section -->
-                    <div class="form-section">
+                    <!-- Step 5: Health Information -->
+                    <div class="form-section step-content" id="step5" style="display: none;">
                         <div class="section-header">
                             <h2 class="section-title">
-                                <span class="material-symbols-outlined">info</span>
-                                Additional Information
+                                <span class="material-symbols-outlined">medical_information</span>
+                                Health Information
                             </h2>
                         </div>
                         <div class="form-grid">
                             <div class="form-group full-width">
-                                <label for="medicalConditions" class="form-label">Medical Conditions / Allergies</label>
-                                <textarea id="medicalConditions" name="medicalConditions" class="form-textarea" rows="3" placeholder="Enter any medical conditions or allergies (if any)"></textarea>
+                                <label for="medicalConditions" class="form-label">Medical Conditions</label>
+                                <textarea id="medicalConditions" name="medicalConditions" class="form-textarea" rows="3"
+                                    placeholder="Any known medical conditions, allergies, etc."></textarea>
+                                <span class="error-message" id="medicalConditionsError"></span>
                             </div>
 
                             <div class="form-group full-width">
-                                <label for="notes" class="form-label">Additional Notes</label>
-                                <textarea id="notes" name="notes" class="form-textarea" rows="3" placeholder="Any additional information about the student"></textarea>
+                                <label for="medications" class="form-label">Current Medications</label>
+                                <textarea id="medications" name="medications" class="form-textarea" rows="3"
+                                    placeholder="List any current medications"></textarea>
+                                <span class="error-message" id="medicationsError"></span>
+                            </div>
+
+                            <div class="form-group full-width">
+                                <label for="specialNeeds" class="form-label">Special Needs</label>
+                                <textarea id="specialNeeds" name="specialNeeds" class="form-textarea" rows="3"
+                                    placeholder="Any special educational or physical needs"></textarea>
+                                <span class="error-message" id="specialNeedsError"></span>
+                            </div>
+
+                            <div class="form-group full-width">
+                                <label for="additionalNotes" class="form-label">Additional Notes</label>
+                                <textarea id="additionalNotes" name="additionalNotes" class="form-textarea" rows="4"
+                                    placeholder="Any additional information about the student"></textarea>
+                                <span class="error-message" id="additionalNotesError"></span>
                             </div>
                         </div>
                     </div>
@@ -326,14 +448,20 @@
                             <span class="material-symbols-outlined">close</span>
                             Cancel
                         </button>
-                        <button type="reset" class="btn-reset">
-                            <span class="material-symbols-outlined">refresh</span>
-                            Reset Form
-                        </button>
-                        <button type="submit" class="btn-submit">
-                            <span class="material-symbols-outlined">check</span>
-                            Add Student
-                        </button>
+                        <div class="action-buttons-right">
+                            <button type="button" class="btn-back" id="backBtn" style="display: none;">
+                                <span class="material-symbols-outlined">arrow_back</span>
+                                Back
+                            </button>
+                            <button type="button" class="btn-next" id="nextBtn">
+                                Next
+                                <span class="material-symbols-outlined">arrow_forward</span>
+                            </button>
+                            <button type="submit" class="btn-submit" id="submitBtn" style="display: none;">
+                                <span class="material-symbols-outlined">check_circle</span>
+                                Submit
+                            </button>
+                        </div>
                     </div>
                 </form>
             </div>
@@ -342,66 +470,231 @@
 
     <script>
         // Load Sidebar and Header Components
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             Promise.all([
                 fetch('sidebar.html').then(response => response.text()),
                 fetch('header.html').then(response => response.text())
             ]).then(([sidebarHTML, headerHTML]) => {
                 document.getElementById('sidebar-container').innerHTML = sidebarHTML;
                 document.getElementById('header-container').innerHTML = headerHTML;
+                // Call header initialization directly instead of relying on DOMContentLoaded
+                if (typeof initializeHeader === 'function') {
+                    initializeHeader();
+                }
 
-                // Use setTimeout to ensure DOM has parsed the inserted HTML
+                // Wait a bit for sidebar.js to initialize, then set active state
                 setTimeout(() => {
-                    // Call header initialization directly instead of relying on DOMContentLoaded
-                    if (typeof initializeHeader === 'function') {
-                        initializeHeader();
-                    }
-
-                    // Mark containers as loaded to make them visible with smooth transition
-                    document.getElementById('sidebar-container').classList.add('loaded');
-                    document.getElementById('header-container').classList.add('loaded');
-                }, 0);
+                    setActiveMenuItem();
+                }, 200);
             });
         });
 
-        // Validation Helper Functions
+        function setActiveMenuItem() {
+            const currentPage = window.location.pathname.split('/').pop();
+            const navAddSchool = document.getElementById('nav-add-school');
+            if (navAddSchool && currentPage === 'onboard-school.html') {
+                navAddSchool.classList.add('active');
+                // Also expand the Schools dropdown
+                const schoolsDropdown = document.getElementById('schools-dropdown');
+                if (schoolsDropdown) {
+                    schoolsDropdown.classList.add('active');
+                    const dropdownMenu = schoolsDropdown.nextElementSibling;
+                    if (dropdownMenu) {
+                        dropdownMenu.classList.add('active');
+                    }
+                }
+            }
+        }
+
+        // Multi-Step Form Navigation
+        let currentStep = 1;
+        const totalSteps = 5;
+        const formData = {};
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function () {
+            updateStepDisplay();
+            initializeValidation();
+            initializePhotoUpload();
+            initializeFormatting();
+        });
+
+        // Navigation Functions
+        function updateStepDisplay() {
+            // Hide all steps
+            for (let i = 1; i <= totalSteps; i++) {
+                const stepContent = document.getElementById(`step${i}`);
+                if (stepContent) {
+                    stepContent.style.display = 'none';
+                }
+            }
+
+            // Show current step
+            const currentStepElement = document.getElementById(`step${currentStep}`);
+            if (currentStepElement) {
+                currentStepElement.style.display = 'block';
+            }
+
+            // Update stepper UI
+            document.querySelectorAll('.step').forEach((step, index) => {
+                step.classList.remove('active', 'completed');
+                if (index + 1 < currentStep) {
+                    step.classList.add('completed');
+                } else if (index + 1 === currentStep) {
+                    step.classList.add('active');
+                }
+            });
+
+            // Update buttons
+            const backBtn = document.getElementById('backBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const submitBtn = document.getElementById('submitBtn');
+
+            backBtn.style.display = currentStep > 1 ? 'inline-flex' : 'none';
+            nextBtn.style.display = currentStep < totalSteps ? 'inline-flex' : 'none';
+            submitBtn.style.display = currentStep === totalSteps ? 'inline-flex' : 'none';
+
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Next Button Handler
+        document.getElementById('nextBtn').addEventListener('click', function () {
+            if (validateCurrentStep()) {
+                saveCurrentStepData();
+                if (currentStep < totalSteps) {
+                    currentStep++;
+                    updateStepDisplay();
+                }
+            }
+        });
+
+        // Back Button Handler
+        document.getElementById('backBtn').addEventListener('click', function () {
+            if (currentStep > 1) {
+                currentStep--;
+                updateStepDisplay();
+            }
+        });
+
+        // Step Click Handler (allow clicking on completed steps)
+        document.querySelectorAll('.step').forEach((step, index) => {
+            step.addEventListener('click', function () {
+                const stepNumber = index + 1;
+                if (stepNumber < currentStep || stepNumber === currentStep) {
+                    currentStep = stepNumber;
+                    updateStepDisplay();
+                }
+            });
+        });
+
+        // Validation Functions
+        function validateCurrentStep() {
+            const currentStepElement = document.getElementById(`step${currentStep}`);
+            const allInputs = currentStepElement.querySelectorAll('input, select, textarea');
+            let isValid = true;
+
+            // Validate all fields (required and optional)
+            allInputs.forEach(input => {
+                const fieldId = input.id;
+
+                // Skip file inputs and fields without validators
+                if (input.type === 'file' || !validators[fieldId]) {
+                    return;
+                }
+
+                // For required fields
+                if (input.hasAttribute('required')) {
+                    const error = validators[fieldId].validate(input.value);
+                    if (error) {
+                        showError(fieldId, error);
+                        isValid = false;
+                    } else {
+                        clearError(fieldId);
+                    }
+                } else {
+                    // For optional fields - only validate if they have a value
+                    if (input.value && input.value.trim() !== '') {
+                        const error = validators[fieldId].validate(input.value);
+                        if (error) {
+                            showError(fieldId, error);
+                            isValid = false;
+                        } else {
+                            clearError(fieldId);
+                        }
+                    } else {
+                        clearError(fieldId);
+                    }
+                }
+            });
+
+            if (!isValid) {
+                const firstError = currentStepElement.querySelector('.form-input.error, .form-textarea.error, .form-select.error');
+                if (firstError) {
+                    firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    firstError.focus();
+                }
+            }
+
+            return isValid;
+        }
+
+        function saveCurrentStepData() {
+            const currentStepElement = document.getElementById(`step${currentStep}`);
+            const inputs = currentStepElement.querySelectorAll('input, select, textarea');
+
+            inputs.forEach(input => {
+                if (input.name && input.type !== 'file') {
+                    formData[input.name] = input.value;
+                }
+            });
+        }
+
         function showError(fieldId, message) {
-            const errorElement = document.getElementById(fieldId + 'Error');
-            const inputElement = document.getElementById(fieldId);
-            if (errorElement && inputElement) {
+            const field = document.getElementById(fieldId);
+            const errorElement = document.getElementById(`${fieldId}Error`);
+
+            if (field) {
+                field.classList.add('error');
+            }
+
+            if (errorElement) {
                 errorElement.textContent = message;
                 errorElement.style.display = 'block';
-                inputElement.classList.add('error');
             }
         }
 
         function clearError(fieldId) {
-            const errorElement = document.getElementById(fieldId + 'Error');
-            const inputElement = document.getElementById(fieldId);
-            if (errorElement && inputElement) {
+            const field = document.getElementById(fieldId);
+            const errorElement = document.getElementById(`${fieldId}Error`);
+
+            if (field) {
+                field.classList.remove('error');
+            }
+
+            if (errorElement) {
                 errorElement.textContent = '';
                 errorElement.style.display = 'none';
-                inputElement.classList.remove('error');
             }
         }
 
-        // Validation Rules
+        // Validators
         const validators = {
             firstName: {
                 validate: (value) => {
                     if (!value.trim()) return 'First name is required';
-                    if (!/^[a-zA-Z\s]+$/.test(value)) return 'First name should contain only letters';
                     if (value.trim().length < 2) return 'First name must be at least 2 characters';
-                    if (value.trim().length > 50) return 'First name must not exceed 50 characters';
+                    if (value.trim().length > 50) return 'First name cannot exceed 50 characters';
+                    if (!/^[a-zA-Z\s]+$/.test(value)) return 'First name can only contain letters';
                     return '';
                 }
             },
             lastName: {
                 validate: (value) => {
                     if (!value.trim()) return 'Last name is required';
-                    if (!/^[a-zA-Z\s]+$/.test(value)) return 'Last name should contain only letters';
                     if (value.trim().length < 2) return 'Last name must be at least 2 characters';
-                    if (value.trim().length > 50) return 'Last name must not exceed 50 characters';
+                    if (value.trim().length > 50) return 'Last name cannot exceed 50 characters';
+                    if (!/^[a-zA-Z\s]+$/.test(value)) return 'Last name can only contain letters';
                     return '';
                 }
             },
@@ -410,283 +703,582 @@
                     if (!value) return 'Date of birth is required';
                     const dob = new Date(value);
                     const today = new Date();
-                    const age = today.getFullYear() - dob.getFullYear();
-                    const monthDiff = today.getMonth() - dob.getMonth();
 
+                    // Check if date is valid
+                    if (isNaN(dob.getTime())) return 'Please enter a valid date';
+
+                    // Check if date is not in the future
                     if (dob > today) return 'Date of birth cannot be in the future';
-                    if (age < 5 || (age === 5 && monthDiff < 0)) return 'Student must be at least 5 years old';
-                    if (age > 25) return 'Student age should not exceed 25 years';
+
+                    // Calculate age
+                    let age = today.getFullYear() - dob.getFullYear();
+                    const monthDiff = today.getMonth() - dob.getMonth();
+                    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < dob.getDate())) {
+                        age--;
+                    }
+
+                    if (age < 5) return 'Student must be at least 5 years old';
+                    if (age > 25) return 'Student age cannot exceed 25 years';
                     return '';
                 }
             },
             gender: {
                 validate: (value) => {
-                    if (!value) return 'Please select a gender';
+                    if (!value || value === '') return 'Gender is required';
+                    return '';
+                }
+            },
+            bloodGroup: {
+                validate: (value) => {
+                    // Optional field - only validate if value is provided
+                    if (value && value !== '' && !['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'].includes(value)) {
+                        return 'Please select a valid blood group';
+                    }
                     return '';
                 }
             },
             email: {
                 validate: (value) => {
-                    if (value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+                    // Optional field - only validate if value is provided
+                    if (!value || value.trim() === '') return '';
+
+                    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+                    if (!emailRegex.test(value)) {
                         return 'Please enter a valid email address';
                     }
+
+                    if (value.length > 100) return 'Email cannot exceed 100 characters';
                     return '';
                 }
             },
             phone: {
                 validate: (value) => {
-                    if (value && value.length !== 10) {
+                    // Optional field - only validate if value is provided
+                    if (!value || value.trim() === '') return '';
+
+                    const cleanPhone = value.replace(/\D/g, '');
+                    if (cleanPhone.length !== 10) {
                         return 'Phone number must be exactly 10 digits';
                     }
-                    return '';
-                }
-            },
-            class: {
-                validate: (value) => {
-                    if (!value) return 'Please select a class';
-                    return '';
-                }
-            },
-            section: {
-                validate: (value) => {
-                    if (!value) return 'Please select a section';
+                    if (!/^[6-9]\d{9}$/.test(cleanPhone)) {
+                        return 'Please enter a valid Indian mobile number';
+                    }
                     return '';
                 }
             },
             admissionDate: {
                 validate: (value) => {
                     if (!value) return 'Admission date is required';
+
                     const admissionDate = new Date(value);
                     const today = new Date();
-                    if (admissionDate > today) return 'Admission date cannot be in the future';
+
+                    if (isNaN(admissionDate.getTime())) return 'Please enter a valid date';
+
+                    // Admission date should not be more than 1 year in the future
+                    const oneYearFromNow = new Date(today.getFullYear() + 1, today.getMonth(), today.getDate());
+                    if (admissionDate > oneYearFromNow) {
+                        return 'Admission date cannot be more than 1 year in the future';
+                    }
+
+                    return '';
+                }
+            },
+            class: {
+                validate: (value) => {
+                    if (!value || value === '') return 'Class is required';
+                    return '';
+                }
+            },
+            section: {
+                validate: (value) => {
+                    if (!value || value === '') return 'Section is required';
+                    return '';
+                }
+            },
+            rollNumber: {
+                validate: (value) => {
+                    if (!value.trim()) return 'Roll number is required';
+                    if (value.trim().length < 1) return 'Roll number is required';
+                    if (value.trim().length > 20) return 'Roll number cannot exceed 20 characters';
+                    if (!/^[a-zA-Z0-9-]+$/.test(value)) return 'Roll number can only contain letters, numbers, and hyphens';
+                    return '';
+                }
+            },
+            previousSchool: {
+                validate: (value) => {
+                    // Optional field - only validate if value is provided
+                    if (!value || value.trim() === '') return '';
+
+                    if (value.trim().length < 3) return 'School name must be at least 3 characters';
+                    if (value.trim().length > 200) return 'School name cannot exceed 200 characters';
+                    return '';
+                }
+            },
+            fatherName: {
+                validate: (value) => {
+                    if (!value.trim()) return 'Father\'s name is required';
+                    if (value.trim().length < 2) return 'Name must be at least 2 characters';
+                    if (value.trim().length > 100) return 'Name cannot exceed 100 characters';
+                    if (!/^[a-zA-Z\s.]+$/.test(value)) return 'Name can only contain letters, spaces, and periods';
+                    return '';
+                }
+            },
+            fatherOccupation: {
+                validate: (value) => {
+                    // Optional field - only validate if value is provided
+                    if (!value || value.trim() === '') return '';
+
+                    if (value.trim().length < 2) return 'Occupation must be at least 2 characters';
+                    if (value.trim().length > 100) return 'Occupation cannot exceed 100 characters';
+                    return '';
+                }
+            },
+            fatherPhone: {
+                validate: (value) => {
+                    if (!value || value.trim() === '') return 'Father\'s phone is required';
+
+                    const cleanPhone = value.replace(/\D/g, '');
+                    if (cleanPhone.length !== 10) {
+                        return 'Phone number must be exactly 10 digits';
+                    }
+                    if (!/^[6-9]\d{9}$/.test(cleanPhone)) {
+                        return 'Please enter a valid Indian mobile number';
+                    }
+                    return '';
+                }
+            },
+            fatherEmail: {
+                validate: (value) => {
+                    // Optional field - only validate if value is provided
+                    if (!value || value.trim() === '') return '';
+
+                    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+                    if (!emailRegex.test(value)) {
+                        return 'Please enter a valid email address';
+                    }
+
+                    if (value.length > 100) return 'Email cannot exceed 100 characters';
+                    return '';
+                }
+            },
+            motherName: {
+                validate: (value) => {
+                    if (!value.trim()) return 'Mother\'s name is required';
+                    if (value.trim().length < 2) return 'Name must be at least 2 characters';
+                    if (value.trim().length > 100) return 'Name cannot exceed 100 characters';
+                    if (!/^[a-zA-Z\s.]+$/.test(value)) return 'Name can only contain letters, spaces, and periods';
+                    return '';
+                }
+            },
+            motherOccupation: {
+                validate: (value) => {
+                    // Optional field - only validate if value is provided
+                    if (!value || value.trim() === '') return '';
+
+                    if (value.trim().length < 2) return 'Occupation must be at least 2 characters';
+                    if (value.trim().length > 100) return 'Occupation cannot exceed 100 characters';
+                    return '';
+                }
+            },
+            motherPhone: {
+                validate: (value) => {
+                    if (!value || value.trim() === '') return 'Mother\'s phone is required';
+
+                    const cleanPhone = value.replace(/\D/g, '');
+                    if (cleanPhone.length !== 10) {
+                        return 'Phone number must be exactly 10 digits';
+                    }
+                    if (!/^[6-9]\d{9}$/.test(cleanPhone)) {
+                        return 'Please enter a valid Indian mobile number';
+                    }
+                    return '';
+                }
+            },
+            motherEmail: {
+                validate: (value) => {
+                    // Optional field - only validate if value is provided
+                    if (!value || value.trim() === '') return '';
+
+                    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+                    if (!emailRegex.test(value)) {
+                        return 'Please enter a valid email address';
+                    }
+
+                    if (value.length > 100) return 'Email cannot exceed 100 characters';
                     return '';
                 }
             },
             guardianName: {
                 validate: (value) => {
-                    if (!value.trim()) return 'Guardian name is required';
-                    if (!/^[a-zA-Z\s]+$/.test(value)) return 'Guardian name should contain only letters';
-                    if (value.trim().length < 2) return 'Guardian name must be at least 2 characters';
+                    // Optional field - only validate if value is provided
+                    if (!value || value.trim() === '') return '';
+
+                    if (value.trim().length < 2) return 'Name must be at least 2 characters';
+                    if (value.trim().length > 100) return 'Name cannot exceed 100 characters';
+                    if (!/^[a-zA-Z\s.]+$/.test(value)) return 'Name can only contain letters, spaces, and periods';
                     return '';
                 }
             },
-            relationship: {
+            guardianRelation: {
                 validate: (value) => {
-                    if (!value) return 'Please select relationship';
+                    // Optional field - only validate if value is provided
+                    if (!value || value.trim() === '') return '';
+
+                    if (value.trim().length < 2) return 'Relation must be at least 2 characters';
+                    if (value.trim().length > 50) return 'Relation cannot exceed 50 characters';
+                    if (!/^[a-zA-Z\s]+$/.test(value)) return 'Relation can only contain letters';
                     return '';
                 }
             },
             guardianPhone: {
                 validate: (value) => {
-                    if (!value) return 'Guardian phone number is required';
-                    if (value.length !== 10) return 'Guardian phone must be exactly 10 digits';
-                    return '';
-                }
-            },
-            guardianEmail: {
-                validate: (value) => {
-                    if (value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
-                        return 'Please enter a valid email address';
+                    // Optional field - only validate if value is provided
+                    if (!value || value.trim() === '') return '';
+
+                    const cleanPhone = value.replace(/\D/g, '');
+                    if (cleanPhone.length !== 10) {
+                        return 'Phone number must be exactly 10 digits';
+                    }
+                    if (!/^[6-9]\d{9}$/.test(cleanPhone)) {
+                        return 'Please enter a valid Indian mobile number';
                     }
                     return '';
                 }
             },
             emergencyContact: {
                 validate: (value) => {
-                    if (value && value.length !== 10) {
-                        return 'Emergency contact must be exactly 10 digits';
+                    if (!value || value.trim() === '') return 'Emergency contact is required';
+
+                    const cleanPhone = value.replace(/\D/g, '');
+                    if (cleanPhone.length !== 10) {
+                        return 'Phone number must be exactly 10 digits';
+                    }
+                    if (!/^[6-9]\d{9}$/.test(cleanPhone)) {
+                        return 'Please enter a valid Indian mobile number';
                     }
                     return '';
                 }
             },
             address: {
                 validate: (value) => {
-                    if (!value.trim()) return 'Street address is required';
-                    if (value.trim().length < 10) return 'Please enter a complete address (minimum 10 characters)';
+                    if (!value.trim()) return 'Address is required';
+                    if (value.trim().length < 5) return 'Address must be at least 5 characters';
+                    if (value.trim().length > 200) return 'Address cannot exceed 200 characters';
+                    return '';
+                }
+            },
+            address2: {
+                validate: (value) => {
+                    // Optional field - only validate if value is provided
+                    if (!value || value.trim() === '') return '';
+
+                    if (value.trim().length > 200) return 'Address cannot exceed 200 characters';
                     return '';
                 }
             },
             city: {
                 validate: (value) => {
                     if (!value.trim()) return 'City is required';
-                    if (!/^[a-zA-Z\s]+$/.test(value)) return 'City name should contain only letters';
+                    if (value.trim().length < 2) return 'City name must be at least 2 characters';
+                    if (value.trim().length > 100) return 'City name cannot exceed 100 characters';
+                    if (!/^[a-zA-Z\s]+$/.test(value)) return 'City can only contain letters';
                     return '';
                 }
             },
             state: {
                 validate: (value) => {
                     if (!value.trim()) return 'State is required';
-                    if (!/^[a-zA-Z\s]+$/.test(value)) return 'State name should contain only letters';
+                    if (value.trim().length < 2) return 'State name must be at least 2 characters';
+                    if (value.trim().length > 100) return 'State name cannot exceed 100 characters';
+                    if (!/^[a-zA-Z\s]+$/.test(value)) return 'State can only contain letters';
                     return '';
                 }
             },
             pinCode: {
                 validate: (value) => {
-                    if (!value) return 'PIN code is required';
-                    if (value.length !== 6) return 'PIN code must be exactly 6 digits';
+                    if (!value.trim()) return 'PIN code is required';
+                    const cleanPin = value.replace(/\D/g, '');
+                    if (!/^\d{6}$/.test(cleanPin)) return 'PIN code must be exactly 6 digits';
+                    if (cleanPin === '000000') return 'Please enter a valid PIN code';
                     return '';
                 }
             },
             country: {
                 validate: (value) => {
-                    if (!value.trim()) return 'Country is required';
+                    if (!value || value === '') return 'Country is required';
+                    return '';
+                }
+            },
+            medicalConditions: {
+                validate: (value) => {
+                    // Optional field - only validate if value is provided
+                    if (!value || value.trim() === '') return '';
+
+                    if (value.trim().length > 1000) return 'Medical conditions cannot exceed 1000 characters';
+                    return '';
+                }
+            },
+            medications: {
+                validate: (value) => {
+                    // Optional field - only validate if value is provided
+                    if (!value || value.trim() === '') return '';
+
+                    if (value.trim().length > 1000) return 'Medications cannot exceed 1000 characters';
+                    return '';
+                }
+            },
+            specialNeeds: {
+                validate: (value) => {
+                    // Optional field - only validate if value is provided
+                    if (!value || value.trim() === '') return '';
+
+                    if (value.trim().length > 1000) return 'Special needs cannot exceed 1000 characters';
+                    return '';
+                }
+            },
+            additionalNotes: {
+                validate: (value) => {
+                    // Optional field - only validate if value is provided
+                    if (!value || value.trim() === '') return '';
+
+                    if (value.trim().length > 2000) return 'Additional notes cannot exceed 2000 characters';
                     return '';
                 }
             }
         };
 
-        // Attach real-time validation to all fields
-        Object.keys(validators).forEach(fieldId => {
-            const field = document.getElementById(fieldId);
-            if (field) {
-                // Validate on blur
-                field.addEventListener('blur', function() {
-                    const error = validators[fieldId].validate(this.value);
-                    if (error) {
-                        showError(fieldId, error);
-                    } else {
-                        clearError(fieldId);
-                    }
-                });
-
-                // Clear error on input
-                field.addEventListener('input', function() {
-                    if (this.classList.contains('error')) {
+        // Initialize Validation
+        function initializeValidation() {
+            Object.keys(validators).forEach(fieldId => {
+                const field = document.getElementById(fieldId);
+                if (field) {
+                    // Validate on blur
+                    field.addEventListener('blur', function () {
                         const error = validators[fieldId].validate(this.value);
-                        if (!error) {
+                        if (error) {
+                            showError(fieldId, error);
+                        } else {
                             clearError(fieldId);
                         }
+                    });
+
+                    // Clear error on input
+                    field.addEventListener('input', function () {
+                        if (this.classList.contains('error')) {
+                            const error = validators[fieldId].validate(this.value);
+                            if (!error) {
+                                clearError(fieldId);
+                            }
+                        }
+                    });
+                }
+            });
+        }
+
+        // Photo Upload Functionality
+        function initializePhotoUpload() {
+            const uploadPhotoBtn = document.getElementById('uploadPhotoBtn');
+            const studentPhoto = document.getElementById('studentPhoto');
+            const photoPreview = document.getElementById('photoPreview');
+
+            if (uploadPhotoBtn && studentPhoto && photoPreview) {
+                uploadPhotoBtn.addEventListener('click', function () {
+                    studentPhoto.click();
+                });
+
+                studentPhoto.addEventListener('change', function (e) {
+                    const file = e.target.files[0];
+                    if (file) {
+                        // Validate file type
+                        const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
+                        if (!validTypes.includes(file.type)) {
+                            alert('Please upload a valid image file (JPEG, PNG, GIF, or WebP)');
+                            studentPhoto.value = '';
+                            return;
+                        }
+
+                        // Validate file size (2MB = 2 * 1024 * 1024 bytes)
+                        const maxSize = 2 * 1024 * 1024;
+                        if (file.size > maxSize) {
+                            alert('File size should not exceed 2MB. Your file is ' + (file.size / (1024 * 1024)).toFixed(2) + 'MB');
+                            studentPhoto.value = '';
+                            return;
+                        }
+
+                        // Validate minimum file size (10KB to avoid too small images)
+                        const minSize = 10 * 1024;
+                        if (file.size < minSize) {
+                            alert('File size is too small. Please upload a clearer image (minimum 10KB)');
+                            studentPhoto.value = '';
+                            return;
+                        }
+
+                        // Create an image object to validate dimensions
+                        const img = new Image();
+                        const objectUrl = URL.createObjectURL(file);
+
+                        img.onload = function () {
+                            // Validate minimum dimensions
+                            const minWidth = 200;
+                            const minHeight = 200;
+
+                            if (img.width < minWidth || img.height < minHeight) {
+                                alert(`Image dimensions are too small. Minimum size is ${minWidth}x${minHeight} pixels. Your image is ${img.width}x${img.height} pixels.`);
+                                studentPhoto.value = '';
+                                URL.revokeObjectURL(objectUrl);
+                                return;
+                            }
+
+                            // Validate maximum dimensions
+                            const maxWidth = 5000;
+                            const maxHeight = 5000;
+
+                            if (img.width > maxWidth || img.height > maxHeight) {
+                                alert(`Image dimensions are too large. Maximum size is ${maxWidth}x${maxHeight} pixels. Your image is ${img.width}x${img.height} pixels.`);
+                                studentPhoto.value = '';
+                                URL.revokeObjectURL(objectUrl);
+                                return;
+                            }
+
+                            // All validations passed - show preview
+                            const reader = new FileReader();
+                            reader.onload = function (event) {
+                                photoPreview.style.backgroundImage = `url(${event.target.result})`;
+                                photoPreview.style.backgroundSize = 'cover';
+                                photoPreview.style.backgroundPosition = 'center';
+                                photoPreview.innerHTML = '';
+                            };
+                            reader.readAsDataURL(file);
+
+                            URL.revokeObjectURL(objectUrl);
+                        };
+
+                        img.onerror = function () {
+                            alert('Failed to load image. Please try a different file.');
+                            studentPhoto.value = '';
+                            URL.revokeObjectURL(objectUrl);
+                        };
+
+                        img.src = objectUrl;
                     }
                 });
             }
-        });
-
-        // Photo Upload Functionality
-        const uploadPhotoBtn = document.getElementById('uploadPhotoBtn');
-        const studentPhoto = document.getElementById('studentPhoto');
-        const photoPreview = document.getElementById('photoPreview');
-
-        uploadPhotoBtn.addEventListener('click', function() {
-            studentPhoto.click();
-        });
-
-        studentPhoto.addEventListener('change', function(e) {
-            const file = e.target.files[0];
-            if (file) {
-                if (file.size > 2 * 1024 * 1024) {
-                    alert('File size should not exceed 2MB');
-                    studentPhoto.value = '';
-                    return;
-                }
-
-                const reader = new FileReader();
-                reader.onload = function(event) {
-                    photoPreview.style.backgroundImage = `url(${event.target.result})`;
-                    photoPreview.style.backgroundSize = 'cover';
-                    photoPreview.style.backgroundPosition = 'center';
-                    photoPreview.innerHTML = '';
-                };
-                reader.readAsDataURL(file);
-            }
-        });
+        }
 
         // Auto-generate Student ID
         function generateStudentID() {
+            const year = new Date().getFullYear();
             const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-            let id = '';
+            let id = 'STU' + year;
             for (let i = 0; i < 6; i++) {
                 id += characters.charAt(Math.floor(Math.random() * characters.length));
             }
             return id;
         }
 
-        // Form Submission with Validation
-        const addStudentForm = document.getElementById('addStudentForm');
-        addStudentForm.addEventListener('submit', function(e) {
+        // Form Submission
+        document.getElementById('addStudentForm').addEventListener('submit', function (e) {
             e.preventDefault();
 
-            // Validate all fields
-            let isValid = true;
-            Object.keys(validators).forEach(fieldId => {
-                const field = document.getElementById(fieldId);
-                if (field) {
-                    const error = validators[fieldId].validate(field.value);
-                    if (error) {
-                        showError(fieldId, error);
-                        isValid = false;
-                    } else {
-                        clearError(fieldId);
-                    }
-                }
-            });
+            if (validateCurrentStep()) {
+                saveCurrentStepData();
 
-            if (!isValid) {
-                // Scroll to first error
-                const firstError = document.querySelector('.form-input.error, .form-textarea.error');
-                if (firstError) {
-                    firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    firstError.focus();
+                // Generate Student ID
+                const studentID = generateStudentID();
+                document.getElementById('studentID').value = studentID;
+                formData.studentID = studentID;
+
+                console.log('Student Data:', formData);
+
+                // Show success message
+                alert(`Student added successfully!\n\nStudent ID: ${studentID}\nName: ${formData.firstName} ${formData.lastName}`);
+
+                // Redirect or reset
+                if (confirm('Do you want to add another student?')) {
+                    resetForm();
+                } else {
+                    // Redirect to student list
+                    window.location.href = 'student-list.html';
                 }
-                alert('Please fix all errors before submitting the form.');
-                return;
             }
+        });
 
-            // Generate Student ID
-            const studentID = generateStudentID();
-            document.getElementById('studentID').value = studentID;
+        // Reset Form
+        function resetForm() {
+            document.getElementById('addStudentForm').reset();
 
-            // Collect form data
-            const formData = new FormData(addStudentForm);
-            const studentData = {};
-            formData.forEach((value, key) => {
-                studentData[key] = value;
-            });
-
-            console.log('Student Data:', studentData);
-
-            // Show success message
-            alert(`Student added successfully!\n\nStudent ID: ${studentID}\nName: ${studentData.firstName} ${studentData.lastName}`);
-
-            // Redirect to student list
-            if (confirm('Do you want to add another student?')) {
-                addStudentForm.reset();
+            // Reset photo preview
+            const photoPreview = document.getElementById('photoPreview');
+            if (photoPreview) {
                 photoPreview.style.backgroundImage = '';
                 photoPreview.innerHTML = '<span class="material-symbols-outlined">add_a_photo</span><span class="photo-preview-text">Upload Photo</span>';
-                // Clear all error messages
-                Object.keys(validators).forEach(fieldId => clearError(fieldId));
-            } else {
-                window.location.href = 'student-list.html';
             }
-        });
+
+            // Clear all errors
+            Object.keys(validators).forEach(fieldId => clearError(fieldId));
+
+            // Reset to first step
+            currentStep = 1;
+            updateStepDisplay();
+
+            // Clear form data
+            Object.keys(formData).forEach(key => delete formData[key]);
+        }
 
         // Cancel Button
-        const cancelBtn = document.getElementById('cancelBtn');
-        cancelBtn.addEventListener('click', function() {
+        document.getElementById('cancelBtn').addEventListener('click', function () {
             if (confirm('Are you sure you want to cancel? All unsaved data will be lost.')) {
-                window.location.href = 'student-list.html';
+                resetForm();
+                // Or redirect to student list
+                // window.location.href = 'student-list.html';
             }
         });
 
-        // Phone number formatting
-        const phoneInputs = document.querySelectorAll('input[type="tel"]');
-        phoneInputs.forEach(input => {
-            input.addEventListener('input', function(e) {
-                let value = e.target.value.replace(/\D/g, '');
-                if (value.length > 10) {
-                    value = value.slice(0, 10);
-                }
-                e.target.value = value;
+        // Input Formatting
+        function initializeFormatting() {
+            // Phone number formatting
+            const phoneInputs = document.querySelectorAll('input[type="tel"]');
+            phoneInputs.forEach(input => {
+                input.addEventListener('input', function (e) {
+                    let value = e.target.value.replace(/\D/g, '');
+                    if (value.length > 10) {
+                        value = value.slice(0, 10);
+                    }
+                    e.target.value = value;
+                });
             });
-        });
 
-        // PIN code formatting
-        const pinCodeInput = document.getElementById('pinCode');
-        pinCodeInput.addEventListener('input', function(e) {
-            let value = e.target.value.replace(/\D/g, '');
-            if (value.length > 6) {
-                value = value.slice(0, 6);
+            // PIN code formatting
+            const pinCodeInput = document.getElementById('pinCode');
+            if (pinCodeInput) {
+                pinCodeInput.addEventListener('input', function (e) {
+                    let value = e.target.value.replace(/\D/g, '');
+                    if (value.length > 6) {
+                        value = value.slice(0, 6);
+                    }
+                    e.target.value = value;
+                });
             }
-            e.target.value = value;
+        }
+
+        // Keyboard Navigation
+        document.addEventListener('keydown', function (e) {
+            // Alt + Right Arrow - Next
+            if (e.altKey && e.key === 'ArrowRight') {
+                e.preventDefault();
+                if (currentStep < totalSteps) {
+                    document.getElementById('nextBtn').click();
+                }
+            }
+
+            // Alt + Left Arrow - Back
+            if (e.altKey && e.key === 'ArrowLeft') {
+                e.preventDefault();
+                if (currentStep > 1) {
+                    document.getElementById('backBtn').click();
+                }
+            }
         });
     </script>
 </body>

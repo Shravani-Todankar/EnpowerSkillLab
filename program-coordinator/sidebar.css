@@ -199,7 +199,7 @@ body.dark .sidebar-dropdown-toggle:hover {
 
 .sidebar-dropdown-menu a {
     padding: 10px 16px;
-    padding-left: 52px !important;
+    /* padding-left: 52px !important; */
     font-size: 0.813rem;
     margin-left: 0;
     border: none;

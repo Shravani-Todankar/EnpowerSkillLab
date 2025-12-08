@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Add New Student - Enpower Skill Lab</title>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="add-student.css">
+    <!-- Sidebar JS -->
+    <script src="sidebar.js"></script>
+    <!-- Header JS -->
+    <script src="header.js"></script>
+
+    <style>
+        /* Prevent FOUC - hide containers until loaded */
+        #sidebar-container:empty,
+        #header-container:empty {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        #sidebar-container.loaded,
+        #header-container.loaded {
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.2s ease-in;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- Include Sidebar Component -->
+        <div id="sidebar-container"></div>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Include Header Component -->
+            <div id="header-container"></div>
+
+            <!-- Add Student Page -->
+            <div class="add-student-page">
+                <!-- Add Student Form -->
+                <form class="add-student-form" id="addStudentForm">
+                    <!-- Form Header -->
+                    <div class="form-header">
+                        <h1 class="page-title">
+                            Add New Student
+                        </h1>
+                        <p class="page-subtitle">Fill in the student information below to add a new student to the system</p>
+                        <div class="form-legend">
+                            <div class="legend-item">
+                                <span class="legend-indicator required"></span>
+                                <span>Required*</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-indicator optional"></span>
+                                <span>Optional</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Personal Information Section -->
+                    <div class="form-section">
+                        <div class="section-header">
+                            <h2 class="section-title">
+                                <span class="material-symbols-outlined">person</span>
+                                Personal Information
+                            </h2>
+                        </div>
+                        <div class="form-grid">
+                            <div class="form-group full-width">
+                                <label for="studentPhoto" class="form-label">Student Photo</label>
+                                <div class="photo-upload-container">
+                                    <div class="photo-preview" id="photoPreview">
+                                        <span class="material-symbols-outlined">add_a_photo</span>
+                                        <span class="photo-preview-text">Upload Photo</span>
+                                    </div>
+                                    <input type="file" id="studentPhoto" name="studentPhoto" accept="image/*" class="photo-input">
+                                    <button type="button" class="upload-photo-btn" id="uploadPhotoBtn">
+                                        <span class="material-symbols-outlined">upload</span>
+                                        Choose Photo
+                                    </button>
+                                    <p class="field-hint">Recommended: Square image, max 2MB</p>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="firstName" class="form-label">First Name <span class="required">*</span></label>
+                                <input type="text" id="firstName" name="firstName" class="form-input" placeholder="Enter first name" required>
+                                <span class="error-message" id="firstNameError"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="lastName" class="form-label">Last Name <span class="required">*</span></label>
+                                <input type="text" id="lastName" name="lastName" class="form-input" placeholder="Enter last name" required>
+                                <span class="error-message" id="lastNameError"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="dateOfBirth" class="form-label">Date of Birth <span class="required">*</span></label>
+                                <input type="date" id="dateOfBirth" name="dateOfBirth" class="form-input" required>
+                                <span class="error-message" id="dateOfBirthError"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="gender" class="form-label">Gender <span class="required">*</span></label>
+                                <select id="gender" name="gender" class="form-input" required>
+                                    <option value="" disabled selected hidden>Select gender</option>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                    <option value="other">Other</option>
+                                </select>
+                                <span class="error-message" id="genderError"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="bloodGroup" class="form-label">Blood Group</label>
+                                <select id="bloodGroup" name="bloodGroup" class="form-input">
+                                    <option value="" disabled selected hidden>Select blood group</option>
+                                    <option value="A+">A+</option>
+                                    <option value="A-">A-</option>
+                                    <option value="B+">B+</option>
+                                    <option value="B-">B-</option>
+                                    <option value="AB+">AB+</option>
+                                    <option value="AB-">AB-</option>
+                                    <option value="O+">O+</option>
+                                    <option value="O-">O-</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="email" class="form-label">Email Address</label>
+                                <input type="email" id="email" name="email" class="form-input" placeholder="student@example.com">
+                                <span class="error-message" id="emailError"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="phone" class="form-label">Phone Number</label>
+                                <input type="tel" id="phone" name="phone" class="form-input" placeholder="+91 XXXXX XXXXX">
+                                <span class="error-message" id="phoneError"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Academic Information Section -->
+                    <div class="form-section">
+                        <div class="section-header">
+                            <h2 class="section-title">
+                                <span class="material-symbols-outlined">school</span>
+                                Academic Information
+                            </h2>
+                        </div>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="class" class="form-label">Class <span class="required">*</span></label>
+                                <select id="class" name="class" class="form-input" required>
+                                    <option value="" disabled selected hidden>Select class</option>
+                                    <option value="9">Class 9</option>
+                                    <option value="10">Class 10</option>
+                                    <option value="11">Class 11</option>
+                                    <option value="12">Class 12</option>
+                                </select>
+                                <span class="error-message" id="classError"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="section" class="form-label">Section <span class="required">*</span></label>
+                                <select id="section" name="section" class="form-input" required>
+                                    <option value="" disabled selected hidden>Select section</option>
+                                    <option value="A">Section A</option>
+                                    <option value="B">Section B</option>
+                                    <option value="C">Section C</option>
+                                    <option value="D">Section D</option>
+                                </select>
+                                <span class="error-message" id="sectionError"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="rollNumber" class="form-label">Roll Number</label>
+                                <input type="text" id="rollNumber" name="rollNumber" class="form-input" placeholder="Enter roll number">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="admissionDate" class="form-label">Admission Date <span class="required">*</span></label>
+                                <input type="date" id="admissionDate" name="admissionDate" class="form-input" required>
+                                <span class="error-message" id="admissionDateError"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="studentID" class="form-label">Student ID</label>
+                                <input type="text" id="studentID" name="studentID" class="form-input" placeholder="Auto-generated" readonly>
+                                <p class="field-hint">This will be auto-generated upon submission</p>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="previousSchool" class="form-label">Previous School</label>
+                                <input type="text" id="previousSchool" name="previousSchool" class="form-input" placeholder="Enter previous school name">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Parent/Guardian Information Section -->
+                    <div class="form-section">
+                        <div class="section-header">
+                            <h2 class="section-title">
+                                <span class="material-symbols-outlined">family_restroom</span>
+                                Parent/Guardian Information
+                            </h2>
+                        </div>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="guardianName" class="form-label">Guardian Name <span class="required">*</span></label>
+                                <input type="text" id="guardianName" name="guardianName" class="form-input" placeholder="Enter guardian name" required>
+                                <span class="error-message" id="guardianNameError"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="relationship" class="form-label">Relationship <span class="required">*</span></label>
+                                <select id="relationship" name="relationship" class="form-input" required>
+                                    <option value="" disabled selected hidden>Select relationship</option>
+                                    <option value="father">Father</option>
+                                    <option value="mother">Mother</option>
+                                    <option value="guardian">Legal Guardian</option>
+                                    <option value="other">Other</option>
+                                </select>
+                                <span class="error-message" id="relationshipError"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="guardianPhone" class="form-label">Guardian Phone <span class="required">*</span></label>
+                                <input type="tel" id="guardianPhone" name="guardianPhone" class="form-input" placeholder="+91 XXXXX XXXXX" required>
+                                <span class="error-message" id="guardianPhoneError"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="guardianEmail" class="form-label">Guardian Email</label>
+                                <input type="email" id="guardianEmail" name="guardianEmail" class="form-input" placeholder="guardian@example.com">
+                                <span class="error-message" id="guardianEmailError"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="occupation" class="form-label">Guardian Occupation</label>
+                                <input type="text" id="occupation" name="occupation" class="form-input" placeholder="Enter occupation">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="emergencyContact" class="form-label">Emergency Contact</label>
+                                <input type="tel" id="emergencyContact" name="emergencyContact" class="form-input" placeholder="+91 XXXXX XXXXX">
+                                <span class="error-message" id="emergencyContactError"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Address Information Section -->
+                    <div class="form-section">
+                        <div class="section-header">
+                            <h2 class="section-title">
+                                <span class="material-symbols-outlined">home</span>
+                                Address Information
+                            </h2>
+                        </div>
+                        <div class="form-grid">
+                            <div class="form-group full-width">
+                                <label for="address" class="form-label">Street Address <span class="required">*</span></label>
+                                <textarea id="address" name="address" class="form-textarea" rows="3" placeholder="Enter complete street address" required></textarea>
+                                <span class="error-message" id="addressError"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="city" class="form-label">City <span class="required">*</span></label>
+                                <input type="text" id="city" name="city" class="form-input" placeholder="Enter city" required>
+                                <span class="error-message" id="cityError"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="state" class="form-label">State <span class="required">*</span></label>
+                                <input type="text" id="state" name="state" class="form-input" placeholder="Enter state" required>
+                                <span class="error-message" id="stateError"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="pinCode" class="form-label">PIN Code <span class="required">*</span></label>
+                                <input type="text" id="pinCode" name="pinCode" class="form-input" placeholder="Enter PIN code" required>
+                                <span class="error-message" id="pinCodeError"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="country" class="form-label">Country <span class="required">*</span></label>
+                                <input type="text" id="country" name="country" class="form-input" value="India" required>
+                                <span class="error-message" id="countryError"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Additional Information Section -->
+                    <div class="form-section">
+                        <div class="section-header">
+                            <h2 class="section-title">
+                                <span class="material-symbols-outlined">info</span>
+                                Additional Information
+                            </h2>
+                        </div>
+                        <div class="form-grid">
+                            <div class="form-group full-width">
+                                <label for="medicalConditions" class="form-label">Medical Conditions / Allergies</label>
+                                <textarea id="medicalConditions" name="medicalConditions" class="form-textarea" rows="3" placeholder="Enter any medical conditions or allergies (if any)"></textarea>
+                            </div>
+
+                            <div class="form-group full-width">
+                                <label for="notes" class="form-label">Additional Notes</label>
+                                <textarea id="notes" name="notes" class="form-textarea" rows="3" placeholder="Any additional information about the student"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Form Actions -->
+                    <div class="form-actions">
+                        <button type="button" class="btn-cancel" id="cancelBtn">
+                            <span class="material-symbols-outlined">close</span>
+                            Cancel
+                        </button>
+                        <button type="reset" class="btn-reset">
+                            <span class="material-symbols-outlined">refresh</span>
+                            Reset Form
+                        </button>
+                        <button type="submit" class="btn-submit">
+                            <span class="material-symbols-outlined">check</span>
+                            Add Student
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Load Sidebar and Header Components
+        document.addEventListener('DOMContentLoaded', function() {
+            Promise.all([
+                fetch('sidebar.html').then(response => response.text()),
+                fetch('header.html').then(response => response.text())
+            ]).then(([sidebarHTML, headerHTML]) => {
+                document.getElementById('sidebar-container').innerHTML = sidebarHTML;
+                document.getElementById('header-container').innerHTML = headerHTML;
+
+                // Use setTimeout to ensure DOM has parsed the inserted HTML
+                setTimeout(() => {
+                    // Call header initialization directly instead of relying on DOMContentLoaded
+                    if (typeof initializeHeader === 'function') {
+                        initializeHeader();
+                    }
+
+                    // Mark containers as loaded to make them visible with smooth transition
+                    document.getElementById('sidebar-container').classList.add('loaded');
+                    document.getElementById('header-container').classList.add('loaded');
+                }, 0);
+            });
+        });
+
+        // Validation Helper Functions
+        function showError(fieldId, message) {
+            const errorElement = document.getElementById(fieldId + 'Error');
+            const inputElement = document.getElementById(fieldId);
+            if (errorElement && inputElement) {
+                errorElement.textContent = message;
+                errorElement.style.display = 'block';
+                inputElement.classList.add('error');
+            }
+        }
+
+        function clearError(fieldId) {
+            const errorElement = document.getElementById(fieldId + 'Error');
+            const inputElement = document.getElementById(fieldId);
+            if (errorElement && inputElement) {
+                errorElement.textContent = '';
+                errorElement.style.display = 'none';
+                inputElement.classList.remove('error');
+            }
+        }
+
+        // Validation Rules
+        const validators = {
+            firstName: {
+                validate: (value) => {
+                    if (!value.trim()) return 'First name is required';
+                    if (!/^[a-zA-Z\s]+$/.test(value)) return 'First name should contain only letters';
+                    if (value.trim().length < 2) return 'First name must be at least 2 characters';
+                    if (value.trim().length > 50) return 'First name must not exceed 50 characters';
+                    return '';
+                }
+            },
+            lastName: {
+                validate: (value) => {
+                    if (!value.trim()) return 'Last name is required';
+                    if (!/^[a-zA-Z\s]+$/.test(value)) return 'Last name should contain only letters';
+                    if (value.trim().length < 2) return 'Last name must be at least 2 characters';
+                    if (value.trim().length > 50) return 'Last name must not exceed 50 characters';
+                    return '';
+                }
+            },
+            dateOfBirth: {
+                validate: (value) => {
+                    if (!value) return 'Date of birth is required';
+                    const dob = new Date(value);
+                    const today = new Date();
+                    const age = today.getFullYear() - dob.getFullYear();
+                    const monthDiff = today.getMonth() - dob.getMonth();
+
+                    if (dob > today) return 'Date of birth cannot be in the future';
+                    if (age < 5 || (age === 5 && monthDiff < 0)) return 'Student must be at least 5 years old';
+                    if (age > 25) return 'Student age should not exceed 25 years';
+                    return '';
+                }
+            },
+            gender: {
+                validate: (value) => {
+                    if (!value) return 'Please select a gender';
+                    return '';
+                }
+            },
+            email: {
+                validate: (value) => {
+                    if (value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+                        return 'Please enter a valid email address';
+                    }
+                    return '';
+                }
+            },
+            phone: {
+                validate: (value) => {
+                    if (value && value.length !== 10) {
+                        return 'Phone number must be exactly 10 digits';
+                    }
+                    return '';
+                }
+            },
+            class: {
+                validate: (value) => {
+                    if (!value) return 'Please select a class';
+                    return '';
+                }
+            },
+            section: {
+                validate: (value) => {
+                    if (!value) return 'Please select a section';
+                    return '';
+                }
+            },
+            admissionDate: {
+                validate: (value) => {
+                    if (!value) return 'Admission date is required';
+                    const admissionDate = new Date(value);
+                    const today = new Date();
+                    if (admissionDate > today) return 'Admission date cannot be in the future';
+                    return '';
+                }
+            },
+            guardianName: {
+                validate: (value) => {
+                    if (!value.trim()) return 'Guardian name is required';
+                    if (!/^[a-zA-Z\s]+$/.test(value)) return 'Guardian name should contain only letters';
+                    if (value.trim().length < 2) return 'Guardian name must be at least 2 characters';
+                    return '';
+                }
+            },
+            relationship: {
+                validate: (value) => {
+                    if (!value) return 'Please select relationship';
+                    return '';
+                }
+            },
+            guardianPhone: {
+                validate: (value) => {
+                    if (!value) return 'Guardian phone number is required';
+                    if (value.length !== 10) return 'Guardian phone must be exactly 10 digits';
+                    return '';
+                }
+            },
+            guardianEmail: {
+                validate: (value) => {
+                    if (value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+                        return 'Please enter a valid email address';
+                    }
+                    return '';
+                }
+            },
+            emergencyContact: {
+                validate: (value) => {
+                    if (value && value.length !== 10) {
+                        return 'Emergency contact must be exactly 10 digits';
+                    }
+                    return '';
+                }
+            },
+            address: {
+                validate: (value) => {
+                    if (!value.trim()) return 'Street address is required';
+                    if (value.trim().length < 10) return 'Please enter a complete address (minimum 10 characters)';
+                    return '';
+                }
+            },
+            city: {
+                validate: (value) => {
+                    if (!value.trim()) return 'City is required';
+                    if (!/^[a-zA-Z\s]+$/.test(value)) return 'City name should contain only letters';
+                    return '';
+                }
+            },
+            state: {
+                validate: (value) => {
+                    if (!value.trim()) return 'State is required';
+                    if (!/^[a-zA-Z\s]+$/.test(value)) return 'State name should contain only letters';
+                    return '';
+                }
+            },
+            pinCode: {
+                validate: (value) => {
+                    if (!value) return 'PIN code is required';
+                    if (value.length !== 6) return 'PIN code must be exactly 6 digits';
+                    return '';
+                }
+            },
+            country: {
+                validate: (value) => {
+                    if (!value.trim()) return 'Country is required';
+                    return '';
+                }
+            }
+        };
+
+        // Attach real-time validation to all fields
+        Object.keys(validators).forEach(fieldId => {
+            const field = document.getElementById(fieldId);
+            if (field) {
+                // Validate on blur
+                field.addEventListener('blur', function() {
+                    const error = validators[fieldId].validate(this.value);
+                    if (error) {
+                        showError(fieldId, error);
+                    } else {
+                        clearError(fieldId);
+                    }
+                });
+
+                // Clear error on input
+                field.addEventListener('input', function() {
+                    if (this.classList.contains('error')) {
+                        const error = validators[fieldId].validate(this.value);
+                        if (!error) {
+                            clearError(fieldId);
+                        }
+                    }
+                });
+            }
+        });
+
+        // Photo Upload Functionality
+        const uploadPhotoBtn = document.getElementById('uploadPhotoBtn');
+        const studentPhoto = document.getElementById('studentPhoto');
+        const photoPreview = document.getElementById('photoPreview');
+
+        uploadPhotoBtn.addEventListener('click', function() {
+            studentPhoto.click();
+        });
+
+        studentPhoto.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                if (file.size > 2 * 1024 * 1024) {
+                    alert('File size should not exceed 2MB');
+                    studentPhoto.value = '';
+                    return;
+                }
+
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    photoPreview.style.backgroundImage = `url(${event.target.result})`;
+                    photoPreview.style.backgroundSize = 'cover';
+                    photoPreview.style.backgroundPosition = 'center';
+                    photoPreview.innerHTML = '';
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Auto-generate Student ID
+        function generateStudentID() {
+            const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            let id = '';
+            for (let i = 0; i < 6; i++) {
+                id += characters.charAt(Math.floor(Math.random() * characters.length));
+            }
+            return id;
+        }
+
+        // Form Submission with Validation
+        const addStudentForm = document.getElementById('addStudentForm');
+        addStudentForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Validate all fields
+            let isValid = true;
+            Object.keys(validators).forEach(fieldId => {
+                const field = document.getElementById(fieldId);
+                if (field) {
+                    const error = validators[fieldId].validate(field.value);
+                    if (error) {
+                        showError(fieldId, error);
+                        isValid = false;
+                    } else {
+                        clearError(fieldId);
+                    }
+                }
+            });
+
+            if (!isValid) {
+                // Scroll to first error
+                const firstError = document.querySelector('.form-input.error, .form-textarea.error');
+                if (firstError) {
+                    firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    firstError.focus();
+                }
+                alert('Please fix all errors before submitting the form.');
+                return;
+            }
+
+            // Generate Student ID
+            const studentID = generateStudentID();
+            document.getElementById('studentID').value = studentID;
+
+            // Collect form data
+            const formData = new FormData(addStudentForm);
+            const studentData = {};
+            formData.forEach((value, key) => {
+                studentData[key] = value;
+            });
+
+            console.log('Student Data:', studentData);
+
+            // Show success message
+            alert(`Student added successfully!\n\nStudent ID: ${studentID}\nName: ${studentData.firstName} ${studentData.lastName}`);
+
+            // Redirect to student list
+            if (confirm('Do you want to add another student?')) {
+                addStudentForm.reset();
+                photoPreview.style.backgroundImage = '';
+                photoPreview.innerHTML = '<span class="material-symbols-outlined">add_a_photo</span><span class="photo-preview-text">Upload Photo</span>';
+                // Clear all error messages
+                Object.keys(validators).forEach(fieldId => clearError(fieldId));
+            } else {
+                window.location.href = 'student-list.html';
+            }
+        });
+
+        // Cancel Button
+        const cancelBtn = document.getElementById('cancelBtn');
+        cancelBtn.addEventListener('click', function() {
+            if (confirm('Are you sure you want to cancel? All unsaved data will be lost.')) {
+                window.location.href = 'student-list.html';
+            }
+        });
+
+        // Phone number formatting
+        const phoneInputs = document.querySelectorAll('input[type="tel"]');
+        phoneInputs.forEach(input => {
+            input.addEventListener('input', function(e) {
+                let value = e.target.value.replace(/\D/g, '');
+                if (value.length > 10) {
+                    value = value.slice(0, 10);
+                }
+                e.target.value = value;
+            });
+        });
+
+        // PIN code formatting
+        const pinCodeInput = document.getElementById('pinCode');
+        pinCodeInput.addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length > 6) {
+                value = value.slice(0, 6);
+            }
+            e.target.value = value;
+        });
+    </script>
+</body>
+
+</html>
