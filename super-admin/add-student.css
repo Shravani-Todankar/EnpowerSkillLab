@@ -123,12 +123,11 @@ body.dark .stepper-container {
     content: '';
     position: absolute;
     top: 20px;
-    left: 80px;
-    right: 0;
+    left: 5%;
+    right: 5%;
     height: 2px;
     background: #E5E7EB;
     z-index: 0;
-    width: 750px;
 }
 
 body.dark .stepper::before {
@@ -689,15 +688,18 @@ body.dark .btn-back:hover {
     }
 
     .stepper::before {
-        content: '';
-        position: absolute;
-        top: 20px;
-        left: 80px;
-        right: 0;
-        height: 2px;
-        background: #E5E7EB;
-        z-index: 0;
-        width: 450px;
+        left: 3%;
+        right: 3%;
+    }
+
+    .step {
+        min-width: 70px;
+    }
+
+    .step-icon {
+        width: 36px;
+        height: 36px;
+        font-size: 13px;
     }
 }
 
@@ -716,6 +718,31 @@ body.dark .btn-back:hover {
 
     .stepper-container {
         padding: 1rem;
+    }
+
+    .stepper {
+        overflow-x: auto;
+        padding: 0 5px;
+    }
+
+    .stepper::before {
+        left: 2%;
+        right: 2%;
+    }
+
+    .step {
+        min-width: 60px;
+    }
+
+    .step-icon {
+        width: 32px;
+        height: 32px;
+        font-size: 12px;
+    }
+
+    .step-label {
+        font-size: 10px;
+        max-width: 70px;
     }
 
     .form-section {

@@ -49,11 +49,21 @@
       -webkit-font-smoothing: antialiased;
     }
 
+    body.dark {
+      background-color: var(--background-dark);
+      color: #d1d5db;
+    }
+
     .card {
       border: 1px solid rgba(0, 0, 0, 0.04);
       border-radius: var(--card-radius);
       box-shadow: var(--shadow);
       background-color: #fff;
+    }
+
+    body.dark .card {
+      background-color: #1f2937;
+      border-color: #374151;
     }
 
     .btn-white {
@@ -67,6 +77,16 @@
       color: #111827;
     }
 
+    body.dark .btn-white {
+      background-color: #374151;
+      color: #e5e7eb;
+      border-color: #4b5563;
+    }
+
+    body.dark .btn-white:hover {
+      background-color: #4b5563;
+    }
+
     .btn-primary {
       background-color: var(--primary);
       border-color: var(--primary);
@@ -75,6 +95,46 @@
     .btn-primary:hover {
       background-color: #581c87;
       border-color: #581c87;
+    }
+
+    .control-pill {
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.25rem 0.6rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    .status-active {
+      background-color: #d1fae5;
+      color: #166534;
+    }
+
+    .status-pending {
+      background-color: #fef9c3;
+      color: #854d0e;
+    }
+
+    .status-inactive {
+      background-color: #fee2e2;
+      color: #991b1b;
+    }
+
+    body.dark .status-active {
+      background-color: rgba(16, 185, 129, 0.18);
+      color: #34d399;
+    }
+
+    body.dark .status-pending {
+      background-color: rgba(234, 179, 8, 0.18);
+      color: #fcd34d;
+    }
+
+    body.dark .status-inactive {
+      background-color: rgba(248, 113, 113, 0.18);
+      color: #fca5a5;
     }
 
     .material-symbols-outlined {
@@ -93,11 +153,6 @@
       font-weight: 700;
       color: #fff;
       font-size: 0.8rem;
-      flex-shrink: 0;
-    }
-
-    .bg-indigo-100 {
-      background: #ccdcff;
     }
 
     .table> :not(caption)>*>* {
@@ -114,50 +169,44 @@
       background: #f9fafb;
     }
 
-    .status-active {
-      background-color: #d1fae5;
-      color: #166534;
-      border-radius: 999px;
-      font-weight: 600;
-      font-size: 0.75rem;
-      padding: 0.25rem 0.6rem;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.25rem;
+    body.dark .table thead th {
+      color: #9ca3af;
+      background: rgba(55, 65, 81, 0.7);
+      border-color: #374151;
     }
 
-    .status-inactive {
-      background-color: #fee2e2;
-      color: #991b1b;
-      border-radius: 999px;
-      font-weight: 600;
-      font-size: 0.75rem;
-      padding: 0.25rem 0.6rem;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.25rem;
+    .table tbody td {
+      color: #111827;
     }
 
-    .badge-pill {
-      border-radius: 999px;
-      padding: 0.3rem 0.65rem;
-      font-size: 0.75rem;
-      font-weight: 600;
+    body.dark .table tbody td {
+      color: #e5e7eb;
     }
 
-    .dataTables_wrapper,
-    table {
-      font-family: 'Poppins', sans-serif;
+    .shadow-light {
+      box-shadow: var(--shadow);
     }
 
-    .dataTables_wrapper .dataTables_length label,
-    .dataTables_wrapper .dataTables_filter label,
-    .dataTables_wrapper .dataTables_info,
-    .dataTables_wrapper .dataTables_paginate .paginate_button,
-    .dataTables_wrapper .form-select,
-    .dataTables_wrapper .form-control {
-      font-size: 0.95rem;
-      font-weight: 400;
+    .pagination .page-link {
+      border-color: #d1d5db;
+      color: #6b7280;
+    }
+
+    .pagination .page-link.active,
+    .pagination .page-item.active .page-link {
+      background-color: var(--primary);
+      border-color: var(--primary);
+      color: #fff;
+    }
+
+    body.dark .pagination .page-link {
+      background-color: #1f2937;
+      border-color: #4b5563;
+      color: #9ca3af;
+    }
+
+    body.dark .pagination .page-link.active {
+      color: #fff;
     }
 
     .dashboard-container {
@@ -208,7 +257,18 @@
       font-weight: 600;
     }
 
-    div.dataTables_wrapper div.dataTables_length select {
+    .badge-pill {
+      border-radius: 999px;
+      padding: 0.3rem 0.65rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .bg-indigo-100 {
+      background: #ccdcff;
+    }
+
+    div.dataTables_wrapper div.dataTables_length select{
       width: 70px !important;
     }
   </style>
@@ -223,15 +283,11 @@
     <main class="main-content">
       <!-- Include Header Component -->
       <div id="header-container"></div>
-
       <div class="py-4 py-sm-5 py-lg-5">
         <div class="container-xl" style="max-width: 1200px;">
           <header
             class="mb-4 d-flex flex-column flex-lg-row align-items-start align-items-lg-center justify-content-between gap-3">
-            <div>
-
-              <h1 class="h4 mb-0 fw-bold text-dark">Program Coordinator List</h1>
-            </div>
+            <h1 class="h4 mb-0 fw-bold text-dark">Program Coordinator List</h1>
             <div class="d-flex flex-wrap gap-2 align-items-center justify-content-start justify-content-lg-end">
 
               <button class="btn-gradient btn-download">
@@ -244,10 +300,10 @@
                 Upload CSV
               </button>
 
-              <button class="btn-gradient btn-add">
+              <a href="add-coordinator.html" class="btn-gradient btn-add text-decoration-none">
                 <span class="material-symbols-outlined">add</span>
-                Add New Teacher
-              </button>
+                Add New Coordinator
+              </a>
 
             </div>
           </header>
@@ -286,12 +342,14 @@
                         <span class="badge bg-indigo-100 text-primary fw-semibold badge-pill">Attendance</span>
                       </div>
                     </td>
-                    <td><span class="status-active">Active</span></td>
+                    <td>
+                      <span class="control-pill status-active">Active</span>
+                    </td>
                     <td>
                       <div class="d-flex align-items-center gap-3 text-muted">
-                        <button class="btn btn-link p-0 text-decoration-none text-muted"><span
+                        <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary"><span
                             class="material-symbols-outlined">edit</span></button>
-                        <button class="btn btn-link p-0 text-decoration-none text-muted"><span
+                        <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary"><span
                             class="material-symbols-outlined">visibility</span></button>
                       </div>
                     </td>
@@ -310,12 +368,14 @@
                         <span class="badge bg-success-subtle text-success fw-semibold badge-pill">Assessments</span>
                       </div>
                     </td>
-                    <td><span class="status-active">Active</span></td>
+                    <td>
+                      <span class="control-pill status-active">Active</span>
+                    </td>
                     <td>
                       <div class="d-flex align-items-center gap-3 text-muted">
-                        <button class="btn btn-link p-0 text-decoration-none text-muted"><span
+                        <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary"><span
                             class="material-symbols-outlined">edit</span></button>
-                        <button class="btn btn-link p-0 text-decoration-none text-muted"><span
+                        <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary"><span
                             class="material-symbols-outlined">visibility</span></button>
                       </div>
                     </td>
@@ -331,18 +391,18 @@
                     <td class="text-muted">aditya.sharma@example.com</td>
                     <td>
                       <div class="d-flex flex-wrap gap-2">
-                        <span class="badge bg-danger-subtle text-danger fw-semibold badge-pill">Schools
-                          monitoring</span>
-                        <span class="badge bg-primary-subtle text-primary fw-semibold badge-pill">Teacher
-                          monitoring</span>
+                        <span class="badge bg-danger-subtle text-danger fw-semibold badge-pill">Schools monitoring</span>
+                        <span class="badge bg-primary-subtle text-primary fw-semibold badge-pill">Teacher monitoring</span>
                       </div>
                     </td>
-                    <td><span class="status-inactive">Inactive</span></td>
+                    <td>
+                      <span class="control-pill status-inactive">Inactive</span>
+                    </td>
                     <td>
                       <div class="d-flex align-items-center gap-3 text-muted">
-                        <button class="btn btn-link p-0 text-decoration-none text-muted"><span
+                        <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary"><span
                             class="material-symbols-outlined">edit</span></button>
-                        <button class="btn btn-link p-0 text-decoration-none text-muted"><span
+                        <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary"><span
                             class="material-symbols-outlined">visibility</span></button>
                       </div>
                     </td>
@@ -361,12 +421,14 @@
                         <span class="badge bg-primary-subtle text-primary fw-semibold badge-pill">Academics Data</span>
                       </div>
                     </td>
-                    <td><span class="status-active">Active</span></td>
+                    <td>
+                      <span class="control-pill status-pending">Pending</span>
+                    </td>
                     <td>
                       <div class="d-flex align-items-center gap-3 text-muted">
-                        <button class="btn btn-link p-0 text-decoration-none text-muted"><span
+                        <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary"><span
                             class="material-symbols-outlined">edit</span></button>
-                        <button class="btn btn-link p-0 text-decoration-none text-muted"><span
+                        <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary"><span
                             class="material-symbols-outlined">visibility</span></button>
                       </div>
                     </td>
@@ -387,12 +449,14 @@
                         <span class="badge bg-primary-subtle text-primary fw-semibold badge-pill">Academics Data</span>
                       </div>
                     </td>
-                    <td><span class="status-active">Active</span></td>
+                    <td>
+                      <span class="control-pill status-active">Active</span>
+                    </td>
                     <td>
                       <div class="d-flex align-items-center gap-3 text-muted">
-                        <button class="btn btn-link p-0 text-decoration-none text-muted"><span
+                        <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary"><span
                             class="material-symbols-outlined">edit</span></button>
-                        <button class="btn btn-link p-0 text-decoration-none text-muted"><span
+                        <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary"><span
                             class="material-symbols-outlined">visibility</span></button>
                       </div>
                     </td>
@@ -408,17 +472,18 @@
                     <td class="text-muted">anjali.patel@example.com</td>
                     <td>
                       <div class="d-flex flex-wrap gap-2">
-                        <span class="badge bg-primary-subtle text-primary fw-semibold badge-pill">Teacher
-                          monitoring</span>
+                        <span class="badge bg-primary-subtle text-primary fw-semibold badge-pill">Teacher monitoring</span>
                         <span class="badge bg-success-subtle text-success fw-semibold badge-pill">Assessments</span>
                       </div>
                     </td>
-                    <td><span class="status-active">Active</span></td>
+                    <td>
+                      <span class="control-pill status-pending">Pending</span>
+                    </td>
                     <td>
                       <div class="d-flex align-items-center gap-3 text-muted">
-                        <button class="btn btn-link p-0 text-decoration-none text-muted"><span
+                        <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary"><span
                             class="material-symbols-outlined">edit</span></button>
-                        <button class="btn btn-link p-0 text-decoration-none text-muted"><span
+                        <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary"><span
                             class="material-symbols-outlined">visibility</span></button>
                       </div>
                     </td>
@@ -431,11 +496,13 @@
       </div>
     </main>
   </div>
+
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
   <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
   <script>
+
     // Load Sidebar and Header Components
     document.addEventListener('DOMContentLoaded', function () {
       Promise.all([
@@ -464,17 +531,19 @@
 
     function setActiveMenuItem() {
       const currentPage = window.location.pathname.split('/').pop();
-      const navDashboard = document.getElementById('nav-dashboard');
-      if (navDashboard && currentPage === 'dashboard.html') {
-        navDashboard.classList.add('active');
+      const navCoordinatorList = document.getElementById('nav-coordinator-list');
+      if (navCoordinatorList && currentPage === 'program-coordinator-list.html') {
+        navCoordinatorList.classList.add('active');
       }
     }
+
+
 
     $(function () {
       $('#coordinatorTable').DataTable({
         paging: true,
-        pageLength: 6,
-        lengthMenu: [6, 10, 25, 50],
+        pageLength: 10,
+        lengthMenu: [5, 10, 25, 50],
         order: [[1, 'asc']],
         columnDefs: [
           { orderable: false, targets: [3, 5] }

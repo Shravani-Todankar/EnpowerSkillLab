@@ -107,12 +107,11 @@
             content: '';
             position: absolute;
             top: 20px;
-            left: 150px;
-            right: 0;
+            left: 5%;
+            right: 5%;
             height: 2px;
             background: #e5e5e7;
             z-index: 0;
-            width: 700px;
         }
 
         .step {
@@ -394,15 +393,18 @@
             }
 
             .stepper::before {
-                content: '';
-                position: absolute;
-                top: 20px;
-                left: 50px;
-                right: 0;
-                height: 2px;
-                background: #e5e5e7;
-                z-index: 0;
-                width: 250px;
+                left: 3%;
+                right: 3%;
+            }
+
+            .step {
+                min-width: 70px;
+            }
+
+            .step-icon {
+                width: 36px;
+                height: 36px;
+                font-size: 13px;
             }
         }
 
@@ -422,11 +424,27 @@
 
             .stepper {
                 overflow-x: auto;
+                padding: 0 5px;
+            }
+
+            .stepper::before {
+                left: 2%;
+                right: 2%;
+            }
+
+            .step {
+                min-width: 60px;
+            }
+
+            .step-icon {
+                width: 32px;
+                height: 32px;
+                font-size: 12px;
             }
 
             .step-label {
                 font-size: 10px;
-                max-width: 80px;
+                max-width: 70px;
             }
         }
     </style>
