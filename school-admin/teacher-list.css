@@ -266,8 +266,15 @@ body.dark .table-container {
     background-color: #1F2937;
 }
 
+/* Table wrapper outer - contains both DataTables controls and table */
+.table-wrapper-outer {
+    width: 100%;
+    overflow: visible;
+}
+
 .table-scroll {
     overflow-x: auto;
+    overflow-y: visible;
 }
 
 /* Table */
@@ -647,6 +654,28 @@ body.dark .action-btn:hover {
     .add-teacher-btn {
         flex: initial;
     }
+}
+
+/* DataTables header and footer - fixed position */
+.datatable-header,
+.datatable-footer {
+    background: white;
+    position: relative;
+    z-index: 2;
+}
+
+body.dark .datatable-header,
+body.dark .datatable-footer {
+    background: #1f2937;
+}
+
+/* Table scroll wrapper - only this scrolls horizontally */
+.table-scroll-wrapper {
+    overflow-x: auto;
+    overflow-y: visible;
+    -webkit-overflow-scrolling: touch;
+    position: relative;
+    z-index: 1;
 }
 
 /* DataTables Custom Styling */

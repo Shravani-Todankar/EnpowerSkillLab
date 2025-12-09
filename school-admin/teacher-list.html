@@ -75,8 +75,9 @@
                     </div>
                 </div>
                 <div class="table-container">
-                    <div class="table-scroll">
-                        <table class="teachers-table">
+                    <div class="table-wrapper-outer">
+                        <div class="table-scroll">
+                            <table class="teachers-table">
                             <thead>
                                 <tr>
                                     <th>Teacher ID</th>
@@ -390,6 +391,7 @@
                                 </tr>
                             </tbody>
                         </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -480,7 +482,8 @@
                         orderable: true
                     }
                 ],
-                order: [[0, 'asc']] // Default sort by Teacher ID
+                order: [[0, 'asc']], // Default sort by Teacher ID
+                dom: '<"datatable-header d-flex flex-column flex-lg-row align-items-start align-items-lg-center justify-content-between gap-3 p-3 border-bottom"l<"w-100"f>><"table-scroll-wrapper"t><"datatable-footer d-flex flex-column flex-lg-row align-items-start align-items-lg-center justify-content-between gap-3 p-3 border-top"ip>'
             });
         });
     </script>

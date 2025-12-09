@@ -260,6 +260,72 @@
     div.dataTables_wrapper div.dataTables_length select{
       width: 70px !important;
     }
+
+    /* Table wrapper outer - contains both DataTables controls and table */
+    .table-wrapper-outer {
+      width: 100%;
+      overflow: visible;
+    }
+
+    /* Improved table responsive wrapper with clean scrollbar */
+    .table-responsive {
+      overflow-x: auto;
+      overflow-y: visible;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    /* Custom scrollbar styling for a cleaner look */
+    .table-responsive::-webkit-scrollbar {
+      height: 8px;
+    }
+
+    .table-responsive::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 4px;
+    }
+
+    body.dark .table-responsive::-webkit-scrollbar-track {
+      background: #374151;
+    }
+
+    .table-responsive::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 4px;
+    }
+
+    body.dark .table-responsive::-webkit-scrollbar-thumb {
+      background: #4b5563;
+    }
+
+    .table-responsive::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+
+    body.dark .table-responsive::-webkit-scrollbar-thumb:hover {
+      background: #6b7280;
+    }
+
+    /* DataTables header and footer - fixed position */
+    .datatable-header,
+    .datatable-footer {
+      background: white;
+      position: relative;
+      z-index: 2;
+    }
+
+    body.dark .datatable-header,
+    body.dark .datatable-footer {
+      background: #1f2937;
+    }
+
+    /* Table scroll wrapper - only this scrolls horizontally */
+    .table-scroll-wrapper {
+      overflow-x: auto;
+      overflow-y: visible;
+      -webkit-overflow-scrolling: touch;
+      position: relative;
+      z-index: 1;
+    }
   </style>
 </head>
 
@@ -298,8 +364,9 @@
           </header>
 
           <main class="card">
-            <div class="table-responsive">
-              <table id="adminTable" class="table mb-0 align-middle">
+            <div class="table-wrapper-outer">
+              <div class="table-responsive">
+                <table id="adminTable" class="table mb-0 align-middle">
                 <thead>
                   <tr>
                     <th scope="col">Admin ID</th>
@@ -527,6 +594,7 @@
                   </tr>
                 </tbody>
               </table>
+              </div>
             </div>
           </main>
         </div>
@@ -597,7 +665,7 @@
             previous: 'Previous'
           }
         },
-        dom: '<"d-flex flex-column flex-lg-row align-items-start align-items-lg-center justify-content-between gap-3 p-3 border-bottom"l<"w-100"f>>t<"d-flex flex-column flex-lg-row align-items-start align-items-lg-center justify-content-between gap-3 p-3 border-top"ip>'
+        dom: '<"datatable-header d-flex flex-column flex-lg-row align-items-start align-items-lg-center justify-content-between gap-3 p-3 border-bottom"l<"w-100"f>><"table-scroll-wrapper"t><"datatable-footer d-flex flex-column flex-lg-row align-items-start align-items-lg-center justify-content-between gap-3 p-3 border-top"ip>'
       });
     });
   </script>
