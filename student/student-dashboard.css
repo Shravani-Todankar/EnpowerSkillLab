@@ -2570,9 +2570,10 @@ body.dark .progress-bar {
     }
 }
 
-@media (max-width: 390px) {
+@media (max-width: 393px) {
     .card.stats-overview-card.stats-main-card {
         width: 372px;
+        margin: 0 auto;
     }
 }
 
