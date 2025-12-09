@@ -2566,7 +2566,13 @@ body.dark .progress-bar {
     }
 
     .card.stats-overview-card.stats-main-card {
-        width: 395px;
+        width: 400px;
+    }
+}
+
+@media (max-width: 390px) {
+    .card.stats-overview-card.stats-main-card {
+        width: 372px;
     }
 }
 
