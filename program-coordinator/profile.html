@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile - Program Coordinator</title>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+        rel="stylesheet" />
+
+    <!-- Sidebar & Header CSS -->
+    <link rel="stylesheet" href="sidebar.css">
+    <link rel="stylesheet" href="header.css">
+
+    <!-- Sidebar & Header JS -->
+    <script src="sidebar.js"></script>
+    <script src="header.js"></script>
+
+    <style>
+        /* Prevent FOUC - hide containers until loaded */
+        #sidebar-container:empty,
+        #header-container:empty {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        #sidebar-container.loaded,
+        #header-container.loaded {
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.2s ease-in;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 50%, #f9fafb 100%);
+            color: #1d1d1f;
+        }
+
+        .dashboard-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        .dashboard-page {
+            padding: 2rem;
+            flex: 1;
+        }
+
+        .profile-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .page-header {
+            margin-bottom: 30px;
+        }
+
+        .page-header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #1d1d1f;
+        }
+
+        .page-header p {
+            font-size: 14px;
+            color: #6b7280;
+        }
+
+        .profile-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+
+        .profile-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08), 0 0 1px rgba(0, 0, 0, 0.05);
+            padding: 32px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0, 0, 0, 0.04);
+        }
+
+        .profile-card:hover {
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+        }
+
+        .profile-card.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 2px solid #f3f4f6;
+        }
+
+        .card-header .material-symbols-outlined {
+            font-size: 28px;
+            color: #6b277e;
+        }
+
+        .card-header h2 {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1d1d1f;
+        }
+
+        /* Photo Upload Section */
+        .photo-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 24px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .profile-photo-wrapper {
+            position: relative;
+        }
+
+        .profile-photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 4px solid #6b277e;
+            object-fit: cover;
+            background: linear-gradient(135deg, #f3f0ff 0%, #e9d5ff 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .profile-photo .material-symbols-outlined {
+            font-size: 4rem;
+            color: #6b277e;
+        }
+
+        .photo-upload-btn {
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #6b277e;
+            border: 3px solid white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .photo-upload-btn:hover {
+            background: #A67DB1;
+            transform: scale(1.1);
+        }
+
+        .photo-upload-btn .material-symbols-outlined {
+            font-size: 20px;
+            color: white;
+        }
+
+        .photo-input {
+            display: none;
+        }
+
+        .photo-hint {
+            font-size: 13px;
+            color: #6b7280;
+            text-align: center;
+        }
+
+        /* Form Fields */
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-grid.single-column {
+            grid-template-columns: 1fr;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-label {
+            font-size: 14px;
+            font-weight: 500;
+            color: #374151;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .required {
+            color: #EF4444;
+        }
+
+        .form-input,
+        .form-select {
+            padding: 12px 16px;
+            border: 1px solid #d2d2d7;
+            border-radius: 8px;
+            font-size: 14px;
+            color: #1d1d1f;
+            background: white;
+            transition: all 0.2s ease;
+            font-family: inherit;
+        }
+
+        .form-input:focus,
+        .form-select:focus {
+            outline: none;
+            border-color: #6b277e;
+            box-shadow: 0 0 0 3px rgba(107, 39, 126, 0.1);
+        }
+
+        .form-input[readonly] {
+            background-color: #f9fafb;
+            cursor: not-allowed;
+            color: #6b7280;
+        }
+
+        .form-input.error {
+            border-color: #EF4444;
+            background-color: #FEF2F2;
+        }
+
+        .error-message {
+            font-size: 12px;
+            color: #EF4444;
+            display: none;
+        }
+
+        .form-select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%2386868b' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            padding-right: 40px;
+            cursor: pointer;
+        }
+
+        /* Role Information Card */
+        .role-info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .info-item {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .info-label {
+            font-size: 13px;
+            color: #6b7280;
+            font-weight: 500;
+        }
+
+        .info-value {
+            font-size: 15px;
+            color: #1d1d1f;
+            font-weight: 600;
+        }
+
+        .role-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            background: linear-gradient(135deg, #6b277e 10%, #14001a 100%);
+            color: white;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            width: fit-content;
+        }
+
+        .role-badge .material-symbols-outlined {
+            font-size: 18px;
+        }
+
+        .permission-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            background: #facd48;
+            color: #1d1d1f;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            width: fit-content;
+        }
+
+        .permission-badge .material-symbols-outlined {
+            font-size: 18px;
+        }
+
+        /* Action Buttons */
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            margin-top: 24px;
+            padding-top: 24px;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: none;
+            font-family: inherit;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-cancel {
+            background: #f3f4f6;
+            color: #6b7280;
+        }
+
+        .btn-cancel:hover {
+            background: #e5e7eb;
+            color: #374151;
+        }
+
+        .btn-save {
+            background: #6b277e;
+            color: white;
+        }
+
+        .btn-save:hover {
+            background: #A67DB1;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(107, 39, 126, 0.3);
+        }
+
+        .btn-edit-profile {
+            background: #6b277e;
+            color: white;
+        }
+
+        .btn-edit-profile:hover {
+            background: #a038bc;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(107, 39, 126, 0.3);
+        }
+
+        .btn .material-symbols-outlined {
+            font-size: 18px;
+        }
+
+        /* Edit Mode */
+        .edit-mode .form-input[readonly] {
+            background-color: white;
+            cursor: text;
+            color: #1d1d1f;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .dashboard-page {
+                padding: 1.5rem;
+            }
+
+            .profile-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-page {
+                padding: 1rem;
+            }
+
+            .profile-card {
+                padding: 24px;
+            }
+
+            .form-grid,
+            .role-info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .page-header h1 {
+                font-size: 24px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .dashboard-page {
+                padding: 0.75rem;
+            }
+
+            .profile-card {
+                padding: 20px;
+                border-radius: 12px;
+            }
+
+            .profile-photo {
+                width: 120px;
+                height: 120px;
+            }
+
+            .form-actions {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- Include Sidebar Component -->
+        <div id="sidebar-container"></div>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Include Header Component -->
+            <div id="header-container"></div>
+
+            <!-- Page Content -->
+            <div class="dashboard-page">
+                <div class="profile-container">
+                    <div class="page-header">
+                        <h1>My Profile</h1>
+                        <p>Manage your personal information and account settings</p>
+                    </div>
+
+                    <div class="profile-grid">
+                        <!-- Personal Information Card -->
+                        <div class="profile-card full-width">
+                            <div class="card-header">
+                                <span class="material-symbols-outlined">person</span>
+                                <h2>Personal Information</h2>
+                            </div>
+
+                            <form id="profileForm">
+                                <!-- Photo Upload Section -->
+                                <div class="photo-section">
+                                    <div class="profile-photo-wrapper">
+                                        <div class="profile-photo" id="profilePhotoPreview">
+                                            <span class="material-symbols-outlined">account_circle</span>
+                                        </div>
+                                        <label class="photo-upload-btn" for="profilePhotoInput">
+                                            <span class="material-symbols-outlined">photo_camera</span>
+                                        </label>
+                                        <input type="file" id="profilePhotoInput" class="photo-input" accept="image/*">
+                                    </div>
+                                    <p class="photo-hint">Upload a profile photo (Max 2MB, JPG, PNG)</p>
+                                </div>
+
+                                <!-- Personal Details -->
+                                <div class="form-grid">
+                                    <div class="form-group">
+                                        <label class="form-label">Full Name <span class="required">*</span></label>
+                                        <input type="text" id="fullName" class="form-input" value="Jane Smith" readonly>
+                                        <span class="error-message" id="fullNameError"></span>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="form-label">Email Address <span class="required">*</span></label>
+                                        <input type="email" id="email" class="form-input" value="coordinator@enpower.com" readonly>
+                                        <span class="error-message" id="emailError"></span>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="form-label">Phone Number <span class="required">*</span></label>
+                                        <input type="tel" id="phone" class="form-input" value="+91 9876543210" readonly>
+                                        <span class="error-message" id="phoneError"></span>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="form-label">Alternate Phone Number</label>
+                                        <input type="tel" id="alternatePhone" class="form-input" placeholder="Enter alternate phone" readonly>
+                                        <span class="error-message" id="alternatePhoneError"></span>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="form-label">Gender</label>
+                                        <select id="gender" class="form-select" disabled>
+                                            <option value="">Select gender</option>
+                                            <option value="male">Male</option>
+                                            <option value="female">Female</option>
+                                            <option value="other">Other</option>
+                                            <option value="prefer-not-to-say">Prefer not to say</option>
+                                        </select>
+                                        <span class="error-message" id="genderError"></span>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="form-label">Date of Birth</label>
+                                        <input type="date" id="dateOfBirth" class="form-input" readonly>
+                                        <span class="error-message" id="dateOfBirthError"></span>
+                                    </div>
+                                </div>
+
+                                <!-- Action Buttons -->
+                                <div class="form-actions">
+                                    <button type="button" class="btn btn-cancel" id="cancelBtn" style="display: none;">
+                                        <span class="material-symbols-outlined">close</span>
+                                        Cancel
+                                    </button>
+                                    <button type="button" class="btn btn-edit-profile" id="editBtn">
+                                        <span class="material-symbols-outlined">edit</span>
+                                        Edit Profile
+                                    </button>
+                                    <button type="submit" class="btn btn-save" id="saveBtn" style="display: none;">
+                                        <span class="material-symbols-outlined">save</span>
+                                        Save Changes
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- Role Information Card -->
+                        <div class="profile-card">
+                            <div class="card-header">
+                                <span class="material-symbols-outlined">admin_panel_settings</span>
+                                <h2>Role Information</h2>
+                            </div>
+
+                            <div class="role-info-grid">
+                                <div class="info-item full-width">
+                                    <span class="info-label">Role</span>
+                                    <div class="role-badge">
+                                        <span class="material-symbols-outlined">verified</span>
+                                        Program Coordinator
+                                    </div>
+                                </div>
+
+                                <div class="info-item">
+                                    <span class="info-label">Account Created On</span>
+                                    <span class="info-value">November 15, 2025</span>
+                                </div>
+
+                                <div class="info-item">
+                                    <span class="info-label">Last Login</span>
+                                    <span class="info-value">Today at 10:30 AM</span>
+                                </div>
+
+                                <div class="info-item full-width" style="margin-top: 12px;">
+                                    <span class="info-label">Assigned Permissions</span>
+                                    <div class="permission-badge">
+                                        <span class="material-symbols-outlined">security</span>
+                                        Program Management Access
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Account Security Card -->
+                        <div class="profile-card">
+                            <div class="card-header">
+                                <span class="material-symbols-outlined">lock</span>
+                                <h2>Account Security</h2>
+                            </div>
+
+                            <div class="role-info-grid single-column">
+                                <div class="info-item">
+                                    <span class="info-label">Password</span>
+                                    <span class="info-value">••••••••••</span>
+                                </div>
+
+                                <div class="info-item">
+                                    <span class="info-label">Last Password Change</span>
+                                    <span class="info-value">December 09, 2025</span>
+                                </div>
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="button" class="btn btn-edit-profile" onclick="window.location.href='change-password.html'">
+                                    <span class="material-symbols-outlined">key</span>
+                                    Change Password
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Load Sidebar and Header Components
+        document.addEventListener('DOMContentLoaded', function () {
+            Promise.all([
+                fetch('sidebar.html').then(response => response.text()),
+                fetch('header.html').then(response => response.text())
+            ]).then(([sidebarHTML, headerHTML]) => {
+                document.getElementById('sidebar-container').innerHTML = sidebarHTML;
+                document.getElementById('header-container').innerHTML = headerHTML;
+
+                if (typeof initializeHeader === 'function') {
+                    initializeHeader();
+                }
+
+                setTimeout(() => {
+                    setActiveMenuItem();
+                }, 200);
+            });
+        });
+
+        function setActiveMenuItem() {
+            const currentPage = window.location.pathname.split('/').pop();
+            const navProfile = document.getElementById('nav-profile');
+            if (navProfile && currentPage === 'profile.html') {
+                navProfile.classList.add('active');
+
+                const accountDropdown = document.getElementById('account-dropdown');
+                if (accountDropdown) {
+                    accountDropdown.classList.add('active');
+                    const dropdownMenu = accountDropdown.nextElementSibling;
+                    if (dropdownMenu) {
+                        dropdownMenu.classList.add('active');
+                    }
+                }
+            }
+        }
+
+        // Form Edit Mode Toggle
+        const editBtn = document.getElementById('editBtn');
+        const saveBtn = document.getElementById('saveBtn');
+        const cancelBtn = document.getElementById('cancelBtn');
+        const profileForm = document.getElementById('profileForm');
+        const formInputs = profileForm.querySelectorAll('input[type="text"], input[type="email"], input[type="tel"], input[type="date"]');
+        const genderSelect = document.getElementById('gender');
+
+        let isEditMode = false;
+        let originalValues = {};
+
+        // Save original values
+        function saveOriginalValues() {
+            formInputs.forEach(input => {
+                originalValues[input.id] = input.value;
+            });
+            originalValues['gender'] = genderSelect.value;
+        }
+
+        // Restore original values
+        function restoreOriginalValues() {
+            formInputs.forEach(input => {
+                input.value = originalValues[input.id] || '';
+            });
+            genderSelect.value = originalValues['gender'] || '';
+        }
+
+        saveOriginalValues();
+
+        editBtn.addEventListener('click', function() {
+            isEditMode = true;
+            profileForm.classList.add('edit-mode');
+
+            // Enable all inputs except email (email should remain read-only for security)
+            formInputs.forEach(input => {
+                if (input.id !== 'email') {
+                    input.removeAttribute('readonly');
+                }
+            });
+            genderSelect.removeAttribute('disabled');
+
+            // Toggle buttons
+            editBtn.style.display = 'none';
+            saveBtn.style.display = 'flex';
+            cancelBtn.style.display = 'flex';
+        });
+
+        cancelBtn.addEventListener('click', function() {
+            isEditMode = false;
+            profileForm.classList.remove('edit-mode');
+
+            // Restore original values
+            restoreOriginalValues();
+
+            // Disable all inputs
+            formInputs.forEach(input => {
+                input.setAttribute('readonly', 'readonly');
+                input.classList.remove('error');
+            });
+            genderSelect.setAttribute('disabled', 'disabled');
+
+            // Clear all errors
+            document.querySelectorAll('.error-message').forEach(error => {
+                error.style.display = 'none';
+            });
+
+            // Toggle buttons
+            editBtn.style.display = 'flex';
+            saveBtn.style.display = 'none';
+            cancelBtn.style.display = 'none';
+        });
+
+        // Form Validation
+        profileForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            if (validateForm()) {
+                // Save new values as original
+                saveOriginalValues();
+
+                // Disable edit mode
+                isEditMode = false;
+                profileForm.classList.remove('edit-mode');
+
+                formInputs.forEach(input => {
+                    input.setAttribute('readonly', 'readonly');
+                });
+                genderSelect.setAttribute('disabled', 'disabled');
+
+                // Toggle buttons
+                editBtn.style.display = 'flex';
+                saveBtn.style.display = 'none';
+                cancelBtn.style.display = 'none';
+
+                alert('Profile updated successfully!');
+            }
+        });
+
+        function validateForm() {
+            let isValid = true;
+
+            // Validate Full Name
+            const fullName = document.getElementById('fullName');
+            if (!fullName.value.trim()) {
+                showError('fullName', 'Full name is required');
+                isValid = false;
+            } else if (fullName.value.trim().length < 2) {
+                showError('fullName', 'Full name must be at least 2 characters');
+                isValid = false;
+            } else {
+                clearError('fullName');
+            }
+
+            // Validate Email
+            const email = document.getElementById('email');
+            const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            if (!email.value.trim()) {
+                showError('email', 'Email is required');
+                isValid = false;
+            } else if (!emailRegex.test(email.value)) {
+                showError('email', 'Please enter a valid email address');
+                isValid = false;
+            } else {
+                clearError('email');
+            }
+
+            // Validate Phone
+            const phone = document.getElementById('phone');
+            const cleanPhone = phone.value.replace(/\D/g, '');
+            if (!phone.value.trim()) {
+                showError('phone', 'Phone number is required');
+                isValid = false;
+            } else if (cleanPhone.length !== 10) {
+                showError('phone', 'Phone number must be 10 digits');
+                isValid = false;
+            } else {
+                clearError('phone');
+            }
+
+            // Validate Alternate Phone (optional)
+            const alternatePhone = document.getElementById('alternatePhone');
+            if (alternatePhone.value.trim()) {
+                const cleanAltPhone = alternatePhone.value.replace(/\D/g, '');
+                if (cleanAltPhone.length !== 10) {
+                    showError('alternatePhone', 'Phone number must be 10 digits');
+                    isValid = false;
+                } else {
+                    clearError('alternatePhone');
+                }
+            }
+
+            return isValid;
+        }
+
+        function showError(fieldId, message) {
+            const field = document.getElementById(fieldId);
+            const errorElement = document.getElementById(fieldId + 'Error');
+
+            field.classList.add('error');
+            errorElement.textContent = message;
+            errorElement.style.display = 'block';
+        }
+
+        function clearError(fieldId) {
+            const field = document.getElementById(fieldId);
+            const errorElement = document.getElementById(fieldId + 'Error');
+
+            field.classList.remove('error');
+            errorElement.textContent = '';
+            errorElement.style.display = 'none';
+        }
+
+        // Photo Upload
+        const profilePhotoInput = document.getElementById('profilePhotoInput');
+        const profilePhotoPreview = document.getElementById('profilePhotoPreview');
+
+        profilePhotoInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                // Validate file type
+                const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
+                if (!validTypes.includes(file.type)) {
+                    alert('Please upload a valid image file');
+                    profilePhotoInput.value = '';
+                    return;
+                }
+
+                // Validate file size (2MB max)
+                const maxSize = 2 * 1024 * 1024;
+                if (file.size > maxSize) {
+                    alert('File size should not exceed 2MB. Your file is ' + (file.size / (1024 * 1024)).toFixed(2) + 'MB');
+                    profilePhotoInput.value = '';
+                    return;
+                }
+
+                // Preview image
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    profilePhotoPreview.style.backgroundImage = `url(${event.target.result})`;
+                    profilePhotoPreview.style.backgroundSize = 'cover';
+                    profilePhotoPreview.style.backgroundPosition = 'center';
+                    profilePhotoPreview.innerHTML = '';
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Phone number formatting
+        const phoneInputs = document.querySelectorAll('input[type="tel"]');
+        phoneInputs.forEach(input => {
+            input.addEventListener('input', function(e) {
+                let value = e.target.value.replace(/\D/g, '');
+                if (value.length > 10) {
+                    value = value.slice(0, 10);
+                }
+                e.target.value = value;
+            });
+        });
+    </script>
+</body>
+
+</html>

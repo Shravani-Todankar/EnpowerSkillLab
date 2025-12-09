@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Add New Teacher - School Admin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="add-teacher.css">
+
+    <!-- Sidebar & Header CSS -->
+    <link rel="stylesheet" href="sidebar.css">
+    <link rel="stylesheet" href="header.css">
+
+    <!-- Sidebar & Header JS -->
+    <script src="sidebar.js"></script>
+    <script src="header.js"></script>
+
+    <style>
+        /* Prevent FOUC - hide containers until loaded */
+        #sidebar-container:empty,
+        #header-container:empty {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        #sidebar-container.loaded,
+        #header-container.loaded {
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.2s ease-in;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- Include Sidebar Component -->
+        <div id="sidebar-container"></div>
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Include Header Component -->
+            <div id="header-container"></div>
+            <!-- Add Teacher Page -->
+            <div class="add-teacher-page">
+                <!-- Add Teacher Form -->
+                <form class="add-teacher-form" id="teacherForm">
+                    <!-- Form Header -->
+                    <div class="form-header">
+                        <h1 class="page-title">
+                            Add New Teacher
+                        </h1>
+                        <p class="page-subtitle">Fill in the teacher information below to add a new teacher to the system</p>
+                    </div>
+
+                    <!-- Progress Stepper -->
+                    <div class="stepper-container">
+                        <div class="stepper">
+                            <div class="step active" data-step="1">
+                                <div class="step-icon">1</div>
+                                <div class="step-label">Basic Info</div>
+                            </div>
+                            <div class="step" data-step="2">
+                                <div class="step-icon">2</div>
+                                <div class="step-label">Personal Details</div>
+                            </div>
+                            <div class="step" data-step="3">
+                                <div class="step-icon">3</div>
+                                <div class="step-label">Professional Info</div>
+                            </div>
+                            <div class="step" data-step="4">
+                                <div class="step-icon">4</div>
+                                <div class="step-label">Address & Contact</div>
+                            </div>
+                        </div>
+                    </div>
+
+                        <!-- Step 1: Basic Information -->
+                        <div class="form-section step-content" id="step1">
+                            <div class="section-header">
+                                <h2 class="section-title">
+                                    <span class="material-symbols-outlined">badge</span>
+                                    Basic Information
+                                </h2>
+                            </div>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="teacher-name" class="form-label">Teacher Name <span class="required">*</span></label>
+                                    <input type="text" id="teacher-name" name="teacher-name" class="form-input"
+                                        placeholder="Enter full name" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="teacher-role" class="form-label">Teacher Role <span class="required">*</span></label>
+                                    <select id="teacher-role" name="teacher-role" class="form-input" required>
+                                        <option value="" disabled selected hidden>Select role</option>
+                                        <option value="teacher">Teacher</option>
+                                        <option value="head-teacher">Head Teacher</option>
+                                        <option value="assistant-teacher">Assistant Teacher</option>
+                                        <option value="senior-teacher">Senior Teacher</option>
+                                        <option value="coordinator">Subject Coordinator</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="date-of-joining" class="form-label">Date of Joining <span class="required">*</span></label>
+                                    <input type="date" id="date-of-joining" name="date-of-joining" class="form-input" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="employee-id" class="form-label">Employee ID <span class="required">*</span></label>
+                                    <input type="text" id="employee-id" name="employee-id" class="form-input"
+                                        placeholder="Auto-generated" readonly>
+                                    <p class="field-hint">Auto-generated upon submission</p>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="picture" class="form-label">Profile Picture</label>
+                                    <input type="file" id="picture" name="picture" class="form-input" accept="image/*">
+                                    <p class="field-hint">Max size 2MB, recommended square image</p>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="monthly-salary" class="form-label">Monthly Salary (₹) <span class="required">*</span></label>
+                                    <input type="number" id="monthly-salary" name="monthly-salary" class="form-input"
+                                        placeholder="Enter amount" min="0" step="100" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="email" class="form-label">Email Address ( Used for Log In )<span class="required">*</span></label>
+                                    <input type="email" id="email" name="email" class="form-input"
+                                        placeholder="teacher@example.com" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="mobile-no" class="form-label">Mobile Number <span class="required">*</span></label>
+                                    <input type="tel" id="mobile-no" name="mobile-no" class="form-input"
+                                        placeholder="+91 XXXXX XXXXX" required maxlength="10">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 2: Personal Details -->
+                        <div class="form-section step-content" id="step2" style="display: none;">
+                            <div class="section-header">
+                                <h2 class="section-title">
+                                    <span class="material-symbols-outlined">person</span>
+                                    Personal Details
+                                </h2>
+                            </div>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="gender" class="form-label">Gender <span class="required">*</span></label>
+                                    <select id="gender" name="gender" class="form-input" required>
+                                        <option value="" disabled selected hidden>Select gender</option>
+                                        <option value="male">Male</option>
+                                        <option value="female">Female</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="dob" class="form-label">Date of Birth <span class="required">*</span></label>
+                                    <input type="date" id="dob" name="dob" class="form-input" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="blood-group" class="form-label">Blood Group</label>
+                                    <select id="blood-group" name="blood-group" class="form-input">
+                                        <option value="" disabled selected hidden>Select blood group</option>
+                                        <option value="A+">A+</option>
+                                        <option value="A-">A-</option>
+                                        <option value="B+">B+</option>
+                                        <option value="B-">B-</option>
+                                        <option value="AB+">AB+</option>
+                                        <option value="AB-">AB-</option>
+                                        <option value="O+">O+</option>
+                                        <option value="O-">O-</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="guardian-name" class="form-label">Father / Spouse Name</label>
+                                    <input type="text" id="guardian-name" name="guardian-name" class="form-input"
+                                        placeholder="Enter father / spouse name">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="religion" class="form-label">Religion</label>
+                                    <select id="religion" name="religion" class="form-input">
+                                        <option value="" disabled selected hidden>Select religion</option>
+                                        <option value="hinduism">Hinduism</option>
+                                        <option value="islam">Islam</option>
+                                        <option value="christianity">Christianity</option>
+                                        <option value="sikhism">Sikhism</option>
+                                        <option value="buddhism">Buddhism</option>
+                                        <option value="jainism">Jainism</option>
+                                        <option value="other">Other</option>
+                                        <option value="prefer-not-to-say">Prefer not to say</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="national-id" class="form-label">National ID / Aadhaar</label>
+                                    <input type="text" id="national-id" name="national-id" class="form-input"
+                                        placeholder="e.g., 1234-5678-9012" maxlength="20">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 3: Professional Information -->
+                        <div class="form-section step-content" id="step3" style="display: none;">
+                            <div class="section-header">
+                                <h2 class="section-title">
+                                    <span class="material-symbols-outlined">work</span>
+                                    Professional Information
+                                </h2>
+                            </div>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="education" class="form-label">Highest Education <span class="required">*</span></label>
+                                    <input type="text" id="education" name="education" class="form-input"
+                                        placeholder="e.g., M.A., B.Ed., Ph.D." required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="specialization" class="form-label">Specialization</label>
+                                    <input type="text" id="specialization" name="specialization" class="form-input"
+                                        placeholder="e.g., Mathematics, Physics">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="experience" class="form-label">Total Experience <span class="required">*</span></label>
+                                    <input type="text" id="experience" name="experience" class="form-input"
+                                        placeholder="e.g., 5 years" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="previous-school" class="form-label">Previous School/Institution</label>
+                                    <input type="text" id="previous-school" name="previous-school" class="form-input"
+                                        placeholder="Previous workplace">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="certification" class="form-label">Certifications</label>
+                                    <input type="text" id="certification" name="certification" class="form-input"
+                                        placeholder="e.g., TET, CTET, B.Ed.">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="subjects-taught" class="form-label">Subjects Teaching</label>
+                                    <input type="text" id="subjects-taught" name="subjects-taught" class="form-input"
+                                        placeholder="e.g., Math, Science">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 4: Address & Contact Information -->
+                        <div class="form-section step-content" id="step4" style="display: none;">
+                            <div class="section-header">
+                                <h2 class="section-title">
+                                    <span class="material-symbols-outlined">home</span>
+                                    Address & Contact Information
+                                </h2>
+                            </div>
+                            <div class="form-grid">
+                                <!-- <div class="form-group">
+                                    <label for="mobile-no" class="form-label">Mobile Number <span class="required">*</span></label>
+                                    <input type="tel" id="mobile-no" name="mobile-no" class="form-input"
+                                        placeholder="+91 XXXXX XXXXX" required maxlength="10">
+                                </div> -->
+
+                                <!-- <div class="form-group">
+                                    <label for="alternate-mobile" class="form-label">Alternate Mobile</label>
+                                    <input type="tel" id="alternate-mobile" name="alternate-mobile" class="form-input"
+                                        placeholder="+91 XXXXX XXXXX" maxlength="10">
+                                </div> -->
+
+                                <!-- <div class="form-group">
+                                    <label for="email" class="form-label">Email Address <span class="required">*</span></label>
+                                    <input type="email" id="email" name="email" class="form-input"
+                                        placeholder="teacher@example.com" required>
+                                </div> -->
+
+                                <div class="form-group full-width">
+                                    <label for="home-address" class="form-label">Home Address <span class="required">*</span></label>
+                                    <input type="text" id="home-address" name="home-address" class="form-input"
+                                        placeholder="Complete address with street, area" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="city" class="form-label">City <span class="required">*</span></label>
+                                    <input type="text" id="city" name="city" class="form-input"
+                                        placeholder="Enter city" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="state" class="form-label">State <span class="required">*</span></label>
+                                    <input type="text" id="state" name="state" class="form-input"
+                                        placeholder="Enter state" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="pincode" class="form-label">PIN Code <span class="required">*</span></label>
+                                    <input type="text" id="pincode" name="pincode" class="form-input"
+                                        placeholder="6-digit PIN" maxlength="6" required>
+                                </div>
+
+                                <!-- <div class="form-group">
+                                    <label for="emergency-contact" class="form-label">Emergency Contact</label>
+                                    <input type="tel" id="emergency-contact" name="emergency-contact" class="form-input"
+                                        placeholder="+91 XXXXX XXXXX" maxlength="10">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="emergency-contact-name" class="form-label">Emergency Contact Name</label>
+                                    <input type="text" id="emergency-contact-name" name="emergency-contact-name" class="form-input"
+                                        placeholder="Name of emergency contact">
+                                </div> -->
+                            </div>
+                        </div>
+
+                        <!-- Form Actions -->
+                        <div class="form-actions">
+                            <button type="button" class="btn-cancel" id="cancelBtn">
+                                <span class="material-symbols-outlined">close</span>
+                                Cancel
+                            </button>
+                            <div class="action-buttons-right">
+                                <button type="button" class="btn-back" id="backBtn" style="display: none;">
+                                    <span class="material-symbols-outlined">arrow_back</span>
+                                    Back
+                                </button>
+                                <button type="button" class="btn-next" id="nextBtn">
+                                    Next
+                                    <span class="material-symbols-outlined">arrow_forward</span>
+                                </button>
+                                <button type="submit" class="btn-submit" id="submitBtn" style="display: none;">
+                                    <span class="material-symbols-outlined">check_circle</span>
+                                    Submit
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+        </main>
+    </div>
+
+    <script>
+        // Load Sidebar and Header Components
+        document.addEventListener('DOMContentLoaded', function () {
+            Promise.all([
+                fetch('sidebar.html').then(response => response.text()),
+                fetch('header.html').then(response => response.text())
+            ]).then(([sidebarHTML, headerHTML]) => {
+                document.getElementById('sidebar-container').innerHTML = sidebarHTML;
+                document.getElementById('header-container').innerHTML = headerHTML;
+                // Call header initialization directly instead of relying on DOMContentLoaded
+                if (typeof initializeHeader === 'function') {
+                    initializeHeader();
+                }
+
+                // Wait a bit for sidebar.js to initialize, then set active state
+                setTimeout(() => {
+                    setActiveMenuItem();
+                }, 200);
+            });
+        });
+
+        function setActiveMenuItem() {
+            const currentPage = window.location.pathname.split('/').pop();
+            const navAddSchool = document.getElementById('nav-add-school');
+            if (navAddSchool && currentPage === 'onboard-school.html') {
+                navAddSchool.classList.add('active');
+                // Also expand the Schools dropdown
+                const schoolsDropdown = document.getElementById('schools-dropdown');
+                if (schoolsDropdown) {
+                    schoolsDropdown.classList.add('active');
+                    const dropdownMenu = schoolsDropdown.nextElementSibling;
+                    if (dropdownMenu) {
+                        dropdownMenu.classList.add('active');
+                    }
+                }
+            }
+        }
+
+        // Multi-Step Form Navigation
+        let currentStep = 1;
+        const totalSteps = 4;
+        const formData = {};
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function () {
+            updateStepDisplay();
+            initializeValidation();
+            initializeFormatting();
+            generateEmployeeID();
+        });
+
+        // Navigation Functions
+        function updateStepDisplay() {
+            // Hide all steps
+            for (let i = 1; i <= totalSteps; i++) {
+                const stepContent = document.getElementById(`step${i}`);
+                if (stepContent) {
+                    stepContent.style.display = 'none';
+                }
+            }
+
+            // Show current step
+            const currentStepElement = document.getElementById(`step${currentStep}`);
+            if (currentStepElement) {
+                currentStepElement.style.display = 'block';
+            }
+
+            // Update stepper UI
+            document.querySelectorAll('.step').forEach((step, index) => {
+                step.classList.remove('active', 'completed');
+                if (index + 1 < currentStep) {
+                    step.classList.add('completed');
+                } else if (index + 1 === currentStep) {
+                    step.classList.add('active');
+                }
+            });
+
+            // Update buttons
+            const backBtn = document.getElementById('backBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const submitBtn = document.getElementById('submitBtn');
+
+            backBtn.style.display = currentStep > 1 ? 'inline-flex' : 'none';
+            nextBtn.style.display = currentStep < totalSteps ? 'inline-flex' : 'none';
+            submitBtn.style.display = currentStep === totalSteps ? 'inline-flex' : 'none';
+
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Next Button Handler
+        document.getElementById('nextBtn').addEventListener('click', function () {
+            if (validateCurrentStep()) {
+                saveCurrentStepData();
+                if (currentStep < totalSteps) {
+                    currentStep++;
+                    updateStepDisplay();
+                }
+            }
+        });
+
+        // Back Button Handler
+        document.getElementById('backBtn').addEventListener('click', function () {
+            if (currentStep > 1) {
+                currentStep--;
+                updateStepDisplay();
+            }
+        });
+
+        // Step Click Handler (allow clicking on completed steps)
+        document.querySelectorAll('.step').forEach((step, index) => {
+            step.addEventListener('click', function () {
+                const stepNumber = index + 1;
+                if (stepNumber < currentStep || stepNumber === currentStep) {
+                    currentStep = stepNumber;
+                    updateStepDisplay();
+                }
+            });
+        });
+
+        // Validation Functions
+        function validateCurrentStep() {
+            const currentStepElement = document.getElementById(`step${currentStep}`);
+            const inputs = currentStepElement.querySelectorAll('input[required], select[required]');
+            let isValid = true;
+
+            inputs.forEach(input => {
+                const fieldId = input.id;
+                const validator = getValidator(fieldId);
+
+                if (validator) {
+                    if (!validator(input)) {
+                        isValid = false;
+                    }
+                } else {
+                    // Basic required validation
+                    if (!input.value.trim() && input.type !== 'file') {
+                        showError(input, 'This field is required');
+                        isValid = false;
+                    } else {
+                        clearError(input);
+                    }
+                }
+            });
+
+            if (!isValid) {
+                const firstError = currentStepElement.querySelector('.input-error');
+                if (firstError) {
+                    firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    firstError.focus();
+                }
+            }
+
+            return isValid;
+        }
+
+        function saveCurrentStepData() {
+            const currentStepElement = document.getElementById(`step${currentStep}`);
+            const inputs = currentStepElement.querySelectorAll('input, select');
+
+            inputs.forEach(input => {
+                if (input.name && input.type !== 'file') {
+                    formData[input.name] = input.value;
+                }
+            });
+        }
+
+        function getValidator(fieldId) {
+            const validators = {
+                'teacher-name': validateTeacherName,
+                'teacher-role': validateRequired,
+                'date-of-joining': validateDateOfJoining,
+                'monthly-salary': validateMonthlySalary,
+                'gender': validateRequired,
+                'dob': validateDateOfBirth,
+                'education': validateEducation,
+                'experience': validateExperience,
+                'mobile-no': validateMobileNumber,
+                'email': validateEmail,
+                'home-address': validateHomeAddress,
+                'city': validateCity,
+                'state': validateState,
+                'pincode': validatePincode,
+                'guardian-name': validateGuardianName,
+                'national-id': validateNationalId
+            };
+
+            return validators[fieldId];
+        }
+
+        // Individual Validation Functions
+        function validateRequired(input) {
+            if (!input.value.trim()) {
+                showError(input, 'This field is required');
+                return false;
+            }
+            clearError(input);
+            return true;
+        }
+
+        function validateTeacherName(input) {
+            const value = input.value.trim();
+
+            if (!value) {
+                showError(input, 'Teacher name is required');
+                return false;
+            }
+
+            if (value.length < 2) {
+                showError(input, 'Name must be at least 2 characters long');
+                return false;
+            }
+
+            if (!/^[a-zA-Z\s.]+$/.test(value)) {
+                showError(input, 'Name should only contain letters, spaces, and periods');
+                return false;
+            }
+
+            clearError(input);
+            return true;
+        }
+
+        function validateDateOfJoining(input) {
+            const value = input.value.trim();
+
+            if (!value) {
+                showError(input, 'Date of joining is required');
+                return false;
+            }
+
+            const joiningDate = new Date(value);
+            const today = new Date();
+            const oneYearAgo = new Date();
+            oneYearAgo.setFullYear(today.getFullYear() - 1);
+
+            if (joiningDate > today) {
+                showError(input, 'Joining date cannot be in the future');
+                return false;
+            }
+
+            clearError(input);
+            return true;
+        }
+
+        function validateMonthlySalary(input) {
+            const value = input.value.trim();
+
+            if (!value) {
+                showError(input, 'Monthly salary is required');
+                return false;
+            }
+
+            const salary = parseFloat(value);
+
+            if (isNaN(salary) || salary <= 0) {
+                showError(input, 'Please enter a valid salary amount');
+                return false;
+            }
+
+            if (salary < 1000) {
+                showError(input, 'Salary seems too low, please verify');
+                return false;
+            }
+
+            if (salary > 10000000) {
+                showError(input, 'Please enter a realistic salary amount');
+                return false;
+            }
+
+            clearError(input);
+            return true;
+        }
+
+        function validateDateOfBirth(input) {
+            const value = input.value.trim();
+
+            if (!value) {
+                showError(input, 'Date of birth is required');
+                return false;
+            }
+
+            const dob = new Date(value);
+            const today = new Date();
+
+            let age = today.getFullYear() - dob.getFullYear();
+            const monthDiff = today.getMonth() - dob.getMonth();
+
+            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < dob.getDate())) {
+                age--;
+            }
+
+            if (dob > today) {
+                showError(input, 'Date of birth cannot be in the future');
+                return false;
+            }
+
+            if (age < 18) {
+                showError(input, 'Teacher must be at least 18 years old');
+                return false;
+            }
+
+            if (age > 100) {
+                showError(input, 'Please enter a valid date of birth');
+                return false;
+            }
+
+            clearError(input);
+            return true;
+        }
+
+        function validateEducation(input) {
+            const value = input.value.trim();
+
+            if (!value) {
+                showError(input, 'Education is required');
+                return false;
+            }
+
+            if (value.length < 2) {
+                showError(input, 'Education field must be at least 2 characters long');
+                return false;
+            }
+
+            if (value.length > 100) {
+                showError(input, 'Education field is too long (max 100 characters)');
+                return false;
+            }
+
+            clearError(input);
+            return true;
+        }
+
+        function validateExperience(input) {
+            const value = input.value.trim();
+
+            if (!value) {
+                showError(input, 'Experience is required');
+                return false;
+            }
+
+            // Allow formats like "5 years", "2.5 years", "1 year", "Fresher", or just "5"
+            if (!/^(fresher|[0-9]+(\.[0-9]+)?(\s*(year|years|yr|yrs|months?|mo))?)$/i.test(value)) {
+                showError(input, 'Please enter valid experience (e.g., 5 years, 2.5 years, or Fresher)');
+                return false;
+            }
+
+            clearError(input);
+            return true;
+        }
+
+        function validateMobileNumber(input) {
+            const value = input.value.trim();
+
+            if (!value) {
+                showError(input, 'Mobile number is required');
+                return false;
+            }
+
+            const cleanedNumber = value.replace(/[\s\-\(\)]/g, '');
+
+            if (!/^[6-9]\d{9}$/.test(cleanedNumber)) {
+                showError(input, 'Please enter a valid 10-digit mobile number');
+                return false;
+            }
+
+            clearError(input);
+            return true;
+        }
+
+        function validateEmail(input) {
+            const value = input.value.trim();
+
+            if (!value) {
+                showError(input, 'Email address is required');
+                return false;
+            }
+
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            if (!emailRegex.test(value)) {
+                showError(input, 'Please enter a valid email address');
+                return false;
+            }
+
+            clearError(input);
+            return true;
+        }
+
+        function validateHomeAddress(input) {
+            const value = input.value.trim();
+
+            if (!value) {
+                showError(input, 'Home address is required');
+                return false;
+            }
+
+            if (value.length < 10) {
+                showError(input, 'Address must be at least 10 characters long');
+                return false;
+            }
+
+            if (value.length > 200) {
+                showError(input, 'Address is too long (max 200 characters)');
+                return false;
+            }
+
+            clearError(input);
+            return true;
+        }
+
+        function validateCity(input) {
+            const value = input.value.trim();
+
+            if (!value) {
+                showError(input, 'City is required');
+                return false;
+            }
+
+            if (!/^[a-zA-Z\s]+$/.test(value)) {
+                showError(input, 'City name should only contain letters');
+                return false;
+            }
+
+            clearError(input);
+            return true;
+        }
+
+        function validateState(input) {
+            const value = input.value.trim();
+
+            if (!value) {
+                showError(input, 'State is required');
+                return false;
+            }
+
+            if (!/^[a-zA-Z\s]+$/.test(value)) {
+                showError(input, 'State name should only contain letters');
+                return false;
+            }
+
+            clearError(input);
+            return true;
+        }
+
+        function validatePincode(input) {
+            const value = input.value.trim();
+
+            if (!value) {
+                showError(input, 'PIN code is required');
+                return false;
+            }
+
+            if (!/^\d{6}$/.test(value)) {
+                showError(input, 'PIN code must be exactly 6 digits');
+                return false;
+            }
+
+            clearError(input);
+            return true;
+        }
+
+        function validateGuardianName(input) {
+            const value = input.value.trim();
+
+            if (!value) {
+                clearError(input);
+                return true;
+            }
+
+            if (value.length < 2) {
+                showError(input, 'Name must be at least 2 characters long');
+                return false;
+            }
+
+            if (!/^[a-zA-Z\s.]+$/.test(value)) {
+                showError(input, 'Name should only contain letters, spaces, and periods');
+                return false;
+            }
+
+            clearError(input);
+            return true;
+        }
+
+        function validateNationalId(input) {
+            const value = input.value.trim();
+
+            if (!value) {
+                clearError(input);
+                return true;
+            }
+
+            const cleanedId = value.replace(/[\s\-]/g, '');
+
+            if (!/^[a-zA-Z0-9]{5,20}$/.test(cleanedId)) {
+                showError(input, 'Please enter a valid National ID (5-20 alphanumeric characters)');
+                return false;
+            }
+
+            clearError(input);
+            return true;
+        }
+
+        // Error Display Functions
+        function showError(input, message) {
+            clearError(input);
+
+            input.classList.add('input-error');
+
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'error-message';
+            errorDiv.textContent = message;
+
+            input.parentElement.appendChild(errorDiv);
+        }
+
+        function clearError(input) {
+            input.classList.remove('input-error');
+            input.classList.remove('input-success');
+
+            const errorMessage = input.parentElement.querySelector('.error-message');
+            if (errorMessage) {
+                errorMessage.remove();
+            }
+        }
+
+        // Initialize Validation
+        function initializeValidation() {
+            const allInputs = document.querySelectorAll('input, select');
+
+            allInputs.forEach(input => {
+                // Validate on blur
+                input.addEventListener('blur', function () {
+                    const validator = getValidator(this.id);
+                    if (validator) {
+                        validator(this);
+                    }
+                });
+
+                // Clear error on input
+                input.addEventListener('input', function () {
+                    if (this.classList.contains('input-error')) {
+                        const validator = getValidator(this.id);
+                        if (validator) {
+                            validator(this);
+                        }
+                    }
+                });
+            });
+        }
+
+        // Auto-generate Employee ID
+        function generateEmployeeID() {
+            const year = new Date().getFullYear();
+            const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            let id = 'EMP' + year;
+            for (let i = 0; i < 6; i++) {
+                id += characters.charAt(Math.floor(Math.random() * characters.length));
+            }
+            document.getElementById('employee-id').value = id;
+            return id;
+        }
+
+        // Form Submission
+        document.getElementById('teacherForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            if (validateCurrentStep()) {
+                saveCurrentStepData();
+
+                const employeeId = document.getElementById('employee-id').value;
+                formData['employee-id'] = employeeId;
+
+                console.log('Teacher Data:', formData);
+
+                // Show success message
+                const teacherName = formData['teacher-name'];
+                const teacherRole = formData['teacher-role'];
+                alert(`Teacher added successfully!\n\nEmployee ID: ${employeeId}\nName: ${teacherName}\nRole: ${teacherRole}`);
+
+                // Redirect or reset
+                if (confirm('Do you want to add another teacher?')) {
+                    resetForm();
+                } else {
+                    // Redirect to teacher list
+                    window.location.href = 'teacher-list.html';
+                }
+            }
+        });
+
+        // Reset Form
+        function resetForm() {
+            document.getElementById('teacherForm').reset();
+
+            // Clear all errors
+            document.querySelectorAll('input, select').forEach(input => {
+                clearError(input);
+            });
+
+            // Reset to first step
+            currentStep = 1;
+            updateStepDisplay();
+
+            // Clear form data
+            Object.keys(formData).forEach(key => delete formData[key]);
+
+            // Generate new employee ID
+            generateEmployeeID();
+        }
+
+        // Cancel Button
+        document.getElementById('cancelBtn').addEventListener('click', function () {
+            if (confirm('Are you sure you want to cancel? All unsaved data will be lost.')) {
+                resetForm();
+                // Or redirect to teacher list
+                // window.location.href = 'teacher-list.html';
+            }
+        });
+
+        // Input Formatting
+        function initializeFormatting() {
+            // Mobile number formatting
+            const mobileInputs = document.querySelectorAll('input[type="tel"]');
+            mobileInputs.forEach(input => {
+                input.addEventListener('input', function (e) {
+                    let value = e.target.value.replace(/\D/g, '');
+                    if (value.length > 10) {
+                        value = value.slice(0, 10);
+                    }
+                    e.target.value = value;
+                });
+            });
+
+            // PIN code formatting
+            const pincodeInput = document.getElementById('pincode');
+            if (pincodeInput) {
+                pincodeInput.addEventListener('input', function (e) {
+                    let value = e.target.value.replace(/\D/g, '');
+                    if (value.length > 6) {
+                        value = value.slice(0, 6);
+                    }
+                    e.target.value = value;
+                });
+            }
+
+            // Salary formatting (prevent negative values)
+            const salaryInput = document.getElementById('monthly-salary');
+            if (salaryInput) {
+                salaryInput.addEventListener('input', function (e) {
+                    if (e.target.value < 0) {
+                        e.target.value = 0;
+                    }
+                });
+            }
+
+            // File size validation
+            const pictureInput = document.getElementById('picture');
+            if (pictureInput) {
+                pictureInput.addEventListener('change', function (e) {
+                    const file = e.target.files[0];
+                    if (file) {
+                        const maxSize = 2 * 1024 * 1024; // 2MB
+                        if (file.size > maxSize) {
+                            alert('File size should not exceed 2MB');
+                            e.target.value = '';
+                            return;
+                        }
+
+                        // Check file type
+                        const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'];
+                        if (!allowedTypes.includes(file.type)) {
+                            alert('Please upload a valid image file (JPEG, PNG, or GIF)');
+                            e.target.value = '';
+                            return;
+                        }
+                    }
+                });
+            }
+        }
+
+        // Keyboard Navigation
+        document.addEventListener('keydown', function (e) {
+            // Alt + Right Arrow - Next
+            if (e.altKey && e.key === 'ArrowRight') {
+                e.preventDefault();
+                if (currentStep < totalSteps) {
+                    document.getElementById('nextBtn').click();
+                }
+            }
+
+            // Alt + Left Arrow - Back
+            if (e.altKey && e.key === 'ArrowLeft') {
+                e.preventDefault();
+                if (currentStep > 1) {
+                    document.getElementById('backBtn').click();
+                }
+            }
+        });
+
+        // Auto-fill validation feedback (optional)
+        function addSuccessState(input) {
+            if (!input.classList.contains('input-error')) {
+                input.classList.add('input-success');
+            }
+        }
+
+        // Enhance validation with success states
+        document.querySelectorAll('input, select').forEach(input => {
+            input.addEventListener('blur', function () {
+                if (!this.classList.contains('input-error') && this.value.trim()) {
+                    const validator = getValidator(this.id);
+                    if (validator && validator(this)) {
+                        addSuccessState(this);
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

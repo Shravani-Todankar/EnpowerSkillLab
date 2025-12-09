@@ -1,0 +1,674 @@
+<!doctype html>
+<html lang="en" class="light">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>School Admin List</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+
+  <!-- Sidebar JS -->
+  <script src="sidebar.js"></script>
+  <!-- Header JS -->
+  <script src="header.js"></script>
+
+  <style>
+    /* Prevent FOUC - hide containers until loaded */
+    #sidebar-container:empty,
+    #header-container:empty {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    #sidebar-container.loaded,
+    #header-container.loaded {
+      opacity: 1;
+      visibility: visible;
+      transition: opacity 0.2s ease-in;
+    }
+  </style>
+
+  <style>
+    :root {
+      --primary: #6B21A8;
+      --background-light: #F3F4F6;
+      --background-dark: #111827;
+      --card-radius: 0.5rem;
+      --shadow: 0 1px 2px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--background-light);
+      color: #374151;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body.dark {
+      background-color: var(--background-dark);
+      color: #d1d5db;
+    }
+
+    .card {
+      border: 1px solid rgba(0, 0, 0, 0.04);
+      border-radius: var(--card-radius);
+      box-shadow: var(--shadow);
+      background-color: #fff;
+    }
+
+    body.dark .card {
+      background-color: #1f2937;
+      border-color: #374151;
+    }
+
+    .btn-white {
+      background-color: #fff;
+      color: #4b5563;
+      border: 1px solid #d1d5db;
+    }
+
+    .btn-white:hover {
+      background-color: #f9fafb;
+      color: #111827;
+    }
+
+    body.dark .btn-white {
+      background-color: #374151;
+      color: #e5e7eb;
+      border-color: #4b5563;
+    }
+
+    body.dark .btn-white:hover {
+      background-color: #4b5563;
+    }
+
+    .btn-primary {
+      background-color: var(--primary);
+      border-color: var(--primary);
+    }
+
+    .btn-primary:hover {
+      background-color: #581c87;
+      border-color: #581c87;
+    }
+
+    .control-pill {
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.25rem 0.6rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    .status-active {
+      background-color: #d1fae5;
+      color: #166534;
+    }
+
+    .status-pending {
+      background-color: #fef9c3;
+      color: #854d0e;
+    }
+
+    .status-inactive {
+      background-color: #fee2e2;
+      color: #991b1b;
+    }
+
+    body.dark .status-active {
+      background-color: rgba(16, 185, 129, 0.18);
+      color: #34d399;
+    }
+
+    body.dark .status-pending {
+      background-color: rgba(234, 179, 8, 0.18);
+      color: #fcd34d;
+    }
+
+    body.dark .status-inactive {
+      background-color: rgba(248, 113, 113, 0.18);
+      color: #fca5a5;
+    }
+
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      font-size: 20px;
+      line-height: 1;
+    }
+
+    .initial-badge {
+      width: 2.25rem;
+      height: 2.25rem;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      color: #fff;
+      font-size: 0.8rem;
+    }
+
+    .table> :not(caption)>*>* {
+      padding: 0.85rem 1.25rem;
+      vertical-align: middle;
+    }
+
+    .table thead th {
+      font-size: 0.75rem;
+      letter-spacing: 0.02em;
+      color: #6b7280;
+      text-transform: uppercase;
+      border-bottom: 1px solid #e5e7eb;
+      background: #f9fafb;
+    }
+
+    body.dark .table thead th {
+      color: #9ca3af;
+      background: rgba(55, 65, 81, 0.7);
+      border-color: #374151;
+    }
+
+    .table tbody td {
+      color: #111827;
+    }
+
+    body.dark .table tbody td {
+      color: #e5e7eb;
+    }
+
+    .shadow-light {
+      box-shadow: var(--shadow);
+    }
+
+    .pagination .page-link {
+      border-color: #d1d5db;
+      color: #6b7280;
+    }
+
+    .pagination .page-link.active,
+    .pagination .page-item.active .page-link {
+      background-color: var(--primary);
+      border-color: var(--primary);
+      color: #fff;
+    }
+
+    body.dark .pagination .page-link {
+      background-color: #1f2937;
+      border-color: #4b5563;
+      color: #9ca3af;
+    }
+
+    body.dark .pagination .page-link.active {
+      color: #fff;
+    }
+
+    .dashboard-container {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    .main-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    /* Unified Modern Gradient Buttons */
+    .btn-gradient {
+      border: none;
+      border-radius: 10px;
+      padding: 10px 22px;
+      font-weight: 600;
+      color: #fff !important;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+      transition: all 0.2s ease-in-out;
+    }
+
+    .btn-gradient:hover {
+      opacity: 0.95;
+    }
+
+    /* Individual Gradient Styles */
+    .btn-download {
+      background: linear-gradient(90deg, #0EA5E9, #0284C7);
+    }
+
+    .btn-upload {
+      background: linear-gradient(90deg, #10B981, #059669);
+    }
+
+    .btn-add {
+      background: linear-gradient(90deg, #7E22CE, #6B21A8);
+    }
+
+    .btn-gradient .material-symbols-outlined {
+      font-size: 20px;
+      font-weight: 600;
+    }
+
+    div.dataTables_wrapper div.dataTables_length select{
+      width: 70px !important;
+    }
+
+    /* Table wrapper outer - contains both DataTables controls and table */
+    .table-wrapper-outer {
+      width: 100%;
+      overflow: visible;
+    }
+
+    /* Improved table responsive wrapper with clean scrollbar */
+    .table-responsive {
+      overflow-x: auto;
+      overflow-y: visible;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    /* Custom scrollbar styling for a cleaner look */
+    .table-responsive::-webkit-scrollbar {
+      height: 8px;
+    }
+
+    .table-responsive::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 4px;
+    }
+
+    body.dark .table-responsive::-webkit-scrollbar-track {
+      background: #374151;
+    }
+
+    .table-responsive::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 4px;
+    }
+
+    body.dark .table-responsive::-webkit-scrollbar-thumb {
+      background: #4b5563;
+    }
+
+    .table-responsive::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+
+    body.dark .table-responsive::-webkit-scrollbar-thumb:hover {
+      background: #6b7280;
+    }
+
+    /* DataTables header and footer - fixed position */
+    .datatable-header,
+    .datatable-footer {
+      background: white;
+      position: relative;
+      z-index: 2;
+    }
+
+    body.dark .datatable-header,
+    body.dark .datatable-footer {
+      background: #1f2937;
+    }
+
+    /* Table scroll wrapper - only this scrolls horizontally */
+    .table-scroll-wrapper {
+      overflow-x: auto;
+      overflow-y: visible;
+      -webkit-overflow-scrolling: touch;
+      position: relative;
+      z-index: 1;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="dashboard-container">
+    <!-- Include Sidebar Component -->
+    <div id="sidebar-container"></div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Include Header Component -->
+      <div id="header-container"></div>
+      <div class="py-4 py-sm-5 py-lg-5">
+        <div class="container-xl" style="max-width: 1200px;">
+          <header
+            class="mb-4 d-flex flex-column flex-lg-row align-items-start align-items-lg-center justify-content-between gap-3">
+            <h1 class="h4 mb-0 fw-bold text-dark">School Admin List</h1>
+            <div class="d-flex flex-wrap gap-2 align-items-center justify-content-start justify-content-lg-end">
+
+              <button class="btn-gradient btn-download">
+                <span class="material-symbols-outlined">download</span>
+                Download Sample CSV
+              </button>
+
+              <button class="btn-gradient btn-upload">
+                <span class="material-symbols-outlined">upload</span>
+                Upload CSV
+              </button>
+
+              <button class="btn-gradient btn-add">
+                <span class="material-symbols-outlined">add</span>
+                Add New Teacher
+              </button>
+
+            </div>
+          </header>
+
+          <main class="card">
+            <div class="table-wrapper-outer">
+              <div class="table-responsive">
+                <table id="adminTable" class="table mb-0 align-middle">
+                <thead>
+                  <tr>
+                    <th scope="col">Admin ID</th>
+                    <th scope="col">
+                      <div class="d-inline-flex align-items-center gap-1">
+                        Name
+                        <span class="material-symbols-outlined" style="font-size:16px;">arrow_upward</span>
+                      </div>
+                    </th>
+                    <th scope="col">Contact Information</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="border-top-0">
+                    <td class="text-muted text-monospace">A7Y5D3</td>
+                    <td class="fw-semibold">
+                      <div class="d-flex align-items-center gap-3">
+                        <div class="initial-badge" style="background-color:#f97316;">AM</div>
+                        <span>Anjali Mehta</span>
+                      </div>
+                    </td>
+                    <td class="text-muted">anjali.mehta@example.com</td>
+                    <td>
+                      <span class="control-pill status-pending">Pending</span>
+                    </td>
+                    <td>
+                      <div class="d-flex align-items-center gap-3 text-muted">
+                        <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary"><span
+                            class="material-symbols-outlined">edit</span></button>
+                        <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary"><span
+                            class="material-symbols-outlined">visibility</span></button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="text-muted text-monospace">D4C8E5</td>
+                    <td class="fw-semibold">
+                      <div class="d-flex align-items-center gap-3">
+                        <div class="initial-badge" style="background-color:#6366f1;">DV</div>
+                        <span>Deepak Verma</span>
+                      </div>
+                    </td>
+                    <td class="text-muted">deepak.verma@example.com</td>
+                    <td>
+                      <span class="control-pill status-active">Active</span>
+                    </td>
+                    <td>
+                      <div class="d-flex align-items-center gap-3 text-muted">
+                        <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary"><span
+                            class="material-symbols-outlined">edit</span></button>
+                        <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary"><span
+                            class="material-symbols-outlined">visibility</span></button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="text-muted text-monospace">H2R6F4</td>
+                    <td class="fw-semibold">
+                      <div class="d-flex align-items-center gap-3">
+                        <div class="initial-badge" style="background-color:#3b82f6;">PS</div>
+                        <span>Priya Sharma</span>
+                      </div>
+                    </td>
+                    <td class="text-muted">priya.sharma@example.com</td>
+                    <td>
+                      <span class="control-pill status-active">Active</span>
+                    </td>
+                    <td>
+                      <div class="d-flex align-items-center gap-3 text-muted">
+                        <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary"><span
+                            class="material-symbols-outlined">edit</span></button>
+                        <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary"><span
+                            class="material-symbols-outlined">visibility</span></button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="text-muted text-monospace">J8P1U6</td>
+                    <td class="fw-semibold">
+                      <div class="d-flex align-items-center gap-3">
+                        <div class="initial-badge" style="background-color:#ef4444;">RJ</div>
+                        <span>Rajesh Joshi</span>
+                      </div>
+                    </td>
+                    <td class="text-muted">rajesh.joshi@example.com</td>
+                    <td>
+                      <span class="control-pill status-active">Active</span>
+                    </td>
+                    <td>
+                      <div class="d-flex align-items-center gap-3 text-muted">
+                        <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary"><span
+                            class="material-symbols-outlined">edit</span></button>
+                        <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary"><span
+                            class="material-symbols-outlined">visibility</span></button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="text-muted text-monospace">K9W3Q8</td>
+                    <td class="fw-semibold">
+                      <div class="d-flex align-items-center gap-3">
+                        <div class="initial-badge" style="background-color:#10b981;">RK</div>
+                        <span>Rahul Kumar</span>
+                      </div>
+                    </td>
+                    <td class="text-muted">rahul.kumar@example.com</td>
+                    <td>
+                      <span class="control-pill status-active">Active</span>
+                    </td>
+                    <td>
+                      <div class="d-flex align-items-center gap-3 text-muted">
+                        <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary"><span
+                            class="material-symbols-outlined">edit</span></button>
+                        <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary"><span
+                            class="material-symbols-outlined">visibility</span></button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="text-muted text-monospace">M1B4Z9</td>
+                    <td class="fw-semibold">
+                      <div class="d-flex align-items-center gap-3">
+                        <div class="initial-badge" style="background-color:#f43f5e;">AP</div>
+                        <span>Amit Patel</span>
+                      </div>
+                    </td>
+                    <td class="text-muted">amit.patel@example.com</td>
+                    <td>
+                      <span class="control-pill status-active">Active</span>
+                    </td>
+                    <td>
+                      <div class="d-flex align-items-center gap-3 text-muted">
+                        <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary"><span
+                            class="material-symbols-outlined">edit</span></button>
+                        <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary"><span
+                            class="material-symbols-outlined">visibility</span></button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="text-muted text-monospace">N6G2J7</td>
+                    <td class="fw-semibold">
+                      <div class="d-flex align-items-center gap-3">
+                        <div class="initial-badge" style="background-color:#ec4899;">NG</div>
+                        <span>Neha Gupta</span>
+                      </div>
+                    </td>
+                    <td class="text-muted">neha.gupta@example.com</td>
+                    <td>
+                      <span class="control-pill status-inactive">Inactive</span>
+                    </td>
+                    <td>
+                      <div class="d-flex align-items-center gap-3 text-muted">
+                        <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary"><span
+                            class="material-symbols-outlined">edit</span></button>
+                        <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary"><span
+                            class="material-symbols-outlined">visibility</span></button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="text-muted text-monospace">P3M9V7</td>
+                    <td class="fw-semibold">
+                      <div class="d-flex align-items-center gap-3">
+                        <div class="initial-badge" style="background-color:#a855f7;">VP</div>
+                        <span>Vivek Pandey</span>
+                      </div>
+                    </td>
+                    <td class="text-muted">vivek@example.com</td>
+                    <td>
+                      <span class="control-pill status-pending">Pending</span>
+                    </td>
+                    <td>
+                      <div class="d-flex align-items-center gap-3 text-muted">
+                        <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary"><span
+                            class="material-symbols-outlined">edit</span></button>
+                        <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary"><span
+                            class="material-symbols-outlined">visibility</span></button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="text-muted text-monospace">R3X7T2</td>
+                    <td class="fw-semibold">
+                      <div class="d-flex align-items-center gap-3">
+                        <div class="initial-badge" style="background-color:#14b8a6;">SR</div>
+                        <span>Sneha Reddy</span>
+                      </div>
+                    </td>
+                    <td class="text-muted">sneha.reddy@example.com</td>
+                    <td>
+                      <span class="control-pill status-pending">Pending</span>
+                    </td>
+                    <td>
+                      <div class="d-flex align-items-center gap-3 text-muted">
+                        <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary"><span
+                            class="material-symbols-outlined">edit</span></button>
+                        <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary"><span
+                            class="material-symbols-outlined">visibility</span></button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="text-muted text-monospace">S5L8N1</td>
+                    <td class="fw-semibold">
+                      <div class="d-flex align-items-center gap-3">
+                        <div class="initial-badge" style="background-color:#8b5cf6;">ST</div>
+                        <span>Shravani Todankar</span>
+                      </div>
+                    </td>
+                    <td class="text-muted">shravani@example.com</td>
+                    <td>
+                      <span class="control-pill status-inactive">Inactive</span>
+                    </td>
+                    <td>
+                      <div class="d-flex align-items-center gap-3 text-muted">
+                        <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary"><span
+                            class="material-symbols-outlined">edit</span></button>
+                        <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary"><span
+                            class="material-symbols-outlined">visibility</span></button>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              </div>
+            </div>
+          </main>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+
+    // Load Sidebar and Header Components
+    document.addEventListener('DOMContentLoaded', function () {
+      Promise.all([
+        fetch('sidebar.html').then(response => response.text()),
+        fetch('header.html').then(response => response.text())
+      ]).then(([sidebarHTML, headerHTML]) => {
+        document.getElementById('sidebar-container').innerHTML = sidebarHTML;
+        document.getElementById('header-container').innerHTML = headerHTML;
+
+        // Use setTimeout to ensure DOM has parsed the inserted HTML
+        setTimeout(() => {
+          // Call header initialization directly instead of relying on DOMContentLoaded
+          if (typeof initializeHeader === 'function') {
+            initializeHeader();
+          }
+
+          // Mark containers as loaded to make them visible with smooth transition
+          document.getElementById('sidebar-container').classList.add('loaded');
+          document.getElementById('header-container').classList.add('loaded');
+
+          // Wait a bit for sidebar.js to initialize, then set active state
+          setActiveMenuItem();
+        }, 200);
+      });
+    });
+
+    function setActiveMenuItem() {
+      const currentPage = window.location.pathname.split('/').pop();
+      const navDashboard = document.getElementById('nav-dashboard');
+      if (navDashboard && currentPage === 'dashboard.html') {
+        navDashboard.classList.add('active');
+      }
+    }
+
+
+
+    $(function () {
+      $('#adminTable').DataTable({
+        paging: true,
+        pageLength: 10,
+        lengthMenu: [5, 10, 25, 50],
+        order: [[1, 'asc']],
+        columnDefs: [
+          { orderable: false, targets: 4 }
+        ],
+        language: {
+          search: 'Search admins:',
+          lengthMenu: 'Show _MENU_ entries',
+          info: 'Showing _START_ to _END_ of _TOTAL_ admins',
+          infoEmpty: 'No admins to show',
+          infoFiltered: '(_MAX_ total)',
+          zeroRecords: 'No matching admins found',
+          paginate: {
+            next: 'Next',
+            previous: 'Previous'
+          }
+        },
+        dom: '<"datatable-header d-flex flex-column flex-lg-row align-items-start align-items-lg-center justify-content-between gap-3 p-3 border-bottom"l<"w-100"f>><"table-scroll-wrapper"t><"datatable-footer d-flex flex-column flex-lg-row align-items-start align-items-lg-center justify-content-between gap-3 p-3 border-top"ip>'
+      });
+    });
+  </script>
+</body>
+
+</html>

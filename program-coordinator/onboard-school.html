@@ -1,0 +1,1323 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New School</title>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+        rel="stylesheet" />
+
+    <!-- Sidebar & Header CSS -->
+    <link rel="stylesheet" href="sidebar.css">
+    <link rel="stylesheet" href="header.css">
+
+    <!-- Sidebar & Header JS -->
+    <script src="sidebar.js"></script>
+    <script src="header.js"></script>
+
+    <style>
+        /* Prevent FOUC - hide containers until loaded */
+        #sidebar-container:empty,
+        #header-container:empty {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        #sidebar-container.loaded,
+        #header-container.loaded {
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.2s ease-in;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 50%, #f9fafb 100%);
+            color: #1d1d1f;
+        }
+
+        .dashboard-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        .dashboard-page {
+            padding: 2rem;
+            flex: 1;
+        }
+
+        .onboard-school-container {
+            /* max-width: 900px; */
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08), 0 0 1px rgba(0, 0, 0, 0.05);
+            padding: 40px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0, 0, 0, 0.04);
+        }
+
+        .onboard-school-container:hover {
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+        }
+
+        .page-header {
+            margin-bottom: 30px;
+        }
+
+        .page-header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #1d1d1f;
+        }
+
+        .page-header p {
+            font-size: 14px;
+            color: #6b7280;
+            margin-bottom: 0;
+        }
+
+        /* Progress Stepper */
+        .stepper {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .stepper::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 5%;
+            right: 5%;
+            height: 2px;
+            background: #e5e5e7;
+            z-index: 0;
+        }
+
+        .step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+            flex: 1;
+        }
+
+        .step-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #e5e5e7;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #86868b;
+            transition: all 0.3s ease;
+        }
+
+        .step.active .step-icon {
+            background: #6b277e;
+            color: white;
+            box-shadow: 0 0 0 4px rgba(107, 39, 126, 0.1);
+        }
+
+        .step.completed .step-icon {
+            background: #facd48;
+            color: white;
+        }
+
+        .step-label {
+            font-size: 12px;
+            color: #86868b;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .step.completed .step-label {
+            color: #facd48;
+        }
+
+        .step.active .step-label {
+            color: #6b277e;
+            font-weight: 600;
+        }
+
+        /* Form Section */
+        .form-section h2 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 30px;
+            color: #1d1d1f;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 24px;
+        }
+
+        .form-row.full {
+            grid-template-columns: 1fr;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: #1d1d1f;
+        }
+
+        .form-group label .required {
+            color: #d32f2f;
+            margin-left: 2px;
+        }
+
+        .form-group input,
+        .form-group select {
+            padding: 12px 16px;
+            border: 1px solid #d2d2d7;
+            border-radius: 8px;
+            font-size: 14px;
+            color: #1d1d1f;
+            background: white;
+            transition: all 0.2s ease;
+            font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #6b277e;
+            box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+        }
+
+        .form-group input::placeholder {
+            color: #86868b;
+        }
+
+        .form-group select {
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%2386868b' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            padding-right: 40px;
+        }
+
+        /* Form Actions */
+        .form-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid #e5e5e7;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: none;
+            font-family: inherit;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-back {
+            background: transparent;
+            color: #1d1d1f;
+        }
+
+        .btn-back:hover {
+            background: #f5f5f7;
+        }
+
+        .btn-next {
+            background: #6b277e;
+            color: white;
+        }
+
+        .btn-next:hover {
+            background: #6d28d9;
+        }
+
+        .btn-next:active {
+            transform: scale(0.98);
+        }
+
+        .arrow {
+            font-size: 16px;
+        }
+
+        /* Password Generator Button */
+        .btn-generate {
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #6b277e;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-generate:hover {
+            background: #6d28d9;
+        }
+
+        .form-group div {
+            position: relative;
+        }
+
+        /* Multi-Select Dropdown */
+        .multi-select-container {
+            position: relative;
+        }
+
+        .selected-items {
+            min-height: 48px;
+            padding: 8px 16px;
+            border: 1px solid #d2d2d7;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            align-items: center;
+            transition: all 0.2s ease;
+        }
+
+        .selected-items:hover {
+            border-color: #6b277e;
+        }
+
+        .selected-items.active {
+            border-color: #6b277e;
+            box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+        }
+
+        .selected-items .placeholder {
+            color: #86868b;
+            font-size: 14px;
+        }
+
+        .selected-tag {
+            background: #f3f0ff;
+            color: #6b277e;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 500;
+        }
+
+        .selected-tag .remove {
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 16px;
+            line-height: 1;
+        }
+
+        .selected-tag .remove:hover {
+            color: #5b21b6;
+        }
+
+        .multi-select-dropdown {
+            position: absolute;
+            top: calc(2% + 4px);
+            left: 0;
+            right: 0;
+            background: white;
+            border: 1px solid #d2d2d7;
+            border-radius: 8px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+            z-index: 10;
+            display: none;
+            max-height: 320px;
+            overflow: hidden;
+        }
+
+        .multi-select-dropdown.active {
+            display: block;
+        }
+
+        .search-box {
+            padding: 12px;
+            border-bottom: 1px solid #e5e5e7;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #d2d2d7;
+            border-radius: 6px;
+            font-size: 14px;
+            font-family: inherit;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: #7c3aed;
+        }
+
+        .options-list {
+            max-height: 240px;
+            overflow-y: auto;
+            padding: 8px;
+        }
+
+        .checkbox-option {
+            display: flex;
+            align-items: center;
+            padding: 10px 12px;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: background 0.2s ease;
+        }
+
+        .checkbox-option:hover {
+            background: #f5f5f7;
+        }
+
+        .checkbox-option input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            margin-right: 12px;
+            cursor: pointer;
+            accent-color: #7c3aed;
+        }
+
+        .checkbox-option span {
+            font-size: 14px;
+            color: #1d1d1f;
+            flex: 1;
+        }
+
+        /* Error Styles */
+        .error-message {
+            color: #d32f2f;
+            font-size: 12px;
+            margin-top: 4px;
+            display: none;
+            font-weight: 500;
+        }
+
+        .form-group input.error,
+        .form-group select.error {
+            border-color: #d32f2f !important;
+            background-color: #fef2f2;
+        }
+
+        .form-group input.error:focus,
+        .form-group select.error:focus {
+            box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.1);
+        }
+
+        .selected-items.error {
+            border-color: #d32f2f !important;
+            background-color: #fef2f2;
+        }
+
+        @media (max-width: 1024px) {
+            .dashboard-page {
+                padding: 1.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-page {
+                padding: 1rem;
+            }
+
+            .onboard-school-container {
+                padding: 30px;
+            }
+
+            .stepper::before {
+                left: 3%;
+                right: 3%;
+            }
+
+            .step {
+                min-width: 70px;
+            }
+
+            .step-icon {
+                width: 36px;
+                height: 36px;
+                font-size: 13px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .dashboard-page {
+                padding: 0.75rem;
+            }
+
+            .onboard-school-container {
+                padding: 24px;
+                border-radius: 12px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .stepper {
+                overflow-x: auto;
+                padding: 0 5px;
+            }
+
+            .stepper::before {
+                left: 2%;
+                right: 2%;
+            }
+
+            .step {
+                min-width: 60px;
+            }
+
+            .step-icon {
+                width: 32px;
+                height: 32px;
+                font-size: 12px;
+            }
+
+            .step-label {
+                font-size: 10px;
+                max-width: 70px;
+            }
+
+            .btn-generate {
+                position: static;
+                transform: none;
+                margin-top: 8px;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- Include Sidebar Component -->
+        <div id="sidebar-container"></div>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Include Header Component -->
+            <div id="header-container"></div>
+
+            <!-- Page Content -->
+            <div class="dashboard-page">
+                <div class="onboard-school-container">
+                    <div class="page-header">
+                        <h1>Add New School</h1>
+                        <p>Follow the steps to add school details.</p>
+                    </div>
+
+                    <!-- Progress Stepper -->
+                    <div class="stepper">
+                        <div class="step active">
+                            <div class="step-icon">1</div>
+                            <div class="step-label">School Information</div>
+                        </div>
+                        <div class="step">
+                            <div class="step-icon">2</div>
+                            <div class="step-label">Contact Details</div>
+                        </div>
+                        <div class="step">
+                            <div class="step-icon">3</div>
+                            <div class="step-label">Primary Contact</div>
+                        </div>
+                        <div class="step">
+                            <div class="step-icon">4</div>
+                            <div class="step-label">Admin Account</div>
+                        </div>
+                        <div class="step">
+                            <div class="step-icon">5</div>
+                            <div class="step-label">Program Assignment</div>
+                        </div>
+                    </div>
+
+                    <!-- Form -->
+                    <form id="schoolForm">
+                        <!-- Step 1: School Information -->
+                        <div class="form-section" id="step1">
+                            <h2>School Information</h2>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>School Name <span class="required">*</span></label>
+                                    <input type="text" name="schoolName" id="schoolName" placeholder="Name of School"
+                                        required>
+                                    <span class="error-message" id="schoolNameError"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>School Code / Unique ID <span class="required">*</span></label>
+                                    <input type="text" name="schoolCode" id="schoolCode" placeholder="e.g. SCH-12345"
+                                        required>
+                                    <span class="error-message" id="schoolCodeError"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-row full">
+                                <div class="form-group">
+                                    <label>Board / Curriculum <span class="required">*</span></label>
+                                    <select name="board" id="board" required>
+                                        <option value="">Select board</option>
+                                        <option value="cbse">CBSE</option>
+                                        <option value="icse">ICSE</option>
+                                        <option value="state">State Board</option>
+                                        <option value="ib">IB</option>
+                                        <option value="igcse">IGCSE</option>
+                                    </select>
+                                    <span class="error-message" id="boardError"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-row full">
+                                <div class="form-group">
+                                    <label>School Address <span class="required">*</span></label>
+                                    <input type="text" name="address" id="address" placeholder="123 Education Lane"
+                                        required>
+                                    <span class="error-message" id="addressError"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>City <span class="required">*</span></label>
+                                    <input type="text" name="city" id="city" placeholder="e.g. Springfield" required>
+                                    <span class="error-message" id="cityError"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>State <span class="required">*</span></label>
+                                    <input type="text" name="state" id="state" placeholder="e.g. Illinois" required>
+                                    <span class="error-message" id="stateError"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Pincode <span class="required">*</span></label>
+                                    <input type="text" name="pincode" id="pincode" placeholder="e.g. 62701" required
+                                        maxlength="10">
+                                    <span class="error-message" id="pincodeError"></span>
+                                </div>
+                                <!-- <div class="form-group">
+                                    <label>Country <span class="required">*</span></label>
+                                    <select name="country" id="country" required>
+                                        <option value="">Select a country</option>
+                                        <option value="us">United States</option>
+                                        <option value="in">India</option>
+                                        <option value="uk">United Kingdom</option>
+                                        <option value="ca">Canada</option>
+                                        <option value="au">Australia</option>
+                                    </select>
+                                    <span class="error-message" id="countryError"></span>
+                                </div> -->
+                            </div>
+                        </div>
+
+                        <!-- Step 2: Contact Details -->
+                        <div class="form-section" id="step2" style="display: none;">
+                            <h2>Contact Details</h2>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Official School Email <span class="required">*</span></label>
+                                    <input type="email" name="schoolEmail" id="schoolEmail"
+                                        placeholder="school@example.com" required>
+                                    <span class="error-message" id="schoolEmailError"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>School Phone Number <span class="required">*</span></label>
+                                    <input type="tel" name="schoolPhone" id="schoolPhone"
+                                        placeholder="+91 XXXXX XXXXX" required>
+                                    <span class="error-message" id="schoolPhoneError"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Alternate Phone Number</label>
+                                    <input type="tel" name="alternatePhone" id="alternatePhone"
+                                        placeholder="+91 XXXXX XXXXX">
+                                    <span class="error-message" id="alternatePhoneError"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Website URL</label>
+                                    <input type="url" name="website" id="website"
+                                        placeholder="https://www.schoolwebsite.com">
+                                    <span class="error-message" id="websiteError"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 3: Primary Contact Person -->
+                        <div class="form-section" id="step3" style="display: none;">
+                            <h2>Primary Contact Person</h2>
+                            <p style="color: #6e6e73; font-size: 14px; margin-bottom: 24px;">Point of Contact for the
+                                school</p>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Full Name <span class="required">*</span></label>
+                                    <input type="text" name="contactName" id="contactName" placeholder="John Doe"
+                                        required>
+                                    <span class="error-message" id="contactNameError"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Designation <span class="required">*</span></label>
+                                    <select name="designation" id="designation" required>
+                                        <option value="">Select designation</option>
+                                        <option value="principal">Principal</option>
+                                        <option value="coordinator">Coordinator</option>
+                                        <option value="management">Management</option>
+                                        <option value="vice-principal">Vice Principal</option>
+                                        <option value="director">Director</option>
+                                    </select>
+                                    <span class="error-message" id="designationError"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Contact Email <span class="required">*</span></label>
+                                    <input type="email" name="contactEmail" id="contactEmail"
+                                        placeholder="john.doe@school.com" required>
+                                    <span class="error-message" id="contactEmailError"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Contact Phone Number <span class="required">*</span></label>
+                                    <input type="tel" name="contactPhone" id="contactPhone"
+                                        placeholder="+91 XXXXX XXXXX" required>
+                                    <span class="error-message" id="contactPhoneError"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 4: Admin Account Setup -->
+                        <div class="form-section" id="step4" style="display: none;">
+                            <h2>School Admin Account Setup</h2>
+                            <p style="color: #6e6e73; font-size: 14px; margin-bottom: 24px;">This admin will manage the
+                                school on the platform</p>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Admin Name <span class="required">*</span></label>
+                                    <input type="text" name="adminName" id="adminName" placeholder="Admin Full Name"
+                                        required>
+                                    <span class="error-message" id="adminNameError"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Admin Email (Login Email) <span class="required">*</span></label>
+                                    <input type="email" name="adminEmail" id="adminEmail" placeholder="admin@school.com"
+                                        required>
+                                    <span class="error-message" id="adminEmailError"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Admin Phone Number <span class="required">*</span></label>
+                                    <input type="tel" name="adminPhone" id="adminPhone" placeholder="+91 XXXXX XXXXX"
+                                        required>
+                                    <span class="error-message" id="adminPhoneError"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 5: Program Assignment -->
+                        <div class="form-section" id="step5" style="display: none;">
+                            <h2>Program Assignment</h2>
+
+                            <div class="form-row full">
+                                <div class="form-group">
+                                    <label>Assign Program Coordinator <span class="required">*</span></label>
+                                    <select name="programCoordinator" id="programCoordinator" required>
+                                        <option value="">Select coordinator</option>
+                                        <option value="coord1">Sarah Johnson - Senior Coordinator</option>
+                                        <option value="coord2">Michael Chen - Program Lead</option>
+                                        <option value="coord3">Emily Rodriguez - Education Coordinator</option>
+                                        <option value="coord4">David Thompson - Academic Coordinator</option>
+                                        <option value="coord5">Lisa Anderson - Program Manager</option>
+                                    </select>
+                                    <span class="error-message" id="programCoordinatorError"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-row full">
+                                <div class="form-group">
+                                    <label>Assign Thinking Coaches <span class="required">*</span></label>
+                                    <div class="multi-select-container">
+                                        <div class="selected-items" id="selectedCoaches">
+                                            <span class="placeholder">Select coaches</span>
+                                        </div>
+                                        <div class="multi-select-dropdown" id="coachesDropdown">
+                                            <div class="search-box">
+                                                <input type="text" id="coachSearch" placeholder="Search coaches...">
+                                            </div>
+                                            <div class="options-list">
+                                                <label class="checkbox-option">
+                                                    <input type="checkbox" name="coaches" value="coach1">
+                                                    <span>Dr. Robert Smith - Critical Thinking Coach</span>
+                                                </label>
+                                                <label class="checkbox-option">
+                                                    <input type="checkbox" name="coaches" value="coach2">
+                                                    <span>Jennifer Lee - Creative Thinking Specialist</span>
+                                                </label>
+                                                <label class="checkbox-option">
+                                                    <input type="checkbox" name="coaches" value="coach3">
+                                                    <span>Mark Williams - Problem Solving Coach</span>
+                                                </label>
+                                                <label class="checkbox-option">
+                                                    <input type="checkbox" name="coaches" value="coach4">
+                                                    <span>Patricia Brown - Analytical Thinking Coach</span>
+                                                </label>
+                                                <label class="checkbox-option">
+                                                    <input type="checkbox" name="coaches" value="coach5">
+                                                    <span>James Davis - Strategic Thinking Coach</span>
+                                                </label>
+                                                <label class="checkbox-option">
+                                                    <input type="checkbox" name="coaches" value="coach6">
+                                                    <span>Maria Garcia - Design Thinking Coach</span>
+                                                </label>
+                                                <label class="checkbox-option">
+                                                    <input type="checkbox" name="coaches" value="coach7">
+                                                    <span>Christopher Martinez - Innovation Coach</span>
+                                                </label>
+                                                <label class="checkbox-option">
+                                                    <input type="checkbox" name="coaches" value="coach8">
+                                                    <span>Amanda Wilson - Cognitive Skills Coach</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <span class="error-message" id="coachesError"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-back" id="backBtn" style="display: none;">
+                                <span class="arrow">←</span>
+                                Back
+                            </button>
+                            <button type="button" class="btn btn-next" id="nextBtn">
+                                Next
+                                <span class="arrow">→</span>
+                            </button>
+                            <button type="submit" class="btn btn-next" id="submitBtn" style="display: none;">
+                                Submit
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Load Sidebar and Header Components
+        document.addEventListener('DOMContentLoaded', function () {
+            Promise.all([
+                fetch('sidebar.html').then(response => response.text()),
+                fetch('header.html').then(response => response.text())
+            ]).then(([sidebarHTML, headerHTML]) => {
+                document.getElementById('sidebar-container').innerHTML = sidebarHTML;
+                document.getElementById('header-container').innerHTML = headerHTML;
+                // Call header initialization directly instead of relying on DOMContentLoaded
+                if (typeof initializeHeader === 'function') {
+                    initializeHeader();
+                }
+
+                // Wait a bit for sidebar.js to initialize, then set active state
+                setTimeout(() => {
+                    setActiveMenuItem();
+                }, 200);
+            });
+        });
+
+        function setActiveMenuItem() {
+            const currentPage = window.location.pathname.split('/').pop();
+            const navAddSchool = document.getElementById('nav-add-school');
+            if (navAddSchool && currentPage === 'onboard-school.html') {
+                navAddSchool.classList.add('active');
+                // Also expand the Schools dropdown
+                const schoolsDropdown = document.getElementById('schools-dropdown');
+                if (schoolsDropdown) {
+                    schoolsDropdown.classList.add('active');
+                    const dropdownMenu = schoolsDropdown.nextElementSibling;
+                    if (dropdownMenu) {
+                        dropdownMenu.classList.add('active');
+                    }
+                }
+            }
+        }
+    </script>
+
+    <script>
+        let currentStep = 1;
+        const totalSteps = 5;
+        const formData = {};
+
+        // Comprehensive validators object
+        const validators = {
+            schoolName: {
+                validate: (value) => {
+                    if (!value.trim()) return 'School name is required';
+                    if (value.trim().length < 3) return 'School name must be at least 3 characters';
+                    if (value.trim().length > 200) return 'School name cannot exceed 200 characters';
+                    if (!/^[a-zA-Z0-9\s.,'&-]+$/.test(value)) return 'School name contains invalid characters';
+                    return '';
+                }
+            },
+            schoolCode: {
+                validate: (value) => {
+                    if (!value.trim()) return 'School code is required';
+                    if (value.trim().length < 3) return 'School code must be at least 3 characters';
+                    if (value.trim().length > 50) return 'School code cannot exceed 50 characters';
+                    if (!/^[a-zA-Z0-9-_]+$/.test(value)) return 'School code can only contain letters, numbers, hyphens, and underscores';
+                    return '';
+                }
+            },
+            board: {
+                validate: (value) => {
+                    if (!value) return 'Board/Curriculum is required';
+                    return '';
+                }
+            },
+            address: {
+                validate: (value) => {
+                    if (!value.trim()) return 'School address is required';
+                    if (value.trim().length < 10) return 'Please provide a complete address (at least 10 characters)';
+                    if (value.trim().length > 300) return 'Address cannot exceed 300 characters';
+                    return '';
+                }
+            },
+            city: {
+                validate: (value) => {
+                    if (!value.trim()) return 'City is required';
+                    if (value.trim().length < 2) return 'City name must be at least 2 characters';
+                    if (value.trim().length > 100) return 'City name cannot exceed 100 characters';
+                    if (!/^[a-zA-Z\s.-]+$/.test(value)) return 'City name can only contain letters, spaces, dots, and hyphens';
+                    return '';
+                }
+            },
+            state: {
+                validate: (value) => {
+                    if (!value.trim()) return 'State is required';
+                    if (value.trim().length < 2) return 'State name must be at least 2 characters';
+                    if (value.trim().length > 100) return 'State name cannot exceed 100 characters';
+                    if (!/^[a-zA-Z\s.-]+$/.test(value)) return 'State name can only contain letters, spaces, dots, and hyphens';
+                    return '';
+                }
+            },
+            pincode: {
+                validate: (value) => {
+                    if (!value.trim()) return 'Pincode is required';
+                    const cleanPincode = value.replace(/\D/g, '');
+                    if (cleanPincode.length < 5 || cleanPincode.length > 10) return 'Pincode must be between 5 and 10 digits';
+                    return '';
+                }
+            },
+            country: {
+                validate: (value) => {
+                    if (!value) return 'Country is required';
+                    return '';
+                }
+            },
+            schoolEmail: {
+                validate: (value) => {
+                    if (!value.trim()) return 'School email is required';
+                    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+                    if (!emailRegex.test(value)) return 'Please enter a valid email address';
+                    if (value.length > 100) return 'Email cannot exceed 100 characters';
+                    return '';
+                }
+            },
+            schoolPhone: {
+                validate: (value) => {
+                    if (!value.trim()) return 'School phone number is required';
+                    const cleanPhone = value.replace(/\D/g, '');
+                    if (cleanPhone.length < 10 || cleanPhone.length > 15) return 'Phone number must be 10 digits';
+                    return '';
+                }
+            },
+            alternatePhone: {
+                validate: (value) => {
+                    if (!value || value.trim() === '') return '';
+                    const cleanPhone = value.replace(/\D/g, '');
+                    if (cleanPhone.length < 10 || cleanPhone.length > 15) return 'Phone number must be 10 digits';
+                    return '';
+                }
+            },
+            website: {
+                validate: (value) => {
+                    if (!value || value.trim() === '') return '';
+                    const urlRegex = /^(https?:\/\/)?(www\.)?[a-zA-Z0-9-]+\.[a-zA-Z]{2,}(\/.*)?$/;
+                    if (!urlRegex.test(value)) return 'Please enter a valid website URL';
+                    if (value.length > 200) return 'Website URL cannot exceed 200 characters';
+                    return '';
+                }
+            },
+            contactName: {
+                validate: (value) => {
+                    if (!value.trim()) return 'Contact name is required';
+                    if (value.trim().length < 2) return 'Contact name must be at least 2 characters';
+                    if (value.trim().length > 100) return 'Contact name cannot exceed 100 characters';
+                    if (!/^[a-zA-Z\s.'-]+$/.test(value)) return 'Contact name can only contain letters, spaces, dots, hyphens, and apostrophes';
+                    return '';
+                }
+            },
+            designation: {
+                validate: (value) => {
+                    if (!value) return 'Designation is required';
+                    return '';
+                }
+            },
+            contactEmail: {
+                validate: (value) => {
+                    if (!value.trim()) return 'Contact email is required';
+                    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+                    if (!emailRegex.test(value)) return 'Please enter a valid email address';
+                    if (value.length > 100) return 'Email cannot exceed 100 characters';
+                    return '';
+                }
+            },
+            contactPhone: {
+                validate: (value) => {
+                    if (!value.trim()) return 'Contact phone number is required';
+                    const cleanPhone = value.replace(/\D/g, '');
+                    if (cleanPhone.length < 10 || cleanPhone.length > 15) return 'Phone number must be 10 digits';
+                    return '';
+                }
+            },
+            adminName: {
+                validate: (value) => {
+                    if (!value.trim()) return 'Admin name is required';
+                    if (value.trim().length < 2) return 'Admin name must be at least 2 characters';
+                    if (value.trim().length > 100) return 'Admin name cannot exceed 100 characters';
+                    if (!/^[a-zA-Z\s.'-]+$/.test(value)) return 'Admin name can only contain letters, spaces, dots, hyphens, and apostrophes';
+                    return '';
+                }
+            },
+            adminEmail: {
+                validate: (value) => {
+                    if (!value.trim()) return 'Admin email is required';
+                    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+                    if (!emailRegex.test(value)) return 'Please enter a valid email address';
+                    if (value.length > 100) return 'Email cannot exceed 100 characters';
+                    return '';
+                }
+            },
+            adminPhone: {
+                validate: (value) => {
+                    if (!value.trim()) return 'Admin phone number is required';
+                    const cleanPhone = value.replace(/\D/g, '');
+                    if (cleanPhone.length < 10 || cleanPhone.length > 15) return 'Phone number must be 10 digits';
+                    return '';
+                }
+            },
+            programCoordinator: {
+                validate: (value) => {
+                    if (!value) return 'Program coordinator is required';
+                    return '';
+                }
+            }
+        };
+
+        // Helper function to show error
+        function showError(fieldId, message) {
+            const field = document.getElementById(fieldId);
+            const errorElement = document.getElementById(fieldId + 'Error');
+
+            if (field && errorElement) {
+                field.classList.add('error');
+                errorElement.textContent = message;
+                errorElement.style.display = 'block';
+            }
+        }
+
+        // Helper function to clear error
+        function clearError(fieldId) {
+            const field = document.getElementById(fieldId);
+            const errorElement = document.getElementById(fieldId + 'Error');
+
+            if (field && errorElement) {
+                field.classList.remove('error');
+                errorElement.textContent = '';
+                errorElement.style.display = 'none';
+            }
+        }
+
+        // Add real-time validation listeners for all fields
+        Object.keys(validators).forEach(fieldName => {
+            const field = document.getElementById(fieldName);
+            if (field) {
+                // Validate on blur
+                field.addEventListener('blur', function () {
+                    const error = validators[fieldName].validate(this.value);
+                    if (error) {
+                        showError(fieldName, error);
+                    } else {
+                        clearError(fieldName);
+                    }
+                });
+
+                // Clear error on input
+                field.addEventListener('input', function () {
+                    clearError(fieldName);
+                });
+            }
+        });
+
+        // Initialize
+        updateStepDisplay();
+
+        // Next button handler
+        document.getElementById('nextBtn').addEventListener('click', function () {
+            if (validateCurrentStep()) {
+                saveCurrentStepData();
+                if (currentStep < totalSteps) {
+                    currentStep++;
+                    updateStepDisplay();
+                }
+            }
+        });
+
+        // Back button handler
+        document.getElementById('backBtn').addEventListener('click', function () {
+            if (currentStep > 1) {
+                currentStep--;
+                updateStepDisplay();
+            }
+        });
+
+        // Form submission handler
+        document.getElementById('schoolForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            if (validateCurrentStep()) {
+                saveCurrentStepData();
+                console.log('Final Form Data:', formData);
+                alert('School registration completed successfully!\n\nCheck console for form data.');
+                // Here you would typically send the data to your backend
+            }
+        });
+
+        function updateStepDisplay() {
+            // Hide all steps
+            for (let i = 1; i <= totalSteps; i++) {
+                document.getElementById(`step${i}`).style.display = 'none';
+            }
+
+            // Show current step
+            document.getElementById(`step${currentStep}`).style.display = 'block';
+
+            // Update stepper UI
+            document.querySelectorAll('.step').forEach((step, index) => {
+                step.classList.remove('active', 'completed');
+                if (index + 1 < currentStep) {
+                    step.classList.add('completed');
+                } else if (index + 1 === currentStep) {
+                    step.classList.add('active');
+                }
+            });
+
+            // Update buttons
+            const backBtn = document.getElementById('backBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const submitBtn = document.getElementById('submitBtn');
+
+            backBtn.style.display = currentStep > 1 ? 'flex' : 'none';
+            nextBtn.style.display = currentStep < totalSteps ? 'flex' : 'none';
+            submitBtn.style.display = currentStep === totalSteps ? 'flex' : 'none';
+        }
+
+        function validateCurrentStep() {
+            let isValid = true;
+            const currentStepElement = document.getElementById(`step${currentStep}`);
+
+            // Get all fields with validators in the current step
+            const fieldsToValidate = currentStepElement.querySelectorAll('input[id], select[id]');
+
+            fieldsToValidate.forEach(field => {
+                const fieldId = field.id;
+                if (validators[fieldId]) {
+                    const error = validators[fieldId].validate(field.value);
+                    if (error) {
+                        showError(fieldId, error);
+                        isValid = false;
+                    } else {
+                        clearError(fieldId);
+                    }
+                }
+            });
+
+            // Special validation for multi-select coaches in step 5
+            if (currentStep === 5) {
+                const selectedCoaches = document.querySelectorAll('input[name="coaches"]:checked');
+                const selectedItemsContainer = document.getElementById('selectedCoaches');
+                const coachesError = document.getElementById('coachesError');
+
+                if (selectedCoaches.length === 0) {
+                    isValid = false;
+                    selectedItemsContainer.classList.add('error');
+                    if (coachesError) {
+                        coachesError.textContent = 'Please select at least one thinking coach';
+                        coachesError.style.display = 'block';
+                    }
+                } else {
+                    selectedItemsContainer.classList.remove('error');
+                    if (coachesError) {
+                        coachesError.textContent = '';
+                        coachesError.style.display = 'none';
+                    }
+                }
+            }
+
+            return isValid;
+        }
+
+        function saveCurrentStepData() {
+            const currentStepElement = document.getElementById(`step${currentStep}`);
+            const inputs = currentStepElement.querySelectorAll('input, select');
+
+            inputs.forEach(input => {
+                if (input.type === 'checkbox' && input.name === 'coaches') {
+                    if (!formData.coaches) formData.coaches = [];
+                    if (input.checked && !formData.coaches.includes(input.value)) {
+                        formData.coaches.push(input.value);
+                    }
+                } else if (input.name) {
+                    formData[input.name] = input.value;
+                }
+            });
+        }
+
+        // Multi-select dropdown functionality
+        const selectedItemsContainer = document.getElementById('selectedCoaches');
+        const dropdown = document.getElementById('coachesDropdown');
+        const checkboxes = document.querySelectorAll('input[name="coaches"]');
+        const searchInput = document.getElementById('coachSearch');
+
+        selectedItemsContainer.addEventListener('click', function () {
+            dropdown.classList.toggle('active');
+            selectedItemsContainer.classList.toggle('active');
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function (e) {
+            if (!e.target.closest('.multi-select-container')) {
+                dropdown.classList.remove('active');
+                selectedItemsContainer.classList.remove('active');
+            }
+        });
+
+        // Handle checkbox changes
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', function () {
+                updateSelectedCoaches();
+            });
+        });
+
+        function updateSelectedCoaches() {
+            const selected = Array.from(checkboxes)
+                .filter(cb => cb.checked)
+                .map(cb => ({
+                    value: cb.value,
+                    label: cb.nextElementSibling.textContent
+                }));
+
+            if (selected.length === 0) {
+                selectedItemsContainer.innerHTML = '<span class="placeholder">Select coaches</span>';
+            } else {
+                selectedItemsContainer.innerHTML = selected.map(item => `
+                    <span class="selected-tag">
+                        ${item.label.split(' - ')[0]}
+                        <span class="remove" data-value="${item.value}">×</span>
+                    </span>
+                `).join('');
+
+                // Add remove handlers
+                selectedItemsContainer.querySelectorAll('.remove').forEach(btn => {
+                    btn.addEventListener('click', function (e) {
+                        e.stopPropagation();
+                        const value = this.getAttribute('data-value');
+                        const checkbox = document.querySelector(`input[value="${value}"]`);
+                        checkbox.checked = false;
+                        updateSelectedCoaches();
+                    });
+                });
+            }
+
+            // Clear border error if coaches are selected
+            if (selected.length > 0) {
+                selectedItemsContainer.classList.remove('error');
+                const coachesError = document.getElementById('coachesError');
+                if (coachesError) {
+                    coachesError.textContent = '';
+                    coachesError.style.display = 'none';
+                }
+            }
+        }
+
+        // Search functionality
+        searchInput.addEventListener('input', function () {
+            const searchTerm = this.value.toLowerCase();
+            const options = document.querySelectorAll('.checkbox-option');
+
+            options.forEach(option => {
+                const text = option.textContent.toLowerCase();
+                option.style.display = text.includes(searchTerm) ? 'flex' : 'none';
+            });
+        });
+    </script>
+</body>
+
+</html>
