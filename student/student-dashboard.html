@@ -66,6 +66,10 @@
                                         class="material-symbols-outlined align-middle">arrow_forward</span></span>
                             </div>
                             <div class="detail-row">
+                                <span class="detail-label">Institute</span>
+                                <span class="detail-value">Delhi Public School</span>
+                            </div>
+                            <div class="detail-row">
                                 <span class="detail-label">Date of Admission</span>
                                 <span class="detail-value">21 November, 2025</span>
                             </div>
@@ -99,7 +103,92 @@
                         </div>
                     </div>
 
-                    <!-- Gamification Card -->
+                     <div class="stats-cards-container">
+                        <div class="card stats-overview-card stats-main-card">
+                            <div class="stats-card-glow"></div>
+                            <div class="stats-overview-header">
+                                <div class="stats-content">
+                                    <h3 class="stats-label">
+                                        <span class="material-symbols-outlined stats-label-icon">school</span>
+                                        Total Registered Students
+                                    </h3>
+                                    <div class="stats-count-wrapper">
+                                        <p class="stats-count" id="studentCount">0</p>
+                                        <span class="stats-count-plus">+</span>
+                                    </div>
+                                    <p class="stats-subtitle">Active learners in the system</p>
+                                </div>
+                            </div>
+                            <div class="stats-badge">
+                                <span class="material-symbols-outlined">trending_up</span>
+                                <span>All Active Students</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quiz Widget -->
+                    <div class="card quiz-card">
+                        <div class="quiz-header">
+                            <div class="quiz-icon-wrapper">
+                                <span class="material-symbols-outlined quiz-icon">quiz</span>
+                            </div>
+                            <div class="quiz-info">
+                                <h4 class="quiz-title">Test Your Knowledge!</h4>
+                                <p class="quiz-subtitle">Complete today's quiz and earn XP</p>
+                            </div>
+                        </div>
+
+                        <div class="quiz-stats">
+                            <div class="quiz-stat-item">
+                                <span class="material-symbols-outlined quiz-stat-icon">verified</span>
+                                <div>
+                                    <p class="quiz-stat-value">15/20</p>
+                                    <p class="quiz-stat-label">Completed</p>
+                                </div>
+                            </div>
+                            <div class="quiz-stat-item">
+                                <span class="material-symbols-outlined quiz-stat-icon">stars</span>
+                                <div>
+                                    <p class="quiz-stat-value">750 XP</p>
+                                    <p class="quiz-stat-label">Total Earned</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="quiz-current">
+                            <div class="quiz-current-header">
+                                <h5 class="quiz-current-title">Today's Quiz</h5>
+                                <span class="quiz-badge new">NEW</span>
+                            </div>
+                            <p class="quiz-current-subject">
+                                <span class="material-symbols-outlined">subject</span>
+                                Mathematics - Algebra
+                            </p>
+                            <div class="quiz-progress-wrapper">
+                                <div class="quiz-progress-info">
+                                    <span class="quiz-questions-count">10 Questions</span>
+                                    <span class="quiz-time">
+                                        <span class="material-symbols-outlined">timer</span>
+                                        15 min
+                                    </span>
+                                </div>
+                                <div class="quiz-reward">
+                                    <span class="material-symbols-outlined">workspace_premium</span>
+                                    +50 XP
+                                </div>
+                            </div>
+                        </div>
+
+                        <button class="quiz-start-btn">
+                            <span class="material-symbols-outlined">play_arrow</span>
+                            Start Quiz
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Main Column -->
+                <div class="main-column">
+                     <!-- Gamification Card -->
                     <div class="card gamification-card">
                         <h3 class="gamification-title">Journey Progress</h3>
 
@@ -190,78 +279,6 @@
                             </a>
                         </div>
                     </div>
-                </div>
-
-                <!-- Main Column -->
-                <div class="main-column">
-                    <!-- Banner -->
-                    <div class="banner-card">
-                        <div class="banner-content">
-                            <div class="banner-badge">Welcome kunal at Student Portal</div>
-                            <h1 class="banner-title">Your Institute Name Here</h1>
-                            <p class="banner-subtitle">Your targetline goes here</p>
-                        </div>
-                        <div class="banner-decoration">
-                            <svg fill="none" height="250" viewBox="0 0 200 200" width="250">
-                                <circle cx="100" cy="100" fill="white" fill-opacity="0.1" r="100"></circle>
-                            </svg>
-                        </div>
-                        <img alt="Student studying on a laptop" class="banner-image"
-                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBcy6ovydF5IExA3XKkx0GchtIWBM9ooE93nId8J9cUFn9tg-hy2Pxy0aWnAQZLRJltvp6TuWJKEeXJvKgbB98fjqlsvBmmFNH0UXB-2SFDx9tkZ2nZZJSyj6apTzz--AuBJ4Rt0CVnoSvxUgJtnPy2tGFqvmjAGgJ_0XcpdKZ5p1FvUiwt1Um83Pu3tlH5_zmBQjsSIojhctiaqorwWjkXeLLCE8eP3WUxsG829kUTqHR49WOtvKfA9JfmrIxzC7VdcgYb3YWapnU" />
-                    </div>
-
-                    <!-- Student Count Cards Container -->
-                    <div class="stats-cards-container">
-                        <!-- Main Student Count Card -->
-                        <div class="card stats-overview-card stats-main-card">
-                            <div class="stats-card-glow"></div>
-                            <div class="stats-overview-header">
-                                <div class="stats-content">
-                                    <h3 class="stats-label">
-                                        <span class="material-symbols-outlined stats-label-icon">school</span>
-                                        Total Registered Students
-                                    </h3>
-                                    <div class="stats-count-wrapper">
-                                        <p class="stats-count" id="studentCount">0</p>
-                                        <span class="stats-count-plus">+</span>
-                                    </div>
-                                    <p class="stats-subtitle">Active learners in the system</p>
-                                </div>
-                            </div>
-                            <div class="stats-badge">
-                                <span class="material-symbols-outlined">trending_up</span>
-                                <span>All Active Students</span>
-                            </div>
-                        </div>
-
-                        <!-- Statistics Breakdown Card -->
-                        <div class="card stats-breakdown-card">
-                            <h3 class="stats-breakdown-title">
-                                <span class="material-symbols-outlined">analytics</span>
-                                Student Analytics
-                            </h3>
-                            <div class="stats-breakdown-grid">
-                                <div class="stats-breakdown-item">
-                                    <div class="stats-breakdown-icon-wrapper new-students">
-                                        <span class="material-symbols-outlined">person_add</span>
-                                    </div>
-                                    <div class="stats-breakdown-content">
-                                        <p class="stats-breakdown-value" id="newStudents">0</p>
-                                        <p class="stats-breakdown-label">New This Month</p>
-                                    </div>
-                                </div>
-                                <div class="stats-breakdown-item">
-                                    <div class="stats-breakdown-icon-wrapper active-students">
-                                        <span class="material-symbols-outlined">verified</span>
-                                    </div>
-                                    <div class="stats-breakdown-content">
-                                        <p class="stats-breakdown-value" id="activeStudents">0</p>
-                                        <p class="stats-breakdown-label">Active Today</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
                     <!-- Reports Grid -->
                     <div class="reports-grid">
@@ -327,72 +344,11 @@
                             </div>
                         </div>
 
-                        <!-- Class Tests Report -->
-                        <div>
-                            <div class="report-header">
-                                <span class="report-number">2</span>
-                                <h3 class="report-title">Class Tests Report</h3>
-                            </div>
-                            <div class="card">
-                                <div class="subject-header">
-                                    <span class="material-symbols-outlined subject-icon">auto_stories</span>
-                                    <h4 class="subject-name">maths</h4>
-                                </div>
-                                <div class="test-content">
-                                    <div class="test-details">
-                                        <p class="test-percent">80%</p>
-                                        <div class="progress-bar">
-                                            <div class="progress-fill" style="width: 80%;"></div>
-                                        </div>
-                                        <div class="test-stats">
-                                            <p class="test-stat-item">
-                                                <span class="legend-dot red"></span>TOTAL CLASS TESTS (10)
-                                            </p>
-                                            <p class="test-stat-item">
-                                                <span class="legend-dot"
-                                                    style="background-color: var(--gray-400);"></span>TOTAL MARKS (100)
-                                            </p>
-                                            <p class="test-stat-item">
-                                                <span class="legend-dot blue"></span>OBTAINED MARKS (80)
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div class="chart-container">
-                                        <svg class="rotate-90" width="120" height="120">
-                                            <circle cx="60" cy="60" fill="none" r="52" stroke="#e5e7eb"
-                                                stroke-width="9"></circle>
-                                            <circle cx="60" cy="60" fill="none" r="52" stroke="#22c55e"
-                                                stroke-dasharray="251.2" stroke-dashoffset="251.2" stroke-width="9">
-                                            </circle>
-                                        </svg>
-                                        <div class="chart-label">
-                                            <span class="chart-percent">80%</span>
-                                            <span class="chart-text">score</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Examination Report -->
-                        <div>
-                            <div class="report-header">
-                                <span class="report-number">3</span>
-                                <h3 class="report-title">Examination Report</h3>
-                            </div>
-                            <div class="card empty-state">
-                                <img alt="Illustration of a person working at a desk"
-                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuCb75UstXGqy84gQQ5Z3ONv2opvpR1NgdpEEfKqzdTXetgcW_qNZ7my5Yc7H6dcAAELx6afl1cjb_sSAov3FM5ihshr6XlidebRNLJFWt_JLFi1wuPGn6i_JqLbPhc0232YE1upRiP8tvkNvLRkw9pW37i2TQSyDDLpIzNZaGk_GWpeqho5E4cqkYlYtlpRrE9P0d7MGdKUoVveyl-HNi45oUbTEFuz1FhlDW1zo9Ig_ACa4fKDPdHTefqqFuP5KZ7WlUd7xmnc9PM" />
-                                <p><span class="material-symbols-outlined align-middle">search</span> No Record Found.
-                                </p>
-                            </div>
-                        </div>
-
                         <!-- Event Calendar -->
                         <div>
                             <a href="event-calendar.html" class="report-link">
                                 <div class="report-header">
-                                    <span class="report-number">4</span>
+                                    <span class="report-number">2</span>
                                     <h3 class="report-title">Event Calendar</h3>
                                 </div>
                             </a>
@@ -456,6 +412,39 @@
                                         <span class="event-badge meeting">Meeting</span>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+
+                        <!-- Featured Newsletter -->
+                        <div>
+                            <a href="newsletter.html" class="report-link">
+                                <div class="report-header">
+                                    <span class="report-number">3</span>
+                                    <h3 class="report-title">Featured Newsletter</h3>
+                                </div>
+                            </a>
+                            <div class="card newsletter-card">
+                                <div class="newsletter-featured-badge">
+                                    <span class="material-symbols-outlined">auto_awesome</span>
+                                    Featured
+                                </div>
+
+                                <div class="newsletter-header">
+                                    <div class="newsletter-icon-wrapper">
+                                        <span class="material-symbols-outlined newsletter-icon">mail</span>
+                                    </div>
+                                    <div class="newsletter-meta">
+                                        <span class="newsletter-date">December 9, 2025</span>
+                                        <span class="newsletter-category">Monthly Edition</span>
+                                    </div>
+                                </div>
+
+                                <h4 class="newsletter-title">Student Success Stories</h4>
+
+                                <button class="newsletter-read-btn">
+                                    Read Newsletter
+                                    <span class="material-symbols-outlined">arrow_forward</span>
+                                </button>
                             </div>
                         </div>
 
