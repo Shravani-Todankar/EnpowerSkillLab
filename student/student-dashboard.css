@@ -2566,19 +2566,7 @@ body.dark .progress-bar {
     .reports-grid>div:nth-child(3) {
         margin-top: -60px;
     }
-
-    /* .card.stats-overview-card.stats-main-card {
-        width: 400px;
-    } */
 }
-
-/* Iphone 15 query */
-/* @media (max-width: 393px) {
-    .card.stats-overview-card.stats-main-card {
-        width: 372px;
-        margin: 0 auto;
-    }
-} */
 
 @media (min-width: 1024px) {
     .content-wrapper {
