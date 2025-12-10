@@ -1,493 +1,641 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="en" class="light">
 
 <head>
-    <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Teacher List - School Admin</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&amp;display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
-        rel="stylesheet" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Teacher List - School Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
 
-    <!-- DataTables CSS -->
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.dataTables.min.css">
+  <!-- Sidebar JS -->
+  <script src="sidebar.js"></script>
+  <!-- Header JS -->
+  <script src="header.js"></script>
 
-    <link rel="stylesheet" href="teacher-list.css">
+  <style>
+    /* Prevent FOUC - hide containers until loaded */
+    #sidebar-container:empty,
+    #header-container:empty {
+      opacity: 0;
+      visibility: hidden;
+    }
 
-    <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    #sidebar-container.loaded,
+    #header-container.loaded {
+      opacity: 1;
+      visibility: visible;
+      transition: opacity 0.2s ease-in;
+    }
+  </style>
 
-    <!-- DataTables JS -->
-    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
+  <style>
+    :root {
+      --primary: #6B21A8;
+      --background-light: #F3F4F6;
+      --background-dark: #111827;
+      --card-radius: 0.5rem;
+      --shadow: 0 1px 2px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
 
-    <!-- Sidebar JS -->
-    <script src="sidebar.js"></script>
-    <!-- Header JS -->
-    <script src="header.js"></script>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--background-light);
+      color: #374151;
+      -webkit-font-smoothing: antialiased;
+    }
 
-    <style>
-        /* Prevent FOUC - hide containers until loaded */
-        #sidebar-container:empty,
-        #header-container:empty {
-            opacity: 0;
-            visibility: hidden;
-        }
+    body.dark {
+      background-color: var(--background-dark);
+      color: #d1d5db;
+    }
 
-        #sidebar-container.loaded,
-        #header-container.loaded {
-            opacity: 1;
-            visibility: visible;
-            transition: opacity 0.2s ease-in;
-        }
-    </style>
+    .card {
+      border: 1px solid rgba(0, 0, 0, 0.04);
+      border-radius: var(--card-radius);
+      box-shadow: var(--shadow);
+      background-color: #fff;
+    }
+
+    body.dark .card {
+      background-color: #1f2937;
+      border-color: #374151;
+    }
+
+    .btn-white {
+      background-color: #fff;
+      color: #4b5563;
+      border: 1px solid #d1d5db;
+    }
+
+    .btn-white:hover {
+      background-color: #f9fafb;
+      color: #111827;
+    }
+
+    body.dark .btn-white {
+      background-color: #374151;
+      color: #e5e7eb;
+      border-color: #4b5563;
+    }
+
+    body.dark .btn-white:hover {
+      background-color: #4b5563;
+    }
+
+    .btn-primary {
+      background-color: var(--primary);
+      border-color: var(--primary);
+    }
+
+    .btn-primary:hover {
+      background-color: #581c87;
+      border-color: #581c87;
+    }
+
+    .control-pill {
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.25rem 0.6rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    .status-present {
+      background-color: #d1fae5;
+      color: #166534;
+    }
+
+    .status-leave {
+      background-color: #fef9c3;
+      color: #854d0e;
+    }
+
+    .status-absent {
+      background-color: #fee2e2;
+      color: #991b1b;
+    }
+
+    body.dark .status-present {
+      background-color: rgba(16, 185, 129, 0.18);
+      color: #34d399;
+    }
+
+    body.dark .status-leave {
+      background-color: rgba(234, 179, 8, 0.18);
+      color: #fcd34d;
+    }
+
+    body.dark .status-absent {
+      background-color: rgba(248, 113, 113, 0.18);
+      color: #fca5a5;
+    }
+
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      font-size: 20px;
+      line-height: 1;
+    }
+
+    .initial-badge {
+      width: 2.25rem;
+      height: 2.25rem;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      color: #fff;
+      font-size: 0.8rem;
+    }
+
+    .table> :not(caption)>*>* {
+      padding: 0.85rem 1.25rem;
+      vertical-align: middle;
+    }
+
+    .table thead th {
+      font-size: 0.75rem;
+      letter-spacing: 0.02em;
+      color: #6b7280;
+      text-transform: uppercase;
+      border-bottom: 1px solid #e5e7eb;
+      background: #f9fafb;
+    }
+
+    body.dark .table thead th {
+      color: #9ca3af;
+      background: rgba(55, 65, 81, 0.7);
+      border-color: #374151;
+    }
+
+    .table tbody td {
+      color: #111827;
+    }
+
+    body.dark .table tbody td {
+      color: #e5e7eb;
+    }
+
+    .shadow-light {
+      box-shadow: var(--shadow);
+    }
+
+    .pagination .page-link {
+      border-color: #d1d5db;
+      color: #6b7280;
+    }
+
+    .pagination .page-link.active,
+    .pagination .page-item.active .page-link {
+      background-color: var(--primary);
+      border-color: var(--primary);
+      color: #fff;
+    }
+
+    body.dark .pagination .page-link {
+      background-color: #1f2937;
+      border-color: #4b5563;
+      color: #9ca3af;
+    }
+
+    body.dark .pagination .page-link.active {
+      color: #fff;
+    }
+
+    .dashboard-container {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    .main-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    /* Unified Modern Gradient Buttons */
+    .btn-gradient {
+      border: none;
+      border-radius: 10px;
+      padding: 10px 22px;
+      font-weight: 600;
+      color: #fff !important;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+      transition: all 0.2s ease-in-out;
+    }
+
+    .btn-gradient:hover {
+      opacity: 0.95;
+    }
+
+    /* Individual Gradient Styles */
+    .btn-download {
+      background: linear-gradient(90deg, #0EA5E9, #0284C7);
+    }
+
+    .btn-upload {
+      background: linear-gradient(90deg, #10B981, #059669);
+    }
+
+    .btn-add {
+      background: linear-gradient(90deg, #7E22CE, #6B21A8);
+    }
+
+    .btn-gradient .material-symbols-outlined {
+      font-size: 20px;
+      font-weight: 600;
+    }
+
+    div.dataTables_wrapper div.dataTables_length select{
+      width: 70px !important;
+    }
+
+    /* Table wrapper outer - contains both DataTables controls and table */
+    .table-wrapper-outer {
+      width: 100%;
+      overflow: visible;
+    }
+
+    /* Improved table responsive wrapper with clean scrollbar */
+    .table-responsive {
+      overflow-x: auto;
+      overflow-y: visible;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    /* Custom scrollbar styling for a cleaner look */
+    .table-responsive::-webkit-scrollbar {
+      height: 8px;
+    }
+
+    .table-responsive::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 4px;
+    }
+
+    body.dark .table-responsive::-webkit-scrollbar-track {
+      background: #374151;
+    }
+
+    .table-responsive::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 4px;
+    }
+
+    body.dark .table-responsive::-webkit-scrollbar-thumb {
+      background: #4b5563;
+    }
+
+    .table-responsive::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+
+    body.dark .table-responsive::-webkit-scrollbar-thumb:hover {
+      background: #6b7280;
+    }
+
+    /* DataTables header and footer - fixed position */
+    .datatable-header,
+    .datatable-footer {
+      background: white;
+      position: relative;
+      z-index: 2;
+    }
+
+    body.dark .datatable-header,
+    body.dark .datatable-footer {
+      background: #1f2937;
+    }
+
+    /* Table scroll wrapper - only this scrolls horizontally */
+    .table-scroll-wrapper {
+      overflow-x: auto;
+      overflow-y: visible;
+      -webkit-overflow-scrolling: touch;
+      position: relative;
+      z-index: 1;
+    }
+  </style>
 </head>
 
 <body>
-    <div class="dashboard-container">
-        <!-- Include Sidebar Component -->
-        <div id="sidebar-container"></div>
+  <div class="dashboard-container">
+    <!-- Include Sidebar Component -->
+    <div id="sidebar-container"></div>
 
-        <!-- Main Content -->
-        <main class="main-content">
-            <!-- Include Header Component -->
-            <div id="header-container"></div>
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Include Header Component -->
+      <div id="header-container"></div>
+      <div class="py-4 py-sm-5 py-lg-5">
+        <div class="container-xl" style="max-width: 1200px;">
+          <header
+            class="mb-4 d-flex flex-column flex-lg-row align-items-start align-items-lg-center justify-content-between gap-3">
+            <h1 class="h4 mb-0 fw-bold text-dark">Teacher List</h1>
+            <div class="d-flex flex-wrap gap-2 align-items-center justify-content-start justify-content-lg-end">
 
-            <!-- Teacher List Content -->
-            <div class="teacher-list-page">
-                <div class="controls-row">
-                    <div class="action-buttons">
-                        <a href="#" class="download-sample-btn">
-                            <span class="material-icons-outlined">download</span>
-                            <span>Download Sample CSV</span>
-                        </a>
-                        <a href="#" class="upload-csv-btn">
-                            <span class="material-icons-outlined">upload_file</span>
-                            <span>Upload CSV</span>
-                        </a>
-                        <a href="add-teacher.html" class="add-teacher-btn">
-                            <span class="material-icons-outlined">add</span>
-                            <span>Add New Teacher</span>
-                        </a>
-                    </div>
-                </div>
-                <div class="table-container">
-                    <div class="table-wrapper-outer">
-                        <div class="table-scroll">
-                            <table class="teachers-table">
-                            <thead>
-                                <tr>
-                                    <th>Teacher ID</th>
-                                    <th>Name</th>
-                                    <th>Designation</th>
-                                    <th>Contact Information</th>
-                                    <th>Status</th>
-                                    <th class="text-center">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>T8X4K2</td>
-                                    <td>
-                                        <div class="teacher-info">
-                                            <img alt="Avatar of Kunal" class="teacher-avatar"
-                                                src="https://ui-avatars.com/api/?name=KD&background=8b5cf6&color=fff&size=128" />
-                                            <span class="teacher-name">Kunal Darji</span>
-                                        </div>
-                                    </td>
-                                    <td>Principal</td>
-                                    <td>kunal@example.com</td>
-                                    <td>
-                                        <span class="status-badge status-present">Present</span>
-                                    </td>
-                                    <td>
-                                        <div class="actions-cell">
-                                            <button aria-label="Edit Kunal" class="action-btn">
-                                                <span class="material-icons-outlined">edit</span>
-                                            </button>
-                                            <button aria-label="View Kunal's profile" class="action-btn">
-                                                <span class="material-icons-outlined">visibility</span>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>P3M9V7</td>
-                                    <td>
-                                        <div class="teacher-info">
-                                            <img alt="Avatar of Vivek" class="teacher-avatar"
-                                                src="https://ui-avatars.com/api/?name=VP&background=8b5cf6&color=fff&size=128" />
-                                            <span class="teacher-name">Vivek Pandey</span>
-                                        </div>
-                                    </td>
-                                    <td>Management Staff</td>
-                                    <td>vivek@example.com</td>
-                                    <td>
-                                        <span class="status-badge status-leave">On Leave</span>
-                                    </td>
-                                    <td>
-                                        <div class="actions-cell">
-                                            <button aria-label="Edit Vivek" class="action-btn">
-                                                <span class="material-icons-outlined">edit</span>
-                                            </button>
-                                            <button aria-label="View Vivek's profile" class="action-btn">
-                                                <span class="material-icons-outlined">visibility</span>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>S5L8N1</td>
-                                    <td>
-                                        <div class="teacher-info">
-                                            <img alt="Avatar of Shravani" class="teacher-avatar"
-                                                src="https://ui-avatars.com/api/?name=ST&background=8b5cf6&color=fff&size=128" />
-                                            <span class="teacher-name">Shravani Todankar</span>
-                                        </div>
-                                    </td>
-                                    <td>Teacher</td>
-                                    <td>shravani@example.com</td>
-                                    <td>
-                                        <span class="status-badge status-absent">Absent</span>
-                                    </td>
-                                    <td>
-                                        <div class="actions-cell">
-                                            <button aria-label="Edit Shravani" class="action-btn">
-                                                <span class="material-icons-outlined">edit</span>
-                                            </button>
-                                            <button aria-label="View Shravani's profile" class="action-btn">
-                                                <span class="material-icons-outlined">visibility</span>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>H2R6F4</td>
-                                    <td>
-                                        <div class="teacher-info">
-                                            <img alt="Avatar of Priya" class="teacher-avatar"
-                                                src="https://ui-avatars.com/api/?name=PS&background=3b82f6&color=fff&size=128" />
-                                            <span class="teacher-name">Priya Sharma</span>
-                                        </div>
-                                    </td>
-                                    <td>Head Teacher</td>
-                                    <td>priya.sharma@example.com</td>
-                                    <td>
-                                        <span class="status-badge status-present">Present</span>
-                                    </td>
-                                    <td>
-                                        <div class="actions-cell">
-                                            <button aria-label="Edit Priya" class="action-btn">
-                                                <span class="material-icons-outlined">edit</span>
-                                            </button>
-                                            <button aria-label="View Priya's profile" class="action-btn">
-                                                <span class="material-icons-outlined">visibility</span>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>K9W3Q8</td>
-                                    <td>
-                                        <div class="teacher-info">
-                                            <img alt="Avatar of Rahul" class="teacher-avatar"
-                                                src="https://ui-avatars.com/api/?name=RK&background=10b981&color=fff&size=128" />
-                                            <span class="teacher-name">Rahul Kumar</span>
-                                        </div>
-                                    </td>
-                                    <td>Teacher</td>
-                                    <td>rahul.kumar@example.com</td>
-                                    <td>
-                                        <span class="status-badge status-present">Present</span>
-                                    </td>
-                                    <td>
-                                        <div class="actions-cell">
-                                            <button aria-label="Edit Rahul" class="action-btn">
-                                                <span class="material-icons-outlined">edit</span>
-                                            </button>
-                                            <button aria-label="View Rahul's profile" class="action-btn">
-                                                <span class="material-icons-outlined">visibility</span>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>A7Y5D3</td>
-                                    <td>
-                                        <div class="teacher-info">
-                                            <img alt="Avatar of Anjali" class="teacher-avatar"
-                                                src="https://ui-avatars.com/api/?name=AM&background=f59e0b&color=fff&size=128" />
-                                            <span class="teacher-name">Anjali Mehta</span>
-                                        </div>
-                                    </td>
-                                    <td>Assistant Teacher</td>
-                                    <td>anjali.mehta@example.com</td>
-                                    <td>
-                                        <span class="status-badge status-leave">On Leave</span>
-                                    </td>
-                                    <td>
-                                        <div class="actions-cell">
-                                            <button aria-label="Edit Anjali" class="action-btn">
-                                                <span class="material-icons-outlined">edit</span>
-                                            </button>
-                                            <button aria-label="View Anjali's profile" class="action-btn">
-                                                <span class="material-icons-outlined">visibility</span>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>M1B4Z9</td>
-                                    <td>
-                                        <div class="teacher-info">
-                                            <img alt="Avatar of Amit" class="teacher-avatar"
-                                                src="https://ui-avatars.com/api/?name=AP&background=ef4444&color=fff&size=128" />
-                                            <span class="teacher-name">Amit Patel</span>
-                                        </div>
-                                    </td>
-                                    <td>Teacher</td>
-                                    <td>amit.patel@example.com</td>
-                                    <td>
-                                        <span class="status-badge status-present">Present</span>
-                                    </td>
-                                    <td>
-                                        <div class="actions-cell">
-                                            <button aria-label="Edit Amit" class="action-btn">
-                                                <span class="material-icons-outlined">edit</span>
-                                            </button>
-                                            <button aria-label="View Amit's profile" class="action-btn">
-                                                <span class="material-icons-outlined">visibility</span>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>N6G2J7</td>
-                                    <td>
-                                        <div class="teacher-info">
-                                            <img alt="Avatar of Neha" class="teacher-avatar"
-                                                src="https://ui-avatars.com/api/?name=NG&background=ec4899&color=fff&size=128" />
-                                            <span class="teacher-name">Neha Gupta</span>
-                                        </div>
-                                    </td>
-                                    <td>Teacher</td>
-                                    <td>neha.gupta@example.com</td>
-                                    <td>
-                                        <span class="status-badge status-absent">Absent</span>
-                                    </td>
-                                    <td>
-                                        <div class="actions-cell">
-                                            <button aria-label="Edit Neha" class="action-btn">
-                                                <span class="material-icons-outlined">edit</span>
-                                            </button>
-                                            <button aria-label="View Neha's profile" class="action-btn">
-                                                <span class="material-icons-outlined">visibility</span>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>D4C8E5</td>
-                                    <td>
-                                        <div class="teacher-info">
-                                            <img alt="Avatar of Deepak" class="teacher-avatar"
-                                                src="https://ui-avatars.com/api/?name=DV&background=6366f1&color=fff&size=128" />
-                                            <span class="teacher-name">Deepak Verma</span>
-                                        </div>
-                                    </td>
-                                    <td>Assistant Teacher</td>
-                                    <td>deepak.verma@example.com</td>
-                                    <td>
-                                        <span class="status-badge status-present">Present</span>
-                                    </td>
-                                    <td>
-                                        <div class="actions-cell">
-                                            <button aria-label="Edit Deepak" class="action-btn">
-                                                <span class="material-icons-outlined">edit</span>
-                                            </button>
-                                            <button aria-label="View Deepak's profile" class="action-btn">
-                                                <span class="material-icons-outlined">visibility</span>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>R3X7T2</td>
-                                    <td>
-                                        <div class="teacher-info">
-                                            <img alt="Avatar of Sneha" class="teacher-avatar"
-                                                src="https://ui-avatars.com/api/?name=SR&background=14b8a6&color=fff&size=128" />
-                                            <span class="teacher-name">Sneha Reddy</span>
-                                        </div>
-                                    </td>
-                                    <td>Teacher</td>
-                                    <td>sneha.reddy@example.com</td>
-                                    <td>
-                                        <span class="status-badge status-leave">On Leave</span>
-                                    </td>
-                                    <td>
-                                        <div class="actions-cell">
-                                            <button aria-label="Edit Sneha" class="action-btn">
-                                                <span class="material-icons-outlined">edit</span>
-                                            </button>
-                                            <button aria-label="View Sneha's profile" class="action-btn">
-                                                <span class="material-icons-outlined">visibility</span>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>J8P1U6</td>
-                                    <td>
-                                        <div class="teacher-info">
-                                            <img alt="Avatar of Rajesh" class="teacher-avatar"
-                                                src="https://ui-avatars.com/api/?name=RJ&background=f97316&color=fff&size=128" />
-                                            <span class="teacher-name">Rajesh Joshi</span>
-                                        </div>
-                                    </td>
-                                    <td>Teacher</td>
-                                    <td>rajesh.joshi@example.com</td>
-                                    <td>
-                                        <span class="status-badge status-present">Present</span>
-                                    </td>
-                                    <td>
-                                        <div class="actions-cell">
-                                            <button aria-label="Edit Rajesh" class="action-btn">
-                                                <span class="material-icons-outlined">edit</span>
-                                            </button>
-                                            <button aria-label="View Rajesh's profile" class="action-btn">
-                                                <span class="material-icons-outlined">visibility</span>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>V5K9L4</td>
-                                    <td>
-                                        <div class="teacher-info">
-                                            <img alt="Avatar of Kavita" class="teacher-avatar"
-                                                src="https://ui-avatars.com/api/?name=KS&background=a855f7&color=fff&size=128" />
-                                            <span class="teacher-name">Kavita Singh</span>
-                                        </div>
-                                    </td>
-                                    <td>Head Teacher</td>
-                                    <td>kavita.singh@example.com</td>
-                                    <td>
-                                        <span class="status-badge status-present">Present</span>
-                                    </td>
-                                    <td>
-                                        <div class="actions-cell">
-                                            <button aria-label="Edit Kavita" class="action-btn">
-                                                <span class="material-icons-outlined">edit</span>
-                                            </button>
-                                            <button aria-label="View Kavita's profile" class="action-btn">
-                                                <span class="material-icons-outlined">visibility</span>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        </div>
-                    </div>
-                </div>
+              <button class="btn-gradient btn-download">
+                <span class="material-symbols-outlined">download</span>
+                Download Sample CSV
+              </button>
+
+              <button class="btn-gradient btn-upload">
+                <span class="material-symbols-outlined">upload</span>
+                Upload CSV
+              </button>
+
+              <a href="add-teacher.html" class="btn-gradient btn-add text-decoration-none">
+                <span class="material-symbols-outlined">add</span>
+                Add New Teacher
+              </a>
+
             </div>
+          </header>
 
-            
-        </main>
-    </div>
+          <main class="card">
+            <div class="table-wrapper-outer">
+              <div class="table-responsive">
+                <table id="teacherTable" class="table mb-0 align-middle">
+                <thead>
+                  <tr>
+                    <th scope="col">Teacher ID</th>
+                    <th scope="col">
+                      <div class="d-inline-flex align-items-center gap-1">
+                        Name
+                        <span class="material-symbols-outlined" style="font-size:16px;">arrow_upward</span>
+                      </div>
+                    </th>
+                    <th scope="col">Designation</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="border-top-0">
+                    <td class="text-muted text-monospace">T8X4K2</td>
+                    <td class="fw-semibold">
+                      <div class="d-flex align-items-center gap-3">
+                        <div class="initial-badge" style="background-color:#8b5cf6;">KD</div>
+                        <span>Kunal Darji</span>
+                      </div>
+                    </td>
+                    <td class="text-muted">Principal</td>
+                    <td class="text-muted">kunal@example.com</td>
+                    <td>
+                      <span class="control-pill status-present">Present</span>
+                    </td>
+                    <td>
+                      <div class="d-flex align-items-center gap-3 text-muted">
+                        <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary"><span
+                            class="material-symbols-outlined">edit</span></button>
+                        <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary"><span
+                            class="material-symbols-outlined">visibility</span></button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="text-muted text-monospace">P3M9V7</td>
+                    <td class="fw-semibold">
+                      <div class="d-flex align-items-center gap-3">
+                        <div class="initial-badge" style="background-color:#3b82f6;">VP</div>
+                        <span>Vivek Pandey</span>
+                      </div>
+                    </td>
+                    <td class="text-muted">Management Staff</td>
+                    <td class="text-muted">vivek@example.com</td>
+                    <td>
+                      <span class="control-pill status-leave">On Leave</span>
+                    </td>
+                    <td>
+                      <div class="d-flex align-items-center gap-3 text-muted">
+                        <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary"><span
+                            class="material-symbols-outlined">edit</span></button>
+                        <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary"><span
+                            class="material-symbols-outlined">visibility</span></button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="text-muted text-monospace">S5L8N1</td>
+                    <td class="fw-semibold">
+                      <div class="d-flex align-items-center gap-3">
+                        <div class="initial-badge" style="background-color:#10b981;">ST</div>
+                        <span>Shravani Todankar</span>
+                      </div>
+                    </td>
+                    <td class="text-muted">Teacher</td>
+                    <td class="text-muted">shravani@example.com</td>
+                    <td>
+                      <span class="control-pill status-absent">Absent</span>
+                    </td>
+                    <td>
+                      <div class="d-flex align-items-center gap-3 text-muted">
+                        <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary"><span
+                            class="material-symbols-outlined">edit</span></button>
+                        <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary"><span
+                            class="material-symbols-outlined">visibility</span></button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="text-muted text-monospace">H2R6F4</td>
+                    <td class="fw-semibold">
+                      <div class="d-flex align-items-center gap-3">
+                        <div class="initial-badge" style="background-color:#f59e0b;">PS</div>
+                        <span>Priya Sharma</span>
+                      </div>
+                    </td>
+                    <td class="text-muted">Head Teacher</td>
+                    <td class="text-muted">priya.sharma@example.com</td>
+                    <td>
+                      <span class="control-pill status-present">Present</span>
+                    </td>
+                    <td>
+                      <div class="d-flex align-items-center gap-3 text-muted">
+                        <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary"><span
+                            class="material-symbols-outlined">edit</span></button>
+                        <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary"><span
+                            class="material-symbols-outlined">visibility</span></button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="text-muted text-monospace">K9W3Q8</td>
+                    <td class="fw-semibold">
+                      <div class="d-flex align-items-center gap-3">
+                        <div class="initial-badge" style="background-color:#ef4444;">RK</div>
+                        <span>Rahul Kumar</span>
+                      </div>
+                    </td>
+                    <td class="text-muted">Teacher</td>
+                    <td class="text-muted">rahul.kumar@example.com</td>
+                    <td>
+                      <span class="control-pill status-present">Present</span>
+                    </td>
+                    <td>
+                      <div class="d-flex align-items-center gap-3 text-muted">
+                        <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary"><span
+                            class="material-symbols-outlined">edit</span></button>
+                        <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary"><span
+                            class="material-symbols-outlined">visibility</span></button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="text-muted text-monospace">A7Y5D3</td>
+                    <td class="fw-semibold">
+                      <div class="d-flex align-items-center gap-3">
+                        <div class="initial-badge" style="background-color:#06b6d4;">AM</div>
+                        <span>Anjali Mehta</span>
+                      </div>
+                    </td>
+                    <td class="text-muted">Assistant Teacher</td>
+                    <td class="text-muted">anjali.mehta@example.com</td>
+                    <td>
+                      <span class="control-pill status-leave">On Leave</span>
+                    </td>
+                    <td>
+                      <div class="d-flex align-items-center gap-3 text-muted">
+                        <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary"><span
+                            class="material-symbols-outlined">edit</span></button>
+                        <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary"><span
+                            class="material-symbols-outlined">visibility</span></button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="text-muted text-monospace">M1B4Z9</td>
+                    <td class="fw-semibold">
+                      <div class="d-flex align-items-center gap-3">
+                        <div class="initial-badge" style="background-color:#ec4899;">AP</div>
+                        <span>Amit Patel</span>
+                      </div>
+                    </td>
+                    <td class="text-muted">Teacher</td>
+                    <td class="text-muted">amit.patel@example.com</td>
+                    <td>
+                      <span class="control-pill status-present">Present</span>
+                    </td>
+                    <td>
+                      <div class="d-flex align-items-center gap-3 text-muted">
+                        <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary"><span
+                            class="material-symbols-outlined">edit</span></button>
+                        <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary"><span
+                            class="material-symbols-outlined">visibility</span></button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="text-muted text-monospace">N6G2J7</td>
+                    <td class="fw-semibold">
+                      <div class="d-flex align-items-center gap-3">
+                        <div class="initial-badge" style="background-color:#a855f7;">NG</div>
+                        <span>Neha Gupta</span>
+                      </div>
+                    </td>
+                    <td class="text-muted">Teacher</td>
+                    <td class="text-muted">neha.gupta@example.com</td>
+                    <td>
+                      <span class="control-pill status-absent">Absent</span>
+                    </td>
+                    <td>
+                      <div class="d-flex align-items-center gap-3 text-muted">
+                        <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary"><span
+                            class="material-symbols-outlined">edit</span></button>
+                        <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary"><span
+                            class="material-symbols-outlined">visibility</span></button>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              </div>
+            </div>
+          </main>
+        </div>
+      </div>
+    </main>
+  </div>
 
-    <script>
-        // Load Sidebar and Header Components
-        document.addEventListener('DOMContentLoaded', function() {
-            Promise.all([
-                fetch('sidebar.html').then(response => response.text()),
-                fetch('header.html').then(response => response.text())
-            ]).then(([sidebarHTML, headerHTML]) => {
-                document.getElementById('sidebar-container').innerHTML = sidebarHTML;
-                document.getElementById('header-container').innerHTML = headerHTML;
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
 
-                // Use setTimeout to ensure DOM has parsed the inserted HTML
-                setTimeout(() => {
-                    // Call header initialization directly instead of relying on DOMContentLoaded
-                    if (typeof initializeHeader === 'function') {
-                        initializeHeader();
-                    }
+    // Load Sidebar and Header Components
+    document.addEventListener('DOMContentLoaded', function () {
+      Promise.all([
+        fetch('sidebar.html').then(response => response.text()),
+        fetch('header.html').then(response => response.text())
+      ]).then(([sidebarHTML, headerHTML]) => {
+        document.getElementById('sidebar-container').innerHTML = sidebarHTML;
+        document.getElementById('header-container').innerHTML = headerHTML;
 
-                    // Mark containers as loaded to make them visible with smooth transition
-                    document.getElementById('sidebar-container').classList.add('loaded');
-                    document.getElementById('header-container').classList.add('loaded');
+        // Use setTimeout to ensure DOM has parsed the inserted HTML
+        setTimeout(() => {
+          // Call header initialization directly instead of relying on DOMContentLoaded
+          if (typeof initializeHeader === 'function') {
+            initializeHeader();
+          }
 
-                    // Wait a bit for sidebar.js to initialize, then set active state
-                    setActiveMenuItem();
-                }, 200);
-            });
-        });
+          // Mark containers as loaded to make them visible with smooth transition
+          document.getElementById('sidebar-container').classList.add('loaded');
+          document.getElementById('header-container').classList.add('loaded');
 
-        function setActiveMenuItem() {
-            const currentPage = window.location.pathname.split('/').pop();
-            console.log('Current page:', currentPage);
+          // Wait a bit for sidebar.js to initialize, then set active state
+          setActiveMenuItem();
+        }, 200);
+      });
+    });
 
-            // Get all sidebar links
-            const sidebarLinks = document.querySelectorAll('.sidebar-dropdown-menu a');
+    function setActiveMenuItem() {
+      const currentPage = window.location.pathname.split('/').pop();
+      const navTeacherList = document.getElementById('nav-teacher-list');
+      if (navTeacherList && currentPage === 'teacher-list.html') {
+        navTeacherList.classList.add('active');
+      }
+    }
 
-            // Remove all active classes first
-            sidebarLinks.forEach(link => link.classList.remove('active'));
 
-            // Add active class to teacher-list
-            const activeLink = document.getElementById('nav-teacher-list');
-            if (activeLink) {
-                activeLink.classList.add('active');
-                console.log('Active link set: nav-teacher-list');
 
-                // Also open the parent dropdown
-                const dropdown = activeLink.closest('.sidebar-dropdown');
-                if (dropdown) {
-                    dropdown.classList.add('active');
-                }
-            }
-        }
-
-        // Initialize DataTables
-        $(document).ready(function() {
-            $('.teachers-table').DataTable({
-                responsive: true,
-                pageLength: 10,
-                lengthMenu: [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
-                language: {
-                    search: "_INPUT_",
-                    searchPlaceholder: "Search teachers...",
-                    lengthMenu: "Show _MENU_ entries",
-                    info: "Showing _START_ to _END_ of _TOTAL_ teachers",
-                    infoEmpty: "No teachers found",
-                    infoFiltered: "(filtered from _MAX_ total teachers)",
-                    paginate: {
-                        first: "First",
-                        last: "Last",
-                        next: "Next",
-                        previous: "Previous"
-                    }
-                },
-                columnDefs: [
-                    {
-                        targets: -1, // Actions column
-                        orderable: false,
-                        searchable: false
-                    },
-                    {
-                        targets: 4, // Status column
-                        orderable: true
-                    }
-                ],
-                order: [[0, 'asc']], // Default sort by Teacher ID
-                dom: '<"datatable-header d-flex flex-column flex-lg-row align-items-start align-items-lg-center justify-content-between gap-3 p-3 border-bottom"l<"w-100"f>><"table-scroll-wrapper"t><"datatable-footer d-flex flex-column flex-lg-row align-items-start align-items-lg-center justify-content-between gap-3 p-3 border-top"ip>'
-            });
-        });
-    </script>
-
+    $(function () {
+      $('#teacherTable').DataTable({
+        paging: true,
+        pageLength: 10,
+        lengthMenu: [5, 10, 25, 50],
+        order: [[1, 'asc']],
+        columnDefs: [
+          { orderable: false, targets: 5 }
+        ],
+        language: {
+          search: 'Search teachers:',
+          lengthMenu: 'Show _MENU_ entries',
+          info: 'Showing _START_ to _END_ of _TOTAL_ teachers',
+          infoEmpty: 'No teachers to show',
+          infoFiltered: '(_MAX_ total)',
+          zeroRecords: 'No matching teachers found',
+          paginate: {
+            next: 'Next',
+            previous: 'Previous'
+          }
+        },
+        dom: '<"datatable-header d-flex flex-column flex-lg-row align-items-start align-items-lg-center justify-content-between gap-3 p-3 border-bottom"l<"w-100"f>><"table-scroll-wrapper"t><"datatable-footer d-flex flex-column flex-lg-row align-items-start align-items-lg-center justify-content-between gap-3 p-3 border-top"ip>'
+      });
+    });
+  </script>
 </body>
 
 </html>

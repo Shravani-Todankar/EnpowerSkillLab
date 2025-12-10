@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thinking Coach Performance Dashboard</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+    <!-- Sidebar & Header CSS -->
+    <link rel="stylesheet" href="sidebar.css">
+    <link rel="stylesheet" href="header.css">
+
+    <!-- Sidebar & Header JS -->
+    <script src="sidebar.js"></script>
+    <script src="header.js"></script>
+
+    <style>
+        /* Prevent FOUC - hide containers until loaded */
+        #sidebar-container:empty,
+        #header-container:empty {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        #sidebar-container.loaded,
+        #header-container.loaded {
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.2s ease-in;
+        }
+    </style>
+
+    <style>
+        :root {
+            --primary-color: #6b277e;
+            --primary-hover: #581c67;
+            --bg-light: #F9FAFB;
+            --border-color: #E5E7EB;
+            --text-dark: #111827;
+            --text-muted: #6B7280;
+        }
+
+        body {
+            font-family: 'Lexend', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+
+        /* Custom Card Styles */
+        .stat-card {
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.07), 0 4px 6px -4px rgba(0, 0, 0, 0.07);
+        }
+
+        .icon-wrapper {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background-color: rgba(107, 39, 126, 0.1);
+            color: var(--primary-color);
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-top: 8px;
+        }
+
+        /* Export Button */
+        .btn-export {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 600;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .btn-export:hover {
+            background-color: var(--primary-hover);
+            color: white;
+        }
+
+        /* Chart Container */
+        .chart-card {
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        .chart-wrapper {
+            height: 320px;
+            display: flex;
+        }
+
+        .chart-y-axis {
+            width: 48px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            text-align: right;
+            padding-right: 16px;
+            border-right: 1px solid var(--border-color);
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .chart-content {
+            flex: 1;
+            padding-left: 16px;
+            position: relative;
+        }
+
+        .chart-grid {
+            position: absolute;
+            inset: 0;
+            display: grid;
+            grid-template-rows: repeat(4, 1fr);
+        }
+
+        .chart-grid > div {
+            border-bottom: 1px solid #F3F4F6;
+        }
+
+        .chart-grid > div:last-child {
+            border-bottom: none;
+        }
+
+        .chart-bars {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            height: 100%;
+            align-items: flex-end;
+            position: relative;
+            z-index: 1;
+        }
+
+        .bar-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .bar-wrapper {
+            width: 100%;
+            position: relative;
+        }
+
+        .bar {
+            width: 100%;
+            border-radius: 8px 8px 0 0;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .bar:hover {
+            opacity: 0.8;
+        }
+
+        .bar-tooltip {
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            margin-bottom: 8px;
+            background-color: #374151;
+            color: white;
+            font-size: 0.75rem;
+            padding: 4px 8px;
+            border-radius: 4px;
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .bar-wrapper:hover .bar-tooltip {
+            opacity: 1;
+        }
+
+        .bar-label {
+            color: var(--text-muted);
+            font-size: 0.875rem;
+            font-weight: 500;
+            text-align: center;
+            margin-top: 8px;
+        }
+
+        /* Bar colors */
+        .bar-purple { background: linear-gradient(to top, #6b277e, #9333ea); }
+        .bar-teal { background: linear-gradient(to top, #14B8A6, #5EEAD4); }
+        .bar-amber { background: linear-gradient(to top, #F59E0B, #FCD34D); }
+        .bar-pink { background: linear-gradient(to top, #EC4899, #FB7185); }
+
+        /* Quick Insights */
+        .insight-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            font-size: 0.875rem;
+        }
+
+        .insight-icon {
+            margin-top: 2px;
+        }
+
+        /* Table Styles */
+        .table-custom {
+            font-size: 0.875rem;
+        }
+
+        .table-custom thead {
+            background-color: #F9FAFB;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .table-custom thead th {
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.05em;
+            padding: 16px 24px;
+            border: none;
+        }
+
+        .table-custom tbody tr {
+            border-bottom: 1px solid var(--border-color);
+            transition: background-color 0.2s ease;
+        }
+
+        .table-custom tbody tr:hover {
+            background-color: #F9FAFB;
+        }
+
+        .table-custom tbody td {
+            padding: 16px 24px;
+            vertical-align: middle;
+            border: none;
+        }
+
+        .coach-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            position: relative;
+        }
+
+        .status-dot {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            border: 2px solid white;
+        }
+
+        .status-online { background-color: #10B981; }
+        .status-busy { background-color: #F59E0B; }
+        .status-offline { background-color: #EF4444; }
+
+        .badge-custom {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            padding: 4px 10px;
+            border-radius: 9999px;
+        }
+
+        .badge-top {
+            background-color: #D1FAE5;
+            color: #065F46;
+        }
+
+        .badge-consistent {
+            background-color: #DBEAFE;
+            color: #1E40AF;
+        }
+
+        .badge-attention {
+            background-color: #FEF3C7;
+            color: #92400E;
+        }
+
+        .btn-view {
+            color: var(--primary-color);
+            font-weight: 500;
+            background: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-view:hover {
+            text-decoration: underline;
+        }
+
+        /* Coach Detail Sidebar Styles */
+        .coach-sidebar-overlay {
+            position: fixed;
+            inset: 0;
+            background-color: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(4px);
+            z-index: 1040;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .coach-sidebar-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .coach-sidebar {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            max-width: 450px;
+            background-color: white;
+            box-shadow: -4px 0 20px rgba(0, 0, 0, 0.1);
+            z-index: 1050;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .coach-sidebar.active {
+            transform: translateX(0);
+        }
+
+        .coach-sidebar-header {
+            padding: 24px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .coach-sidebar-body {
+            flex: 1;
+            padding: 24px;
+            overflow-y: auto;
+        }
+
+        .coach-sidebar-footer {
+            padding: 16px 24px;
+            border-top: 1px solid var(--border-color);
+            background-color: #F9FAFB;
+        }
+
+        .btn-close-coach-sidebar {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            padding: 4px;
+            transition: color 0.2s ease;
+        }
+
+        .btn-close-coach-sidebar:hover {
+            color: var(--text-dark);
+        }
+
+        .metric-box {
+            background-color: #F9FAFB;
+            border-radius: 8px;
+            padding: 16px;
+        }
+
+        .metric-label {
+            color: var(--text-muted);
+            font-size: 0.875rem;
+        }
+
+        .metric-value {
+            font-size: 1.125rem;
+            font-weight: 700;
+            margin-top: 4px;
+        }
+
+        .assessment-item {
+            background-color: rgba(249, 250, 251, 0.5);
+            border-radius: 8px;
+            padding: 12px;
+        }
+
+        .btn-download-profile {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 600;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-download-profile:hover {
+            background-color: var(--primary-hover);
+            color: white;
+        }
+
+        /* Filters */
+        .filter-select {
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            padding: 8px 12px;
+            font-size: 0.875rem;
+            color: var(--text-dark);
+        }
+
+        .search-input {
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            padding: 8px 12px 8px 40px;
+            font-size: 0.875rem;
+        }
+
+        .search-wrapper {
+            position: relative;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .coach-sidebar {
+                max-width: 100%;
+            }
+        }
+
+        .dashboard-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Include Sidebar Component -->
+        <div id="sidebar-container"></div>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Include Header Component -->
+            <div id="header-container"></div>
+
+            <!-- Page Content -->
+            <div class="container-fluid px-4 py-4">
+        <div class="mx-auto" style="max-width: 1400px;">
+            <!-- Header -->
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h1 class="fw-bold mb-0" style="font-size: 1.875rem;">Thinking Coach Performance</h1>
+                <button class="btn btn-export">
+                    <span class="material-symbols-outlined" style="font-size: 18px;">download</span>
+                    <span>Export Report</span>
+                </button>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="row g-4 mb-4">
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="card stat-card border-0">
+                        <div class="card-body p-4">
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <p class="mb-0 text-muted fw-medium">Total Thinking Coaches</p>
+                                <div class="icon-wrapper">
+                                    <span class="material-symbols-outlined">group</span>
+                                </div>
+                            </div>
+                            <p class="stat-value mb-0">42</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="card stat-card border-0">
+                        <div class="card-body p-4">
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <p class="mb-0 text-muted fw-medium">Avg Assessment Quality</p>
+                                <div class="icon-wrapper">
+                                    <span class="material-symbols-outlined">star_rate</span>
+                                </div>
+                            </div>
+                            <p class="stat-value mb-0">8.9/10</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="card stat-card border-0">
+                        <div class="card-body p-4">
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <p class="mb-0 text-muted fw-medium">Avg Session Completion</p>
+                                <div class="icon-wrapper">
+                                    <span class="material-symbols-outlined">task_alt</span>
+                                </div>
+                            </div>
+                            <p class="stat-value mb-0">96%</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Performance Overview & Quick Insights -->
+            <div class="row g-4 mb-4">
+                <!-- Performance Overview -->
+                <div class="col-12 col-lg-8">
+                    <div class="card chart-card border-0">
+                        <div class="card-body p-4">
+                            <h2 class="h5 fw-bold mb-4">Performance Overview</h2>
+                            <div style="height: 320px; position: relative;">
+                                <canvas id="performanceChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Insights -->
+                <div class="col-12 col-lg-4">
+                    <div class="card chart-card border-0 h-100">
+                        <div class="card-body p-4">
+                            <h3 class="h6 fw-bold mb-4">Quick Insights</h3>
+                            <div class="d-flex flex-column gap-3">
+                                <div class="insight-item">
+                                    <span class="material-symbols-outlined text-success insight-icon">thumb_up</span>
+                                    <div>
+                                        <strong class="fw-semibold">General Performance:</strong> Most coaches are meeting or exceeding timeliness and session completion targets.
+                                    </div>
+                                </div>
+                                <div class="insight-item">
+                                    <span class="material-symbols-outlined text-warning insight-icon">flag</span>
+                                    <div>
+                                        <strong class="fw-semibold">Areas for Attention:</strong> Student Improvement scores show the most variance. Focus on coaches in the 'Needs Attention' category.
+                                    </div>
+                                </div>
+                                <div class="insight-item">
+                                    <span class="material-symbols-outlined text-primary insight-icon">trending_up</span>
+                                    <div>
+                                        <strong class="fw-semibold">Monthly Trend:</strong> Average performance score is up 3% from last month.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- All Thinking Coaches Table -->
+            <div class="card chart-card border-0">
+                <div class="card-body p-4">
+                    <h2 class="h5 fw-bold mb-4">All Thinking Coaches</h2>
+                    
+                    <!-- Filters -->
+                    <div class="row g-3 mb-4">
+                        <div class="col-12 col-md-6 col-lg-3">
+                            <div class="search-wrapper">
+                                <span class="material-symbols-outlined search-icon" style="font-size: 20px;">search</span>
+                                <input type="text" class="form-control search-input" id="searchInput" placeholder="Search by coach name...">
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-3">
+                            <select class="form-select filter-select" id="schoolFilter">
+                                <option value="" selected>All Schools</option>
+                                <option value="Maplewood High School">Maplewood High School</option>
+                                <option value="Springfield Academy">Springfield Academy</option>
+                                <option value="Riverside School">Riverside School</option>
+                                <option value="Lincoln High School">Lincoln High School</option>
+                            </select>
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-3">
+                            <select class="form-select filter-select" id="performanceFilter">
+                                <option value="" selected>Performance Range</option>
+                                <option value="top">Top Performer (9.0+)</option>
+                                <option value="consistent">Consistent (8.0-8.9)</option>
+                                <option value="attention">Needs Attention (&lt;8.0)</option>
+                            </select>
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-3">
+                            <select class="form-select filter-select" id="accuracyFilter">
+                                <option value="" selected>Rating Accuracy</option>
+                                <option value="high">95%+</option>
+                                <option value="medium">90-94%</option>
+                                <option value="low">&lt;90%</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Table -->
+                    <div class="table-responsive">
+                        <table class="table table-custom mb-0">
+                            <thead>
+                                <tr>
+                                    <th>THINKING COACH NAME</th>
+                                    <th>ASSIGNED SCHOOLS</th>
+                                    <th>AVG PERFORMANCE SCORE</th>
+                                    <th>RATING ACCURACY</th>
+                                    <th>LAST ACTIVE</th>
+                                    <th class="text-end"></th>
+                                </tr>
+                            </thead>
+                            <tbody id="coachTableBody">
+                                <tr data-name="Jane Doe" data-school="Maplewood High School" data-score="9.2" data-accuracy="98">
+                                    <td>
+                                        <div class="d-flex align-items-center gap-3">
+                                            <div class="position-relative">
+                                                <img src="https://i.pravatar.cc/150?img=47"
+                                                     alt="Jane Doe" class="coach-avatar">
+                                                <span class="status-dot status-online"></span>
+                                            </div>
+                                            <span class="fw-medium">Jane Doe</span>
+                                        </div>
+                                    </td>
+                                    <td>5</td>
+                                    <td>
+                                        <div class="d-flex align-items-center gap-2">
+                                            <span>9.2/10</span>
+                                            <span class="badge-custom badge-top">Top Performer</span>
+                                            <span class="material-symbols-outlined text-success" style="font-size: 18px;">arrow_upward</span>
+                                        </div>
+                                    </td>
+                                    <td><span class="fw-semibold text-success">98%</span></td>
+                                    <td>Active 2h ago</td>
+                                    <td class="text-end">
+                                        <button class="btn-view view-coach-btn"
+                                                data-name="Jane Doe"
+                                                data-school="Maplewood High School"
+                                                data-score="9.2/10"
+                                                data-accuracy="98%"
+                                                data-assessments="120"
+                                                data-timeliness="24h"
+                                                data-avatar="https://i.pravatar.cc/150?img=47">
+                                            View
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr data-name="John Smith" data-school="Springfield Academy" data-score="8.7" data-accuracy="95">
+                                    <td>
+                                        <div class="d-flex align-items-center gap-3">
+                                            <div class="position-relative">
+                                                <img src="https://i.pravatar.cc/150?img=12"
+                                                     alt="John Smith" class="coach-avatar">
+                                                <span class="status-dot status-online"></span>
+                                            </div>
+                                            <span class="fw-medium">John Smith</span>
+                                        </div>
+                                    </td>
+                                    <td>3</td>
+                                    <td>
+                                        <div class="d-flex align-items-center gap-2">
+                                            <span>8.7/10</span>
+                                            <span class="badge-custom badge-consistent">Consistent</span>
+                                            <span class="material-symbols-outlined text-muted" style="font-size: 18px;">remove</span>
+                                        </div>
+                                    </td>
+                                    <td><span class="fw-semibold text-success">95%</span></td>
+                                    <td>Yesterday</td>
+                                    <td class="text-end">
+                                        <button class="btn-view view-coach-btn"
+                                                data-name="John Smith"
+                                                data-school="Springfield Academy"
+                                                data-score="8.7/10"
+                                                data-accuracy="95%"
+                                                data-assessments="85"
+                                                data-timeliness="18h"
+                                                data-avatar="https://i.pravatar.cc/150?img=12">
+                                            View
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr data-name="Emily White" data-school="Riverside School" data-score="8.1" data-accuracy="92">
+                                    <td>
+                                        <div class="d-flex align-items-center gap-3">
+                                            <div class="position-relative">
+                                                <img src="https://i.pravatar.cc/150?img=45"
+                                                     alt="Emily White" class="coach-avatar">
+                                                <span class="status-dot status-busy"></span>
+                                            </div>
+                                            <span class="fw-medium">Emily White</span>
+                                        </div>
+                                    </td>
+                                    <td>4</td>
+                                    <td>
+                                        <div class="d-flex align-items-center gap-2">
+                                            <span>8.1/10</span>
+                                            <span class="badge-custom badge-attention">Needs Attention</span>
+                                            <span class="material-symbols-outlined text-danger" style="font-size: 18px;">arrow_downward</span>
+                                        </div>
+                                    </td>
+                                    <td><span class="fw-semibold text-warning">92%</span></td>
+                                    <td>Active 2d ago</td>
+                                    <td class="text-end">
+                                        <button class="btn-view view-coach-btn"
+                                                data-name="Emily White"
+                                                data-school="Riverside School"
+                                                data-score="8.1/10"
+                                                data-accuracy="92%"
+                                                data-assessments="67"
+                                                data-timeliness="36h"
+                                                data-avatar="https://i.pravatar.cc/150?img=45">
+                                            View
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr data-name="Michael Brown" data-school="Lincoln High School" data-score="9.5" data-accuracy="99">
+                                    <td>
+                                        <div class="d-flex align-items-center gap-3">
+                                            <div class="position-relative">
+                                                <img src="https://i.pravatar.cc/150?img=33"
+                                                     alt="Michael Brown" class="coach-avatar">
+                                                <span class="status-dot status-offline"></span>
+                                            </div>
+                                            <span class="fw-medium">Michael Brown</span>
+                                        </div>
+                                    </td>
+                                    <td>6</td>
+                                    <td>
+                                        <div class="d-flex align-items-center gap-2">
+                                            <span>9.5/10</span>
+                                            <span class="badge-custom badge-top">Top Performer</span>
+                                            <span class="material-symbols-outlined text-success" style="font-size: 18px;">arrow_upward</span>
+                                        </div>
+                                    </td>
+                                    <td><span class="fw-semibold text-success">99%</span></td>
+                                    <td>Inactive 5 days</td>
+                                    <td class="text-end">
+                                        <button class="btn-view view-coach-btn"
+                                                data-name="Michael Brown"
+                                                data-school="Lincoln High School"
+                                                data-score="9.5/10"
+                                                data-accuracy="99%"
+                                                data-assessments="142"
+                                                data-timeliness="16h"
+                                                data-avatar="https://i.pravatar.cc/150?img=33">
+                                            View
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+        </main>
+    </div>
+
+    <!-- Coach Details Sidebar Overlay -->
+    <div class="coach-sidebar-overlay" id="coachSidebarOverlay"></div>
+
+    <!-- Coach Details Sidebar -->
+    <div class="coach-sidebar" id="coachSidebar">
+        <div class="coach-sidebar-header">
+            <div class="d-flex justify-content-between align-items-start">
+                <div class="d-flex align-items-center gap-3">
+                    <img id="coachSidebarAvatar" src="https://i.pravatar.cc/150?img=47" alt="Coach Avatar" style="width: 64px; height: 64px; border-radius: 50%;">
+                    <div>
+                        <h3 class="h5 fw-bold mb-0" id="coachSidebarName">Jane Doe</h3>
+                        <p class="text-muted mb-0" style="font-size: 0.875rem;" id="coachSidebarSchool">Maplewood High School</p>
+                    </div>
+                </div>
+                <button class="btn-close-coach-sidebar" id="closeCoachSidebar">
+                    <span class="material-symbols-outlined" style="font-size: 24px;">close</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="coach-sidebar-body">
+            <h4 class="fw-bold mb-3" style="font-size: 1rem;">Performance Metrics</h4>
+            <div class="row g-3 mb-4">
+                <div class="col-6">
+                    <div class="metric-box">
+                        <div class="metric-label">Performance Score</div>
+                        <div class="metric-value" id="coachSidebarScore">9.2/10</div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="metric-box">
+                        <div class="metric-label">Rating Accuracy</div>
+                        <div class="metric-value text-success" id="coachSidebarAccuracy">98%</div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="metric-box">
+                        <div class="metric-label">Total Assessments</div>
+                        <div class="metric-value" id="coachSidebarAssessments">120</div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="metric-box">
+                        <div class="metric-label">Average Timeliness</div>
+                        <div class="metric-value" id="coachSidebarTimeliness">24h</div>
+                    </div>
+                </div>
+            </div>
+
+            <h4 class="fw-bold mb-3" style="font-size: 1rem;">Last 5 Assessments</h4>
+            <div class="d-flex flex-column gap-3">
+                <div class="assessment-item">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <p class="fw-medium mb-1" style="font-size: 0.875rem;">Critical Thinking Module</p>
+                            <p class="text-muted mb-0" style="font-size: 0.75rem;">Student: Alex Johnson</p>
+                        </div>
+                        <span class="fw-bold text-success">9.5/10</span>
+                    </div>
+                </div>
+                <div class="assessment-item">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <p class="fw-medium mb-1" style="font-size: 0.875rem;">Problem Solving Session</p>
+                            <p class="text-muted mb-0" style="font-size: 0.75rem;">Student: Maria Garcia</p>
+                        </div>
+                        <span class="fw-bold text-success">9.0/10</span>
+                    </div>
+                </div>
+                <div class="assessment-item">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <p class="fw-medium mb-1" style="font-size: 0.875rem;">Creative Ideation Report</p>
+                            <p class="text-muted mb-0" style="font-size: 0.75rem;">Student: Sam Chen</p>
+                        </div>
+                        <span class="fw-bold text-warning">8.8/10</span>
+                    </div>
+                </div>
+                <div class="assessment-item">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <p class="fw-medium mb-1" style="font-size: 0.875rem;">Data Analysis Task</p>
+                            <p class="text-muted mb-0" style="font-size: 0.75rem;">Student: Ben Carter</p>
+                        </div>
+                        <span class="fw-bold text-success">9.2/10</span>
+                    </div>
+                </div>
+                <div class="assessment-item">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <p class="fw-medium mb-1" style="font-size: 0.875rem;">Logical Reasoning Exam</p>
+                            <p class="text-muted mb-0" style="font-size: 0.75rem;">Student: Chloe Davis</p>
+                        </div>
+                        <span class="fw-bold text-success">9.7/10</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="coach-sidebar-footer">
+            <button class="btn-download-profile w-100">
+                <span class="material-symbols-outlined" style="font-size: 18px;">person</span>
+                <span>Download Profile</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Custom JavaScript -->
+    <script>
+        // Load Sidebar and Header Components
+        document.addEventListener('DOMContentLoaded', function () {
+            Promise.all([
+                fetch('sidebar.html').then(response => response.text()),
+                fetch('header.html').then(response => response.text())
+            ]).then(([sidebarHTML, headerHTML]) => {
+                document.getElementById('sidebar-container').innerHTML = sidebarHTML;
+                document.getElementById('header-container').innerHTML = headerHTML;
+
+                // Use setTimeout to ensure DOM has parsed the inserted HTML
+                setTimeout(() => {
+                    // Call header initialization directly instead of relying on DOMContentLoaded
+                    if (typeof initializeHeader === 'function') {
+                        initializeHeader();
+                    }
+
+                    // Mark containers as loaded to make them visible with smooth transition
+                    document.getElementById('sidebar-container').classList.add('loaded');
+                    document.getElementById('header-container').classList.add('loaded');
+
+                    // Wait a bit for sidebar.js to initialize, then set active state
+                    setActiveMenuItem();
+                }, 200);
+            });
+        });
+
+        function setActiveMenuItem() {
+            const currentPage = window.location.pathname.split('/').pop();
+            const navTeacherPerformance = document.getElementById('nav-teacher-performance');
+            if (navTeacherPerformance && currentPage === 'tc-performance.html') {
+                navTeacherPerformance.classList.add('active');
+
+                // Also expand the parent dropdown
+                const teacherMonitoringDropdown = document.getElementById('teacher-monitoring-dropdown');
+                if (teacherMonitoringDropdown) {
+                    const dropdown = teacherMonitoringDropdown.closest('.sidebar-dropdown');
+                    if (dropdown) {
+                        dropdown.classList.add('active');
+                        const dropdownMenu = dropdown.querySelector('.sidebar-dropdown-menu');
+                        if (dropdownMenu) {
+                            dropdownMenu.classList.add('active');
+                        }
+                    }
+                }
+            }
+        }
+
+        // Coach Details Sidebar functionality
+        const coachSidebar = document.getElementById('coachSidebar');
+        const coachSidebarOverlay = document.getElementById('coachSidebarOverlay');
+        const closeCoachSidebar = document.getElementById('closeCoachSidebar');
+        const viewButtons = document.querySelectorAll('.view-coach-btn');
+
+        // Coach Sidebar elements
+        const coachSidebarName = document.getElementById('coachSidebarName');
+        const coachSidebarSchool = document.getElementById('coachSidebarSchool');
+        const coachSidebarScore = document.getElementById('coachSidebarScore');
+        const coachSidebarAccuracy = document.getElementById('coachSidebarAccuracy');
+        const coachSidebarAssessments = document.getElementById('coachSidebarAssessments');
+        const coachSidebarTimeliness = document.getElementById('coachSidebarTimeliness');
+        const coachSidebarAvatar = document.getElementById('coachSidebarAvatar');
+
+        // Open coach sidebar
+        function openCoachSidebar(coachData) {
+            // Update sidebar content
+            coachSidebarName.textContent = coachData.name;
+            coachSidebarSchool.textContent = coachData.school;
+            coachSidebarScore.textContent = coachData.score;
+            coachSidebarAccuracy.textContent = coachData.accuracy;
+            coachSidebarAssessments.textContent = coachData.assessments;
+            coachSidebarTimeliness.textContent = coachData.timeliness;
+            coachSidebarAvatar.src = coachData.avatar;
+            coachSidebarAvatar.alt = coachData.name;
+
+            // Show sidebar and overlay
+            coachSidebar.classList.add('active');
+            coachSidebarOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Close coach sidebar
+        function closeCoachSidebarFunc() {
+            coachSidebar.classList.remove('active');
+            coachSidebarOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // Event listeners for view buttons
+        viewButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const coachData = {
+                    name: this.getAttribute('data-name'),
+                    school: this.getAttribute('data-school'),
+                    score: this.getAttribute('data-score'),
+                    accuracy: this.getAttribute('data-accuracy'),
+                    assessments: this.getAttribute('data-assessments'),
+                    timeliness: this.getAttribute('data-timeliness'),
+                    avatar: this.getAttribute('data-avatar')
+                };
+                openCoachSidebar(coachData);
+            });
+        });
+
+        // Close coach sidebar events
+        closeCoachSidebar.addEventListener('click', closeCoachSidebarFunc);
+        coachSidebarOverlay.addEventListener('click', closeCoachSidebarFunc);
+
+        // Close coach sidebar on Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && coachSidebar.classList.contains('active')) {
+                closeCoachSidebarFunc();
+            }
+        });
+
+        // Search and Filter Functionality
+        const searchInput = document.getElementById('searchInput');
+        const schoolFilter = document.getElementById('schoolFilter');
+        const performanceFilter = document.getElementById('performanceFilter');
+        const accuracyFilter = document.getElementById('accuracyFilter');
+        const tableBody = document.getElementById('coachTableBody');
+        const tableRows = tableBody.querySelectorAll('tr');
+
+        // Filter function
+        function filterTable() {
+            const searchTerm = searchInput.value.toLowerCase();
+            const schoolValue = schoolFilter.value;
+            const performanceValue = performanceFilter.value;
+            const accuracyValue = accuracyFilter.value;
+
+            tableRows.forEach(row => {
+                const name = row.getAttribute('data-name').toLowerCase();
+                const school = row.getAttribute('data-school');
+                const score = parseFloat(row.getAttribute('data-score'));
+                const accuracy = parseFloat(row.getAttribute('data-accuracy'));
+
+                // Check search term
+                const matchesSearch = name.includes(searchTerm);
+
+                // Check school filter
+                const matchesSchool = !schoolValue || school === schoolValue;
+
+                // Check performance filter
+                let matchesPerformance = true;
+                if (performanceValue === 'top') {
+                    matchesPerformance = score >= 9.0;
+                } else if (performanceValue === 'consistent') {
+                    matchesPerformance = score >= 8.0 && score < 9.0;
+                } else if (performanceValue === 'attention') {
+                    matchesPerformance = score < 8.0;
+                }
+
+                // Check accuracy filter
+                let matchesAccuracy = true;
+                if (accuracyValue === 'high') {
+                    matchesAccuracy = accuracy >= 95;
+                } else if (accuracyValue === 'medium') {
+                    matchesAccuracy = accuracy >= 90 && accuracy < 95;
+                } else if (accuracyValue === 'low') {
+                    matchesAccuracy = accuracy < 90;
+                }
+
+                // Show or hide row
+                if (matchesSearch && matchesSchool && matchesPerformance && matchesAccuracy) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        }
+
+        // Add event listeners
+        searchInput.addEventListener('input', filterTable);
+        schoolFilter.addEventListener('change', filterTable);
+        performanceFilter.addEventListener('change', filterTable);
+        accuracyFilter.addEventListener('change', filterTable);
+
+        // Initialize Chart.js
+        const ctx = document.getElementById('performanceChart');
+        
+        const performanceChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Rating Accuracy', 'Timeliness', 'Student Improvement', 'Session Completion'],
+                datasets: [{
+                    label: 'Performance Metrics',
+                    data: [98, 95, 88, 96],
+                    backgroundColor: 'rgba(107, 39, 126, 0.1)',
+                    borderColor: 'rgba(107, 39, 126, 1)',
+                    borderWidth: 3,
+                    pointBackgroundColor: [
+                        'rgba(107, 39, 126, 1)',
+                        'rgba(20, 184, 166, 1)',
+                        'rgba(245, 158, 11, 1)',
+                        'rgba(236, 72, 153, 1)'
+                    ],
+                    pointBorderColor: '#fff',
+                    pointBorderWidth: 2,
+                    pointRadius: 6,
+                    pointHoverRadius: 8,
+                    pointHoverBackgroundColor: [
+                        'rgba(107, 39, 126, 1)',
+                        'rgba(20, 184, 166, 1)',
+                        'rgba(245, 158, 11, 1)',
+                        'rgba(236, 72, 153, 1)'
+                    ],
+                    pointHoverBorderColor: '#fff',
+                    pointHoverBorderWidth: 3,
+                    tension: 0.4,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(55, 65, 81, 0.95)',
+                        titleColor: '#fff',
+                        bodyColor: '#fff',
+                        padding: 12,
+                        cornerRadius: 8,
+                        displayColors: false,
+                        callbacks: {
+                            label: function(context) {
+                                return context.parsed.y + '%';
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100,
+                        ticks: {
+                            callback: function(value) {
+                                return value + '%';
+                            },
+                            font: {
+                                size: 11,
+                                family: 'Lexend'
+                            },
+                            color: '#6B7280',
+                            stepSize: 25
+                        },
+                        grid: {
+                            color: 'rgba(229, 231, 235, 0.8)',
+                            drawBorder: false
+                        },
+                        border: {
+                            display: false
+                        }
+                    },
+                    x: {
+                        ticks: {
+                            font: {
+                                size: 12,
+                                family: 'Lexend',
+                                weight: '500'
+                            },
+                            color: '#6B7280'
+                        },
+                        grid: {
+                            display: false,
+                            drawBorder: false
+                        },
+                        border: {
+                            display: false
+                        }
+                    }
+                },
+                interaction: {
+                    intersect: false,
+                    mode: 'index'
+                },
+                animation: {
+                    duration: 1000,
+                    easing: 'easeInOutQuart'
+                }
+            }
+        });
+    </script>
+</body>
+</html>

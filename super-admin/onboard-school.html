@@ -603,11 +603,11 @@
                                 </div>
                             </div>
 
-                            <div class="form-row full">
+                            <div class="form-row">
                                 <div class="form-group">
                                     <label>Board / Curriculum <span class="required">*</span></label>
                                     <select name="board" id="board" required>
-                                        <option value="">Select board</option>
+                                        <option value="" disabled hidden selected>Select board</option>
                                         <option value="cbse">CBSE</option>
                                         <option value="icse">ICSE</option>
                                         <option value="state">State Board</option>
@@ -615,6 +615,18 @@
                                         <option value="igcse">IGCSE</option>
                                     </select>
                                     <span class="error-message" id="boardError"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Type of Program <span class="required">*</span></label>
+                                    <select name="programType" id="programType" required>
+                                        <option value="" disabled hidden selected>Select program type</option>
+                                        <option value="program1">Program1</option>
+                                        <option value="program2">Program2</option>
+                                        <option value="program3">Program3</option>
+                                        <option value="program4">Program4</option>
+                                    </select>
+                                    <span class="error-message" id="programTypeError"></span>
                                 </div>
                             </div>
 
@@ -713,7 +725,7 @@
                                 <div class="form-group">
                                     <label>Designation <span class="required">*</span></label>
                                     <select name="designation" id="designation" required>
-                                        <option value="">Select designation</option>
+                                        <option value="" disabled hidden selected>Select designation</option>
                                         <option value="principal">Principal</option>
                                         <option value="coordinator">Coordinator</option>
                                         <option value="management">Management</option>
@@ -779,7 +791,7 @@
                                 <div class="form-group">
                                     <label>Assign Program Coordinator <span class="required">*</span></label>
                                     <select name="programCoordinator" id="programCoordinator" required>
-                                        <option value="">Select coordinator</option>
+                                        <option value="" disabled hidden selected>Select coordinator</option>
                                         <option value="coord1">Sarah Johnson - Senior Coordinator</option>
                                         <option value="coord2">Michael Chen - Program Lead</option>
                                         <option value="coord3">Emily Rodriguez - Education Coordinator</option>
@@ -928,6 +940,12 @@
             board: {
                 validate: (value) => {
                     if (!value) return 'Board/Curriculum is required';
+                    return '';
+                }
+            },
+            programType: {
+                validate: (value) => {
+                    if (!value) return 'Program type is required';
                     return '';
                 }
             },
