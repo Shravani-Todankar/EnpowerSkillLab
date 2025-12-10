@@ -1154,7 +1154,7 @@ body.dark .rank-text {
 
 /* Stats Cards Container */
 .stats-cards-container {
-    display: flex;
+    display: block;
     /* grid-template-columns: 1fr 1fr;
     gap: 24px; */
     margin-bottom: 0;
@@ -1217,9 +1217,9 @@ body.dark .rank-text {
     }
 }
 
-.card.stats-overview-card.stats-main-card {
+/* .card.stats-overview-card.stats-main-card {
     width: 370px;
-}
+} */
 
 .stats-overview-card {
     padding: 32px;
@@ -1870,6 +1870,8 @@ body.dark .events-title {
 
 .event-item {
     display: flex;
+    flex-direction: column;
+    align-items: flex-start;
     gap: 16px;
     padding: 16px;
     background-color: var(--gray-100);
@@ -2565,17 +2567,18 @@ body.dark .progress-bar {
         margin-top: -60px;
     }
 
-    .card.stats-overview-card.stats-main-card {
+    /* .card.stats-overview-card.stats-main-card {
         width: 400px;
-    }
+    } */
 }
 
-@media (max-width: 393px) {
+/* Iphone 15 query */
+/* @media (max-width: 393px) {
     .card.stats-overview-card.stats-main-card {
         width: 372px;
         margin: 0 auto;
     }
-}
+} */
 
 @media (min-width: 1024px) {
     .content-wrapper {
@@ -2594,7 +2597,7 @@ body.dark .progress-bar {
     }
 
     .reports-grid>div:nth-child(3) {
-        margin-top: -260px;
+        margin-top: -340px;
     }
 }
 
@@ -2886,14 +2889,20 @@ body.dark .progress-bar {
         text-align: left;
     }
 
-    .card.stats-overview-card.stats-main-card {
+    /* .card.stats-overview-card.stats-main-card {
         width: 390px;
-    }
+    } */
 }
 
 @media (min-width: 1550px) {
     .reports-grid>div:nth-child(3) {
-        margin-top: -140px;
+        margin-top: -340px;
+    }
+}
+
+@media (min-width: 1844px) {
+    .reports-grid>div:nth-child(3) {
+        margin-top: -290px;
     }
 }
 
