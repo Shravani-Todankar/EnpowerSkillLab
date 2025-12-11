@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assign Thinking Coaches Page</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+
+    <!-- Sidebar & Header CSS -->
+    <link rel="stylesheet" href="sidebar.css">
+    <link rel="stylesheet" href="header.css">
+
+    <!-- Sidebar & Header JS -->
+    <script src="sidebar.js"></script>
+    <script src="header.js"></script>
+
+    <style>
+        /* Prevent FOUC - hide containers until loaded */
+        #sidebar-container:empty, #header-container:empty { opacity: 0; visibility: hidden; }
+        #sidebar-container.loaded, #header-container.loaded { opacity: 1; visibility: visible; transition: opacity 0.2s ease-in; }
+        
+        /* Dashboard Container */
+        .dashboard-container { display: flex; min-height: 100vh; }
+        
+        /* Sidebar Container - Fixed on left */
+        #sidebar-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 280px;
+            height: 100vh;
+            z-index: 1000;
+            background: #ffffff;
+            transition: width 0.3s ease-in-out;
+        }
+        
+        /* When sidebar is collapsed */
+        #sidebar-container:has(.sidebar.collapsed) {
+            width: 0;
+        }
+        
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: 280px;
+            min-height: 100vh;
+            transition: margin-left 0.3s ease;
+        }
+        
+        /* Adjust main content when sidebar is collapsed */
+        .dashboard-container:has(.sidebar.collapsed) .main-content {
+            margin-left: 0;
+        }
+
+        :root {
+            --primary-color: #5b1f6f;
+            --primary-hover: #4a1858;
+            --bg-light: #f7f6f8;
+            --text-dark: #171019;
+            --text-muted: #80588d;
+            --border-color: #e5e7eb;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Lexend', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            min-height: 100vh;
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+
+        /* Page Header */
+        .page-header {
+            margin-bottom: 2rem;
+        }
+
+        .page-title {
+            font-size: 2.25rem;
+            font-weight: 900;
+            letter-spacing: -0.033em;
+            line-height: 1.2;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .page-subtitle {
+            font-size: 1rem;
+            color: var(--text-muted);
+            font-weight: 400;
+            line-height: 1.5;
+        }
+
+        /* Buttons */
+        .btn-primary-custom {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 700;
+            font-size: 0.875rem;
+            padding: 0.625rem 1rem;
+            border: none;
+            border-radius: 0.5rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+            transition: all 0.2s ease;
+            letter-spacing: 0.015em;
+            white-space: nowrap;
+        }
+
+        .btn-primary-custom:hover {
+            background-color: var(--primary-hover);
+            color: white;
+        }
+
+        .btn-primary-custom:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .btn-change {
+            background-color: rgba(91, 31, 111, 0.1);
+            color: var(--primary-color);
+            font-weight: 500;
+            font-size: 0.875rem;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 0.5rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.2s ease;
+        }
+
+        .btn-change:hover {
+            background-color: rgba(91, 31, 111, 0.2);
+            color: var(--primary-color);
+        }
+
+        .btn-link-custom {
+            color: var(--primary-color);
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 0.875rem;
+        }
+
+        .btn-link-custom:hover {
+            text-decoration: underline;
+            color: var(--primary-hover);
+        }
+
+        /* Cards */
+        .card-custom {
+            background: white;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border-color);
+        }
+
+        /* Form Controls */
+        .form-label-custom {
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .form-select-custom {
+            width: 100%;
+            height: 3rem;
+            padding: 0.75rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.5rem;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            font-size: 1rem;
+            font-family: 'Lexend', sans-serif;
+            font-weight: 400;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 0.75rem center;
+            background-size: 1.25rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .form-select-custom:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(91, 31, 111, 0.1);
+        }
+
+        /* Current Assignment Card */
+        .assignment-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .school-name {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 0.25rem;
+        }
+
+        .school-id {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        .badge-assigned {
+            background-color: #d1fae5;
+            color: #065f46;
+            font-size: 0.75rem;
+            font-weight: 500;
+            padding: 0.25rem 0.625rem;
+            border-radius: 9999px;
+        }
+
+        .badge-not-assigned {
+            background-color: #fef3c7;
+            color: #92400e;
+            font-size: 0.75rem;
+            font-weight: 500;
+            padding: 0.25rem 0.625rem;
+            border-radius: 9999px;
+        }
+
+        .badge-available {
+            background-color: #dbeafe;
+            color: #1e40af;
+            font-size: 0.75rem;
+            font-weight: 500;
+            padding: 0.25rem 0.625rem;
+            border-radius: 9999px;
+        }
+
+        .badge-fully-assigned {
+            background-color: #fee2e2;
+            color: #991b1b;
+            font-size: 0.75rem;
+            font-weight: 500;
+            padding: 0.25rem 0.625rem;
+            border-radius: 9999px;
+        }
+
+        .divider {
+            border-top: 1px solid var(--border-color);
+            margin: 1rem 0;
+        }
+
+        .coach-info {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .coach-avatar {
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .coach-avatar-large {
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .coach-label {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            margin-bottom: 0;
+        }
+
+        .coach-name {
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 0;
+        }
+
+        /* Coach Selection Cards */
+        .coach-card {
+            border: 1px solid var(--border-color);
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .coach-card:hover {
+            background-color: #f9fafb;
+        }
+
+        .coach-card.selected {
+            background-color: rgba(91, 31, 111, 0.05);
+            border-color: rgba(91, 31, 111, 0.5);
+        }
+
+        .coach-card-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex: 1;
+        }
+
+        .coach-details {
+            flex: 1;
+        }
+
+        .coach-name-large {
+            font-weight: 600;
+            color: var(--text-dark);
+            font-size: 0.9375rem;
+            margin-bottom: 0.125rem;
+        }
+
+        .coach-email {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+
+        .coach-stats {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .stat-group {
+            text-align: center;
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            margin-bottom: 0.125rem;
+        }
+
+        .stat-value {
+            font-weight: 600;
+            color: var(--text-dark);
+            font-size: 0.9375rem;
+        }
+
+        /* Radio Button Styling */
+        .form-check-input:checked {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .form-check-input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.25rem rgba(91, 31, 111, 0.25);
+        }
+
+        /* Section Title */
+        .section-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+            letter-spacing: -0.015em;
+        }
+
+        /* Table Styles */
+        .table-custom {
+            background: white;
+            border-radius: 0.75rem;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border-color);
+        }
+
+        .table-custom table {
+            margin-bottom: 0;
+        }
+
+        .table-custom thead {
+            background-color: #f9fafb;
+        }
+
+        .table-custom thead th {
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            letter-spacing: 0.05em;
+        }
+
+        .table-custom tbody td {
+            padding: 1rem 1.5rem;
+            vertical-align: middle;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.875rem;
+        }
+
+        .table-custom tbody tr:first-child td {
+            border-top: none;
+        }
+
+        .table-school-name {
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .table-coach-info {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .table-avatar {
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .text-not-assigned {
+            color: var(--text-muted);
+        }
+
+        /* Responsive */
+        @media (max-width: 1023px) {
+            #sidebar-container {
+                width: 280px;
+                transform: translateX(-100%);
+            }
+            #sidebar-container:has(.sidebar.active) {
+                transform: translateX(0);
+            }
+            .main-content {
+                margin-left: 0;
+            }
+            .dashboard-container:has(.sidebar.collapsed) .main-content {
+                margin-left: 0;
+            }
+        }
+        
+        @media (max-width: 991px) {
+            .page-title {
+                font-size: 1.875rem;
+            }
+
+            .coach-stats {
+                display: none;
+            }
+        }
+
+        @media (max-width: 575px) {
+            .page-title {
+                font-size: 1.5rem;
+            }
+
+            .card-custom {
+                padding: 1rem;
+            }
+
+            .coach-card {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .table-custom {
+                font-size: 0.8125rem;
+            }
+
+            .table-custom thead th,
+            .table-custom tbody td {
+                padding: 0.75rem 1rem;
+            }
+        }
+
+        /* Additional Spacing */
+        .mb-section {
+            margin-bottom: 3rem;
+        }
+
+        .confirm-button-wrapper {
+            display: flex;
+            justify-content: flex-end;
+            padding-top: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Include Sidebar Component -->
+        <div id="sidebar-container"></div>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Include Header Component -->
+            <div id="header-container"></div>
+
+            <!-- Page Content -->
+            <div class="container-fluid px-3 px-sm-4 py-4">
+                <div class="container" style="max-width: 1200px;">
+                    <!-- PAGE HEADER -->
+                    <div class="page-header d-flex flex-wrap justify-content-between align-items-start gap-3 mb-4">
+                        <div>
+                            <h1 class="page-title mb-2">Assign Thinking Coaches</h1>
+                            <p class="page-subtitle mb-0">Assign or reassign Thinking Coaches to schools under your supervision.</p>
+                        </div>
+                        <button class="btn-primary-custom">
+                            <span class="material-symbols-outlined" style="font-size: 16px;">download</span>
+                            <span>Download Assignment Report</span>
+                        </button>
+                    </div>
+
+                    <!-- SCHOOL SELECTION & CURRENT ASSIGNMENT -->
+                    <div class="row g-4 mb-4">
+                        <!-- SCHOOL SELECTION BLOCK -->
+                        <div class="col-12 col-lg-6">
+                            <div class="card-custom">
+                                <label class="form-label-custom" for="schoolSelect">Select School</label>
+                                <select class="form-select-custom" id="schoolSelect">
+                                    <option value="">Choose a School</option>
+                                    <option value="greenwood">Greenwood High School</option>
+                                    <option value="northwood">Northwood Elementary</option>
+                                    <option value="riverdale">Riverdale Middle School</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- CURRENT ASSIGNMENT CARD -->
+                        <div class="col-12 col-lg-6">
+                            <div class="card-custom">
+                                <div class="assignment-header">
+                                    <div>
+                                        <div class="school-name">Greenwood High School</div>
+                                        <div class="school-id">ID: SCH-5678</div>
+                                    </div>
+                                    <span class="badge-assigned">Assigned</span>
+                                </div>
+
+                                <div class="divider"></div>
+
+                                <div class="d-flex justify-content-between align-items-center gap-3 flex-wrap">
+                                    <div class="coach-info">
+                                        <img src="https://i.pravatar.cc/150?img=47" alt="Arlene McCoy" class="coach-avatar">
+                                        <div>
+                                            <p class="coach-label">Currently Assigned</p>
+                                            <p class="coach-name">Arlene McCoy</p>
+                                        </div>
+                                    </div>
+                                    <button class="btn-change">
+                                        <span class="material-symbols-outlined" style="font-size: 16px;">edit</span>
+                                        <span>Change</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ASSIGN / REASSIGN PANEL -->
+                    <div class="card-custom mb-section">
+                        <h2 class="section-title">Available Thinking Coaches</h2>
+
+                        <div class="coaches-list">
+                            <!-- Coach Item 1 -->
+                            <label class="coach-card" for="coach1">
+                                <div class="coach-card-left">
+                                    <input class="form-check-input" type="radio" name="coach_assignment" id="coach1" style="margin-top: 0;">
+                                    <img src="https://i.pravatar.cc/150?img=45" alt="Eleanor Pena" class="coach-avatar-large">
+                                    <div class="coach-details">
+                                        <div class="coach-name-large">Eleanor Pena</div>
+                                        <div class="coach-email">eleanorp@example.com</div>
+                                    </div>
+                                </div>
+
+                                <div class="coach-stats d-none d-sm-flex">
+                                    <div class="stat-group">
+                                        <div class="stat-label">Load</div>
+                                        <div class="stat-value">4 Schools</div>
+                                    </div>
+                                    <div class="stat-group">
+                                        <div class="stat-label">Capacity</div>
+                                        <span class="badge-available">Available</span>
+                                    </div>
+                                </div>
+                            </label>
+
+                            <!-- Coach Item 2 -->
+                            <label class="coach-card" for="coach2">
+                                <div class="coach-card-left">
+                                    <input class="form-check-input" type="radio" name="coach_assignment" id="coach2" style="margin-top: 0;">
+                                    <img src="https://i.pravatar.cc/150?img=32" alt="Leslie Alexander" class="coach-avatar-large">
+                                    <div class="coach-details">
+                                        <div class="coach-name-large">Leslie Alexander</div>
+                                        <div class="coach-email">leslie.a@example.com</div>
+                                    </div>
+                                </div>
+
+                                <div class="coach-stats d-none d-sm-flex">
+                                    <div class="stat-group">
+                                        <div class="stat-label">Load</div>
+                                        <div class="stat-value">8 Schools</div>
+                                    </div>
+                                    <div class="stat-group">
+                                        <div class="stat-label">Capacity</div>
+                                        <span class="badge-fully-assigned">Fully Assigned</span>
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+
+                        <div class="confirm-button-wrapper">
+                            <button class="btn-primary-custom" style="padding-left: 1.5rem; padding-right: 1.5rem;">
+                                <span class="material-symbols-outlined" style="font-size: 16px;">check_circle</span>
+                                <span>Confirm Assignment</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- ASSIGNMENT SUMMARY TABLE -->
+                    <div>
+                        <h2 class="section-title">All School Assignments</h2>
+                        <div class="table-custom">
+                            <div class="table-responsive">
+                                <table class="table mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">School Name</th>
+                                            <th scope="col">Assigned Thinking Coach</th>
+                                            <th scope="col">Current Load</th>
+                                            <th scope="col">Status</th>
+                                            <th scope="col">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="table-school-name">Greenwood High School</td>
+                                            <td>
+                                                <div class="table-coach-info">
+                                                    <img src="https://i.pravatar.cc/150?img=47" alt="Arlene McCoy" class="table-avatar">
+                                                    <span>Arlene McCoy</span>
+                                                </div>
+                                            </td>
+                                            <td>6 Schools</td>
+                                            <td>
+                                                <span class="badge-assigned">Assigned</span>
+                                            </td>
+                                            <td>
+                                                <a href="#" class="btn-link-custom">Reassign</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="table-school-name">Northwood Elementary</td>
+                                            <td class="text-not-assigned">Not Assigned</td>
+                                            <td>-</td>
+                                            <td>
+                                                <span class="badge-not-assigned">Not Assigned</span>
+                                            </td>
+                                            <td>
+                                                <a href="#" class="btn-link-custom">Assign</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="table-school-name">Riverdale Middle School</td>
+                                            <td>
+                                                <div class="table-coach-info">
+                                                    <img src="https://i.pravatar.cc/150?img=33" alt="Jacob Jones" class="table-avatar">
+                                                    <span>Jacob Jones</span>
+                                                </div>
+                                            </td>
+                                            <td>5 Schools</td>
+                                            <td>
+                                                <span class="badge-assigned">Assigned</span>
+                                            </td>
+                                            <td>
+                                                <a href="#" class="btn-link-custom">Reassign</a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Custom JavaScript -->
+    <script>
+        // Handle coach card selection
+        const coachCards = document.querySelectorAll('.coach-card');
+        const radioButtons = document.querySelectorAll('input[name="coach_assignment"]');
+
+        radioButtons.forEach((radio, index) => {
+            radio.addEventListener('change', function() {
+                // Remove selected class from all cards
+                coachCards.forEach(card => card.classList.remove('selected'));
+                
+                // Add selected class to the parent card
+                if (this.checked) {
+                    coachCards[index].classList.add('selected');
+                }
+            });
+        });
+
+        // Handle clicking on the card (not just the radio)
+        coachCards.forEach((card, index) => {
+            card.addEventListener('click', function() {
+                radioButtons[index].checked = true;
+                radioButtons[index].dispatchEvent(new Event('change'));
+            });
+        });
+
+        // Handle school selection change
+        const schoolSelect = document.getElementById('schoolSelect');
+        schoolSelect.addEventListener('change', function() {
+            console.log('Selected school:', this.value);
+            // Add your logic here to load school details
+        });
+
+        // Handle reassign/assign buttons
+        const actionButtons = document.querySelectorAll('.btn-link-custom');
+        actionButtons.forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                console.log('Action clicked:', this.textContent);
+                // Add your logic here
+            });
+        });
+
+        // Handle change button
+        const changeButton = document.querySelector('.btn-change');
+        if (changeButton) {
+            changeButton.addEventListener('click', function() {
+                console.log('Change coach clicked');
+                // Add your logic here
+            });
+        }
+
+        // Handle confirm assignment button
+        const confirmButton = document.querySelector('.confirm-button-wrapper .btn-primary-custom');
+        if (confirmButton) {
+            confirmButton.addEventListener('click', function() {
+                const selectedCoach = document.querySelector('input[name="coach_assignment"]:checked');
+                if (selectedCoach) {
+                    console.log('Confirming assignment');
+                    // Add your logic here
+                } else {
+                    alert('Please select a coach before confirming assignment.');
+                }
+            });
+        }
+    </script>
+
+    <!-- Load Sidebar and Header Components -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            Promise.all([
+                fetch('sidebar.html').then(response => response.text()),
+                fetch('header.html').then(response => response.text())
+            ]).then(([sidebarHTML, headerHTML]) => {
+                document.getElementById('sidebar-container').innerHTML = sidebarHTML;
+                document.getElementById('header-container').innerHTML = headerHTML;
+
+                setTimeout(() => {
+                    if (typeof initializeHeader === 'function') {
+                        initializeHeader();
+                    }
+
+                    document.getElementById('sidebar-container').classList.add('loaded');
+                    document.getElementById('header-container').classList.add('loaded');
+
+                    setActiveMenuItem();
+                }, 200);
+            });
+        });
+
+        function setActiveMenuItem() {
+            const currentPage = window.location.pathname.split('/').pop();
+            const navAssignCoaches = document.getElementById('nav-assign-coaches');
+            if (navAssignCoaches && currentPage === 'assign-thinking-coach.html') {
+                navAssignCoaches.classList.add('active');
+                const schoolsDropdown = document.getElementById('schools-dropdown');
+                if (schoolsDropdown) {
+                    const dropdown = schoolsDropdown.closest('.sidebar-dropdown');
+                    if (dropdown) {
+                        dropdown.classList.add('active');
+                        const dropdownMenu = dropdown.querySelector('.sidebar-dropdown-menu');
+                        if (dropdownMenu) {
+                            dropdownMenu.style.display = 'block';
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+</html>

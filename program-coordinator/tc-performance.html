@@ -484,6 +484,327 @@
             flex-direction: column;
             overflow-x: hidden;
         }
+
+        /* Comprehensive Responsive Styles */
+        @media (max-width: 1200px) {
+            .stat-value {
+                font-size: 1.75rem;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .dashboard-page {
+                padding: 1.5rem;
+            }
+
+            .stat-card {
+                margin-bottom: 1rem;
+            }
+
+            .chart-wrapper {
+                height: 280px;
+            }
+
+            .table-custom {
+                font-size: 0.8rem;
+            }
+
+            .table-custom thead th,
+            .table-custom tbody td {
+                padding: 12px 16px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-page {
+                padding: 1rem;
+            }
+
+            h1 {
+                font-size: 1.5rem !important;
+            }
+
+            .btn-export {
+                padding: 8px 16px;
+                font-size: 0.875rem;
+            }
+
+            .stat-value {
+                font-size: 1.5rem;
+            }
+
+            .icon-wrapper {
+                width: 36px;
+                height: 36px;
+            }
+
+            .icon-wrapper .material-symbols-outlined {
+                font-size: 20px;
+            }
+
+            .chart-wrapper {
+                height: 250px;
+            }
+
+            .insight-item {
+                font-size: 0.8rem;
+            }
+
+            .table-custom {
+                font-size: 0.75rem;
+            }
+
+            .table-custom thead th,
+            .table-custom tbody td {
+                padding: 10px 12px;
+            }
+
+            .coach-avatar {
+                width: 32px;
+                height: 32px;
+            }
+
+            .status-dot {
+                width: 8px;
+                height: 8px;
+            }
+
+            .badge-custom {
+                font-size: 0.65rem;
+                padding: 3px 8px;
+            }
+
+            .btn-view {
+                font-size: 0.75rem;
+            }
+
+            /* Hide less important columns on mobile */
+            .table-custom tbody td:nth-child(2),
+            .table-custom thead th:nth-child(2) {
+                display: none;
+            }
+
+            .filter-select,
+            .search-input {
+                font-size: 0.875rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .dashboard-page {
+                padding: 0.75rem;
+            }
+
+            h1 {
+                font-size: 1.25rem !important;
+            }
+
+            .btn-export {
+                width: 100%;
+                justify-content: center;
+                margin-top: 1rem;
+            }
+
+            .stat-card .card-body {
+                padding: 1rem !important;
+            }
+
+            .stat-value {
+                font-size: 1.25rem;
+            }
+
+            .card-body p {
+                font-size: 0.8rem;
+            }
+
+            .chart-wrapper {
+                height: 220px;
+            }
+
+            .chart-card .card-body {
+                padding: 1rem !important;
+            }
+
+            .h5, .h6 {
+                font-size: 0.9rem !important;
+            }
+
+            .insight-item {
+                font-size: 0.75rem;
+            }
+
+            .insight-icon {
+                font-size: 18px !important;
+            }
+
+            /* Stack filters vertically on mobile */
+            .row.g-3 {
+                gap: 0.75rem !important;
+            }
+
+            /* Mobile table optimizations */
+            .table-responsive {
+                font-size: 0.7rem;
+            }
+
+            .table-custom thead th,
+            .table-custom tbody td {
+                padding: 8px 6px;
+                font-size: 0.7rem;
+            }
+
+            /* Hide additional columns on small mobile */
+            .table-custom tbody td:nth-child(5),
+            .table-custom thead th:nth-child(5) {
+                display: none;
+            }
+
+            .coach-avatar {
+                width: 28px;
+                height: 28px;
+            }
+
+            .badge-custom {
+                display: none;
+            }
+
+            .material-symbols-outlined {
+                font-size: 16px !important;
+            }
+
+            .btn-view {
+                font-size: 0.7rem;
+                padding: 4px 8px;
+            }
+
+            /* Coach sidebar adjustments */
+            .coach-sidebar-header {
+                padding: 16px;
+            }
+
+            .coach-sidebar-body {
+                padding: 16px;
+            }
+
+            .coach-sidebar-footer {
+                padding: 12px 16px;
+            }
+
+            #coachSidebarAvatar {
+                width: 48px !important;
+                height: 48px !important;
+            }
+
+            .metric-box {
+                padding: 12px;
+            }
+
+            .metric-label {
+                font-size: 0.75rem;
+            }
+
+            .metric-value {
+                font-size: 1rem !important;
+            }
+
+            .assessment-item {
+                padding: 10px;
+            }
+
+            .btn-download-profile {
+                padding: 8px 16px;
+                font-size: 0.875rem;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .dashboard-page {
+                padding: 0.5rem;
+            }
+
+            h1 {
+                font-size: 1.1rem !important;
+            }
+
+            .stat-value {
+                font-size: 1.1rem;
+            }
+
+            .table-custom thead th,
+            .table-custom tbody td {
+                padding: 6px 4px;
+                font-size: 0.65rem;
+            }
+
+            .coach-avatar {
+                width: 24px;
+                height: 24px;
+            }
+
+            .fw-medium {
+                font-size: 0.7rem;
+            }
+
+            .btn-view {
+                font-size: 0.65rem;
+                padding: 3px 6px;
+            }
+        }
+
+        /* Landscape mobile optimizations */
+        @media (max-width: 896px) and (orientation: landscape) {
+            .dashboard-page {
+                padding: 1rem;
+            }
+
+            .stat-card {
+                margin-bottom: 0.5rem;
+            }
+
+            .chart-wrapper {
+                height: 200px;
+            }
+        }
+
+        /* Tablet specific */
+        @media (min-width: 768px) and (max-width: 1024px) {
+            .stat-value {
+                font-size: 1.6rem;
+            }
+
+            .table-custom thead th,
+            .table-custom tbody td {
+                padding: 12px 14px;
+                font-size: 0.8rem;
+            }
+        }
+
+        /* Print styles */
+        @media print {
+            .btn-export,
+            .btn-view,
+            .search-wrapper,
+            .filter-select,
+            .sidebar,
+            #sidebar-container,
+            #header-container {
+                display: none !important;
+            }
+
+            .dashboard-page {
+                padding: 0;
+            }
+
+            .card {
+                break-inside: avoid;
+                box-shadow: none !important;
+                border: 1px solid #ddd;
+            }
+
+            .table-custom {
+                font-size: 10pt;
+            }
+        }
     </style>
 </head>
 <body>
