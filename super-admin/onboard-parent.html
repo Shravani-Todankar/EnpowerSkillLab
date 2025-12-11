@@ -644,145 +644,43 @@
                     <div class="stepper">
                         <div class="step active">
                             <div class="step-icon">1</div>
-                            <div class="step-label">Parent Details</div>
+                            <div class="step-label">Primary Parent</div>
                         </div>
                         <div class="step">
                             <div class="step-icon">2</div>
-                            <div class="step-label">Student Mapping</div>
+                            <div class="step-label">Secondary Parent</div>
                         </div>
                         <div class="step">
                             <div class="step-icon">3</div>
-                            <div class="step-label">Relationship</div>
+                            <div class="step-label">Address</div>
                         </div>
                         <div class="step">
                             <div class="step-icon">4</div>
-                            <div class="step-label">Additional Info</div>
+                            <div class="step-label">Communication</div>
+                        </div>
+                        <div class="step">
+                            <div class="step-icon">5</div>
+                            <div class="step-label">Financial</div>
+                        </div>
+                        <div class="step">
+                            <div class="step-icon">6</div>
+                            <div class="step-label">Emergency</div>
+                        </div>
+                        <div class="step">
+                            <div class="step-icon">7</div>
+                            <div class="step-label">Involvement</div>
                         </div>
                     </div>
 
                     <!-- Form -->
                     <form id="parentForm">
-                        <!-- Step 1: Parent Personal Details -->
+                        <!-- Step 1: Primary Parent / Guardian Details -->
                         <div class="form-section" id="step1">
-                            <h2>Parent Personal Details</h2>
-
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label>Full Name <span class="required">*</span></label>
-                                    <input type="text" id="fullName" name="fullName" placeholder="Enter full name"
-                                        required>
-                                    <span class="error-message" id="fullNameError"></span>
-                                </div>
-                                <div class="form-group">
-                                    <label>Email Address ( Used For Log In ) <span class="required">*</span></label>
-                                    <input type="email" id="email" name="email" placeholder="parent@example.com"
-                                        required>
-                                    <span class="error-message" id="emailError"></span>
-                                </div>
-                            </div>
-
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label>Phone Number <span class="required">*</span></label>
-                                    <input type="tel" id="phoneNumber" name="phoneNumber" placeholder="+91 XXXXX XXXXX"
-                                        required maxlength="10">
-                                    <span class="error-message" id="phoneNumberError"></span>
-                                </div>
-                                <div class="form-group">
-                                    <label>Alternate Phone Number</label>
-                                    <input type="tel" id="alternatePhone" name="alternatePhone"
-                                        placeholder="+91 XXXXX XXXXX" maxlength="10">
-                                    <span class="error-message" id="alternatePhoneError"></span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Step 2: Student Mapping -->
-                        <div class="form-section" id="step2" style="display: none;">
-                            <h2>Student Mapping</h2>
-
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label>School <span class="required">*</span></label>
-                                    <select id="school" name="school" required>
-                                        <option value="">Select school</option>
-                                        <option value="school1">Springfield High School</option>
-                                        <option value="school2">Riverside Academy</option>
-                                        <option value="school3">Green Valley School</option>
-                                        <option value="school4">Oakwood International</option>
-                                    </select>
-                                    <span class="error-message" id="schoolError"></span>
-                                </div>
-                                <div class="form-group">
-                                    <label>Grade <span class="required">*</span></label>
-                                    <select id="grade" name="grade" required disabled>
-                                        <option value="">Select grade</option>
-                                    </select>
-                                    <span class="error-message" id="gradeError"></span>
-                                </div>
-                            </div>
-
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label>Section <span class="required">*</span></label>
-                                    <select id="class" name="class" required disabled>
-                                        <option value="">Select class</option>
-                                    </select>
-                                    <span class="error-message" id="classError"></span>
-                                </div>
-                                <div class="form-group">
-                                    <label>Student <span class="required">*</span></label>
-                                    <select id="student" name="student" required disabled>
-                                        <option value="">Select student</option>
-                                    </select>
-                                    <span class="error-message" id="studentError"></span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Step 3: Relationship to Student -->
-                        <div class="form-section" id="step3" style="display: none;">
-                            <h2>Relationship to Student</h2>
+                            <h2>A. Primary Parent / Guardian Details</h2>
 
                             <div class="form-row full">
                                 <div class="form-group">
-                                    <label>Relationship Type <span class="required">*</span></label>
-                                    <div class="relationship-options">
-                                        <div class="relationship-option">
-                                            <input type="radio" id="father" name="relationship" value="father" required>
-                                            <label for="father">Father</label>
-                                        </div>
-                                        <div class="relationship-option">
-                                            <input type="radio" id="mother" name="relationship" value="mother" required>
-                                            <label for="mother">Mother</label>
-                                        </div>
-                                        <div class="relationship-option">
-                                            <input type="radio" id="guardian" name="relationship" value="guardian"
-                                                required>
-                                            <label for="guardian">Guardian</label>
-                                        </div>
-                                    </div>
-                                    <span class="error-message" id="relationshipError"></span>
-                                </div>
-                            </div>
-
-                            <div class="form-row" id="guardianDetailsRow" style="display: none;">
-                                <div class="form-group">
-                                    <label>Guardian Relation</label>
-                                    <input type="text" id="guardianRelation" name="guardianRelation"
-                                        placeholder="e.g., Uncle, Aunt, Grandfather">
-                                    <span class="error-message" id="guardianRelationError"></span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Step 4: Optional Fields -->
-                        <div class="form-section" id="step4" style="display: none;">
-                            <h2>Additional Information</h2>
-
-                            <div class="form-row full">
-                                <div class="form-group">
-                                    <label>Profile Photo</label>
+                                    <label>Parent Photo (Optional)</label>
                                     <div class="photo-upload-container">
                                         <div class="photo-preview" id="photoPreview">
                                             <span class="material-symbols-outlined">add_a_photo</span>
@@ -801,58 +699,404 @@
 
                             <div class="form-row">
                                 <div class="form-group">
-                                    <label>Gender</label>
-                                    <select id="gender" name="gender">
-                                        <option value="">Select gender</option>
-                                        <option value="male">Male</option>
-                                        <option value="female">Female</option>
-                                        <option value="other">Other</option>
-                                        <option value="prefer-not-to-say">Prefer not to say</option>
+                                    <label>Full Name <span class="required">*</span></label>
+                                    <input type="text" id="fullName" name="fullName" placeholder="Enter full name"
+                                        required>
+                                    <span class="error-message" id="fullNameError"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Relation to Student <span class="required">*</span></label>
+                                    <select id="relationToStudent" name="relationToStudent" required>
+                                        <option value="" disabled selected hidden>Select relation</option>
+                                        <option value="mother">Mother</option>
+                                        <option value="father">Father</option>
+                                        <option value="guardian">Guardian</option>
                                     </select>
+                                    <span class="error-message" id="relationToStudentError"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Mobile Number <span class="required">*</span></label>
+                                    <input type="tel" id="mobileNumber" name="mobileNumber" placeholder="+91 XXXXX XXXXX"
+                                        required maxlength="10">
+                                    <span class="error-message" id="mobileNumberError"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Alternate Mobile Number</label>
+                                    <input type="tel" id="alternateMobile" name="alternateMobile"
+                                        placeholder="+91 XXXXX XXXXX" maxlength="10">
+                                    <span class="error-message" id="alternateMobileError"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Email ID <span class="required">*</span></label>
+                                    <input type="email" id="email" name="email" placeholder="parent@example.com"
+                                        required>
+                                    <span class="error-message" id="emailError"></span>
+                                    <p class="photo-hint">Used for login</p>
                                 </div>
                                 <div class="form-group">
                                     <label>Occupation</label>
                                     <input type="text" id="occupation" name="occupation" placeholder="Enter occupation">
+                                    <span class="error-message" id="occupationError"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Organization / Company Name</label>
+                                    <input type="text" id="organization" name="organization" placeholder="Enter company name">
+                                    <span class="error-message" id="organizationError"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Education Level</label>
+                                    <select id="educationLevel" name="educationLevel">
+                                        <option value="" disabled selected hidden>Select education level</option>
+                                        <option value="high-school">High School</option>
+                                        <option value="diploma">Diploma</option>
+                                        <option value="graduate">Graduate</option>
+                                        <option value="post-graduate">Post Graduate</option>
+                                        <option value="doctorate">Doctorate</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                    <span class="error-message" id="educationLevelError"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>ID Proof (Aadhar / PAN - Optional)</label>
+                                    <input type="text" id="idProof" name="idProof" placeholder="Enter Aadhar or PAN number">
+                                    <span class="error-message" id="idProofError"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 2: Secondary Parent / Guardian -->
+                        <div class="form-section" id="step2" style="display: none;">
+                            <h2>B. Secondary Parent / Guardian</h2>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Full Name</label>
+                                    <input type="text" id="secondaryFullName" name="secondaryFullName" placeholder="Enter full name">
+                                    <span class="error-message" id="secondaryFullNameError"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Relation</label>
+                                    <select id="secondaryRelation" name="secondaryRelation">
+                                        <option value="" disabled selected hidden>Select relation</option>
+                                        <option value="mother">Mother</option>
+                                        <option value="father">Father</option>
+                                        <option value="guardian">Guardian</option>
+                                        <option value="grandparent">Grandparent</option>
+                                        <option value="uncle">Uncle</option>
+                                        <option value="aunt">Aunt</option>
+                                    </select>
+                                    <span class="error-message" id="secondaryRelationError"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Mobile Number</label>
+                                    <input type="tel" id="secondaryMobile" name="secondaryMobile" placeholder="+91 XXXXX XXXXX"
+                                        maxlength="10">
+                                    <span class="error-message" id="secondaryMobileError"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Email ID</label>
+                                    <input type="email" id="secondaryEmail" name="secondaryEmail" placeholder="secondary@example.com">
+                                    <span class="error-message" id="secondaryEmailError"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Occupation</label>
+                                    <input type="text" id="secondaryOccupation" name="secondaryOccupation" placeholder="Enter occupation">
+                                    <span class="error-message" id="secondaryOccupationError"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Preferred Contact Person <span class="required">*</span></label>
+                                    <select id="preferredContact" name="preferredContact" required>
+                                        <option value="" disabled selected hidden>Select preferred contact</option>
+                                        <option value="primary">Primary Parent/Guardian</option>
+                                        <option value="secondary">Secondary Parent/Guardian</option>
+                                        <option value="both">Both</option>
+                                    </select>
+                                    <span class="error-message" id="preferredContactError"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 3: Contact & Address -->
+                        <div class="form-section" id="step3" style="display: none;">
+                            <h2>C. Contact & Address</h2>
+
+                            <div class="form-row full">
+                                <div class="form-group">
+                                    <label>Residential Address <span class="required">*</span></label>
+                                    <input type="text" id="residentialAddress" name="residentialAddress" 
+                                        placeholder="House No., Street, Area" required>
+                                    <span class="error-message" id="residentialAddressError"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Landmark</label>
+                                    <input type="text" id="landmark" name="landmark" placeholder="Near landmark">
+                                    <span class="error-message" id="landmarkError"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>City <span class="required">*</span></label>
+                                    <input type="text" id="city" name="city" placeholder="Enter city" required>
+                                    <span class="error-message" id="cityError"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>State <span class="required">*</span></label>
+                                    <input type="text" id="state" name="state" placeholder="Enter state" required>
+                                    <span class="error-message" id="stateError"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Pin Code <span class="required">*</span></label>
+                                    <input type="text" id="pinCode" name="pinCode" placeholder="6-digit PIN code"
+                                        maxlength="6" required>
+                                    <span class="error-message" id="pinCodeError"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-row full">
+                                <div class="form-group">
+                                    <label>Permanent Address (if different)</label>
+                                    <input type="text" id="permanentAddress" name="permanentAddress" 
+                                        placeholder="Enter permanent address if different from residential">
+                                    <span class="error-message" id="permanentAddressError"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 4: Communication Preferences -->
+                        <div class="form-section" id="step4" style="display: none;">
+                            <h2>D. Communication Preferences</h2>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Preferred Contact Method <span class="required">*</span></label>
+                                    <select id="contactMethod" name="contactMethod" required>
+                                        <option value="" disabled selected hidden>Select contact method</option>
+                                        <option value="call">Phone Call</option>
+                                        <option value="whatsapp">WhatsApp</option>
+                                        <option value="sms">SMS</option>
+                                        <option value="email">Email</option>
+                                    </select>
+                                    <span class="error-message" id="contactMethodError"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Preferred Language <span class="required">*</span></label>
+                                    <select id="preferredLanguage" name="preferredLanguage" required>
+                                        <option value="" disabled selected hidden>Select language</option>
+                                        <option value="english">English</option>
+                                        <option value="hindi">Hindi</option>
+                                        <option value="marathi">Marathi</option>
+                                        <option value="gujarati">Gujarati</option>
+                                        <option value="tamil">Tamil</option>
+                                        <option value="telugu">Telugu</option>
+                                        <option value="kannada">Kannada</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                    <span class="error-message" id="preferredLanguageError"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Do Not Disturb Timings (Optional)</label>
+                                    <input type="text" id="dndTimings" name="dndTimings" 
+                                        placeholder="e.g., 10:00 PM - 7:00 AM">
+                                    <span class="error-message" id="dndTimingsError"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-row full">
+                                <div class="form-group">
+                                    <label>Consent for WhatsApp Communications</label>
+                                    <div class="relationship-options">
+                                        <div class="relationship-option">
+                                            <input type="radio" id="whatsappYes" name="whatsappConsent" value="yes">
+                                            <label for="whatsappYes">Yes, I consent</label>
+                                        </div>
+                                        <div class="relationship-option">
+                                            <input type="radio" id="whatsappNo" name="whatsappConsent" value="no">
+                                            <label for="whatsappNo">No, I do not consent</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-row full">
+                                <div class="form-group">
+                                    <label>Consent for Sharing Child Photos</label>
+                                    <div class="relationship-options">
+                                        <div class="relationship-option">
+                                            <input type="radio" id="photoConsentYes" name="photoConsent" value="yes">
+                                            <label for="photoConsentYes">Yes, I consent</label>
+                                        </div>
+                                        <div class="relationship-option">
+                                            <input type="radio" id="photoConsentNo" name="photoConsent" value="no">
+                                            <label for="photoConsentNo">No, I do not consent</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 5: Financial & Administrative -->
+                        <div class="form-section" id="step5" style="display: none;">
+                            <h2>E. Financial & Administrative</h2>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Fee Category <span class="required">*</span></label>
+                                    <select id="feeCategory" name="feeCategory" required>
+                                        <option value="" disabled selected hidden>Select fee category</option>
+                                        <option value="regular">Regular</option>
+                                        <option value="scholarship">Scholarship</option>
+                                        <option value="concession">Concession</option>
+                                    </select>
+                                    <span class="error-message" id="feeCategoryError"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Payment Mode Preference</label>
+                                    <select id="paymentMode" name="paymentMode">
+                                        <option value="" disabled selected hidden>Select payment mode</option>
+                                        <option value="online">Online Payment</option>
+                                        <option value="bank-transfer">Bank Transfer</option>
+                                        <option value="cheque">Cheque</option>
+                                        <option value="cash">Cash</option>
+                                        <option value="upi">UPI</option>
+                                    </select>
+                                    <span class="error-message" id="paymentModeError"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Billing Email</label>
+                                    <input type="email" id="billingEmail" name="billingEmail" 
+                                        placeholder="billing@example.com">
+                                    <span class="error-message" id="billingEmailError"></span>
+                                    <p class="photo-hint">Leave blank to use primary email</p>
+                                </div>
+                                <div class="form-group">
+                                    <label>GST Number (if corporate billing)</label>
+                                    <input type="text" id="gstNumber" name="gstNumber" 
+                                        placeholder="e.g., 22AAAAA0000A1Z5">
+                                    <span class="error-message" id="gstNumberError"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 6: Emergency Contacts -->
+                        <div class="form-section" id="step6" style="display: none;">
+                            <h2>F. Emergency Contacts (If parents unavailable)</h2>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Contact Name <span class="required">*</span></label>
+                                    <input type="text" id="emergencyName" name="emergencyName" 
+                                        placeholder="Enter emergency contact name" required>
+                                    <span class="error-message" id="emergencyNameError"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Relation <span class="required">*</span></label>
+                                    <select id="emergencyRelation" name="emergencyRelation" required>
+                                        <option value="" disabled selected hidden>Select relation</option>
+                                        <option value="grandparent">Grandparent</option>
+                                        <option value="uncle">Uncle</option>
+                                        <option value="aunt">Aunt</option>
+                                        <option value="sibling">Sibling</option>
+                                        <option value="neighbor">Neighbor</option>
+                                        <option value="family-friend">Family Friend</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                    <span class="error-message" id="emergencyRelationError"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Phone Number <span class="required">*</span></label>
+                                    <input type="tel" id="emergencyPhone" name="emergencyPhone" 
+                                        placeholder="+91 XXXXX XXXXX" required maxlength="10">
+                                    <span class="error-message" id="emergencyPhoneError"></span>
                                 </div>
                             </div>
 
                             <div class="form-row full">
                                 <div class="form-group">
                                     <label>Address</label>
-                                    <input type="text" id="address" name="address" placeholder="Complete address">
-                                    <span class="error-message" id="addressError"></span>
+                                    <input type="text" id="emergencyAddress" name="emergencyAddress" 
+                                        placeholder="Enter emergency contact address">
+                                    <span class="error-message" id="emergencyAddressError"></span>
                                 </div>
                             </div>
+                        </div>
 
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label>City</label>
-                                    <input type="text" id="city" name="city" placeholder="City">
-                                </div>
-                                <div class="form-group">
-                                    <label>State</label>
-                                    <input type="text" id="state" name="state" placeholder="State">
-                                </div>
-                            </div>
+                        <!-- Step 7: Parent Involvement -->
+                        <div class="form-section" id="step7" style="display: none;">
+                            <h2>G. Parent Involvement</h2>
 
-                            <div class="form-row">
+                            <div class="form-row full">
                                 <div class="form-group">
-                                    <label>PIN Code</label>
-                                    <input type="text" id="pincode" name="pincode" placeholder="6-digit PIN code"
-                                        maxlength="6">
-                                    <span class="error-message" id="pincodeError"></span>
-                                </div>
-                                <!-- <div class="form-group">
-                                    <label>Country</label>
-                                    <select id="country" name="country">
-                                        <option value="">Select country</option>
-                                        <option value="india" selected>India</option>
-                                        <option value="usa">United States</option>
-                                        <option value="uk">United Kingdom</option>
-                                        <option value="canada">Canada</option>
-                                        <option value="australia">Australia</option>
+                                    <label>Availability for Monthly Meeting</label>
+                                    <select id="meetingAvailability" name="meetingAvailability">
+                                        <option value="" disabled selected hidden>Select availability</option>
+                                        <option value="online">Online Only</option>
+                                        <option value="offline">Offline Only</option>
+                                        <option value="both">Both Online and Offline</option>
+                                        <option value="not-available">Not Available</option>
                                     </select>
-                                </div> -->
+                                    <span class="error-message" id="meetingAvailabilityError"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-row full">
+                                <div class="form-group">
+                                    <label>Volunteer Interest (Events, Workshops)</label>
+                                    <div class="relationship-options">
+                                        <div class="relationship-option">
+                                            <input type="radio" id="volunteerYes" name="volunteerInterest" value="yes">
+                                            <label for="volunteerYes">Yes, I'm interested</label>
+                                        </div>
+                                        <div class="relationship-option">
+                                            <input type="radio" id="volunteerNo" name="volunteerInterest" value="no">
+                                            <label for="volunteerNo">No, not at this time</label>
+                                        </div>
+                                        <div class="relationship-option">
+                                            <input type="radio" id="volunteerMaybe" name="volunteerInterest" value="maybe">
+                                            <label for="volunteerMaybe">Maybe, contact me later</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-row full">
+                                <div class="form-group">
+                                    <label>Parent Skills (Useful for School / Lab activities)</label>
+                                    <input type="text" id="parentSkills" name="parentSkills" 
+                                        placeholder="e.g., Public Speaking, Art, Music, Technology, Sports Coaching">
+                                    <span class="error-message" id="parentSkillsError"></span>
+                                    <p class="photo-hint">List any skills you can contribute to school activities</p>
+                                </div>
                             </div>
                         </div>
 
@@ -918,16 +1162,36 @@
 
         // Multi-step form logic
         let currentStep = 1;
-        const totalSteps = 4;
+        const totalSteps = 7;
         const formData = {};
 
         // Validators
         const validators = {
+            // Step 1: Primary Parent
             fullName: {
                 validate: (value) => {
                     if (!value.trim()) return 'Full name is required';
                     if (value.trim().length < 3) return 'Name must be at least 3 characters';
                     if (!/^[a-zA-Z\s.]+$/.test(value)) return 'Name should only contain letters';
+                    return '';
+                }
+            },
+            relationToStudent: {
+                validate: (value) => {
+                    if (!value) return 'Relation to student is required';
+                    return '';
+                }
+            },
+            mobileNumber: {
+                validate: (value) => {
+                    if (!value.trim()) return 'Mobile number is required';
+                    if (!/^[6-9]\d{9}$/.test(value)) return 'Please enter a valid 10-digit mobile number';
+                    return '';
+                }
+            },
+            alternateMobile: {
+                validate: (value) => {
+                    if (value && !/^[6-9]\d{9}$/.test(value)) return 'Please enter a valid 10-digit mobile number';
                     return '';
                 }
             },
@@ -938,37 +1202,103 @@
                     return '';
                 }
             },
-            phoneNumber: {
-                validate: (value) => {
-                    if (!value.trim()) return 'Phone number is required';
-                    if (!/^[6-9]\d{9}$/.test(value)) return 'Please enter a valid 10-digit mobile number';
-                    return '';
-                }
-            },
-            alternatePhone: {
+            // Step 2: Secondary Parent
+            secondaryMobile: {
                 validate: (value) => {
                     if (value && !/^[6-9]\d{9}$/.test(value)) return 'Please enter a valid 10-digit mobile number';
                     return '';
                 }
             },
-            guardianRelation: {
+            secondaryEmail: {
                 validate: (value) => {
-                    const relationship = document.querySelector('input[name="relationship"]:checked');
-                    if (relationship && relationship.value === 'guardian' && !value.trim()) {
-                        return 'Please specify guardian relation';
+                    if (value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) return 'Please enter a valid email address';
+                    return '';
+                }
+            },
+            preferredContact: {
+                validate: (value) => {
+                    if (!value) return 'Please select preferred contact person';
+                    return '';
+                }
+            },
+            // Step 3: Address
+            residentialAddress: {
+                validate: (value) => {
+                    if (!value.trim()) return 'Residential address is required';
+                    if (value.trim().length < 10) return 'Address must be at least 10 characters';
+                    return '';
+                }
+            },
+            city: {
+                validate: (value) => {
+                    if (!value.trim()) return 'City is required';
+                    return '';
+                }
+            },
+            state: {
+                validate: (value) => {
+                    if (!value.trim()) return 'State is required';
+                    return '';
+                }
+            },
+            pinCode: {
+                validate: (value) => {
+                    if (!value.trim()) return 'PIN code is required';
+                    if (!/^\d{6}$/.test(value)) return 'PIN code must be exactly 6 digits';
+                    return '';
+                }
+            },
+            // Step 4: Communication
+            contactMethod: {
+                validate: (value) => {
+                    if (!value) return 'Please select preferred contact method';
+                    return '';
+                }
+            },
+            preferredLanguage: {
+                validate: (value) => {
+                    if (!value) return 'Please select preferred language';
+                    return '';
+                }
+            },
+            // Step 5: Financial
+            feeCategory: {
+                validate: (value) => {
+                    if (!value) return 'Please select fee category';
+                    return '';
+                }
+            },
+            billingEmail: {
+                validate: (value) => {
+                    if (value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) return 'Please enter a valid email address';
+                    return '';
+                }
+            },
+            gstNumber: {
+                validate: (value) => {
+                    if (value && !/^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$/.test(value)) {
+                        return 'Please enter a valid GST number';
                     }
                     return '';
                 }
             },
-            address: {
+            // Step 6: Emergency
+            emergencyName: {
                 validate: (value) => {
-                    if (value && value.trim().length < 10) return 'Address must be at least 10 characters';
+                    if (!value.trim()) return 'Emergency contact name is required';
                     return '';
                 }
             },
-            pincode: {
+            emergencyRelation: {
                 validate: (value) => {
-                    if (value && !/^\d{6}$/.test(value)) return 'PIN code must be exactly 6 digits';
+                    if (!value) return 'Please select relation';
+                    return '';
+                }
+            },
+            emergencyPhone: {
+                validate: (value) => {
+                    if (!value.trim()) return 'Emergency phone number is required';
+                    if (!/^[6-9]\d{9}$/.test(value)) return 'Please enter a valid 10-digit mobile number';
                     return '';
                 }
             }
@@ -1030,7 +1360,7 @@
         });
 
         // PIN code formatting
-        const pincodeInput = document.getElementById('pincode');
+        const pincodeInput = document.getElementById('pinCode');
         if (pincodeInput) {
             pincodeInput.addEventListener('input', function (e) {
                 let value = e.target.value.replace(/\D/g, '');
@@ -1040,23 +1370,6 @@
                 e.target.value = value;
             });
         }
-
-        // Show/hide guardian relation field based on relationship selection
-        const relationshipRadios = document.querySelectorAll('input[name="relationship"]');
-        const guardianDetailsRow = document.getElementById('guardianDetailsRow');
-
-        relationshipRadios.forEach(radio => {
-            radio.addEventListener('change', function () {
-                if (this.value === 'guardian') {
-                    guardianDetailsRow.style.display = 'grid';
-                } else {
-                    guardianDetailsRow.style.display = 'none';
-                    document.getElementById('guardianRelation').value = '';
-                    clearError('guardianRelation');
-                }
-                clearError('relationship');
-            });
-        });
 
         // Photo Upload Functionality
         const uploadPhotoBtn = document.getElementById('uploadPhotoBtn');
@@ -1089,218 +1402,6 @@
                 };
                 reader.readAsDataURL(file);
             }
-        });
-
-        // Cascading Dropdown Data Structure
-        const cascadingData = {
-            school1: {
-                name: 'Springfield High School',
-                grades: {
-                    'Grade 9': { name: 'Grade 9', classes: ['Section A', 'Section B', 'Section C'] },
-                    'Grade 10': { name: 'Grade 10', classes: ['Section A', 'Section B', 'Section C'] },
-                    'Grade 11': { name: 'Grade 11', classes: ['Section A', 'Section B'] },
-                    'Grade 12': { name: 'Grade 12', classes: ['Section A', 'Section B'] }
-                },
-                students: {
-                    'Grade 9-Section A': [
-                        { id: 's1', name: 'Aarav Sharma', rollNo: '15' },
-                        { id: 's2', name: 'Diya Patel', rollNo: '22' }
-                    ],
-                    'Grade 10-Section A': [
-                        { id: 's3', name: 'Ananya Singh', rollNo: '12' },
-                        { id: 's4', name: 'Rohan Mehta', rollNo: '05' }
-                    ],
-                    'Grade 11-Section A': [
-                        { id: 's5', name: 'Vihaan Gupta', rollNo: '25' }
-                    ],
-                    'Grade 12-Section A': [
-                        { id: 's6', name: 'Sara Nair', rollNo: '11' }
-                    ],
-                    'Grade 9-Section B': [
-                        { id: 's7', name: 'Kavya Reddy', rollNo: '18' }
-                    ],
-                    'Grade 10-Section B': [
-                        { id: 's8', name: 'Ishita Desai', rollNo: '14' }
-                    ],
-                    'Grade 11-Section B': [
-                        { id: 's9', name: 'Arjun Kumar', rollNo: '08' }
-                    ],
-                    'Grade 12-Section B': [
-                        { id: 's10', name: 'Aditya Joshi', rollNo: '09' }
-                    ],
-                    'Grade 9-Section C': [
-                        { id: 's11', name: 'Priya Sharma', rollNo: '03' }
-                    ],
-                    'Grade 10-Section C': [
-                        { id: 's12', name: 'Karan Verma', rollNo: '07' }
-                    ]
-                }
-            },
-            school2: {
-                name: 'Riverside Academy',
-                grades: {
-                    'Grade 9': { name: 'Grade 9', classes: ['Section A', 'Section B'] },
-                    'Grade 10': { name: 'Grade 10', classes: ['Section A', 'Section B'] },
-                    'Grade 11': { name: 'Grade 11', classes: ['Section A'] }
-                },
-                students: {
-                    'Grade 9-Section A': [
-                        { id: 's13', name: 'Riya Kapoor', rollNo: '10' }
-                    ],
-                    'Grade 10-Section A': [
-                        { id: 's14', name: 'Aryan Singh', rollNo: '20' }
-                    ],
-                    'Grade 11-Section A': [
-                        { id: 's15', name: 'Neha Gupta', rollNo: '15' }
-                    ],
-                    'Grade 9-Section B': [
-                        { id: 's16', name: 'Vikram Joshi', rollNo: '05' }
-                    ],
-                    'Grade 10-Section B': [
-                        { id: 's17', name: 'Sana Khan', rollNo: '12' }
-                    ]
-                }
-            },
-            school3: {
-                name: 'Green Valley School',
-                grades: {
-                    'Grade 9': { name: 'Grade 9', classes: ['Section A', 'Section B'] },
-                    'Grade 10': { name: 'Grade 10', classes: ['Section A', 'Section B'] }
-                },
-                students: {
-                    'Grade 9-Section A': [
-                        { id: 's18', name: 'Amit Patel', rollNo: '08' }
-                    ],
-                    'Grade 10-Section A': [
-                        { id: 's19', name: 'Pooja Reddy', rollNo: '14' }
-                    ],
-                    'Grade 9-Section B': [
-                        { id: 's20', name: 'Rahul Kumar', rollNo: '06' }
-                    ],
-                    'Grade 10-Section B': [
-                        { id: 's21', name: 'Sneha Singh', rollNo: '11' }
-                    ]
-                }
-            },
-            school4: {
-                name: 'Oakwood International',
-                grades: {
-                    'Grade 9': { name: 'Grade 9', classes: ['Section A'] },
-                    'Grade 10': { name: 'Grade 10', classes: ['Section A'] },
-                    'Grade 11': { name: 'Grade 11', classes: ['Section A'] },
-                    'Grade 12': { name: 'Grade 12', classes: ['Section A'] }
-                },
-                students: {
-                    'Grade 9-Section A': [
-                        { id: 's22', name: 'Deepak Mehta', rollNo: '09' }
-                    ],
-                    'Grade 10-Section A': [
-                        { id: 's23', name: 'Simran Kaur', rollNo: '16' }
-                    ],
-                    'Grade 11-Section A': [
-                        { id: 's24', name: 'Mohit Sharma', rollNo: '04' }
-                    ],
-                    'Grade 12-Section A': [
-                        { id: 's25', name: 'Anjali Verma', rollNo: '13' }
-                    ]
-                }
-            }
-        };
-
-        // Cascading Dropdown Functionality
-        const schoolSelect = document.getElementById('school');
-        const classSelect = document.getElementById('class');
-        const gradeSelect = document.getElementById('grade');
-        const studentSelect = document.getElementById('student');
-
-        // School dropdown change handler
-        schoolSelect.addEventListener('change', function() {
-            const selectedSchool = this.value;
-
-            // Reset and disable dependent dropdowns
-            gradeSelect.innerHTML = '<option value="">Select grade</option>';
-            classSelect.innerHTML = '<option value="">Select class</option>';
-            studentSelect.innerHTML = '<option value="">Select student</option>';
-            classSelect.disabled = true;
-            studentSelect.disabled = true;
-
-            if (selectedSchool) {
-                // Enable and populate grade dropdown
-                gradeSelect.disabled = false;
-                const grades = cascadingData[selectedSchool].grades;
-
-                for (const [key, value] of Object.entries(grades)) {
-                    const option = document.createElement('option');
-                    option.value = key;
-                    option.textContent = value.name;
-                    gradeSelect.appendChild(option);
-                }
-            } else {
-                gradeSelect.disabled = true;
-            }
-
-            clearError('school');
-        });
-
-        // Grade dropdown change handler
-        gradeSelect.addEventListener('change', function() {
-            const selectedSchool = schoolSelect.value;
-            const selectedGrade = this.value;
-
-            // Reset and disable dependent dropdowns
-            classSelect.innerHTML = '<option value="">Select class</option>';
-            studentSelect.innerHTML = '<option value="">Select student</option>';
-            studentSelect.disabled = true;
-
-            if (selectedSchool && selectedGrade) {
-                // Enable and populate class dropdown
-                classSelect.disabled = false;
-                const classes = cascadingData[selectedSchool].grades[selectedGrade].classes;
-
-                classes.forEach(className => {
-                    const option = document.createElement('option');
-                    option.value = className;
-                    option.textContent = className;
-                    classSelect.appendChild(option);
-                });
-            } else {
-                classSelect.disabled = true;
-            }
-
-            clearError('grade');
-        });
-
-        // Class dropdown change handler
-        classSelect.addEventListener('change', function() {
-            const selectedSchool = schoolSelect.value;
-            const selectedGrade = gradeSelect.value;
-            const selectedClass = this.value;
-
-            // Reset student dropdown
-            studentSelect.innerHTML = '<option value="">Select student</option>';
-
-            if (selectedSchool && selectedGrade && selectedClass) {
-                // Enable and populate student dropdown
-                studentSelect.disabled = false;
-                const key = `${selectedGrade}-${selectedClass}`;
-                const students = cascadingData[selectedSchool].students[key] || [];
-
-                students.forEach(student => {
-                    const option = document.createElement('option');
-                    option.value = student.id;
-                    option.textContent = `${student.name} (Roll No: ${student.rollNo})`;
-                    studentSelect.appendChild(option);
-                });
-            } else {
-                studentSelect.disabled = true;
-            }
-
-            clearError('class');
-        });
-
-        // Student dropdown change handler
-        studentSelect.addEventListener('change', function() {
-            clearError('student');
         });
 
         // Initialize
@@ -1386,53 +1487,6 @@
                 }
             });
 
-            // Special validation for cascading dropdowns in step 2
-            if (currentStep === 2) {
-                const schoolValue = document.getElementById('school').value;
-                const classValue = document.getElementById('class').value;
-                const gradeValue = document.getElementById('grade').value;
-                const studentValue = document.getElementById('student').value;
-
-                if (!schoolValue) {
-                    isValid = false;
-                    showError('school', 'Please select a school');
-                }
-                if (!classValue) {
-                    isValid = false;
-                    showError('class', 'Please select a class');
-                }
-                if (!gradeValue) {
-                    isValid = false;
-                    showError('grade', 'Please select a grade');
-                }
-                if (!studentValue) {
-                    isValid = false;
-                    showError('student', 'Please select a student');
-                }
-            }
-
-            // Special validation for relationship radio in step 3
-            if (currentStep === 3) {
-                const selectedRelationship = document.querySelector('input[name="relationship"]:checked');
-
-                if (!selectedRelationship) {
-                    isValid = false;
-                    showError('relationship', 'Please select a relationship type');
-                } else {
-                    clearError('relationship');
-
-                    // Validate guardian relation if guardian is selected
-                    if (selectedRelationship.value === 'guardian') {
-                        const guardianRelation = document.getElementById('guardianRelation').value;
-                        const error = validators.guardianRelation.validate(guardianRelation);
-                        if (error) {
-                            showError('guardianRelation', error);
-                            isValid = false;
-                        }
-                    }
-                }
-            }
-
             return isValid;
         }
 
@@ -1441,7 +1495,7 @@
             const inputs = currentStepElement.querySelectorAll('input, select');
 
             inputs.forEach(input => {
-                if (input.type === 'radio' && input.name === 'relationship') {
+                if (input.type === 'radio') {
                     if (input.checked) {
                         formData[input.name] = input.value;
                     }

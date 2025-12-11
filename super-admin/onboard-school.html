@@ -562,92 +562,190 @@
                     <div class="stepper">
                         <div class="step active">
                             <div class="step-icon">1</div>
-                            <div class="step-label">School Information</div>
+                            <div class="step-label">Basic Info</div>
                         </div>
                         <div class="step">
                             <div class="step-icon">2</div>
-                            <div class="step-label">Contact Details</div>
+                            <div class="step-label">Branch</div>
                         </div>
                         <div class="step">
                             <div class="step-icon">3</div>
-                            <div class="step-label">Primary Contact</div>
+                            <div class="step-label">Infrastructure</div>
                         </div>
                         <div class="step">
                             <div class="step-icon">4</div>
-                            <div class="step-label">Admin Account</div>
+                            <div class="step-label">Academic</div>
                         </div>
                         <div class="step">
                             <div class="step-icon">5</div>
-                            <div class="step-label">Program Assignment</div>
+                            <div class="step-label">Skill Lab</div>
+                        </div>
+                        <div class="step">
+                            <div class="step-icon">6</div>
+                            <div class="step-label">Admin</div>
+                        </div>
+                        <div class="step">
+                            <div class="step-icon">7</div>
+                            <div class="step-label">Compliance</div>
+                        </div>
+                        <div class="step">
+                            <div class="step-icon">8</div>
+                            <div class="step-label">Emergency</div>
+                        </div>
+                        <div class="step">
+                            <div class="step-icon">9</div>
+                            <div class="step-label">Additional</div>
                         </div>
                     </div>
 
                     <!-- Form -->
                     <form id="schoolForm">
-                        <!-- Step 1: School Information -->
+                        <!-- Step 1: School Basic Information -->
                         <div class="form-section" id="step1">
-                            <h2>School Information</h2>
+                            <h2>A. School Basic Information</h2>
 
                             <div class="form-row">
                                 <div class="form-group">
                                     <label>School Name <span class="required">*</span></label>
-                                    <input type="text" name="schoolName" id="schoolName" placeholder="Name of School"
-                                        required>
+                                    <input type="text" name="schoolName" id="schoolName" placeholder="Name of School" required>
                                     <span class="error-message" id="schoolNameError"></span>
                                 </div>
                                 <div class="form-group">
-                                    <label>School Code / Unique ID <span class="required">*</span></label>
-                                    <input type="text" name="schoolCode" id="schoolCode" placeholder="e.g. SCH-12345"
-                                        required>
+                                    <label>School Code / UDISE Code <span class="required">*</span></label>
+                                    <input type="text" name="schoolCode" id="schoolCode" placeholder="e.g. SCH-12345" required>
                                     <span class="error-message" id="schoolCodeError"></span>
                                 </div>
                             </div>
 
                             <div class="form-row">
                                 <div class="form-group">
-                                    <label>Board / Curriculum <span class="required">*</span></label>
+                                    <label>School Board <span class="required">*</span></label>
                                     <select name="board" id="board" required>
                                         <option value="" disabled hidden selected>Select board</option>
                                         <option value="cbse">CBSE</option>
                                         <option value="icse">ICSE</option>
-                                        <option value="state">State Board</option>
                                         <option value="ib">IB</option>
+                                        <option value="state">State Board</option>
                                         <option value="igcse">IGCSE</option>
                                     </select>
                                     <span class="error-message" id="boardError"></span>
                                 </div>
-
                                 <div class="form-group">
-                                    <label>Type of Program <span class="required">*</span></label>
-                                    <select name="programType" id="programType" required>
-                                        <option value="" disabled hidden selected>Select program type</option>
-                                        <option value="program1">Program1</option>
-                                        <option value="program2">Program2</option>
-                                        <option value="program3">Program3</option>
-                                        <option value="program4">Program4</option>
+                                    <label>Type of School <span class="required">*</span></label>
+                                    <select name="schoolType" id="schoolType" required>
+                                        <option value="" disabled hidden selected>Select type</option>
+                                        <option value="private">Private</option>
+                                        <option value="government">Government</option>
+                                        <option value="trust">Trust</option>
+                                        <option value="aided">Aided</option>
                                     </select>
-                                    <span class="error-message" id="programTypeError"></span>
+                                    <span class="error-message" id="schoolTypeError"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Medium of Instruction <span class="required">*</span></label>
+                                    <select name="medium" id="medium" required>
+                                        <option value="" disabled hidden selected>Select medium</option>
+                                        <option value="english">English</option>
+                                        <option value="hindi">Hindi</option>
+                                        <option value="marathi">Marathi</option>
+                                        <option value="regional">Regional Language</option>
+                                        <option value="bilingual">Bilingual</option>
+                                    </select>
+                                    <span class="error-message" id="mediumError"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Year of Establishment</label>
+                                    <input type="number" name="yearEstablished" id="yearEstablished" placeholder="e.g. 1990" min="1800" max="2025">
+                                    <span class="error-message" id="yearEstablishedError"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>School Logo</label>
+                                    <input type="file" name="schoolLogo" id="schoolLogo" accept="image/*">
+                                    <span class="error-message" id="schoolLogoError"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>School Email ID <span class="required">*</span></label>
+                                    <input type="email" name="schoolEmail" id="schoolEmail" placeholder="school@example.com" required>
+                                    <span class="error-message" id="schoolEmailError"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>School Contact Number <span class="required">*</span></label>
+                                    <input type="tel" name="schoolPhone" id="schoolPhone" placeholder="+91 XXXXX XXXXX" required maxlength="10">
+                                    <span class="error-message" id="schoolPhoneError"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Website URL</label>
+                                    <input type="url" name="website" id="website" placeholder="https://www.schoolwebsite.com">
+                                    <span class="error-message" id="websiteError"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Admin / Principal Name <span class="required">*</span></label>
+                                    <input type="text" name="principalName" id="principalName" placeholder="Principal Full Name" required>
+                                    <span class="error-message" id="principalNameError"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Principal Contact Number <span class="required">*</span></label>
+                                    <input type="tel" name="principalPhone" id="principalPhone" placeholder="+91 XXXXX XXXXX" required maxlength="10">
+                                    <span class="error-message" id="principalPhoneError"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Principal Email ID <span class="required">*</span></label>
+                                    <input type="email" name="principalEmail" id="principalEmail" placeholder="principal@school.com" required>
+                                    <span class="error-message" id="principalEmailError"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 2: School Branch Details -->
+                        <div class="form-section" id="step2" style="display: none;">
+                            <h2>B. School Branch Details</h2>
+                            <p style="color: #6e6e73; font-size: 14px; margin-bottom: 24px;">If single school has multiple units</p>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Branch Name</label>
+                                    <input type="text" name="branchName" id="branchName" placeholder="e.g. Main Campus">
+                                    <span class="error-message" id="branchNameError"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Branch Code</label>
+                                    <input type="text" name="branchCode" id="branchCode" placeholder="e.g. BR-001">
+                                    <span class="error-message" id="branchCodeError"></span>
                                 </div>
                             </div>
 
                             <div class="form-row full">
                                 <div class="form-group">
-                                    <label>School Address <span class="required">*</span></label>
-                                    <input type="text" name="address" id="address" placeholder="123 Education Lane"
-                                        required>
-                                    <span class="error-message" id="addressError"></span>
+                                    <label>Branch Address <span class="required">*</span></label>
+                                    <input type="text" name="branchAddress" id="branchAddress" placeholder="123 Education Lane" required>
+                                    <span class="error-message" id="branchAddressError"></span>
                                 </div>
                             </div>
 
                             <div class="form-row">
                                 <div class="form-group">
                                     <label>City <span class="required">*</span></label>
-                                    <input type="text" name="city" id="city" placeholder="e.g. Springfield" required>
+                                    <input type="text" name="city" id="city" placeholder="e.g. Mumbai" required>
                                     <span class="error-message" id="cityError"></span>
                                 </div>
                                 <div class="form-group">
                                     <label>State <span class="required">*</span></label>
-                                    <input type="text" name="state" id="state" placeholder="e.g. Illinois" required>
+                                    <input type="text" name="state" id="state" placeholder="e.g. Maharashtra" required>
                                     <span class="error-message" id="stateError"></span>
                                 </div>
                             </div>
@@ -655,201 +753,501 @@
                             <div class="form-row">
                                 <div class="form-group">
                                     <label>Pincode <span class="required">*</span></label>
-                                    <input type="text" name="pincode" id="pincode" placeholder="e.g. 62701" required
-                                        maxlength="10">
+                                    <input type="text" name="pincode" id="pincode" placeholder="e.g. 400001" required maxlength="6">
                                     <span class="error-message" id="pincodeError"></span>
                                 </div>
-                                <!-- <div class="form-group">
-                                    <label>Country <span class="required">*</span></label>
-                                    <select name="country" id="country" required>
-                                        <option value="">Select a country</option>
-                                        <option value="us">United States</option>
-                                        <option value="in">India</option>
-                                        <option value="uk">United Kingdom</option>
-                                        <option value="ca">Canada</option>
-                                        <option value="au">Australia</option>
+                                <div class="form-group">
+                                    <label>Number of Students</label>
+                                    <input type="number" name="numStudents" id="numStudents" placeholder="e.g. 500" min="0">
+                                    <span class="error-message" id="numStudentsError"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Number of Teachers</label>
+                                    <input type="number" name="numTeachers" id="numTeachers" placeholder="e.g. 50" min="0">
+                                    <span class="error-message" id="numTeachersError"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Number of Skill Lab Trainers</label>
+                                    <input type="number" name="numTrainers" id="numTrainers" placeholder="e.g. 5" min="0">
+                                    <span class="error-message" id="numTrainersError"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Grades Available</label>
+                                    <input type="text" name="gradesAvailable" id="gradesAvailable" placeholder="e.g. Pre-K to 12">
+                                    <span class="error-message" id="gradesAvailableError"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Shift Details</label>
+                                    <select name="shiftDetails" id="shiftDetails">
+                                        <option value="" disabled hidden selected>Select shift</option>
+                                        <option value="morning">Morning</option>
+                                        <option value="afternoon">Afternoon</option>
+                                        <option value="both">Both</option>
                                     </select>
-                                    <span class="error-message" id="countryError"></span>
-                                </div> -->
-                            </div>
-                        </div>
-
-                        <!-- Step 2: Contact Details -->
-                        <div class="form-section" id="step2" style="display: none;">
-                            <h2>Contact Details</h2>
-
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label>Official School Email <span class="required">*</span></label>
-                                    <input type="email" name="schoolEmail" id="schoolEmail"
-                                        placeholder="school@example.com" required>
-                                    <span class="error-message" id="schoolEmailError"></span>
-                                </div>
-                                <div class="form-group">
-                                    <label>School Phone Number <span class="required">*</span></label>
-                                    <input type="tel" name="schoolPhone" id="schoolPhone"
-                                        placeholder="+91 XXXXX XXXXX" required>
-                                    <span class="error-message" id="schoolPhoneError"></span>
+                                    <span class="error-message" id="shiftDetailsError"></span>
                                 </div>
                             </div>
 
                             <div class="form-row">
                                 <div class="form-group">
-                                    <label>Alternate Phone Number</label>
-                                    <input type="tel" name="alternatePhone" id="alternatePhone"
-                                        placeholder="+91 XXXXX XXXXX">
-                                    <span class="error-message" id="alternatePhoneError"></span>
+                                    <label>Branch Coordinator Name</label>
+                                    <input type="text" name="branchCoordinatorName" id="branchCoordinatorName" placeholder="Coordinator Name">
+                                    <span class="error-message" id="branchCoordinatorNameError"></span>
                                 </div>
                                 <div class="form-group">
-                                    <label>Website URL</label>
-                                    <input type="url" name="website" id="website"
-                                        placeholder="https://www.schoolwebsite.com">
-                                    <span class="error-message" id="websiteError"></span>
+                                    <label>Branch Coordinator Contact</label>
+                                    <input type="tel" name="branchCoordinatorPhone" id="branchCoordinatorPhone" placeholder="+91 XXXXX XXXXX" maxlength="10">
+                                    <span class="error-message" id="branchCoordinatorPhoneError"></span>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Step 3: Primary Contact Person -->
+                        <!-- Step 3: Infrastructure & Facility Information -->
                         <div class="form-section" id="step3" style="display: none;">
-                            <h2>Primary Contact Person</h2>
-                            <p style="color: #6e6e73; font-size: 14px; margin-bottom: 24px;">Point of Contact for the
-                                school</p>
+                            <h2>C. Infrastructure & Facility Information</h2>
 
                             <div class="form-row">
                                 <div class="form-group">
-                                    <label>Full Name <span class="required">*</span></label>
-                                    <input type="text" name="contactName" id="contactName" placeholder="John Doe"
-                                        required>
-                                    <span class="error-message" id="contactNameError"></span>
+                                    <label>Composite Skill Lab Availability</label>
+                                    <select name="cslAvailability" id="cslAvailability">
+                                        <option value="" disabled hidden selected>Select</option>
+                                        <option value="yes">Yes</option>
+                                        <option value="no">No</option>
+                                    </select>
+                                    <span class="error-message" id="cslAvailabilityError"></span>
                                 </div>
                                 <div class="form-group">
-                                    <label>Designation <span class="required">*</span></label>
-                                    <select name="designation" id="designation" required>
-                                        <option value="" disabled hidden selected>Select designation</option>
-                                        <option value="principal">Principal</option>
-                                        <option value="coordinator">Coordinator</option>
-                                        <option value="management">Management</option>
-                                        <option value="vice-principal">Vice Principal</option>
-                                        <option value="director">Director</option>
-                                    </select>
-                                    <span class="error-message" id="designationError"></span>
+                                    <label>CSL Rooms Count</label>
+                                    <input type="number" name="cslRoomsCount" id="cslRoomsCount" placeholder="e.g. 3" min="0">
+                                    <span class="error-message" id="cslRoomsCountError"></span>
                                 </div>
                             </div>
 
                             <div class="form-row">
                                 <div class="form-group">
-                                    <label>Contact Email <span class="required">*</span></label>
-                                    <input type="email" name="contactEmail" id="contactEmail"
-                                        placeholder="john.doe@school.com" required>
-                                    <span class="error-message" id="contactEmailError"></span>
+                                    <label>Equipment Inventory</label>
+                                    <input type="text" name="equipmentInventory" id="equipmentInventory" placeholder="List major equipment">
+                                    <span class="error-message" id="equipmentInventoryError"></span>
                                 </div>
                                 <div class="form-group">
-                                    <label>Contact Phone Number <span class="required">*</span></label>
-                                    <input type="tel" name="contactPhone" id="contactPhone"
-                                        placeholder="+91 XXXXX XXXXX" required>
-                                    <span class="error-message" id="contactPhoneError"></span>
+                                    <label>Computer Lab Details</label>
+                                    <input type="text" name="computerLabDetails" id="computerLabDetails" placeholder="e.g. 30 computers, Windows 11">
+                                    <span class="error-message" id="computerLabDetailsError"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Internet Availability & Speed</label>
+                                    <input type="text" name="internetDetails" id="internetDetails" placeholder="e.g. 100 Mbps Fiber">
+                                    <span class="error-message" id="internetDetailsError"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Classroom Count</label>
+                                    <input type="number" name="classroomCount" id="classroomCount" placeholder="e.g. 40" min="0">
+                                    <span class="error-message" id="classroomCountError"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Sports Facilities</label>
+                                    <input type="text" name="sportsFacilities" id="sportsFacilities" placeholder="e.g. Playground, Basketball Court">
+                                    <span class="error-message" id="sportsFacilitiesError"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Safety & Security Measures</label>
+                                    <input type="text" name="safetyMeasures" id="safetyMeasures" placeholder="e.g. Security guards, Visitor management">
+                                    <span class="error-message" id="safetyMeasuresError"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>CCTV Coverage</label>
+                                    <select name="cctvCoverage" id="cctvCoverage">
+                                        <option value="" disabled hidden selected>Select</option>
+                                        <option value="yes">Yes</option>
+                                        <option value="no">No</option>
+                                        <option value="partial">Partial</option>
+                                    </select>
+                                    <span class="error-message" id="cctvCoverageError"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Fire Safety Status</label>
+                                    <select name="fireSafetyStatus" id="fireSafetyStatus">
+                                        <option value="" disabled hidden selected>Select</option>
+                                        <option value="compliant">Compliant</option>
+                                        <option value="non-compliant">Non-Compliant</option>
+                                        <option value="pending">Pending</option>
+                                    </select>
+                                    <span class="error-message" id="fireSafetyStatusError"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>First Aid Availability</label>
+                                    <select name="firstAidAvailability" id="firstAidAvailability">
+                                        <option value="" disabled hidden selected>Select</option>
+                                        <option value="yes">Yes</option>
+                                        <option value="no">No</option>
+                                    </select>
+                                    <span class="error-message" id="firstAidAvailabilityError"></span>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Step 4: Admin Account Setup -->
+                        <!-- Step 4: Academic Information -->
                         <div class="form-section" id="step4" style="display: none;">
-                            <h2>School Admin Account Setup</h2>
-                            <p style="color: #6e6e73; font-size: 14px; margin-bottom: 24px;">This admin will manage the
-                                school on the platform</p>
+                            <h2>D. Academic Information</h2>
 
                             <div class="form-row">
                                 <div class="form-group">
-                                    <label>Admin Name <span class="required">*</span></label>
-                                    <input type="text" name="adminName" id="adminName" placeholder="Admin Full Name"
-                                        required>
-                                    <span class="error-message" id="adminNameError"></span>
+                                    <label>Total Students Enrolled</label>
+                                    <input type="number" name="totalStudents" id="totalStudents" placeholder="e.g. 1500" min="0">
+                                    <span class="error-message" id="totalStudentsError"></span>
                                 </div>
                                 <div class="form-group">
-                                    <label>Admin Email (Login Email) <span class="required">*</span></label>
-                                    <input type="email" name="adminEmail" id="adminEmail" placeholder="admin@school.com"
-                                        required>
-                                    <span class="error-message" id="adminEmailError"></span>
+                                    <label>Class-wise Strength</label>
+                                    <input type="text" name="classWiseStrength" id="classWiseStrength" placeholder="e.g. Class 1: 60, Class 2: 55">
+                                    <span class="error-message" id="classWiseStrengthError"></span>
                                 </div>
                             </div>
 
                             <div class="form-row">
                                 <div class="form-group">
-                                    <label>Admin Phone Number <span class="required">*</span></label>
-                                    <input type="tel" name="adminPhone" id="adminPhone" placeholder="+91 XXXXX XXXXX"
-                                        required>
-                                    <span class="error-message" id="adminPhoneError"></span>
+                                    <label>Student-Teacher Ratio</label>
+                                    <input type="text" name="studentTeacherRatio" id="studentTeacherRatio" placeholder="e.g. 30:1">
+                                    <span class="error-message" id="studentTeacherRatioError"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Curriculum Followed</label>
+                                    <input type="text" name="curriculumFollowed" id="curriculumFollowed" placeholder="e.g. NCERT, Cambridge">
+                                    <span class="error-message" id="curriculumFollowedError"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Club/Activity Details</label>
+                                    <input type="text" name="clubDetails" id="clubDetails" placeholder="e.g. STEM, ATL, Dance, Coding, Robotics">
+                                    <span class="error-message" id="clubDetailsError"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Skill Subjects Offered (9th–12th)</label>
+                                    <input type="text" name="skillSubjects" id="skillSubjects" placeholder="e.g. IT, Retail, Tourism">
+                                    <span class="error-message" id="skillSubjectsError"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Remedial Programs Available</label>
+                                    <input type="text" name="remedialPrograms" id="remedialPrograms" placeholder="e.g. After-school tutoring, Summer programs">
+                                    <span class="error-message" id="remedialProgramsError"></span>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Step 5: Program Assignment -->
+                        <!-- Step 5: Skill Lab Integration -->
                         <div class="form-section" id="step5" style="display: none;">
-                            <h2>Program Assignment</h2>
+                            <h2>E. Skill Lab Integration</h2>
 
-                            <div class="form-row full">
+                            <div class="form-row">
                                 <div class="form-group">
-                                    <label>Assign Program Coordinator <span class="required">*</span></label>
-                                    <select name="programCoordinator" id="programCoordinator" required>
-                                        <option value="" disabled hidden selected>Select coordinator</option>
-                                        <option value="coord1">Sarah Johnson - Senior Coordinator</option>
-                                        <option value="coord2">Michael Chen - Program Lead</option>
-                                        <option value="coord3">Emily Rodriguez - Education Coordinator</option>
-                                        <option value="coord4">David Thompson - Academic Coordinator</option>
-                                        <option value="coord5">Lisa Anderson - Program Manager</option>
-                                    </select>
-                                    <span class="error-message" id="programCoordinatorError"></span>
+                                    <label>Skill Lab Registration ID</label>
+                                    <input type="text" name="skillLabRegId" id="skillLabRegId" placeholder="e.g. SL-2024-001">
+                                    <span class="error-message" id="skillLabRegIdError"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Skills Offered (List)</label>
+                                    <input type="text" name="skillsOffered" id="skillsOffered" placeholder="e.g. Critical Thinking, Communication">
+                                    <span class="error-message" id="skillsOfferedError"></span>
                                 </div>
                             </div>
 
-                            <div class="form-row full">
+                            <div class="form-row">
                                 <div class="form-group">
-                                    <label>Assign Thinking Coaches <span class="required">*</span></label>
-                                    <div class="multi-select-container">
-                                        <div class="selected-items" id="selectedCoaches">
-                                            <span class="placeholder">Select coaches</span>
-                                        </div>
-                                        <div class="multi-select-dropdown" id="coachesDropdown">
-                                            <div class="search-box">
-                                                <input type="text" id="coachSearch" placeholder="Search coaches...">
-                                            </div>
-                                            <div class="options-list">
-                                                <label class="checkbox-option">
-                                                    <input type="checkbox" name="coaches" value="coach1">
-                                                    <span>Dr. Robert Smith - Critical Thinking Coach</span>
-                                                </label>
-                                                <label class="checkbox-option">
-                                                    <input type="checkbox" name="coaches" value="coach2">
-                                                    <span>Jennifer Lee - Creative Thinking Specialist</span>
-                                                </label>
-                                                <label class="checkbox-option">
-                                                    <input type="checkbox" name="coaches" value="coach3">
-                                                    <span>Mark Williams - Problem Solving Coach</span>
-                                                </label>
-                                                <label class="checkbox-option">
-                                                    <input type="checkbox" name="coaches" value="coach4">
-                                                    <span>Patricia Brown - Analytical Thinking Coach</span>
-                                                </label>
-                                                <label class="checkbox-option">
-                                                    <input type="checkbox" name="coaches" value="coach5">
-                                                    <span>James Davis - Strategic Thinking Coach</span>
-                                                </label>
-                                                <label class="checkbox-option">
-                                                    <input type="checkbox" name="coaches" value="coach6">
-                                                    <span>Maria Garcia - Design Thinking Coach</span>
-                                                </label>
-                                                <label class="checkbox-option">
-                                                    <input type="checkbox" name="coaches" value="coach7">
-                                                    <span>Christopher Martinez - Innovation Coach</span>
-                                                </label>
-                                                <label class="checkbox-option">
-                                                    <input type="checkbox" name="coaches" value="coach8">
-                                                    <span>Amanda Wilson - Cognitive Skills Coach</span>
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <span class="error-message" id="coachesError"></span>
+                                    <label>Batch Timings</label>
+                                    <input type="text" name="batchTimings" id="batchTimings" placeholder="e.g. 9 AM - 12 PM, 2 PM - 5 PM">
+                                    <span class="error-message" id="batchTimingsError"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Trainers Assigned</label>
+                                    <input type="text" name="trainersAssigned" id="trainersAssigned" placeholder="e.g. John Doe, Jane Smith">
+                                    <span class="error-message" id="trainersAssignedError"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Lab Usage Hours / Week</label>
+                                    <input type="number" name="labUsageHours" id="labUsageHours" placeholder="e.g. 20" min="0">
+                                    <span class="error-message" id="labUsageHoursError"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Student Groups Linked</label>
+                                    <input type="text" name="studentGroupsLinked" id="studentGroupsLinked" placeholder="e.g. Group A, Group B">
+                                    <span class="error-message" id="studentGroupsLinkedError"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>CSL or Kaushal Bodh Integration Status</label>
+                                    <select name="cslIntegrationStatus" id="cslIntegrationStatus">
+                                        <option value="" disabled hidden selected>Select</option>
+                                        <option value="integrated">Integrated</option>
+                                        <option value="pending">Pending</option>
+                                        <option value="not-applicable">Not Applicable</option>
+                                    </select>
+                                    <span class="error-message" id="cslIntegrationStatusError"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>CSL Project List Selected</label>
+                                    <input type="text" name="cslProjectList" id="cslProjectList" placeholder="e.g. Project A, Project B">
+                                    <span class="error-message" id="cslProjectListError"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Assessment & Reporting System Linked</label>
+                                    <select name="assessmentSystemLinked" id="assessmentSystemLinked">
+                                        <option value="" disabled hidden selected>Select</option>
+                                        <option value="yes">Yes</option>
+                                        <option value="no">No</option>
+                                    </select>
+                                    <span class="error-message" id="assessmentSystemLinkedError"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 6: Administrative Information -->
+                        <div class="form-section" id="step6" style="display: none;">
+                            <h2>F. Administrative Information</h2>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Billing Email <span class="required">*</span></label>
+                                    <input type="email" name="billingEmail" id="billingEmail" placeholder="billing@school.com" required>
+                                    <span class="error-message" id="billingEmailError"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>GST Number</label>
+                                    <input type="text" name="gstNumber" id="gstNumber" placeholder="e.g. 22AAAAA0000A1Z5" maxlength="15">
+                                    <span class="error-message" id="gstNumberError"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Payment Preferences</label>
+                                    <select name="paymentPreferences" id="paymentPreferences">
+                                        <option value="" disabled hidden selected>Select</option>
+                                        <option value="bank-transfer">Bank Transfer</option>
+                                        <option value="cheque">Cheque</option>
+                                        <option value="online">Online Payment</option>
+                                        <option value="upi">UPI</option>
+                                    </select>
+                                    <span class="error-message" id="paymentPreferencesError"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Point of Contact for Finance</label>
+                                    <input type="text" name="financeContact" id="financeContact" placeholder="Finance Manager Name">
+                                    <span class="error-message" id="financeContactError"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Administrative Coordinator Name</label>
+                                    <input type="text" name="adminCoordinatorName" id="adminCoordinatorName" placeholder="Admin Coordinator Name">
+                                    <span class="error-message" id="adminCoordinatorNameError"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Administrative Coordinator Phone</label>
+                                    <input type="tel" name="adminCoordinatorPhone" id="adminCoordinatorPhone" placeholder="+91 XXXXX XXXXX" maxlength="10">
+                                    <span class="error-message" id="adminCoordinatorPhoneError"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Academic Year Cycle</label>
+                                    <input type="text" name="academicYearCycle" id="academicYearCycle" placeholder="e.g. April - March">
+                                    <span class="error-message" id="academicYearCycleError"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Approval Status for Workshops & Trainings</label>
+                                    <select name="workshopApprovalStatus" id="workshopApprovalStatus">
+                                        <option value="" disabled hidden selected>Select</option>
+                                        <option value="approved">Approved</option>
+                                        <option value="pending">Pending</option>
+                                        <option value="not-required">Not Required</option>
+                                    </select>
+                                    <span class="error-message" id="workshopApprovalStatusError"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Consent for Digital Reports</label>
+                                    <select name="digitalReportsConsent" id="digitalReportsConsent">
+                                        <option value="" disabled hidden selected>Select</option>
+                                        <option value="yes">Yes</option>
+                                        <option value="no">No</option>
+                                    </select>
+                                    <span class="error-message" id="digitalReportsConsentError"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 7: Compliance & Documentation -->
+                        <div class="form-section" id="step7" style="display: none;">
+                            <h2>G. Compliance & Documentation</h2>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>CBSE / Board Affiliation Letter</label>
+                                    <input type="file" name="affiliationLetter" id="affiliationLetter" accept=".pdf,.jpg,.jpeg,.png">
+                                    <span class="error-message" id="affiliationLetterError"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Fire Safety Certificate</label>
+                                    <input type="file" name="fireSafetyCert" id="fireSafetyCert" accept=".pdf,.jpg,.jpeg,.png">
+                                    <span class="error-message" id="fireSafetyCertError"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>School Registration Certificate</label>
+                                    <input type="file" name="registrationCert" id="registrationCert" accept=".pdf,.jpg,.jpeg,.png">
+                                    <span class="error-message" id="registrationCertError"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Trust Registration (if applicable)</label>
+                                    <input type="file" name="trustRegistration" id="trustRegistration" accept=".pdf,.jpg,.jpeg,.png">
+                                    <span class="error-message" id="trustRegistrationError"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Lab Safety Compliance</label>
+                                    <select name="labSafetyCompliance" id="labSafetyCompliance">
+                                        <option value="" disabled hidden selected>Select</option>
+                                        <option value="compliant">Compliant</option>
+                                        <option value="non-compliant">Non-Compliant</option>
+                                        <option value="pending">Pending</option>
+                                    </select>
+                                    <span class="error-message" id="labSafetyComplianceError"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Teacher Police Verification Status</label>
+                                    <select name="teacherPoliceVerification" id="teacherPoliceVerification">
+                                        <option value="" disabled hidden selected>Select</option>
+                                        <option value="verified">All Verified</option>
+                                        <option value="partial">Partially Verified</option>
+                                        <option value="pending">Pending</option>
+                                    </select>
+                                    <span class="error-message" id="teacherPoliceVerificationError"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Child Safety Policy Uploaded (POSH / POCSO)</label>
+                                    <input type="file" name="childSafetyPolicy" id="childSafetyPolicy" accept=".pdf,.jpg,.jpeg,.png">
+                                    <span class="error-message" id="childSafetyPolicyError"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Insurance Documents (if any)</label>
+                                    <input type="file" name="insuranceDocs" id="insuranceDocs" accept=".pdf,.jpg,.jpeg,.png">
+                                    <span class="error-message" id="insuranceDocsError"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 8: Emergency Information -->
+                        <div class="form-section" id="step8" style="display: none;">
+                            <h2>H. Emergency Information</h2>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Emergency Contact Person <span class="required">*</span></label>
+                                    <input type="text" name="emergencyContactPerson" id="emergencyContactPerson" placeholder="Emergency Contact Name" required>
+                                    <span class="error-message" id="emergencyContactPersonError"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Emergency Phone Number <span class="required">*</span></label>
+                                    <input type="tel" name="emergencyPhone" id="emergencyPhone" placeholder="+91 XXXXX XXXXX" required maxlength="10">
+                                    <span class="error-message" id="emergencyPhoneError"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Nearest Hospital Name</label>
+                                    <input type="text" name="nearestHospital" id="nearestHospital" placeholder="e.g. City General Hospital">
+                                    <span class="error-message" id="nearestHospitalError"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Safety Protocols & Evacuation Plan</label>
+                                    <select name="evacuationPlan" id="evacuationPlan">
+                                        <option value="" disabled hidden selected>Select</option>
+                                        <option value="documented">Documented</option>
+                                        <option value="in-progress">In Progress</option>
+                                        <option value="not-available">Not Available</option>
+                                    </select>
+                                    <span class="error-message" id="evacuationPlanError"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 9: Additional Data (Optional) -->
+                        <div class="form-section" id="step9" style="display: none;">
+                            <h2>I. Additional Data (Optional)</h2>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Awards & Recognitions</label>
+                                    <input type="text" name="awards" id="awards" placeholder="e.g. Best School Award 2023">
+                                    <span class="error-message" id="awardsError"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Notable Alumni</label>
+                                    <input type="text" name="notableAlumni" id="notableAlumni" placeholder="e.g. Famous personalities">
+                                    <span class="error-message" id="notableAlumniError"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>School Performance Trends</label>
+                                    <input type="text" name="performanceTrends" id="performanceTrends" placeholder="e.g. 95% pass rate, Board toppers">
+                                    <span class="error-message" id="performanceTrendsError"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Social Media Links</label>
+                                    <input type="text" name="socialMediaLinks" id="socialMediaLinks" placeholder="e.g. Facebook, Instagram URLs">
+                                    <span class="error-message" id="socialMediaLinksError"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Events & Workshops Calendar</label>
+                                    <input type="text" name="eventsCalendar" id="eventsCalendar" placeholder="e.g. Annual Day - March, Sports Day - December">
+                                    <span class="error-message" id="eventsCalendarError"></span>
                                 </div>
                             </div>
                         </div>
@@ -914,78 +1312,42 @@
 
     <script>
         let currentStep = 1;
-        const totalSteps = 5;
+        const totalSteps = 9;
         const formData = {};
 
         // Comprehensive validators object
         const validators = {
+            // Step 1: School Basic Information
             schoolName: {
                 validate: (value) => {
                     if (!value.trim()) return 'School name is required';
                     if (value.trim().length < 3) return 'School name must be at least 3 characters';
                     if (value.trim().length > 200) return 'School name cannot exceed 200 characters';
-                    if (!/^[a-zA-Z0-9\s.,'&-]+$/.test(value)) return 'School name contains invalid characters';
                     return '';
                 }
             },
             schoolCode: {
                 validate: (value) => {
-                    if (!value.trim()) return 'School code is required';
+                    if (!value.trim()) return 'School code / UDISE code is required';
                     if (value.trim().length < 3) return 'School code must be at least 3 characters';
-                    if (value.trim().length > 50) return 'School code cannot exceed 50 characters';
-                    if (!/^[a-zA-Z0-9-_]+$/.test(value)) return 'School code can only contain letters, numbers, hyphens, and underscores';
                     return '';
                 }
             },
             board: {
                 validate: (value) => {
-                    if (!value) return 'Board/Curriculum is required';
+                    if (!value) return 'School board is required';
                     return '';
                 }
             },
-            programType: {
+            schoolType: {
                 validate: (value) => {
-                    if (!value) return 'Program type is required';
+                    if (!value) return 'Type of school is required';
                     return '';
                 }
             },
-            address: {
+            medium: {
                 validate: (value) => {
-                    if (!value.trim()) return 'School address is required';
-                    if (value.trim().length < 10) return 'Please provide a complete address (at least 10 characters)';
-                    if (value.trim().length > 300) return 'Address cannot exceed 300 characters';
-                    return '';
-                }
-            },
-            city: {
-                validate: (value) => {
-                    if (!value.trim()) return 'City is required';
-                    if (value.trim().length < 2) return 'City name must be at least 2 characters';
-                    if (value.trim().length > 100) return 'City name cannot exceed 100 characters';
-                    if (!/^[a-zA-Z\s.-]+$/.test(value)) return 'City name can only contain letters, spaces, dots, and hyphens';
-                    return '';
-                }
-            },
-            state: {
-                validate: (value) => {
-                    if (!value.trim()) return 'State is required';
-                    if (value.trim().length < 2) return 'State name must be at least 2 characters';
-                    if (value.trim().length > 100) return 'State name cannot exceed 100 characters';
-                    if (!/^[a-zA-Z\s.-]+$/.test(value)) return 'State name can only contain letters, spaces, dots, and hyphens';
-                    return '';
-                }
-            },
-            pincode: {
-                validate: (value) => {
-                    if (!value.trim()) return 'Pincode is required';
-                    const cleanPincode = value.replace(/\D/g, '');
-                    if (cleanPincode.length < 5 || cleanPincode.length > 10) return 'Pincode must be between 5 and 10 digits';
-                    return '';
-                }
-            },
-            country: {
-                validate: (value) => {
-                    if (!value) return 'Country is required';
+                    if (!value) return 'Medium of instruction is required';
                     return '';
                 }
             },
@@ -994,96 +1356,100 @@
                     if (!value.trim()) return 'School email is required';
                     const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
                     if (!emailRegex.test(value)) return 'Please enter a valid email address';
-                    if (value.length > 100) return 'Email cannot exceed 100 characters';
                     return '';
                 }
             },
             schoolPhone: {
                 validate: (value) => {
-                    if (!value.trim()) return 'School phone number is required';
+                    if (!value.trim()) return 'School contact number is required';
                     const cleanPhone = value.replace(/\D/g, '');
-                    if (cleanPhone.length < 10 || cleanPhone.length > 15) return 'Phone number must be 10 digits';
+                    if (cleanPhone.length !== 10) return 'Phone number must be 10 digits';
                     return '';
                 }
             },
-            alternatePhone: {
+            principalName: {
                 validate: (value) => {
-                    if (!value || value.trim() === '') return '';
+                    if (!value.trim()) return 'Principal name is required';
+                    if (value.trim().length < 2) return 'Name must be at least 2 characters';
+                    return '';
+                }
+            },
+            principalPhone: {
+                validate: (value) => {
+                    if (!value.trim()) return 'Principal contact number is required';
                     const cleanPhone = value.replace(/\D/g, '');
-                    if (cleanPhone.length < 10 || cleanPhone.length > 15) return 'Phone number must be 10 digits';
+                    if (cleanPhone.length !== 10) return 'Phone number must be 10 digits';
                     return '';
                 }
             },
-            website: {
+            principalEmail: {
                 validate: (value) => {
-                    if (!value || value.trim() === '') return '';
-                    const urlRegex = /^(https?:\/\/)?(www\.)?[a-zA-Z0-9-]+\.[a-zA-Z]{2,}(\/.*)?$/;
-                    if (!urlRegex.test(value)) return 'Please enter a valid website URL';
-                    if (value.length > 200) return 'Website URL cannot exceed 200 characters';
-                    return '';
-                }
-            },
-            contactName: {
-                validate: (value) => {
-                    if (!value.trim()) return 'Contact name is required';
-                    if (value.trim().length < 2) return 'Contact name must be at least 2 characters';
-                    if (value.trim().length > 100) return 'Contact name cannot exceed 100 characters';
-                    if (!/^[a-zA-Z\s.'-]+$/.test(value)) return 'Contact name can only contain letters, spaces, dots, hyphens, and apostrophes';
-                    return '';
-                }
-            },
-            designation: {
-                validate: (value) => {
-                    if (!value) return 'Designation is required';
-                    return '';
-                }
-            },
-            contactEmail: {
-                validate: (value) => {
-                    if (!value.trim()) return 'Contact email is required';
+                    if (!value.trim()) return 'Principal email is required';
                     const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
                     if (!emailRegex.test(value)) return 'Please enter a valid email address';
-                    if (value.length > 100) return 'Email cannot exceed 100 characters';
                     return '';
                 }
             },
-            contactPhone: {
+            // Step 2: Branch Details
+            branchAddress: {
                 validate: (value) => {
-                    if (!value.trim()) return 'Contact phone number is required';
-                    const cleanPhone = value.replace(/\D/g, '');
-                    if (cleanPhone.length < 10 || cleanPhone.length > 15) return 'Phone number must be 10 digits';
+                    if (!value.trim()) return 'Branch address is required';
+                    if (value.trim().length < 10) return 'Please provide a complete address';
                     return '';
                 }
             },
-            adminName: {
+            city: {
                 validate: (value) => {
-                    if (!value.trim()) return 'Admin name is required';
-                    if (value.trim().length < 2) return 'Admin name must be at least 2 characters';
-                    if (value.trim().length > 100) return 'Admin name cannot exceed 100 characters';
-                    if (!/^[a-zA-Z\s.'-]+$/.test(value)) return 'Admin name can only contain letters, spaces, dots, hyphens, and apostrophes';
+                    if (!value.trim()) return 'City is required';
+                    if (!/^[a-zA-Z\s.-]+$/.test(value)) return 'City name can only contain letters';
                     return '';
                 }
             },
-            adminEmail: {
+            state: {
                 validate: (value) => {
-                    if (!value.trim()) return 'Admin email is required';
+                    if (!value.trim()) return 'State is required';
+                    if (!/^[a-zA-Z\s.-]+$/.test(value)) return 'State name can only contain letters';
+                    return '';
+                }
+            },
+            pincode: {
+                validate: (value) => {
+                    if (!value.trim()) return 'Pincode is required';
+                    if (!/^\d{6}$/.test(value)) return 'Pincode must be exactly 6 digits';
+                    return '';
+                }
+            },
+            // Step 6: Administrative Information
+            billingEmail: {
+                validate: (value) => {
+                    if (!value.trim()) return 'Billing email is required';
                     const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
                     if (!emailRegex.test(value)) return 'Please enter a valid email address';
-                    if (value.length > 100) return 'Email cannot exceed 100 characters';
                     return '';
                 }
             },
-            adminPhone: {
+            gstNumber: {
                 validate: (value) => {
-                    if (!value.trim()) return 'Admin phone number is required';
+                    if (!value || value.trim() === '') return '';
+                    if (!/^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$/.test(value.toUpperCase())) {
+                        return 'Please enter a valid GST number';
+                    }
+                    return '';
+                }
+            },
+            // Step 8: Emergency Information
+            emergencyContactPerson: {
+                validate: (value) => {
+                    if (!value.trim()) return 'Emergency contact person is required';
+                    if (value.trim().length < 2) return 'Name must be at least 2 characters';
+                    return '';
+                }
+            },
+            emergencyPhone: {
+                validate: (value) => {
+                    if (!value.trim()) return 'Emergency phone number is required';
                     const cleanPhone = value.replace(/\D/g, '');
-                    if (cleanPhone.length < 10 || cleanPhone.length > 15) return 'Phone number must be 10 digits';
-                    return '';
-                }
-            },
-            programCoordinator: {
-                validate: (value) => {
-                    if (!value) return 'Program coordinator is required';
+                    if (cleanPhone.length !== 10) return 'Phone number must be 10 digits';
                     return '';
                 }
             }
@@ -1217,28 +1583,6 @@
                 }
             });
 
-            // Special validation for multi-select coaches in step 5
-            if (currentStep === 5) {
-                const selectedCoaches = document.querySelectorAll('input[name="coaches"]:checked');
-                const selectedItemsContainer = document.getElementById('selectedCoaches');
-                const coachesError = document.getElementById('coachesError');
-
-                if (selectedCoaches.length === 0) {
-                    isValid = false;
-                    selectedItemsContainer.classList.add('error');
-                    if (coachesError) {
-                        coachesError.textContent = 'Please select at least one thinking coach';
-                        coachesError.style.display = 'block';
-                    }
-                } else {
-                    selectedItemsContainer.classList.remove('error');
-                    if (coachesError) {
-                        coachesError.textContent = '';
-                        coachesError.style.display = 'none';
-                    }
-                }
-            }
-
             return isValid;
         }
 
@@ -1247,94 +1591,35 @@
             const inputs = currentStepElement.querySelectorAll('input, select');
 
             inputs.forEach(input => {
-                if (input.type === 'checkbox' && input.name === 'coaches') {
-                    if (!formData.coaches) formData.coaches = [];
-                    if (input.checked && !formData.coaches.includes(input.value)) {
-                        formData.coaches.push(input.value);
-                    }
-                } else if (input.name) {
+                if (input.name && input.type !== 'file') {
                     formData[input.name] = input.value;
                 }
             });
         }
 
-        // Multi-select dropdown functionality
-        const selectedItemsContainer = document.getElementById('selectedCoaches');
-        const dropdown = document.getElementById('coachesDropdown');
-        const checkboxes = document.querySelectorAll('input[name="coaches"]');
-        const searchInput = document.getElementById('coachSearch');
-
-        selectedItemsContainer.addEventListener('click', function () {
-            dropdown.classList.toggle('active');
-            selectedItemsContainer.classList.toggle('active');
-        });
-
-        // Close dropdown when clicking outside
-        document.addEventListener('click', function (e) {
-            if (!e.target.closest('.multi-select-container')) {
-                dropdown.classList.remove('active');
-                selectedItemsContainer.classList.remove('active');
-            }
-        });
-
-        // Handle checkbox changes
-        checkboxes.forEach(checkbox => {
-            checkbox.addEventListener('change', function () {
-                updateSelectedCoaches();
-            });
-        });
-
-        function updateSelectedCoaches() {
-            const selected = Array.from(checkboxes)
-                .filter(cb => cb.checked)
-                .map(cb => ({
-                    value: cb.value,
-                    label: cb.nextElementSibling.textContent
-                }));
-
-            if (selected.length === 0) {
-                selectedItemsContainer.innerHTML = '<span class="placeholder">Select coaches</span>';
-            } else {
-                selectedItemsContainer.innerHTML = selected.map(item => `
-                    <span class="selected-tag">
-                        ${item.label.split(' - ')[0]}
-                        <span class="remove" data-value="${item.value}">×</span>
-                    </span>
-                `).join('');
-
-                // Add remove handlers
-                selectedItemsContainer.querySelectorAll('.remove').forEach(btn => {
-                    btn.addEventListener('click', function (e) {
-                        e.stopPropagation();
-                        const value = this.getAttribute('data-value');
-                        const checkbox = document.querySelector(`input[value="${value}"]`);
-                        checkbox.checked = false;
-                        updateSelectedCoaches();
-                    });
-                });
-            }
-
-            // Clear border error if coaches are selected
-            if (selected.length > 0) {
-                selectedItemsContainer.classList.remove('error');
-                const coachesError = document.getElementById('coachesError');
-                if (coachesError) {
-                    coachesError.textContent = '';
-                    coachesError.style.display = 'none';
+        // Phone number formatting
+        const phoneInputs = document.querySelectorAll('input[type="tel"]');
+        phoneInputs.forEach(input => {
+            input.addEventListener('input', function(e) {
+                let value = e.target.value.replace(/\D/g, '');
+                if (value.length > 10) {
+                    value = value.slice(0, 10);
                 }
-            }
-        }
-
-        // Search functionality
-        searchInput.addEventListener('input', function () {
-            const searchTerm = this.value.toLowerCase();
-            const options = document.querySelectorAll('.checkbox-option');
-
-            options.forEach(option => {
-                const text = option.textContent.toLowerCase();
-                option.style.display = text.includes(searchTerm) ? 'flex' : 'none';
+                e.target.value = value;
             });
         });
+
+        // Pincode formatting
+        const pincodeInput = document.getElementById('pincode');
+        if (pincodeInput) {
+            pincodeInput.addEventListener('input', function(e) {
+                let value = e.target.value.replace(/\D/g, '');
+                if (value.length > 6) {
+                    value = value.slice(0, 6);
+                }
+                e.target.value = value;
+            });
+        }
     </script>
 </body>
 

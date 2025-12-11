@@ -66,15 +66,31 @@
                             </div>
                             <div class="step" data-step="2">
                                 <div class="step-icon">2</div>
-                                <div class="step-label">Personal Details</div>
+                                <div class="step-label">Professional</div>
                             </div>
                             <div class="step" data-step="3">
                                 <div class="step-icon">3</div>
-                                <div class="step-label">Professional Info</div>
+                                <div class="step-label">Contact</div>
                             </div>
                             <div class="step" data-step="4">
                                 <div class="step-icon">4</div>
-                                <div class="step-label">Address & Contact</div>
+                                <div class="step-label">Address</div>
+                            </div>
+                            <div class="step" data-step="5">
+                                <div class="step-icon">5</div>
+                                <div class="step-label">Skill Lab</div>
+                            </div>
+                            <div class="step" data-step="6">
+                                <div class="step-icon">6</div>
+                                <div class="step-label">Emergency</div>
+                            </div>
+                            <div class="step" data-step="7">
+                                <div class="step-icon">7</div>
+                                <div class="step-label">Compliance</div>
+                            </div>
+                            <div class="step" data-step="8">
+                                <div class="step-icon">8</div>
+                                <div class="step-label">Additional</div>
                             </div>
                         </div>
                     </div>
@@ -84,75 +100,29 @@
                             <div class="section-header">
                                 <h2 class="section-title">
                                     <span class="material-symbols-outlined">badge</span>
-                                    Basic Information
+                                    A. Basic Information
                                 </h2>
                             </div>
                             <div class="form-grid">
                                 <div class="form-group">
-                                    <label for="teacher-name" class="form-label">Teacher Name <span class="required">*</span></label>
-                                    <input type="text" id="teacher-name" name="teacher-name" class="form-input"
-                                        placeholder="Enter full name" required>
+                                    <label for="profile-photo" class="form-label">Profile Photo</label>
+                                    <input type="file" id="profile-photo" name="profile-photo" class="form-input" accept="image/*">
+                                    <p class="field-hint">Max size 2MB, recommended square image</p>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="teacher-role" class="form-label">Teacher Role <span class="required">*</span></label>
-                                    <select id="teacher-role" name="teacher-role" class="form-input" required>
-                                        <option value="" disabled selected hidden>Select role</option>
-                                        <option value="teacher">Teacher</option>
-                                        <option value="head-teacher">Head Teacher</option>
-                                        <option value="assistant-teacher">Assistant Teacher</option>
-                                        <option value="senior-teacher">Senior Teacher</option>
-                                        <option value="coordinator">Subject Coordinator</option>
-                                    </select>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="date-of-joining" class="form-label">Date of Joining <span class="required">*</span></label>
-                                    <input type="date" id="date-of-joining" name="date-of-joining" class="form-input" required>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="employee-id" class="form-label">Employee ID <span class="required">*</span></label>
+                                    <label for="employee-id" class="form-label">Employee / Coach ID</label>
                                     <input type="text" id="employee-id" name="employee-id" class="form-input"
                                         placeholder="Auto-generated" readonly>
                                     <p class="field-hint">Auto-generated upon submission</p>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="picture" class="form-label">Profile Picture</label>
-                                    <input type="file" id="picture" name="picture" class="form-input" accept="image/*">
-                                    <p class="field-hint">Max size 2MB, recommended square image</p>
+                                    <label for="full-name" class="form-label">Full Name (as per Aadhar card) <span class="required">*</span></label>
+                                    <input type="text" id="full-name" name="full-name" class="form-input"
+                                        placeholder="Enter full name as per Aadhar" required>
                                 </div>
 
-                                <div class="form-group">
-                                    <label for="monthly-salary" class="form-label">Monthly Salary (₹) <span class="required">*</span></label>
-                                    <input type="number" id="monthly-salary" name="monthly-salary" class="form-input"
-                                        placeholder="Enter amount" min="0" step="100" required>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="email" class="form-label">Email Address ( Used for Log In )<span class="required">*</span></label>
-                                    <input type="email" id="email" name="email" class="form-input"
-                                        placeholder="teacher@example.com" required>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="mobile-no" class="form-label">Mobile Number <span class="required">*</span></label>
-                                    <input type="tel" id="mobile-no" name="mobile-no" class="form-input"
-                                        placeholder="+91 XXXXX XXXXX" required maxlength="10">
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Step 2: Personal Details -->
-                        <div class="form-section step-content" id="step2" style="display: none;">
-                            <div class="section-header">
-                                <h2 class="section-title">
-                                    <span class="material-symbols-outlined">person</span>
-                                    Personal Details
-                                </h2>
-                            </div>
-                            <div class="form-grid">
                                 <div class="form-group">
                                     <label for="gender" class="form-label">Gender <span class="required">*</span></label>
                                     <select id="gender" name="gender" class="form-input" required>
@@ -166,6 +136,13 @@
                                 <div class="form-group">
                                     <label for="dob" class="form-label">Date of Birth <span class="required">*</span></label>
                                     <input type="date" id="dob" name="dob" class="form-input" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="age" class="form-label">Age</label>
+                                    <input type="text" id="age" name="age" class="form-input"
+                                        placeholder="Auto-calculated" readonly>
+                                    <p class="field-hint">Auto-calculated from Date of Birth</p>
                                 </div>
 
                                 <div class="form-group">
@@ -184,46 +161,46 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="guardian-name" class="form-label">Father / Spouse Name</label>
-                                    <input type="text" id="guardian-name" name="guardian-name" class="form-input"
-                                        placeholder="Enter father / spouse name">
+                                    <label for="nationality" class="form-label">Nationality <span class="required">*</span></label>
+                                    <input type="text" id="nationality" name="nationality" class="form-input"
+                                        placeholder="Enter nationality" value="Indian" required>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="religion" class="form-label">Religion</label>
-                                    <select id="religion" name="religion" class="form-input">
-                                        <option value="" disabled selected hidden>Select religion</option>
-                                        <option value="hinduism">Hinduism</option>
-                                        <option value="islam">Islam</option>
-                                        <option value="christianity">Christianity</option>
-                                        <option value="sikhism">Sikhism</option>
-                                        <option value="buddhism">Buddhism</option>
-                                        <option value="jainism">Jainism</option>
-                                        <option value="other">Other</option>
-                                        <option value="prefer-not-to-say">Prefer not to say</option>
-                                    </select>
+                                    <label for="aadhar-number" class="form-label">Aadhar Number</label>
+                                    <input type="text" id="aadhar-number" name="aadhar-number" class="form-input"
+                                        placeholder="XXXX XXXX XXXX" maxlength="14">
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="national-id" class="form-label">National ID / Aadhaar</label>
-                                    <input type="text" id="national-id" name="national-id" class="form-input"
-                                        placeholder="e.g., 1234-5678-9012" maxlength="20">
+                                    <label for="pan-number" class="form-label">PAN Number</label>
+                                    <input type="text" id="pan-number" name="pan-number" class="form-input"
+                                        placeholder="e.g., ABCDE1234F" maxlength="10">
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Step 3: Professional Information -->
-                        <div class="form-section step-content" id="step3" style="display: none;">
+                        <!-- Step 2: Professional Details -->
+                        <div class="form-section step-content" id="step2" style="display: none;">
                             <div class="section-header">
                                 <h2 class="section-title">
                                     <span class="material-symbols-outlined">work</span>
-                                    Professional Information
+                                    B. Professional Details
                                 </h2>
                             </div>
                             <div class="form-grid">
                                 <div class="form-group">
-                                    <label for="education" class="form-label">Highest Education <span class="required">*</span></label>
-                                    <input type="text" id="education" name="education" class="form-input"
+                                    <label for="designation" class="form-label">Designation <span class="required">*</span></label>
+                                    <select id="designation" name="designation" class="form-input" required>
+                                        <option value="" disabled selected hidden>Select designation</option>
+                                        <option value="enpower-trainer">ENpower Trainer</option>
+                                        <option value="school-teacher">School Teacher</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="qualification" class="form-label">Qualification <span class="required">*</span></label>
+                                    <input type="text" id="qualification" name="qualification" class="form-input"
                                         placeholder="e.g., M.A., B.Ed., Ph.D." required>
                                 </div>
 
@@ -234,62 +211,109 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="experience" class="form-label">Total Experience <span class="required">*</span></label>
-                                    <input type="text" id="experience" name="experience" class="form-input"
-                                        placeholder="e.g., 5 years" required>
+                                    <label for="total-experience" class="form-label">Total Experience (Years/Months) <span class="required">*</span></label>
+                                    <input type="text" id="total-experience" name="total-experience" class="form-input"
+                                        placeholder="e.g., 5 years 3 months" required>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="previous-school" class="form-label">Previous School/Institution</label>
-                                    <input type="text" id="previous-school" name="previous-school" class="form-input"
-                                        placeholder="Previous workplace">
+                                    <label for="skill-training-experience" class="form-label">Experience in Skill-Based Training (Optional)</label>
+                                    <input type="text" id="skill-training-experience" name="skill-training-experience" class="form-input"
+                                        placeholder="e.g., 2 years">
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="certification" class="form-label">Certifications</label>
-                                    <input type="text" id="certification" name="certification" class="form-input"
+                                    <label for="previous-organizations" class="form-label">Previous Organizations</label>
+                                    <input type="text" id="previous-organizations" name="previous-organizations" class="form-input"
+                                        placeholder="List previous workplaces">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="certifications" class="form-label">Certifications</label>
+                                    <input type="text" id="certifications" name="certifications" class="form-input"
                                         placeholder="e.g., TET, CTET, B.Ed.">
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="subjects-taught" class="form-label">Subjects Teaching</label>
-                                    <input type="text" id="subjects-taught" name="subjects-taught" class="form-input"
-                                        placeholder="e.g., Math, Science">
+                                    <label for="languages-known" class="form-label">Languages Known</label>
+                                    <input type="text" id="languages-known" name="languages-known" class="form-input"
+                                        placeholder="e.g., English, Hindi, Marathi">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="grades-taught" class="form-label">Grades Taught</label>
+                                    <input type="text" id="grades-taught" name="grades-taught" class="form-input"
+                                        placeholder="e.g., 5th to 10th">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="training-style" class="form-label">Training Style</label>
+                                    <select id="training-style" name="training-style" class="form-input">
+                                        <option value="" disabled selected hidden>Select training style</option>
+                                        <option value="interactive">Interactive</option>
+                                        <option value="conceptual">Conceptual</option>
+                                        <option value="activity-based">Activity-Based</option>
+                                        <option value="mixed">Mixed Approach</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Step 4: Address & Contact Information -->
+                        <!-- Step 3: Contact Information -->
+                        <div class="form-section step-content" id="step3" style="display: none;">
+                            <div class="section-header">
+                                <h2 class="section-title">
+                                    <span class="material-symbols-outlined">phone</span>
+                                    C. Contact Information
+                                </h2>
+                            </div>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="mobile-number" class="form-label">Mobile Number <span class="required">*</span></label>
+                                    <input type="tel" id="mobile-number" name="mobile-number" class="form-input"
+                                        placeholder="+91 XXXXX XXXXX" required maxlength="10">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="alternate-number" class="form-label">Alternate Number</label>
+                                    <input type="tel" id="alternate-number" name="alternate-number" class="form-input"
+                                        placeholder="+91 XXXXX XXXXX" maxlength="10">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="official-email" class="form-label">Official Email ID <span class="required">*</span></label>
+                                    <input type="email" id="official-email" name="official-email" class="form-input"
+                                        placeholder="coach@example.com" required>
+                                    <p class="field-hint">Used for login</p>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="personal-email" class="form-label">Personal Email (Optional)</label>
+                                    <input type="email" id="personal-email" name="personal-email" class="form-input"
+                                        placeholder="personal@example.com">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 4: Address Details -->
                         <div class="form-section step-content" id="step4" style="display: none;">
                             <div class="section-header">
                                 <h2 class="section-title">
                                     <span class="material-symbols-outlined">home</span>
-                                    Address & Contact Information
+                                    D. Address Details
                                 </h2>
                             </div>
                             <div class="form-grid">
-                                <!-- <div class="form-group">
-                                    <label for="mobile-no" class="form-label">Mobile Number <span class="required">*</span></label>
-                                    <input type="tel" id="mobile-no" name="mobile-no" class="form-input"
-                                        placeholder="+91 XXXXX XXXXX" required maxlength="10">
-                                </div> -->
-
-                                <!-- <div class="form-group">
-                                    <label for="alternate-mobile" class="form-label">Alternate Mobile</label>
-                                    <input type="tel" id="alternate-mobile" name="alternate-mobile" class="form-input"
-                                        placeholder="+91 XXXXX XXXXX" maxlength="10">
-                                </div> -->
-
-                                <!-- <div class="form-group">
-                                    <label for="email" class="form-label">Email Address <span class="required">*</span></label>
-                                    <input type="email" id="email" name="email" class="form-input"
-                                        placeholder="teacher@example.com" required>
-                                </div> -->
+                                <div class="form-group full-width">
+                                    <label for="current-address" class="form-label">Current Residential Address <span class="required">*</span></label>
+                                    <input type="text" id="current-address" name="current-address" class="form-input"
+                                        placeholder="House No., Street, Area" required>
+                                </div>
 
                                 <div class="form-group full-width">
-                                    <label for="home-address" class="form-label">Home Address <span class="required">*</span></label>
-                                    <input type="text" id="home-address" name="home-address" class="form-input"
-                                        placeholder="Complete address with street, area" required>
+                                    <label for="permanent-address" class="form-label">Permanent Address</label>
+                                    <input type="text" id="permanent-address" name="permanent-address" class="form-input"
+                                        placeholder="Enter if different from current address">
                                 </div>
 
                                 <div class="form-group">
@@ -305,22 +329,305 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="pincode" class="form-label">PIN Code <span class="required">*</span></label>
-                                    <input type="text" id="pincode" name="pincode" class="form-input"
+                                    <label for="pin-code" class="form-label">Pin Code <span class="required">*</span></label>
+                                    <input type="text" id="pin-code" name="pin-code" class="form-input"
                                         placeholder="6-digit PIN" maxlength="6" required>
                                 </div>
+                            </div>
+                        </div>
 
-                                <!-- <div class="form-group">
-                                    <label for="emergency-contact" class="form-label">Emergency Contact</label>
-                                    <input type="tel" id="emergency-contact" name="emergency-contact" class="form-input"
-                                        placeholder="+91 XXXXX XXXXX" maxlength="10">
+                        <!-- Step 5: Skill Lab Work Details -->
+                        <div class="form-section step-content" id="step5" style="display: none;">
+                            <div class="section-header">
+                                <h2 class="section-title">
+                                    <span class="material-symbols-outlined">science</span>
+                                    E. Skill Lab Work Details
+                                </h2>
+                            </div>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="skill-lab-center" class="form-label">Skill Lab Center / School Assigned</label>
+                                    <input type="text" id="skill-lab-center" name="skill-lab-center" class="form-input"
+                                        placeholder="Enter assigned center/school">
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="emergency-contact-name" class="form-label">Emergency Contact Name</label>
+                                    <label for="branch-location" class="form-label">Branch Location</label>
+                                    <input type="text" id="branch-location" name="branch-location" class="form-input"
+                                        placeholder="Enter branch location">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="batch-timings" class="form-label">Batch Timings</label>
+                                    <input type="text" id="batch-timings" name="batch-timings" class="form-input"
+                                        placeholder="e.g., 9:00 AM - 12:00 PM">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="weekly-timetable" class="form-label">Weekly Timetable</label>
+                                    <input type="text" id="weekly-timetable" name="weekly-timetable" class="form-input"
+                                        placeholder="e.g., Mon-Fri, 9 AM - 3 PM">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="student-groups" class="form-label">Student Groups Assigned</label>
+                                    <input type="text" id="student-groups" name="student-groups" class="form-input"
+                                        placeholder="e.g., Group A, Group B">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="modules-assigned" class="form-label">Modules Assigned to Teach</label>
+                                    <input type="text" id="modules-assigned" name="modules-assigned" class="form-input"
+                                        placeholder="e.g., Critical Thinking, Communication">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="active-classes" class="form-label">Active Classes List</label>
+                                    <input type="text" id="active-classes" name="active-classes" class="form-input"
+                                        placeholder="e.g., 5A, 6B, 7C">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="total-students" class="form-label">Total Students Under the Coach</label>
+                                    <input type="number" id="total-students" name="total-students" class="form-input"
+                                        placeholder="Enter number" min="0">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="dashboard-role" class="form-label">Dashboard Login Role & Permissions</label>
+                                    <select id="dashboard-role" name="dashboard-role" class="form-input">
+                                        <option value="" disabled selected hidden>Select role</option>
+                                        <option value="coach">Thinking Coach</option>
+                                        <option value="senior-coach">Senior Coach</option>
+                                        <option value="coordinator">Program Coordinator</option>
+                                        <option value="admin">Admin</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="joining-date" class="form-label">Joining Date <span class="required">*</span></label>
+                                    <input type="date" id="joining-date" name="joining-date" class="form-input" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="contract-end-date" class="form-label">Contract End Date</label>
+                                    <input type="date" id="contract-end-date" name="contract-end-date" class="form-input">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="employment-type" class="form-label">Employment Type <span class="required">*</span></label>
+                                    <select id="employment-type" name="employment-type" class="form-input" required>
+                                        <option value="" disabled selected hidden>Select type</option>
+                                        <option value="full-time">Full-time</option>
+                                        <option value="part-time">Part-time</option>
+                                        <option value="visiting">Visiting</option>
+                                        <option value="contract">Contract</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 6: Emergency Information -->
+                        <div class="form-section step-content" id="step6" style="display: none;">
+                            <div class="section-header">
+                                <h2 class="section-title">
+                                    <span class="material-symbols-outlined">emergency</span>
+                                    F. Emergency Information
+                                </h2>
+                            </div>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="emergency-contact-name" class="form-label">Emergency Contact Name <span class="required">*</span></label>
                                     <input type="text" id="emergency-contact-name" name="emergency-contact-name" class="form-input"
-                                        placeholder="Name of emergency contact">
-                                </div> -->
+                                        placeholder="Enter contact name" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="emergency-relation" class="form-label">Relation <span class="required">*</span></label>
+                                    <select id="emergency-relation" name="emergency-relation" class="form-input" required>
+                                        <option value="" disabled selected hidden>Select relation</option>
+                                        <option value="spouse">Spouse</option>
+                                        <option value="parent">Parent</option>
+                                        <option value="sibling">Sibling</option>
+                                        <option value="child">Child</option>
+                                        <option value="friend">Friend</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="emergency-mobile" class="form-label">Mobile Number <span class="required">*</span></label>
+                                    <input type="tel" id="emergency-mobile" name="emergency-mobile" class="form-input"
+                                        placeholder="+91 XXXXX XXXXX" required maxlength="10">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="emergency-secondary" class="form-label">Secondary Number</label>
+                                    <input type="tel" id="emergency-secondary" name="emergency-secondary" class="form-input"
+                                        placeholder="+91 XXXXX XXXXX" maxlength="10">
+                                </div>
+
+                                <div class="form-group full-width">
+                                    <label for="health-notes" class="form-label">Health Notes (if any)</label>
+                                    <textarea id="health-notes" name="health-notes" class="form-input"
+                                        placeholder="Any health conditions, allergies, or medical notes" rows="3"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 7: Compliance & Documentation -->
+                        <div class="form-section step-content" id="step7" style="display: none;">
+                            <div class="section-header">
+                                <h2 class="section-title">
+                                    <span class="material-symbols-outlined">folder</span>
+                                    G. Compliance & Documentation
+                                </h2>
+                            </div>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="id-proof-submitted" class="form-label">ID Proof Submitted (Aadhar / PAN)</label>
+                                    <select id="id-proof-submitted" name="id-proof-submitted" class="form-input">
+                                        <option value="" disabled selected hidden>Select status</option>
+                                        <option value="aadhar">Aadhar Card</option>
+                                        <option value="pan">PAN Card</option>
+                                        <option value="both">Both</option>
+                                        <option value="pending">Pending</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="address-proof-submitted" class="form-label">Address Proof Submitted</label>
+                                    <select id="address-proof-submitted" name="address-proof-submitted" class="form-input">
+                                        <option value="" disabled selected hidden>Select status</option>
+                                        <option value="yes">Yes</option>
+                                        <option value="no">No</option>
+                                        <option value="pending">Pending</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="police-verification" class="form-label">Police Verification Status</label>
+                                    <select id="police-verification" name="police-verification" class="form-input">
+                                        <option value="" disabled selected hidden>Select status</option>
+                                        <option value="verified">Verified</option>
+                                        <option value="pending">Pending</option>
+                                        <option value="not-required">Not Required</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="contract-uploaded" class="form-label">Contract Uploaded</label>
+                                    <select id="contract-uploaded" name="contract-uploaded" class="form-input">
+                                        <option value="" disabled selected hidden>Select status</option>
+                                        <option value="yes">Yes</option>
+                                        <option value="no">No</option>
+                                        <option value="pending">Pending</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="passport-photo" class="form-label">Passport Size Photo</label>
+                                    <input type="file" id="passport-photo" name="passport-photo" class="form-input" accept="image/*">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="pan-aadhar-linked" class="form-label">Is PAN Card Linked to Aadhar Card?</label>
+                                    <select id="pan-aadhar-linked" name="pan-aadhar-linked" class="form-input">
+                                        <option value="" disabled selected hidden>Select</option>
+                                        <option value="yes">Yes</option>
+                                        <option value="no">No</option>
+                                        <option value="not-sure">Not Sure</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="resume-upload" class="form-label">Upload Resume (PDF / Word)</label>
+                                    <input type="file" id="resume-upload" name="resume-upload" class="form-input" 
+                                        accept=".pdf,.doc,.docx">
+                                    <p class="field-hint">Accepted formats: PDF, DOC, DOCX</p>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="bank-details-submitted" class="form-label">Bank Details Submitted (for salary)</label>
+                                    <select id="bank-details-submitted" name="bank-details-submitted" class="form-input">
+                                        <option value="" disabled selected hidden>Select status</option>
+                                        <option value="yes">Yes</option>
+                                        <option value="no">No</option>
+                                        <option value="pending">Pending</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="ifsc-code" class="form-label">IFSC Code</label>
+                                    <input type="text" id="ifsc-code" name="ifsc-code" class="form-input"
+                                        placeholder="e.g., SBIN0001234" maxlength="11">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="bank-account-number" class="form-label">Bank Account Number</label>
+                                    <input type="text" id="bank-account-number" name="bank-account-number" class="form-input"
+                                        placeholder="Enter account number">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="bank-name" class="form-label">Bank Name</label>
+                                    <input type="text" id="bank-name" name="bank-name" class="form-input"
+                                        placeholder="Enter bank name">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="branch-name" class="form-label">Branch Name</label>
+                                    <input type="text" id="branch-name" name="branch-name" class="form-input"
+                                        placeholder="Enter branch name">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="passbook-copy" class="form-label">Bank Passbook Copy</label>
+                                    <input type="file" id="passbook-copy" name="passbook-copy" class="form-input" 
+                                        accept="image/*,.pdf">
+                                    <p class="field-hint">First page with account details</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 8: Additional Optional Data -->
+                        <div class="form-section step-content" id="step8" style="display: none;">
+                            <div class="section-header">
+                                <h2 class="section-title">
+                                    <span class="material-symbols-outlined">more_horiz</span>
+                                    H. Additional Optional Data
+                                </h2>
+                            </div>
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="hobbies" class="form-label">Hobbies / Interests</label>
+                                    <input type="text" id="hobbies" name="hobbies" class="form-input"
+                                        placeholder="e.g., Reading, Music, Sports">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="strength-areas" class="form-label">Strength Areas</label>
+                                    <input type="text" id="strength-areas" name="strength-areas" class="form-input"
+                                        placeholder="e.g., Communication, Problem Solving">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="improvement-areas" class="form-label">Areas for Improvement</label>
+                                    <input type="text" id="improvement-areas" name="improvement-areas" class="form-input"
+                                        placeholder="e.g., Time Management">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="training-resources" class="form-label">Preferred Training Resources</label>
+                                    <input type="text" id="training-resources" name="training-resources" class="form-input"
+                                        placeholder="e.g., Videos, Books, Workshops">
+                                </div>
+
+                                <div class="form-group full-width">
+                                    <label for="achievements" class="form-label">Achievements & Recognition</label>
+                                    <textarea id="achievements" name="achievements" class="form-input"
+                                        placeholder="List any awards, recognitions, or notable achievements" rows="3"></textarea>
+                                </div>
                             </div>
                         </div>
 
@@ -390,7 +697,7 @@
 
         // Multi-Step Form Navigation
         let currentStep = 1;
-        const totalSteps = 4;
+        const totalSteps = 8;
         const formData = {};
 
         // Initialize
@@ -399,7 +706,59 @@
             initializeValidation();
             initializeFormatting();
             generateEmployeeID();
+            initializeAgeCalculation();
+            initializeAadharFormatting();
         });
+
+        // Age auto-calculation from Date of Birth
+        function initializeAgeCalculation() {
+            const dobInput = document.getElementById('dob');
+            const ageInput = document.getElementById('age');
+            
+            if (dobInput && ageInput) {
+                dobInput.addEventListener('change', function() {
+                    const dob = new Date(this.value);
+                    const today = new Date();
+                    
+                    if (this.value && dob < today) {
+                        let age = today.getFullYear() - dob.getFullYear();
+                        const monthDiff = today.getMonth() - dob.getMonth();
+                        
+                        if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < dob.getDate())) {
+                            age--;
+                        }
+                        
+                        ageInput.value = age + ' years';
+                    } else {
+                        ageInput.value = '';
+                    }
+                });
+            }
+        }
+
+        // Aadhar number formatting (XXXX XXXX XXXX)
+        function initializeAadharFormatting() {
+            const aadharInput = document.getElementById('aadhar-number');
+            
+            if (aadharInput) {
+                aadharInput.addEventListener('input', function(e) {
+                    let value = e.target.value.replace(/\D/g, '');
+                    if (value.length > 12) {
+                        value = value.slice(0, 12);
+                    }
+                    
+                    // Format as XXXX XXXX XXXX
+                    let formatted = '';
+                    for (let i = 0; i < value.length; i++) {
+                        if (i > 0 && i % 4 === 0) {
+                            formatted += ' ';
+                        }
+                        formatted += value[i];
+                    }
+                    e.target.value = formatted;
+                });
+            }
+        }
 
         // Navigation Functions
         function updateStepDisplay() {
@@ -519,22 +878,38 @@
 
         function getValidator(fieldId) {
             const validators = {
-                'teacher-name': validateTeacherName,
-                'teacher-role': validateRequired,
-                'date-of-joining': validateDateOfJoining,
-                'monthly-salary': validateMonthlySalary,
+                // Step 1: Basic Information
+                'full-name': validateFullName,
                 'gender': validateRequired,
                 'dob': validateDateOfBirth,
-                'education': validateEducation,
-                'experience': validateExperience,
-                'mobile-no': validateMobileNumber,
-                'email': validateEmail,
-                'home-address': validateHomeAddress,
+                'nationality': validateRequired,
+                'aadhar-number': validateAadharNumber,
+                'pan-number': validatePanNumber,
+                // Step 2: Professional Details
+                'designation': validateRequired,
+                'qualification': validateQualification,
+                'total-experience': validateExperience,
+                // Step 3: Contact Information
+                'mobile-number': validateMobileNumber,
+                'alternate-number': validateOptionalMobile,
+                'official-email': validateEmail,
+                'personal-email': validateOptionalEmail,
+                // Step 4: Address Details
+                'current-address': validateAddress,
                 'city': validateCity,
                 'state': validateState,
-                'pincode': validatePincode,
-                'guardian-name': validateGuardianName,
-                'national-id': validateNationalId
+                'pin-code': validatePincode,
+                // Step 5: Skill Lab Work Details
+                'joining-date': validateJoiningDate,
+                'employment-type': validateRequired,
+                // Step 6: Emergency Information
+                'emergency-contact-name': validateEmergencyName,
+                'emergency-relation': validateRequired,
+                'emergency-mobile': validateMobileNumber,
+                'emergency-secondary': validateOptionalMobile,
+                // Step 7: Compliance
+                'ifsc-code': validateIFSC,
+                'bank-account-number': validateBankAccount
             };
 
             return validators[fieldId];
@@ -550,11 +925,11 @@
             return true;
         }
 
-        function validateTeacherName(input) {
+        function validateFullName(input) {
             const value = input.value.trim();
 
             if (!value) {
-                showError(input, 'Teacher name is required');
+                showError(input, 'Full name is required');
                 return false;
             }
 
@@ -565,57 +940,6 @@
 
             if (!/^[a-zA-Z\s.]+$/.test(value)) {
                 showError(input, 'Name should only contain letters, spaces, and periods');
-                return false;
-            }
-
-            clearError(input);
-            return true;
-        }
-
-        function validateDateOfJoining(input) {
-            const value = input.value.trim();
-
-            if (!value) {
-                showError(input, 'Date of joining is required');
-                return false;
-            }
-
-            const joiningDate = new Date(value);
-            const today = new Date();
-            const oneYearAgo = new Date();
-            oneYearAgo.setFullYear(today.getFullYear() - 1);
-
-            if (joiningDate > today) {
-                showError(input, 'Joining date cannot be in the future');
-                return false;
-            }
-
-            clearError(input);
-            return true;
-        }
-
-        function validateMonthlySalary(input) {
-            const value = input.value.trim();
-
-            if (!value) {
-                showError(input, 'Monthly salary is required');
-                return false;
-            }
-
-            const salary = parseFloat(value);
-
-            if (isNaN(salary) || salary <= 0) {
-                showError(input, 'Please enter a valid salary amount');
-                return false;
-            }
-
-            if (salary < 1000) {
-                showError(input, 'Salary seems too low, please verify');
-                return false;
-            }
-
-            if (salary > 10000000) {
-                showError(input, 'Please enter a realistic salary amount');
                 return false;
             }
 
@@ -647,7 +971,7 @@
             }
 
             if (age < 18) {
-                showError(input, 'Teacher must be at least 18 years old');
+                showError(input, 'Coach must be at least 18 years old');
                 return false;
             }
 
@@ -660,21 +984,57 @@
             return true;
         }
 
-        function validateEducation(input) {
+        function validateAadharNumber(input) {
             const value = input.value.trim();
 
             if (!value) {
-                showError(input, 'Education is required');
+                clearError(input);
+                return true; // Optional field
+            }
+
+            const cleanedValue = value.replace(/\s/g, '');
+
+            if (!/^\d{12}$/.test(cleanedValue)) {
+                showError(input, 'Aadhar number must be exactly 12 digits');
+                return false;
+            }
+
+            clearError(input);
+            return true;
+        }
+
+        function validatePanNumber(input) {
+            const value = input.value.trim().toUpperCase();
+
+            if (!value) {
+                clearError(input);
+                return true; // Optional field
+            }
+
+            if (!/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/.test(value)) {
+                showError(input, 'Please enter a valid PAN number (e.g., ABCDE1234F)');
+                return false;
+            }
+
+            clearError(input);
+            return true;
+        }
+
+        function validateQualification(input) {
+            const value = input.value.trim();
+
+            if (!value) {
+                showError(input, 'Qualification is required');
                 return false;
             }
 
             if (value.length < 2) {
-                showError(input, 'Education field must be at least 2 characters long');
+                showError(input, 'Qualification must be at least 2 characters long');
                 return false;
             }
 
             if (value.length > 100) {
-                showError(input, 'Education field is too long (max 100 characters)');
+                showError(input, 'Qualification is too long (max 100 characters)');
                 return false;
             }
 
@@ -690,9 +1050,9 @@
                 return false;
             }
 
-            // Allow formats like "5 years", "2.5 years", "1 year", "Fresher", or just "5"
-            if (!/^(fresher|[0-9]+(\.[0-9]+)?(\s*(year|years|yr|yrs|months?|mo))?)$/i.test(value)) {
-                showError(input, 'Please enter valid experience (e.g., 5 years, 2.5 years, or Fresher)');
+            // Allow formats like "5 years", "2 years 3 months", "Fresher", etc.
+            if (value.length < 1 || value.length > 50) {
+                showError(input, 'Please enter valid experience');
                 return false;
             }
 
@@ -706,6 +1066,25 @@
             if (!value) {
                 showError(input, 'Mobile number is required');
                 return false;
+            }
+
+            const cleanedNumber = value.replace(/[\s\-\(\)]/g, '');
+
+            if (!/^[6-9]\d{9}$/.test(cleanedNumber)) {
+                showError(input, 'Please enter a valid 10-digit mobile number');
+                return false;
+            }
+
+            clearError(input);
+            return true;
+        }
+
+        function validateOptionalMobile(input) {
+            const value = input.value.trim();
+
+            if (!value) {
+                clearError(input);
+                return true; // Optional field
             }
 
             const cleanedNumber = value.replace(/[\s\-\(\)]/g, '');
@@ -738,11 +1117,30 @@
             return true;
         }
 
-        function validateHomeAddress(input) {
+        function validateOptionalEmail(input) {
             const value = input.value.trim();
 
             if (!value) {
-                showError(input, 'Home address is required');
+                clearError(input);
+                return true; // Optional field
+            }
+
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            if (!emailRegex.test(value)) {
+                showError(input, 'Please enter a valid email address');
+                return false;
+            }
+
+            clearError(input);
+            return true;
+        }
+
+        function validateAddress(input) {
+            const value = input.value.trim();
+
+            if (!value) {
+                showError(input, 'Address is required');
                 return false;
             }
 
@@ -811,12 +1209,32 @@
             return true;
         }
 
-        function validateGuardianName(input) {
+        function validateJoiningDate(input) {
             const value = input.value.trim();
 
             if (!value) {
-                clearError(input);
-                return true;
+                showError(input, 'Joining date is required');
+                return false;
+            }
+
+            const joiningDate = new Date(value);
+            const today = new Date();
+
+            if (joiningDate > today) {
+                showError(input, 'Joining date cannot be in the future');
+                return false;
+            }
+
+            clearError(input);
+            return true;
+        }
+
+        function validateEmergencyName(input) {
+            const value = input.value.trim();
+
+            if (!value) {
+                showError(input, 'Emergency contact name is required');
+                return false;
             }
 
             if (value.length < 2) {
@@ -833,18 +1251,33 @@
             return true;
         }
 
-        function validateNationalId(input) {
+        function validateIFSC(input) {
+            const value = input.value.trim().toUpperCase();
+
+            if (!value) {
+                clearError(input);
+                return true; // Optional field
+            }
+
+            if (!/^[A-Z]{4}0[A-Z0-9]{6}$/.test(value)) {
+                showError(input, 'Please enter a valid IFSC code (e.g., SBIN0001234)');
+                return false;
+            }
+
+            clearError(input);
+            return true;
+        }
+
+        function validateBankAccount(input) {
             const value = input.value.trim();
 
             if (!value) {
                 clearError(input);
-                return true;
+                return true; // Optional field
             }
 
-            const cleanedId = value.replace(/[\s\-]/g, '');
-
-            if (!/^[a-zA-Z0-9]{5,20}$/.test(cleanedId)) {
-                showError(input, 'Please enter a valid National ID (5-20 alphanumeric characters)');
+            if (!/^\d{9,18}$/.test(value)) {
+                showError(input, 'Bank account number should be 9-18 digits');
                 return false;
             }
 

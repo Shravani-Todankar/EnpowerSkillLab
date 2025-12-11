@@ -1,19 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>School Details Page</title>
-    
+
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    
+
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
     <!-- Material Icons -->
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet">
+
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 
@@ -26,12 +29,32 @@
     <script src="header.js"></script>
 
     <style>
-        #sidebar-container:empty, #header-container:empty { opacity: 0; visibility: hidden; }
-        #sidebar-container.loaded, #header-container.loaded { opacity: 1; visibility: visible; transition: opacity 0.2s ease-in; }
-        .dashboard-container { display: flex; min-height: 100vh; }
-        .main-content { flex: 1; display: flex; flex-direction: column; overflow-x: hidden; }
+        #sidebar-container:empty,
+        #header-container:empty {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        #sidebar-container.loaded,
+        #header-container.loaded {
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.2s ease-in;
+        }
+
+        .dashboard-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
     </style>
-    
+
     <style>
         :root {
             --primary-color: #5A1F6E;
@@ -691,46 +714,53 @@
             color: #92400E;
         }
 
-.competency-low {
-    background-color: #FEE2E2;
-    color: #991B1B;
-}
+        .competency-low {
+            background-color: #FEE2E2;
+            color: #991B1B;
+        }
 
-/* Responsive */
-@media (max-width: 1200px) {
-    .metric-value {
-        font-size: 1.875rem;
-    }
-}
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .metric-value {
+                font-size: 1.875rem;
+            }
+        }
 
-@media (max-width: 768px) {
-    .detail-sidebar {
-        max-width: 100%;
-    }
+        @media (max-width: 768px) {
+            .detail-sidebar {
+                max-width: 100%;
+            }
 
-    .page-title {
-        font-size: 1.5rem;
-    }
+            .page-title {
+                font-size: 1.5rem;
+            }
 
-    .chart-wrapper {
-        height: 180px;
-    }
+            .chart-wrapper {
+                height: 180px;
+            }
 
-    .metric-value {
-        font-size: 1.75rem;
-    }
+            .metric-value {
+                font-size: 1.75rem;
+            }
 
-    .custom-select {
-        width: 100%;
-    }
-}
+            .custom-select {
+                width: 100%;
+            }
 
-/* Scrollbar Styling */
-.detail-sidebar-body::-webkit-scrollbar {
-    width: 8px;
-}
+            .info-item {
+                display: flex;
+                align-items: flex-start;
+                gap: 14px;
+                flex-direction: column;
+            }
+        }
 
-.detail-sidebar-body::-webkit-scrollbar-track {
+        /* Scrollbar Styling */
+        .detail-sidebar-body::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .detail-sidebar-body::-webkit-scrollbar-track {
             background: var(--bg-light);
         }
 
@@ -1060,6 +1090,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="dashboard-container">
         <!-- Include Sidebar Component -->
@@ -1071,1064 +1102,1055 @@
             <div id="header-container"></div>
 
             <!-- Page Content -->
-    <!-- Main Content -->
-    <div class="container-fluid px-4 py-4">
-        <div class="mx-auto" style="max-width: 1440px;">
-            <!-- Header -->
-            <div class="d-flex flex-wrap justify-content-between align-items-start gap-3 mb-4">
-                <div>
-                    <h1 class="page-title">School Details</h1>
-                    <p class="page-subtitle mb-0">Overview of school performance, teachers, and students.</p>
-                </div>
-                <div class="d-flex flex-wrap align-items-end gap-3">
-                    <div>
-                        <label class="select-label" for="schoolSelect">Select School</label>
-                        <div class="custom-select-wrapper">
-                            <select class="custom-select" id="schoolSelect">
-                                <option selected>Choose a School</option>
-                                <option>Greenwood High</option>
-                                <option>Oakridge International</option>
-                                <option>Maple Leaf Academy</option>
-                            </select>
-                            <span class="material-symbols-outlined select-icon">expand_more</span>
+            <!-- Main Content -->
+            <div class="container-fluid px-4 py-4">
+                <div class="mx-auto" style="max-width: 1440px;">
+                    <!-- Header -->
+                    <div class="d-flex flex-wrap justify-content-between align-items-start gap-3 mb-4">
+                        <div>
+                            <h1 class="page-title">School Details</h1>
+                            <p class="page-subtitle mb-0">Overview of school performance, teachers, and students.</p>
+                        </div>
+                        <div class="d-flex flex-wrap align-items-end gap-3">
+                            <div>
+                                <label class="select-label" for="schoolSelect">Select School</label>
+                                <div class="custom-select-wrapper">
+                                    <select class="custom-select" id="schoolSelect">
+                                        <option selected>Choose a School</option>
+                                        <option>Greenwood High</option>
+                                        <option>Oakridge International</option>
+                                        <option>Maple Leaf Academy</option>
+                                    </select>
+                                    <span class="material-symbols-outlined select-icon">expand_more</span>
+                                </div>
+                            </div>
+                            <button class="btn-primary-custom">
+                                <span class="material-symbols-outlined" style="font-size: 18px;">download</span>
+                                <span>Download School Report</span>
+                            </button>
+                            <button class="btn-outline-primary-custom">
+                                <span class="material-symbols-outlined" style="font-size: 18px;">compare_arrows</span>
+                                <span>View Comparison</span>
+                            </button>
                         </div>
                     </div>
-                    <button class="btn-primary-custom">
-                        <span class="material-symbols-outlined" style="font-size: 18px;">download</span>
-                        <span>Download School Report</span>
-                    </button>
-                    <button class="btn-outline-primary-custom">
-                        <span class="material-symbols-outlined" style="font-size: 18px;">compare_arrows</span>
-                        <span>View Comparison</span>
-                    </button>
+
+                    <!-- School Info Card -->
+                    <div class="school-info-card mb-4">
+                        <div class="row g-4">
+                            <div class="col-6 col-md-4 col-lg-2">
+                                <div class="info-item">
+                                    <div class="info-icon">
+                                        <span class="material-symbols-outlined" style="font-size: 22px;">school</span>
+                                    </div>
+                                    <div>
+                                        <p class="info-label mb-0">School Name</p>
+                                        <p class="info-value mb-0">Greenwood High</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-4 col-lg-2">
+                                <div class="info-item">
+                                    <div class="info-icon">
+                                        <span class="material-symbols-outlined"
+                                            style="font-size: 22px;">qr_code_2</span>
+                                    </div>
+                                    <div>
+                                        <p class="info-label mb-0">School Code / ID</p>
+                                        <p class="info-value mb-0">GW-482</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-4 col-lg-2">
+                                <div class="info-item">
+                                    <img src="https://i.pravatar.cc/150?img=47" alt="Amanda Lee" class="coach-avatar">
+                                    <div>
+                                        <p class="info-label mb-0">Thinking Coach</p>
+                                        <p class="info-value mb-0">Amanda Lee</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-4 col-lg-2">
+                                <div class="info-item">
+                                    <div class="info-icon">
+                                        <span class="material-symbols-outlined" style="font-size: 22px;">groups</span>
+                                    </div>
+                                    <div>
+                                        <p class="info-label mb-0">Total Students</p>
+                                        <p class="info-value mb-0">1,250</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-4 col-lg-2">
+                                <div class="info-item">
+                                    <div class="info-icon">
+                                        <span class="material-symbols-outlined"
+                                            style="font-size: 22px;">supervisor_account</span>
+                                    </div>
+                                    <div>
+                                        <p class="info-label mb-0">Total Teachers</p>
+                                        <p class="info-value mb-0">82</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-4 col-lg-2">
+                                <div class="info-item">
+                                    <div class="info-icon">
+                                        <span class="material-symbols-outlined" style="font-size: 22px;">layers</span>
+                                    </div>
+                                    <div>
+                                        <p class="info-label mb-0">Grade Levels</p>
+                                        <p class="info-value mb-0">6-12</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row g-4">
+                        <!-- Left Column -->
+                        <div class="col-12 col-lg-8">
+                            <!-- Metric Cards -->
+                            <div class="row g-3 mb-4">
+                                <div class="col-6 col-xl-3">
+                                    <div class="metric-card">
+                                        <div class="metric-header">
+                                            <p class="metric-label mb-0">Avg Student<br>Performance</p>
+                                            <span class="material-symbols-outlined metric-icon">trending_up</span>
+                                        </div>
+                                        <p class="metric-value mb-0">82%</p>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-xl-3">
+                                    <div class="metric-card">
+                                        <div class="metric-header">
+                                            <p class="metric-label mb-0">Attendance<br>Rate</p>
+                                            <span class="material-symbols-outlined metric-icon">task_alt</span>
+                                        </div>
+                                        <p class="metric-value mb-0">95%</p>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-xl-3">
+                                    <div class="metric-card">
+                                        <div class="metric-header">
+                                            <p class="metric-label mb-0">Assessments<br>Completed</p>
+                                            <span class="material-symbols-outlined metric-icon">checklist</span>
+                                        </div>
+                                        <p class="metric-value mb-0">78%</p>
+                                    </div>
+                                </div>
+                                <div class="col-6 col-xl-3">
+                                    <div class="metric-card">
+                                        <div class="metric-header">
+                                            <p class="metric-label mb-0">LMS<br>Engagement</p>
+                                            <span class="material-symbols-outlined metric-icon">hub</span>
+                                        </div>
+                                        <p class="metric-value mb-0">88%</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Charts -->
+                            <div class="row g-4 mb-4">
+                                <div class="col-12 col-xl-6">
+                                    <div class="chart-card">
+                                        <h3 class="chart-title">Attendance Trend</h3>
+                                        <div class="mb-2">
+                                            <p class="chart-subtitle mb-0">95.2%</p>
+                                            <p class="trend-badge trend-positive mb-0">+3.1% vs last month</p>
+                                        </div>
+                                        <div class="chart-wrapper">
+                                            <canvas id="attendanceChart"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-xl-6">
+                                    <div class="chart-card">
+                                        <h3 class="chart-title">Student Performance Breakdown</h3>
+                                        <div class="mb-2">
+                                            <p class="chart-subtitle mb-0">82%</p>
+                                            <p class="trend-badge trend-negative mb-0">-1.2% vs last semester</p>
+                                        </div>
+                                        <div class="chart-wrapper">
+                                            <canvas id="performanceChart"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Teacher Summary Table -->
+                            <div class="table-card mb-4">
+                                <div class="table-header">
+                                    <h2 class="table-title mb-0">Teacher Summary</h2>
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="table custom-table">
+                                        <thead>
+                                            <tr>
+                                                <th>TEACHER NAME</th>
+                                                <th>SUBJECTS / GRADES</th>
+                                                <th>ASSESSMENT COMPLETION %</th>
+                                                <th>ATTENDANCE MARKING %</th>
+                                                <th class="text-end">ACTION</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <div class="teacher-info">
+                                                        <img src="https://i.pravatar.cc/150?img=12" alt="John Doe"
+                                                            class="teacher-avatar">
+                                                        <span class="teacher-name">John Doe</span>
+                                                    </div>
+                                                </td>
+                                                <td>Math, Grade 8</td>
+                                                <td>85%</td>
+                                                <td>98%</td>
+                                                <td class="text-end">
+                                                    <a class="view-link view-teacher-btn" data-name="John Doe"
+                                                        data-subject="Math, Grade 8" data-school="Greenwood High"
+                                                        data-email="john.doe@greenwood.edu" data-status="Active"
+                                                        data-assessment-completion="85%" data-attendance-marking="98%"
+                                                        data-avg-performance="84%" data-total-students="32"
+                                                        data-total-assessments="156"
+                                                        data-avatar="https://i.pravatar.cc/150?img=12">
+                                                        View Teacher
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="teacher-info">
+                                                        <img src="https://i.pravatar.cc/150?img=45" alt="Jane Smith"
+                                                            class="teacher-avatar">
+                                                        <span class="teacher-name">Jane Smith</span>
+                                                    </div>
+                                                </td>
+                                                <td>Science, Grade 7</td>
+                                                <td>92%</td>
+                                                <td>95%</td>
+                                                <td class="text-end">
+                                                    <a class="view-link view-teacher-btn" data-name="Jane Smith"
+                                                        data-subject="Science, Grade 7" data-school="Greenwood High"
+                                                        data-email="jane.smith@greenwood.edu" data-status="Active"
+                                                        data-assessment-completion="92%" data-attendance-marking="95%"
+                                                        data-avg-performance="89%" data-total-students="28"
+                                                        data-total-assessments="168"
+                                                        data-avatar="https://i.pravatar.cc/150?img=45">
+                                                        View Teacher
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <!-- Student Summary Table -->
+                            <div class="table-card">
+                                <div class="table-header">
+                                    <h2 class="table-title mb-0">Student Summary</h2>
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="table custom-table">
+                                        <thead>
+                                            <tr>
+                                                <th>STUDENT NAME</th>
+                                                <th>GRADE</th>
+                                                <th>ATTENDANCE %</th>
+                                                <th>OVERALL PERFORMANCE %</th>
+                                                <th class="text-end">ACTION</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><span class="teacher-name">David Miller</span></td>
+                                                <td>Grade 8</td>
+                                                <td>98%</td>
+                                                <td>86%</td>
+                                                <td class="text-end">
+                                                    <a class="view-link view-student-btn" data-name="David Miller"
+                                                        data-grade="Grade 8" data-school="Greenwood High"
+                                                        data-teacher="John Doe" data-performance="88%"
+                                                        data-attendance="98%" data-lms="92%" data-assessments="95%"
+                                                        data-avatar="https://i.pravatar.cc/150?img=33">
+                                                        View Student
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><span class="teacher-name">Susan Chen</span></td>
+                                                <td>Grade 7</td>
+                                                <td>92%</td>
+                                                <td>95%</td>
+                                                <td class="text-end">
+                                                    <a class="view-link view-student-btn" data-name="Susan Chen"
+                                                        data-grade="Grade 7" data-school="Greenwood High"
+                                                        data-teacher="Jane Smith" data-performance="95%"
+                                                        data-attendance="92%" data-lms="89%" data-assessments="97%"
+                                                        data-avatar="https://i.pravatar.cc/150?img=47">
+                                                        View Student
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right Column - Recent Activity -->
+                        <div class="col-12 col-lg-4">
+                            <div class="activity-card">
+                                <h2 class="activity-title">Recent Activity</h2>
+                                <div>
+                                    <div class="activity-item">
+                                        <div class="activity-icon">
+                                            <span class="material-symbols-outlined"
+                                                style="font-size: 22px;">assignment_turned_in</span>
+                                        </div>
+                                        <div class="activity-content">
+                                            <p class="activity-title-text mb-0">Latest assessments submitted</p>
+                                            <p class="activity-desc mb-0">Math Quiz #4 by Grade 8 students.</p>
+                                            <p class="activity-time mb-0">2 hours ago</p>
+                                        </div>
+                                    </div>
+                                    <div class="activity-item">
+                                        <div class="activity-icon">
+                                            <span class="material-symbols-outlined"
+                                                style="font-size: 22px;">campaign</span>
+                                        </div>
+                                        <div class="activity-content">
+                                            <p class="activity-title-text mb-0">Announcements</p>
+                                            <p class="activity-desc mb-0">Parent-Teacher meetings scheduled.</p>
+                                            <p class="activity-time mb-0">1 day ago</p>
+                                        </div>
+                                    </div>
+                                    <div class="activity-item">
+                                        <div class="activity-icon">
+                                            <span class="material-symbols-outlined"
+                                                style="font-size: 22px;">pending_actions</span>
+                                        </div>
+                                        <div class="activity-content">
+                                            <p class="activity-title-text mb-0">Pending tasks</p>
+                                            <p class="activity-desc mb-0">Approve field trip request for Grade 7.</p>
+                                            <p class="activity-time mb-0">3 days ago</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <!-- School Info Card -->
-            <div class="school-info-card mb-4">
-                <div class="row g-4">
-                    <div class="col-6 col-md-4 col-lg-2">
-                        <div class="info-item">
-                            <div class="info-icon">
-                                <span class="material-symbols-outlined" style="font-size: 22px;">school</span>
-                            </div>
-                            <div>
-                                <p class="info-label mb-0">School Name</p>
-                                <p class="info-value mb-0">Greenwood High</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-6 col-md-4 col-lg-2">
-                        <div class="info-item">
-                            <div class="info-icon">
-                                <span class="material-symbols-outlined" style="font-size: 22px;">qr_code_2</span>
-                            </div>
-                            <div>
-                                <p class="info-label mb-0">School Code / ID</p>
-                                <p class="info-value mb-0">GW-482</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-6 col-md-4 col-lg-2">
-                        <div class="info-item">
-                            <img src="https://i.pravatar.cc/150?img=47" alt="Amanda Lee" class="coach-avatar">
-                            <div>
-                                <p class="info-label mb-0">Thinking Coach</p>
-                                <p class="info-value mb-0">Amanda Lee</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-6 col-md-4 col-lg-2">
-                        <div class="info-item">
-                            <div class="info-icon">
-                                <span class="material-symbols-outlined" style="font-size: 22px;">groups</span>
-                            </div>
-                            <div>
-                                <p class="info-label mb-0">Total Students</p>
-                                <p class="info-value mb-0">1,250</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-6 col-md-4 col-lg-2">
-                        <div class="info-item">
-                            <div class="info-icon">
-                                <span class="material-symbols-outlined" style="font-size: 22px;">supervisor_account</span>
-                            </div>
-                            <div>
-                                <p class="info-label mb-0">Total Teachers</p>
-                                <p class="info-value mb-0">82</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-6 col-md-4 col-lg-2">
-                        <div class="info-item">
-                            <div class="info-icon">
-                                <span class="material-symbols-outlined" style="font-size: 22px;">layers</span>
-                            </div>
-                            <div>
-                                <p class="info-label mb-0">Grade Levels</p>
-                                <p class="info-value mb-0">6-12</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <!-- Sidebar Overlay -->
+            <div class="detail-sidebar-overlay" id="detailSidebarOverlay"></div>
 
-            <div class="row g-4">
-                <!-- Left Column -->
-                <div class="col-12 col-lg-8">
-                    <!-- Metric Cards -->
+            <!-- Student Sidebar -->
+            <div class="detail-sidebar" id="studentDetailSidebar">
+                <div class="detail-sidebar-header">
+                    <h2 class="detail-sidebar-title">Student Details</h2>
+                    <button class="btn-close-detail-sidebar" id="closeStudentSidebar">
+                        <span class="material-symbols-outlined">close</span>
+                    </button>
+                </div>
+
+                <div class="detail-sidebar-body">
+                    <!-- Student Profile -->
+                    <div class="student-profile">
+                        <img id="studentAvatar" src="https://i.pravatar.cc/150?img=33" alt="Student Avatar"
+                            class="student-avatar">
+                        <h3 class="student-name" id="studentName">David Miller</h3>
+                        <p class="student-info mb-1" id="studentGrade">Grade 8 • Greenwood High</p>
+                        <p class="student-info" id="studentTeacher">Assigned Teacher: John Doe</p>
+                    </div>
+
+                    <!-- Stats Grid -->
                     <div class="row g-3 mb-4">
-                        <div class="col-6 col-xl-3">
-                            <div class="metric-card">
-                                <div class="metric-header">
-                                    <p class="metric-label mb-0">Avg Student<br>Performance</p>
-                                    <span class="material-symbols-outlined metric-icon">trending_up</span>
-                                </div>
-                                <p class="metric-value mb-0">82%</p>
+                        <div class="col-6">
+                            <div class="stat-box">
+                                <p class="stat-label mb-0">Avg Performance</p>
+                                <p class="stat-value mb-0" id="statPerformance">88%</p>
                             </div>
                         </div>
-                        <div class="col-6 col-xl-3">
-                            <div class="metric-card">
-                                <div class="metric-header">
-                                    <p class="metric-label mb-0">Attendance<br>Rate</p>
-                                    <span class="material-symbols-outlined metric-icon">task_alt</span>
-                                </div>
-                                <p class="metric-value mb-0">95%</p>
+                        <div class="col-6">
+                            <div class="stat-box">
+                                <p class="stat-label mb-0">Attendance</p>
+                                <p class="stat-value mb-0" id="statAttendance">98%</p>
                             </div>
                         </div>
-                        <div class="col-6 col-xl-3">
-                            <div class="metric-card">
-                                <div class="metric-header">
-                                    <p class="metric-label mb-0">Assessments<br>Completed</p>
-                                    <span class="material-symbols-outlined metric-icon">checklist</span>
-                                </div>
-                                <p class="metric-value mb-0">78%</p>
+                        <div class="col-6">
+                            <div class="stat-box">
+                                <p class="stat-label mb-0">LMS Engagement</p>
+                                <p class="stat-value mb-0" id="statLMS">92%</p>
                             </div>
                         </div>
-                        <div class="col-6 col-xl-3">
-                            <div class="metric-card">
-                                <div class="metric-header">
-                                    <p class="metric-label mb-0">LMS<br>Engagement</p>
-                                    <span class="material-symbols-outlined metric-icon">hub</span>
-                                </div>
-                                <p class="metric-value mb-0">88%</p>
+                        <div class="col-6">
+                            <div class="stat-box">
+                                <p class="stat-label mb-0">Assessments</p>
+                                <p class="stat-value mb-0" id="statAssessments">95%</p>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Charts -->
-                    <div class="row g-4 mb-4">
-                        <div class="col-12 col-xl-6">
-                            <div class="chart-card">
-                                <h3 class="chart-title">Attendance Trend</h3>
-                                <div class="mb-2">
-                                    <p class="chart-subtitle mb-0">95.2%</p>
-                                    <p class="trend-badge trend-positive mb-0">+3.1% vs last month</p>
+                    <!-- Assessment History -->
+                    <div class="mb-4">
+                        <h4 class="section-title">Assessment History</h4>
+                        <div class="d-flex flex-column gap-3">
+                            <div class="assessment-item">
+                                <div>
+                                    <p class="assessment-title mb-0">Critical Thinking Final</p>
+                                    <p class="assessment-date mb-0">May 20, 2024</p>
                                 </div>
-                                <div class="chart-wrapper">
-                                    <canvas id="attendanceChart"></canvas>
-                                </div>
+                                <div class="assessment-score">94%</div>
                             </div>
-                        </div>
-                        <div class="col-12 col-xl-6">
-                            <div class="chart-card">
-                                <h3 class="chart-title">Student Performance Breakdown</h3>
-                                <div class="mb-2">
-                                    <p class="chart-subtitle mb-0">82%</p>
-                                    <p class="trend-badge trend-negative mb-0">-1.2% vs last semester</p>
+                            <div class="assessment-item">
+                                <div>
+                                    <p class="assessment-title mb-0">Problem Solving Mid-Term</p>
+                                    <p class="assessment-date mb-0">Apr 15, 2024</p>
                                 </div>
-                                <div class="chart-wrapper">
-                                    <canvas id="performanceChart"></canvas>
-                                </div>
+                                <div class="assessment-score">85%</div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Teacher Summary Table -->
-                    <div class="table-card mb-4">
-                        <div class="table-header">
-                            <h2 class="table-title mb-0">Teacher Summary</h2>
-                        </div>
-                        <div class="table-responsive">
-                            <table class="table custom-table">
-                                <thead>
-                                    <tr>
-                                        <th>TEACHER NAME</th>
-                                        <th>SUBJECTS / GRADES</th>
-                                        <th>ASSESSMENT COMPLETION %</th>
-                                        <th>ATTENDANCE MARKING %</th>
-                                        <th class="text-end">ACTION</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            <div class="teacher-info">
-                                                <img src="https://i.pravatar.cc/150?img=12" alt="John Doe" class="teacher-avatar">
-                                                <span class="teacher-name">John Doe</span>
-                                            </div>
-                                        </td>
-                                        <td>Math, Grade 8</td>
-                                        <td>85%</td>
-                                        <td>98%</td>
-                                        <td class="text-end">
-                                            <a class="view-link view-teacher-btn"
-                                               data-name="John Doe"
-                                               data-subject="Math, Grade 8"
-                                               data-school="Greenwood High"
-                                               data-email="john.doe@greenwood.edu"
-                                               data-status="Active"
-                                               data-assessment-completion="85%"
-                                               data-attendance-marking="98%"
-                                               data-avg-performance="84%"
-                                               data-total-students="32"
-                                               data-total-assessments="156"
-                                               data-avatar="https://i.pravatar.cc/150?img=12">
-                                                View Teacher
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="teacher-info">
-                                                <img src="https://i.pravatar.cc/150?img=45" alt="Jane Smith" class="teacher-avatar">
-                                                <span class="teacher-name">Jane Smith</span>
-                                            </div>
-                                        </td>
-                                        <td>Science, Grade 7</td>
-                                        <td>92%</td>
-                                        <td>95%</td>
-                                        <td class="text-end">
-                                            <a class="view-link view-teacher-btn"
-                                               data-name="Jane Smith"
-                                               data-subject="Science, Grade 7"
-                                               data-school="Greenwood High"
-                                               data-email="jane.smith@greenwood.edu"
-                                               data-status="Active"
-                                               data-assessment-completion="92%"
-                                               data-attendance-marking="95%"
-                                               data-avg-performance="89%"
-                                               data-total-students="28"
-                                               data-total-assessments="168"
-                                               data-avatar="https://i.pravatar.cc/150?img=45">
-                                                View Teacher
-                                            </a>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                    <!-- Attendance Summary -->
+                    <div class="mb-4">
+                        <h4 class="section-title">Attendance Summary</h4>
+                        <div class="attendance-box">
+                            <div class="attendance-row">
+                                <span class="attendance-label">Present</span>
+                                <span class="attendance-value">176/180 days</span>
+                            </div>
+                            <div class="progress-bar-container">
+                                <div class="progress-bar-fill" style="width: 98%; background-color: #10B981;"></div>
+                            </div>
+                            <div class="attendance-row">
+                                <span class="attendance-label">Absent</span>
+                                <span class="attendance-value">4 days</span>
+                            </div>
+                            <div class="progress-bar-container">
+                                <div class="progress-bar-fill" style="width: 2.2%; background-color: #EF4444;"></div>
+                            </div>
                         </div>
                     </div>
 
-                    <!-- Student Summary Table -->
-                    <div class="table-card">
-                        <div class="table-header">
-                            <h2 class="table-title mb-0">Student Summary</h2>
-                        </div>
-                        <div class="table-responsive">
-                            <table class="table custom-table">
-                                <thead>
-                                    <tr>
-                                        <th>STUDENT NAME</th>
-                                        <th>GRADE</th>
-                                        <th>ATTENDANCE %</th>
-                                        <th>OVERALL PERFORMANCE %</th>
-                                        <th class="text-end">ACTION</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><span class="teacher-name">David Miller</span></td>
-                                        <td>Grade 8</td>
-                                        <td>98%</td>
-                                        <td>86%</td>
-                                        <td class="text-end">
-                                            <a class="view-link view-student-btn"
-                                               data-name="David Miller"
-                                               data-grade="Grade 8"
-                                               data-school="Greenwood High"
-                                               data-teacher="John Doe"
-                                               data-performance="88%"
-                                               data-attendance="98%"
-                                               data-lms="92%"
-                                               data-assessments="95%"
-                                               data-avatar="https://i.pravatar.cc/150?img=33">
-                                                View Student
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><span class="teacher-name">Susan Chen</span></td>
-                                        <td>Grade 7</td>
-                                        <td>92%</td>
-                                        <td>95%</td>
-                                        <td class="text-end">
-                                            <a class="view-link view-student-btn"
-                                               data-name="Susan Chen"
-                                               data-grade="Grade 7"
-                                               data-school="Greenwood High"
-                                               data-teacher="Jane Smith"
-                                               data-performance="95%"
-                                               data-attendance="92%"
-                                               data-lms="89%"
-                                               data-assessments="97%"
-                                               data-avatar="https://i.pravatar.cc/150?img=47">
-                                                View Student
-                                            </a>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                    <!-- Competency Profile -->
+                    <div>
+                        <h4 class="section-title">Competency Profile</h4>
+                        <div class="competency-grid">
+                            <div class="competency-badge competency-high">High</div>
+                            <div class="competency-badge competency-high">High</div>
+                            <div class="competency-badge competency-medium">Medium</div>
+                            <div class="competency-badge competency-high">High</div>
+                            <div class="competency-badge competency-low">Low</div>
+                            <div class="competency-badge competency-medium">Medium</div>
+                            <div class="competency-badge competency-high">High</div>
+                            <div class="competency-badge competency-high">High</div>
+                            <div class="competency-badge competency-high">High</div>
+                            <div class="competency-badge competency-medium">Medium</div>
+                            <div class="competency-badge competency-high">High</div>
+                            <div class="competency-badge competency-high">High</div>
+                            <div class="competency-badge competency-low">Low</div>
+                            <div class="competency-badge competency-high">High</div>
+                            <div class="competency-badge competency-medium">Medium</div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Right Column - Recent Activity -->
-                <div class="col-12 col-lg-4">
-                    <div class="activity-card">
-                        <h2 class="activity-title">Recent Activity</h2>
+                <div class="detail-sidebar-footer">
+                    <button class="btn-primary-custom w-100 justify-content-center">
+                        <span class="material-symbols-outlined" style="font-size: 18px;">download</span>
+                        <span>Download Student Report</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Teacher Sidebar -->
+            <div class="detail-sidebar" id="teacherSidebar">
+                <div class="detail-sidebar-header">
+                    <h2 class="detail-sidebar-title">Teacher Details</h2>
+                    <button class="btn-close-detail-sidebar" id="closeTeacherSidebar">
+                        <span class="material-symbols-outlined">close</span>
+                    </button>
+                </div>
+
+                <div class="detail-sidebar-body">
+                    <!-- Teacher Profile -->
+                    <div class="teacher-profile">
+                        <div class="teacher-profile-header">
+                            <img id="teacherAvatar" src="https://i.pravatar.cc/150?img=12" alt="Teacher Avatar"
+                                class="teacher-avatar-large">
+                            <div class="teacher-info-details">
+                                <h3 class="teacher-name-large" id="teacherName">John Doe</h3>
+                                <p class="teacher-subject" id="teacherSubject">Math, Grade 8</p>
+                                <span class="status-badge status-active" id="teacherStatusBadge">
+                                    <span class="material-symbols-outlined" style="font-size: 14px;">check_circle</span>
+                                    <span id="teacherStatus">Active</span>
+                                </span>
+                            </div>
+                        </div>
                         <div>
-                            <div class="activity-item">
-                                <div class="activity-icon">
-                                    <span class="material-symbols-outlined" style="font-size: 22px;">assignment_turned_in</span>
-                                </div>
-                                <div class="activity-content">
-                                    <p class="activity-title-text mb-0">Latest assessments submitted</p>
-                                    <p class="activity-desc mb-0">Math Quiz #4 by Grade 8 students.</p>
-                                    <p class="activity-time mb-0">2 hours ago</p>
-                                </div>
+                            <div class="teacher-detail-row">
+                                <span class="material-symbols-outlined teacher-detail-icon">school</span>
+                                <span class="teacher-detail-label">School:</span>
+                                <span class="teacher-detail-value" id="teacherSchool">Greenwood High</span>
                             </div>
-                            <div class="activity-item">
-                                <div class="activity-icon">
-                                    <span class="material-symbols-outlined" style="font-size: 22px;">campaign</span>
-                                </div>
-                                <div class="activity-content">
-                                    <p class="activity-title-text mb-0">Announcements</p>
-                                    <p class="activity-desc mb-0">Parent-Teacher meetings scheduled.</p>
-                                    <p class="activity-time mb-0">1 day ago</p>
-                                </div>
-                            </div>
-                            <div class="activity-item">
-                                <div class="activity-icon">
-                                    <span class="material-symbols-outlined" style="font-size: 22px;">pending_actions</span>
-                                </div>
-                                <div class="activity-content">
-                                    <p class="activity-title-text mb-0">Pending tasks</p>
-                                    <p class="activity-desc mb-0">Approve field trip request for Grade 7.</p>
-                                    <p class="activity-time mb-0">3 days ago</p>
-                                </div>
+                            <div class="teacher-detail-row">
+                                <span class="material-symbols-outlined teacher-detail-icon">mail</span>
+                                <span class="teacher-detail-label">Email:</span>
+                                <span class="teacher-detail-value" id="teacherEmail">john.doe@greenwood.edu</span>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <!-- Sidebar Overlay -->
-    <div class="detail-sidebar-overlay" id="detailSidebarOverlay"></div>
-
-    <!-- Student Sidebar -->
-    <div class="detail-sidebar" id="studentDetailSidebar">
-        <div class="detail-sidebar-header">
-            <h2 class="detail-sidebar-title">Student Details</h2>
-            <button class="btn-close-detail-sidebar" id="closeStudentSidebar">
-                <span class="material-symbols-outlined">close</span>
-            </button>
-        </div>
-
-        <div class="detail-sidebar-body">
-            <!-- Student Profile -->
-            <div class="student-profile">
-                <img id="studentAvatar" src="https://i.pravatar.cc/150?img=33" alt="Student Avatar" class="student-avatar">
-                <h3 class="student-name" id="studentName">David Miller</h3>
-                <p class="student-info mb-1" id="studentGrade">Grade 8 • Greenwood High</p>
-                <p class="student-info" id="studentTeacher">Assigned Teacher: John Doe</p>
-            </div>
-
-            <!-- Stats Grid -->
-            <div class="row g-3 mb-4">
-                <div class="col-6">
-                    <div class="stat-box">
-                        <p class="stat-label mb-0">Avg Performance</p>
-                        <p class="stat-value mb-0" id="statPerformance">88%</p>
-                    </div>
-                </div>
-                <div class="col-6">
-                    <div class="stat-box">
-                        <p class="stat-label mb-0">Attendance</p>
-                        <p class="stat-value mb-0" id="statAttendance">98%</p>
-                    </div>
-                </div>
-                <div class="col-6">
-                    <div class="stat-box">
-                        <p class="stat-label mb-0">LMS Engagement</p>
-                        <p class="stat-value mb-0" id="statLMS">92%</p>
-                    </div>
-                </div>
-                <div class="col-6">
-                    <div class="stat-box">
-                        <p class="stat-label mb-0">Assessments</p>
-                        <p class="stat-value mb-0" id="statAssessments">95%</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Assessment History -->
-            <div class="mb-4">
-                <h4 class="section-title">Assessment History</h4>
-                <div class="d-flex flex-column gap-3">
-                    <div class="assessment-item">
-                        <div>
-                            <p class="assessment-title mb-0">Critical Thinking Final</p>
-                            <p class="assessment-date mb-0">May 20, 2024</p>
+                    <!-- Performance Metrics -->
+                    <h4 class="section-title">Performance Metrics</h4>
+                    <div class="metrics-grid mb-4">
+                        <div class="metric-box">
+                            <div class="metric-box-label">
+                                <span class="material-symbols-outlined"
+                                    style="font-size: 16px;">assignment_turned_in</span>
+                                Assessment Completion
+                            </div>
+                            <div class="metric-box-value" id="metricAssessmentCompletion">85%</div>
                         </div>
-                        <div class="assessment-score">94%</div>
-                    </div>
-                    <div class="assessment-item">
-                        <div>
-                            <p class="assessment-title mb-0">Problem Solving Mid-Term</p>
-                            <p class="assessment-date mb-0">Apr 15, 2024</p>
+                        <div class="metric-box">
+                            <div class="metric-box-label">
+                                <span class="material-symbols-outlined" style="font-size: 16px;">fact_check</span>
+                                Attendance Marking
+                            </div>
+                            <div class="metric-box-value" id="metricAttendanceMarking">98%</div>
                         </div>
-                        <div class="assessment-score">85%</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Attendance Summary -->
-            <div class="mb-4">
-                <h4 class="section-title">Attendance Summary</h4>
-                <div class="attendance-box">
-                    <div class="attendance-row">
-                        <span class="attendance-label">Present</span>
-                        <span class="attendance-value">176/180 days</span>
-                    </div>
-                    <div class="progress-bar-container">
-                        <div class="progress-bar-fill" style="width: 98%; background-color: #10B981;"></div>
-                    </div>
-                    <div class="attendance-row">
-                        <span class="attendance-label">Absent</span>
-                        <span class="attendance-value">4 days</span>
-                    </div>
-                    <div class="progress-bar-container">
-                        <div class="progress-bar-fill" style="width: 2.2%; background-color: #EF4444;"></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Competency Profile -->
-            <div>
-                <h4 class="section-title">Competency Profile</h4>
-                <div class="competency-grid">
-                    <div class="competency-badge competency-high">High</div>
-                    <div class="competency-badge competency-high">High</div>
-                    <div class="competency-badge competency-medium">Medium</div>
-                    <div class="competency-badge competency-high">High</div>
-                    <div class="competency-badge competency-low">Low</div>
-                    <div class="competency-badge competency-medium">Medium</div>
-                    <div class="competency-badge competency-high">High</div>
-                    <div class="competency-badge competency-high">High</div>
-                    <div class="competency-badge competency-high">High</div>
-                    <div class="competency-badge competency-medium">Medium</div>
-                    <div class="competency-badge competency-high">High</div>
-                    <div class="competency-badge competency-high">High</div>
-                    <div class="competency-badge competency-low">Low</div>
-                    <div class="competency-badge competency-high">High</div>
-                    <div class="competency-badge competency-medium">Medium</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="detail-sidebar-footer">
-            <button class="btn-primary-custom w-100 justify-content-center">
-                <span class="material-symbols-outlined" style="font-size: 18px;">download</span>
-                <span>Download Student Report</span>
-            </button>
-        </div>
-    </div>
-
-    <!-- Teacher Sidebar -->
-    <div class="detail-sidebar" id="teacherSidebar">
-        <div class="detail-sidebar-header">
-            <h2 class="detail-sidebar-title">Teacher Details</h2>
-            <button class="btn-close-detail-sidebar" id="closeTeacherSidebar">
-                <span class="material-symbols-outlined">close</span>
-            </button>
-        </div>
-
-        <div class="detail-sidebar-body">
-            <!-- Teacher Profile -->
-            <div class="teacher-profile">
-                <div class="teacher-profile-header">
-                    <img id="teacherAvatar" src="https://i.pravatar.cc/150?img=12" alt="Teacher Avatar" class="teacher-avatar-large">
-                    <div class="teacher-info-details">
-                        <h3 class="teacher-name-large" id="teacherName">John Doe</h3>
-                        <p class="teacher-subject" id="teacherSubject">Math, Grade 8</p>
-                        <span class="status-badge status-active" id="teacherStatusBadge">
-                            <span class="material-symbols-outlined" style="font-size: 14px;">check_circle</span>
-                            <span id="teacherStatus">Active</span>
-                        </span>
-                    </div>
-                </div>
-                <div>
-                    <div class="teacher-detail-row">
-                        <span class="material-symbols-outlined teacher-detail-icon">school</span>
-                        <span class="teacher-detail-label">School:</span>
-                        <span class="teacher-detail-value" id="teacherSchool">Greenwood High</span>
-                    </div>
-                    <div class="teacher-detail-row">
-                        <span class="material-symbols-outlined teacher-detail-icon">mail</span>
-                        <span class="teacher-detail-label">Email:</span>
-                        <span class="teacher-detail-value" id="teacherEmail">john.doe@greenwood.edu</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Performance Metrics -->
-            <h4 class="section-title">Performance Metrics</h4>
-            <div class="metrics-grid mb-4">
-                <div class="metric-box">
-                    <div class="metric-box-label">
-                        <span class="material-symbols-outlined" style="font-size: 16px;">assignment_turned_in</span>
-                        Assessment Completion
-                    </div>
-                    <div class="metric-box-value" id="metricAssessmentCompletion">85%</div>
-                </div>
-                <div class="metric-box">
-                    <div class="metric-box-label">
-                        <span class="material-symbols-outlined" style="font-size: 16px;">fact_check</span>
-                        Attendance Marking
-                    </div>
-                    <div class="metric-box-value" id="metricAttendanceMarking">98%</div>
-                </div>
-                <div class="metric-box">
-                    <div class="metric-box-label">
-                        <span class="material-symbols-outlined" style="font-size: 16px;">trending_up</span>
-                        Avg Student Performance
-                    </div>
-                    <div class="metric-box-value" id="metricAvgPerformance">84%</div>
-                </div>
-                <div class="metric-box">
-                    <div class="metric-box-label">
-                        <span class="material-symbols-outlined" style="font-size: 16px;">groups</span>
-                        Total Students
-                    </div>
-                    <div class="metric-box-value" id="metricTotalStudents">32</div>
-                </div>
-                <div class="metric-box">
-                    <div class="metric-box-label">
-                        <span class="material-symbols-outlined" style="font-size: 16px;">description</span>
-                        Total Assessments
-                    </div>
-                    <div class="metric-box-value" id="metricTotalAssessments">156</div>
-                </div>
-            </div>
-
-            <!-- Class/Grade Overview -->
-            <div class="mb-4">
-                <h4 class="section-title">Class/Grade Overview</h4>
-                <div class="class-overview-card">
-                    <div class="class-header">
-                        <span class="class-name">Grade 8 - Section A</span>
-                        <span class="student-count">18 students</span>
-                    </div>
-                    <div class="class-metrics">
-                        <div class="class-metric-item">
-                            <span class="class-metric-label">Avg Performance</span>
-                            <span class="class-metric-value">86%</span>
+                        <div class="metric-box">
+                            <div class="metric-box-label">
+                                <span class="material-symbols-outlined" style="font-size: 16px;">trending_up</span>
+                                Avg Student Performance
+                            </div>
+                            <div class="metric-box-value" id="metricAvgPerformance">84%</div>
                         </div>
-                        <div class="class-metric-item">
-                            <span class="class-metric-label">Avg Attendance</span>
-                            <span class="class-metric-value">94%</span>
+                        <div class="metric-box">
+                            <div class="metric-box-label">
+                                <span class="material-symbols-outlined" style="font-size: 16px;">groups</span>
+                                Total Students
+                            </div>
+                            <div class="metric-box-value" id="metricTotalStudents">32</div>
+                        </div>
+                        <div class="metric-box">
+                            <div class="metric-box-label">
+                                <span class="material-symbols-outlined" style="font-size: 16px;">description</span>
+                                Total Assessments
+                            </div>
+                            <div class="metric-box-value" id="metricTotalAssessments">156</div>
                         </div>
                     </div>
-                </div>
-                <div class="class-overview-card">
-                    <div class="class-header">
-                        <span class="class-name">Grade 8 - Section B</span>
-                        <span class="student-count">14 students</span>
-                    </div>
-                    <div class="class-metrics">
-                        <div class="class-metric-item">
-                            <span class="class-metric-label">Avg Performance</span>
-                            <span class="class-metric-value">82%</span>
-                        </div>
-                        <div class="class-metric-item">
-                            <span class="class-metric-label">Avg Attendance</span>
-                            <span class="class-metric-value">96%</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-            <!-- Recent Assessments -->
-            <div class="mb-4">
-                <h4 class="section-title">Recent Assessments Reviewed</h4>
-                <div class="recent-assessment-item">
-                    <div class="assessment-header">
-                        <div>
-                            <div class="assessment-student">David Miller</div>
+                    <!-- Class/Grade Overview -->
+                    <div class="mb-4">
+                        <h4 class="section-title">Class/Grade Overview</h4>
+                        <div class="class-overview-card">
+                            <div class="class-header">
+                                <span class="class-name">Grade 8 - Section A</span>
+                                <span class="student-count">18 students</span>
+                            </div>
+                            <div class="class-metrics">
+                                <div class="class-metric-item">
+                                    <span class="class-metric-label">Avg Performance</span>
+                                    <span class="class-metric-value">86%</span>
+                                </div>
+                                <div class="class-metric-item">
+                                    <span class="class-metric-label">Avg Attendance</span>
+                                    <span class="class-metric-value">94%</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="class-overview-card">
+                            <div class="class-header">
+                                <span class="class-name">Grade 8 - Section B</span>
+                                <span class="student-count">14 students</span>
+                            </div>
+                            <div class="class-metrics">
+                                <div class="class-metric-item">
+                                    <span class="class-metric-label">Avg Performance</span>
+                                    <span class="class-metric-value">82%</span>
+                                </div>
+                                <div class="class-metric-item">
+                                    <span class="class-metric-label">Avg Attendance</span>
+                                    <span class="class-metric-value">96%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Assessments -->
+                    <div class="mb-4">
+                        <h4 class="section-title">Recent Assessments Reviewed</h4>
+                        <div class="recent-assessment-item">
+                            <div class="assessment-header">
+                                <div>
+                                    <div class="assessment-student">David Miller</div>
+                                    <div class="assessment-meta">
+                                        <span>Critical Thinking Quiz</span>
+                                    </div>
+                                </div>
+                                <div class="assessment-score-large">92%</div>
+                            </div>
                             <div class="assessment-meta">
-                                <span>Critical Thinking Quiz</span>
+                                <span>📅 Dec 8, 2024</span>
                             </div>
                         </div>
-                        <div class="assessment-score-large">92%</div>
+                        <div class="recent-assessment-item">
+                            <div class="assessment-header">
+                                <div>
+                                    <div class="assessment-student">Sarah Johnson</div>
+                                    <div class="assessment-meta">
+                                        <span>Problem Solving Test</span>
+                                    </div>
+                                </div>
+                                <div class="assessment-score-large">88%</div>
+                            </div>
+                            <div class="assessment-meta">
+                                <span>📅 Dec 7, 2024</span>
+                            </div>
+                        </div>
+                        <div class="recent-assessment-item">
+                            <div class="assessment-header">
+                                <div>
+                                    <div class="assessment-student">Michael Chen</div>
+                                    <div class="assessment-meta">
+                                        <span>Mid-Term Exam</span>
+                                    </div>
+                                </div>
+                                <div class="assessment-score-large">95%</div>
+                            </div>
+                            <div class="assessment-meta">
+                                <span>📅 Dec 6, 2024</span>
+                            </div>
+                        </div>
+                        <div class="recent-assessment-item">
+                            <div class="assessment-header">
+                                <div>
+                                    <div class="assessment-student">Emma Davis</div>
+                                    <div class="assessment-meta">
+                                        <span>Weekly Assessment</span>
+                                    </div>
+                                </div>
+                                <div class="assessment-score-large">79%</div>
+                            </div>
+                            <div class="assessment-meta">
+                                <span>📅 Dec 5, 2024</span>
+                            </div>
+                        </div>
+                        <div class="recent-assessment-item">
+                            <div class="assessment-header">
+                                <div>
+                                    <div class="assessment-student">Lucas Brown</div>
+                                    <div class="assessment-meta">
+                                        <span>Chapter Test</span>
+                                    </div>
+                                </div>
+                                <div class="assessment-score-large">91%</div>
+                            </div>
+                            <div class="assessment-meta">
+                                <span>📅 Dec 4, 2024</span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="assessment-meta">
-                        <span>📅 Dec 8, 2024</span>
+
+                    <!-- Scoring Consistency -->
+                    <div class="mb-4">
+                        <h4 class="section-title">Scoring Consistency Snapshot</h4>
+                        <div class="consistency-card">
+                            <div class="consistency-main">
+                                <div>
+                                    <div class="consistency-value">±3.2%</div>
+                                    <div class="consistency-label">Deviation Percentage</div>
+                                </div>
+                                <div class="consistency-status">
+                                    <div class="status-indicator status-consistent">
+                                        <span class="material-symbols-outlined"
+                                            style="font-size: 14px;">check_circle</span>
+                                        Consistent
+                                    </div>
+                                    <div class="flagged-count">2 flagged assessments</div>
+                                </div>
+                            </div>
+                            <div class="behavior-item">
+                                <span class="behavior-label">Standard Deviation</span>
+                                <span class="behavior-value good">Low</span>
+                            </div>
+                            <div class="behavior-item">
+                                <span class="behavior-label">Scoring Pattern</span>
+                                <span class="behavior-value good">Stable</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Attendance Marking Behavior -->
+                    <div>
+                        <h4 class="section-title">Attendance Marking Behavior</h4>
+                        <div class="consistency-card">
+                            <div class="behavior-item">
+                                <span class="behavior-label">Marking Accuracy</span>
+                                <span class="behavior-value good">98%</span>
+                            </div>
+                            <div class="behavior-item">
+                                <span class="behavior-label">On-Time Marking</span>
+                                <span class="behavior-value good">96%</span>
+                            </div>
+                            <div class="behavior-item">
+                                <span class="behavior-label">Missed Marking Days</span>
+                                <span class="behavior-value">3 days</span>
+                            </div>
+                            <div class="behavior-item">
+                                <span class="behavior-label">Last Marked</span>
+                                <span class="behavior-value">Today, 9:15 AM</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="recent-assessment-item">
-                    <div class="assessment-header">
-                        <div>
-                            <div class="assessment-student">Sarah Johnson</div>
-                            <div class="assessment-meta">
-                                <span>Problem Solving Test</span>
-                            </div>
-                        </div>
-                        <div class="assessment-score-large">88%</div>
-                    </div>
-                    <div class="assessment-meta">
-                        <span>📅 Dec 7, 2024</span>
-                    </div>
-                </div>
-                <div class="recent-assessment-item">
-                    <div class="assessment-header">
-                        <div>
-                            <div class="assessment-student">Michael Chen</div>
-                            <div class="assessment-meta">
-                                <span>Mid-Term Exam</span>
-                            </div>
-                        </div>
-                        <div class="assessment-score-large">95%</div>
-                    </div>
-                    <div class="assessment-meta">
-                        <span>📅 Dec 6, 2024</span>
-                    </div>
-                </div>
-                <div class="recent-assessment-item">
-                    <div class="assessment-header">
-                        <div>
-                            <div class="assessment-student">Emma Davis</div>
-                            <div class="assessment-meta">
-                                <span>Weekly Assessment</span>
-                            </div>
-                        </div>
-                        <div class="assessment-score-large">79%</div>
-                    </div>
-                    <div class="assessment-meta">
-                        <span>📅 Dec 5, 2024</span>
-                    </div>
-                </div>
-                <div class="recent-assessment-item">
-                    <div class="assessment-header">
-                        <div>
-                            <div class="assessment-student">Lucas Brown</div>
-                            <div class="assessment-meta">
-                                <span>Chapter Test</span>
-                            </div>
-                        </div>
-                        <div class="assessment-score-large">91%</div>
-                    </div>
-                    <div class="assessment-meta">
-                        <span>📅 Dec 4, 2024</span>
-                    </div>
+
+                <div class="detail-sidebar-footer">
+                    <button class="btn-primary-custom w-100 justify-content-center">
+                        <span class="material-symbols-outlined" style="font-size: 18px;">download</span>
+                        <span>Download Teacher Report</span>
+                    </button>
                 </div>
             </div>
 
-            <!-- Scoring Consistency -->
-            <div class="mb-4">
-                <h4 class="section-title">Scoring Consistency Snapshot</h4>
-                <div class="consistency-card">
-                    <div class="consistency-main">
-                        <div>
-                            <div class="consistency-value">±3.2%</div>
-                            <div class="consistency-label">Deviation Percentage</div>
-                        </div>
-                        <div class="consistency-status">
-                            <div class="status-indicator status-consistent">
-                                <span class="material-symbols-outlined" style="font-size: 14px;">check_circle</span>
-                                Consistent
-                            </div>
-                            <div class="flagged-count">2 flagged assessments</div>
-                        </div>
-                    </div>
-                    <div class="behavior-item">
-                        <span class="behavior-label">Standard Deviation</span>
-                        <span class="behavior-value good">Low</span>
-                    </div>
-                    <div class="behavior-item">
-                        <span class="behavior-label">Scoring Pattern</span>
-                        <span class="behavior-value good">Stable</span>
-                    </div>
-                </div>
-            </div>
+            <!-- Bootstrap JS -->
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
-            <!-- Attendance Marking Behavior -->
-            <div>
-                <h4 class="section-title">Attendance Marking Behavior</h4>
-                <div class="consistency-card">
-                    <div class="behavior-item">
-                        <span class="behavior-label">Marking Accuracy</span>
-                        <span class="behavior-value good">98%</span>
-                    </div>
-                    <div class="behavior-item">
-                        <span class="behavior-label">On-Time Marking</span>
-                        <span class="behavior-value good">96%</span>
-                    </div>
-                    <div class="behavior-item">
-                        <span class="behavior-label">Missed Marking Days</span>
-                        <span class="behavior-value">3 days</span>
-                    </div>
-                    <div class="behavior-item">
-                        <span class="behavior-label">Last Marked</span>
-                        <span class="behavior-value">Today, 9:15 AM</span>
-                    </div>
-                </div>
-            </div>
-        </div>
+            <!-- Custom JavaScript -->
+            <script>
+                // Chart.js default configuration
+                Chart.defaults.font.family = "'Lexend', sans-serif";
 
-        <div class="detail-sidebar-footer">
-            <button class="btn-primary-custom w-100 justify-content-center">
-                <span class="material-symbols-outlined" style="font-size: 18px;">download</span>
-                <span>Download Teacher Report</span>
-            </button>
-        </div>
-    </div>
-
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Custom JavaScript -->
-    <script>
-        // Chart.js default configuration
-        Chart.defaults.font.family = "'Lexend', sans-serif";
-
-        // Initialize Attendance Trend Chart
-        const attendanceCtx = document.getElementById('attendanceChart');
-        const attendanceChart = new Chart(attendanceCtx, {
-            type: 'line',
-            data: {
-                labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5', 'Week 6'],
-                datasets: [{
-                    label: 'Attendance Rate',
-                    data: [92, 95, 88, 96, 94, 97],
-                    backgroundColor: 'rgba(90, 31, 110, 0.08)',
-                    borderColor: 'rgba(90, 31, 110, 1)',
-                    borderWidth: 2.5,
-                    pointBackgroundColor: 'rgba(90, 31, 110, 1)',
-                    pointBorderColor: '#fff',
-                    pointBorderWidth: 2,
-                    pointRadius: 5,
-                    pointHoverRadius: 7,
-                    pointHoverBorderWidth: 3,
-                    tension: 0.4,
-                    fill: true
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        display: false
+                // Initialize Attendance Trend Chart
+                const attendanceCtx = document.getElementById('attendanceChart');
+                const attendanceChart = new Chart(attendanceCtx, {
+                    type: 'line',
+                    data: {
+                        labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5', 'Week 6'],
+                        datasets: [{
+                            label: 'Attendance Rate',
+                            data: [92, 95, 88, 96, 94, 97],
+                            backgroundColor: 'rgba(90, 31, 110, 0.08)',
+                            borderColor: 'rgba(90, 31, 110, 1)',
+                            borderWidth: 2.5,
+                            pointBackgroundColor: 'rgba(90, 31, 110, 1)',
+                            pointBorderColor: '#fff',
+                            pointBorderWidth: 2,
+                            pointRadius: 5,
+                            pointHoverRadius: 7,
+                            pointHoverBorderWidth: 3,
+                            tension: 0.4,
+                            fill: true
+                        }]
                     },
-                    tooltip: {
-                        backgroundColor: 'rgba(31, 41, 55, 0.95)',
-                        titleColor: '#fff',
-                        bodyColor: '#fff',
-                        padding: 14,
-                        cornerRadius: 10,
-                        displayColors: false,
-                        titleFont: {
-                            size: 13,
-                            weight: '600'
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            tooltip: {
+                                backgroundColor: 'rgba(31, 41, 55, 0.95)',
+                                titleColor: '#fff',
+                                bodyColor: '#fff',
+                                padding: 14,
+                                cornerRadius: 10,
+                                displayColors: false,
+                                titleFont: {
+                                    size: 13,
+                                    weight: '600'
+                                },
+                                bodyFont: {
+                                    size: 14,
+                                    weight: '700'
+                                },
+                                callbacks: {
+                                    label: function (context) {
+                                        return context.parsed.y + '%';
+                                    }
+                                }
+                            }
                         },
-                        bodyFont: {
-                            size: 14,
-                            weight: '700'
+                        scales: {
+                            y: {
+                                beginAtZero: false,
+                                min: 80,
+                                max: 100,
+                                ticks: {
+                                    callback: function (value) {
+                                        return value + '%';
+                                    },
+                                    font: {
+                                        size: 11,
+                                        family: 'Lexend',
+                                        weight: '500'
+                                    },
+                                    color: '#9CA3AF',
+                                    stepSize: 5
+                                },
+                                grid: {
+                                    color: 'rgba(229, 231, 235, 0.6)',
+                                    drawBorder: false,
+                                    lineWidth: 1
+                                },
+                                border: {
+                                    display: false
+                                }
+                            },
+                            x: {
+                                ticks: {
+                                    font: {
+                                        size: 11,
+                                        family: 'Lexend',
+                                        weight: '500'
+                                    },
+                                    color: '#9CA3AF'
+                                },
+                                grid: {
+                                    display: false,
+                                    drawBorder: false
+                                },
+                                border: {
+                                    display: false
+                                }
+                            }
                         },
-                        callbacks: {
-                            label: function(context) {
-                                return context.parsed.y + '%';
+                        interaction: {
+                            intersect: false,
+                            mode: 'index'
+                        }
+                    }
+                });
+
+                // Initialize Performance Breakdown Chart (Doughnut)
+                const performanceCtx = document.getElementById('performanceChart');
+                const performanceChart = new Chart(performanceCtx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Completed', 'Remaining'],
+                        datasets: [{
+                            data: [82, 18],
+                            backgroundColor: [
+                                'rgba(90, 31, 110, 1)',
+                                'rgba(229, 231, 235, 0.5)'
+                            ],
+                            borderWidth: 0,
+                            borderRadius: 0,
+                            spacing: 0
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        cutout: '78%',
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            tooltip: {
+                                backgroundColor: 'rgba(31, 41, 55, 0.95)',
+                                titleColor: '#fff',
+                                bodyColor: '#fff',
+                                padding: 14,
+                                cornerRadius: 10,
+                                titleFont: {
+                                    size: 13,
+                                    weight: '600'
+                                },
+                                bodyFont: {
+                                    size: 14,
+                                    weight: '700'
+                                },
+                                callbacks: {
+                                    label: function (context) {
+                                        return context.label + ': ' + context.parsed + '%';
+                                    }
+                                }
                             }
                         }
-                    }
-                },
-                scales: {
-                    y: {
-                        beginAtZero: false,
-                        min: 80,
-                        max: 100,
-                        ticks: {
-                            callback: function(value) {
-                                return value + '%';
-                            },
-                            font: {
-                                size: 11,
-                                family: 'Lexend',
-                                weight: '500'
-                            },
-                            color: '#9CA3AF',
-                            stepSize: 5
-                        },
-                        grid: {
-                            color: 'rgba(229, 231, 235, 0.6)',
-                            drawBorder: false,
-                            lineWidth: 1
-                        },
-                        border: {
-                            display: false
-                        }
                     },
-                    x: {
-                        ticks: {
-                            font: {
-                                size: 11,
-                                family: 'Lexend',
-                                weight: '500'
-                            },
-                            color: '#9CA3AF'
-                        },
-                        grid: {
-                            display: false,
-                            drawBorder: false
-                        },
-                        border: {
-                            display: false
+                    plugins: [{
+                        id: 'centerText',
+                        beforeDraw: function (chart) {
+                            const width = chart.width;
+                            const height = chart.height;
+                            const ctx = chart.ctx;
+                            ctx.restore();
+
+                            const fontSize = (height / 100).toFixed(2);
+                            ctx.font = 'bold ' + fontSize + 'em Lexend';
+                            ctx.textBaseline = 'middle';
+                            ctx.fillStyle = '#100c1d';
+
+                            const text = '82%';
+                            const textX = Math.round((width - ctx.measureText(text).width) / 2);
+                            const textY = height / 2;
+
+                            ctx.fillText(text, textX, textY - 12);
+
+                            ctx.font = (fontSize * 0.45) + 'em Lexend';
+                            ctx.fillStyle = '#6B7280';
+                            ctx.fontWeight = '500';
+                            const subText = 'Avg.';
+                            const subTextX = Math.round((width - ctx.measureText(subText).width) / 2);
+                            ctx.fillText(subText, subTextX, textY + 16);
+
+                            ctx.save();
                         }
+                    }]
+                });
+
+                // Detail Sidebar functionality (Student/Teacher panels)
+                const studentDetailSidebar = document.getElementById('studentDetailSidebar');
+                const teacherDetailSidebar = document.getElementById('teacherSidebar');
+                const detailSidebarOverlay = document.getElementById('detailSidebarOverlay');
+                const closeStudentSidebar = document.getElementById('closeStudentSidebar');
+                const closeTeacherSidebar = document.getElementById('closeTeacherSidebar');
+                const viewButtons = document.querySelectorAll('.view-student-btn');
+                const viewTeacherButtons = document.querySelectorAll('.view-teacher-btn');
+
+                // Student Sidebar elements
+                const studentName = document.getElementById('studentName');
+                const studentGrade = document.getElementById('studentGrade');
+                const studentTeacher = document.getElementById('studentTeacher');
+                const studentAvatar = document.getElementById('studentAvatar');
+                const statPerformance = document.getElementById('statPerformance');
+                const statAttendance = document.getElementById('statAttendance');
+                const statLMS = document.getElementById('statLMS');
+                const statAssessments = document.getElementById('statAssessments');
+
+                // Teacher Sidebar elements
+                const teacherName = document.getElementById('teacherName');
+                const teacherSubject = document.getElementById('teacherSubject');
+                const teacherSchool = document.getElementById('teacherSchool');
+                const teacherEmail = document.getElementById('teacherEmail');
+                const teacherStatus = document.getElementById('teacherStatus');
+                const teacherStatusBadge = document.getElementById('teacherStatusBadge');
+                const teacherAvatar = document.getElementById('teacherAvatar');
+                const metricAssessmentCompletion = document.getElementById('metricAssessmentCompletion');
+                const metricAttendanceMarking = document.getElementById('metricAttendanceMarking');
+                const metricAvgPerformance = document.getElementById('metricAvgPerformance');
+                const metricTotalStudents = document.getElementById('metricTotalStudents');
+                const metricTotalAssessments = document.getElementById('metricTotalAssessments');
+
+                // Open student sidebar
+                function openStudentDetailSidebar(studentData) {
+                    // Close teacher sidebar if open
+                    teacherDetailSidebar.classList.remove('active');
+
+                    studentName.textContent = studentData.name;
+                    studentGrade.textContent = studentData.grade + ' • ' + studentData.school;
+                    studentTeacher.textContent = 'Assigned Teacher: ' + studentData.teacher;
+                    studentAvatar.src = studentData.avatar;
+                    studentAvatar.alt = studentData.name;
+                    statPerformance.textContent = studentData.performance;
+                    statAttendance.textContent = studentData.attendance;
+                    statLMS.textContent = studentData.lms;
+                    statAssessments.textContent = studentData.assessments;
+
+                    studentDetailSidebar.classList.add('active');
+                    detailSidebarOverlay.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                }
+
+                // Open teacher sidebar
+                function openTeacherDetailSidebar(teacherData) {
+                    // Close student sidebar if open
+                    studentDetailSidebar.classList.remove('active');
+
+                    teacherName.textContent = teacherData.name;
+                    teacherSubject.textContent = teacherData.subject;
+                    teacherSchool.textContent = teacherData.school;
+                    teacherEmail.textContent = teacherData.email;
+                    teacherStatus.textContent = teacherData.status;
+                    teacherAvatar.src = teacherData.avatar;
+                    teacherAvatar.alt = teacherData.name;
+
+                    // Update status badge
+                    if (teacherData.status.toLowerCase() === 'active') {
+                        teacherStatusBadge.className = 'status-badge status-active';
+                    } else {
+                        teacherStatusBadge.className = 'status-badge status-inactive';
                     }
-                },
-                interaction: {
-                    intersect: false,
-                    mode: 'index'
-                }
-            }
-        });
 
-        // Initialize Performance Breakdown Chart (Doughnut)
-        const performanceCtx = document.getElementById('performanceChart');
-        const performanceChart = new Chart(performanceCtx, {
-            type: 'doughnut',
-            data: {
-                labels: ['Completed', 'Remaining'],
-                datasets: [{
-                    data: [82, 18],
-                    backgroundColor: [
-                        'rgba(90, 31, 110, 1)',
-                        'rgba(229, 231, 235, 0.5)'
-                    ],
-                    borderWidth: 0,
-                    borderRadius: 0,
-                    spacing: 0
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                cutout: '78%',
-                plugins: {
-                    legend: {
-                        display: false
-                    },
-                    tooltip: {
-                        backgroundColor: 'rgba(31, 41, 55, 0.95)',
-                        titleColor: '#fff',
-                        bodyColor: '#fff',
-                        padding: 14,
-                        cornerRadius: 10,
-                        titleFont: {
-                            size: 13,
-                            weight: '600'
-                        },
-                        bodyFont: {
-                            size: 14,
-                            weight: '700'
-                        },
-                        callbacks: {
-                            label: function(context) {
-                                return context.label + ': ' + context.parsed + '%';
-                            }
-                        }
+                    metricAssessmentCompletion.textContent = teacherData.assessmentCompletion;
+                    metricAttendanceMarking.textContent = teacherData.attendanceMarking;
+                    metricAvgPerformance.textContent = teacherData.avgPerformance;
+                    metricTotalStudents.textContent = teacherData.totalStudents;
+                    metricTotalAssessments.textContent = teacherData.totalAssessments;
+
+                    teacherDetailSidebar.classList.add('active');
+                    detailSidebarOverlay.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                }
+
+                // Close detail sidebars
+                function closeDetailSidebarFunc() {
+                    studentDetailSidebar.classList.remove('active');
+                    teacherDetailSidebar.classList.remove('active');
+                    detailSidebarOverlay.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+
+                // Event listeners for student view buttons
+                viewButtons.forEach(button => {
+                    button.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        const studentData = {
+                            name: this.getAttribute('data-name'),
+                            grade: this.getAttribute('data-grade'),
+                            school: this.getAttribute('data-school'),
+                            teacher: this.getAttribute('data-teacher'),
+                            performance: this.getAttribute('data-performance'),
+                            attendance: this.getAttribute('data-attendance'),
+                            lms: this.getAttribute('data-lms'),
+                            assessments: this.getAttribute('data-assessments'),
+                            avatar: this.getAttribute('data-avatar')
+                        };
+                        openStudentDetailSidebar(studentData);
+                    });
+                });
+
+                // Event listeners for teacher view buttons
+                viewTeacherButtons.forEach(button => {
+                    button.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        const teacherData = {
+                            name: this.getAttribute('data-name'),
+                            subject: this.getAttribute('data-subject'),
+                            school: this.getAttribute('data-school'),
+                            email: this.getAttribute('data-email'),
+                            status: this.getAttribute('data-status'),
+                            assessmentCompletion: this.getAttribute('data-assessment-completion'),
+                            attendanceMarking: this.getAttribute('data-attendance-marking'),
+                            avgPerformance: this.getAttribute('data-avg-performance'),
+                            totalStudents: this.getAttribute('data-total-students'),
+                            totalAssessments: this.getAttribute('data-total-assessments'),
+                            avatar: this.getAttribute('data-avatar')
+                        };
+                        openTeacherDetailSidebar(teacherData);
+                    });
+                });
+
+                // Close detail sidebar events
+                closeStudentSidebar.addEventListener('click', closeDetailSidebarFunc);
+                closeTeacherSidebar.addEventListener('click', closeDetailSidebarFunc);
+                detailSidebarOverlay.addEventListener('click', closeDetailSidebarFunc);
+
+                // Close detail sidebar on Escape key
+                document.addEventListener('keydown', function (e) {
+                    if (e.key === 'Escape' && (studentDetailSidebar.classList.contains('active') || teacherDetailSidebar.classList.contains('active'))) {
+                        closeDetailSidebarFunc();
                     }
-                }
-            },
-            plugins: [{
-                id: 'centerText',
-                beforeDraw: function(chart) {
-                    const width = chart.width;
-                    const height = chart.height;
-                    const ctx = chart.ctx;
-                    ctx.restore();
-                    
-                    const fontSize = (height / 100).toFixed(2);
-                    ctx.font = 'bold ' + fontSize + 'em Lexend';
-                    ctx.textBaseline = 'middle';
-                    ctx.fillStyle = '#100c1d';
-                    
-                    const text = '82%';
-                    const textX = Math.round((width - ctx.measureText(text).width) / 2);
-                    const textY = height / 2;
-                    
-                    ctx.fillText(text, textX, textY - 12);
-                    
-                    ctx.font = (fontSize * 0.45) + 'em Lexend';
-                    ctx.fillStyle = '#6B7280';
-                    ctx.fontWeight = '500';
-                    const subText = 'Avg.';
-                    const subTextX = Math.round((width - ctx.measureText(subText).width) / 2);
-                    ctx.fillText(subText, subTextX, textY + 16);
-                    
-                    ctx.save();
-                }
-            }]
-        });
-
-        // Detail Sidebar functionality (Student/Teacher panels)
-        const studentDetailSidebar = document.getElementById('studentDetailSidebar');
-        const teacherDetailSidebar = document.getElementById('teacherSidebar');
-        const detailSidebarOverlay = document.getElementById('detailSidebarOverlay');
-        const closeStudentSidebar = document.getElementById('closeStudentSidebar');
-        const closeTeacherSidebar = document.getElementById('closeTeacherSidebar');
-        const viewButtons = document.querySelectorAll('.view-student-btn');
-        const viewTeacherButtons = document.querySelectorAll('.view-teacher-btn');
-
-        // Student Sidebar elements
-        const studentName = document.getElementById('studentName');
-        const studentGrade = document.getElementById('studentGrade');
-        const studentTeacher = document.getElementById('studentTeacher');
-        const studentAvatar = document.getElementById('studentAvatar');
-        const statPerformance = document.getElementById('statPerformance');
-        const statAttendance = document.getElementById('statAttendance');
-        const statLMS = document.getElementById('statLMS');
-        const statAssessments = document.getElementById('statAssessments');
-
-        // Teacher Sidebar elements
-        const teacherName = document.getElementById('teacherName');
-        const teacherSubject = document.getElementById('teacherSubject');
-        const teacherSchool = document.getElementById('teacherSchool');
-        const teacherEmail = document.getElementById('teacherEmail');
-        const teacherStatus = document.getElementById('teacherStatus');
-        const teacherStatusBadge = document.getElementById('teacherStatusBadge');
-        const teacherAvatar = document.getElementById('teacherAvatar');
-        const metricAssessmentCompletion = document.getElementById('metricAssessmentCompletion');
-        const metricAttendanceMarking = document.getElementById('metricAttendanceMarking');
-        const metricAvgPerformance = document.getElementById('metricAvgPerformance');
-        const metricTotalStudents = document.getElementById('metricTotalStudents');
-        const metricTotalAssessments = document.getElementById('metricTotalAssessments');
-
-        // Open student sidebar
-        function openStudentDetailSidebar(studentData) {
-            // Close teacher sidebar if open
-            teacherDetailSidebar.classList.remove('active');
-            
-            studentName.textContent = studentData.name;
-            studentGrade.textContent = studentData.grade + ' • ' + studentData.school;
-            studentTeacher.textContent = 'Assigned Teacher: ' + studentData.teacher;
-            studentAvatar.src = studentData.avatar;
-            studentAvatar.alt = studentData.name;
-            statPerformance.textContent = studentData.performance;
-            statAttendance.textContent = studentData.attendance;
-            statLMS.textContent = studentData.lms;
-            statAssessments.textContent = studentData.assessments;
-
-            studentDetailSidebar.classList.add('active');
-            detailSidebarOverlay.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-
-        // Open teacher sidebar
-        function openTeacherDetailSidebar(teacherData) {
-            // Close student sidebar if open
-            studentDetailSidebar.classList.remove('active');
-            
-            teacherName.textContent = teacherData.name;
-            teacherSubject.textContent = teacherData.subject;
-            teacherSchool.textContent = teacherData.school;
-            teacherEmail.textContent = teacherData.email;
-            teacherStatus.textContent = teacherData.status;
-            teacherAvatar.src = teacherData.avatar;
-            teacherAvatar.alt = teacherData.name;
-            
-            // Update status badge
-            if (teacherData.status.toLowerCase() === 'active') {
-                teacherStatusBadge.className = 'status-badge status-active';
-            } else {
-                teacherStatusBadge.className = 'status-badge status-inactive';
-            }
-            
-            metricAssessmentCompletion.textContent = teacherData.assessmentCompletion;
-            metricAttendanceMarking.textContent = teacherData.attendanceMarking;
-            metricAvgPerformance.textContent = teacherData.avgPerformance;
-            metricTotalStudents.textContent = teacherData.totalStudents;
-            metricTotalAssessments.textContent = teacherData.totalAssessments;
-
-            teacherDetailSidebar.classList.add('active');
-            detailSidebarOverlay.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-
-        // Close detail sidebars
-        function closeDetailSidebarFunc() {
-            studentDetailSidebar.classList.remove('active');
-            teacherDetailSidebar.classList.remove('active');
-            detailSidebarOverlay.classList.remove('active');
-            document.body.style.overflow = '';
-        }
-
-        // Event listeners for student view buttons
-        viewButtons.forEach(button => {
-            button.addEventListener('click', function(e) {
-                e.preventDefault();
-                const studentData = {
-                    name: this.getAttribute('data-name'),
-                    grade: this.getAttribute('data-grade'),
-                    school: this.getAttribute('data-school'),
-                    teacher: this.getAttribute('data-teacher'),
-                    performance: this.getAttribute('data-performance'),
-                    attendance: this.getAttribute('data-attendance'),
-                    lms: this.getAttribute('data-lms'),
-                    assessments: this.getAttribute('data-assessments'),
-                    avatar: this.getAttribute('data-avatar')
-                };
-                openStudentDetailSidebar(studentData);
-            });
-        });
-
-        // Event listeners for teacher view buttons
-        viewTeacherButtons.forEach(button => {
-            button.addEventListener('click', function(e) {
-                e.preventDefault();
-                const teacherData = {
-                    name: this.getAttribute('data-name'),
-                    subject: this.getAttribute('data-subject'),
-                    school: this.getAttribute('data-school'),
-                    email: this.getAttribute('data-email'),
-                    status: this.getAttribute('data-status'),
-                    assessmentCompletion: this.getAttribute('data-assessment-completion'),
-                    attendanceMarking: this.getAttribute('data-attendance-marking'),
-                    avgPerformance: this.getAttribute('data-avg-performance'),
-                    totalStudents: this.getAttribute('data-total-students'),
-                    totalAssessments: this.getAttribute('data-total-assessments'),
-                    avatar: this.getAttribute('data-avatar')
-                };
-                openTeacherDetailSidebar(teacherData);
-            });
-        });
-
-        // Close detail sidebar events
-        closeStudentSidebar.addEventListener('click', closeDetailSidebarFunc);
-        closeTeacherSidebar.addEventListener('click', closeDetailSidebarFunc);
-        detailSidebarOverlay.addEventListener('click', closeDetailSidebarFunc);
-
-        // Close detail sidebar on Escape key
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && (studentDetailSidebar.classList.contains('active') || teacherDetailSidebar.classList.contains('active'))) {
-                closeDetailSidebarFunc();
-            }
-        });
-    </script>
+                });
+            </script>
         </main>
     </div>
 
@@ -2182,4 +2204,5 @@
         }
     </script>
 </body>
+
 </html>
