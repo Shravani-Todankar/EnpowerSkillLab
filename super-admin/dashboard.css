@@ -436,12 +436,11 @@ body {
     height: 10px;
     border-radius: 5px;
     background: linear-gradient(90deg,
-        rgba(59, 130, 246, 0.1) 0%,
-        rgba(59, 130, 246, 0.3) 25%,
-        rgba(59, 130, 246, 0.5) 50%,
-        rgba(59, 130, 246, 0.7) 75%,
-        rgba(59, 130, 246, 0.9) 100%
-    );
+            rgba(59, 130, 246, 0.1) 0%,
+            rgba(59, 130, 246, 0.3) 25%,
+            rgba(59, 130, 246, 0.5) 50%,
+            rgba(59, 130, 246, 0.7) 75%,
+            rgba(59, 130, 246, 0.9) 100%);
 }
 
 /* LMS Stats */
@@ -922,7 +921,13 @@ body {
     }
 
     .lms-stats-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .lms-stat-item {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
     }
 
     .quick-actions-grid {
@@ -944,12 +949,14 @@ body {
     }
 
     .stats-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
         gap: 0.75rem;
     }
 
     .stat-card {
         padding: 1rem;
+        display: flex;
+        flex-direction: column;
     }
 
     .content-grid,
@@ -972,7 +979,7 @@ body {
 
 @media (max-width: 640px) {
     .stats-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
     }
 
     .quick-actions-grid {

@@ -1,18 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thinking Coach Performance Dashboard</title>
-    
+
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    
+
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
     <!-- Material Icons -->
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet">
 
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
@@ -148,11 +151,11 @@
             grid-template-rows: repeat(4, 1fr);
         }
 
-        .chart-grid > div {
+        .chart-grid>div {
             border-bottom: 1px solid #F3F4F6;
         }
 
-        .chart-grid > div:last-child {
+        .chart-grid>div:last-child {
             border-bottom: none;
         }
 
@@ -219,10 +222,21 @@
         }
 
         /* Bar colors */
-        .bar-purple { background: linear-gradient(to top, #6b277e, #9333ea); }
-        .bar-teal { background: linear-gradient(to top, #14B8A6, #5EEAD4); }
-        .bar-amber { background: linear-gradient(to top, #F59E0B, #FCD34D); }
-        .bar-pink { background: linear-gradient(to top, #EC4899, #FB7185); }
+        .bar-purple {
+            background: linear-gradient(to top, #6b277e, #9333ea);
+        }
+
+        .bar-teal {
+            background: linear-gradient(to top, #14B8A6, #5EEAD4);
+        }
+
+        .bar-amber {
+            background: linear-gradient(to top, #F59E0B, #FCD34D);
+        }
+
+        .bar-pink {
+            background: linear-gradient(to top, #EC4899, #FB7185);
+        }
 
         /* Quick Insights */
         .insight-item {
@@ -288,9 +302,17 @@
             border: 2px solid white;
         }
 
-        .status-online { background-color: #10B981; }
-        .status-busy { background-color: #F59E0B; }
-        .status-offline { background-color: #EF4444; }
+        .status-online {
+            background-color: #10B981;
+        }
+
+        .status-busy {
+            background-color: #F59E0B;
+        }
+
+        .status-offline {
+            background-color: #EF4444;
+        }
 
         .badge-custom {
             display: inline-flex;
@@ -471,6 +493,17 @@
             .coach-sidebar {
                 max-width: 100%;
             }
+
+            .d-flex.justify-content-between.align-items-center.mb-4.tc-header {
+                display: flex !important;
+                flex-direction: column;
+                align-items: flex-start !important;
+            }
+
+            .row.g-4.mb-4.stat-card-grid {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
 
         .dashboard-container {
@@ -600,7 +633,7 @@
             }
 
             .btn-export {
-                width: 100%;
+                width: 50%;
                 justify-content: center;
                 margin-top: 1rem;
             }
@@ -625,7 +658,8 @@
                 padding: 1rem !important;
             }
 
-            .h5, .h6 {
+            .h5,
+            .h6 {
                 font-size: 0.9rem !important;
             }
 
@@ -666,10 +700,6 @@
 
             .badge-custom {
                 display: none;
-            }
-
-            .material-symbols-outlined {
-                font-size: 16px !important;
             }
 
             .btn-view {
@@ -781,6 +811,7 @@
 
         /* Print styles */
         @media print {
+
             .btn-export,
             .btn-view,
             .search-wrapper,
@@ -807,6 +838,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="dashboard-container">
         <!-- Include Sidebar Component -->
@@ -819,300 +851,301 @@
 
             <!-- Page Content -->
             <div class="container-fluid px-4 py-4">
-        <div class="mx-auto" style="max-width: 1400px;">
-            <!-- Header -->
-            <div class="d-flex justify-content-between align-items-center mb-4">
-                <h1 class="fw-bold mb-0" style="font-size: 1.875rem;">Thinking Coach Performance</h1>
-                <button class="btn btn-export">
-                    <span class="material-symbols-outlined" style="font-size: 18px;">download</span>
-                    <span>Export Report</span>
-                </button>
-            </div>
+                <div class="mx-auto" style="max-width: 1400px;">
+                    <!-- Header -->
+                    <div class="d-flex justify-content-between align-items-center mb-4 tc-header">
+                        <h1 class="fw-bold mb-0" style="font-size: 1.875rem;">Thinking Coach Performance</h1>
+                        <button class="btn btn-export">
+                            <span class="material-symbols-outlined" style="font-size: 18px;">download</span>
+                            <span>Export Report</span>
+                        </button>
+                    </div>
 
-            <!-- Stats Cards -->
-            <div class="row g-4 mb-4">
-                <div class="col-12 col-md-6 col-lg-4">
-                    <div class="card stat-card border-0">
-                        <div class="card-body p-4">
-                            <div class="d-flex justify-content-between align-items-start mb-2">
-                                <p class="mb-0 text-muted fw-medium">Total Thinking Coaches</p>
-                                <div class="icon-wrapper">
-                                    <span class="material-symbols-outlined">group</span>
+                    <!-- Stats Cards -->
+                    <div class="row g-4 mb-4 stat-card-grid">
+                        <div class="col-12 col-md-6 col-lg-4">
+                            <div class="card stat-card border-0">
+                                <div class="card-body p-4">
+                                    <div class="d-flex justify-content-between align-items-start mb-2">
+                                        <p class="mb-0 text-muted fw-medium">Total Thinking Coaches</p>
+                                        <div class="icon-wrapper">
+                                            <span class="material-symbols-outlined">group</span>
+                                        </div>
+                                    </div>
+                                    <p class="stat-value mb-0">42</p>
                                 </div>
                             </div>
-                            <p class="stat-value mb-0">42</p>
                         </div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-6 col-lg-4">
-                    <div class="card stat-card border-0">
-                        <div class="card-body p-4">
-                            <div class="d-flex justify-content-between align-items-start mb-2">
-                                <p class="mb-0 text-muted fw-medium">Avg Assessment Quality</p>
-                                <div class="icon-wrapper">
-                                    <span class="material-symbols-outlined">star_rate</span>
+                        <div class="col-12 col-md-6 col-lg-4">
+                            <div class="card stat-card border-0">
+                                <div class="card-body p-4">
+                                    <div class="d-flex justify-content-between align-items-start mb-2">
+                                        <p class="mb-0 text-muted fw-medium">Avg Assessment Quality</p>
+                                        <div class="icon-wrapper">
+                                            <span class="material-symbols-outlined">star_rate</span>
+                                        </div>
+                                    </div>
+                                    <p class="stat-value mb-0">8.9/10</p>
                                 </div>
                             </div>
-                            <p class="stat-value mb-0">8.9/10</p>
                         </div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-6 col-lg-4">
-                    <div class="card stat-card border-0">
-                        <div class="card-body p-4">
-                            <div class="d-flex justify-content-between align-items-start mb-2">
-                                <p class="mb-0 text-muted fw-medium">Avg Session Completion</p>
-                                <div class="icon-wrapper">
-                                    <span class="material-symbols-outlined">task_alt</span>
+                        <div class="col-12 col-md-6 col-lg-4">
+                            <div class="card stat-card border-0">
+                                <div class="card-body p-4">
+                                    <div class="d-flex justify-content-between align-items-start mb-2">
+                                        <p class="mb-0 text-muted fw-medium">Avg Session Completion</p>
+                                        <div class="icon-wrapper">
+                                            <span class="material-symbols-outlined">task_alt</span>
+                                        </div>
+                                    </div>
+                                    <p class="stat-value mb-0">96%</p>
                                 </div>
                             </div>
-                            <p class="stat-value mb-0">96%</p>
                         </div>
                     </div>
-                </div>
-            </div>
 
-            <!-- Performance Overview & Quick Insights -->
-            <div class="row g-4 mb-4">
-                <!-- Performance Overview -->
-                <div class="col-12 col-lg-8">
+                    <!-- Performance Overview & Quick Insights -->
+                    <div class="row g-4 mb-4">
+                        <!-- Performance Overview -->
+                        <div class="col-12 col-lg-8">
+                            <div class="card chart-card border-0">
+                                <div class="card-body p-4">
+                                    <h2 class="h5 fw-bold mb-4">Performance Overview</h2>
+                                    <div style="height: 320px; position: relative;">
+                                        <canvas id="performanceChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Quick Insights -->
+                        <div class="col-12 col-lg-4">
+                            <div class="card chart-card border-0 h-100">
+                                <div class="card-body p-4">
+                                    <h3 class="h6 fw-bold mb-4">Quick Insights</h3>
+                                    <div class="d-flex flex-column gap-3">
+                                        <div class="insight-item">
+                                            <span
+                                                class="material-symbols-outlined text-success insight-icon">thumb_up</span>
+                                            <div>
+                                                <strong class="fw-semibold">General Performance:</strong> Most coaches
+                                                are meeting or exceeding timeliness and session completion targets.
+                                            </div>
+                                        </div>
+                                        <div class="insight-item">
+                                            <span
+                                                class="material-symbols-outlined text-warning insight-icon">flag</span>
+                                            <div>
+                                                <strong class="fw-semibold">Areas for Attention:</strong> Student
+                                                Improvement scores show the most variance. Focus on coaches in the
+                                                'Needs Attention' category.
+                                            </div>
+                                        </div>
+                                        <div class="insight-item">
+                                            <span
+                                                class="material-symbols-outlined text-primary insight-icon">trending_up</span>
+                                            <div>
+                                                <strong class="fw-semibold">Monthly Trend:</strong> Average performance
+                                                score is up 3% from last month.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- All Thinking Coaches Table -->
                     <div class="card chart-card border-0">
                         <div class="card-body p-4">
-                            <h2 class="h5 fw-bold mb-4">Performance Overview</h2>
-                            <div style="height: 320px; position: relative;">
-                                <canvas id="performanceChart"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                            <h2 class="h5 fw-bold mb-4">All Thinking Coaches</h2>
 
-                <!-- Quick Insights -->
-                <div class="col-12 col-lg-4">
-                    <div class="card chart-card border-0 h-100">
-                        <div class="card-body p-4">
-                            <h3 class="h6 fw-bold mb-4">Quick Insights</h3>
-                            <div class="d-flex flex-column gap-3">
-                                <div class="insight-item">
-                                    <span class="material-symbols-outlined text-success insight-icon">thumb_up</span>
-                                    <div>
-                                        <strong class="fw-semibold">General Performance:</strong> Most coaches are meeting or exceeding timeliness and session completion targets.
+                            <!-- Filters -->
+                            <div class="row g-3 mb-4">
+                                <div class="col-12 col-md-6 col-lg-3">
+                                    <div class="search-wrapper">
+                                        <span class="material-symbols-outlined search-icon"
+                                            style="font-size: 20px;">search</span>
+                                        <input type="text" class="form-control search-input" id="searchInput"
+                                            placeholder="Search by coach name...">
                                     </div>
                                 </div>
-                                <div class="insight-item">
-                                    <span class="material-symbols-outlined text-warning insight-icon">flag</span>
-                                    <div>
-                                        <strong class="fw-semibold">Areas for Attention:</strong> Student Improvement scores show the most variance. Focus on coaches in the 'Needs Attention' category.
-                                    </div>
+                                <div class="col-12 col-md-6 col-lg-3">
+                                    <select class="form-select filter-select" id="schoolFilter">
+                                        <option value="" selected>All Schools</option>
+                                        <option value="Maplewood High School">Maplewood High School</option>
+                                        <option value="Springfield Academy">Springfield Academy</option>
+                                        <option value="Riverside School">Riverside School</option>
+                                        <option value="Lincoln High School">Lincoln High School</option>
+                                    </select>
                                 </div>
-                                <div class="insight-item">
-                                    <span class="material-symbols-outlined text-primary insight-icon">trending_up</span>
-                                    <div>
-                                        <strong class="fw-semibold">Monthly Trend:</strong> Average performance score is up 3% from last month.
-                                    </div>
+                                <div class="col-12 col-md-6 col-lg-3">
+                                    <select class="form-select filter-select" id="performanceFilter">
+                                        <option value="" selected>Performance Range</option>
+                                        <option value="top">Top Performer (9.0+)</option>
+                                        <option value="consistent">Consistent (8.0-8.9)</option>
+                                        <option value="attention">Needs Attention (&lt;8.0)</option>
+                                    </select>
                                 </div>
+                                <div class="col-12 col-md-6 col-lg-3">
+                                    <select class="form-select filter-select" id="accuracyFilter">
+                                        <option value="" selected>Rating Accuracy</option>
+                                        <option value="high">95%+</option>
+                                        <option value="medium">90-94%</option>
+                                        <option value="low">&lt;90%</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Table -->
+                            <div class="table-responsive">
+                                <table class="table table-custom mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th>THINKING COACH NAME</th>
+                                            <th>ASSIGNED SCHOOLS</th>
+                                            <th>AVG PERFORMANCE SCORE</th>
+                                            <th>RATING ACCURACY</th>
+                                            <th>LAST ACTIVE</th>
+                                            <th class="text-end"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="coachTableBody">
+                                        <tr data-name="Jane Doe" data-school="Maplewood High School" data-score="9.2"
+                                            data-accuracy="98">
+                                            <td>
+                                                <div class="d-flex align-items-center gap-3">
+                                                    <div class="position-relative">
+                                                        <img src="https://i.pravatar.cc/150?img=47" alt="Jane Doe"
+                                                            class="coach-avatar">
+                                                        <span class="status-dot status-online"></span>
+                                                    </div>
+                                                    <span class="fw-medium">Jane Doe</span>
+                                                </div>
+                                            </td>
+                                            <td>5</td>
+                                            <td>
+                                                <div class="d-flex align-items-center gap-2">
+                                                    <span>9.2/10</span>
+                                                    <span class="badge-custom badge-top">Top Performer</span>
+                                                    <span class="material-symbols-outlined text-success"
+                                                        style="font-size: 18px;">arrow_upward</span>
+                                                </div>
+                                            </td>
+                                            <td><span class="fw-semibold text-success">98%</span></td>
+                                            <td>Active 2h ago</td>
+                                            <td class="text-end">
+                                                <button class="btn-view view-coach-btn" data-name="Jane Doe"
+                                                    data-school="Maplewood High School" data-score="9.2/10"
+                                                    data-accuracy="98%" data-assessments="120" data-timeliness="24h"
+                                                    data-avatar="https://i.pravatar.cc/150?img=47">
+                                                    View
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr data-name="John Smith" data-school="Springfield Academy" data-score="8.7"
+                                            data-accuracy="95">
+                                            <td>
+                                                <div class="d-flex align-items-center gap-3">
+                                                    <div class="position-relative">
+                                                        <img src="https://i.pravatar.cc/150?img=12" alt="John Smith"
+                                                            class="coach-avatar">
+                                                        <span class="status-dot status-online"></span>
+                                                    </div>
+                                                    <span class="fw-medium">John Smith</span>
+                                                </div>
+                                            </td>
+                                            <td>3</td>
+                                            <td>
+                                                <div class="d-flex align-items-center gap-2">
+                                                    <span>8.7/10</span>
+                                                    <span class="badge-custom badge-consistent">Consistent</span>
+                                                    <span class="material-symbols-outlined text-muted"
+                                                        style="font-size: 18px;">remove</span>
+                                                </div>
+                                            </td>
+                                            <td><span class="fw-semibold text-success">95%</span></td>
+                                            <td>Yesterday</td>
+                                            <td class="text-end">
+                                                <button class="btn-view view-coach-btn" data-name="John Smith"
+                                                    data-school="Springfield Academy" data-score="8.7/10"
+                                                    data-accuracy="95%" data-assessments="85" data-timeliness="18h"
+                                                    data-avatar="https://i.pravatar.cc/150?img=12">
+                                                    View
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr data-name="Emily White" data-school="Riverside School" data-score="8.1"
+                                            data-accuracy="92">
+                                            <td>
+                                                <div class="d-flex align-items-center gap-3">
+                                                    <div class="position-relative">
+                                                        <img src="https://i.pravatar.cc/150?img=45" alt="Emily White"
+                                                            class="coach-avatar">
+                                                        <span class="status-dot status-busy"></span>
+                                                    </div>
+                                                    <span class="fw-medium">Emily White</span>
+                                                </div>
+                                            </td>
+                                            <td>4</td>
+                                            <td>
+                                                <div class="d-flex align-items-center gap-2">
+                                                    <span>8.1/10</span>
+                                                    <span class="badge-custom badge-attention">Needs Attention</span>
+                                                    <span class="material-symbols-outlined text-danger"
+                                                        style="font-size: 18px;">arrow_downward</span>
+                                                </div>
+                                            </td>
+                                            <td><span class="fw-semibold text-warning">92%</span></td>
+                                            <td>Active 2d ago</td>
+                                            <td class="text-end">
+                                                <button class="btn-view view-coach-btn" data-name="Emily White"
+                                                    data-school="Riverside School" data-score="8.1/10"
+                                                    data-accuracy="92%" data-assessments="67" data-timeliness="36h"
+                                                    data-avatar="https://i.pravatar.cc/150?img=45">
+                                                    View
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr data-name="Michael Brown" data-school="Lincoln High School" data-score="9.5"
+                                            data-accuracy="99">
+                                            <td>
+                                                <div class="d-flex align-items-center gap-3">
+                                                    <div class="position-relative">
+                                                        <img src="https://i.pravatar.cc/150?img=33" alt="Michael Brown"
+                                                            class="coach-avatar">
+                                                        <span class="status-dot status-offline"></span>
+                                                    </div>
+                                                    <span class="fw-medium">Michael Brown</span>
+                                                </div>
+                                            </td>
+                                            <td>6</td>
+                                            <td>
+                                                <div class="d-flex align-items-center gap-2">
+                                                    <span>9.5/10</span>
+                                                    <span class="badge-custom badge-top">Top Performer</span>
+                                                    <span class="material-symbols-outlined text-success"
+                                                        style="font-size: 18px;">arrow_upward</span>
+                                                </div>
+                                            </td>
+                                            <td><span class="fw-semibold text-success">99%</span></td>
+                                            <td>Inactive 5 days</td>
+                                            <td class="text-end">
+                                                <button class="btn-view view-coach-btn" data-name="Michael Brown"
+                                                    data-school="Lincoln High School" data-score="9.5/10"
+                                                    data-accuracy="99%" data-assessments="142" data-timeliness="16h"
+                                                    data-avatar="https://i.pravatar.cc/150?img=33">
+                                                    View
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <!-- All Thinking Coaches Table -->
-            <div class="card chart-card border-0">
-                <div class="card-body p-4">
-                    <h2 class="h5 fw-bold mb-4">All Thinking Coaches</h2>
-                    
-                    <!-- Filters -->
-                    <div class="row g-3 mb-4">
-                        <div class="col-12 col-md-6 col-lg-3">
-                            <div class="search-wrapper">
-                                <span class="material-symbols-outlined search-icon" style="font-size: 20px;">search</span>
-                                <input type="text" class="form-control search-input" id="searchInput" placeholder="Search by coach name...">
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-6 col-lg-3">
-                            <select class="form-select filter-select" id="schoolFilter">
-                                <option value="" selected>All Schools</option>
-                                <option value="Maplewood High School">Maplewood High School</option>
-                                <option value="Springfield Academy">Springfield Academy</option>
-                                <option value="Riverside School">Riverside School</option>
-                                <option value="Lincoln High School">Lincoln High School</option>
-                            </select>
-                        </div>
-                        <div class="col-12 col-md-6 col-lg-3">
-                            <select class="form-select filter-select" id="performanceFilter">
-                                <option value="" selected>Performance Range</option>
-                                <option value="top">Top Performer (9.0+)</option>
-                                <option value="consistent">Consistent (8.0-8.9)</option>
-                                <option value="attention">Needs Attention (&lt;8.0)</option>
-                            </select>
-                        </div>
-                        <div class="col-12 col-md-6 col-lg-3">
-                            <select class="form-select filter-select" id="accuracyFilter">
-                                <option value="" selected>Rating Accuracy</option>
-                                <option value="high">95%+</option>
-                                <option value="medium">90-94%</option>
-                                <option value="low">&lt;90%</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <!-- Table -->
-                    <div class="table-responsive">
-                        <table class="table table-custom mb-0">
-                            <thead>
-                                <tr>
-                                    <th>THINKING COACH NAME</th>
-                                    <th>ASSIGNED SCHOOLS</th>
-                                    <th>AVG PERFORMANCE SCORE</th>
-                                    <th>RATING ACCURACY</th>
-                                    <th>LAST ACTIVE</th>
-                                    <th class="text-end"></th>
-                                </tr>
-                            </thead>
-                            <tbody id="coachTableBody">
-                                <tr data-name="Jane Doe" data-school="Maplewood High School" data-score="9.2" data-accuracy="98">
-                                    <td>
-                                        <div class="d-flex align-items-center gap-3">
-                                            <div class="position-relative">
-                                                <img src="https://i.pravatar.cc/150?img=47"
-                                                     alt="Jane Doe" class="coach-avatar">
-                                                <span class="status-dot status-online"></span>
-                                            </div>
-                                            <span class="fw-medium">Jane Doe</span>
-                                        </div>
-                                    </td>
-                                    <td>5</td>
-                                    <td>
-                                        <div class="d-flex align-items-center gap-2">
-                                            <span>9.2/10</span>
-                                            <span class="badge-custom badge-top">Top Performer</span>
-                                            <span class="material-symbols-outlined text-success" style="font-size: 18px;">arrow_upward</span>
-                                        </div>
-                                    </td>
-                                    <td><span class="fw-semibold text-success">98%</span></td>
-                                    <td>Active 2h ago</td>
-                                    <td class="text-end">
-                                        <button class="btn-view view-coach-btn"
-                                                data-name="Jane Doe"
-                                                data-school="Maplewood High School"
-                                                data-score="9.2/10"
-                                                data-accuracy="98%"
-                                                data-assessments="120"
-                                                data-timeliness="24h"
-                                                data-avatar="https://i.pravatar.cc/150?img=47">
-                                            View
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr data-name="John Smith" data-school="Springfield Academy" data-score="8.7" data-accuracy="95">
-                                    <td>
-                                        <div class="d-flex align-items-center gap-3">
-                                            <div class="position-relative">
-                                                <img src="https://i.pravatar.cc/150?img=12"
-                                                     alt="John Smith" class="coach-avatar">
-                                                <span class="status-dot status-online"></span>
-                                            </div>
-                                            <span class="fw-medium">John Smith</span>
-                                        </div>
-                                    </td>
-                                    <td>3</td>
-                                    <td>
-                                        <div class="d-flex align-items-center gap-2">
-                                            <span>8.7/10</span>
-                                            <span class="badge-custom badge-consistent">Consistent</span>
-                                            <span class="material-symbols-outlined text-muted" style="font-size: 18px;">remove</span>
-                                        </div>
-                                    </td>
-                                    <td><span class="fw-semibold text-success">95%</span></td>
-                                    <td>Yesterday</td>
-                                    <td class="text-end">
-                                        <button class="btn-view view-coach-btn"
-                                                data-name="John Smith"
-                                                data-school="Springfield Academy"
-                                                data-score="8.7/10"
-                                                data-accuracy="95%"
-                                                data-assessments="85"
-                                                data-timeliness="18h"
-                                                data-avatar="https://i.pravatar.cc/150?img=12">
-                                            View
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr data-name="Emily White" data-school="Riverside School" data-score="8.1" data-accuracy="92">
-                                    <td>
-                                        <div class="d-flex align-items-center gap-3">
-                                            <div class="position-relative">
-                                                <img src="https://i.pravatar.cc/150?img=45"
-                                                     alt="Emily White" class="coach-avatar">
-                                                <span class="status-dot status-busy"></span>
-                                            </div>
-                                            <span class="fw-medium">Emily White</span>
-                                        </div>
-                                    </td>
-                                    <td>4</td>
-                                    <td>
-                                        <div class="d-flex align-items-center gap-2">
-                                            <span>8.1/10</span>
-                                            <span class="badge-custom badge-attention">Needs Attention</span>
-                                            <span class="material-symbols-outlined text-danger" style="font-size: 18px;">arrow_downward</span>
-                                        </div>
-                                    </td>
-                                    <td><span class="fw-semibold text-warning">92%</span></td>
-                                    <td>Active 2d ago</td>
-                                    <td class="text-end">
-                                        <button class="btn-view view-coach-btn"
-                                                data-name="Emily White"
-                                                data-school="Riverside School"
-                                                data-score="8.1/10"
-                                                data-accuracy="92%"
-                                                data-assessments="67"
-                                                data-timeliness="36h"
-                                                data-avatar="https://i.pravatar.cc/150?img=45">
-                                            View
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr data-name="Michael Brown" data-school="Lincoln High School" data-score="9.5" data-accuracy="99">
-                                    <td>
-                                        <div class="d-flex align-items-center gap-3">
-                                            <div class="position-relative">
-                                                <img src="https://i.pravatar.cc/150?img=33"
-                                                     alt="Michael Brown" class="coach-avatar">
-                                                <span class="status-dot status-offline"></span>
-                                            </div>
-                                            <span class="fw-medium">Michael Brown</span>
-                                        </div>
-                                    </td>
-                                    <td>6</td>
-                                    <td>
-                                        <div class="d-flex align-items-center gap-2">
-                                            <span>9.5/10</span>
-                                            <span class="badge-custom badge-top">Top Performer</span>
-                                            <span class="material-symbols-outlined text-success" style="font-size: 18px;">arrow_upward</span>
-                                        </div>
-                                    </td>
-                                    <td><span class="fw-semibold text-success">99%</span></td>
-                                    <td>Inactive 5 days</td>
-                                    <td class="text-end">
-                                        <button class="btn-view view-coach-btn"
-                                                data-name="Michael Brown"
-                                                data-school="Lincoln High School"
-                                                data-score="9.5/10"
-                                                data-accuracy="99%"
-                                                data-assessments="142"
-                                                data-timeliness="16h"
-                                                data-avatar="https://i.pravatar.cc/150?img=33">
-                                            View
-                                        </button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
         </main>
     </div>
 
@@ -1124,10 +1157,12 @@
         <div class="coach-sidebar-header">
             <div class="d-flex justify-content-between align-items-start">
                 <div class="d-flex align-items-center gap-3">
-                    <img id="coachSidebarAvatar" src="https://i.pravatar.cc/150?img=47" alt="Coach Avatar" style="width: 64px; height: 64px; border-radius: 50%;">
+                    <img id="coachSidebarAvatar" src="https://i.pravatar.cc/150?img=47" alt="Coach Avatar"
+                        style="width: 64px; height: 64px; border-radius: 50%;">
                     <div>
                         <h3 class="h5 fw-bold mb-0" id="coachSidebarName">Jane Doe</h3>
-                        <p class="text-muted mb-0" style="font-size: 0.875rem;" id="coachSidebarSchool">Maplewood High School</p>
+                        <p class="text-muted mb-0" style="font-size: 0.875rem;" id="coachSidebarSchool">Maplewood High
+                            School</p>
                     </div>
                 </div>
                 <button class="btn-close-coach-sidebar" id="closeCoachSidebar">
@@ -1317,7 +1352,7 @@
 
         // Event listeners for view buttons
         viewButtons.forEach(button => {
-            button.addEventListener('click', function() {
+            button.addEventListener('click', function () {
                 const coachData = {
                     name: this.getAttribute('data-name'),
                     school: this.getAttribute('data-school'),
@@ -1336,7 +1371,7 @@
         coachSidebarOverlay.addEventListener('click', closeCoachSidebarFunc);
 
         // Close coach sidebar on Escape key
-        document.addEventListener('keydown', function(e) {
+        document.addEventListener('keydown', function (e) {
             if (e.key === 'Escape' && coachSidebar.classList.contains('active')) {
                 closeCoachSidebarFunc();
             }
@@ -1406,7 +1441,7 @@
 
         // Initialize Chart.js
         const ctx = document.getElementById('performanceChart');
-        
+
         const performanceChart = new Chart(ctx, {
             type: 'line',
             data: {
@@ -1454,7 +1489,7 @@
                         cornerRadius: 8,
                         displayColors: false,
                         callbacks: {
-                            label: function(context) {
+                            label: function (context) {
                                 return context.parsed.y + '%';
                             }
                         }
@@ -1465,7 +1500,7 @@
                         beginAtZero: true,
                         max: 100,
                         ticks: {
-                            callback: function(value) {
+                            callback: function (value) {
                                 return value + '%';
                             },
                             font: {
@@ -1513,4 +1548,5 @@
         });
     </script>
 </body>
+
 </html>
