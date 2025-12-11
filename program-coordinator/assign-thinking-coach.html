@@ -30,34 +30,12 @@
         /* Dashboard Container */
         .dashboard-container { display: flex; min-height: 100vh; }
         
-        /* Sidebar Container - Fixed on left */
-        #sidebar-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 280px;
-            height: 100vh;
-            z-index: 1000;
-            background: #ffffff;
-            transition: width 0.3s ease-in-out;
-        }
-        
-        /* When sidebar is collapsed */
-        #sidebar-container:has(.sidebar.collapsed) {
-            width: 0;
-        }
-        
         /* Main Content */
         .main-content {
             flex: 1;
-            margin-left: 280px;
-            min-height: 100vh;
-            transition: margin-left 0.3s ease;
-        }
-        
-        /* Adjust main content when sidebar is collapsed */
-        .dashboard-container:has(.sidebar.collapsed) .main-content {
-            margin-left: 0;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
         }
 
         :root {
@@ -454,22 +432,6 @@
         }
 
         /* Responsive */
-        @media (max-width: 1023px) {
-            #sidebar-container {
-                width: 280px;
-                transform: translateX(-100%);
-            }
-            #sidebar-container:has(.sidebar.active) {
-                transform: translateX(0);
-            }
-            .main-content {
-                margin-left: 0;
-            }
-            .dashboard-container:has(.sidebar.collapsed) .main-content {
-                margin-left: 0;
-            }
-        }
-        
         @media (max-width: 991px) {
             .page-title {
                 font-size: 1.875rem;
@@ -720,23 +682,111 @@
 
     <!-- Custom JavaScript -->
     <script>
+        // School data - In production, this would come from an API
+        const schoolsData = {
+            greenwood: {
+                name: 'Greenwood High School',
+                id: 'SCH-5678',
+                isAssigned: true,
+                currentCoach: {
+                    name: 'Arlene McCoy',
+                    avatar: 'https://i.pravatar.cc/150?img=47'
+                }
+            },
+            northwood: {
+                name: 'Northwood Elementary',
+                id: 'SCH-1234',
+                isAssigned: false,
+                currentCoach: null
+            },
+            riverdale: {
+                name: 'Riverdale Middle School',
+                id: 'SCH-9012',
+                isAssigned: true,
+                currentCoach: {
+                    name: 'Jacob Jones',
+                    avatar: 'https://i.pravatar.cc/150?img=33'
+                }
+            }
+        };
+
+        // DOM Elements
+        const schoolSelect = document.getElementById('schoolSelect');
+        const currentAssignmentCard = document.querySelector('.col-12.col-lg-6:last-child .card-custom');
+        const schoolNameEl = currentAssignmentCard.querySelector('.school-name');
+        const schoolIdEl = currentAssignmentCard.querySelector('.school-id');
+        const statusBadge = currentAssignmentCard.querySelector('.assignment-header span[class^="badge"]');
+        const coachInfoSection = currentAssignmentCard.querySelector('.coach-info');
+        const coachAvatar = coachInfoSection.querySelector('.coach-avatar');
+        const coachNameEl = coachInfoSection.querySelector('.coach-name');
+        const coachLabelEl = coachInfoSection.querySelector('.coach-label');
+        const changeBtn = currentAssignmentCard.querySelector('.btn-change');
+
+        // Update current assignment card based on selected school
+        function updateCurrentAssignment(schoolKey) {
+            const school = schoolsData[schoolKey];
+            
+            if (!school) {
+                // Reset to default/empty state
+                schoolNameEl.textContent = 'Select a School';
+                schoolIdEl.textContent = '';
+                statusBadge.className = 'badge-not-assigned';
+                statusBadge.textContent = 'Not Selected';
+                coachInfoSection.style.display = 'none';
+                changeBtn.style.display = 'none';
+                return;
+            }
+
+            // Update school info
+            schoolNameEl.textContent = school.name;
+            schoolIdEl.textContent = 'ID: ' + school.id;
+
+            // Update status badge
+            if (school.isAssigned) {
+                statusBadge.className = 'badge-assigned';
+                statusBadge.textContent = 'Assigned';
+                coachInfoSection.style.display = 'flex';
+                changeBtn.style.display = 'inline-flex';
+                
+                // Update coach info
+                coachAvatar.src = school.currentCoach.avatar;
+                coachAvatar.alt = school.currentCoach.name;
+                coachNameEl.textContent = school.currentCoach.name;
+                coachLabelEl.textContent = 'Currently Assigned';
+            } else {
+                statusBadge.className = 'badge-not-assigned';
+                statusBadge.textContent = 'Not Assigned';
+                coachInfoSection.style.display = 'none';
+                changeBtn.style.display = 'none';
+            }
+
+            // Clear any selected coach
+            document.querySelectorAll('input[name="coach_assignment"]').forEach(radio => {
+                radio.checked = false;
+            });
+            document.querySelectorAll('.coach-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+        }
+
+        // Handle school selection change
+        schoolSelect.addEventListener('change', function() {
+            updateCurrentAssignment(this.value);
+        });
+
         // Handle coach card selection
         const coachCards = document.querySelectorAll('.coach-card');
         const radioButtons = document.querySelectorAll('input[name="coach_assignment"]');
 
         radioButtons.forEach((radio, index) => {
             radio.addEventListener('change', function() {
-                // Remove selected class from all cards
                 coachCards.forEach(card => card.classList.remove('selected'));
-                
-                // Add selected class to the parent card
                 if (this.checked) {
                     coachCards[index].classList.add('selected');
                 }
             });
         });
 
-        // Handle clicking on the card (not just the radio)
         coachCards.forEach((card, index) => {
             card.addEventListener('click', function() {
                 radioButtons[index].checked = true;
@@ -744,29 +794,33 @@
             });
         });
 
-        // Handle school selection change
-        const schoolSelect = document.getElementById('schoolSelect');
-        schoolSelect.addEventListener('change', function() {
-            console.log('Selected school:', this.value);
-            // Add your logic here to load school details
-        });
-
-        // Handle reassign/assign buttons
-        const actionButtons = document.querySelectorAll('.btn-link-custom');
-        actionButtons.forEach(button => {
+        // Handle reassign/assign buttons in the table
+        document.querySelectorAll('.btn-link-custom').forEach(button => {
             button.addEventListener('click', function(e) {
                 e.preventDefault();
-                console.log('Action clicked:', this.textContent);
-                // Add your logic here
+                const row = this.closest('tr');
+                const schoolName = row.querySelector('.table-school-name').textContent;
+                
+                // Find and select the matching school in dropdown
+                for (const [key, school] of Object.entries(schoolsData)) {
+                    if (school.name === schoolName) {
+                        schoolSelect.value = key;
+                        updateCurrentAssignment(key);
+                        
+                        // Scroll to top of page
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                        break;
+                    }
+                }
             });
         });
 
         // Handle change button
-        const changeButton = document.querySelector('.btn-change');
-        if (changeButton) {
-            changeButton.addEventListener('click', function() {
-                console.log('Change coach clicked');
-                // Add your logic here
+        const changeBtnHandler = document.querySelector('.btn-change');
+        if (changeBtnHandler) {
+            changeBtnHandler.addEventListener('click', function() {
+                // Scroll to coaches list
+                document.querySelector('.coaches-list').scrollIntoView({ behavior: 'smooth' });
             });
         }
 
@@ -774,13 +828,36 @@
         const confirmButton = document.querySelector('.confirm-button-wrapper .btn-primary-custom');
         if (confirmButton) {
             confirmButton.addEventListener('click', function() {
+                const selectedSchool = schoolSelect.value;
                 const selectedCoach = document.querySelector('input[name="coach_assignment"]:checked');
-                if (selectedCoach) {
-                    console.log('Confirming assignment');
-                    // Add your logic here
-                } else {
-                    alert('Please select a coach before confirming assignment.');
+                
+                if (!selectedSchool) {
+                    alert('Please select a school first.');
+                    return;
                 }
+                
+                if (!selectedCoach) {
+                    alert('Please select a coach before confirming assignment.');
+                    return;
+                }
+
+                const coachCard = selectedCoach.closest('.coach-card');
+                const coachName = coachCard.querySelector('.coach-name-large').textContent;
+                const schoolName = schoolsData[selectedSchool].name;
+
+                // In production, this would make an API call
+                alert(`Successfully assigned ${coachName} to ${schoolName}!`);
+                
+                // Update the local data (simulating API response)
+                const coachAvatar = coachCard.querySelector('.coach-avatar-large').src;
+                schoolsData[selectedSchool].isAssigned = true;
+                schoolsData[selectedSchool].currentCoach = {
+                    name: coachName,
+                    avatar: coachAvatar
+                };
+                
+                // Refresh the display
+                updateCurrentAssignment(selectedSchool);
             });
         }
     </script>
