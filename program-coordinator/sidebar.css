@@ -130,6 +130,10 @@ body.dark .sidebar-nav a.active {
     justify-content: center;
 }
 
+#nav-logout:hover {
+    background-color: rgba(239, 68, 68, 0.1);
+}
+
 /* Sidebar Dropdown */
 .sidebar-dropdown {
     display: flex;

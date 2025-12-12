@@ -1,22 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>School Admin Dashboard - Enpower Skill Lab</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Admin Dashboard - Bootstrap Version</title>
 
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
-        rel="stylesheet" />
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="dashboard.css">
-    <!-- Sidebar JS -->
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap" rel="stylesheet">
+
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+    <!-- Sidebar & Header CSS -->
+    <link rel="stylesheet" href="sidebar.css">
+    <link rel="stylesheet" href="header.css">
+
+    <!-- Sidebar & Header JS -->
     <script src="sidebar.js"></script>
-    <!-- Header JS -->
     <script src="header.js"></script>
 
     <style>
@@ -33,9 +41,1069 @@
             visibility: visible;
             transition: opacity 0.2s ease-in;
         }
+
+        .dashboard-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        :root {
+            --primary: #5A1F6E;
+            --primary-light: rgba(90, 31, 110, 0.1);
+            --primary-lighter: rgba(90, 31, 110, 0.05);
+            --background-light: #f7f6f8;
+            --text-dark: #1f2937;
+            --text-muted: #6b7280;
+            --text-light: #9ca3af;
+            --white: #ffffff;
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+            --border-radius: 0.75rem;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Lexend', sans-serif;
+            background-color: var(--background-light);
+            color: var(--text-dark);
+            line-height: 1.5;
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+
+        /* Header Section */
+        .dashboard-header {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            padding-bottom: 2rem;
+        }
+
+        .dashboard-header h1 {
+            font-size: 1.875rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 0.25rem;
+        }
+
+        .dashboard-header p {
+            color: var(--text-muted);
+            margin: 0;
+        }
+
+        .btn-primary-custom {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background-color: var(--primary);
+            color: var(--white);
+            border: none;
+            padding: 0.625rem 1rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            font-family: 'Lexend', sans-serif;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            text-decoration: none;
+        }
+
+        .btn-primary-custom:hover {
+            background-color: rgba(90, 31, 110, 0.9);
+            color: var(--white);
+        }
+
+        .btn-primary-custom .material-symbols-outlined {
+            font-size: 1rem;
+        }
+
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        @media (max-width: 1200px) {
+            .stats-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 576px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+        }
+
+        .stat-card {
+            background: var(--white);
+            border-radius: var(--border-radius);
+            padding: 1.25rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .stat-card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-card-header p {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            margin: 0;
+        }
+
+        .stat-card-header .material-symbols-outlined {
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        .stat-card-value {
+            font-size: 1.875rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin: 0;
+        }
+
+        /* School Info Bar */
+        .school-info-bar {
+            background: var(--primary-lighter);
+            border-radius: var(--border-radius);
+            padding: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .school-info-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+        }
+
+        @media (max-width: 992px) {
+            .school-info-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 576px) {
+            .school-info-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .school-info-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .school-info-icon {
+            width: 2.5rem;
+            height: 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: var(--primary-light);
+            flex-shrink: 0;
+        }
+
+        .school-info-icon .material-symbols-outlined {
+            color: var(--primary);
+        }
+
+        .school-info-icon img {
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .school-info-item .label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin: 0;
+        }
+
+        .school-info-item .value {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin: 0;
+        }
+
+        /* Main Content Layout */
+        .main-content-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        @media (max-width: 1200px) {
+            .main-content-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Card Component */
+        .card-custom {
+            background: var(--white);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow-sm);
+            border: none;
+        }
+
+        .card-custom-header {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-custom-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin: 0;
+        }
+
+        .card-custom-title-sm {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin: 0;
+        }
+
+        /* Class Overview */
+        .class-overview-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .class-overview-stats {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .class-stat-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .class-stat-icon {
+            width: 3rem;
+            height: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0.5rem;
+            background: var(--primary-light);
+        }
+
+        .class-stat-icon .material-symbols-outlined {
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        .class-stat-label {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            margin: 0;
+        }
+
+        .class-stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin: 0;
+        }
+
+        /* Two Column Grid */
+        .two-col-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .two-col-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Trend Badge */
+        .trend-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            font-size: 0.875rem;
+            color: #16a34a;
+        }
+
+        .trend-badge .material-symbols-outlined {
+            font-size: 1rem;
+        }
+
+        /* Chart Container */
+        .chart-container {
+            height: 12rem;
+            margin-top: 1rem;
+            border-radius: 0.375rem;
+            overflow: hidden;
+        }
+
+        .chart-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Teacher Attendance Summary */
+        .attendance-summary {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            height: 100%;
+            padding: 1rem 0;
+        }
+
+        .attendance-summary .label {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            margin: 0;
+        }
+
+        .attendance-summary .value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin: 0.5rem 0;
+        }
+
+        .warning-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 0.75rem;
+            background: #fef3c7;
+            border-radius: 0.5rem;
+            color: #b45309;
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-top: 1rem;
+        }
+
+        /* Assessment Grid */
+        .assessment-grid {
+            display: grid;
+            grid-template-columns: 3fr 2fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        @media (max-width: 992px) {
+            .assessment-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .chart-container-lg {
+            height: 16rem;
+            margin-top: 1rem;
+            border-radius: 0.375rem;
+            overflow: hidden;
+        }
+
+        .chart-container-lg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Assessment Metrics */
+        .metrics-list {
+            margin-top: 1rem;
+        }
+
+        .metric-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.75rem 0;
+        }
+
+        .metric-item + .metric-item {
+            border-top: 1px solid #f3f4f6;
+        }
+
+        .metric-item .material-symbols-outlined {
+            font-size: 1.75rem;
+        }
+
+        .metric-item .material-symbols-outlined.primary {
+            color: var(--primary);
+        }
+
+        .metric-item .material-symbols-outlined.yellow {
+            color: #eab308;
+        }
+
+        .metric-item .material-symbols-outlined.green {
+            color: #22c55e;
+        }
+
+        .metric-label {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            margin: 0;
+        }
+
+        .metric-value {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin: 0;
+        }
+
+        /* Alerts Sidebar */
+        .alerts-sidebar {
+            margin-bottom: 2rem;
+        }
+
+        .alert-list {
+            list-style: none;
+            padding: 0;
+            margin: 1.5rem 0 0 0;
+        }
+
+        .alert-item {
+            display: flex;
+            gap: 1rem;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .alert-item.red {
+            background: #fef2f2;
+        }
+
+        .alert-item.yellow {
+            background: #fefce8;
+        }
+
+        .alert-item.blue {
+            background: #eff6ff;
+        }
+
+        .alert-item.green {
+            background: #f0fdf4;
+        }
+
+        .alert-icon {
+            width: 2rem;
+            height: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .alert-icon.red {
+            background: #fee2e2;
+        }
+
+        .alert-icon.yellow {
+            background: #fef9c3;
+        }
+
+        .alert-icon.blue {
+            background: #dbeafe;
+        }
+
+        .alert-icon.green {
+            background: #dcfce7;
+        }
+
+        .alert-icon .material-symbols-outlined {
+            font-size: 1.25rem;
+        }
+
+        .alert-icon.red .material-symbols-outlined {
+            color: #ef4444;
+        }
+
+        .alert-icon.yellow .material-symbols-outlined {
+            color: #eab308;
+        }
+
+        .alert-icon.blue .material-symbols-outlined {
+            color: #3b82f6;
+        }
+
+        .alert-icon.green .material-symbols-outlined {
+            color: #22c55e;
+        }
+
+        .alert-content p {
+            margin: 0;
+        }
+
+        .alert-content .title {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-dark);
+        }
+
+        .alert-content .time {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        /* Tables */
+        .table-custom {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .table-custom thead {
+            background: #f9fafb;
+        }
+
+        .table-custom th {
+            padding: 0.875rem 0.75rem;
+            text-align: left;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .table-custom td {
+            padding: 1rem 0.75rem;
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .table-custom .bold-value {
+            font-weight: 500;
+            color: var(--text-dark);
+        }
+
+        .table-custom .user-cell {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .table-custom .user-avatar {
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+
+        .table-custom .user-name {
+            font-weight: 500;
+            color: var(--text-dark);
+        }
+
+        .btn-view {
+            background: var(--primary);
+            color: var(--white);
+            border: none;
+            padding: 0.375rem 0.75rem;
+            border-radius: 0.375rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+            font-family: 'Lexend', sans-serif;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .btn-view:hover {
+            background: rgba(90, 31, 110, 0.9);
+        }
+
+        .table-responsive-wrapper {
+            overflow-x: auto;
+            margin: 0 -1.5rem;
+            padding: 0 1.5rem;
+        }
+
+        /* Utility Classes */
+        .mb-0 {
+            margin-bottom: 0;
+        }
+
+        .mt-4 {
+            margin-top: 1.5rem;
+        }
+
+        .text-end {
+            text-align: right;
+        }
+
+        /* Quick Actions */
+        .quick-actions-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin-top: 1.5rem;
+        }
+
+        .quick-action-btn {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--white);
+            border: 1.5px solid #e5e7eb;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            color: var(--text-dark);
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
+        .quick-action-btn:hover {
+            border-color: var(--primary);
+            background: var(--primary-lighter);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .quick-action-icon-wrapper {
+            width: 2.5rem;
+            height: 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0.5rem;
+            background: var(--primary-light);
+            flex-shrink: 0;
+        }
+
+        .quick-action-icon-wrapper .material-symbols-outlined {
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        .quick-action-content {
+            flex: 1;
+        }
+
+        .quick-action-title {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin: 0;
+        }
+
+        .quick-action-desc {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin: 0;
+        }
+
+        .quick-action-arrow {
+            color: var(--text-light);
+            font-size: 1.25rem;
+        }
+
+        .quick-action-btn:hover .quick-action-arrow {
+            color: var(--primary);
+        }
+
+        /* Main Container */
+        .main-container {
+            padding: 2rem 1rem;
+            max-width: 1536px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        @media (min-width: 576px) {
+            .main-container {
+                padding: 2rem 1.5rem;
+            }
+        }
+
+        @media (min-width: 992px) {
+            .main-container {
+                padding: 2rem;
+            }
+        }
+
+        /* Mobile Specific Styles */
+        @media (max-width: 768px) {
+            .dashboard-header {
+                padding-bottom: 1.5rem;
+            }
+
+            .dashboard-header h1 {
+                font-size: 1.5rem;
+            }
+
+            .dashboard-header p {
+                font-size: 0.813rem;
+            }
+
+            .btn-primary-custom {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .stat-card {
+                padding: 1rem;
+            }
+
+            .stat-card-value {
+                font-size: 1.5rem;
+            }
+
+            .school-info-bar {
+                padding: 0.75rem;
+            }
+
+            .school-info-item {
+                gap: 0.5rem;
+            }
+
+            .school-info-icon {
+                width: 2rem;
+                height: 2rem;
+            }
+
+            .school-info-icon img {
+                width: 2rem;
+                height: 2rem;
+            }
+
+            .school-info-item .label {
+                font-size: 0.688rem;
+            }
+
+            .school-info-item .value {
+                font-size: 0.813rem;
+            }
+
+            .card-custom {
+                padding: 1rem;
+            }
+
+            .card-custom-title {
+                font-size: 1rem;
+            }
+
+            .card-custom-title-sm {
+                font-size: 0.938rem;
+            }
+
+            .class-stat-icon {
+                width: 2.5rem;
+                height: 2.5rem;
+            }
+
+            .class-stat-label {
+                font-size: 0.813rem;
+            }
+
+            .class-stat-value {
+                font-size: 1.25rem;
+            }
+
+            .chart-container {
+                height: 10rem;
+            }
+
+            .chart-container-lg {
+                height: 14rem;
+            }
+
+            .attendance-summary .value {
+                font-size: 2rem;
+            }
+
+            .metric-value {
+                font-size: 1.125rem;
+            }
+
+            .alert-list {
+                margin: 1rem 0 0 0;
+            }
+
+            .alert-item {
+                padding: 0.625rem;
+            }
+
+            .alert-content .title {
+                font-size: 0.813rem;
+            }
+
+            .quick-actions-list {
+                gap: 0.625rem;
+                margin-top: 1rem;
+            }
+
+            .quick-action-btn {
+                padding: 0.875rem;
+            }
+
+            .quick-action-icon-wrapper {
+                width: 2.25rem;
+                height: 2.25rem;
+            }
+
+            .quick-action-icon-wrapper .material-symbols-outlined {
+                font-size: 1.25rem;
+            }
+
+            .quick-action-title {
+                font-size: 0.813rem;
+            }
+
+            .quick-action-desc {
+                font-size: 0.688rem;
+            }
+
+            .table-responsive-wrapper {
+                margin: 0 -1rem;
+                padding: 0 1rem;
+            }
+
+            .table-custom th,
+            .table-custom td {
+                padding: 0.75rem 0.5rem;
+                font-size: 0.813rem;
+            }
+
+            .table-custom .user-avatar {
+                width: 2rem;
+                height: 2rem;
+            }
+
+            .btn-view {
+                padding: 0.313rem 0.625rem;
+                font-size: 0.688rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .dashboard-header h1 {
+                font-size: 1.25rem;
+            }
+
+            .stat-card-header p {
+                font-size: 0.75rem;
+            }
+
+            .stat-card-value {
+                font-size: 1.25rem;
+            }
+
+            .school-info-item .label,
+            .school-info-item .value {
+                font-size: 0.75rem;
+            }
+
+            .card-custom-header {
+                gap: 0.5rem;
+                margin-bottom: 1rem;
+            }
+
+            .class-overview-stats {
+                gap: 1rem;
+            }
+
+            .class-stat-icon {
+                width: 2rem;
+                height: 2rem;
+            }
+
+            .class-stat-icon .material-symbols-outlined {
+                font-size: 1.25rem;
+            }
+
+            .class-stat-label {
+                font-size: 0.75rem;
+            }
+
+            .class-stat-value {
+                font-size: 1.125rem;
+            }
+
+            .two-col-grid {
+                gap: 1rem;
+                margin-top: 1rem;
+            }
+
+            .chart-container {
+                height: 9rem;
+            }
+
+            .chart-container-lg {
+                height: 12rem;
+            }
+
+            .assessment-grid {
+                gap: 1rem;
+                margin-top: 1rem;
+            }
+
+            .attendance-summary .value {
+                font-size: 1.75rem;
+            }
+
+            .warning-badge {
+                font-size: 0.75rem;
+                padding: 0.375rem 0.625rem;
+            }
+
+            .metric-item {
+                gap: 0.75rem;
+                padding: 0.625rem 0;
+            }
+
+            .metric-item .material-symbols-outlined {
+                font-size: 1.5rem;
+            }
+
+            .metric-label {
+                font-size: 0.75rem;
+            }
+
+            .metric-value {
+                font-size: 1rem;
+            }
+
+            .alert-icon {
+                width: 1.75rem;
+                height: 1.75rem;
+            }
+
+            .alert-icon .material-symbols-outlined {
+                font-size: 1.125rem;
+            }
+
+            .alert-content .title {
+                font-size: 0.75rem;
+            }
+
+            .alert-content .time {
+                font-size: 0.688rem;
+            }
+
+            .quick-action-btn {
+                padding: 0.75rem;
+            }
+
+            .quick-action-icon-wrapper {
+                width: 2rem;
+                height: 2rem;
+            }
+
+            .quick-action-icon-wrapper .material-symbols-outlined {
+                font-size: 1.125rem;
+            }
+
+            .quick-action-title {
+                font-size: 0.75rem;
+            }
+
+            .quick-action-desc {
+                font-size: 0.625rem;
+            }
+
+            .quick-action-arrow {
+                font-size: 1.125rem;
+            }
+
+            .table-custom th,
+            .table-custom td {
+                padding: 0.625rem 0.375rem;
+                font-size: 0.75rem;
+            }
+
+            .table-custom .user-cell {
+                gap: 0.5rem;
+            }
+
+            .table-custom .user-avatar {
+                width: 1.75rem;
+                height: 1.75rem;
+            }
+
+            .btn-view {
+                padding: 0.25rem 0.5rem;
+                font-size: 0.625rem;
+            }
+        }
+
+        /* Very Small Mobile Devices */
+        @media (max-width: 375px) {
+            .main-container {
+                padding: 1rem 0.75rem;
+            }
+
+            .dashboard-header h1 {
+                font-size: 1.125rem;
+            }
+
+            .stat-card {
+                padding: 0.875rem;
+            }
+
+            .card-custom {
+                padding: 0.875rem;
+            }
+
+            .school-info-grid {
+                gap: 1rem;
+            }
+        }
     </style>
 </head>
-
 <body>
     <div class="dashboard-container">
         <!-- Include Sidebar Component -->
@@ -47,333 +1115,384 @@
             <div id="header-container"></div>
 
             <!-- Dashboard Content -->
-            <div class="dashboard-page">
-                <!-- Page Header -->
-                <div class="page-header">
-                    <div class="page-header-content">
-                        <h1 class="page-title">
-                            <span class="material-symbols-outlined page-title-icon">dashboard</span>
-                            Dashboard
-                        </h1>
-                        <p class="page-subtitle">Welcome to School Admin Dashboard</p>
+            <div class="main-container">
+        <!-- Header -->
+        <div class="dashboard-header">
+            <div>
+                <h1>Dashboard</h1>
+                <p>Monitor your school's overall performance and activity.</p>
+            </div>
+            <button class="btn-primary-custom">
+                <span class="material-symbols-outlined">download</span>
+                <span>Download School Report</span>
+            </button>
+        </div>
+
+        <!-- Stats Cards -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-card-header">
+                    <p>Total Students</p>
+                    <span class="material-symbols-outlined">groups</span>
+                </div>
+                <p class="stat-card-value">1,234</p>
+            </div>
+            <div class="stat-card">
+                <div class="stat-card-header">
+                    <p>Total Teachers</p>
+                    <span class="material-symbols-outlined">school</span>
+                </div>
+                <p class="stat-card-value">56</p>
+            </div>
+            <div class="stat-card">
+                <div class="stat-card-header">
+                    <p>Avg Student Performance</p>
+                    <span class="material-symbols-outlined">trending_up</span>
+                </div>
+                <p class="stat-card-value">88%</p>
+            </div>
+            <div class="stat-card">
+                <div class="stat-card-header">
+                    <p>Attendance Rate</p>
+                    <span class="material-symbols-outlined">event_available</span>
+                </div>
+                <p class="stat-card-value">95%</p>
+            </div>
+            <div class="stat-card">
+                <div class="stat-card-header">
+                    <p>Assessments Completed</p>
+                    <span class="material-symbols-outlined">checklist</span>
+                </div>
+                <p class="stat-card-value">75%</p>
+            </div>
+        </div>
+
+        <!-- School Info Bar -->
+        <div class="school-info-bar">
+            <div class="school-info-grid">
+                <div class="school-info-item">
+                    <div class="school-info-icon">
+                        <span class="material-symbols-outlined">corporate_fare</span>
+                    </div>
+                    <div>
+                        <p class="label">School Name</p>
+                        <p class="value">Enpower Skill Lab High</p>
                     </div>
                 </div>
-
-                <!-- Stats Cards -->
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-icon students">
-                            <span class="material-symbols-outlined">school</span>
-                        </div>
-                        <div class="stat-content">
-                            <div class="stat-value">1,245</div>
-                            <div class="stat-label">Total Students</div>
-                            <div class="stat-change positive">
-                                <span class="material-symbols-outlined">trending_up</span>
-                                +12% from last month
-                            </div>
-                        </div>
+                <div class="school-info-item">
+                    <div class="school-info-icon">
+                        <span class="material-symbols-outlined">badge</span>
                     </div>
-
-                    <div class="stat-card">
-                        <div class="stat-icon teachers">
-                            <span class="material-symbols-outlined">groups</span>
-                        </div>
-                        <div class="stat-content">
-                            <div class="stat-value">85</div>
-                            <div class="stat-label">Total Teachers</div>
-                            <div class="stat-change positive">
-                                <span class="material-symbols-outlined">trending_up</span>
-                                +3% from last month
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="stat-card">
-                        <div class="stat-icon classes">
-                            <span class="material-symbols-outlined">class</span>
-                        </div>
-                        <div class="stat-content">
-                            <div class="stat-value">45</div>
-                            <div class="stat-label">Total Classes</div>
-                            <div class="stat-change neutral">
-                                <span class="material-symbols-outlined">remove</span>
-                                No change
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="stat-card">
-                        <div class="stat-icon subjects">
-                            <span class="material-symbols-outlined">menu_book</span>
-                        </div>
-                        <div class="stat-content">
-                            <div class="stat-value">28</div>
-                            <div class="stat-label">Total Subjects</div>
-                            <div class="stat-change positive">
-                                <span class="material-symbols-outlined">trending_up</span>
-                                +2 new subjects
-                            </div>
-                        </div>
+                    <div>
+                        <p class="label">School Code / ID</p>
+                        <p class="value">ESL-HS-001</p>
                     </div>
                 </div>
-
-                <!-- Content Grid -->
-                <div class="content-grid">
-                    <!-- Quick Actions -->
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title">
-                                <span class="material-symbols-outlined">bolt</span>
-                                Quick Actions
-                            </h3>
-                        </div>
-                        <div class="card-body">
-                            <div class="quick-actions-grid">
-                                <a href="add-student.html" class="quick-action-item">
-                                    <div class="quick-action-icon students">
-                                        <span class="material-symbols-outlined">person_add</span>
-                                    </div>
-                                    <div class="quick-action-label">Add Student</div>
-                                </a>
-                                <a href="add-teacher.html" class="quick-action-item">
-                                    <div class="quick-action-icon teachers">
-                                        <span class="material-symbols-outlined">badge</span>
-                                    </div>
-                                    <div class="quick-action-label">Add Teacher</div>
-                                </a>
-                                <a href="add-class.html" class="quick-action-item">
-                                    <div class="quick-action-icon classes">
-                                        <span class="material-symbols-outlined">add_circle</span>
-                                    </div>
-                                    <div class="quick-action-label">Create Class</div>
-                                </a>
-                                <a href="assign-subjects.html" class="quick-action-item">
-                                    <div class="quick-action-icon subjects">
-                                        <span class="material-symbols-outlined">assignment</span>
-                                    </div>
-                                    <div class="quick-action-label">Assign Subjects</div>
-                                </a>
-                                <a href="upload-student-csv.html" class="quick-action-item">
-                                    <div class="quick-action-icon upload">
-                                        <span class="material-symbols-outlined">upload_file</span>
-                                    </div>
-                                    <div class="quick-action-label">Upload CSV</div>
-                                </a>
-                                <a href="assessment-overview.html" class="quick-action-item">
-                                    <div class="quick-action-icon assessment">
-                                        <span class="material-symbols-outlined">quiz</span>
-                                    </div>
-                                    <div class="quick-action-label">Assessments</div>
-                                </a>
-                            </div>
-                        </div>
+                <div class="school-info-item">
+                    <div class="school-info-icon">
+                        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBsvQjAXacU1y9SmpVybyLmK5KlXPv-PMNFt08-LkdR4I1nKeLUcE_OedV0Mb48NyT817JAXumHE_PUFtEwFWFUZPd6kFqIkbSggMh3N0cX6PxKBSqGgdrU0kd-J8ieXPqbL7I5SxvlE7sXNOWPu60WCDoK0oeOxSmZBMhNJpvix0T7kCwUPqZBmQt-etFCYLsbwc__HCovEEtCA-GyzjVF1krVkN3ma1SVFG9SZ1keztqYMc5eEZwqf8Io6JheDgv1M3NUZ1S7hEUa" alt="Coach avatar">
                     </div>
-
-                    <!-- Recent Activities -->
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title">
-                                <span class="material-symbols-outlined">history</span>
-                                Recent Activities
-                            </h3>
-                            <a href="#" class="card-action">View All</a>
-                        </div>
-                        <div class="card-body">
-                            <div class="activity-list">
-                                <div class="activity-item">
-                                    <div class="activity-icon student">
-                                        <span class="material-symbols-outlined">person_add</span>
-                                    </div>
-                                    <div class="activity-content">
-                                        <div class="activity-title">New student enrolled</div>
-                                        <div class="activity-description">John Doe enrolled in Class 9-A</div>
-                                        <div class="activity-time">2 hours ago</div>
-                                    </div>
-                                </div>
-                                <div class="activity-item">
-                                    <div class="activity-icon teacher">
-                                        <span class="material-symbols-outlined">badge</span>
-                                    </div>
-                                    <div class="activity-content">
-                                        <div class="activity-title">New teacher added</div>
-                                        <div class="activity-description">Sarah Smith joined as Math teacher</div>
-                                        <div class="activity-time">5 hours ago</div>
-                                    </div>
-                                </div>
-                                <div class="activity-item">
-                                    <div class="activity-icon class">
-                                        <span class="material-symbols-outlined">event</span>
-                                    </div>
-                                    <div class="activity-content">
-                                        <div class="activity-title">Class scheduled</div>
-                                        <div class="activity-description">Physics class scheduled for tomorrow</div>
-                                        <div class="activity-time">1 day ago</div>
-                                    </div>
-                                </div>
-                                <div class="activity-item">
-                                    <div class="activity-icon assessment">
-                                        <span class="material-symbols-outlined">assignment</span>
-                                    </div>
-                                    <div class="activity-content">
-                                        <div class="activity-title">Assessment published</div>
-                                        <div class="activity-description">Math mid-term exam published</div>
-                                        <div class="activity-time">2 days ago</div>
-                                    </div>
-                                </div>
-                                <div class="activity-item">
-                                    <div class="activity-icon student">
-                                        <span class="material-symbols-outlined">school</span>
-                                    </div>
-                                    <div class="activity-content">
-                                        <div class="activity-title">Student attendance marked</div>
-                                        <div class="activity-description">Class 10-B attendance completed</div>
-                                        <div class="activity-time">3 days ago</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Upcoming Events -->
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title">
-                                <span class="material-symbols-outlined">event</span>
-                                Upcoming Events
-                            </h3>
-                            <a href="#" class="card-action">View Calendar</a>
-                        </div>
-                        <div class="card-body">
-                            <div class="event-list">
-                                <div class="event-item">
-                                    <div class="event-date">
-                                        <div class="event-day">28</div>
-                                        <div class="event-month">NOV</div>
-                                    </div>
-                                    <div class="event-details">
-                                        <div class="event-title">Parent-Teacher Meeting</div>
-                                        <div class="event-time">10:00 AM - 2:00 PM</div>
-                                    </div>
-                                    <span class="event-badge meeting">Meeting</span>
-                                </div>
-                                <div class="event-item">
-                                    <div class="event-date">
-                                        <div class="event-day">30</div>
-                                        <div class="event-month">NOV</div>
-                                    </div>
-                                    <div class="event-details">
-                                        <div class="event-title">Annual Sports Day</div>
-                                        <div class="event-time">9:00 AM - 5:00 PM</div>
-                                    </div>
-                                    <span class="event-badge sports">Sports</span>
-                                </div>
-                                <div class="event-item">
-                                    <div class="event-date">
-                                        <div class="event-day">05</div>
-                                        <div class="event-month">DEC</div>
-                                    </div>
-                                    <div class="event-details">
-                                        <div class="event-title">Final Examinations Begin</div>
-                                        <div class="event-time">All Day</div>
-                                    </div>
-                                    <span class="event-badge exam">Exam</span>
-                                </div>
-                            </div>
-                        </div>
+                    <div>
+                        <p class="label">Assigned Thinking Coach</p>
+                        <p class="value">Amelia Earhart</p>
                     </div>
                 </div>
+                <div class="school-info-item">
+                    <div class="school-info-icon">
+                        <span class="material-symbols-outlined">stairs</span>
+                    </div>
+                    <div>
+                        <p class="label">Grade Levels Offered</p>
+                        <p class="value">Grades 9-12</p>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-                <!-- Bottom Grid -->
-                <div class="bottom-grid">
-                    <!-- Class Distribution -->
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title">
+        <!-- Main Content Area -->
+        <div class="main-content-grid">
+            <!-- Left Column -->
+            <div class="left-column">
+                <!-- Class Overview -->
+                <div class="card-custom">
+                    <div class="card-custom-header">
+                        <h3 class="card-custom-title">Class Overview</h3>
+                        <button class="btn-primary-custom">
+                            <span>View Classes</span>
+                            <span class="material-symbols-outlined">arrow_forward</span>
+                        </button>
+                    </div>
+                    <div class="class-overview-stats">
+                        <div class="class-stat-item">
+                            <div class="class-stat-icon">
+                                <span class="material-symbols-outlined">class</span>
+                            </div>
+                            <div>
+                                <p class="class-stat-label">Number of Classes</p>
+                                <p class="class-stat-value">15</p>
+                            </div>
+                        </div>
+                        <div class="class-stat-item">
+                            <div class="class-stat-icon">
+                                <span class="material-symbols-outlined">emoji_events</span>
+                            </div>
+                            <div>
+                                <p class="class-stat-label">Best Performing Class</p>
+                                <p class="class-stat-value">Grade 10A</p>
+                            </div>
+                        </div>
+                        <div class="class-stat-item">
+                            <div class="class-stat-icon">
                                 <span class="material-symbols-outlined">pie_chart</span>
-                                Class Distribution
-                            </h3>
-                        </div>
-                        <div class="card-body">
-                            <div class="distribution-list">
-                                <div class="distribution-item">
-                                    <div class="distribution-info">
-                                        <div class="distribution-label">Class 9</div>
-                                        <div class="distribution-value">320 students</div>
-                                    </div>
-                                    <div class="distribution-bar">
-                                        <div class="distribution-fill" style="width: 80%;"></div>
-                                    </div>
-                                </div>
-                                <div class="distribution-item">
-                                    <div class="distribution-info">
-                                        <div class="distribution-label">Class 10</div>
-                                        <div class="distribution-value">285 students</div>
-                                    </div>
-                                    <div class="distribution-bar">
-                                        <div class="distribution-fill" style="width: 70%;"></div>
-                                    </div>
-                                </div>
-                                <div class="distribution-item">
-                                    <div class="distribution-info">
-                                        <div class="distribution-label">Class 11</div>
-                                        <div class="distribution-value">340 students</div>
-                                    </div>
-                                    <div class="distribution-bar">
-                                        <div class="distribution-fill" style="width: 85%;"></div>
-                                    </div>
-                                </div>
-                                <div class="distribution-item">
-                                    <div class="distribution-info">
-                                        <div class="distribution-label">Class 12</div>
-                                        <div class="distribution-value">300 students</div>
-                                    </div>
-                                    <div class="distribution-bar">
-                                        <div class="distribution-fill" style="width: 75%;"></div>
-                                    </div>
-                                </div>
+                            </div>
+                            <div>
+                                <p class="class-stat-label">Class Attendance %</p>
+                                <p class="class-stat-value">96%</p>
                             </div>
                         </div>
                     </div>
+                </div>
 
-                    <!-- Announcements -->
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title">
-                                <span class="material-symbols-outlined">campaign</span>
-                                Announcements
-                            </h3>
-                            <a href="#" class="card-action">View All</a>
+                <!-- Attendance Cards -->
+                <div class="two-col-grid">
+                    <div class="card-custom">
+                        <div class="card-custom-header mb-0">
+                            <h3 class="card-custom-title-sm">Student Attendance Trend</h3>
+                            <div class="trend-badge">
+                                <span class="material-symbols-outlined">arrow_upward</span>
+                                <span>+2.1%</span>
+                            </div>
                         </div>
-                        <div class="card-body">
-                            <div class="activity-list">
-                                <div class="activity-item">
-                                    <div class="activity-icon class">
-                                        <span class="material-symbols-outlined">notifications_active</span>
-                                    </div>
-                                    <div class="activity-content">
-                                        <div class="activity-title">Holiday Notice</div>
-                                        <div class="activity-description">School will remain closed on December 15th</div>
-                                        <div class="activity-time">1 hour ago</div>
-                                    </div>
+                        <div class="chart-container">
+                            <canvas id="attendanceChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="card-custom">
+                        <h3 class="card-custom-title-sm">Teacher Attendance Summary</h3>
+                        <div class="attendance-summary">
+                            <p class="label">Marking Rate</p>
+                            <p class="value">99%</p>
+                            <div class="warning-badge">
+                                <span class="material-symbols-outlined">warning</span>
+                                <span>1 Missing Marking</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Assessment Section -->
+                <div class="assessment-grid">
+                    <div class="card-custom">
+                        <h3 class="card-custom-title-sm">Class-wise Assessment Performance</h3>
+                        <div class="chart-container-lg">
+                            <canvas id="assessmentChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="card-custom">
+                        <h3 class="card-custom-title-sm">Assessment Metrics</h3>
+                        <div class="metrics-list">
+                            <div class="metric-item">
+                                <span class="material-symbols-outlined primary">task_alt</span>
+                                <div>
+                                    <p class="metric-label">Assessments Completed</p>
+                                    <p class="metric-value">75%</p>
                                 </div>
-                                <div class="activity-item">
-                                    <div class="activity-icon assessment">
-                                        <span class="material-symbols-outlined">info</span>
-                                    </div>
-                                    <div class="activity-content">
-                                        <div class="activity-title">Fee Reminder</div>
-                                        <div class="activity-description">Last date for fee payment is December 5th</div>
-                                        <div class="activity-time">2 days ago</div>
-                                    </div>
+                            </div>
+                            <div class="metric-item">
+                                <span class="material-symbols-outlined yellow">pending</span>
+                                <div>
+                                    <p class="metric-label">Pending Assessments</p>
+                                    <p class="metric-value">24</p>
+                                </div>
+                            </div>
+                            <div class="metric-item">
+                                <span class="material-symbols-outlined green">scoreboard</span>
+                                <div>
+                                    <p class="metric-label">Average Score</p>
+                                    <p class="metric-value">82%</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <!-- Right Column - Alerts -->
+            <div class="right-column">
+                <div class="card-custom alerts-sidebar">
+                    <h3 class="card-custom-title-sm">Alerts & Notifications</h3>
+                    <ul class="alert-list">
+                        <li class="alert-item red">
+                            <div class="alert-icon red">
+                                <span class="material-symbols-outlined">group_off</span>
+                            </div>
+                            <div class="alert-content">
+                                <p class="title">Low attendance warning: 5 students</p>
+                                <p class="time">2 min ago</p>
+                            </div>
+                        </li>
+                        <li class="alert-item yellow">
+                            <div class="alert-icon yellow">
+                                <span class="material-symbols-outlined">pending_actions</span>
+                            </div>
+                            <div class="alert-content">
+                                <p class="title">Pending assessment for Grade 11 Physics</p>
+                                <p class="time">1 hour ago</p>
+                            </div>
+                        </li>
+                        <li class="alert-item blue">
+                            <div class="alert-icon blue">
+                                <span class="material-symbols-outlined">campaign</span>
+                            </div>
+                            <div class="alert-content">
+                                <p class="title">New announcement: School Fair next week</p>
+                                <p class="time">4 hours ago</p>
+                            </div>
+                        </li>
+                        <li class="alert-item green">
+                            <div class="alert-icon green">
+                                <span class="material-symbols-outlined">chat</span>
+                            </div>
+                            <div class="alert-content">
+                                <p class="title">Parent feedback received for Emily Jones</p>
+                                <p class="time">1 day ago</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Quick Actions Card -->
+                <div class="card-custom">
+                    <h3 class="card-custom-title-sm">Quick Actions</h3>
+                    <div class="quick-actions-list">
+                        <a href="add-student.html" class="quick-action-btn">
+                            <div class="quick-action-icon-wrapper">
+                                <span class="material-symbols-outlined">person_add</span>
+                            </div>
+                            <div class="quick-action-content">
+                                <p class="quick-action-title">Add Student</p>
+                                <p class="quick-action-desc">Onboard a new student</p>
+                            </div>
+                            <span class="material-symbols-outlined quick-action-arrow">arrow_forward</span>
+                        </a>
+                        <a href="add-teacher.html" class="quick-action-btn">
+                            <div class="quick-action-icon-wrapper">
+                                <span class="material-symbols-outlined">psychology</span>
+                            </div>
+                            <div class="quick-action-content">
+                                <p class="quick-action-title">Add Thinking Coach</p>
+                                <p class="quick-action-desc">Onboard a new thinking coach</p>
+                            </div>
+                            <span class="material-symbols-outlined quick-action-arrow">arrow_forward</span>
+                        </a>
+                        <a href="add-parent.html" class="quick-action-btn">
+                            <div class="quick-action-icon-wrapper">
+                                <span class="material-symbols-outlined">family_restroom</span>
+                            </div>
+                            <div class="quick-action-content">
+                                <p class="quick-action-title">Add Parent</p>
+                                <p class="quick-action-desc">Onboard a new parent</p>
+                            </div>
+                            <span class="material-symbols-outlined quick-action-arrow">arrow_forward</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Teacher Summary Table -->
+        <div class="card-custom mt-4">
+            <h3 class="card-custom-title">Teacher Summary</h3>
+            <div class="table-responsive-wrapper">
+                <table class="table-custom mt-4">
+                    <thead>
+                        <tr>
+                            <th>Teacher Name</th>
+                            <th>Subjects / Grades</th>
+                            <th>Assessment Completion</th>
+                            <th>Attendance Marking</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="user-cell">
+                                    <img class="user-avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA316q7jPcb8vgzoP2eCe3iDCNyeKzFa6jJJeVvJX8BzhV1d7F5LOwvpzmJsYCTl7FJ_lpC6K26kgRdPe7yK1FMFFb9UVbo5OXf50oYq7yEnCL3ScPwXTJExKPj8nBCFYLzqKBnbQe-TvskfEb8MC2KORagkJBaW7Ipu9eoMY5_esw1wcaGJuvNHt3hLxrrEIWLaOkeydbxx2alB-JgEDupa1P7jjeS-00aYofbb_U72BmTA0LwLxuOxB0L7kPeoxCcEw0uUQkFVoH5" alt="Jane Doe">
+                                    <span class="user-name">Jane Doe</span>
+                                </div>
+                            </td>
+                            <td>Math / Gr. 10</td>
+                            <td><span class="bold-value">92%</span></td>
+                            <td><span class="bold-value">100%</span></td>
+                            <td class="text-end"><button class="btn-view">View Teacher</button></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="user-cell">
+                                    <img class="user-avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCR-nCG8St9OH-81QDcY3Iw0kVtnCqO5Q8DscdWEYnBgI4AHCkbTPpCQD6FAn5miWbgtUPp4EVdpy2NAp6NSSzQhnfmI1ED6E_vXkUJGJpHP-RKqLvita4qZoFHBB_VTFETIpDfictGnlN13GJ7DIcwvyTjQoyAKaQ7AH2hY6xKfq1GvH5ptDhx3Up8r-oS6fd3FFrVnO2m7Vkb71-zjgD8NBMfzH63FQeooOso5hOslKGF0E7EFzsORnCBx5Yc9mINI0xQCTJBECqW" alt="John Smith">
+                                    <span class="user-name">John Smith</span>
+                                </div>
+                            </td>
+                            <td>Science / Gr. 9</td>
+                            <td><span class="bold-value">85%</span></td>
+                            <td><span class="bold-value">98%</span></td>
+                            <td class="text-end"><button class="btn-view">View Teacher</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Student Summary Table -->
+        <div class="card-custom mt-4">
+            <h3 class="card-custom-title">Student Summary</h3>
+            <div class="table-responsive-wrapper">
+                <table class="table-custom mt-4">
+                    <thead>
+                        <tr>
+                            <th>Student Name</th>
+                            <th>Grade</th>
+                            <th>Attendance %</th>
+                            <th>Performance %</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="user-cell">
+                                    <img class="user-avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDUKqFI268De72VqtMw0iVx2R4NoPvPqxINxuJbXGgdSD14TTLtRAcxPKf33dAEo2FainoXMmvgwmxZX2qZ5xvN3fMqPlmkaw8pgHxU4spyWt7chJL4fddhTTquUZfWj6hceD9WcUtapIch9yfhBJG-l5XNvLWj0RxtQ_qHBEG6bC6POhfSPFgS7HKj4kBgEAbKUf9XRgMguUjFi4OagUCPFyaeE8aCP7v3iuYecayEqhAUXaOEl1qWn1kNz8WDZ7pTwZ8WSJ-OzRLr" alt="Michael Brown">
+                                    <span class="user-name">Michael Brown</span>
+                                </div>
+                            </td>
+                            <td>Grade 10</td>
+                            <td><span class="bold-value">98%</span></td>
+                            <td><span class="bold-value">95%</span></td>
+                            <td class="text-end"><button class="btn-view">View Student</button></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="user-cell">
+                                    <img class="user-avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuASJyPOVz-rikWc-PPF9QCfRJnTvjAcwIhUhu28YmaaYjpnZ7Wpj2ptWF_SGPo4MYhcxa1TRnPI95qk8pL5JLghjVkX01Ml3edIX3cqYX3nHDqpRezWPmnXBnUxDuK4Z3xMRF_qwFRZleHf8GyXD-lolhBlEzRzqadyZLHqbt04_2l9G0nb9ycAR2qngdxyfJgKICTKCRjLqg1mdpEEizt2GiKHoTw_Rx5sB77Vxjhg2jhbC9rK6bacHzK2lgD9Hq0mDyt6wN3FzluE" alt="Emily Jones">
+                                    <span class="user-name">Emily Jones</span>
+                                </div>
+                            </td>
+                            <td>Grade 9</td>
+                            <td><span class="bold-value">92%</span></td>
+                            <td><span class="bold-value">89%</span></td>
+                            <td class="text-end"><button class="btn-view">View Student</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+            </div>
         </main>
     </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
         // Load Sidebar and Header Components
@@ -387,7 +1506,7 @@
 
                 // Use setTimeout to ensure DOM has parsed the inserted HTML
                 setTimeout(() => {
-                    // Call header initialization directly instead of relying on DOMContentLoaded
+                    // Call header initialization directly
                     if (typeof initializeHeader === 'function') {
                         initializeHeader();
                     }
@@ -396,55 +1515,182 @@
                     document.getElementById('sidebar-container').classList.add('loaded');
                     document.getElementById('header-container').classList.add('loaded');
 
-                    // Wait a bit for sidebar.js to initialize, then set active state
+                    // Set active menu item
                     setActiveMenuItem();
                 }, 200);
             });
         });
 
         function setActiveMenuItem() {
-            // For dashboard, we can manually set an active state if needed
             const currentPage = window.location.pathname.split('/').pop();
-            console.log('Current page:', currentPage);
 
-            // Get all sidebar links
-            const sidebarLinks = document.querySelectorAll('.sidebar-dropdown-menu a');
-
-            // Remove all active classes first
-            sidebarLinks.forEach(link => link.classList.remove('active'));
-
-            // Add active class based on current page
-            const navLinks = {
-                'admin-dashboard.html': 'nav-dashboard',
-                'teacher-list.html': 'nav-teacher-list',
-                'add-teacher.html': 'nav-add-teacher',
-                'upload-teacher-csv.html': 'nav-upload-teacher-csv',
-                'student-list.html': 'nav-student-list',
-                'add-student.html': 'nav-add-student',
-                'upload-student-csv.html': 'nav-upload-student-csv',
-                'class-list.html': 'nav-class-list',
-                'add-class.html': 'nav-add-class',
-                'classes-subjects.html': 'nav-classes-subjects',
-                'assign-subjects.html': 'nav-assign-subjects',
-                'assessment-overview.html': 'nav-assessment-overview',
-                'lms-overview.html': 'nav-lms-overview'
-            };
-
-            if (navLinks[currentPage]) {
-                const activeLink = document.getElementById(navLinks[currentPage]);
-                if (activeLink) {
-                    activeLink.classList.add('active');
-                    console.log('Active link set:', navLinks[currentPage]);
-
-                    // Also open the parent dropdown
-                    const dropdown = activeLink.closest('.sidebar-dropdown');
-                    if (dropdown) {
-                        dropdown.classList.add('active');
-                    }
-                }
+            // Get the dashboard nav link
+            const dashboardLink = document.getElementById('nav-dashboard');
+            if (dashboardLink && (currentPage === 'dashboard.html' || currentPage === '')) {
+                dashboardLink.classList.add('active');
             }
         }
+
+        // Initialize Charts
+        function initializeCharts() {
+            // Student Attendance Trend Chart (Line Chart)
+            const attendanceCtx = document.getElementById('attendanceChart').getContext('2d');
+            const attendanceChart = new Chart(attendanceCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                    datasets: [{
+                        label: 'Attendance %',
+                        data: [92, 94, 91, 95, 93, 97],
+                        borderColor: '#5A1F6E',
+                        backgroundColor: 'rgba(90, 31, 110, 0.1)',
+                        borderWidth: 3,
+                        tension: 0.4,
+                        fill: true,
+                        pointBackgroundColor: '#5A1F6E',
+                        pointBorderColor: '#fff',
+                        pointBorderWidth: 2,
+                        pointRadius: 5,
+                        pointHoverRadius: 7
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            backgroundColor: '#1f2937',
+                            titleColor: '#fff',
+                            bodyColor: '#fff',
+                            borderColor: '#5A1F6E',
+                            borderWidth: 1,
+                            padding: 12,
+                            displayColors: false,
+                            callbacks: {
+                                label: function(context) {
+                                    return 'Attendance: ' + context.parsed.y + '%';
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: false,
+                            min: 85,
+                            max: 100,
+                            ticks: {
+                                callback: function(value) {
+                                    return value + '%';
+                                },
+                                color: '#6b7280',
+                                font: {
+                                    size: 11,
+                                    family: 'Lexend'
+                                }
+                            },
+                            grid: {
+                                color: '#f3f4f6',
+                                drawBorder: false
+                            }
+                        },
+                        x: {
+                            ticks: {
+                                color: '#6b7280',
+                                font: {
+                                    size: 11,
+                                    family: 'Lexend'
+                                }
+                            },
+                            grid: {
+                                display: false,
+                                drawBorder: false
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Class-wise Assessment Performance Chart (Bar Chart)
+            const assessmentCtx = document.getElementById('assessmentChart').getContext('2d');
+            const assessmentChart = new Chart(assessmentCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Grade 9A', 'Grade 9B', 'Grade 10A', 'Grade 10B', 'Grade 11A', 'Grade 11B', 'Grade 12A', 'Grade 12B'],
+                    datasets: [{
+                        label: 'Performance %',
+                        data: [85, 78, 92, 88, 82, 86, 90, 84],
+                        backgroundColor: '#5A1F6E',
+                        borderRadius: 6,
+                        barThickness: 30
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            backgroundColor: '#1f2937',
+                            titleColor: '#fff',
+                            bodyColor: '#fff',
+                            borderColor: '#5A1F6E',
+                            borderWidth: 1,
+                            padding: 12,
+                            displayColors: false,
+                            callbacks: {
+                                label: function(context) {
+                                    return 'Performance: ' + context.parsed.y + '%';
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: false,
+                            min: 70,
+                            max: 100,
+                            ticks: {
+                                callback: function(value) {
+                                    return value + '%';
+                                },
+                                color: '#6b7280',
+                                font: {
+                                    size: 11,
+                                    family: 'Lexend'
+                                }
+                            },
+                            grid: {
+                                color: '#f3f4f6',
+                                drawBorder: false
+                            }
+                        },
+                        x: {
+                            ticks: {
+                                color: '#6b7280',
+                                font: {
+                                    size: 10,
+                                    family: 'Lexend'
+                                }
+                            },
+                            grid: {
+                                display: false,
+                                drawBorder: false
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Initialize charts after DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeCharts();
+        });
     </script>
 </body>
-
 </html>
