@@ -723,15 +723,16 @@ body.dark .btn-back:hover {
     .stepper {
         overflow-x: auto;
         padding: 5px;
+        min-width: max-content;
     }
 
     .stepper::before {
-        left: 2%;
-        right: 2%;
+        left: 40px;
+        right: 40px;
     }
 
     .step {
-        min-width: 60px;
+        min-width: 80px;
     }
 
     .step-icon {
@@ -742,7 +743,7 @@ body.dark .btn-back:hover {
 
     .step-label {
         font-size: 10px;
-        max-width: 70px;
+        max-width: 80px;
     }
 
     .form-section {

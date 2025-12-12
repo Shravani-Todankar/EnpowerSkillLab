@@ -96,10 +96,14 @@
         }
 
         /* Progress Stepper */
+        .stepper-container {
+            margin-bottom: 50px;
+            overflow-x: hidden;
+        }
+
         .stepper {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 50px;
             position: relative;
         }
 
@@ -597,19 +601,24 @@
                 grid-template-columns: 1fr;
             }
 
+            .stepper-container {
+                padding: 1rem;
+                overflow-x: auto;
+            }
+
             .stepper {
                 overflow-x: auto;
                 padding: 5px;
-                gap: 20px;
+                min-width: max-content;
             }
 
             .stepper::before {
-                left: 2%;
-                right: 2%;
+                left: 40px;
+                right: 40px;
             }
 
             .step {
-                min-width: 60px;
+                min-width: 80px;
             }
 
             .step-icon {
@@ -620,7 +629,7 @@
 
             .step-label {
                 font-size: 10px;
-                max-width: 70px;
+                max-width: 80px;
             }
 
             .relationship-options {
@@ -650,34 +659,36 @@
                     </div>
 
                     <!-- Progress Stepper -->
-                    <div class="stepper">
-                        <div class="step active">
-                            <div class="step-icon">1</div>
-                            <div class="step-label">Primary Parent</div>
-                        </div>
-                        <div class="step">
-                            <div class="step-icon">2</div>
-                            <div class="step-label">Secondary Parent</div>
-                        </div>
-                        <div class="step">
-                            <div class="step-icon">3</div>
-                            <div class="step-label">Address</div>
-                        </div>
-                        <div class="step">
-                            <div class="step-icon">4</div>
-                            <div class="step-label">Communication</div>
-                        </div>
-                        <div class="step">
-                            <div class="step-icon">5</div>
-                            <div class="step-label">Financial</div>
-                        </div>
-                        <div class="step">
-                            <div class="step-icon">6</div>
-                            <div class="step-label">Emergency</div>
-                        </div>
-                        <div class="step">
-                            <div class="step-icon">7</div>
-                            <div class="step-label">Involvement</div>
+                    <div class="stepper-container">
+                        <div class="stepper">
+                            <div class="step active">
+                                <div class="step-icon">1</div>
+                                <div class="step-label">Primary Parent</div>
+                            </div>
+                            <div class="step">
+                                <div class="step-icon">2</div>
+                                <div class="step-label">Secondary Parent</div>
+                            </div>
+                            <div class="step">
+                                <div class="step-icon">3</div>
+                                <div class="step-label">Address</div>
+                            </div>
+                            <div class="step">
+                                <div class="step-icon">4</div>
+                                <div class="step-label">Communication</div>
+                            </div>
+                            <div class="step">
+                                <div class="step-icon">5</div>
+                                <div class="step-label">Financial</div>
+                            </div>
+                            <div class="step">
+                                <div class="step-icon">6</div>
+                                <div class="step-label">Emergency</div>
+                            </div>
+                            <div class="step">
+                                <div class="step-icon">7</div>
+                                <div class="step-label">Involvement</div>
+                            </div>
                         </div>
                     </div>
 

@@ -97,10 +97,14 @@
         }
 
         /* Progress Stepper */
+        .stepper-container {
+            margin-bottom: 50px;
+            overflow-x: hidden;
+        }
+
         .stepper {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 50px;
             position: relative;
         }
 
@@ -505,19 +509,24 @@
                 grid-template-columns: 1fr;
             }
 
+            .stepper-container {
+                padding: 1rem;
+                overflow-x: auto;
+            }
+
             .stepper {
                 overflow-x: auto;
                 padding: 5px;
-                gap: 20px;
+                min-width: max-content;
             }
 
             .stepper::before {
-                left: 2%;
-                right: 2%;
+                left: 40px;
+                right: 40px;
             }
 
             .step {
-                min-width: 60px;
+                min-width: 80px;
             }
 
             .step-icon {
@@ -560,42 +569,44 @@
                     </div>
 
                     <!-- Progress Stepper -->
-                    <div class="stepper">
-                        <div class="step active">
-                            <div class="step-icon">1</div>
-                            <div class="step-label">Basic Info</div>
-                        </div>
-                        <div class="step">
-                            <div class="step-icon">2</div>
-                            <div class="step-label">Branch</div>
-                        </div>
-                        <div class="step">
-                            <div class="step-icon">3</div>
-                            <div class="step-label">Infrastructure</div>
-                        </div>
-                        <div class="step">
-                            <div class="step-icon">4</div>
-                            <div class="step-label">Academic</div>
-                        </div>
-                        <div class="step">
-                            <div class="step-icon">5</div>
-                            <div class="step-label">Skill Lab</div>
-                        </div>
-                        <div class="step">
-                            <div class="step-icon">6</div>
-                            <div class="step-label">Admin</div>
-                        </div>
-                        <div class="step">
-                            <div class="step-icon">7</div>
-                            <div class="step-label">Compliance</div>
-                        </div>
-                        <div class="step">
-                            <div class="step-icon">8</div>
-                            <div class="step-label">Emergency</div>
-                        </div>
-                        <div class="step">
-                            <div class="step-icon">9</div>
-                            <div class="step-label">Additional</div>
+                    <div class="stepper-container">
+                        <div class="stepper">
+                            <div class="step active">
+                                <div class="step-icon">1</div>
+                                <div class="step-label">Basic Info</div>
+                            </div>
+                            <div class="step">
+                                <div class="step-icon">2</div>
+                                <div class="step-label">Branch</div>
+                            </div>
+                            <div class="step">
+                                <div class="step-icon">3</div>
+                                <div class="step-label">Infrastructure</div>
+                            </div>
+                            <div class="step">
+                                <div class="step-icon">4</div>
+                                <div class="step-label">Academic</div>
+                            </div>
+                            <div class="step">
+                                <div class="step-icon">5</div>
+                                <div class="step-label">Skill Lab</div>
+                            </div>
+                            <div class="step">
+                                <div class="step-icon">6</div>
+                                <div class="step-label">Admin</div>
+                            </div>
+                            <div class="step">
+                                <div class="step-icon">7</div>
+                                <div class="step-label">Compliance</div>
+                            </div>
+                            <div class="step">
+                                <div class="step-icon">8</div>
+                                <div class="step-label">Emergency</div>
+                            </div>
+                            <div class="step">
+                                <div class="step-icon">9</div>
+                                <div class="step-label">Additional</div>
+                            </div>
                         </div>
                     </div>
 
