@@ -103,12 +103,30 @@
                                     A. Basic Information
                                 </h2>
                             </div>
+
+                            <div class="form-group full-width">
+                                <label for="studentPhoto" class="form-label">Profile Photo</label>
+                                <div class="photo-upload-container">
+                                    <div class="photo-preview" id="photoPreview">
+                                        <span class="material-symbols-outlined">add_a_photo</span>
+                                        <span class="photo-preview-text">Upload Photo</span>
+                                    </div>
+                                    <input type="file" id="studentPhoto" name="studentPhoto" accept="image/*"
+                                        class="photo-input">
+                                    <button type="button" class="upload-photo-btn" id="uploadPhotoBtn">
+                                        <span class="material-symbols-outlined">upload</span>
+                                        Choose Photo
+                                    </button>
+                                    <p class="field-hint">Recommended: Square image, max 2MB</p>
+                                </div>
+                            </div>
+
                             <div class="form-grid">
-                                <div class="form-group">
+                                <!-- <div class="form-group">
                                     <label for="profile-photo" class="form-label">Profile Photo</label>
                                     <input type="file" id="profile-photo" name="profile-photo" class="form-input" accept="image/*">
                                     <p class="field-hint">Max size 2MB, recommended square image</p>
-                                </div>
+                                </div> -->
 
                                 <div class="form-group">
                                     <label for="employee-id" class="form-label">Employee / Coach ID</label>
@@ -708,6 +726,7 @@
             generateEmployeeID();
             initializeAgeCalculation();
             initializeAadharFormatting();
+            initializePhotoUpload();
         });
 
         // Age auto-calculation from Date of Birth
@@ -1499,6 +1518,96 @@
                 }
             });
         });
+
+        // Photo Upload Functionality
+        function initializePhotoUpload() {
+            const uploadPhotoBtn = document.getElementById('uploadPhotoBtn');
+            const studentPhoto = document.getElementById('studentPhoto');
+            const photoPreview = document.getElementById('photoPreview');
+
+            if (uploadPhotoBtn && studentPhoto && photoPreview) {
+                uploadPhotoBtn.addEventListener('click', function () {
+                    studentPhoto.click();
+                });
+
+                studentPhoto.addEventListener('change', function (e) {
+                    const file = e.target.files[0];
+                    if (file) {
+                        // Validate file type
+                        const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
+                        if (!validTypes.includes(file.type)) {
+                            alert('Please upload a valid image file (JPEG, PNG, GIF, or WebP)');
+                            studentPhoto.value = '';
+                            return;
+                        }
+
+                        // Validate file size (2MB = 2 * 1024 * 1024 bytes)
+                        const maxSize = 2 * 1024 * 1024;
+                        if (file.size > maxSize) {
+                            alert('File size should not exceed 2MB. Your file is ' + (file.size / (1024 * 1024)).toFixed(2) + 'MB');
+                            studentPhoto.value = '';
+                            return;
+                        }
+
+                        // Validate minimum file size (10KB to avoid too small images)
+                        const minSize = 10 * 1024;
+                        if (file.size < minSize) {
+                            alert('File size is too small. Please upload a clearer image (minimum 10KB)');
+                            studentPhoto.value = '';
+                            return;
+                        }
+
+                        // Create an image object to validate dimensions
+                        const img = new Image();
+                        const objectUrl = URL.createObjectURL(file);
+
+                        img.onload = function () {
+                            // Validate minimum dimensions
+                            const minWidth = 200;
+                            const minHeight = 200;
+
+                            if (img.width < minWidth || img.height < minHeight) {
+                                alert(`Image dimensions are too small. Minimum size is ${minWidth}x${minHeight} pixels. Your image is ${img.width}x${img.height} pixels.`);
+                                studentPhoto.value = '';
+                                URL.revokeObjectURL(objectUrl);
+                                return;
+                            }
+
+                            // Validate maximum dimensions
+                            const maxWidth = 5000;
+                            const maxHeight = 5000;
+
+                            if (img.width > maxWidth || img.height > maxHeight) {
+                                alert(`Image dimensions are too large. Maximum size is ${maxWidth}x${maxHeight} pixels. Your image is ${img.width}x${img.height} pixels.`);
+                                studentPhoto.value = '';
+                                URL.revokeObjectURL(objectUrl);
+                                return;
+                            }
+
+                            // All validations passed - show preview
+                            const reader = new FileReader();
+                            reader.onload = function (event) {
+                                photoPreview.style.backgroundImage = `url(${event.target.result})`;
+                                photoPreview.style.backgroundSize = 'cover';
+                                photoPreview.style.backgroundPosition = 'center';
+                                photoPreview.innerHTML = '';
+                            };
+                            reader.readAsDataURL(file);
+
+                            URL.revokeObjectURL(objectUrl);
+                        };
+
+                        img.onerror = function () {
+                            alert('Failed to load image. Please try a different file.');
+                            studentPhoto.value = '';
+                            URL.revokeObjectURL(objectUrl);
+                        };
+
+                        img.src = objectUrl;
+                    }
+                });
+            }
+        }
     </script>
 </body>
 

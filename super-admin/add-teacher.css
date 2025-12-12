@@ -268,6 +268,75 @@ body.dark .form-label {
     font-weight: 600;
 }
 
+/* Photo Upload */
+.photo-upload-container {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.photo-preview {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 3px dashed #D1D5DB;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    background-color: #F9FAFB;
+    color: #9CA3AF;
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+body.dark .photo-preview {
+    border-color: #4B5563;
+    background-color: #374151;
+    color: #6B7280;
+}
+
+.photo-preview .material-symbols-outlined {
+    font-size: 3rem;
+}
+
+.photo-preview-text {
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.photo-input {
+    display: none;
+}
+
+.upload-photo-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background-color: #6b277e;
+    color: #ffffff;
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 0.938rem;
+    font-weight: 500;
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.upload-photo-btn:hover {
+    background-color: #A67DB1;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(107, 39, 126, 0.3);
+}
+
+.upload-photo-btn .material-symbols-outlined {
+    font-size: 1.25rem;
+}
+
 /* Form Inputs */
 .form-input,
 .form-textarea {
