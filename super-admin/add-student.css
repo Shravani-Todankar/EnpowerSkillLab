@@ -668,7 +668,7 @@ body.dark .btn-back:hover {
 
     .photo-upload-container {
         flex-direction: column;
-        align-items: center;
+        align-items: flex-start;
     }
 
     .photo-preview {
@@ -722,7 +722,7 @@ body.dark .btn-back:hover {
 
     .stepper {
         overflow-x: auto;
-        padding: 0 5px;
+        padding: 5px;
     }
 
     .stepper::before {
@@ -791,7 +791,7 @@ body.dark .btn-back:hover {
     }
 
     .upload-photo-btn {
-        width: 100%;
+        width: 60%;
         justify-content: center;
     }
 }

@@ -507,7 +507,8 @@
 
             .stepper {
                 overflow-x: auto;
-                padding: 0 5px;
+                padding: 5px;
+                gap: 20px;
             }
 
             .stepper::before {
@@ -607,12 +608,14 @@
                             <div class="form-row">
                                 <div class="form-group">
                                     <label>School Name <span class="required">*</span></label>
-                                    <input type="text" name="schoolName" id="schoolName" placeholder="Name of School" required>
+                                    <input type="text" name="schoolName" id="schoolName" placeholder="Name of School"
+                                        required>
                                     <span class="error-message" id="schoolNameError"></span>
                                 </div>
                                 <div class="form-group">
                                     <label>School Code / UDISE Code <span class="required">*</span></label>
-                                    <input type="text" name="schoolCode" id="schoolCode" placeholder="e.g. SCH-12345" required>
+                                    <input type="text" name="schoolCode" id="schoolCode" placeholder="e.g. SCH-12345"
+                                        required>
                                     <span class="error-message" id="schoolCodeError"></span>
                                 </div>
                             </div>
@@ -658,7 +661,8 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Year of Establishment</label>
-                                    <input type="number" name="yearEstablished" id="yearEstablished" placeholder="e.g. 1990" min="1800" max="2025">
+                                    <input type="number" name="yearEstablished" id="yearEstablished"
+                                        placeholder="e.g. 1990" min="1800" max="2025">
                                     <span class="error-message" id="yearEstablishedError"></span>
                                 </div>
                             </div>
@@ -671,7 +675,8 @@
                                 </div>
                                 <div class="form-group">
                                     <label>School Email ID <span class="required">*</span></label>
-                                    <input type="email" name="schoolEmail" id="schoolEmail" placeholder="school@example.com" required>
+                                    <input type="email" name="schoolEmail" id="schoolEmail"
+                                        placeholder="school@example.com" required>
                                     <span class="error-message" id="schoolEmailError"></span>
                                 </div>
                             </div>
@@ -679,12 +684,14 @@
                             <div class="form-row">
                                 <div class="form-group">
                                     <label>School Contact Number <span class="required">*</span></label>
-                                    <input type="tel" name="schoolPhone" id="schoolPhone" placeholder="+91 XXXXX XXXXX" required maxlength="10">
+                                    <input type="tel" name="schoolPhone" id="schoolPhone" placeholder="+91 XXXXX XXXXX"
+                                        required maxlength="10">
                                     <span class="error-message" id="schoolPhoneError"></span>
                                 </div>
                                 <div class="form-group">
                                     <label>Website URL</label>
-                                    <input type="url" name="website" id="website" placeholder="https://www.schoolwebsite.com">
+                                    <input type="url" name="website" id="website"
+                                        placeholder="https://www.schoolwebsite.com">
                                     <span class="error-message" id="websiteError"></span>
                                 </div>
                             </div>
@@ -692,12 +699,14 @@
                             <div class="form-row">
                                 <div class="form-group">
                                     <label>Admin / Principal Name <span class="required">*</span></label>
-                                    <input type="text" name="principalName" id="principalName" placeholder="Principal Full Name" required>
+                                    <input type="text" name="principalName" id="principalName"
+                                        placeholder="Principal Full Name" required>
                                     <span class="error-message" id="principalNameError"></span>
                                 </div>
                                 <div class="form-group">
                                     <label>Principal Contact Number <span class="required">*</span></label>
-                                    <input type="tel" name="principalPhone" id="principalPhone" placeholder="+91 XXXXX XXXXX" required maxlength="10">
+                                    <input type="tel" name="principalPhone" id="principalPhone"
+                                        placeholder="+91 XXXXX XXXXX" required maxlength="10">
                                     <span class="error-message" id="principalPhoneError"></span>
                                 </div>
                             </div>
@@ -705,7 +714,8 @@
                             <div class="form-row">
                                 <div class="form-group">
                                     <label>Principal Email ID <span class="required">*</span></label>
-                                    <input type="email" name="principalEmail" id="principalEmail" placeholder="principal@school.com" required>
+                                    <input type="email" name="principalEmail" id="principalEmail"
+                                        placeholder="principal@school.com" required>
                                     <span class="error-message" id="principalEmailError"></span>
                                 </div>
                             </div>
@@ -714,7 +724,8 @@
                         <!-- Step 2: School Branch Details -->
                         <div class="form-section" id="step2" style="display: none;">
                             <h2>B. School Branch Details</h2>
-                            <p style="color: #6e6e73; font-size: 14px; margin-bottom: 24px;">If single school has multiple units</p>
+                            <p style="color: #6e6e73; font-size: 14px; margin-bottom: 24px;">If single school has
+                                multiple units</p>
 
                             <div class="form-row">
                                 <div class="form-group">
@@ -732,7 +743,8 @@
                             <div class="form-row full">
                                 <div class="form-group">
                                     <label>Branch Address <span class="required">*</span></label>
-                                    <input type="text" name="branchAddress" id="branchAddress" placeholder="123 Education Lane" required>
+                                    <input type="text" name="branchAddress" id="branchAddress"
+                                        placeholder="123 Education Lane" required>
                                     <span class="error-message" id="branchAddressError"></span>
                                 </div>
                             </div>
@@ -753,12 +765,14 @@
                             <div class="form-row">
                                 <div class="form-group">
                                     <label>Pincode <span class="required">*</span></label>
-                                    <input type="text" name="pincode" id="pincode" placeholder="e.g. 400001" required maxlength="6">
+                                    <input type="text" name="pincode" id="pincode" placeholder="e.g. 400001" required
+                                        maxlength="6">
                                     <span class="error-message" id="pincodeError"></span>
                                 </div>
                                 <div class="form-group">
                                     <label>Number of Students</label>
-                                    <input type="number" name="numStudents" id="numStudents" placeholder="e.g. 500" min="0">
+                                    <input type="number" name="numStudents" id="numStudents" placeholder="e.g. 500"
+                                        min="0">
                                     <span class="error-message" id="numStudentsError"></span>
                                 </div>
                             </div>
@@ -766,12 +780,14 @@
                             <div class="form-row">
                                 <div class="form-group">
                                     <label>Number of Teachers</label>
-                                    <input type="number" name="numTeachers" id="numTeachers" placeholder="e.g. 50" min="0">
+                                    <input type="number" name="numTeachers" id="numTeachers" placeholder="e.g. 50"
+                                        min="0">
                                     <span class="error-message" id="numTeachersError"></span>
                                 </div>
                                 <div class="form-group">
                                     <label>Number of Skill Lab Trainers</label>
-                                    <input type="number" name="numTrainers" id="numTrainers" placeholder="e.g. 5" min="0">
+                                    <input type="number" name="numTrainers" id="numTrainers" placeholder="e.g. 5"
+                                        min="0">
                                     <span class="error-message" id="numTrainersError"></span>
                                 </div>
                             </div>
@@ -779,7 +795,8 @@
                             <div class="form-row">
                                 <div class="form-group">
                                     <label>Grades Available</label>
-                                    <input type="text" name="gradesAvailable" id="gradesAvailable" placeholder="e.g. Pre-K to 12">
+                                    <input type="text" name="gradesAvailable" id="gradesAvailable"
+                                        placeholder="e.g. Pre-K to 12">
                                     <span class="error-message" id="gradesAvailableError"></span>
                                 </div>
                                 <div class="form-group">
@@ -797,12 +814,14 @@
                             <div class="form-row">
                                 <div class="form-group">
                                     <label>Branch Coordinator Name</label>
-                                    <input type="text" name="branchCoordinatorName" id="branchCoordinatorName" placeholder="Coordinator Name">
+                                    <input type="text" name="branchCoordinatorName" id="branchCoordinatorName"
+                                        placeholder="Coordinator Name">
                                     <span class="error-message" id="branchCoordinatorNameError"></span>
                                 </div>
                                 <div class="form-group">
                                     <label>Branch Coordinator Contact</label>
-                                    <input type="tel" name="branchCoordinatorPhone" id="branchCoordinatorPhone" placeholder="+91 XXXXX XXXXX" maxlength="10">
+                                    <input type="tel" name="branchCoordinatorPhone" id="branchCoordinatorPhone"
+                                        placeholder="+91 XXXXX XXXXX" maxlength="10">
                                     <span class="error-message" id="branchCoordinatorPhoneError"></span>
                                 </div>
                             </div>
@@ -824,7 +843,8 @@
                                 </div>
                                 <div class="form-group">
                                     <label>CSL Rooms Count</label>
-                                    <input type="number" name="cslRoomsCount" id="cslRoomsCount" placeholder="e.g. 3" min="0">
+                                    <input type="number" name="cslRoomsCount" id="cslRoomsCount" placeholder="e.g. 3"
+                                        min="0">
                                     <span class="error-message" id="cslRoomsCountError"></span>
                                 </div>
                             </div>
@@ -832,12 +852,14 @@
                             <div class="form-row">
                                 <div class="form-group">
                                     <label>Equipment Inventory</label>
-                                    <input type="text" name="equipmentInventory" id="equipmentInventory" placeholder="List major equipment">
+                                    <input type="text" name="equipmentInventory" id="equipmentInventory"
+                                        placeholder="List major equipment">
                                     <span class="error-message" id="equipmentInventoryError"></span>
                                 </div>
                                 <div class="form-group">
                                     <label>Computer Lab Details</label>
-                                    <input type="text" name="computerLabDetails" id="computerLabDetails" placeholder="e.g. 30 computers, Windows 11">
+                                    <input type="text" name="computerLabDetails" id="computerLabDetails"
+                                        placeholder="e.g. 30 computers, Windows 11">
                                     <span class="error-message" id="computerLabDetailsError"></span>
                                 </div>
                             </div>
@@ -845,12 +867,14 @@
                             <div class="form-row">
                                 <div class="form-group">
                                     <label>Internet Availability & Speed</label>
-                                    <input type="text" name="internetDetails" id="internetDetails" placeholder="e.g. 100 Mbps Fiber">
+                                    <input type="text" name="internetDetails" id="internetDetails"
+                                        placeholder="e.g. 100 Mbps Fiber">
                                     <span class="error-message" id="internetDetailsError"></span>
                                 </div>
                                 <div class="form-group">
                                     <label>Classroom Count</label>
-                                    <input type="number" name="classroomCount" id="classroomCount" placeholder="e.g. 40" min="0">
+                                    <input type="number" name="classroomCount" id="classroomCount" placeholder="e.g. 40"
+                                        min="0">
                                     <span class="error-message" id="classroomCountError"></span>
                                 </div>
                             </div>
@@ -858,12 +882,14 @@
                             <div class="form-row">
                                 <div class="form-group">
                                     <label>Sports Facilities</label>
-                                    <input type="text" name="sportsFacilities" id="sportsFacilities" placeholder="e.g. Playground, Basketball Court">
+                                    <input type="text" name="sportsFacilities" id="sportsFacilities"
+                                        placeholder="e.g. Playground, Basketball Court">
                                     <span class="error-message" id="sportsFacilitiesError"></span>
                                 </div>
                                 <div class="form-group">
                                     <label>Safety & Security Measures</label>
-                                    <input type="text" name="safetyMeasures" id="safetyMeasures" placeholder="e.g. Security guards, Visitor management">
+                                    <input type="text" name="safetyMeasures" id="safetyMeasures"
+                                        placeholder="e.g. Security guards, Visitor management">
                                     <span class="error-message" id="safetyMeasuresError"></span>
                                 </div>
                             </div>
@@ -911,12 +937,14 @@
                             <div class="form-row">
                                 <div class="form-group">
                                     <label>Total Students Enrolled</label>
-                                    <input type="number" name="totalStudents" id="totalStudents" placeholder="e.g. 1500" min="0">
+                                    <input type="number" name="totalStudents" id="totalStudents" placeholder="e.g. 1500"
+                                        min="0">
                                     <span class="error-message" id="totalStudentsError"></span>
                                 </div>
                                 <div class="form-group">
                                     <label>Class-wise Strength</label>
-                                    <input type="text" name="classWiseStrength" id="classWiseStrength" placeholder="e.g. Class 1: 60, Class 2: 55">
+                                    <input type="text" name="classWiseStrength" id="classWiseStrength"
+                                        placeholder="e.g. Class 1: 60, Class 2: 55">
                                     <span class="error-message" id="classWiseStrengthError"></span>
                                 </div>
                             </div>
@@ -924,12 +952,14 @@
                             <div class="form-row">
                                 <div class="form-group">
                                     <label>Student-Teacher Ratio</label>
-                                    <input type="text" name="studentTeacherRatio" id="studentTeacherRatio" placeholder="e.g. 30:1">
+                                    <input type="text" name="studentTeacherRatio" id="studentTeacherRatio"
+                                        placeholder="e.g. 30:1">
                                     <span class="error-message" id="studentTeacherRatioError"></span>
                                 </div>
                                 <div class="form-group">
                                     <label>Curriculum Followed</label>
-                                    <input type="text" name="curriculumFollowed" id="curriculumFollowed" placeholder="e.g. NCERT, Cambridge">
+                                    <input type="text" name="curriculumFollowed" id="curriculumFollowed"
+                                        placeholder="e.g. NCERT, Cambridge">
                                     <span class="error-message" id="curriculumFollowedError"></span>
                                 </div>
                             </div>
@@ -937,12 +967,14 @@
                             <div class="form-row">
                                 <div class="form-group">
                                     <label>Club/Activity Details</label>
-                                    <input type="text" name="clubDetails" id="clubDetails" placeholder="e.g. STEM, ATL, Dance, Coding, Robotics">
+                                    <input type="text" name="clubDetails" id="clubDetails"
+                                        placeholder="e.g. STEM, ATL, Dance, Coding, Robotics">
                                     <span class="error-message" id="clubDetailsError"></span>
                                 </div>
                                 <div class="form-group">
                                     <label>Skill Subjects Offered (9th–12th)</label>
-                                    <input type="text" name="skillSubjects" id="skillSubjects" placeholder="e.g. IT, Retail, Tourism">
+                                    <input type="text" name="skillSubjects" id="skillSubjects"
+                                        placeholder="e.g. IT, Retail, Tourism">
                                     <span class="error-message" id="skillSubjectsError"></span>
                                 </div>
                             </div>
@@ -950,7 +982,8 @@
                             <div class="form-row">
                                 <div class="form-group">
                                     <label>Remedial Programs Available</label>
-                                    <input type="text" name="remedialPrograms" id="remedialPrograms" placeholder="e.g. After-school tutoring, Summer programs">
+                                    <input type="text" name="remedialPrograms" id="remedialPrograms"
+                                        placeholder="e.g. After-school tutoring, Summer programs">
                                     <span class="error-message" id="remedialProgramsError"></span>
                                 </div>
                             </div>
@@ -963,12 +996,14 @@
                             <div class="form-row">
                                 <div class="form-group">
                                     <label>Skill Lab Registration ID</label>
-                                    <input type="text" name="skillLabRegId" id="skillLabRegId" placeholder="e.g. SL-2024-001">
+                                    <input type="text" name="skillLabRegId" id="skillLabRegId"
+                                        placeholder="e.g. SL-2024-001">
                                     <span class="error-message" id="skillLabRegIdError"></span>
                                 </div>
                                 <div class="form-group">
                                     <label>Skills Offered (List)</label>
-                                    <input type="text" name="skillsOffered" id="skillsOffered" placeholder="e.g. Critical Thinking, Communication">
+                                    <input type="text" name="skillsOffered" id="skillsOffered"
+                                        placeholder="e.g. Critical Thinking, Communication">
                                     <span class="error-message" id="skillsOfferedError"></span>
                                 </div>
                             </div>
@@ -976,12 +1011,14 @@
                             <div class="form-row">
                                 <div class="form-group">
                                     <label>Batch Timings</label>
-                                    <input type="text" name="batchTimings" id="batchTimings" placeholder="e.g. 9 AM - 12 PM, 2 PM - 5 PM">
+                                    <input type="text" name="batchTimings" id="batchTimings"
+                                        placeholder="e.g. 9 AM - 12 PM, 2 PM - 5 PM">
                                     <span class="error-message" id="batchTimingsError"></span>
                                 </div>
                                 <div class="form-group">
                                     <label>Trainers Assigned</label>
-                                    <input type="text" name="trainersAssigned" id="trainersAssigned" placeholder="e.g. John Doe, Jane Smith">
+                                    <input type="text" name="trainersAssigned" id="trainersAssigned"
+                                        placeholder="e.g. John Doe, Jane Smith">
                                     <span class="error-message" id="trainersAssignedError"></span>
                                 </div>
                             </div>
@@ -989,12 +1026,14 @@
                             <div class="form-row">
                                 <div class="form-group">
                                     <label>Lab Usage Hours / Week</label>
-                                    <input type="number" name="labUsageHours" id="labUsageHours" placeholder="e.g. 20" min="0">
+                                    <input type="number" name="labUsageHours" id="labUsageHours" placeholder="e.g. 20"
+                                        min="0">
                                     <span class="error-message" id="labUsageHoursError"></span>
                                 </div>
                                 <div class="form-group">
                                     <label>Student Groups Linked</label>
-                                    <input type="text" name="studentGroupsLinked" id="studentGroupsLinked" placeholder="e.g. Group A, Group B">
+                                    <input type="text" name="studentGroupsLinked" id="studentGroupsLinked"
+                                        placeholder="e.g. Group A, Group B">
                                     <span class="error-message" id="studentGroupsLinkedError"></span>
                                 </div>
                             </div>
@@ -1012,7 +1051,8 @@
                                 </div>
                                 <div class="form-group">
                                     <label>CSL Project List Selected</label>
-                                    <input type="text" name="cslProjectList" id="cslProjectList" placeholder="e.g. Project A, Project B">
+                                    <input type="text" name="cslProjectList" id="cslProjectList"
+                                        placeholder="e.g. Project A, Project B">
                                     <span class="error-message" id="cslProjectListError"></span>
                                 </div>
                             </div>
@@ -1037,12 +1077,14 @@
                             <div class="form-row">
                                 <div class="form-group">
                                     <label>Billing Email <span class="required">*</span></label>
-                                    <input type="email" name="billingEmail" id="billingEmail" placeholder="billing@school.com" required>
+                                    <input type="email" name="billingEmail" id="billingEmail"
+                                        placeholder="billing@school.com" required>
                                     <span class="error-message" id="billingEmailError"></span>
                                 </div>
                                 <div class="form-group">
                                     <label>GST Number</label>
-                                    <input type="text" name="gstNumber" id="gstNumber" placeholder="e.g. 22AAAAA0000A1Z5" maxlength="15">
+                                    <input type="text" name="gstNumber" id="gstNumber"
+                                        placeholder="e.g. 22AAAAA0000A1Z5" maxlength="15">
                                     <span class="error-message" id="gstNumberError"></span>
                                 </div>
                             </div>
@@ -1061,7 +1103,8 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Point of Contact for Finance</label>
-                                    <input type="text" name="financeContact" id="financeContact" placeholder="Finance Manager Name">
+                                    <input type="text" name="financeContact" id="financeContact"
+                                        placeholder="Finance Manager Name">
                                     <span class="error-message" id="financeContactError"></span>
                                 </div>
                             </div>
@@ -1069,12 +1112,14 @@
                             <div class="form-row">
                                 <div class="form-group">
                                     <label>Administrative Coordinator Name</label>
-                                    <input type="text" name="adminCoordinatorName" id="adminCoordinatorName" placeholder="Admin Coordinator Name">
+                                    <input type="text" name="adminCoordinatorName" id="adminCoordinatorName"
+                                        placeholder="Admin Coordinator Name">
                                     <span class="error-message" id="adminCoordinatorNameError"></span>
                                 </div>
                                 <div class="form-group">
                                     <label>Administrative Coordinator Phone</label>
-                                    <input type="tel" name="adminCoordinatorPhone" id="adminCoordinatorPhone" placeholder="+91 XXXXX XXXXX" maxlength="10">
+                                    <input type="tel" name="adminCoordinatorPhone" id="adminCoordinatorPhone"
+                                        placeholder="+91 XXXXX XXXXX" maxlength="10">
                                     <span class="error-message" id="adminCoordinatorPhoneError"></span>
                                 </div>
                             </div>
@@ -1082,7 +1127,8 @@
                             <div class="form-row">
                                 <div class="form-group">
                                     <label>Academic Year Cycle</label>
-                                    <input type="text" name="academicYearCycle" id="academicYearCycle" placeholder="e.g. April - March">
+                                    <input type="text" name="academicYearCycle" id="academicYearCycle"
+                                        placeholder="e.g. April - March">
                                     <span class="error-message" id="academicYearCycleError"></span>
                                 </div>
                                 <div class="form-group">
@@ -1117,12 +1163,14 @@
                             <div class="form-row">
                                 <div class="form-group">
                                     <label>CBSE / Board Affiliation Letter</label>
-                                    <input type="file" name="affiliationLetter" id="affiliationLetter" accept=".pdf,.jpg,.jpeg,.png">
+                                    <input type="file" name="affiliationLetter" id="affiliationLetter"
+                                        accept=".pdf,.jpg,.jpeg,.png">
                                     <span class="error-message" id="affiliationLetterError"></span>
                                 </div>
                                 <div class="form-group">
                                     <label>Fire Safety Certificate</label>
-                                    <input type="file" name="fireSafetyCert" id="fireSafetyCert" accept=".pdf,.jpg,.jpeg,.png">
+                                    <input type="file" name="fireSafetyCert" id="fireSafetyCert"
+                                        accept=".pdf,.jpg,.jpeg,.png">
                                     <span class="error-message" id="fireSafetyCertError"></span>
                                 </div>
                             </div>
@@ -1130,12 +1178,14 @@
                             <div class="form-row">
                                 <div class="form-group">
                                     <label>School Registration Certificate</label>
-                                    <input type="file" name="registrationCert" id="registrationCert" accept=".pdf,.jpg,.jpeg,.png">
+                                    <input type="file" name="registrationCert" id="registrationCert"
+                                        accept=".pdf,.jpg,.jpeg,.png">
                                     <span class="error-message" id="registrationCertError"></span>
                                 </div>
                                 <div class="form-group">
                                     <label>Trust Registration (if applicable)</label>
-                                    <input type="file" name="trustRegistration" id="trustRegistration" accept=".pdf,.jpg,.jpeg,.png">
+                                    <input type="file" name="trustRegistration" id="trustRegistration"
+                                        accept=".pdf,.jpg,.jpeg,.png">
                                     <span class="error-message" id="trustRegistrationError"></span>
                                 </div>
                             </div>
@@ -1166,12 +1216,14 @@
                             <div class="form-row">
                                 <div class="form-group">
                                     <label>Child Safety Policy Uploaded (POSH / POCSO)</label>
-                                    <input type="file" name="childSafetyPolicy" id="childSafetyPolicy" accept=".pdf,.jpg,.jpeg,.png">
+                                    <input type="file" name="childSafetyPolicy" id="childSafetyPolicy"
+                                        accept=".pdf,.jpg,.jpeg,.png">
                                     <span class="error-message" id="childSafetyPolicyError"></span>
                                 </div>
                                 <div class="form-group">
                                     <label>Insurance Documents (if any)</label>
-                                    <input type="file" name="insuranceDocs" id="insuranceDocs" accept=".pdf,.jpg,.jpeg,.png">
+                                    <input type="file" name="insuranceDocs" id="insuranceDocs"
+                                        accept=".pdf,.jpg,.jpeg,.png">
                                     <span class="error-message" id="insuranceDocsError"></span>
                                 </div>
                             </div>
@@ -1184,12 +1236,14 @@
                             <div class="form-row">
                                 <div class="form-group">
                                     <label>Emergency Contact Person <span class="required">*</span></label>
-                                    <input type="text" name="emergencyContactPerson" id="emergencyContactPerson" placeholder="Emergency Contact Name" required>
+                                    <input type="text" name="emergencyContactPerson" id="emergencyContactPerson"
+                                        placeholder="Emergency Contact Name" required>
                                     <span class="error-message" id="emergencyContactPersonError"></span>
                                 </div>
                                 <div class="form-group">
                                     <label>Emergency Phone Number <span class="required">*</span></label>
-                                    <input type="tel" name="emergencyPhone" id="emergencyPhone" placeholder="+91 XXXXX XXXXX" required maxlength="10">
+                                    <input type="tel" name="emergencyPhone" id="emergencyPhone"
+                                        placeholder="+91 XXXXX XXXXX" required maxlength="10">
                                     <span class="error-message" id="emergencyPhoneError"></span>
                                 </div>
                             </div>
@@ -1197,7 +1251,8 @@
                             <div class="form-row">
                                 <div class="form-group">
                                     <label>Nearest Hospital Name</label>
-                                    <input type="text" name="nearestHospital" id="nearestHospital" placeholder="e.g. City General Hospital">
+                                    <input type="text" name="nearestHospital" id="nearestHospital"
+                                        placeholder="e.g. City General Hospital">
                                     <span class="error-message" id="nearestHospitalError"></span>
                                 </div>
                                 <div class="form-group">
@@ -1220,12 +1275,14 @@
                             <div class="form-row">
                                 <div class="form-group">
                                     <label>Awards & Recognitions</label>
-                                    <input type="text" name="awards" id="awards" placeholder="e.g. Best School Award 2023">
+                                    <input type="text" name="awards" id="awards"
+                                        placeholder="e.g. Best School Award 2023">
                                     <span class="error-message" id="awardsError"></span>
                                 </div>
                                 <div class="form-group">
                                     <label>Notable Alumni</label>
-                                    <input type="text" name="notableAlumni" id="notableAlumni" placeholder="e.g. Famous personalities">
+                                    <input type="text" name="notableAlumni" id="notableAlumni"
+                                        placeholder="e.g. Famous personalities">
                                     <span class="error-message" id="notableAlumniError"></span>
                                 </div>
                             </div>
@@ -1233,12 +1290,14 @@
                             <div class="form-row">
                                 <div class="form-group">
                                     <label>School Performance Trends</label>
-                                    <input type="text" name="performanceTrends" id="performanceTrends" placeholder="e.g. 95% pass rate, Board toppers">
+                                    <input type="text" name="performanceTrends" id="performanceTrends"
+                                        placeholder="e.g. 95% pass rate, Board toppers">
                                     <span class="error-message" id="performanceTrendsError"></span>
                                 </div>
                                 <div class="form-group">
                                     <label>Social Media Links</label>
-                                    <input type="text" name="socialMediaLinks" id="socialMediaLinks" placeholder="e.g. Facebook, Instagram URLs">
+                                    <input type="text" name="socialMediaLinks" id="socialMediaLinks"
+                                        placeholder="e.g. Facebook, Instagram URLs">
                                     <span class="error-message" id="socialMediaLinksError"></span>
                                 </div>
                             </div>
@@ -1246,7 +1305,8 @@
                             <div class="form-row">
                                 <div class="form-group">
                                     <label>Events & Workshops Calendar</label>
-                                    <input type="text" name="eventsCalendar" id="eventsCalendar" placeholder="e.g. Annual Day - March, Sports Day - December">
+                                    <input type="text" name="eventsCalendar" id="eventsCalendar"
+                                        placeholder="e.g. Annual Day - March, Sports Day - December">
                                     <span class="error-message" id="eventsCalendarError"></span>
                                 </div>
                             </div>
@@ -1600,7 +1660,7 @@
         // Phone number formatting
         const phoneInputs = document.querySelectorAll('input[type="tel"]');
         phoneInputs.forEach(input => {
-            input.addEventListener('input', function(e) {
+            input.addEventListener('input', function (e) {
                 let value = e.target.value.replace(/\D/g, '');
                 if (value.length > 10) {
                     value = value.slice(0, 10);
@@ -1612,7 +1672,7 @@
         // Pincode formatting
         const pincodeInput = document.getElementById('pincode');
         if (pincodeInput) {
-            pincodeInput.addEventListener('input', function(e) {
+            pincodeInput.addEventListener('input', function (e) {
                 let value = e.target.value.replace(/\D/g, '');
                 if (value.length > 6) {
                     value = value.slice(0, 6);
