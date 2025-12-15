@@ -136,7 +136,7 @@
         /* Stats Cards */
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(5, 1fr);
+            grid-template-columns: repeat(4, 1fr);
             gap: 1.5rem;
             margin-bottom: 2rem;
         }
@@ -203,7 +203,7 @@
 
         .school-info-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(3, 1fr);
             gap: 1.5rem;
         }
 
@@ -341,13 +341,13 @@
         }
 
         .class-stat-label {
-            font-size: 0.875rem;
+            font-size: 0.82rem;
             color: var(--text-muted);
             margin: 0;
         }
 
         .class-stat-value {
-            font-size: 1.5rem;
+            font-size: 1.2rem;
             font-weight: 700;
             color: var(--text-dark);
             margin: 0;
@@ -491,7 +491,7 @@
         }
 
         .metric-label {
-            font-size: 0.875rem;
+            font-size: 0.81rem;
             color: var(--text-muted);
             margin: 0;
         }
@@ -1137,13 +1137,13 @@
                 </div>
                 <p class="stat-card-value">1,234</p>
             </div>
-            <div class="stat-card">
+            <!-- <div class="stat-card">
                 <div class="stat-card-header">
                     <p>Total Teachers</p>
                     <span class="material-symbols-outlined">school</span>
                 </div>
                 <p class="stat-card-value">56</p>
-            </div>
+            </div> -->
             <div class="stat-card">
                 <div class="stat-card-header">
                     <p>Avg Student Performance</p>
@@ -1197,7 +1197,7 @@
                         <p class="value">Amelia Earhart</p>
                     </div>
                 </div>
-                <div class="school-info-item">
+                <!-- <div class="school-info-item">
                     <div class="school-info-icon">
                         <span class="material-symbols-outlined">stairs</span>
                     </div>
@@ -1205,7 +1205,7 @@
                         <p class="label">Grade Levels Offered</p>
                         <p class="value">Grades 9-12</p>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
 
@@ -1228,7 +1228,7 @@
                                 <span class="material-symbols-outlined">class</span>
                             </div>
                             <div>
-                                <p class="class-stat-label">Number of Classes</p>
+                                <p class="class-stat-label">Number of Sessions</p>
                                 <p class="class-stat-value">15</p>
                             </div>
                         </div>
@@ -1246,7 +1246,7 @@
                                 <span class="material-symbols-outlined">pie_chart</span>
                             </div>
                             <div>
-                                <p class="class-stat-label">Class Attendance %</p>
+                                <p class="class-stat-label">Class Attendance</p>
                                 <p class="class-stat-value">96%</p>
                             </div>
                         </div>
@@ -1328,7 +1328,7 @@
                             </div>
                             <div class="alert-content">
                                 <p class="title">Low attendance warning: 5 students</p>
-                                <p class="time">2 min ago</p>
+                                <!-- <p class="time">2 min ago</p> -->
                             </div>
                         </li>
                         <li class="alert-item yellow">
@@ -1337,7 +1337,7 @@
                             </div>
                             <div class="alert-content">
                                 <p class="title">Pending assessment for Grade 11 Physics</p>
-                                <p class="time">1 hour ago</p>
+                                <!-- <p class="time">1 hour ago</p> -->
                             </div>
                         </li>
                         <li class="alert-item blue">
@@ -1346,7 +1346,7 @@
                             </div>
                             <div class="alert-content">
                                 <p class="title">New announcement: School Fair next week</p>
-                                <p class="time">4 hours ago</p>
+                                <!-- <p class="time">4 hours ago</p> -->
                             </div>
                         </li>
                         <li class="alert-item green">
@@ -1355,7 +1355,7 @@
                             </div>
                             <div class="alert-content">
                                 <p class="title">Parent feedback received for Emily Jones</p>
-                                <p class="time">1 day ago</p>
+                                <!-- <p class="time">1 day ago</p> -->
                             </div>
                         </li>
                     </ul>
@@ -1375,7 +1375,7 @@
                             </div>
                             <span class="material-symbols-outlined quick-action-arrow">arrow_forward</span>
                         </a>
-                        <a href="add-teacher.html" class="quick-action-btn">
+                        <!-- <a href="add-teacher.html" class="quick-action-btn">
                             <div class="quick-action-icon-wrapper">
                                 <span class="material-symbols-outlined">psychology</span>
                             </div>
@@ -1384,7 +1384,7 @@
                                 <p class="quick-action-desc">Onboard a new thinking coach</p>
                             </div>
                             <span class="material-symbols-outlined quick-action-arrow">arrow_forward</span>
-                        </a>
+                        </a> -->
                         <a href="onboard-parent.html" class="quick-action-btn">
                             <div class="quick-action-icon-wrapper">
                                 <span class="material-symbols-outlined">family_restroom</span>
@@ -1401,7 +1401,7 @@
         </div>
 
         <!-- Teacher Summary Table -->
-        <div class="card-custom mt-4">
+        <!-- <div class="card-custom mt-4">
             <h3 class="card-custom-title">Teacher Summary</h3>
             <div class="table-responsive-wrapper">
                 <table class="table-custom mt-4">
@@ -1442,7 +1442,7 @@
                     </tbody>
                 </table>
             </div>
-        </div>
+        </div> -->
 
         <!-- Student Summary Table -->
         <div class="card-custom mt-4">
@@ -1466,9 +1466,21 @@
                                     <span class="user-name">Michael Brown</span>
                                 </div>
                             </td>
-                            <td>Grade 10</td>
+                            <td>Grade 10A</td>
                             <td><span class="bold-value">98%</span></td>
                             <td><span class="bold-value">95%</span></td>
+                            <td class="text-end"><button class="btn-view">View Student</button></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="user-cell">
+                                    <img class="user-avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDUKqFI268De72VqtMw0iVx2R4NoPvPqxINxuJbXGgdSD14TTLtRAcxPKf33dAEo2FainoXMmvgwmxZX2qZ5xvN3fMqPlmkaw8pgHxU4spyWt7chJL4fddhTTquUZfWj6hceD9WcUtapIch9yfhBJG-l5XNvLWj0RxtQ_qHBEG6bC6POhfSPFgS7HKj4kBgEAbKUf9XRgMguUjFi4OagUCPFyaeE8aCP7v3iuYecayEqhAUXaOEl1qWn1kNz8WDZ7pTwZ8WSJ-OzRLr" alt="Michael Brown">
+                                    <span class="user-name">Jenna Ortega</span>
+                                </div>
+                            </td>
+                            <td>Grade 10B</td>
+                            <td><span class="bold-value">90%</span></td>
+                            <td><span class="bold-value">87%</span></td>
                             <td class="text-end"><button class="btn-view">View Student</button></td>
                         </tr>
                         <tr>
@@ -1478,9 +1490,21 @@
                                     <span class="user-name">Emily Jones</span>
                                 </div>
                             </td>
-                            <td>Grade 9</td>
+                            <td>Grade 9B</td>
                             <td><span class="bold-value">92%</span></td>
                             <td><span class="bold-value">89%</span></td>
+                            <td class="text-end"><button class="btn-view">View Student</button></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="user-cell">
+                                    <img class="user-avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuASJyPOVz-rikWc-PPF9QCfRJnTvjAcwIhUhu28YmaaYjpnZ7Wpj2ptWF_SGPo4MYhcxa1TRnPI95qk8pL5JLghjVkX01Ml3edIX3cqYX3nHDqpRezWPmnXBnUxDuK4Z3xMRF_qwFRZleHf8GyXD-lolhBlEzRzqadyZLHqbt04_2l9G0nb9ycAR2qngdxyfJgKICTKCRjLqg1mdpEEizt2GiKHoTw_Rx5sB77Vxjhg2jhbC9rK6bacHzK2lgD9Hq0mDyt6wN3FzluE" alt="Emily Jones">
+                                    <span class="user-name">Kunal Darji</span>
+                                </div>
+                            </td>
+                            <td>Grade 8B</td>
+                            <td><span class="bold-value">99%</span></td>
+                            <td><span class="bold-value">94%</span></td>
                             <td class="text-end"><button class="btn-view">View Student</button></td>
                         </tr>
                     </tbody>
@@ -1618,7 +1642,7 @@
             const assessmentChart = new Chart(assessmentCtx, {
                 type: 'bar',
                 data: {
-                    labels: ['Grade 9A', 'Grade 9B', 'Grade 10A', 'Grade 10B', 'Grade 11A', 'Grade 11B', 'Grade 12A', 'Grade 12B'],
+                    labels: ['Grade 3', 'Grade 4', 'Grade 5', 'Grade 6', 'Grade 7', 'Grade 8', 'Grade 9', 'Grade 10'],
                     datasets: [{
                         label: 'Performance %',
                         data: [85, 78, 92, 88, 82, 86, 90, 84],

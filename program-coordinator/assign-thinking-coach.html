@@ -237,7 +237,7 @@
             border-radius: 9999px;
         }
 
-        .badge-fully-assigned {
+        .badge-not-available {
             background-color: #fee2e2;
             color: #991b1b;
             font-size: 0.75rem;
@@ -304,6 +304,13 @@
         .coach-card.selected {
             background-color: rgba(91, 31, 111, 0.05);
             border-color: rgba(91, 31, 111, 0.5);
+        }
+
+        .coach-card.disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            pointer-events: none;
+            background-color: #f9fafb;
         }
 
         .coach-card-left {
@@ -510,10 +517,10 @@
                             <div class="card-custom">
                                 <label class="form-label-custom" for="schoolSelect">Select School</label>
                                 <select class="form-select-custom" id="schoolSelect">
-                                    <option value="">Choose a School</option>
-                                    <option value="greenwood">Greenwood High School</option>
-                                    <option value="northwood">Northwood Elementary</option>
-                                    <option value="riverdale">Riverdale Middle School</option>
+                                    <option value="" disabled hidden selected>Choose a School</option>
+                                    <option value="greenwood">Greenwood High School, Mumbai</option>
+                                    <option value="northwood">Northwood Elementary, Pune</option>
+                                    <option value="riverdale">Riverdale Middle School, Bangalore</option>
                                 </select>
                             </div>
                         </div>
@@ -523,7 +530,7 @@
                             <div class="card-custom">
                                 <div class="assignment-header">
                                     <div>
-                                        <div class="school-name">Greenwood High School</div>
+                                        <div class="school-name">Greenwood High School, Mumbai</div>
                                         <div class="school-id">ID: SCH-5678</div>
                                     </div>
                                     <span class="badge-assigned">Assigned</span>
@@ -544,6 +551,13 @@
                                         <span>Change</span>
                                     </button>
                                 </div>
+
+                                <div class="justify-content-center" id="addBtnWrapper" style="display: none;">
+                                    <button class="btn-primary-custom" id="addCoachBtn">
+                                        <span class="material-symbols-outlined" style="font-size: 16px;">add</span>
+                                        <span>Add Thinking Coach</span>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -552,52 +566,8 @@
                     <div class="card-custom mb-section">
                         <h2 class="section-title">Available Thinking Coaches</h2>
 
-                        <div class="coaches-list">
-                            <!-- Coach Item 1 -->
-                            <label class="coach-card" for="coach1">
-                                <div class="coach-card-left">
-                                    <input class="form-check-input" type="radio" name="coach_assignment" id="coach1" style="margin-top: 0;">
-                                    <img src="https://i.pravatar.cc/150?img=45" alt="Eleanor Pena" class="coach-avatar-large">
-                                    <div class="coach-details">
-                                        <div class="coach-name-large">Eleanor Pena</div>
-                                        <div class="coach-email">eleanorp@example.com</div>
-                                    </div>
-                                </div>
-
-                                <div class="coach-stats d-none d-sm-flex">
-                                    <div class="stat-group">
-                                        <div class="stat-label">Load</div>
-                                        <div class="stat-value">4 Schools</div>
-                                    </div>
-                                    <div class="stat-group">
-                                        <div class="stat-label">Capacity</div>
-                                        <span class="badge-available">Available</span>
-                                    </div>
-                                </div>
-                            </label>
-
-                            <!-- Coach Item 2 -->
-                            <label class="coach-card" for="coach2">
-                                <div class="coach-card-left">
-                                    <input class="form-check-input" type="radio" name="coach_assignment" id="coach2" style="margin-top: 0;">
-                                    <img src="https://i.pravatar.cc/150?img=32" alt="Leslie Alexander" class="coach-avatar-large">
-                                    <div class="coach-details">
-                                        <div class="coach-name-large">Leslie Alexander</div>
-                                        <div class="coach-email">leslie.a@example.com</div>
-                                    </div>
-                                </div>
-
-                                <div class="coach-stats d-none d-sm-flex">
-                                    <div class="stat-group">
-                                        <div class="stat-label">Load</div>
-                                        <div class="stat-value">8 Schools</div>
-                                    </div>
-                                    <div class="stat-group">
-                                        <div class="stat-label">Capacity</div>
-                                        <span class="badge-fully-assigned">Fully Assigned</span>
-                                    </div>
-                                </div>
-                            </label>
+                        <div class="coaches-list" id="coachesList">
+                            <!-- Coaches will be dynamically loaded here -->
                         </div>
 
                         <div class="confirm-button-wrapper">
@@ -618,53 +588,43 @@
                                         <tr>
                                             <th scope="col">School Name</th>
                                             <th scope="col">Assigned Thinking Coach</th>
-                                            <th scope="col">Current Load</th>
+                                            <th scope="col">Time Span</th>
                                             <th scope="col">Status</th>
-                                            <th scope="col">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td class="table-school-name">Greenwood High School</td>
+                                            <td class="table-school-name">Greenwood High School, Mumbai</td>
                                             <td>
                                                 <div class="table-coach-info">
                                                     <img src="https://i.pravatar.cc/150?img=47" alt="Arlene McCoy" class="table-avatar">
                                                     <span>Arlene McCoy</span>
                                                 </div>
                                             </td>
-                                            <td>6 Schools</td>
+                                            <td>8 months</td>
                                             <td>
                                                 <span class="badge-assigned">Assigned</span>
                                             </td>
-                                            <td>
-                                                <a href="#" class="btn-link-custom">Reassign</a>
-                                            </td>
                                         </tr>
                                         <tr>
-                                            <td class="table-school-name">Northwood Elementary</td>
+                                            <td class="table-school-name">Northwood Elementary, Pune</td>
                                             <td class="text-not-assigned">Not Assigned</td>
                                             <td>-</td>
                                             <td>
                                                 <span class="badge-not-assigned">Not Assigned</span>
                                             </td>
-                                            <td>
-                                                <a href="#" class="btn-link-custom">Assign</a>
-                                            </td>
                                         </tr>
                                         <tr>
-                                            <td class="table-school-name">Riverdale Middle School</td>
+                                            <td class="table-school-name">Riverdale Middle School, Bangalore</td>
                                             <td>
                                                 <div class="table-coach-info">
                                                     <img src="https://i.pravatar.cc/150?img=33" alt="Jacob Jones" class="table-avatar">
                                                     <span>Jacob Jones</span>
                                                 </div>
                                             </td>
-                                            <td>5 Schools</td>
+                                            <td>5 months</td>
                                             <td>
                                                 <span class="badge-assigned">Assigned</span>
-                                            </td>
-                                            <td>
-                                                <a href="#" class="btn-link-custom">Reassign</a>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -686,8 +646,10 @@
         const schoolsData = {
             greenwood: {
                 name: 'Greenwood High School',
+                location: 'Mumbai',
                 id: 'SCH-5678',
                 isAssigned: true,
+                timeSpan: '8 months',
                 currentCoach: {
                     name: 'Arlene McCoy',
                     avatar: 'https://i.pravatar.cc/150?img=47'
@@ -695,20 +657,82 @@
             },
             northwood: {
                 name: 'Northwood Elementary',
+                location: 'Pune',
                 id: 'SCH-1234',
                 isAssigned: false,
+                timeSpan: null,
                 currentCoach: null
             },
             riverdale: {
                 name: 'Riverdale Middle School',
+                location: 'Bangalore',
                 id: 'SCH-9012',
                 isAssigned: true,
+                timeSpan: '5 months',
                 currentCoach: {
                     name: 'Jacob Jones',
                     avatar: 'https://i.pravatar.cc/150?img=33'
                 }
             }
         };
+
+        // Coaches data - In production, this would come from an API
+        const coachesData = [
+            {
+                id: 'coach1',
+                name: 'Eleanor Pena',
+                email: 'eleanorp@example.com',
+                avatar: 'https://i.pravatar.cc/150?img=45',
+                location: 'Mumbai',
+                assignedSchool: null,
+                isAvailable: true
+            },
+            {
+                id: 'coach2',
+                name: 'Leslie Alexander',
+                email: 'leslie.a@example.com',
+                avatar: 'https://i.pravatar.cc/150?img=32',
+                location: 'Mumbai',
+                assignedSchool: 'Oakridge Academy, Mumbai',
+                isAvailable: false
+            },
+            {
+                id: 'coach3',
+                name: 'Robert Fox',
+                email: 'robert.fox@example.com',
+                avatar: 'https://i.pravatar.cc/150?img=12',
+                location: 'Pune',
+                assignedSchool: null,
+                isAvailable: true
+            },
+            {
+                id: 'coach4',
+                name: 'Jenny Wilson',
+                email: 'jenny.w@example.com',
+                avatar: 'https://i.pravatar.cc/150?img=49',
+                location: 'Pune',
+                assignedSchool: 'St. Mary School, Pune',
+                isAvailable: false
+            },
+            {
+                id: 'coach5',
+                name: 'Devon Lane',
+                email: 'devon.lane@example.com',
+                avatar: 'https://i.pravatar.cc/150?img=68',
+                location: 'Bangalore',
+                assignedSchool: null,
+                isAvailable: true
+            },
+            {
+                id: 'coach6',
+                name: 'Kristin Watson',
+                email: 'kristin.w@example.com',
+                avatar: 'https://i.pravatar.cc/150?img=44',
+                location: 'Bangalore',
+                assignedSchool: 'Sunshine School, Bangalore',
+                isAvailable: false
+            }
+        ];
 
         // DOM Elements
         const schoolSelect = document.getElementById('schoolSelect');
@@ -721,11 +745,83 @@
         const coachNameEl = coachInfoSection.querySelector('.coach-name');
         const coachLabelEl = coachInfoSection.querySelector('.coach-label');
         const changeBtn = currentAssignmentCard.querySelector('.btn-change');
+        const addBtnWrapper = document.getElementById('addBtnWrapper');
+        const addCoachBtn = document.getElementById('addCoachBtn');
+        const coachesList = document.getElementById('coachesList');
+
+        // Track whether coaches are enabled
+        let coachesEnabled = false;
+
+        // Render coaches based on school location
+        function renderCoaches(schoolLocation, isEnabled = false) {
+            if (!schoolLocation) {
+                coachesList.innerHTML = '<p style="color: var(--text-muted); text-align: center; padding: 2rem;">Please select a school to view available coaches.</p>';
+                return;
+            }
+
+            const filteredCoaches = coachesData.filter(coach => coach.location === schoolLocation);
+
+            if (filteredCoaches.length === 0) {
+                coachesList.innerHTML = '<p style="color: var(--text-muted); text-align: center; padding: 2rem;">No coaches available for this location.</p>';
+                return;
+            }
+
+            coachesList.innerHTML = filteredCoaches.map(coach => `
+                <label class="coach-card ${!isEnabled ? 'disabled' : ''}" data-coach-id="${coach.id}">
+                    <div class="coach-card-left">
+                        <input class="form-check-input" type="radio" name="coach_assignment" id="${coach.id}" value="${coach.id}" ${!isEnabled ? 'disabled' : ''}>
+                        <img src="${coach.avatar}" alt="${coach.name}" class="coach-avatar-large">
+                        <div class="coach-details">
+                            <div class="coach-name-large">${coach.name}</div>
+                            <div class="coach-email">${coach.email}</div>
+                        </div>
+                    </div>
+                    <div class="coach-stats d-none d-sm-flex">
+                        <div class="stat-group">
+                            <div class="stat-label">Assigned School</div>
+                            <div class="stat-value">${coach.assignedSchool || 'Not Assigned'}</div>
+                        </div>
+                        <div class="stat-group">
+                            <div class="stat-label">Status</div>
+                            <span class="${coach.isAvailable ? 'badge-available' : 'badge-not-available'}">
+                                ${coach.isAvailable ? 'Available' : 'Not Available'}
+                            </span>
+                        </div>
+                    </div>
+                </label>
+            `).join('');
+
+            // Re-attach event listeners after rendering
+            attachCoachEventListeners();
+        }
+
+        // Attach event listeners to dynamically created coach cards
+        function attachCoachEventListeners() {
+            const coachCards = document.querySelectorAll('.coach-card');
+            const radioButtons = document.querySelectorAll('input[name="coach_assignment"]');
+
+            radioButtons.forEach((radio, index) => {
+                radio.addEventListener('change', function() {
+                    coachCards.forEach(card => card.classList.remove('selected'));
+                    if (this.checked && !this.disabled) {
+                        coachCards[index].classList.add('selected');
+                    }
+                });
+            });
+
+            coachCards.forEach((card, index) => {
+                card.addEventListener('click', function() {
+                    if (!coachesEnabled) return;
+                    radioButtons[index].checked = true;
+                    radioButtons[index].dispatchEvent(new Event('change'));
+                });
+            });
+        }
 
         // Update current assignment card based on selected school
         function updateCurrentAssignment(schoolKey) {
             const school = schoolsData[schoolKey];
-            
+
             if (!school) {
                 // Reset to default/empty state
                 schoolNameEl.textContent = 'Select a School';
@@ -734,11 +830,14 @@
                 statusBadge.textContent = 'Not Selected';
                 coachInfoSection.style.display = 'none';
                 changeBtn.style.display = 'none';
+                addBtnWrapper.style.display = 'none';
+                coachesEnabled = false;
+                renderCoaches(null, false);
                 return;
             }
 
             // Update school info
-            schoolNameEl.textContent = school.name;
+            schoolNameEl.textContent = school.name + ', ' + school.location;
             schoolIdEl.textContent = 'ID: ' + school.id;
 
             // Update status badge
@@ -747,7 +846,9 @@
                 statusBadge.textContent = 'Assigned';
                 coachInfoSection.style.display = 'flex';
                 changeBtn.style.display = 'inline-flex';
-                
+                addBtnWrapper.style.display = 'none';
+                addBtnWrapper.classList.remove('d-flex');
+
                 // Update coach info
                 coachAvatar.src = school.currentCoach.avatar;
                 coachAvatar.alt = school.currentCoach.name;
@@ -758,40 +859,18 @@
                 statusBadge.textContent = 'Not Assigned';
                 coachInfoSection.style.display = 'none';
                 changeBtn.style.display = 'none';
+                addBtnWrapper.style.display = 'flex';
+                addBtnWrapper.classList.add('d-flex');
             }
 
-            // Clear any selected coach
-            document.querySelectorAll('input[name="coach_assignment"]').forEach(radio => {
-                radio.checked = false;
-            });
-            document.querySelectorAll('.coach-card').forEach(card => {
-                card.classList.remove('selected');
-            });
+            // Reset coaches to disabled state
+            coachesEnabled = false;
+            renderCoaches(school.location, false);
         }
 
         // Handle school selection change
         schoolSelect.addEventListener('change', function() {
             updateCurrentAssignment(this.value);
-        });
-
-        // Handle coach card selection
-        const coachCards = document.querySelectorAll('.coach-card');
-        const radioButtons = document.querySelectorAll('input[name="coach_assignment"]');
-
-        radioButtons.forEach((radio, index) => {
-            radio.addEventListener('change', function() {
-                coachCards.forEach(card => card.classList.remove('selected'));
-                if (this.checked) {
-                    coachCards[index].classList.add('selected');
-                }
-            });
-        });
-
-        coachCards.forEach((card, index) => {
-            card.addEventListener('click', function() {
-                radioButtons[index].checked = true;
-                radioButtons[index].dispatchEvent(new Event('change'));
-            });
         });
 
         // Handle reassign/assign buttons in the table
@@ -800,13 +879,14 @@
                 e.preventDefault();
                 const row = this.closest('tr');
                 const schoolName = row.querySelector('.table-school-name').textContent;
-                
+
                 // Find and select the matching school in dropdown
                 for (const [key, school] of Object.entries(schoolsData)) {
-                    if (school.name === schoolName) {
+                    const fullSchoolName = school.name + ', ' + school.location;
+                    if (fullSchoolName === schoolName) {
                         schoolSelect.value = key;
                         updateCurrentAssignment(key);
-                        
+
                         // Scroll to top of page
                         window.scrollTo({ top: 0, behavior: 'smooth' });
                         break;
@@ -815,14 +895,55 @@
             });
         });
 
-        // Handle change button
-        const changeBtnHandler = document.querySelector('.btn-change');
-        if (changeBtnHandler) {
-            changeBtnHandler.addEventListener('click', function() {
+        // Handle "Add" button for unassigned schools
+        document.querySelectorAll('.btn-add-coach').forEach(button => {
+            button.addEventListener('click', function() {
+                const schoolKey = this.getAttribute('data-school');
+
+                // Select the school in dropdown
+                schoolSelect.value = schoolKey;
+                updateCurrentAssignment(schoolKey);
+
+                // Enable coaches and scroll to coaches list
+                const school = schoolsData[schoolKey];
+                coachesEnabled = true;
+                renderCoaches(school.location, true);
+
                 // Scroll to coaches list
-                document.querySelector('.coaches-list').scrollIntoView({ behavior: 'smooth' });
+                setTimeout(() => {
+                    document.querySelector('.coaches-list').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 100);
             });
-        }
+        });
+
+        // Handle change button
+        changeBtn.addEventListener('click', function() {
+            // Enable coaches when Change button is clicked
+            const selectedSchoolKey = schoolSelect.value;
+            if (selectedSchoolKey) {
+                const school = schoolsData[selectedSchoolKey];
+                coachesEnabled = true;
+                renderCoaches(school.location, true);
+
+                // Scroll to coaches list
+                document.querySelector('.coaches-list').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+
+        // Handle "Add Thinking Coach" button in Current Assignment Card
+        addCoachBtn.addEventListener('click', function() {
+            const selectedSchoolKey = schoolSelect.value;
+            if (selectedSchoolKey) {
+                const school = schoolsData[selectedSchoolKey];
+                coachesEnabled = true;
+                renderCoaches(school.location, true);
+
+                // Scroll to coaches list
+                setTimeout(() => {
+                    document.querySelector('.coaches-list').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 100);
+            }
+        });
 
         // Handle confirm assignment button
         const confirmButton = document.querySelector('.confirm-button-wrapper .btn-primary-custom');
@@ -830,12 +951,12 @@
             confirmButton.addEventListener('click', function() {
                 const selectedSchool = schoolSelect.value;
                 const selectedCoach = document.querySelector('input[name="coach_assignment"]:checked');
-                
+
                 if (!selectedSchool) {
                     alert('Please select a school first.');
                     return;
                 }
-                
+
                 if (!selectedCoach) {
                     alert('Please select a coach before confirming assignment.');
                     return;
@@ -847,7 +968,7 @@
 
                 // In production, this would make an API call
                 alert(`Successfully assigned ${coachName} to ${schoolName}!`);
-                
+
                 // Update the local data (simulating API response)
                 const coachAvatar = coachCard.querySelector('.coach-avatar-large').src;
                 schoolsData[selectedSchool].isAssigned = true;
@@ -855,11 +976,14 @@
                     name: coachName,
                     avatar: coachAvatar
                 };
-                
+
                 // Refresh the display
                 updateCurrentAssignment(selectedSchool);
             });
         }
+
+        // Initialize with default school selection
+        updateCurrentAssignment('greenwood');
     </script>
 
     <!-- Load Sidebar and Header Components -->

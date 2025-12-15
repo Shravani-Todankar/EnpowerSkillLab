@@ -106,7 +106,7 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            font-size: 0.875rem;
+            font-size: 0.85rem;
             box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
             transition: all 0.2s ease;
             cursor: pointer;
@@ -140,44 +140,86 @@
             transform: translateY(-1px);
         }
 
-        /* Select Dropdown */
-        .custom-select-wrapper {
+        /* School Search Dropdown */
+        .school-search-wrapper {
             position: relative;
+            width: 250px;
         }
 
-        .custom-select {
-            appearance: none;
-            width: 200px;
+        .school-search-input {
+            width: 100%;
             border-radius: 8px;
             border: 1px solid var(--border-color);
             height: 42px;
-            padding-left: 14px;
-            padding-right: 36px;
+            padding-left: 40px;
+            padding-right: 14px;
             font-size: 0.875rem;
             background-color: white;
-            cursor: pointer;
             font-family: 'Lexend', sans-serif;
             transition: all 0.2s ease;
         }
 
-        .custom-select:focus {
+        .school-search-input:focus {
             border-color: var(--primary-color);
             outline: none;
             box-shadow: 0 0 0 3px rgba(90, 31, 110, 0.1);
         }
 
-        .custom-select:hover {
-            border-color: #D1D5DB;
+        .school-search-input::placeholder {
+            color: #9CA3AF;
         }
 
-        .select-icon {
+        .search-icon {
             position: absolute;
-            right: 12px;
+            left: 12px;
             top: 50%;
             transform: translateY(-50%);
-            pointer-events: none;
             color: var(--text-muted);
+            pointer-events: none;
             font-size: 20px;
+            z-index: 1;
+        }
+
+        .school-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            margin-top: 4px;
+            max-height: 250px;
+            overflow-y: auto;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            z-index: 1000;
+            display: none;
+        }
+
+        .school-dropdown.active {
+            display: block;
+        }
+
+        .school-option {
+            padding: 10px 16px;
+            font-size: 0.875rem;
+            color: var(--text-dark);
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .school-option:hover {
+            background-color: #F3F4F6;
+        }
+
+        .school-option.selected {
+            background-color: rgba(90, 31, 110, 0.1);
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+
+        .school-option.hidden {
+            display: none;
         }
 
         .select-label {
@@ -616,6 +658,38 @@
             color: var(--text-dark);
         }
 
+        .section-header-with-action {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .section-header-with-action .section-title {
+            margin-bottom: 0;
+        }
+
+        .btn-view-all {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 8px 16px;
+            font-size: 0.875rem;
+            color: var(--primary-color);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-family: 'Lexend', sans-serif;
+        }
+
+        .btn-view-all:hover {
+            background-color: rgba(90, 31, 110, 0.05);
+            border-color: var(--primary-color);
+        }
+
         .assessment-item {
             background: white;
             border: 1px solid var(--border-color);
@@ -743,7 +817,7 @@
                 font-size: 1.75rem;
             }
 
-            .custom-select {
+            .school-search-wrapper {
                 width: 100%;
             }
 
@@ -894,6 +968,28 @@
             font-size: 1.5rem;
             font-weight: 700;
             color: var(--text-dark);
+        }
+
+        .metric-box-with-progress {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .progress-bar-wrapper {
+            width: 100%;
+            height: 8px;
+            background-color: #E5E7EB;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 4px;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-color) 0%, var(--primary-hover) 100%);
+            border-radius: 4px;
+            transition: width 0.3s ease;
         }
 
         /* Class Overview */
@@ -1106,24 +1202,24 @@
             <div class="container-fluid px-4 py-4">
                 <div class="mx-auto" style="max-width: 1440px;">
                     <!-- Header -->
-                    <div class="d-flex flex-wrap justify-content-between align-items-start gap-3 mb-4">
+                    <div class="d-flex justify-content-between align-items-start gap-3 mb-4">
                         <div>
                             <h1 class="page-title">School Details</h1>
                             <p class="page-subtitle mb-0">Overview of school performance, teachers, and students.</p>
                         </div>
-                        <div class="d-flex flex-wrap align-items-end gap-3">
+                        <div class="d-flex align-items-end gap-3">
                             <div>
-                                <label class="select-label" for="schoolSelect">Select School</label>
-                                <div class="custom-select-wrapper">
-                                    <select class="custom-select" id="schoolSelect">
-                                        <option selected hidden disabled>Choose a School</option>
-                                        <option>Greenwood High</option>
-                                        <option>Oakridge International</option>
-                                        <option>Maple Leaf Academy</option>
-                                        <option>Riverside Public School</option>
-                                        <option>Springfield Academy</option>
-                                    </select>
-                                    <span class="material-symbols-outlined select-icon">expand_more</span>
+                                <label class="select-label" for="schoolSearch">Select School</label>
+                                <div class="school-search-wrapper">
+                                    <span class="material-symbols-outlined search-icon">search</span>
+                                    <input type="text" class="school-search-input" id="schoolSearch" placeholder="Search for a school...">
+                                    <div class="school-dropdown" id="schoolDropdown">
+                                        <div class="school-option" data-school="Greenwood High">Greenwood High, Mumbai</div>
+                                        <div class="school-option" data-school="Oakridge International">Oakridge International, Hyderabad</div>
+                                        <div class="school-option" data-school="Maple Leaf Academy">Maple Leaf Academy, Ahmedabad</div>
+                                        <div class="school-option" data-school="Riverside Public School">Riverside Public School, Pune</div>
+                                        <div class="school-option" data-school="Springfield Academy">Springfield Academy, Bangalore</div>
+                                    </div>
                                 </div>
                             </div>
                             <button class="btn-primary-custom">
@@ -1140,18 +1236,18 @@
                     <!-- School Info Card -->
                     <div class="school-info-card mb-4">
                         <div class="row g-4">
-                            <div class="col-6 col-md-4 col-lg-2">
+                            <div class="col-6 col-md-4 col-lg-3">
                                 <div class="info-item">
                                     <div class="info-icon">
                                         <span class="material-symbols-outlined" style="font-size: 22px;">school</span>
                                     </div>
                                     <div>
                                         <p class="info-label mb-0">School Name</p>
-                                        <p class="info-value mb-0">Greenwood High</p>
+                                        <p class="info-value mb-0">Greenwood High, Mumbai</p>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-6 col-md-4 col-lg-2">
+                            <div class="col-6 col-md-4 col-lg-3">
                                 <div class="info-item">
                                     <div class="info-icon">
                                         <span class="material-symbols-outlined"
@@ -1163,7 +1259,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-6 col-md-4 col-lg-2">
+                            <div class="col-6 col-md-4 col-lg-3">
                                 <div class="info-item">
                                     <img src="https://i.pravatar.cc/150?img=47" alt="Amanda Lee" class="coach-avatar">
                                     <div>
@@ -1172,7 +1268,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-6 col-md-4 col-lg-2">
+                            <div class="col-6 col-md-4 col-lg-3">
                                 <div class="info-item">
                                     <div class="info-icon">
                                         <span class="material-symbols-outlined" style="font-size: 22px;">groups</span>
@@ -1183,7 +1279,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-6 col-md-4 col-lg-2">
+                            <!-- <div class="col-6 col-md-4 col-lg-3">
                                 <div class="info-item">
                                     <div class="info-icon">
                                         <span class="material-symbols-outlined"
@@ -1195,7 +1291,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-6 col-md-4 col-lg-2">
+                            <div class="col-6 col-md-4 col-lg-3">
                                 <div class="info-item">
                                     <div class="info-icon">
                                         <span class="material-symbols-outlined" style="font-size: 22px;">layers</span>
@@ -1205,7 +1301,7 @@
                                         <p class="info-value mb-0">6-12</p>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
 
@@ -1610,20 +1706,16 @@
                     <!-- Performance Metrics -->
                     <h4 class="section-title">Performance Metrics</h4>
                     <div class="metrics-grid mb-4">
-                        <div class="metric-box">
+                        <div class="metric-box metric-box-with-progress">
                             <div class="metric-box-label">
                                 <span class="material-symbols-outlined"
                                     style="font-size: 16px;">assignment_turned_in</span>
                                 Assessment Completion
                             </div>
                             <div class="metric-box-value" id="metricAssessmentCompletion">85%</div>
-                        </div>
-                        <div class="metric-box">
-                            <div class="metric-box-label">
-                                <span class="material-symbols-outlined" style="font-size: 16px;">fact_check</span>
-                                Attendance Marking
+                            <div class="progress-bar-wrapper">
+                                <div class="progress-bar-fill" id="assessmentProgressBar" style="width: 85%;"></div>
                             </div>
-                            <div class="metric-box-value" id="metricAttendanceMarking">98%</div>
                         </div>
                         <div class="metric-box">
                             <div class="metric-box-label">
@@ -1653,33 +1745,17 @@
                         <h4 class="section-title">Class/Grade Overview</h4>
                         <div class="class-overview-card">
                             <div class="class-header">
-                                <span class="class-name">Grade 8 - Section A</span>
-                                <span class="student-count">18 students</span>
+                                <span class="class-name">Grade 8</span>
+                                <span class="student-count">32 students</span>
                             </div>
                             <div class="class-metrics">
                                 <div class="class-metric-item">
                                     <span class="class-metric-label">Avg Performance</span>
-                                    <span class="class-metric-value">86%</span>
+                                    <span class="class-metric-value">84%</span>
                                 </div>
                                 <div class="class-metric-item">
                                     <span class="class-metric-label">Avg Attendance</span>
-                                    <span class="class-metric-value">94%</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="class-overview-card">
-                            <div class="class-header">
-                                <span class="class-name">Grade 8 - Section B</span>
-                                <span class="student-count">14 students</span>
-                            </div>
-                            <div class="class-metrics">
-                                <div class="class-metric-item">
-                                    <span class="class-metric-label">Avg Performance</span>
-                                    <span class="class-metric-value">82%</span>
-                                </div>
-                                <div class="class-metric-item">
-                                    <span class="class-metric-label">Avg Attendance</span>
-                                    <span class="class-metric-value">96%</span>
+                                    <span class="class-metric-value">95%</span>
                                 </div>
                             </div>
                         </div>
@@ -1687,7 +1763,13 @@
 
                     <!-- Recent Assessments -->
                     <div class="mb-4">
-                        <h4 class="section-title">Recent Assessments Reviewed</h4>
+                        <div class="section-header-with-action">
+                            <h4 class="section-title">Recent Assessments Reviewed</h4>
+                            <button class="btn-view-all">
+                                <span>View All</span>
+                                <span class="material-symbols-outlined" style="font-size: 16px;">arrow_forward</span>
+                            </button>
+                        </div>
                         <div class="recent-assessment-item">
                             <div class="assessment-header">
                                 <div>
@@ -1756,35 +1838,6 @@
                             </div>
                             <div class="assessment-meta">
                                 <span>📅 Dec 4, 2024</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Scoring Consistency -->
-                    <div class="mb-4">
-                        <h4 class="section-title">Scoring Consistency Snapshot</h4>
-                        <div class="consistency-card">
-                            <div class="consistency-main">
-                                <div>
-                                    <div class="consistency-value">±3.2%</div>
-                                    <div class="consistency-label">Deviation Percentage</div>
-                                </div>
-                                <div class="consistency-status">
-                                    <div class="status-indicator status-consistent">
-                                        <span class="material-symbols-outlined"
-                                            style="font-size: 14px;">check_circle</span>
-                                        Consistent
-                                    </div>
-                                    <div class="flagged-count">2 flagged assessments</div>
-                                </div>
-                            </div>
-                            <div class="behavior-item">
-                                <span class="behavior-label">Standard Deviation</span>
-                                <span class="behavior-value good">Low</span>
-                            </div>
-                            <div class="behavior-item">
-                                <span class="behavior-label">Scoring Pattern</span>
-                                <span class="behavior-value good">Stable</span>
                             </div>
                         </div>
                     </div>
@@ -2037,7 +2090,6 @@
                 const teacherStatusBadge = document.getElementById('teacherStatusBadge');
                 const teacherAvatar = document.getElementById('teacherAvatar');
                 const metricAssessmentCompletion = document.getElementById('metricAssessmentCompletion');
-                const metricAttendanceMarking = document.getElementById('metricAttendanceMarking');
                 const metricAvgPerformance = document.getElementById('metricAvgPerformance');
                 const metricTotalStudents = document.getElementById('metricTotalStudents');
                 const metricTotalAssessments = document.getElementById('metricTotalAssessments');
@@ -2083,7 +2135,11 @@
                     }
 
                     metricAssessmentCompletion.textContent = teacherData.assessmentCompletion;
-                    metricAttendanceMarking.textContent = teacherData.attendanceMarking;
+                    // Update progress bar
+                    const progressBar = document.getElementById('assessmentProgressBar');
+                    const progressValue = parseInt(teacherData.assessmentCompletion);
+                    progressBar.style.width = progressValue + '%';
+
                     metricAvgPerformance.textContent = teacherData.avgPerformance;
                     metricTotalStudents.textContent = teacherData.totalStudents;
                     metricTotalAssessments.textContent = teacherData.totalAssessments;
@@ -2157,6 +2213,7 @@
                 const schoolData = {
                     'Greenwood High': {
                         schoolName: 'Greenwood High',
+                        location: 'Mumbai, Maharashtra',
                         schoolCode: 'GW-482',
                         thinkingCoach: 'Amanda Lee',
                         coachAvatar: 'https://i.pravatar.cc/150?img=47',
@@ -2230,6 +2287,7 @@
                     },
                     'Oakridge International': {
                         schoolName: 'Oakridge International',
+                        location: 'Hyderabad, Telangana',
                         schoolCode: 'OI-315',
                         thinkingCoach: 'Michael Chen',
                         coachAvatar: 'https://i.pravatar.cc/150?img=33',
@@ -2303,6 +2361,7 @@
                     },
                     'Maple Leaf Academy': {
                         schoolName: 'Maple Leaf Academy',
+                        location: 'Ahmedabad, Gujarat',
                         schoolCode: 'ML-729',
                         thinkingCoach: 'Jessica Brown',
                         coachAvatar: 'https://i.pravatar.cc/150?img=44',
@@ -2376,6 +2435,7 @@
                     },
                     'Riverside Public School': {
                         schoolName: 'Riverside Public School',
+                        location: 'Pune, Maharashtra',
                         schoolCode: 'RPS-541',
                         thinkingCoach: 'Daniel Park',
                         coachAvatar: 'https://i.pravatar.cc/150?img=15',
@@ -2473,6 +2533,7 @@
                     },
                     'Springfield Academy': {
                         schoolName: 'Springfield Academy',
+                        location: 'Bangalore, Karnataka',
                         schoolCode: 'SA-892',
                         thinkingCoach: 'Rachel Adams',
                         coachAvatar: 'https://i.pravatar.cc/150?img=41',
@@ -2577,13 +2638,15 @@
 
                     // Update school info card - using better selectors
                     const infoItems = document.querySelectorAll('.school-info-card .info-item');
-                    infoItems[0].querySelector('.info-value').textContent = data.schoolName;
+                    // Extract city name from location (e.g., "Mumbai, Maharashtra" -> "Mumbai")
+                    const cityName = data.location.split(',')[0];
+                    infoItems[0].querySelector('.info-value').textContent = data.schoolName + ', ' + cityName;
                     infoItems[1].querySelector('.info-value').textContent = data.schoolCode;
                     infoItems[2].querySelector('.info-value').textContent = data.thinkingCoach;
                     infoItems[2].querySelector('.coach-avatar').src = data.coachAvatar;
                     infoItems[3].querySelector('.info-value').textContent = data.totalStudents;
-                    infoItems[4].querySelector('.info-value').textContent = data.totalTeachers;
-                    infoItems[5].querySelector('.info-value').textContent = data.gradeLevels;
+                    // infoItems[4].querySelector('.info-value').textContent = data.totalTeachers;
+                    // infoItems[5].querySelector('.info-value').textContent = data.gradeLevels;
 
                     // Update metric cards
                     const metricCards = document.querySelectorAll('.metric-card');
@@ -2726,13 +2789,75 @@
                     });
                 }
 
-                // School dropdown change event
-                const schoolSelect = document.getElementById('schoolSelect');
-                schoolSelect.addEventListener('change', function() {
-                    const selectedSchool = this.value;
-                    if (selectedSchool && selectedSchool !== 'Choose a School') {
-                        updateSchoolData(selectedSchool);
+                // School search functionality
+                const schoolSearch = document.getElementById('schoolSearch');
+                const schoolDropdown = document.getElementById('schoolDropdown');
+                const schoolOptions = document.querySelectorAll('.school-option');
+                let selectedSchool = '';
+
+                // Show dropdown when input is focused
+                schoolSearch.addEventListener('focus', function() {
+                    schoolDropdown.classList.add('active');
+                });
+
+                // Filter schools based on search input
+                schoolSearch.addEventListener('input', function() {
+                    const searchTerm = this.value.toLowerCase();
+                    let hasVisibleOptions = false;
+
+                    schoolOptions.forEach(option => {
+                        const schoolName = option.getAttribute('data-school').toLowerCase();
+                        const displayText = option.textContent.toLowerCase();
+                        // Search in both school name and display text (which includes city)
+                        if (schoolName.includes(searchTerm) || displayText.includes(searchTerm)) {
+                            option.classList.remove('hidden');
+                            hasVisibleOptions = true;
+                        } else {
+                            option.classList.add('hidden');
+                        }
+                    });
+
+                    // Show dropdown if there are visible options and input is not empty
+                    if (hasVisibleOptions && searchTerm) {
+                        schoolDropdown.classList.add('active');
+                    } else if (!searchTerm) {
+                        schoolDropdown.classList.add('active');
+                    } else {
+                        schoolDropdown.classList.remove('active');
                     }
+                });
+
+                // Handle school selection
+                schoolOptions.forEach(option => {
+                    option.addEventListener('click', function() {
+                        const schoolName = this.getAttribute('data-school');
+                        const displayText = this.textContent; // Get the full text with city
+                        selectedSchool = schoolName;
+                        schoolSearch.value = displayText; // Show full text in input
+
+                        // Remove selected class from all options
+                        schoolOptions.forEach(opt => opt.classList.remove('selected'));
+                        // Add selected class to clicked option
+                        this.classList.add('selected');
+
+                        // Hide dropdown
+                        schoolDropdown.classList.remove('active');
+
+                        // Update school data
+                        updateSchoolData(schoolName);
+                    });
+                });
+
+                // Close dropdown when clicking outside
+                document.addEventListener('click', function(e) {
+                    if (!e.target.closest('.school-search-wrapper')) {
+                        schoolDropdown.classList.remove('active');
+                    }
+                });
+
+                // Prevent dropdown from closing when clicking inside it
+                schoolDropdown.addEventListener('click', function(e) {
+                    e.stopPropagation();
                 });
             </script>
         </main>

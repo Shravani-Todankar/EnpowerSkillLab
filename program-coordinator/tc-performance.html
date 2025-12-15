@@ -972,7 +972,7 @@
                                 </div>
                                 <div class="col-12 col-md-6 col-lg-3">
                                     <select class="form-select filter-select" id="schoolFilter">
-                                        <option value="" selected>All Schools</option>
+                                        <option value="" disabled selected>All Schools</option>
                                         <option value="Maplewood High School">Maplewood High School</option>
                                         <option value="Springfield Academy">Springfield Academy</option>
                                         <option value="Riverside School">Riverside School</option>
@@ -981,15 +981,15 @@
                                 </div>
                                 <div class="col-12 col-md-6 col-lg-3">
                                     <select class="form-select filter-select" id="performanceFilter">
-                                        <option value="" selected>Performance Range</option>
-                                        <option value="top">Top Performer (9.0+)</option>
-                                        <option value="consistent">Consistent (8.0-8.9)</option>
-                                        <option value="attention">Needs Attention (&lt;8.0)</option>
+                                        <option value="" disabled selected>Performance Range</option>
+                                        <option value="top">Top Performer</option>
+                                        <option value="consistent">Consistent</option>
+                                        <option value="attention">Needs Attention</option>
                                     </select>
                                 </div>
                                 <div class="col-12 col-md-6 col-lg-3">
                                     <select class="form-select filter-select" id="accuracyFilter">
-                                        <option value="" selected>Rating Accuracy</option>
+                                        <option value="" disabled selected>Student Performance</option>
                                         <option value="high">95%+</option>
                                         <option value="medium">90-94%</option>
                                         <option value="low">&lt;90%</option>
@@ -1003,9 +1003,9 @@
                                     <thead>
                                         <tr>
                                             <th>THINKING COACH NAME</th>
-                                            <th>ASSIGNED SCHOOLS</th>
+                                            <!-- <th>ASSIGNED SCHOOLS</th> -->
                                             <th>AVG PERFORMANCE SCORE</th>
-                                            <th>RATING ACCURACY</th>
+                                            <th>STUDENT PERFORMANCE</th>
                                             <th>LAST ACTIVE</th>
                                             <th class="text-end"></th>
                                         </tr>
@@ -1023,10 +1023,10 @@
                                                     <span class="fw-medium">Jane Doe</span>
                                                 </div>
                                             </td>
-                                            <td>5</td>
+                                            <!-- <td>5</td> -->
                                             <td>
                                                 <div class="d-flex align-items-center gap-2">
-                                                    <span>9.2/10</span>
+                                                    <!-- <span>9.2/10</span> -->
                                                     <span class="badge-custom badge-top">Top Performer</span>
                                                     <span class="material-symbols-outlined text-success"
                                                         style="font-size: 18px;">arrow_upward</span>
@@ -1055,10 +1055,10 @@
                                                     <span class="fw-medium">John Smith</span>
                                                 </div>
                                             </td>
-                                            <td>3</td>
+                                            <!-- <td>3</td> -->
                                             <td>
                                                 <div class="d-flex align-items-center gap-2">
-                                                    <span>8.7/10</span>
+                                                    <!-- <span>8.7/10</span> -->
                                                     <span class="badge-custom badge-consistent">Consistent</span>
                                                     <span class="material-symbols-outlined text-muted"
                                                         style="font-size: 18px;">remove</span>
@@ -1087,10 +1087,10 @@
                                                     <span class="fw-medium">Emily White</span>
                                                 </div>
                                             </td>
-                                            <td>4</td>
+                                            <!-- <td>4</td> -->
                                             <td>
                                                 <div class="d-flex align-items-center gap-2">
-                                                    <span>8.1/10</span>
+                                                    <!-- <span>8.1/10</span> -->
                                                     <span class="badge-custom badge-attention">Needs Attention</span>
                                                     <span class="material-symbols-outlined text-danger"
                                                         style="font-size: 18px;">arrow_downward</span>
@@ -1119,10 +1119,10 @@
                                                     <span class="fw-medium">Michael Brown</span>
                                                 </div>
                                             </td>
-                                            <td>6</td>
+                                            <!-- <td>6</td> -->
                                             <td>
                                                 <div class="d-flex align-items-center gap-2">
-                                                    <span>9.5/10</span>
+                                                    <!-- <span>9.5/10</span> -->
                                                     <span class="badge-custom badge-top">Top Performer</span>
                                                     <span class="material-symbols-outlined text-success"
                                                         style="font-size: 18px;">arrow_upward</span>
@@ -1448,14 +1448,14 @@
                 labels: ['Rating Accuracy', 'Timeliness', 'Student Improvement', 'Session Completion'],
                 datasets: [{
                     label: 'Performance Metrics',
-                    data: [98, 95, 88, 96],
+                    data: [99, 95, 15, 96],
                     backgroundColor: 'rgba(107, 39, 126, 0.1)',
                     borderColor: 'rgba(107, 39, 126, 1)',
                     borderWidth: 3,
                     pointBackgroundColor: [
                         'rgba(107, 39, 126, 1)',
-                        'rgba(20, 184, 166, 1)',
                         'rgba(245, 158, 11, 1)',
+                        'rgba(20, 184, 166, 1)',
                         'rgba(236, 72, 153, 1)'
                     ],
                     pointBorderColor: '#fff',
@@ -1464,8 +1464,8 @@
                     pointHoverRadius: 8,
                     pointHoverBackgroundColor: [
                         'rgba(107, 39, 126, 1)',
-                        'rgba(20, 184, 166, 1)',
                         'rgba(245, 158, 11, 1)',
+                        'rgba(20, 184, 166, 1)',
                         'rgba(236, 72, 153, 1)'
                     ],
                     pointHoverBorderColor: '#fff',
