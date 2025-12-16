@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Lesson Library - Enpower Skill Lab</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&amp;family=Noto+Sans:wght@400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+
+    <!-- Sidebar JS -->
+    <script src="sidebar.js"></script>
+    <!-- Header JS -->
+    <script src="header.js"></script>
+
+    <style>
+        /* Prevent FOUC - hide containers until loaded */
+        #sidebar-container:empty,
+        #header-container:empty {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        #sidebar-container.loaded,
+        #header-container.loaded {
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.2s ease-in;
+        }
+    </style>
+
+    <style>
+        :root {
+            --primary: #5b1f6f;
+            --primary-light: #fcfaff;
+            --background-light: #f7f6f8;
+            --background-dark: #1c131f;
+            --text-main: #161217;
+            --text-subtle: #7c6882;
+            --border-color: #e2dde4;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background-light);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        /* Custom scrollbar for table if needed */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background-color: var(--border-color);
+            border-radius: 20px;
+        }
+
+        /* Dashboard Layout */
+        .dashboard-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        /* Page header */
+        .page-header {
+            margin-bottom: 1.5rem;
+        }
+
+        .page-title {
+            font-size: 1.875rem;
+            font-weight: 700;
+            color: var(--text-main);
+            letter-spacing: -0.025em;
+            margin-bottom: 0.25rem;
+        }
+
+        @media (min-width: 768px) {
+            .page-title {
+                font-size: 2.25rem;
+            }
+        }
+
+        .page-description {
+            color: var(--text-subtle);
+            font-size: 1rem;
+            max-width: 42rem;
+        }
+
+        .btn-primary-custom {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background-color: var(--primary);
+            color: white;
+            padding: 0.625rem 1.25rem;
+            border-radius: 0.5rem;
+            font-weight: 700;
+            font-size: 0.875rem;
+            border: none;
+            transition: all 0.2s;
+            box-shadow: 0 4px 6px rgba(91, 31, 111, 0.2);
+        }
+
+        .btn-primary-custom:hover {
+            background-color: #4a195b;
+            color: white;
+        }
+
+        /* Filters section */
+        .filters-card {
+            background-color: white;
+            padding: 1.25rem;
+            border-radius: 0.75rem;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px -1px rgba(0, 0, 0, 0.02);
+            margin-bottom: 1.5rem;
+        }
+
+        .search-wrapper {
+            position: relative;
+            flex: 1;
+            min-width: 280px;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-subtle);
+            transition: color 0.2s;
+        }
+
+        .search-wrapper:focus-within .search-icon {
+            color: var(--primary);
+        }
+
+        .search-input {
+            width: 100%;
+            height: 44px;
+            padding-left: 2.5rem;
+            padding-right: 1rem;
+            border-radius: 0.5rem;
+            border: 1px solid var(--border-color);
+            background-color: var(--background-light);
+            font-size: 0.875rem;
+            transition: all 0.2s;
+        }
+
+        .search-input:focus {
+            background-color: white;
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 1px var(--primary);
+        }
+
+        .search-input::placeholder {
+            color: var(--text-subtle);
+        }
+
+        .filter-select-wrapper {
+            position: relative;
+            min-width: 160px;
+            flex: 1;
+        }
+
+        .filter-select {
+            width: 100%;
+            height: 44px;
+            padding: 0 0.75rem;
+            border-radius: 0.5rem;
+            border: 1px solid var(--border-color);
+            background-color: white;
+            font-size: 0.875rem;
+            color: var(--text-main);
+            cursor: pointer;
+            appearance: none;
+            transition: all 0.2s;
+        }
+
+        .filter-select:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 1px var(--primary);
+        }
+
+        .select-arrow {
+            position: absolute;
+            right: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-subtle);
+            pointer-events: none;
+            font-size: 20px;
+        }
+
+        .clear-filters-btn {
+            height: 44px;
+            padding: 0 1rem;
+            border-radius: 0.5rem;
+            border: 1px solid transparent;
+            color: var(--text-subtle);
+            background: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            white-space: nowrap;
+            transition: all 0.2s;
+        }
+
+        .clear-filters-btn:hover {
+            color: var(--primary);
+            background-color: rgba(91, 31, 111, 0.05);
+        }
+
+        /* Table section */
+        .table-card {
+            background-color: white;
+            border-radius: 0.75rem;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px -1px rgba(0, 0, 0, 0.02);
+            overflow: hidden;
+        }
+
+        .bulk-action-bar {
+            display: none;
+            background-color: rgba(91, 31, 111, 0.05);
+            padding: 0.75rem 1.5rem;
+            border-bottom: 1px solid rgba(91, 31, 111, 0.1);
+        }
+
+        .bulk-action-text {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--primary);
+        }
+
+        .bulk-action-btn {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--primary);
+            background: none;
+            border: none;
+            padding: 0 0.5rem;
+            text-decoration: none;
+        }
+
+        .bulk-action-btn:hover {
+            text-decoration: underline;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        .lessons-table {
+            width: 100%;
+            text-align: left;
+            border-collapse: collapse;
+            margin: 0;
+        }
+
+        .lessons-table thead tr {
+            background-color: var(--primary-light);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .lessons-table th {
+            padding: 1rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--text-subtle);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .lessons-table tbody tr {
+            border-bottom: 1px solid var(--border-color);
+            transition: background-color 0.2s;
+        }
+
+        .lessons-table tbody tr:last-child {
+            border-bottom: none;
+        }
+
+        .lessons-table tbody tr:hover {
+            background-color: rgba(91, 31, 111, 0.05);
+        }
+
+        .lessons-table td {
+            padding: 1rem;
+            font-size: 0.875rem;
+        }
+
+        .lesson-title {
+            font-weight: 600;
+            color: var(--text-main);
+            transition: color 0.2s;
+        }
+
+        .lessons-table tbody tr:hover .lesson-title {
+            color: var(--primary);
+        }
+
+        .lesson-id {
+            font-size: 0.75rem;
+            color: var(--text-subtle);
+            margin-top: 0.125rem;
+        }
+
+        .content-type-icon {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .content-type-icon .material-symbols-outlined {
+            font-size: 18px;
+            color: var(--text-subtle);
+        }
+
+        .badge-level {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.125rem 0.625rem;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .badge-level-low {
+            background-color: #d1fae5;
+            color: #065f46;
+            border: 1px solid #a7f3d0;
+        }
+
+        .badge-level-medium {
+            background-color: #fef3c7;
+            color: #92400e;
+            border: 1px solid #fde68a;
+        }
+
+        .badge-level-high {
+            background-color: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #fecaca;
+        }
+
+        .badge-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.375rem;
+            padding: 0.125rem 0.625rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .status-dot {
+            width: 0.375rem;
+            height: 0.375rem;
+            border-radius: 50%;
+        }
+
+        .badge-status-published {
+            background-color: #d1fae5;
+            color: #047857;
+            border: 1px solid #a7f3d0;
+        }
+
+        .badge-status-published .status-dot {
+            background-color: #10b981;
+        }
+
+        .badge-status-draft {
+            background-color: #f3f4f6;
+            color: #4b5563;
+            border: 1px solid #e5e7eb;
+        }
+
+        .badge-status-draft .status-dot {
+            background-color: #9ca3af;
+        }
+
+        .badge-status-archived {
+            background-color: #fff7ed;
+            color: #c2410c;
+            border: 1px solid #fed7aa;
+            opacity: 0.7;
+        }
+
+        .badge-status-archived .status-dot {
+            background-color: #f97316;
+        }
+
+        .date-text {
+            color: var(--text-subtle);
+        }
+
+        .action-buttons {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.25rem;
+            opacity: 1;
+        }
+
+        .action-btn {
+            padding: 0.375rem;
+            color: var(--text-subtle);
+            background-color: transparent;
+            border: none;
+            border-radius: 0.25rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .action-btn:hover {
+            color: var(--primary);
+            background-color: white;
+        }
+
+        .action-btn.delete:hover {
+            color: #dc2626;
+        }
+
+        .action-btn .material-symbols-outlined {
+            font-size: 20px;
+        }
+
+        /* Pagination */
+        .pagination-wrapper {
+            padding: 1rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .rows-per-page {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            color: var(--text-subtle);
+        }
+
+        .rows-select {
+            border: 0;
+            background-color: transparent;
+            padding: 0 1.5rem 0 0.25rem;
+            font-weight: 500;
+            color: var(--text-main);
+            cursor: pointer;
+        }
+
+        .rows-select:focus {
+            outline: none;
+        }
+
+        .pagination-info {
+            font-size: 0.875rem;
+            color: var(--text-subtle);
+        }
+
+        .pagination-controls {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .page-btn {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0.5rem;
+            border: 1px solid var(--border-color);
+            background-color: transparent;
+            color: var(--text-subtle);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .page-btn:hover:not(:disabled) {
+            background-color: #f3f4f6;
+        }
+
+        .page-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .page-btn.active {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .page-btn.no-border {
+            border-color: transparent;
+        }
+
+        .page-ellipsis {
+            padding: 0 0.25rem;
+            color: var(--text-subtle);
+        }
+
+        /* Custom checkbox styling */
+        .form-check-input {
+            border-radius: 0.25rem;
+            border-color: var(--border-color);
+            width: 1rem;
+            height: 1rem;
+            cursor: pointer;
+        }
+
+        .form-check-input:checked {
+            background-color: var(--primary);
+            border-color: var(--primary);
+        }
+
+        .form-check-input:focus {
+            box-shadow: 0 0 0 0.25rem rgba(91, 31, 111, 0.25);
+        }
+
+        /* DataTables Specific Styles */
+        div.dataTables_wrapper div.dataTables_length select {
+            width: 70px !important;
+        }
+
+        /* DataTable Column Width Adjustments */
+        #lessonsTable {
+            width: 100% !important;
+        }
+
+        /* Set specific column widths for better content fit */
+        #lessonsTable thead th:nth-child(1) { /* Checkbox */
+            width: 50px;
+            min-width: 50px;
+            text-align: center;
+        }
+
+        #lessonsTable thead th:nth-child(2) { /* Lesson Title */
+            width: 250px;
+            min-width: 220px;
+        }
+
+        #lessonsTable thead th:nth-child(3) { /* Type */
+            width: 120px;
+            min-width: 100px;
+        }
+
+        #lessonsTable thead th:nth-child(4) { /* Competency */
+            width: 150px;
+            min-width: 130px;
+        }
+
+        #lessonsTable thead th:nth-child(5) { /* Level */
+            width: 100px;
+            min-width: 90px;
+            text-align: center;
+        }
+
+        #lessonsTable thead th:nth-child(6) { /* Status */
+            width: 120px;
+            min-width: 110px;
+            text-align: center;
+        }
+
+        #lessonsTable thead th:nth-child(7) { /* Created */
+            width: 120px;
+            min-width: 110px;
+        }
+
+        #lessonsTable thead th:nth-child(8) { /* Updated */
+            width: 120px;
+            min-width: 110px;
+        }
+
+        #lessonsTable thead th:nth-child(9) { /* Actions */
+            width: 120px;
+            min-width: 100px;
+            text-align: center;
+        }
+
+        #lessonsTable tbody td:nth-child(1),
+        #lessonsTable tbody td:nth-child(5),
+        #lessonsTable tbody td:nth-child(6),
+        #lessonsTable tbody td:nth-child(9) {
+            text-align: center;
+        }
+
+        .table-wrapper-outer {
+            width: 100%;
+            overflow: visible;
+        }
+
+        /* Prevent text wrapping in specific columns */
+        #lessonsTable tbody td:nth-child(3),
+        #lessonsTable tbody td:nth-child(5),
+        #lessonsTable tbody td:nth-child(6) {
+            white-space: nowrap;
+        }
+
+        /* Allow controlled wrapping for longer content */
+        #lessonsTable tbody td:nth-child(2),
+        #lessonsTable tbody td:nth-child(4) {
+            white-space: normal;
+            word-wrap: break-word;
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+            overflow-y: visible;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .table-responsive::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .table-responsive::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+
+        .table-responsive::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+
+        .table-responsive::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        .datatable-header,
+        .datatable-footer {
+            background: white;
+            position: relative;
+            z-index: 2;
+        }
+
+        .table-scroll-wrapper {
+            overflow-x: auto;
+            overflow-y: visible;
+            -webkit-overflow-scrolling: touch;
+            position: relative;
+            z-index: 1;
+        }
+
+        .pagination .page-link {
+            border-color: var(--border-color);
+            color: var(--text-subtle);
+        }
+
+        .pagination .page-link.active,
+        .pagination .page-item.active .page-link {
+            background-color: var(--primary);
+            border-color: var(--primary);
+            color: #fff;
+        }
+
+        @media (max-width: 768px) {
+            div.dataTables_wrapper div.dataTables_filter {
+                text-align: left;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- Include Sidebar Component -->
+        <div id="sidebar-container"></div>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Include Header Component -->
+            <div id="header-container"></div>
+
+            <div class="py-4 py-sm-5 py-lg-5">
+                <div class="container-xl" style="max-width: 1440px;">
+                    <!-- Page Header -->
+                    <header class="mb-4 d-flex flex-column flex-lg-row align-items-start align-items-lg-center justify-content-between gap-3">
+                        <div>
+                            <h1 class="h4 mb-2 fw-bold text-dark">Lesson Library</h1>
+                            <p class="text-muted mb-0" style="font-size: 0.9rem;">Manage self-learning content, inventory, and publishing status across the platform.</p>
+                        </div>
+                        <div class="d-flex gap-2 align-items-center">
+                            <button id="bulkDeleteBtn" class="btn btn-danger d-none" style="display: inline-flex; align-items: center; gap: 0.5rem;">
+                                <span class="material-symbols-outlined" style="font-size: 20px;">delete</span>
+                                <span>Delete Selected (<span id="selectedCount">0</span>)</span>
+                            </button>
+                            <button class="btn-primary-custom" onclick="window.location.href='add-lesson.html'">
+                                <span class="material-symbols-outlined" style="font-size: 20px;">add</span>
+                                <span>Create Lesson</span>
+                            </button>
+                        </div>
+                    </header>
+        <!-- Table Section -->
+        <div class="table-card">
+            <div class="table-wrapper-outer">
+                <div class="table-responsive">
+                <table id="lessonsTable" class="table mb-0 align-middle lessons-table">
+                    <thead>
+                        <tr>
+                            <th scope="col">
+                                <input class="form-check-input" type="checkbox" id="selectAll" />
+                            </th>
+                            <th scope="col">Lesson Title</th>
+                            <th scope="col">Type</th>
+                            <th scope="col">Competency</th>
+                            <th scope="col">Level</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Created</th>
+                            <th scope="col">Updated</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Row 1 -->
+                        <tr>
+                            <td>
+                                <input class="form-check-input row-checkbox" type="checkbox" />
+                            </td>
+                            <td>
+                                <div class="lesson-title">Intro to Public Speaking</div>
+                                <div class="lesson-id">ID: LES-00124</div>
+                            </td>
+                            <td>
+                                <div class="content-type-icon">
+                                    <span class="material-symbols-outlined">play_circle</span>
+                                    <span>Video</span>
+                                </div>
+                            </td>
+                            <td>Communication</td>
+                            <td>
+                                <span class="badge-level badge-level-low">
+                                    Low
+                                </span>
+                            </td>
+                            <td>
+                                <span class="badge-status badge-status-published">
+                                    <span class="status-dot"></span>
+                                    Published
+                                </span>
+                            </td>
+                            <td class="date-text">Oct 12, 2023</td>
+                            <td class="date-text">2 hours ago</td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="action-btn" title="View">
+                                        <span class="material-symbols-outlined">visibility</span>
+                                    </button>
+                                    <button class="action-btn" title="Edit">
+                                        <span class="material-symbols-outlined">edit</span>
+                                    </button>
+                                    <button class="action-btn delete" title="Archive">
+                                        <span class="material-symbols-outlined">archive</span>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <!-- Row 2 -->
+                        <tr>
+                            <td>
+                                <input class="form-check-input row-checkbox" type="checkbox" />
+                            </td>
+                            <td>
+                                <div class="lesson-title">Advanced Python Loops</div>
+                                <div class="lesson-id">ID: LES-00125</div>
+                            </td>
+                            <td>
+                                <div class="content-type-icon">
+                                    <span class="material-symbols-outlined">article</span>
+                                    <span>Article</span>
+                                </div>
+                            </td>
+                            <td>Technical Skills</td>
+                            <td>
+                                <span class="badge-level badge-level-high">
+                                    High
+                                </span>
+                            </td>
+                            <td>
+                                <span class="badge-status badge-status-draft">
+                                    <span class="status-dot"></span>
+                                    Draft
+                                </span>
+                            </td>
+                            <td class="date-text">Oct 10, 2023</td>
+                            <td class="date-text">1 day ago</td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="action-btn" title="View">
+                                        <span class="material-symbols-outlined">visibility</span>
+                                    </button>
+                                    <button class="action-btn" title="Edit">
+                                        <span class="material-symbols-outlined">edit</span>
+                                    </button>
+                                    <button class="action-btn delete" title="Archive">
+                                        <span class="material-symbols-outlined">archive</span>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <!-- Row 3 -->
+                        <tr>
+                            <td>
+                                <input class="form-check-input row-checkbox" type="checkbox" />
+                            </td>
+                            <td>
+                                <div class="lesson-title">Team Conflict Resolution</div>
+                                <div class="lesson-id">ID: LES-00098</div>
+                            </td>
+                            <td>
+                                <div class="content-type-icon">
+                                    <span class="material-symbols-outlined">extension</span>
+                                    <span>SCORM</span>
+                                </div>
+                            </td>
+                            <td>Leadership</td>
+                            <td>
+                                <span class="badge-level badge-level-medium">
+                                    Medium
+                                </span>
+                            </td>
+                            <td>
+                                <span class="badge-status badge-status-archived">
+                                    <span class="status-dot"></span>
+                                    Archived
+                                </span>
+                            </td>
+                            <td class="date-text">Sep 28, 2023</td>
+                            <td class="date-text">5 days ago</td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="action-btn" title="View">
+                                        <span class="material-symbols-outlined">visibility</span>
+                                    </button>
+                                    <button class="action-btn" title="Restore">
+                                        <span class="material-symbols-outlined">restore</span>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <!-- Row 4 -->
+                        <tr>
+                            <td>
+                                <input class="form-check-input row-checkbox" type="checkbox" />
+                            </td>
+                            <td>
+                                <div class="lesson-title">Digital Marketing Basics</div>
+                                <div class="lesson-id">ID: LES-00102</div>
+                            </td>
+                            <td>
+                                <div class="content-type-icon">
+                                    <span class="material-symbols-outlined">quiz</span>
+                                    <span>Quiz</span>
+                                </div>
+                            </td>
+                            <td>Marketing</td>
+                            <td>
+                                <span class="badge-level badge-level-low">
+                                    Low
+                                </span>
+                            </td>
+                            <td>
+                                <span class="badge-status badge-status-published">
+                                    <span class="status-dot"></span>
+                                    Published
+                                </span>
+                            </td>
+                            <td class="date-text">Sep 15, 2023</td>
+                            <td class="date-text">1 week ago</td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="action-btn" title="View">
+                                        <span class="material-symbols-outlined">visibility</span>
+                                    </button>
+                                    <button class="action-btn" title="Edit">
+                                        <span class="material-symbols-outlined">edit</span>
+                                    </button>
+                                    <button class="action-btn delete" title="Archive">
+                                        <span class="material-symbols-outlined">archive</span>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <!-- Row 5 -->
+                        <tr>
+                            <td>
+                                <input class="form-check-input row-checkbox" type="checkbox" />
+                            </td>
+                            <td>
+                                <div class="lesson-title">Business Ethics 101</div>
+                                <div class="lesson-id">ID: LES-00155</div>
+                            </td>
+                            <td>
+                                <div class="content-type-icon">
+                                    <span class="material-symbols-outlined">play_circle</span>
+                                    <span>Video</span>
+                                </div>
+                            </td>
+                            <td>General</td>
+                            <td>
+                                <span class="badge-level badge-level-medium">
+                                    Medium
+                                </span>
+                            </td>
+                            <td>
+                                <span class="badge-status badge-status-published">
+                                    <span class="status-dot"></span>
+                                    Published
+                                </span>
+                            </td>
+                            <td class="date-text">Aug 01, 2023</td>
+                            <td class="date-text">2 weeks ago</td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button class="action-btn" title="View">
+                                        <span class="material-symbols-outlined">visibility</span>
+                                    </button>
+                                    <button class="action-btn" title="Edit">
+                                        <span class="material-symbols-outlined">edit</span>
+                                    </button>
+                                    <button class="action-btn delete" title="Archive">
+                                        <span class="material-symbols-outlined">archive</span>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                </div>
+            </div>
+        </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- jQuery (required for DataTables) -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    <!-- Bootstrap JS Bundle (includes Popper) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Load Sidebar and Header Components
+        document.addEventListener('DOMContentLoaded', function () {
+            Promise.all([
+                fetch('sidebar.html').then(response => response.text()),
+                fetch('header.html').then(response => response.text())
+            ]).then(([sidebarHTML, headerHTML]) => {
+                document.getElementById('sidebar-container').innerHTML = sidebarHTML;
+                document.getElementById('header-container').innerHTML = headerHTML;
+
+                // Use setTimeout to ensure DOM has parsed the inserted HTML
+                setTimeout(() => {
+                    // Call header initialization directly instead of relying on DOMContentLoaded
+                    if (typeof initializeHeader === 'function') {
+                        initializeHeader();
+                    }
+
+                    // Mark containers as loaded to make them visible with smooth transition
+                    document.getElementById('sidebar-container').classList.add('loaded');
+                    document.getElementById('header-container').classList.add('loaded');
+
+                    // Wait a bit for sidebar.js to initialize, then set active state
+                    setActiveMenuItem();
+                }, 200);
+            });
+        });
+
+        function setActiveMenuItem() {
+            const currentPage = window.location.pathname.split('/').pop();
+            const navLessonsLibrary = document.getElementById('nav-lessons-library');
+            if (navLessonsLibrary && currentPage === 'lessons-library.html') {
+                navLessonsLibrary.classList.add('active');
+            }
+        }
+
+        // Initialize DataTable
+        $(function () {
+            const table = $('#lessonsTable').DataTable({
+                paging: true,
+                pageLength: 10,
+                lengthMenu: [5, 10, 25, 50],
+                order: [[1, 'asc']], // Sort by Lesson Title (now column 1, not 0)
+                autoWidth: false,
+                columnDefs: [
+                    { orderable: false, targets: [0, 8] }, // Disable sorting on Checkbox and Actions columns
+                    { width: '50px', targets: 0 },    // Checkbox
+                    { width: '250px', targets: 1 },   // Lesson Title
+                    { width: '120px', targets: 2 },   // Type
+                    { width: '150px', targets: 3 },   // Competency
+                    { width: '100px', targets: 4 },   // Level
+                    { width: '120px', targets: 5 },   // Status
+                    { width: '120px', targets: 6 },   // Created
+                    { width: '120px', targets: 7 },   // Updated
+                    { width: '120px', targets: 8 }    // Actions
+                ],
+                language: {
+                    search: 'Search lessons:',
+                    lengthMenu: 'Show _MENU_ entries',
+                    info: 'Showing _START_ to _END_ of _TOTAL_ lessons',
+                    infoEmpty: 'No lessons to show',
+                    infoFiltered: '(_MAX_ total)',
+                    zeroRecords: 'No matching lessons found',
+                    paginate: {
+                        next: 'Next',
+                        previous: 'Previous'
+                    }
+                },
+                dom: '<"datatable-header d-flex flex-column flex-lg-row align-items-start align-items-lg-center justify-content-between gap-3 p-3 border-bottom"l<"w-100"f>><"table-scroll-wrapper"t><"datatable-footer d-flex flex-column flex-lg-row align-items-start align-items-lg-center justify-content-between gap-3 p-3 border-top"ip>'
+            });
+
+            // Function to update delete button visibility and count
+            function updateDeleteButton() {
+                const checkedCheckboxes = $('.row-checkbox:checked').length;
+                const deleteBtn = $('#bulkDeleteBtn');
+                const countSpan = $('#selectedCount');
+
+                if (checkedCheckboxes > 0) {
+                    deleteBtn.removeClass('d-none');
+                    countSpan.text(checkedCheckboxes);
+                } else {
+                    deleteBtn.addClass('d-none');
+                    countSpan.text(0);
+                }
+            }
+
+            // Select All functionality
+            $('#selectAll').on('click', function() {
+                const isChecked = $(this).prop('checked');
+                $('.row-checkbox').prop('checked', isChecked);
+                updateDeleteButton();
+            });
+
+            // Individual checkbox click (using event delegation for DataTables)
+            $('#lessonsTable tbody').on('click', '.row-checkbox', function() {
+                const totalCheckboxes = $('.row-checkbox').length;
+                const checkedCheckboxes = $('.row-checkbox:checked').length;
+                $('#selectAll').prop('checked', totalCheckboxes === checkedCheckboxes);
+                updateDeleteButton();
+            });
+
+            // Bulk Delete functionality
+            $('#bulkDeleteBtn').on('click', function() {
+                const checkedCheckboxes = $('.row-checkbox:checked');
+                const count = checkedCheckboxes.length;
+
+                if (count === 0) {
+                    alert('Please select at least one lesson to delete.');
+                    return;
+                }
+
+                // Confirm deletion
+                if (confirm(`Are you sure you want to delete ${count} lesson${count > 1 ? 's' : ''}? This action cannot be undone.`)) {
+                    // Get all checked rows and remove them
+                    checkedCheckboxes.each(function() {
+                        const row = $(this).closest('tr');
+                        // Remove the row from DataTable
+                        table.row(row).remove();
+                    });
+
+                    // Redraw the table
+                    table.draw();
+
+                    // Reset select all checkbox
+                    $('#selectAll').prop('checked', false);
+
+                    // Update delete button
+                    updateDeleteButton();
+
+                    // Show success message
+                    alert(`Successfully deleted ${count} lesson${count > 1 ? 's' : ''}.`);
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

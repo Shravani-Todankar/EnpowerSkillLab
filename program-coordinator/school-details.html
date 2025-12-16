@@ -10,7 +10,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
 
     <!-- Material Icons -->
@@ -72,7 +72,7 @@
         }
 
         body {
-            font-family: 'Lexend', sans-serif;
+            font-family: 'Poppins', sans-serif;
             background-color: var(--bg-light);
             color: var(--text-dark);
             line-height: 1.5;
@@ -155,7 +155,7 @@
             padding-right: 14px;
             font-size: 0.875rem;
             background-color: white;
-            font-family: 'Lexend', sans-serif;
+            font-family: 'Poppins', sans-serif;
             transition: all 0.2s ease;
         }
 
@@ -682,7 +682,7 @@
             display: flex;
             align-items: center;
             gap: 6px;
-            font-family: 'Lexend', sans-serif;
+            font-family: 'Poppins', sans-serif;
         }
 
         .btn-view-all:hover {
@@ -1880,7 +1880,7 @@
             <!-- Custom JavaScript -->
             <script>
                 // Chart.js default configuration
-                Chart.defaults.font.family = "'Lexend', sans-serif";
+                Chart.defaults.font.family = "'Poppins', sans-serif";
 
                 // Initialize Attendance Trend Chart
                 const attendanceCtx = document.getElementById('attendanceChart');
@@ -1944,7 +1944,7 @@
                                     },
                                     font: {
                                         size: 11,
-                                        family: 'Lexend',
+                                        family: 'Poppins',
                                         weight: '500'
                                     },
                                     color: '#9CA3AF',
@@ -1963,7 +1963,7 @@
                                 ticks: {
                                     font: {
                                         size: 11,
-                                        family: 'Lexend',
+                                        family: 'Poppins',
                                         weight: '500'
                                     },
                                     color: '#9CA3AF'
@@ -2040,7 +2040,7 @@
                             ctx.restore();
 
                             const fontSize = (height / 100).toFixed(2);
-                            ctx.font = 'bold ' + fontSize + 'em Lexend';
+                            ctx.font = 'bold ' + fontSize + 'em Poppins';
                             ctx.textBaseline = 'middle';
                             ctx.fillStyle = '#100c1d';
 
@@ -2050,7 +2050,7 @@
 
                             ctx.fillText(text, textX, textY - 12);
 
-                            ctx.font = (fontSize * 0.45) + 'em Lexend';
+                            ctx.font = (fontSize * 0.45) + 'em Poppins';
                             ctx.fillStyle = '#6B7280';
                             ctx.fontWeight = '500';
                             const subText = 'Avg.';
