@@ -17,11 +17,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
         rel="stylesheet">
 
-    <!-- Sidebar JS -->
-    <script src="sidebar.js"></script>
-    <!-- Header JS -->
-    <script src="header.js"></script>
-
     <style>
         /* Prevent FOUC - hide containers until loaded */
         #sidebar-container:empty,
@@ -72,7 +67,7 @@
 
         .content-wrapper {
             flex: 1;
-            padding: 0px 15px 0px 15px;
+            padding: 0;
         }
 
         /* ================= Page Header ================= */
@@ -674,23 +669,16 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
-        // Load sidebar
-        fetch('sidebar.html')
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('sidebar-container').innerHTML = data;
-                document.getElementById('sidebar-container').classList.add('loaded');
-            })
-            .catch(error => console.error('Error loading sidebar:', error));
+        // Load sidebar (placeholder for now)
+        document.addEventListener('DOMContentLoaded', function () {
+            const sidebarContainer = document.getElementById('sidebar-container');
+            // You can load sidebar.html here or just mark as loaded
+            sidebarContainer.classList.add('loaded');
 
-        // Load header
-        fetch('header.html')
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('header-container').innerHTML = data;
-                document.getElementById('header-container').classList.add('loaded');
-            })
-            .catch(error => console.error('Error loading header:', error));
+            const headerContainer = document.getElementById('header-container');
+            // You can load header.html here or just mark as loaded
+            headerContainer.classList.add('loaded');
+        });
 
         // ================= Lesson Content Tabs =================
         document.addEventListener('DOMContentLoaded', function () {
