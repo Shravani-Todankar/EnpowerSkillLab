@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Class List - Super Admin</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- DataTables CSS -->
+    <link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;900&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+
+    <!-- Sidebar JS -->
+    <script src="sidebar.js"></script>
+    <!-- Header JS -->
+    <script src="header.js"></script>
+
+    <style>
+        /* Prevent FOUC - hide containers until loaded */
+        #sidebar-container:empty,
+        #header-container:empty {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        #sidebar-container.loaded,
+        #header-container.loaded {
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.2s ease-in;
+        }
+
+        :root {
+            --primary: #5b1f6f;
+            --background-light: #f7f6f8;
+            --background-dark: #1c131f;
+            --text-main: #161217;
+            --text-subtle: #7c6882;
+            --border-color: #e2dde4;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background-light);
+            color: var(--text-main);
+        }
+
+        /* Dashboard Layout */
+        .dashboard-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        .content-wrapper {
+            flex: 1;
+            padding: 0px 15px 0px 15px;
+        }
+
+        .btn-primary-custom {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            font-weight: 600;
+            border-radius: 0.5rem;
+            padding: 0.5rem 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.375rem;
+            transition: all 0.2s;
+            font-size: 0.875rem;
+        }
+
+        .btn-primary-custom:hover {
+            background-color: #4a195b;
+            color: white;
+        }
+
+        .filter-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            border: 1px solid var(--border-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label-custom {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--text-subtle);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.375rem;
+        }
+
+        .form-select-custom,
+        .form-control-custom {
+            background-color: var(--background-light);
+            border: 1px solid var(--border-color);
+            border-radius: 0.5rem;
+            height: 40px;
+            font-size: 0.875rem;
+            color: var(--text-main);
+        }
+
+        .form-select-custom:focus,
+        .form-control-custom:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 0.2rem rgba(91, 31, 111, 0.25);
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+        /* Custom scrollbar styling */
+        .table-container::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        .table-container::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+
+        .table-container::-webkit-scrollbar-thumb {
+            background: #c1c1c1;
+            border-radius: 4px;
+        }
+
+        .table-container::-webkit-scrollbar-thumb:hover {
+            background: #a8a8a8;
+        }
+
+        table.dataTable {
+            width: 100% !important;
+            border-collapse: collapse;
+            table-layout: auto;
+        }
+
+        table.dataTable thead {
+            background-color: #fafafa;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        table.dataTable thead th {
+            padding: 14px 16px !important;
+            text-align: left;
+            font-size: 11px;
+            font-weight: 600;
+            color: #666 !important;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid #e5e7eb !important;
+            background-color: #fafafa !important;
+            white-space: nowrap;
+        }
+
+        table.dataTable tbody tr {
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        table.dataTable tbody td {
+            padding: 16px 16px !important;
+            font-size: 14px;
+            color: #333;
+            vertical-align: middle;
+            border-bottom: 1px solid #f0f0f0 !important;
+        }
+
+        /* Specific column widths */
+        table.dataTable thead th:nth-child(1),
+        table.dataTable tbody td:nth-child(1) {
+            width: 20%;
+            min-width: 200px;
+        }
+
+        table.dataTable thead th:nth-child(2),
+        table.dataTable tbody td:nth-child(2) {
+            width: 10%;
+            min-width: 100px;
+        }
+
+        table.dataTable thead th:nth-child(3),
+        table.dataTable tbody td:nth-child(3) {
+            width: 8%;
+            min-width: 80px;
+            text-align: center;
+        }
+
+        table.dataTable thead th:nth-child(4),
+        table.dataTable tbody td:nth-child(4) {
+            width: 10%;
+            min-width: 100px;
+        }
+
+        table.dataTable thead th:nth-child(5),
+        table.dataTable tbody td:nth-child(5) {
+            width: 18%;
+            min-width: 180px;
+        }
+
+        table.dataTable thead th:nth-child(6),
+        table.dataTable tbody td:nth-child(6) {
+            width: 8%;
+            min-width: 80px;
+            text-align: center;
+        }
+
+        table.dataTable thead th:nth-child(7),
+        table.dataTable tbody td:nth-child(7) {
+            width: 10%;
+            min-width: 100px;
+        }
+
+        table.dataTable thead th:nth-child(8),
+        table.dataTable tbody td:nth-child(8) {
+            width: 16%;
+            min-width: 130px;
+            text-align: center;
+        }
+
+        table.dataTable tbody tr.school-group {
+            background-color: #fafafa !important;
+        }
+
+        table.dataTable tbody tr.school-group td {
+            padding: 12px 24px !important;
+            font-weight: 600;
+        }
+
+        table.dataTable tbody tr.school-group:hover {
+            background-color: #fafafa !important;
+        }
+
+        table.dataTable.no-footer {
+            border-bottom: none;
+        }
+
+        table.dataTable thead .sorting,
+        table.dataTable thead .sorting_asc,
+        table.dataTable thead .sorting_desc {
+            background-image: none;
+        }
+
+        /* Hide DataTables default pagination and info */
+        .dataTables_wrapper .dataTables_info,
+        .dataTables_wrapper .dataTables_paginate,
+        .dataTables_wrapper .dataTables_length {
+            display: none !important;
+        }
+
+        .dataTables_wrapper .dataTables_filter {
+            display: none;
+        }
+
+        .school-name {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 13px;
+        }
+
+        .school-icon {
+            width: 16px;
+            height: 16px;
+        }
+
+        .teacher-cell {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .teacher-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            object-fit: cover;
+            background-color: #e5e7eb;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .status-active {
+            background-color: #dcfce7;
+            color: #16a34a;
+        }
+
+        .status-archived {
+            background-color: #f3f4f6;
+            color: #6b7280;
+        }
+
+        .actions-cell {
+            display: flex;
+            gap: 8px;
+        }
+
+        .action-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 6px;
+            border-radius: 4px;
+            color: #666;
+        }
+
+        .action-btn:hover {
+            background-color: #f3f4f6;
+            color: #333;
+        }
+
+        .action-btn svg {
+            width: 18px;
+            height: 18px;
+            display: block;
+        }
+
+        .pagination-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 24px;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .pagination-info {
+            font-size: 13px;
+            color: #666;
+        }
+
+        .pagination-info strong {
+            color: #333;
+            font-weight: 600;
+        }
+
+        .pagination-controls {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .rows-per-page {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: #666;
+        }
+
+        .rows-per-page select {
+            padding: 6px 10px;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            font-size: 13px;
+        }
+
+        .pagination-buttons {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .page-btn {
+            min-width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            border-radius: 6px;
+            font-size: 13px;
+            cursor: pointer;
+            background-color: transparent;
+            color: #666;
+        }
+
+        .page-btn:hover:not(.active):not(:disabled) {
+            background-color: #f3f4f6;
+        }
+
+        .page-btn.active {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .page-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .page-btn svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .page-ellipsis {
+            padding: 0 4px;
+            color: #666;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <div id="sidebar-container"></div>
+
+        <!-- Main Content Area -->
+        <div class="main-content">
+            <!-- Header -->
+            <div id="header-container"></div>
+
+            <!-- Content -->
+            <div class="content-wrapper">
+                <main class="container-xl py-5" style="max-width: 1600px;">
+                    <!-- Page Header -->
+                    <div class="d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-between gap-3 mb-4">
+                        <div>
+                            <h1 class="h3 mb-1 fw-bold">Class List</h1>
+                            <p class="text-muted mb-0" style="font-size: 0.875rem;">Manage class structure across all schools.</p>
+                        </div>
+                        <button class="btn-primary-custom" onclick="window.location.href='add-class.html'">
+                            <span class="material-symbols-outlined" style="font-size: 20px;">add</span>
+                            <span>Add Class</span>
+                        </button>
+                    </div>
+
+                    <!-- Filters Section -->
+                    <div class="filter-card">
+                        <div class="row g-3">
+                            <!-- Location Filter -->
+                            <div class="col-12 col-sm-6 col-lg-3 col-xl">
+                                <label class="form-label-custom">Location</label>
+                                <select class="form-select form-select-custom" id="locationFilter">
+                                    <option value="">All Locations</option>
+                                    <option value="Mumbai">Mumbai</option>
+                                    <option value="Delhi">Delhi</option>
+                                    <option value="Pune">Pune</option>
+                                </select>
+                            </div>
+
+                            <!-- School Filter -->
+                            <div class="col-12 col-sm-6 col-lg-3 col-xl">
+                                <label class="form-label-custom">School</label>
+                                <select class="form-select form-select-custom" id="schoolFilter">
+                                    <option value="">All Schools</option>
+                                    <option value="Greenwood High">Greenwood High</option>
+                                    <option value="St. Xaviers">St. Xaviers</option>
+                                </select>
+                            </div>
+
+                            <!-- Academic Year Filter -->
+                            <div class="col-12 col-sm-6 col-lg-2 col-xl">
+                                <label class="form-label-custom">Year</label>
+                                <select class="form-select form-select-custom" id="yearFilter">
+                                    <option value="">All Years</option>
+                                    <option value="2023-2024">2023-2024</option>
+                                    <option value="2022-2023">2022-2023</option>
+                                </select>
+                            </div>
+
+                            <!-- Status Filter -->
+                            <div class="col-12 col-sm-6 col-lg-2 col-xl">
+                                <label class="form-label-custom">Status</label>
+                                <select class="form-select form-select-custom" id="statusFilter">
+                                    <option value="">All Statuses</option>
+                                    <option value="Active">Active</option>
+                                    <option value="Archived">Archived</option>
+                                </select>
+                            </div>
+
+                            <!-- Search Input -->
+                            <div class="col-12 col-lg-4 col-xl">
+                                <label class="form-label-custom">Search</label>
+                                <div class="position-relative">
+                                    <input type="text" id="globalSearch" class="form-control form-control-custom ps-5" placeholder="Search Grade or Section...">
+                                    <span class="material-symbols-outlined position-absolute" style="left: 0.75rem; top: 50%; transform: translateY(-50%); color: var(--text-subtle); font-size: 20px;">search</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-end mt-3">
+                            <button class="btn btn-link text-decoration-none fw-medium p-0" style="color: var(--primary); font-size: 0.875rem;">
+                                <span class="material-symbols-outlined" style="font-size: 16px; vertical-align: middle;">refresh</span>
+                                Reset Filters
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Data Table -->
+                    <div class="card">
+                        <div class="table-container">
+                            <table id="classTable" class="table">
+                                <thead>
+                                    <tr>
+                                        <th>School Name</th>
+                                        <th>Grade / Class</th>
+                                        <th>Section</th>
+                                        <th>Academic Year</th>
+                                        <th>Class Teacher</th>
+                                        <th>Students</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr data-school="Greenwood High - Mumbai">
+                                        <td>
+                                            <div class="school-name">
+                                                <svg class="school-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                                                Greenwood High - Mumbai
+                                            </div>
+                                        </td>
+                                        <td>Grade 10</td>
+                                        <td>A</td>
+                                        <td>2023-2024</td>
+                                        <td><div class="teacher-cell"><img src="https://i.pravatar.cc/32?img=1" class="teacher-avatar"><span>Sarah Jenkins</span></div></td>
+                                        <td>32</td>
+                                        <td><span class="status-badge status-active">Active</span></td>
+                                        <td><div class="actions-cell"><button class="action-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button><button class="action-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
+                                    </tr>
+                                    <tr data-school="Greenwood High - Mumbai">
+                                        <td>
+                                            <div class="school-name">
+                                                <svg class="school-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                                                Greenwood High - Mumbai
+                                            </div>
+                                        </td>
+                                        <td>Grade 10</td>
+                                        <td>B</td>
+                                        <td>2023-2024</td>
+                                        <td><div class="teacher-cell"><img src="https://i.pravatar.cc/32?img=11" class="teacher-avatar"><span>Rajesh Kumar</span></div></td>
+                                        <td>30</td>
+                                        <td><span class="status-badge status-active">Active</span></td>
+                                        <td><div class="actions-cell"><button class="action-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button><button class="action-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
+                                    </tr>
+                                    <tr data-school="St. Xaviers - Delhi">
+                                        <td>
+                                            <div class="school-name">
+                                                <svg class="school-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                                                St. Xaviers - Delhi
+                                            </div>
+                                        </td>
+                                        <td>Grade 9</td>
+                                        <td>A</td>
+                                        <td>2023-2024</td>
+                                        <td><div class="teacher-cell"><img src="https://i.pravatar.cc/32?img=5" class="teacher-avatar"><span>Emily Chen</span></div></td>
+                                        <td>28</td>
+                                        <td><span class="status-badge status-active">Active</span></td>
+                                        <td><div class="actions-cell"><button class="action-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button><button class="action-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
+                                    </tr>
+                                    <tr data-school="St. Xaviers - Delhi">
+                                        <td>
+                                            <div class="school-name">
+                                                <svg class="school-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                                                St. Xaviers - Delhi
+                                            </div>
+                                        </td>
+                                        <td>Grade 9</td>
+                                        <td>B</td>
+                                        <td>2023-2024</td>
+                                        <td><div class="teacher-cell"><img src="https://i.pravatar.cc/32?img=12" class="teacher-avatar"><span>Michael Scott</span></div></td>
+                                        <td>29</td>
+                                        <td><span class="status-badge status-archived">Archived</span></td>
+                                        <td><div class="actions-cell"><button class="action-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button><button class="action-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
+                                    </tr>
+                                    <tr data-school="St. Xaviers - Delhi">
+                                        <td>
+                                            <div class="school-name">
+                                                <svg class="school-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                                                St. Xaviers - Delhi
+                                            </div>
+                                        </td>
+                                        <td>Grade 8</td>
+                                        <td>A</td>
+                                        <td>2023-2024</td>
+                                        <td><div class="teacher-cell"><img src="https://i.pravatar.cc/32?img=9" class="teacher-avatar"><span>Pam Beesly</span></div></td>
+                                        <td>31</td>
+                                        <td><span class="status-badge status-active">Active</span></td>
+                                        <td><div class="actions-cell"><button class="action-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button><button class="action-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="action-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button></div></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Pagination -->
+                        <div class="pagination-container">
+                            <div class="pagination-info">Showing <strong id="startEntry">1</strong> to <strong id="endEntry">5</strong> of <strong id="totalEntries">5</strong> classes</div>
+                            <div class="pagination-controls">
+                                <div class="rows-per-page">
+                                    <span>Rows per page:</span>
+                                    <select id="rowsPerPage"><option>10</option><option>25</option><option>50</option></select>
+                                </div>
+                                <div class="pagination-buttons" id="paginationButtons">
+                                    <!-- Pagination buttons will be generated by JavaScript -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </div>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    <!-- RowGroup extension -->
+    <script src="https://cdn.datatables.net/rowgroup/1.4.0/js/dataTables.rowGroup.min.js"></script>
+
+    <script>
+        // Load sidebar
+        fetch('sidebar.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('sidebar-container').innerHTML = data;
+                document.getElementById('sidebar-container').classList.add('loaded');
+            })
+            .catch(error => console.error('Error loading sidebar:', error));
+
+        // Load header
+        fetch('header.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header-container').innerHTML = data;
+                document.getElementById('header-container').classList.add('loaded');
+            })
+            .catch(error => console.error('Error loading header:', error));
+
+        // Initialize DataTable with RowGroup
+        $(document).ready(function() {
+            /**
+             * ========================================
+             * UTILITY FUNCTION: Extract Plain Text from HTML
+             * ========================================
+             * DataTables passes column data as HTML strings.
+             * We need to extract plain text for reliable filtering.
+             *
+             * This function creates a temporary DOM element,
+             * sets its HTML content, then extracts text content.
+             */
+            function extractPlainText(html) {
+                if (!html) return '';
+                // Create temporary element to parse HTML
+                const tempDiv = document.createElement('div');
+                tempDiv.innerHTML = html;
+                // Get text content and normalize whitespace
+                return tempDiv.textContent.trim().replace(/\s+/g, ' ');
+            }
+
+            /**
+             * ========================================
+             * CUSTOM GLOBAL SEARCH FILTER
+             * ========================================
+             * This function is called by DataTables for every row
+             * whenever a filter changes or draw() is called.
+             *
+             * WHY THE ORIGINAL FAILED:
+             * - Used .indexOf() directly on HTML strings like "<div class='school-name'>..."
+             * - Location text was embedded inside School Name HTML, not extracted
+             * - Status column contained <span class="status-badge">Active</span>
+             * - No plain text extraction before comparison
+             *
+             * SOLUTION:
+             * - Extract plain text from HTML before filtering
+             * - Use case-insensitive partial matching for flexibility
+             * - Support multiple filters working together
+             */
+            $.fn.dataTable.ext.search.push(
+                function(settings, data, dataIndex) {
+                    // Get current filter values from dropdowns
+                    const locationFilter = $('#locationFilter').val();
+                    const schoolFilter = $('#schoolFilter').val();
+                    const yearFilter = $('#yearFilter').val();
+                    const statusFilter = $('#statusFilter').val();
+
+                    // Extract plain text from HTML columns
+                    // data[0] = School Name column (contains <div class="school-name"><svg>...</svg>Greenwood High - Mumbai</div>)
+                    // data[3] = Academic Year column (plain text: "2023-2024")
+                    // data[6] = Status column (contains <span class="status-badge status-active">Active</span>)
+                    const schoolNameText = extractPlainText(data[0]);
+                    const yearText = extractPlainText(data[3]);
+                    const statusText = extractPlainText(data[6]);
+
+                    // Apply Location Filter
+                    // Check if school name contains the location (e.g., "Mumbai" in "Greenwood High - Mumbai")
+                    if (locationFilter && schoolNameText.indexOf(locationFilter) === -1) {
+                        return false; // Hide this row
+                    }
+
+                    // Apply School Filter
+                    // Check if school name contains the school (e.g., "Greenwood High" in "Greenwood High - Mumbai")
+                    if (schoolFilter && schoolNameText.indexOf(schoolFilter) === -1) {
+                        return false; // Hide this row
+                    }
+
+                    // Apply Academic Year Filter
+                    // Exact match for year (e.g., "2023-2024")
+                    if (yearFilter && yearText.indexOf(yearFilter) === -1) {
+                        return false; // Hide this row
+                    }
+
+                    // Apply Status Filter
+                    // Check if status text contains the filter value (e.g., "Active")
+                    if (statusFilter && statusText.indexOf(statusFilter) === -1) {
+                        return false; // Hide this row
+                    }
+
+                    // All filters passed - show this row
+                    return true;
+                }
+            );
+
+            /**
+             * ========================================
+             * DATATABLE INITIALIZATION
+             * ========================================
+             */
+            const table = $('#classTable').DataTable({
+                pageLength: 10,
+                order: [[0, 'asc'], [1, 'asc']], // Sort by School Name, then Grade
+                autoWidth: false,
+                columnDefs: [
+                    { orderable: false, targets: [7], className: 'text-center' }, // Disable sorting on Actions column
+                    { className: 'text-center', targets: [2, 5, 7] } // Center align Section, Students, Actions
+                ],
+                drawCallback: function() {
+                    updatePaginationInfo();
+                }
+            });
+
+            /**
+             * ========================================
+             * SEARCH INPUT HANDLER (Fixed Selector)
+             * ========================================
+             * WHY THE ORIGINAL FAILED:
+             * - Used '.form-control-custom' which is too broad
+             * - This class is applied to ALL form inputs, not just search
+             *
+             * SOLUTION:
+             * - Target the specific search input using its unique ID
+             * - This prevents conflicts with other inputs
+             */
+            $('#globalSearch').on('keyup', function() {
+                table.search(this.value).draw();
+            });
+
+            /**
+             * ========================================
+             * DROPDOWN FILTER CHANGE HANDLERS
+             * ========================================
+             * When any dropdown changes, trigger DataTables redraw
+             * which will call our custom search function above
+             */
+
+            // Location Filter Change
+            $('#locationFilter').on('change', function() {
+                table.draw(); // Triggers custom search function
+            });
+
+            // School Filter Change
+            $('#schoolFilter').on('change', function() {
+                table.draw(); // Triggers custom search function
+            });
+
+            // Academic Year Filter Change
+            $('#yearFilter').on('change', function() {
+                table.draw(); // Triggers custom search function
+            });
+
+            // Status Filter Change
+            $('#statusFilter').on('change', function() {
+                table.draw(); // Triggers custom search function
+            });
+
+            /**
+             * ========================================
+             * RESET FILTERS HANDLER (Safe Selector)
+             * ========================================
+             * WHY THE ORIGINAL FAILED:
+             * - Used '.btn-link' which is too generic and unsafe
+             * - Could trigger on any button with that class
+             *
+             * SOLUTION:
+             * - Target the specific reset button in the filter card
+             * - Use a more specific selector scoped to the filter card
+             */
+            $('.filter-card .btn-link').on('click', function(e) {
+                e.preventDefault();
+
+                // Clear all filter dropdowns
+                $('#locationFilter').val('');
+                $('#schoolFilter').val('');
+                $('#yearFilter').val('');
+                $('#statusFilter').val('');
+
+                // Clear search input by ID
+                $('#globalSearch').val('');
+
+                // Clear DataTables global search and redraw
+                table.search('').draw();
+            });
+
+            // Rows per page change
+            $('#rowsPerPage').on('change', function() {
+                table.page.len(parseInt($(this).val())).draw();
+            });
+
+            // Update pagination info
+            function updatePaginationInfo() {
+                const info = table.page.info();
+                $('#startEntry').text(info.start + 1);
+                $('#endEntry').text(info.end);
+                $('#totalEntries').text(info.recordsDisplay);
+
+                // Generate pagination buttons
+                generatePaginationButtons(info);
+            }
+
+            // Generate custom pagination buttons
+            function generatePaginationButtons(info) {
+                const container = $('#paginationButtons');
+                container.empty();
+
+                const totalPages = info.pages;
+                const currentPage = info.page;
+
+                // Previous button
+                const prevBtn = $('<button class="page-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button>');
+                if (currentPage === 0 || totalPages === 0) prevBtn.attr('disabled', true);
+                prevBtn.on('click', function() {
+                    table.page('previous').draw('page');
+                });
+                container.append(prevBtn);
+
+                // Page number buttons
+                if (totalPages > 0) {
+                    for (let i = 0; i < totalPages; i++) {
+                        if (i === 0 || i === totalPages - 1 || (i >= currentPage - 1 && i <= currentPage + 1)) {
+                            const pageBtn = $('<button class="page-btn">' + (i + 1) + '</button>');
+                            if (i === currentPage) pageBtn.addClass('active');
+                            pageBtn.on('click', function() {
+                                table.page(i).draw('page');
+                            });
+                            container.append(pageBtn);
+                        } else if (i === currentPage - 2 || i === currentPage + 2) {
+                            container.append('<span class="page-ellipsis">...</span>');
+                        }
+                    }
+                }
+
+                // Next button
+                const nextBtn = $('<button class="page-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></button>');
+                if (currentPage === totalPages - 1 || totalPages === 0) nextBtn.attr('disabled', true);
+                nextBtn.on('click', function() {
+                    table.page('next').draw('page');
+                });
+                container.append(nextBtn);
+            }
+
+            // Initial pagination update
+            updatePaginationInfo();
+        });
+    </script>
+</body>
+
+</html>
