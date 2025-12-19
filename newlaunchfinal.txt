@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Nomadic Road - 2026 Season Launch</title>
+
+    <style>
+        /* Base resets */
+        html,
+        body {
+            margin: 0 !important;
+            padding: 0 !important;
+            height: 100% !important;
+            width: 100% !important;
+        }
+
+        * {
+            -ms-text-size-adjust: 100%;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        table,
+        td {
+            mso-table-lspace: 0pt;
+            mso-table-rspace: 0pt;
+        }
+
+        table {
+            border-spacing: 0 !important;
+            border-collapse: collapse !important;
+            table-layout: fixed !important;
+            margin: 0 auto !important;
+        }
+
+        img {
+            -ms-interpolation-mode: bicubic;
+            border: 0;
+            outline: none;
+            text-decoration: none;
+            display: block;
+            line-height: 100%;
+            height: auto;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        body {
+            background: #000000;
+        }
+
+        a[x-apple-data-detectors],
+        .unstyle-auto-detected-links a,
+        .aBn {
+            color: inherit !important;
+            text-decoration: none !important;
+        }
+
+        .link {
+            color: #FF8C00 !important;
+        }
+
+        /* Modern Design System */
+        .container {
+            width: 600px;
+            max-width: 600px;
+        }
+
+        .wrap {
+            padding-left: 40px;
+            padding-right: 40px;
+        }
+
+        .rounded {
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .rounded-sm {
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .card {
+            background: linear-gradient(135deg, rgba(17, 17, 17, 0.95) 0%, rgba(25, 25, 25, 0.9) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4), 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent 0%, rgba(255, 140, 0, 0.3) 50%, transparent 100%);
+        }
+
+        .divider-thick {
+            height: 2px;
+            background: linear-gradient(90deg, #FF8C00 0%, rgba(255, 140, 0, 0.3) 100%);
+            border-radius: 2px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 5px 12px;
+            background: linear-gradient(135deg, #FF8C00 0%, #FF6B00 100%);
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: 900;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        /* Uniform Image Heights */
+        .expedition-img {
+            width: 100%;
+            height: 320px;
+            object-fit: cover;
+            border-radius: 12px 12px 0 0;
+        }
+
+        /* Animations */
+        @media screen and (min-width: 768px) {
+            .expedition-card {
+                transition: all .4s ease;
+            }
+
+            .expedition-card:hover {
+                transform: translateY(-4px);
+                box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+            }
+
+            .img-zoom img {
+                transition: transform .6s ease;
+            }
+
+            .expedition-card:hover .img-zoom img {
+                transform: scale(1.08);
+            }
+
+            .cta-button {
+                transition: all .3s ease;
+            }
+
+            .cta-button:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 12px 32px rgba(255, 140, 0, 0.5);
+            }
+        }
+
+        /* Tablet Responsive (481px - 767px) */
+        @media only screen and (max-width: 767px) and (min-width: 481px) {
+            .container {
+                width: 100% !important;
+                max-width: 480px !important;
+            }
+
+            .wrap {
+                padding-left: 25px !important;
+                padding-right: 25px !important;
+            }
+
+            img {
+                width: 100% !important;
+                height: auto !important;
+            }
+
+            .expedition-card {
+                width: 48% !important;
+                margin-bottom: 15px !important;
+            }
+
+            .expedition-img {
+                height: 140px !important;
+            }
+
+            h1 {
+                font-size: 24px !important;
+                line-height: 32px !important;
+            }
+
+            h2 {
+                font-size: 20px !important;
+            }
+
+            h3 {
+                font-size: 15px !important;
+            }
+
+            .footer-logo {
+                width: 80px !important;
+                height: auto !important;
+                max-width: 80px !important;
+            }
+        }
+
+        /* Mobile Responsive (max-width: 480px) */
+        @media only screen and (max-width: 480px) {
+            .container {
+                width: 100% !important;
+            }
+
+            .wrap {
+                padding-left: 20px !important;
+                padding-right: 20px !important;
+            }
+
+            img {
+                width: 100% !important;
+                height: auto !important;
+            }
+
+            .expedition-card {
+                display: block !important;
+                width: 100% !important;
+                margin-bottom: 20px !important;
+                padding: 0 !important;
+            }
+
+            .expedition-img {
+                height: 200px !important;
+            }
+
+            h1 {
+                font-size: 22px !important;
+                line-height: 30px !important;
+            }
+
+            h2 {
+                font-size: 18px !important;
+            }
+
+            h3 {
+                font-size: 14px !important;
+            }
+
+            p {
+                font-size: 14px !important;
+                line-height: 22px !important;
+            }
+
+            .badge {
+                font-size: 9px !important;
+                padding: 4px 10px !important;
+            }
+
+            .footer-logo {
+                width: 70px !important;
+                height: auto !important;
+                max-width: 70px !important;
+            }
+        }
+    </style>
+</head>
+
+<body style="margin:0; padding:0; background-color:#000000;">
+
+    <!-- Preheader Text (Only visible in email preview, not in email body) -->
+    <div
+        style="display:none; font-size:1px; color:#000000; line-height:1px; max-height:0px; max-width:0px; opacity:0; overflow:hidden; mso-hide:all;">
+        Nomadic Road 2026 Season Line-Up
+    </div>
+    <div style="display:none; max-height:0; overflow:hidden; mso-hide:all;">
+        ‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;‌&nbsp;
+    </div>
+
+    <!-- Main Container -->
+    <table role="presentation" width="100%" style="background:#000000;">
+        <tr>
+            <td align="center">
+
+                <!-- Content Wrapper -->
+                <table role="presentation" class="container" width="600">
+
+                    <!-- LOGO HEADER - CENTER ALIGNED -->
+                    <tr>
+                        <td align="center" style="padding:40px 40px 30px;">
+                            <a href="https://www.nomadicroad.com" target="_blank">
+                                <img src="https://cdn.prod.website-files.com/658f0b32249143862b8a1c51/658f29fccf5a7d093d9f4909_logo_white-p-800.png"
+                                    alt="Nomadic Road" width="250" height="36" style="display:block; margin:0 auto;" />
+                            </a>
+                        </td>
+                    </tr>
+
+                    <!-- HERO IMAGE WITH TEXT OVERLAY -->
+                    <tr>
+                        <td class="wrap" style="padding:0 40px;">
+                            <table role="presentation" width="100%" class="rounded">
+                                <tr>
+                                    <td style="line-height:0; position:relative;">
+                                        <img src="https://cdn.prod.website-files.com/658f0b32249143862b8a1c51/6927ee27b4a3d1136a147f9d_Top%20Main%20Banner.JPG"
+                                            alt="2026 Season Launch" width="520" height="347"
+                                            style="width:100%; height:auto; border-radius:20px;" />
+                                        <!-- Text Overlay -->
+                                        <div style="position:absolute; bottom:40px; left:40px; right:40px;">
+                                            <h1
+                                                style="color:#FFFFFF; font-family:'Arial Black', Arial, sans-serif; font-size:28px; font-weight:900; line-height:36px; margin:0; text-transform:uppercase; letter-spacing:1px; text-shadow:2px 2px 8px rgba(0,0,0,0.8);">
+                                                Motoring Expeditions<br />Redefined
+                                            </h1>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                    <!-- INTRODUCTION -->
+                    <tr>
+                        <td class="wrap" style="padding:20px 40px;">
+                            <table role="presentation" width="100%" class="card rounded">
+                                <tr>
+                                    <td style="padding:30px;">
+                                        <p
+                                            style="color:#FFFFFF; font-family:Arial, sans-serif; font-size:15px; line-height:24px; margin:0 0 18px;">
+                                            Hi <span style="color:#FF8C00; font-weight:bold;">{{Deal - First Name}, {if
+                                                missing: &lt;free text=""&gt;}}</span>,
+                                        </p>
+                                        <p
+                                            style="color:rgba(255,255,255,0.95); font-family:Arial, sans-serif; font-size:15px; line-height:24px; margin:0 0 18px;">
+                                            We're thrilled to announce our expedition line-up for the 2026 season. From
+                                            our renowned signature expeditions that have become icons for adventure
+                                            enthusiasts, to the introduction of exciting new inaugural editions, this
+                                            season is crafted to inspire and challenge you. Each journey is an
+                                            invitation to push boundaries and discover new horizons, offering
+                                            opportunities to deepen your passion for exploration and elevate your sense
+                                            of adventure.
+                                        </p>
+                                        <!-- <p style="color:rgba(255,255,255,0.95); font-family:Arial, sans-serif; font-size:15px; line-height:24px; margin:0 0 18px;">
+                                            Thank you for being a part of the Nomadic Road family. We look forward to seeing you on future adventures.
+                                        </p> -->
+                                        <!-- <p style="color:rgba(255,255,255,0.95); font-family:Arial, sans-serif; font-size:15px; line-height:24px; margin:0;">
+                                            From our renowned signature expeditions that have become icons for adventure enthusiasts, to the introduction of exciting new inaugural editions, this season is crafted to inspire and challenge you. Each journey is an invitation to push boundaries and discover new horizons, offering opportunities to deepen your passion for exploration and elevate your sense of adventure.
+                                        </p> -->
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                    <!-- THANK YOU PARAGRAPH -->
+                    <tr>
+                        <td class="wrap" style="padding:20px 40px;">
+                            <table role="presentation" width="100%" class="card rounded">
+                                <tr>
+                                    <td style="padding:30px;">
+                                        <p
+                                            style="color:rgba(255,255,255,0.95); font-family:Arial, sans-serif; font-size:15px; line-height:24px; margin:0;">
+                                            Thank you for being a part of the Nomadic Road family. We look forward to
+                                            seeing you on future adventures.
+                                        </p>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                    <!-- UPCOMING EXPEDITIONS HEADER -->
+                    <tr>
+                        <td class="wrap" style="padding:40px 40px 25px;">
+                            <h2
+                                style="color:#FF8C00; font-family:'Arial Black', Arial, sans-serif; font-size:22px; font-weight:900; margin:0; text-transform:uppercase; letter-spacing:1.5px;">
+                                Upcoming Expeditions
+                            </h2>
+                            <div class="divider" style="margin-top:15px;"></div>
+                        </td>
+                    </tr>
+
+                    <!-- UPCOMING CARDS ROW 1 -->
+                    <tr>
+                        <td class="wrap" style="padding:0 40px 20px;">
+                            <table role="presentation" width="100%">
+                                <tr>
+                                    <td class="expedition-card card rounded-sm" width="48%"
+                                        style="vertical-align:top; padding:0 10px 0 0;">
+                                        <table role="presentation" width="100%">
+                                            <tr>
+                                                <td class="img-zoom" style="line-height:0; position:relative;">
+                                                    <a href="https://www.nomadicroad.com/expeditions/ruthless-rn5-madagascar"
+                                                        target="_blank">
+                                                        <img class="expedition-img"
+                                                            src="https://cdn.prod.website-files.com/658f0b32249143862b8a1c51/692b3e81a1166445d9b64253_RN5%20Madagascar%20(2).jpg"
+                                                            alt="Ruthless RN5, Madagascar" width="250" height="320"
+                                                            style="width:100%; height:320px; object-fit:cover; border-radius:12px;" />
+                                                        <div
+                                                            style="position:absolute; top:0; left:0; right:0; bottom:0; background:linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 50%);">
+                                                        </div>
+                                                        <!-- Heading on Image -->
+                                                        <div style="position:absolute; bottom:18px; left:18px; right:18px;">
+                                                            <h3
+                                                                style="line-height: 20px; color:#FFFFFF; font-family:'Arial Black', Arial, sans-serif; font-size:16px; font-weight:900; margin:0 0 8px; text-transform:uppercase; letter-spacing:0.5px; text-shadow:2px 2px 8px rgba(0,0,0,0.9);">
+                                                                Ruthless RN5,<br/>Madagascar
+                                                            </h3>
+                                                        </div>
+                                                        <!-- EXPLORE Button -->
+                                                        <div
+                                                            style="position:absolute; top:12px; right:12px;">
+                                                            <span
+                                                                style="background:linear-gradient(135deg, #FF8C00 0%, #FF6B00 100%); border-radius:20px; padding:8px 18px; color:#FFFFFF; font-family:Arial, sans-serif; font-size:11px; font-weight:bold; letter-spacing:1px; text-transform:uppercase; display:inline-block;">
+                                                                EXPLORE
+                                                            </span>
+                                                        </div>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+
+                                    <td class="expedition-card card rounded-sm" width="48%"
+                                        style="vertical-align:top; padding:0 0 0 10px;">
+                                        <table role="presentation" width="100%">
+                                            <tr>
+                                                <td class="img-zoom" style="line-height:0; position:relative;">
+                                                    <a href="https://www.nomadicroad.com/expeditions/nomadic-summer-mongolia"
+                                                        target="_blank">
+                                                        <img class="expedition-img"
+                                                            src="https://cdn.prod.website-files.com/658f0b32249143862b8a1c51/692b40631e935e24764cc1ee_Trans%20Gobi%2C%20Mongolia%20(1).jpg"
+                                                            alt="Trans Gobi, Mongolia" width="250" height="320"
+                                                            style="width:100%; height:320px; object-fit:cover; border-radius:12px;" />
+                                                        <div
+                                                            style="position:absolute; top:0; left:0; right:0; bottom:0; background:linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 50%);">
+                                                        </div>
+                                                        <!-- Heading on Image -->
+                                                        <div style="position:absolute; bottom:18px; left:18px; right:18px;">
+                                                            <h3
+                                                                style="line-height: 20px; color:#FFFFFF; font-family:'Arial Black', Arial, sans-serif; font-size:16px; font-weight:900; margin:0 0 8px; text-transform:uppercase; letter-spacing:0.5px; text-shadow:2px 2px 8px rgba(0,0,0,0.9);">
+                                                                Trans Gobi,<br/>Mongolia
+                                                            </h3>
+                                                        </div>
+                                                        <!-- EXPLORE Button -->
+                                                        <div
+                                                            style="position:absolute; top:12px; right:12px;">
+                                                            <span
+                                                                style="background:linear-gradient(135deg, #FF8C00 0%, #FF6B00 100%); border-radius:20px; padding:8px 18px; color:#FFFFFF; font-family:Arial, sans-serif; font-size:11px; font-weight:bold; letter-spacing:1px; text-transform:uppercase; display:inline-block;">
+                                                                EXPLORE
+                                                            </span>
+                                                        </div>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                    <!-- UPCOMING CARDS ROW 2 -->
+                    <tr>
+                        <td class="wrap" style="padding:0 40px 25px;">
+                            <table role="presentation" width="100%">
+                                <tr>
+                                    <td class="expedition-card card rounded-sm" width="48%"
+                                        style="vertical-align:top; padding:0 10px 0 0;">
+                                        <table role="presentation" width="100%">
+                                            <tr>
+                                                <td class="img-zoom" style="line-height:0; position:relative;">
+                                                    <a href="https://www.nomadicroad.com/expeditions/equatorial-affair-ecuador"
+                                                        target="_blank">
+                                                        <img class="expedition-img"
+                                                            src="https://cdn.prod.website-files.com/658f0b32249143862b8a1c51/694536a51d366ade801df20b_Ecuador-min.jpeg"
+                                                            alt="Equatorial Affair, Ecuador" width="250" height="320"
+                                                            style="width:100%; height:320px; object-fit:cover; border-radius:12px;" />
+                                                        <div
+                                                            style="position:absolute; top:0; left:0; right:0; bottom:0; background:linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 50%);">
+                                                        </div>
+                                                        <!-- Heading on Image -->
+                                                        <div style="position:absolute; bottom:18px; left:18px; right:18px;">
+                                                            <h3
+                                                                style="line-height: 20px;color:#FFFFFF; font-family:'Arial Black', Arial, sans-serif; font-size:16px; font-weight:900; margin:0 0 8px; text-transform:uppercase; letter-spacing:0.5px; text-shadow:2px 2px 8px rgba(0,0,0,0.9);">
+                                                                Equatorial Affair,<br/>Ecuador
+                                                            </h3>
+                                                        </div>
+                                                        <!-- EXPLORE Button -->
+                                                        <div
+                                                            style="position:absolute; top:12px; right:12px;">
+                                                            <span
+                                                                style="background:linear-gradient(135deg, #FF8C00 0%, #FF6B00 100%); border-radius:20px; padding:8px 18px; color:#FFFFFF; font-family:Arial, sans-serif; font-size:11px; font-weight:bold; letter-spacing:1px; text-transform:uppercase; display:inline-block;">
+                                                                EXPLORE
+                                                            </span>
+                                                        </div>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+
+                                    <td class="expedition-card card rounded-sm" width="48%"
+                                        style="vertical-align:top; padding:0 0 0 10px;">
+                                        <table role="presentation" width="100%">
+                                            <tr>
+                                                <td class="img-zoom" style="line-height:0; position:relative;">
+                                                    <a href="https://www.nomadicroad.com/expeditions/beyond-the-incas-peru"
+                                                        target="_blank">
+                                                        <img class="expedition-img"
+                                                            src="https://cdn.prod.website-files.com/658f0b32249143862b8a1c51/6927ee24b5a496fc992c041f_Beyond%20the%20Incas%2C%20Peru.jpg"
+                                                            alt="Beyond the Incas, Peru" width="250" height="320"
+                                                            style="width:100%; height:320px; object-fit:cover; border-radius:12px;" />
+                                                        <div
+                                                            style="position:absolute; top:0; left:0; right:0; bottom:0; background:linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 50%);">
+                                                        </div>
+                                                        <!-- Heading on Image -->
+                                                        <div style="position:absolute; bottom:18px; left:18px; right:18px;">
+                                                            <h3
+                                                                style="line-height: 20px;color:#FFFFFF; font-family:'Arial Black', Arial, sans-serif; font-size:16px; font-weight:900; margin:0 0 8px; text-transform:uppercase; letter-spacing:0.5px; text-shadow:2px 2px 8px rgba(0,0,0,0.9);">
+                                                                Beyond the Incas,<br/>Peru
+                                                            </h3>
+                                                        </div>
+                                                        <!-- EXPLORE Button -->
+                                                        <div
+                                                            style="position:absolute; top:12px; right:12px;">
+                                                            <span
+                                                                style="background:linear-gradient(135deg, #FF8C00 0%, #FF6B00 100%); border-radius:20px; padding:8px 18px; color:#FFFFFF; font-family:Arial, sans-serif; font-size:11px; font-weight:bold; letter-spacing:1px; text-transform:uppercase; display:inline-block;">
+                                                                EXPLORE
+                                                            </span>
+                                                        </div>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                    <!-- THE NOMADIC ROAD EXPERIENCE SECTION -->
+                    <tr>
+                        <td class="wrap" style="padding:40px 40px 25px;">
+                            <h2
+                                style="color:#FF8C00; font-family:'Arial Black', Arial, sans-serif; font-size:22px; font-weight:900; margin:0; text-transform:uppercase; letter-spacing:1.5px;">
+                                The Nomadic Road Experience
+                            </h2>
+                            <div class="divider" style="margin-top:15px;"></div>
+                        </td>
+                    </tr>
+
+                    <!-- EXPERIENCE CARDS -->
+                    <tr>
+                        <td class="wrap" style="padding:0 40px 25px;">
+                            <table role="presentation" width="100%">
+                                <tr>
+                                    <!-- VIDEO THUMBNAIL -->
+                                    <td class="expedition-card card rounded-sm" width="48%"
+                                        style="vertical-align:top; padding:0 10px 0 0;">
+                                        <table role="presentation" width="100%">
+                                            <tr>
+                                                <td class="img-zoom" style="line-height:0; position:relative;">
+                                                    <a href="https://vimeo.com/showcase/NomadicRoadStories?share=copy&fl=sc&fe=fs"
+                                                        target="_blank">
+                                                        <img class="expedition-img"
+                                                            src="https://cdn.prod.website-files.com/658f0b32249143862b8a1c51/692b46fcac10169e249a5389_Thumbnail%20Image%201%20(1).jpg"
+                                                            alt="Unscripted Stories" width="250" height="320"
+                                                            style="width:100%; height:320px; object-fit:cover; border-radius:12px;" />
+                                                        <div
+                                                            style="position:absolute; top:0; left:0; right:0; bottom:0; background:linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 50%);">
+                                                        </div>
+                                                        <!-- Heading on Image -->
+                                                        <div style="position:absolute; bottom:18px; left:18px; right:18px;">
+                                                            <h3
+                                                                style="line-height: 20px;color:#FFFFFF; font-family:'Arial Black', Arial, sans-serif; font-size:16px; font-weight:900; margin:0; text-transform:uppercase; letter-spacing:0.5px; text-shadow:2px 2px 8px rgba(0,0,0,0.9);">
+                                                                Unscripted<br/>Stories
+                                                            </h3>
+                                                        </div>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+
+                                    <!-- EXPEDITION ARCHIVES THUMBNAIL -->
+                                    <td class="expedition-card card rounded-sm" width="48%"
+                                        style="vertical-align:top; padding:0 0 0 10px;">
+                                        <table role="presentation" width="100%">
+                                            <tr>
+                                                <td class="img-zoom" style="line-height:0; position:relative;">
+                                                    <a href="https://www.nomadicroad.com/archives" target="_blank">
+                                                        <img class="expedition-img"
+                                                            src="https://cdn.prod.website-files.com/658f0b32249143862b8a1c51/6927ee1df1a79f117277af6d_Thumbnail%20Image%202.jpg"
+                                                            alt="Expedition Archives" width="250" height="320"
+                                                            style="width:100%; height:320px; object-fit:cover; border-radius:12px;" />
+                                                        <div
+                                                            style="position:absolute; top:0; left:0; right:0; bottom:0; background:linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 50%);">
+                                                        </div>
+                                                        <!-- Heading on Image -->
+                                                        <div style="position:absolute; bottom:18px; left:18px; right:18px;">
+                                                            <h3
+                                                                style="line-height: 20px;color:#FFFFFF; font-family:'Arial Black', Arial, sans-serif; font-size:16px; font-weight:900; margin:0; text-transform:uppercase; letter-spacing:0.5px; text-shadow:2px 2px 8px rgba(0,0,0,0.9);">
+                                                                Expedition<br/>Archives
+                                                            </h3>
+                                                        </div>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+
+
+
+                    <!-- FOOTER LINKS -->
+                    <tr>
+                        <td class="wrap" style="padding:30px 40px 15px; border-top:1px solid rgba(255,255,255,0.1);"
+                            align="center">
+                            <table role="presentation">
+                                <tr>
+                                    <td style="padding:0 15px 0 0;">
+                                        <a class="link" href="https://www.nomadicroad.com/about" target="_blank"
+                                            style="color:#FF8C00; font-family:Arial, sans-serif; font-size:13px; font-weight:bold;">
+                                            About Us
+                                        </a>
+                                    </td>
+                                    <td style="padding:0 5px; color:#666666;">•</td>
+                                    <td style="padding:0 15px;">
+                                        <a class="link" href="https://www.nomadicroad.com/press" target="_blank"
+                                            style="color:#FF8C00; font-family:Arial, sans-serif; font-size:13px; font-weight:bold;">
+                                            In the Press
+                                        </a>
+                                    </td>
+                                    <td style="padding:0 5px; color:#666666;">•</td>
+                                    <td style="padding:0 0 0 15px;">
+                                        <a class="link" href="https://www.nomadicroad.com/contact" target="_blank"
+                                            style="color:#FF8C00; font-family:Arial, sans-serif; font-size:13px; font-weight:bold;">
+                                            Contact
+                                        </a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                    <!-- FOOTER LOGO - CENTER ALIGNED -->
+                    <tr>
+                        <td class="wrap" style="padding:25px 40px 18px;" align="center">
+                            <img class="footer-logo"
+                                src="https://cdn.prod.website-files.com/658f0b32249143862b8a1c51/6901e34fad489c78956937be_Mark%20white%402x.png"
+                                alt="Nomadic Road" width="50" height="50"
+                                style="padding:8px;  border-radius:8px; margin:0 auto; max-width:100px; height:auto;" />
+                        </td>
+                    </tr>
+
+                    <!-- COMPANY INFO -->
+                    <tr>
+                        <td class="wrap" style="padding:10px 40px 18px;" align="center">
+                            <p
+                                style="color:rgba(255,255,255,0.9); font-family:Arial, sans-serif; font-size:14px; line-height:20px; margin:0;">
+                                <strong style="color:#FFFFFF;">Nomadic Road Inc. ©</strong><br />
+                                <span style="color:rgba(255,255,255,0.7); font-size:13px;">Company Headquarters: ON,
+                                    Canada</span>
+                            </p>
+                        </td>
+                    </tr>
+
+                    <!-- SOCIAL MEDIA - LEFT ALIGNED -->
+                    <tr>
+                        <td class="wrap" style="padding:15px 40px 10px;">
+                            <p
+                                style="color:rgba(255,255,255,0.7); font-family:Arial, sans-serif; font-size:12px; font-weight:600; margin:0 0 12px; text-transform:uppercase; letter-spacing:1.5px; text-align:center;">
+                                Follow Us
+                            </p>
+                            <table role="presentation">
+                                <tr>
+                                    <td style="padding:0 10px 0 0;">
+                                        <a href="https://www.instagram.com/nomadicroad" target="_blank">
+                                            <img src="https://img.icons8.com/fluency/48/instagram-new.png"
+                                                alt="Instagram" width="32" height="32"
+                                                style="display:block; border-radius:8px;" />
+                                        </a>
+                                    </td>
+                                    <td style="padding:0 10px;">
+                                        <a href="https://www.youtube.com/nomadicroad" target="_blank">
+                                            <img src="https://img.icons8.com/fluency/48/youtube-play.png" alt="YouTube"
+                                                width="32" height="32" style="display:block; border-radius:8px;" />
+                                        </a>
+                                    </td>
+                                    <td style="padding:0 0 0 10px;">
+                                        <a href="https://www.facebook.com/nomadicroad" target="_blank">
+                                            <img src="https://img.icons8.com/fluency/48/facebook-new.png" alt="Facebook"
+                                                width="32" height="32" style="display:block; border-radius:8px;" />
+                                        </a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                    <!-- UNSUBSCRIBE -->
+                    <tr>
+                        <td class="wrap" style="padding:20px 40px 45px;" align="center">
+                            <p
+                                style="color:#666666; font-family:Arial, sans-serif; font-size:11px; line-height:16px; margin:0;">
+                                If you wish to unsubscribe from our communications,
+                                <a class="link" href="#" target="_blank"
+                                    style="color:#FF8C00; text-decoration:underline;">click here</a>.
+                            </p>
+                        </td>
+                    </tr>
+
+                </table>
+
+            </td>
+        </tr>
+    </table>
+
+</body>
+
+</html>

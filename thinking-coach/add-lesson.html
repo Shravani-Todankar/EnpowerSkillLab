@@ -244,6 +244,46 @@ textarea:focus {
     font-size: 14px;
     font-style: italic;
 }
+
+/* ================= Resources ================= */
+.resource-item {
+    transition: all 0.2s ease;
+}
+
+.resource-item:hover {
+    background-color: #f0edff !important;
+    border-color: var(--primary) !important;
+}
+
+.remove-resource-btn {
+    padding: 4px 8px;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+
+.remove-resource-btn:hover {
+    opacity: 1;
+}
+
+#resourceList:empty::before {
+    content: "No resources added yet. Upload documents above.";
+    display: block;
+    text-align: center;
+    padding: 20px;
+    color: var(--text-secondary);
+    font-size: 14px;
+    font-style: italic;
+}
+
+.resource-type-badge {
+    background: var(--primary);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
 </style>
 </head>
 
@@ -306,6 +346,7 @@ textarea:focus {
                     <button>Article</button>
                     <button>Quiz</button>
                     <button>SCORM</button>
+                    <button>Resources</button>
                 </div>
 
                 <!-- <label class="form-label mb-2">Article Content</label>
@@ -418,7 +459,8 @@ textarea:focus {
             'Video': createVideoContent(),
             'Article': createArticleContent(),
             'Quiz': createQuizContent(),
-            'SCORM': createScormContent()
+            'SCORM': createScormContent(),
+            'Resources': createResourcesContent()
         };
 
         tabButtons.forEach(button => {
@@ -522,6 +564,21 @@ textarea:focus {
             `;
         }
 
+        function createResourcesContent() {
+            return `
+                <label class="form-label mb-2">Lesson Resources</label>
+                <div id="resourceList" class="mb-3"></div>
+                <div class="upload-box resource-upload-box" style="cursor: pointer;">
+                    <span class="material-symbols-outlined">upload_file</span>
+                    <p class="mb-0 fw-medium">Click to upload resource documents</p>
+                    <small class="text-muted">PDF, DOC, DOCX, PPT, PPTX, XLS, XLSX (Max 50MB per file) - Multiple files supported</small>
+                </div>
+                <div class="alert alert-info mt-3">
+                    <strong>Tip:</strong> Add supplementary materials like worksheets, reading materials, or reference documents that support the lesson.
+                </div>
+            `;
+        }
+
         function updateContentArea(tabName, content) {
             const contentContainer = document.querySelector('.card-box:has(.lesson-tabs)');
             const existingContent = contentContainer.querySelector('.content-area');
@@ -540,6 +597,8 @@ textarea:focus {
                 attachEditorToolbar();
             } else if (tabName === 'Video') {
                 attachVideoHandlers();
+            } else if (tabName === 'Resources') {
+                attachResourceHandlers();
             }
         }
 
@@ -653,6 +712,128 @@ textarea:focus {
             const videoItem = document.querySelector(`[data-video-id="${videoId}"]`);
             if (videoItem) {
                 videoItem.remove();
+            }
+        };
+
+        // Resource upload functionality
+        let resourceItems = [];
+
+        function attachResourceHandlers() {
+            const uploadBox = document.querySelector('.resource-upload-box');
+
+            if (uploadBox) {
+                uploadBox.addEventListener('click', function() {
+                    const input = document.createElement('input');
+                    input.type = 'file';
+                    input.accept = '.pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx';
+                    input.multiple = true;
+
+                    input.addEventListener('change', function(e) {
+                        const files = Array.from(e.target.files);
+                        files.forEach(file => {
+                            if (isValidResourceFile(file)) {
+                                addResourceItem(file);
+                            } else {
+                                alert(`File "${file.name}" is not a supported format. Please upload PDF, DOC, DOCX, PPT, PPTX, XLS, or XLSX files.`);
+                            }
+                        });
+                    });
+
+                    input.click();
+                });
+            }
+        }
+
+        function isValidResourceFile(file) {
+            const validExtensions = ['.pdf', '.doc', '.docx', '.ppt', '.pptx', '.xls', '.xlsx'];
+            const fileName = file.name.toLowerCase();
+            return validExtensions.some(ext => fileName.endsWith(ext));
+        }
+
+        function getFileExtension(fileName) {
+            return fileName.substring(fileName.lastIndexOf('.')).toLowerCase();
+        }
+
+        function getFileIcon(extension) {
+            const iconMap = {
+                '.pdf': 'picture_as_pdf',
+                '.doc': 'description',
+                '.docx': 'description',
+                '.ppt': 'slideshow',
+                '.pptx': 'slideshow',
+                '.xls': 'table_chart',
+                '.xlsx': 'table_chart'
+            };
+            return iconMap[extension] || 'insert_drive_file';
+        }
+
+        function getFileTypeLabel(extension) {
+            const labelMap = {
+                '.pdf': 'PDF',
+                '.doc': 'Word',
+                '.docx': 'Word',
+                '.ppt': 'PowerPoint',
+                '.pptx': 'PowerPoint',
+                '.xls': 'Excel',
+                '.xlsx': 'Excel'
+            };
+            return labelMap[extension] || 'Document';
+        }
+
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return Math.round(bytes / Math.pow(k, i) * 100) / 100 + ' ' + sizes[i];
+        }
+
+        function addResourceItem(file) {
+            const resourceId = Date.now() + Math.random();
+            const extension = getFileExtension(file.name);
+            const icon = getFileIcon(extension);
+            const typeLabel = getFileTypeLabel(extension);
+            const fileSize = formatFileSize(file.size);
+
+            resourceItems.push({
+                id: resourceId,
+                name: file.name,
+                size: file.size,
+                type: typeLabel,
+                extension: extension,
+                fileData: file
+            });
+
+            const resourceList = document.getElementById('resourceList');
+            const resourceItem = document.createElement('div');
+            resourceItem.className = 'resource-item mb-2 p-3 border rounded d-flex align-items-center justify-content-between';
+            resourceItem.style.backgroundColor = '#faf9fb';
+            resourceItem.dataset.resourceId = resourceId;
+
+            resourceItem.innerHTML = `
+                <div class="d-flex align-items-center gap-3 flex-grow-1">
+                    <span class="material-symbols-outlined text-primary" style="font-size: 32px;">${icon}</span>
+                    <div class="flex-grow-1">
+                        <div class="d-flex align-items-center gap-2 mb-1">
+                            <div class="fw-medium" style="font-size: 14px;">${file.name}</div>
+                            <span class="resource-type-badge">${typeLabel}</span>
+                        </div>
+                        <small class="text-muted">${fileSize}</small>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-sm btn-danger remove-resource-btn" onclick="removeResourceItem(${resourceId})">
+                    <span class="material-symbols-outlined" style="font-size: 18px;">close</span>
+                </button>
+            `;
+
+            resourceList.appendChild(resourceItem);
+        }
+
+        window.removeResourceItem = function(resourceId) {
+            resourceItems = resourceItems.filter(item => item.id !== resourceId);
+            const resourceItem = document.querySelector(`[data-resource-id="${resourceId}"]`);
+            if (resourceItem) {
+                resourceItem.remove();
             }
         };
 
