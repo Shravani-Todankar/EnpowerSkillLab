@@ -60,7 +60,7 @@
         }
 
         .dashboard-page {
-            padding: 2rem;
+            padding: 1rem;
             flex: 1;
         }
 
@@ -312,6 +312,7 @@
             display: flex;
             justify-content: flex-end;
             align-items: center;
+            gap: 12px;
             margin-top: 40px;
             padding-top: 30px;
             border-top: 1px solid #e5e5e7;
@@ -469,8 +470,16 @@
             <div class="dashboard-page">
                 <div class="onboard-school-admin-container">
                     <div class="page-header">
-                        <h1>Onboard School Admin</h1>
-                        <p>Follow the steps to onboard a new school administrator.</p>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <h1>Onboard School Admin</h1>
+                                <p>Follow the steps to onboard a new school administrator.</p>
+                            </div>
+                            <button type="button" class="btn btn-next" id="autoFillBtn" style="display: flex;">
+                                <span class="material-symbols-outlined" style="font-size: 18px;">auto_fix_high</span>
+                                Auto Fill
+                            </button>
+                        </div>
                     </div>
 
                     <!-- Progress Stepper -->
@@ -829,6 +838,30 @@
                 }
             });
         }
+
+        // Auto Fill Dummy Data Function
+        function autoFillForm() {
+            // Step 1: Personal Details
+            document.getElementById('fullName').value = 'Rajesh Kumar';
+            document.getElementById('email').value = 'rajesh.kumar@example.com';
+            document.getElementById('phone').value = '9876543210';
+
+            // Step 2: School Mapping
+            document.getElementById('school').value = 'school1';
+
+            // Step 3: Additional Info
+            document.getElementById('gender').value = 'male';
+            document.getElementById('dateOfBirth').value = '1985-06-15';
+            document.getElementById('address').value = '123 MG Road, Koramangala, Bangalore';
+            document.getElementById('city').value = 'Bangalore';
+            document.getElementById('state').value = 'Karnataka';
+            document.getElementById('pincode').value = '560034';
+
+            alert('Form auto-filled with dummy data!');
+        }
+
+        // Auto Fill Button Handler
+        document.getElementById('autoFillBtn').addEventListener('click', autoFillForm);
 
         // Initialize
         updateStepDisplay();

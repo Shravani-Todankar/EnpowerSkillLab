@@ -587,8 +587,16 @@
             <div class="dashboard-page">
                 <div class="onboard-coordinator-container">
                     <div class="page-header">
-                        <h1>Onboard Program Coordinator</h1>
-                        <p>Fill in the coordinator details to onboard them to the system</p>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <h1>Onboard Program Coordinator</h1>
+                                <p>Fill in the coordinator details to onboard them to the system</p>
+                            </div>
+                            <button type="button" class="btn btn-next" id="autoFillBtn" style="display: flex;">
+                                <span class="material-symbols-outlined" style="font-size: 18px;">auto_fix_high</span>
+                                Auto Fill
+                            </button>
+                        </div>
                     </div>
 
                     <!-- Progress Stepper -->
@@ -1085,6 +1093,36 @@
                 option.style.display = text.includes(searchTerm) ? 'flex' : 'none';
             });
         });
+
+        // Auto Fill Dummy Data Function
+        function autoFillForm() {
+            // Step 1: Personal Details
+            document.getElementById('fullName').value = 'Priya Patel';
+            document.getElementById('email').value = 'priya.patel@example.com';
+            document.getElementById('phoneNumber').value = '9876543210';
+            document.getElementById('alternatePhone').value = '9876543211';
+
+            // Step 2: School Assignment
+            const schoolCheckboxes = document.querySelectorAll('input[name="schools"]');
+            // Select first 3 schools
+            if (schoolCheckboxes.length > 0) schoolCheckboxes[0].checked = true;
+            if (schoolCheckboxes.length > 1) schoolCheckboxes[1].checked = true;
+            if (schoolCheckboxes.length > 2) schoolCheckboxes[2].checked = true;
+            updateSelectedSchools(); // Update the display
+
+            // Step 3: Profile & Preferences
+            document.getElementById('gender').value = 'female';
+            document.getElementById('dateOfBirth').value = '1990-08-20';
+            document.getElementById('address').value = 'Flat 505, Sunrise Apartments, MG Road, Pune';
+            document.getElementById('city').value = 'Pune';
+            document.getElementById('state').value = 'Maharashtra';
+            document.getElementById('pincode').value = '411001';
+
+            alert('Form auto-filled with dummy data!');
+        }
+
+        // Auto Fill Button Handler
+        document.getElementById('autoFillBtn').addEventListener('click', autoFillForm);
 
         // Initialize
         updateStepDisplay();

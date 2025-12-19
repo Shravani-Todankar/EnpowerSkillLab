@@ -115,8 +115,9 @@ body.dark .stepper-container {
     justify-content: space-between;
     align-items: center;
     position: relative;
-    max-width: 900px;
+    /* max-width: 900px; */
     margin: 0 auto;
+    gap : 10px;
 }
 
 .stepper::before {
@@ -439,6 +440,10 @@ body.dark .field-hint {
     color: #9CA3AF;
     transition: all 0.3s ease;
     overflow: hidden;
+}
+
+.photo-preview:hover {
+    border-color: #6b277e;
 }
 
 body.dark .photo-preview {

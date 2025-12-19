@@ -658,8 +658,16 @@
             <div class="dashboard-page">
                 <div class="onboard-parent-container">
                     <div class="page-header">
-                        <h1>Onboard Parent</h1>
-                        <p>Fill in the parent details to onboard them to the system</p>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <h1>Onboard Parent</h1>
+                                <p>Fill in the parent details to onboard them to the system</p>
+                            </div>
+                            <button type="button" class="btn btn-next" id="autoFillBtn" style="display: flex;">
+                                <span class="material-symbols-outlined" style="font-size: 18px;">auto_fix_high</span>
+                                Auto Fill
+                            </button>
+                        </div>
                     </div>
 
                     <!-- Progress Stepper -->
@@ -1431,6 +1439,65 @@
                 reader.readAsDataURL(file);
             }
         });
+
+        // Auto Fill Dummy Data Function
+        function autoFillForm() {
+            // Step 1: Primary Parent
+            document.getElementById('fullName').value = 'Ramesh Kumar Sharma';
+            document.getElementById('relationToStudent').value = 'father';
+            document.getElementById('mobileNumber').value = '9876543210';
+            document.getElementById('alternateMobile').value = '9876543211';
+            document.getElementById('email').value = 'ramesh.sharma@example.com';
+            document.getElementById('occupation').value = 'Software Engineer';
+            document.getElementById('organization').value = 'Tech Solutions Pvt Ltd';
+            document.getElementById('educationLevel').value = 'post-graduate';
+            document.getElementById('idProof').value = '123456789012';
+
+            // Step 2: Secondary Parent
+            document.getElementById('secondaryFullName').value = 'Sunita Sharma';
+            document.getElementById('secondaryRelation').value = 'mother';
+            document.getElementById('secondaryMobile').value = '9876543212';
+            document.getElementById('secondaryEmail').value = 'sunita.sharma@example.com';
+            document.getElementById('secondaryOccupation').value = 'Teacher';
+            document.getElementById('preferredContact').value = 'both';
+
+            // Step 3: Address
+            document.getElementById('residentialAddress').value = 'Flat 301, Green Valley Apartments, Sector 15';
+            document.getElementById('landmark').value = 'Near City Mall';
+            document.getElementById('city').value = 'Bangalore';
+            document.getElementById('state').value = 'Karnataka';
+            document.getElementById('pinCode').value = '560034';
+            document.getElementById('permanentAddress').value = '25 Main Road, Village Rampur, District Meerut';
+
+            // Step 4: Communication Preferences
+            document.getElementById('contactMethod').value = 'whatsapp';
+            document.getElementById('preferredLanguage').value = 'english';
+            document.getElementById('dndTimings').value = '10:00 PM - 7:00 AM';
+            document.querySelector('input[name="whatsappConsent"][value="yes"]').checked = true;
+            document.querySelector('input[name="photoConsent"][value="yes"]').checked = true;
+
+            // Step 5: Financial
+            document.getElementById('feeCategory').value = 'regular';
+            document.getElementById('paymentMode').value = 'online';
+            document.getElementById('billingEmail').value = 'billing.sharma@example.com';
+            document.getElementById('gstNumber').value = '29AAACD1234E1Z5';
+
+            // Step 6: Emergency
+            document.getElementById('emergencyName').value = 'Rajesh Kumar';
+            document.getElementById('emergencyRelation').value = 'uncle';
+            document.getElementById('emergencyPhone').value = '9876543213';
+            document.getElementById('emergencyAddress').value = 'House 45, Palm Street, Sector 22, Bangalore';
+
+            // Step 7: Parent Involvement
+            document.getElementById('meetingAvailability').value = 'both';
+            document.querySelector('input[name="volunteerInterest"][value="yes"]').checked = true;
+            document.getElementById('parentSkills').value = 'Public Speaking, Technology Training, Event Management';
+
+            alert('Form auto-filled with dummy data!');
+        }
+
+        // Auto Fill Button Handler
+        document.getElementById('autoFillBtn').addEventListener('click', autoFillForm);
 
         // Initialize
         updateStepDisplay();

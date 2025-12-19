@@ -98,6 +98,7 @@
 
         /* Progress Stepper */
         .stepper-container {
+            padding-top: 10px;
             margin-bottom: 50px;
             overflow-x: hidden;
         }
@@ -106,6 +107,7 @@
             display: flex;
             justify-content: space-between;
             position: relative;
+            gap: 10px;
         }
 
         .stepper::before {
@@ -568,8 +570,16 @@
             <div class="dashboard-page">
                 <div class="onboard-school-container">
                     <div class="page-header">
-                        <h1>Add New School</h1>
-                        <p>Follow the steps to add school details.</p>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <h1>Add New School</h1>
+                                <p>Follow the steps to add school details.</p>
+                            </div>
+                            <button type="button" class="btn btn-next" id="autoFillBtn" style="display: flex;">
+                                <span class="material-symbols-outlined" style="font-size: 18px;">auto_fix_high</span>
+                                Auto Fill
+                            </button>
+                        </div>
                     </div>
 
                     <!-- Progress Stepper -->
@@ -1574,6 +1584,100 @@
                 });
             }
         });
+
+        // Auto Fill Dummy Data Function
+        function autoFillForm() {
+            // Step 1: School Basic Information
+            document.getElementById('schoolName').value = 'Delhi Public School';
+            document.getElementById('schoolCode').value = 'DPS-123456';
+            document.getElementById('board').value = 'cbse';
+            document.getElementById('schoolType').value = 'private';
+            document.getElementById('medium').value = 'english';
+            document.getElementById('yearEstablished').value = '1995';
+            document.getElementById('schoolEmail').value = 'admin@dpsschool.com';
+            document.getElementById('schoolPhone').value = '9876543210';
+            document.getElementById('website').value = 'https://www.dpsschool.com';
+            document.getElementById('principalName').value = 'Dr. Anil Sharma';
+            document.getElementById('principalPhone').value = '9988776655';
+            document.getElementById('principalEmail').value = 'principal@dpsschool.com';
+
+            // Step 2: Branch Details
+            document.getElementById('branchName').value = 'Main Campus';
+            document.getElementById('branchCode').value = 'BR-001';
+            document.getElementById('branchAddress').value = '123 Education Lane, Model Town';
+            document.getElementById('city').value = 'New Delhi';
+            document.getElementById('state').value = 'Delhi';
+            document.getElementById('pincode').value = '110009';
+            document.getElementById('numStudents').value = '1500';
+            document.getElementById('numTeachers').value = '85';
+            document.getElementById('numTrainers').value = '10';
+            document.getElementById('gradesAvailable').value = 'Pre-K to 12';
+            document.getElementById('shiftDetails').value = 'morning';
+            document.getElementById('branchCoordinatorName').value = 'Mrs. Priya Verma';
+            document.getElementById('branchCoordinatorPhone').value = '9876543211';
+
+            // Step 3: Infrastructure
+            document.getElementById('cslAvailability').value = 'yes';
+            document.getElementById('cslRoomsCount').value = '3';
+            document.getElementById('equipmentInventory').value = 'Computers, Projectors, Smart Boards';
+            document.getElementById('computerLabDetails').value = '40 computers, Windows 11, High-speed internet';
+            document.getElementById('internetDetails').value = '100 Mbps Fiber';
+            document.getElementById('classroomCount').value = '45';
+            document.getElementById('sportsFacilities').value = 'Cricket Ground, Basketball Court, Swimming Pool';
+            document.getElementById('safetyMeasures').value = 'Security guards, Visitor management system, ID cards';
+            document.getElementById('cctvCoverage').value = 'yes';
+            document.getElementById('fireSafetyStatus').value = 'compliant';
+            document.getElementById('firstAidAvailability').value = 'yes';
+
+            // Step 4: Academic Information
+            document.getElementById('totalStudents').value = '1500';
+            document.getElementById('classWiseStrength').value = 'Class 1: 60, Class 2: 58, Class 3: 62';
+            document.getElementById('studentTeacherRatio').value = '18:1';
+            document.getElementById('curriculumFollowed').value = 'NCERT, Cambridge';
+            document.getElementById('clubDetails').value = 'STEM Club, Robotics, Dance, Music, Art';
+            document.getElementById('skillSubjects').value = 'IT, Artificial Intelligence, Data Science';
+            document.getElementById('remedialPrograms').value = 'After-school tutoring, Weekend workshops';
+
+            // Step 5: Skill Lab Integration
+            document.getElementById('skillLabRegId').value = 'SL-2024-DPS-001';
+            document.getElementById('skillsOffered').value = 'Critical Thinking, Problem Solving, Communication';
+            document.getElementById('batchTimings').value = '9 AM - 12 PM, 2 PM - 5 PM';
+            document.getElementById('trainersAssigned').value = 'Rajesh Kumar, Sunita Patel, Amit Singh';
+            document.getElementById('labUsageHours').value = '25';
+            document.getElementById('studentGroupsLinked').value = 'Group A, Group B, Group C';
+            document.getElementById('cslIntegrationStatus').value = 'integrated';
+            document.getElementById('cslProjectList').value = 'Innovation Lab, Design Thinking, Coding Projects';
+            document.getElementById('assessmentSystemLinked').value = 'yes';
+
+            // Step 6: Administrative Information
+            document.getElementById('billingEmail').value = 'billing@dpsschool.com';
+            document.getElementById('gstNumber').value = '07AAACD1234E1Z5';
+            document.getElementById('paymentPreferences').value = 'online';
+            document.getElementById('financeContact').value = 'Mr. Ramesh Gupta';
+            document.getElementById('adminCoordinatorName').value = 'Mrs. Kavita Sharma';
+            document.getElementById('adminCoordinatorPhone').value = '9876543212';
+            document.getElementById('academicYearCycle').value = 'April - March';
+            document.getElementById('workshopApprovalStatus').value = 'approved';
+            document.getElementById('digitalReportsConsent').value = 'yes';
+
+            // Step 8: Emergency Information
+            document.getElementById('emergencyContactPerson').value = 'Dr. Vikram Singh';
+            document.getElementById('emergencyPhone').value = '9988776699';
+            document.getElementById('nearestHospital').value = 'City General Hospital';
+            document.getElementById('evacuationPlan').value = 'documented';
+
+            // Step 9: Additional Data
+            document.getElementById('awards').value = 'Best School Award 2023, Excellence in Education 2022';
+            document.getElementById('notableAlumni').value = 'Dr. Rajesh Kumar (Scientist), Ms. Priya Sharma (Author)';
+            document.getElementById('performanceTrends').value = '98% pass rate, 5 Board toppers';
+            document.getElementById('socialMediaLinks').value = 'facebook.com/dpsschool, instagram.com/dpsschool';
+            document.getElementById('eventsCalendar').value = 'Annual Day - March, Sports Day - December, Science Fair - September';
+
+            alert('Form auto-filled with dummy data!');
+        }
+
+        // Auto Fill Button Handler
+        document.getElementById('autoFillBtn').addEventListener('click', autoFillForm);
 
         // Initialize
         updateStepDisplay();

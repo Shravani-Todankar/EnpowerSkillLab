@@ -53,11 +53,19 @@
                 <form class="add-student-form" id="addStudentForm">
                     <!-- Form Header -->
                     <div class="form-header">
-                        <h1 class="page-title">
-                            Add New Student
-                        </h1>
-                        <p class="page-subtitle">Fill in the student information below to add a new student to the
-                            system</p>
+                        <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                            <div>
+                                <h1 class="page-title">
+                                    Add New Student
+                                </h1>
+                                <p class="page-subtitle">Fill in the student information below to add a new student to the
+                                    system</p>
+                            </div>
+                            <button type="button" class="btn btn-next" id="autoFillBtn" style="display: flex; align-items: center; gap: 8px;">
+                                <span class="material-symbols-outlined" style="font-size: 18px;">auto_fix_high</span>
+                                Auto Fill
+                            </button>
+                        </div>
                     </div>
 
                     <!-- Progress Stepper -->
@@ -1558,6 +1566,81 @@
                 }
             }
         });
+
+        // Auto Fill Form Functionality
+        function autoFillForm() {
+            // Step 1: Basic Information
+            document.getElementById('firstName').value = 'Arjun';
+            document.getElementById('middleName').value = 'Kumar';
+            document.getElementById('lastName').value = 'Patel';
+            document.getElementById('gender').value = 'male';
+            document.getElementById('dateOfBirth').value = '2010-05-20';
+            document.getElementById('nationality').value = 'Indian';
+            document.getElementById('motherTongue').value = 'Hindi';
+            document.getElementById('bloodGroup').value = 'O+';
+            document.getElementById('aadharNumber').value = '1234 5678 9012';
+
+            // Step 2: Academic Details
+            document.getElementById('schoolName').value = 'greenwood';
+            document.getElementById('schoolBranch').value = 'Main Campus';
+            document.getElementById('class').value = '8';
+            document.getElementById('division').value = 'A';
+            document.getElementById('rollNumber').value = '15';
+            document.getElementById('academicYear').value = '2024-2025';
+            document.getElementById('grNumber').value = 'GR20240815';
+            document.getElementById('previousSchool').value = 'Springfield Primary School';
+            document.getElementById('stream').value = 'na';
+            document.getElementById('schoolBoard').value = 'CBSE';
+
+            // Step 3: Contact Details
+            document.getElementById('studentMobile').value = '7890123456';
+            document.getElementById('schoolEmail').value = 'arjun.patel@greenwood.edu';
+            document.getElementById('personalEmail').value = 'arjun.patel@gmail.com';
+
+            // Step 4: Skill Lab Specific Details
+            document.getElementById('enrollmentDate').value = '2024-06-01';
+            document.getElementById('skillsEnrolled').value = 'Critical Thinking, Problem Solving, Communication';
+            document.getElementById('currentSkillLevel').value = 'intermediate';
+            document.getElementById('assignedTrainer').value = 'trainer1';
+            document.getElementById('batchTiming').value = 'Mon-Wed 10:00 AM - 12:00 PM';
+            document.getElementById('learningStyle').value = 'kinesthetic';
+            document.getElementById('interestsAptitude').value = 'Mathematics, Science, Robotics';
+            document.getElementById('preferredLanguage').value = 'english';
+            document.getElementById('attendanceStatus').value = 'active';
+
+            // Step 5: Health & Safety
+            document.getElementById('medicalConditions').value = 'Mild asthma';
+            document.getElementById('allergies').value = 'Peanuts, Dust';
+            document.getElementById('emergencyInstructions').value = 'Keep inhaler nearby. Contact parents immediately in case of breathing difficulty.';
+            document.getElementById('doctorName').value = 'Dr. Ramesh Gupta';
+            document.getElementById('doctorContact').value = '9012345678';
+            document.getElementById('physicalLimitations').value = 'Cannot participate in intense physical activities';
+
+            // Step 6: Emergency Contact
+            document.getElementById('emergencyName').value = 'Sunita Patel';
+            document.getElementById('emergencyRelationship').value = 'mother';
+            document.getElementById('emergencyMobile').value = '9876543210';
+            document.getElementById('emergencyAltMobile').value = '8765432109';
+            document.getElementById('emergencyAddress').value = '123 Green Avenue, Model Town, Delhi';
+
+            // Step 7: Family Details (Optional)
+            document.getElementById('sibling1Name').value = 'Ananya Patel';
+            document.getElementById('sibling1ClassSchool').value = 'Class 5, Greenwood High School';
+            document.getElementById('sibling1SkillLabId').value = 'SKL20240512';
+            document.getElementById('sibling2Name').value = 'Rohan Patel';
+            document.getElementById('sibling2ClassSchool').value = 'Class 11, Greenwood High School';
+            document.getElementById('sibling2SkillLabId').value = 'SKL20220315';
+
+            // Trigger age calculation
+            const dobInput = document.getElementById('dateOfBirth');
+            const event = new Event('change', { bubbles: true });
+            dobInput.dispatchEvent(event);
+
+            alert('Form auto-filled with dummy data!');
+        }
+
+        // Auto Fill Button Event Listener
+        document.getElementById('autoFillBtn').addEventListener('click', autoFillForm);
     </script>
 </body>
 

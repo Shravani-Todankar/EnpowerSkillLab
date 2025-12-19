@@ -2967,7 +2967,7 @@ body.dark .quiz-subtitle {
 
 .quiz-stats {
     display: flex;
-    gap: 25px;
+    gap: 5px;
 }
 
 .quiz-stat-item {

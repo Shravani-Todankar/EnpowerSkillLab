@@ -51,10 +51,18 @@
                 <form class="add-teacher-form" id="teacherForm">
                     <!-- Form Header -->
                     <div class="form-header">
-                        <h1 class="page-title">
-                            Add New Teacher
-                        </h1>
-                        <p class="page-subtitle">Fill in the teacher information below to add a new teacher to the system</p>
+                        <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                            <div>
+                                <h1 class="page-title">
+                                    Add New Teacher
+                                </h1>
+                                <p class="page-subtitle">Fill in the teacher information below to add a new teacher to the system</p>
+                            </div>
+                            <button type="button" class="btn btn-next" id="autoFillBtn" style="display: flex; align-items: center; gap: 8px;">
+                                <span class="material-symbols-outlined" style="font-size: 18px;">auto_fix_high</span>
+                                Auto Fill
+                            </button>
+                        </div>
                     </div>
 
                     <!-- Progress Stepper -->
@@ -1608,6 +1616,93 @@
                 });
             }
         }
+
+        // Auto Fill Form Functionality
+        function autoFillForm() {
+            // Step 1: Basic Information
+            document.getElementById('full-name').value = 'Priya Sharma';
+            document.getElementById('gender').value = 'female';
+            document.getElementById('dob').value = '1988-03-15';
+            document.getElementById('blood-group').value = 'B+';
+            document.getElementById('nationality').value = 'Indian';
+            document.getElementById('aadhar-number').value = '5678 9012 3456';
+            document.getElementById('pan-number').value = 'ABCDE5678F';
+
+            // Step 2: Professional Details
+            document.getElementById('designation').value = 'enpower-trainer';
+            document.getElementById('qualification').value = 'M.Ed., B.A.';
+            document.getElementById('specialization').value = 'Critical Thinking, Communication Skills';
+            document.getElementById('total-experience').value = '8 years';
+            document.getElementById('skill-training-experience').value = '4 years';
+            document.getElementById('previous-organizations').value = 'XYZ School, ABC Academy';
+            document.getElementById('certifications').value = 'TET, CTET, B.Ed.';
+            document.getElementById('languages-known').value = 'English, Hindi, Marathi';
+            document.getElementById('grades-taught').value = '6th to 10th';
+            document.getElementById('training-style').value = 'interactive';
+
+            // Step 3: Contact Information
+            document.getElementById('mobile-number').value = '9876543210';
+            document.getElementById('alternate-number').value = '8765432109';
+            document.getElementById('official-email').value = 'priya.sharma@enpowerskilllab.com';
+            document.getElementById('personal-email').value = 'priya.sharma@gmail.com';
+
+            // Step 4: Address Details
+            document.getElementById('current-address').value = '456 Park Avenue, Bandra West, Mumbai';
+            document.getElementById('permanent-address').value = '789 Lake Road, Pune';
+            document.getElementById('city').value = 'Mumbai';
+            document.getElementById('state').value = 'Maharashtra';
+            document.getElementById('pin-code').value = '400050';
+
+            // Step 5: Skill Lab Work Details
+            document.getElementById('skill-lab-center').value = 'Greenwood High School';
+            document.getElementById('branch-location').value = 'Bandra, Mumbai';
+            document.getElementById('batch-timings').value = '10:00 AM - 1:00 PM';
+            document.getElementById('weekly-timetable').value = 'Mon-Fri, 9 AM - 3 PM';
+            document.getElementById('student-groups').value = 'Group A, Group B';
+            document.getElementById('modules-assigned').value = 'Critical Thinking, Problem Solving, Communication';
+            document.getElementById('active-classes').value = '6A, 7B, 8C';
+            document.getElementById('total-students').value = '120';
+            document.getElementById('dashboard-role').value = 'coach';
+            document.getElementById('joining-date').value = '2020-07-01';
+            document.getElementById('contract-end-date').value = '2026-06-30';
+            document.getElementById('employment-type').value = 'full-time';
+
+            // Step 6: Emergency Information
+            document.getElementById('emergency-contact-name').value = 'Rajesh Sharma';
+            document.getElementById('emergency-relation').value = 'spouse';
+            document.getElementById('emergency-mobile').value = '9123456789';
+            document.getElementById('emergency-secondary').value = '8234567890';
+            document.getElementById('health-notes').value = 'No major health issues';
+
+            // Step 7: Compliance & Documentation
+            document.getElementById('id-proof-submitted').value = 'both';
+            document.getElementById('address-proof-submitted').value = 'yes';
+            document.getElementById('police-verification').value = 'verified';
+            document.getElementById('contract-uploaded').value = 'yes';
+            document.getElementById('pan-aadhar-linked').value = 'yes';
+            document.getElementById('bank-details-submitted').value = 'yes';
+            document.getElementById('ifsc-code').value = 'HDFC0001234';
+            document.getElementById('bank-account-number').value = '12345678901234';
+            document.getElementById('bank-name').value = 'HDFC Bank';
+            document.getElementById('branch-name').value = 'Bandra West';
+
+            // Step 8: Additional Optional Data
+            document.getElementById('hobbies').value = 'Reading, Yoga, Teaching';
+            document.getElementById('strength-areas').value = 'Communication, Leadership, Problem Solving';
+            document.getElementById('improvement-areas').value = 'Time Management';
+            document.getElementById('training-resources').value = 'Videos, Workshops, Books';
+            document.getElementById('achievements').value = 'Best Teacher Award 2022, Excellence in Training 2023';
+
+            // Trigger age calculation
+            const dobInput = document.getElementById('dob');
+            const event = new Event('change', { bubbles: true });
+            dobInput.dispatchEvent(event);
+
+            alert('Form auto-filled with dummy data!');
+        }
+
+        // Auto Fill Button Event Listener
+        document.getElementById('autoFillBtn').addEventListener('click', autoFillForm);
     </script>
 </body>
 
