@@ -106,7 +106,7 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
             transition: all 0.2s ease;
             cursor: pointer;
@@ -129,7 +129,7 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            font-size: 0.875rem;
+            font-size: 0.8rem;
             transition: all 0.2s ease;
             cursor: pointer;
         }
@@ -1184,6 +1184,18 @@
         .behavior-value.alert {
             color: #EF4444;
         }
+
+        /* Bootstrap Tooltip Customization */
+        .tooltip {
+            z-index: 10000 !important;
+        }
+
+        .tooltip-inner {
+            max-width: 300px;
+            padding: 8px 12px;
+            font-size: 0.875rem;
+            text-align: left;
+        }
     </style>
 </head>
 
@@ -1636,7 +1648,16 @@
 
                     <!-- Competency Profile -->
                     <div>
-                        <h4 class="section-title">Competency Profile</h4>
+                        <h4 class="section-title">
+                            Competency Profile
+                            <span class="material-symbols-outlined"
+                                  style="font-size: 18px; vertical-align: middle; margin-left: 0.25rem; color: #80588d; cursor: help;"
+                                  data-bs-toggle="tooltip"
+                                  data-bs-placement="top"
+                                  data-bs-title="Shows the student's performance levels across different competencies. High: Excellent performance, Medium: Satisfactory performance, Low: Needs improvement">
+                                info
+                            </span>
+                        </h4>
                         <div class="competency-grid">
                             <div class="competency-badge competency-high">High</div>
                             <div class="competency-badge competency-high">High</div>
@@ -2112,6 +2133,11 @@
                     studentDetailSidebar.classList.add('active');
                     detailSidebarOverlay.classList.add('active');
                     document.body.style.overflow = 'hidden';
+
+                    // Initialize tooltips in the sidebar after it's opened
+                    setTimeout(() => {
+                        initializeTooltips();
+                    }, 150);
                 }
 
                 // Open teacher sidebar
@@ -2864,8 +2890,48 @@
     </div>
 
     <script>
+        // Global function to initialize or re-initialize tooltips
+        function initializeTooltips() {
+            // Find all tooltip elements
+            const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+
+            console.log('Found tooltip elements:', tooltipTriggerList.length);
+            tooltipTriggerList.forEach((el, index) => {
+                console.log(`Tooltip ${index}:`, el.getAttribute('data-bs-title'));
+            });
+
+            // Dispose existing tooltips first to prevent duplicates
+            tooltipTriggerList.forEach(tooltipTriggerEl => {
+                const existingTooltip = bootstrap.Tooltip.getInstance(tooltipTriggerEl);
+                if (existingTooltip) {
+                    existingTooltip.dispose();
+                    console.log('Disposed existing tooltip');
+                }
+            });
+
+            // Initialize new tooltips
+            tooltipTriggerList.forEach((tooltipTriggerEl, index) => {
+                try {
+                    const tooltip = new bootstrap.Tooltip(tooltipTriggerEl, {
+                        trigger: 'hover focus',
+                        placement: 'top',
+                        html: false,
+                        container: 'body'
+                    });
+                    console.log(`Tooltip ${index} initialized successfully`);
+                } catch (error) {
+                    console.error(`Error initializing tooltip ${index}:`, error);
+                }
+            });
+
+            console.log('Tooltips initialization complete');
+        }
+
         // Load Sidebar and Header Components
         document.addEventListener('DOMContentLoaded', function () {
+            // Initialize Bootstrap tooltips on page load
+            initializeTooltips();
+
             Promise.all([
                 fetch('sidebar.html').then(response => response.text()),
                 fetch('header.html').then(response => response.text())
@@ -2886,6 +2952,9 @@
 
                     // Set active menu item
                     setActiveMenuItem();
+
+                    // Re-initialize tooltips after sidebar/header loaded
+                    initializeTooltips();
                 }, 200);
             });
         });

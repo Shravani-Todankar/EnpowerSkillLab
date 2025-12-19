@@ -1,0 +1,1405 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trustee Dashboard - Enpower Skill Lab</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100..900&display=swap" rel="stylesheet">
+
+    <!-- Material Icons -->
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+    <!-- Sidebar & Header CSS -->
+    <link rel="stylesheet" href="sidebar.css">
+    <link rel="stylesheet" href="header.css">
+
+    <!-- Sidebar & Header JS -->
+    <script src="sidebar.js"></script>
+    <script src="header.js"></script>
+
+    <style>
+        /* Prevent FOUC - hide containers until loaded */
+        #sidebar-container:empty,
+        #header-container:empty {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        #sidebar-container.loaded,
+        #header-container.loaded {
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.2s ease-in;
+        }
+
+        .dashboard-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        :root {
+            --primary: #5A1F6E;
+            --primary-light: rgba(90, 31, 110, 0.1);
+            --primary-lighter: rgba(90, 31, 110, 0.05);
+            --background-light: #f7f6f8;
+            --text-dark: #1f2937;
+            --text-muted: #6b7280;
+            --text-light: #9ca3af;
+            --white: #ffffff;
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+            --border-radius: 0.75rem;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --info: #3b82f6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background-light);
+            color: var(--text-dark);
+            line-height: 1.5;
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+
+        /* Main Container */
+        .main-container {
+            padding: 2rem 1rem;
+            max-width: 1536px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        @media (min-width: 576px) {
+            .main-container {
+                padding: 2rem 1.5rem;
+            }
+        }
+
+        @media (min-width: 992px) {
+            .main-container {
+                padding: 2rem;
+            }
+        }
+
+        /* Header Section */
+        .dashboard-header {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .dashboard-header h1 {
+            font-size: 1.875rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 0.25rem;
+        }
+
+        .dashboard-header p {
+            color: var(--text-muted);
+            margin: 0;
+            font-size: 0.875rem;
+        }
+
+        .btn-primary-custom {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background-color: var(--primary);
+            color: var(--white);
+            border: none;
+            padding: 0.625rem 1rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            font-family: 'Poppins', sans-serif;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            text-decoration: none;
+        }
+
+        .btn-primary-custom:hover {
+            background-color: rgba(90, 31, 110, 0.9);
+            color: var(--white);
+        }
+
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--white);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid #f3f4f6;
+        }
+
+        .stat-card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 0.75rem;
+        }
+
+        .stat-card-header p {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            margin: 0;
+        }
+
+        .stat-icon {
+            width: 2.5rem;
+            height: 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0.5rem;
+            background: var(--primary-light);
+        }
+
+        .stat-icon .material-symbols-outlined {
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        .stat-card-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin: 0;
+        }
+
+        .stat-card-footer {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .trend-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            font-size: 0.75rem;
+            padding: 0.125rem 0.5rem;
+            border-radius: 0.25rem;
+            font-weight: 500;
+        }
+
+        .trend-badge.success {
+            color: var(--success);
+            background: rgba(16, 185, 129, 0.1);
+        }
+
+        .trend-badge.danger {
+            color: var(--danger);
+            background: rgba(239, 68, 68, 0.1);
+        }
+
+        /* Card Component */
+        .card-custom {
+            background: var(--white);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid #f3f4f6;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-custom-header {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-custom-title {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .card-custom-title .material-symbols-outlined {
+            color: var(--primary);
+        }
+
+        /* School Cards Grid */
+        .schools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .school-card {
+            background: var(--white);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid #f3f4f6;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
+        .school-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 4px 12px rgba(90, 31, 110, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .school-card-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #f3f4f6;
+        }
+
+        .school-logo {
+            width: 3.5rem;
+            height: 3.5rem;
+            border-radius: 0.5rem;
+            object-fit: cover;
+            border: 2px solid #f3f4f6;
+            flex-shrink: 0;
+        }
+
+        .school-info-header h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin: 0 0 0.25rem 0;
+        }
+
+        .school-code {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .school-stats-mini {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .mini-stat {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .mini-stat-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-bottom: 0.25rem;
+        }
+
+        .mini-stat-value {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .school-card-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.75rem;
+            padding-top: 1rem;
+            border-top: 1px solid #f3f4f6;
+        }
+
+        .donation-amount {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .donation-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .donation-value {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .btn-view-school {
+            background: var(--primary);
+            color: var(--white);
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            font-family: 'Poppins', sans-serif;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .btn-view-school:hover {
+            background: rgba(90, 31, 110, 0.9);
+        }
+
+        /* Chart Container */
+        .chart-container {
+            height: 16rem;
+            margin-top: 1rem;
+            border-radius: 0.375rem;
+            overflow: hidden;
+        }
+
+        /* Main Content Grid */
+        .main-content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        @media (max-width: 1200px) {
+            .main-content-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Impact Summary */
+        .impact-items {
+            display: flex;
+            flex-direction: row;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .impact-item {
+            width: 200px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--primary-lighter);
+            border-radius: 0.5rem;
+            border: 1px solid #f3f4f6;
+        }
+
+        .impact-icon {
+            width: 3rem;
+            height: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0.5rem;
+            background: var(--primary-light);
+            flex-shrink: 0;
+        }
+
+        .impact-icon .material-symbols-outlined {
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        .impact-content {
+            flex: 1;
+        }
+
+        .impact-label {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            margin: 0;
+        }
+
+        .impact-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin: 0;
+        }
+
+        /* Recent Activities */
+        .activity-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+
+        .activity-item {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--background-light);
+            border-radius: 0.5rem;
+            border: 1px solid #f3f4f6;
+        }
+
+        .activity-icon {
+            width: 2.5rem;
+            height: 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .activity-icon.success {
+            background: rgba(16, 185, 129, 0.1);
+        }
+
+        .activity-icon.info {
+            background: rgba(59, 130, 246, 0.1);
+        }
+
+        .activity-icon .material-symbols-outlined {
+            font-size: 1.25rem;
+        }
+
+        .activity-icon.success .material-symbols-outlined {
+            color: var(--success);
+        }
+
+        .activity-icon.info .material-symbols-outlined {
+            color: var(--info);
+        }
+
+        .activity-content {
+            flex: 1;
+        }
+
+        .activity-title {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-dark);
+            margin: 0 0 0.25rem 0;
+        }
+
+        .activity-time {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin: 0;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .main-content-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-container {
+                padding: 1.5rem 1rem;
+            }
+
+            .dashboard-header {
+                flex-direction: column;
+                align-items: flex-start;
+                margin-bottom: 1.5rem;
+            }
+
+            .dashboard-header h1 {
+                font-size: 1.5rem;
+            }
+
+            .dashboard-header p {
+                font-size: 0.813rem;
+            }
+
+            .btn-primary-custom {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .stat-card {
+                padding: 1.25rem;
+            }
+
+            .stat-card-value {
+                font-size: 1.75rem;
+            }
+
+            .stat-card-header p {
+                font-size: 0.813rem;
+            }
+
+            .schools-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .school-card {
+                padding: 1.25rem;
+            }
+
+            .school-logo {
+                width: 3rem;
+                height: 3rem;
+            }
+
+            .school-info-header h3 {
+                font-size: 0.938rem;
+            }
+
+            .school-code {
+                font-size: 0.688rem;
+            }
+
+            .school-stats-mini {
+                gap: 0.625rem;
+            }
+
+            .mini-stat-label {
+                font-size: 0.688rem;
+            }
+
+            .mini-stat-value {
+                font-size: 1rem;
+            }
+
+            .donation-value {
+                font-size: 1rem;
+            }
+
+            .donation-label {
+                font-size: 0.688rem;
+            }
+
+            .btn-view-school {
+                padding: 0.438rem 0.875rem;
+                font-size: 0.813rem;
+            }
+
+            .card-custom {
+                padding: 1.25rem;
+                margin-bottom: 1.25rem;
+            }
+
+            .card-custom-header {
+                margin-bottom: 1.25rem;
+            }
+
+            .card-custom-title {
+                font-size: 1rem;
+            }
+
+            .chart-container {
+                height: 14rem;
+            }
+
+            .impact-item {
+                padding: 0.875rem;
+            }
+
+            .impact-icon {
+                width: 2.5rem;
+                height: 2.5rem;
+            }
+
+            .impact-icon .material-symbols-outlined {
+                font-size: 1.25rem;
+            }
+
+            .impact-label {
+                font-size: 0.813rem;
+            }
+
+            .impact-value {
+                font-size: 1.25rem;
+            }
+
+            .activity-item {
+                padding: 0.875rem;
+            }
+
+            .activity-icon {
+                width: 2rem;
+                height: 2rem;
+            }
+
+            .activity-icon .material-symbols-outlined {
+                font-size: 1.125rem;
+            }
+
+            .activity-title {
+                font-size: 0.813rem;
+            }
+
+            .activity-time {
+                font-size: 0.688rem;
+            }
+
+            .left-column {
+                width: 405px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .main-container {
+                padding: 1rem 0.75rem;
+            }
+
+            .dashboard-header h1 {
+                font-size: 1.375rem;
+            }
+
+            .dashboard-header p {
+                font-size: 0.75rem;
+            }
+
+            .stat-card {
+                padding: 1rem;
+            }
+
+            .stat-card-value {
+                font-size: 1.5rem;
+            }
+
+            .stat-icon {
+                width: 2rem;
+                height: 2rem;
+            }
+
+            .stat-icon .material-symbols-outlined {
+                font-size: 1.25rem;
+            }
+
+            .stat-card-footer {
+                font-size: 0.688rem;
+            }
+
+            .trend-badge {
+                font-size: 0.688rem;
+                padding: 0.125rem 0.375rem;
+            }
+
+            .school-card {
+                padding: 1rem;
+            }
+
+            .school-logo {
+                width: 2.5rem;
+                height: 2.5rem;
+            }
+
+            .school-info-header h3 {
+                font-size: 0.875rem;
+            }
+
+            .school-stats-mini {
+                gap: 0.5rem;
+            }
+
+            .mini-stat-label {
+                font-size: 0.625rem;
+            }
+
+            .mini-stat-value {
+                font-size: 0.938rem;
+            }
+
+            .donation-value {
+                font-size: 0.938rem;
+            }
+
+            .btn-view-school {
+                padding: 0.375rem 0.75rem;
+                font-size: 0.75rem;
+            }
+
+            .btn-view-school .material-symbols-outlined {
+                font-size: 0.875rem;
+            }
+
+            .card-custom {
+                padding: 1rem;
+            }
+
+            .card-custom-title {
+                font-size: 0.938rem;
+            }
+
+            .card-custom-title .material-symbols-outlined {
+                font-size: 1.125rem;
+            }
+
+            .chart-container {
+                height: 12rem;
+            }
+
+            .impact-items {
+                gap: 0.75rem;
+            }
+
+            .impact-item {
+                padding: 0.75rem;
+            }
+
+            .impact-icon {
+                width: 2.25rem;
+                height: 2.25rem;
+            }
+
+            .impact-icon .material-symbols-outlined {
+                font-size: 1.125rem;
+            }
+
+            .impact-label {
+                font-size: 0.75rem;
+            }
+
+            .impact-value {
+                font-size: 1.125rem;
+            }
+
+            .activity-list {
+                gap: 0.625rem;
+            }
+
+            .activity-item {
+                padding: 0.75rem;
+            }
+
+            .activity-icon {
+                width: 1.875rem;
+                height: 1.875rem;
+            }
+
+            .activity-icon .material-symbols-outlined {
+                font-size: 1rem;
+            }
+
+            .activity-title {
+                font-size: 0.75rem;
+            }
+
+            .activity-time {
+                font-size: 0.625rem;
+            }
+        }
+
+        @media (max-width: 375px) {
+            .main-container {
+                padding: 0.875rem 0.625rem;
+            }
+
+            .dashboard-header {
+                gap: 0.75rem;
+            }
+
+            .dashboard-header h1 {
+                font-size: 1.25rem;
+            }
+
+            .stat-card {
+                padding: 0.875rem;
+            }
+
+            .stat-card-value {
+                font-size: 1.375rem;
+            }
+
+            .school-card {
+                padding: 0.875rem;
+            }
+
+            .school-card-header {
+                gap: 0.75rem;
+                margin-bottom: 0.75rem;
+                padding-bottom: 0.75rem;
+            }
+
+            .school-logo {
+                width: 2.25rem;
+                height: 2.25rem;
+            }
+
+            .school-info-header h3 {
+                font-size: 0.813rem;
+            }
+
+            .card-custom {
+                padding: 0.875rem;
+            }
+
+            .card-custom-header {
+                margin-bottom: 1rem;
+            }
+
+            .btn-primary-custom {
+                padding: 0.563rem 0.875rem;
+                font-size: 0.813rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- Include Sidebar Component -->
+        <div id="sidebar-container"></div>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Include Header Component -->
+            <div id="header-container"></div>
+
+            <!-- Dashboard Content -->
+            <div class="main-container">
+                <!-- Header -->
+                <div class="dashboard-header">
+                    <div>
+                        <h1>Trustee Dashboard</h1>
+                        <p>Monitor impact and performance of schools you support</p>
+                    </div>
+                    <button class="btn-primary-custom" onclick="window.location.href='donations.html'">
+                        <span class="material-symbols-outlined">volunteer_activism</span>
+                        <span>View Donation History</span>
+                    </button>
+                </div>
+
+                <!-- Stats Cards -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-card-header">
+                            <p>Total Donated</p>
+                            <div class="stat-icon">
+                                <span class="material-symbols-outlined">payments</span>
+                            </div>
+                        </div>
+                        <p class="stat-card-value">₹12.5L</p>
+                        <div class="stat-card-footer">
+                            <span class="trend-badge success">
+                                <span class="material-symbols-outlined" style="font-size: 1rem;">arrow_upward</span>
+                                15% from last year
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-card-header">
+                            <p>Schools Supported</p>
+                            <div class="stat-icon">
+                                <span class="material-symbols-outlined">school</span>
+                            </div>
+                        </div>
+                        <p class="stat-card-value">8</p>
+                        <div class="stat-card-footer">
+                            <span>Across 3 cities</span>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-card-header">
+                            <p>Students Impacted</p>
+                            <div class="stat-icon">
+                                <span class="material-symbols-outlined">groups</span>
+                            </div>
+                        </div>
+                        <p class="stat-card-value">3,450</p>
+                        <div class="stat-card-footer">
+                            <span class="trend-badge success">
+                                <span class="material-symbols-outlined" style="font-size: 1rem;">arrow_upward</span>
+                                +420 this year
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-card-header">
+                            <p>Avg Performance</p>
+                            <div class="stat-icon">
+                                <span class="material-symbols-outlined">trending_up</span>
+                            </div>
+                        </div>
+                        <p class="stat-card-value">87%</p>
+                        <div class="stat-card-footer">
+                            <span class="trend-badge success">
+                                <span class="material-symbols-outlined" style="font-size: 1rem;">arrow_upward</span>
+                                +5.2% improvement
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sponsored Schools Section -->
+                <div class="card-custom">
+                    <div class="card-custom-header">
+                        <h2 class="card-custom-title">
+                            <span class="material-symbols-outlined">volunteer_activism</span>
+                            Schools You Support
+                        </h2>
+                    </div>
+
+                    <div class="schools-grid">
+                        <!-- School Card 1 -->
+                        <div class="school-card" onclick="window.location.href='school-details.html?id=1'">
+                            <div class="school-card-header">
+                                <img src="https://ui-avatars.com/api/?name=Greenwood+International&background=5A1F6E&color=fff&size=128&bold=true&font-size=0.4" alt="School Logo" class="school-logo">
+                                <div class="school-info-header">
+                                    <h3>Greenwood International High</h3>
+                                    <span class="school-code">GWHS-001 • Mumbai</span>
+                                </div>
+                            </div>
+
+                            <div class="school-stats-mini">
+                                <div class="mini-stat">
+                                    <span class="mini-stat-label">Students</span>
+                                    <span class="mini-stat-value">456</span>
+                                </div>
+                                <div class="mini-stat">
+                                    <span class="mini-stat-label">Performance</span>
+                                    <span class="mini-stat-value">89%</span>
+                                </div>
+                                <div class="mini-stat">
+                                    <span class="mini-stat-label">Attendance</span>
+                                    <span class="mini-stat-value">95%</span>
+                                </div>
+                                <div class="mini-stat">
+                                    <span class="mini-stat-label">Teachers</span>
+                                    <span class="mini-stat-value">24</span>
+                                </div>
+                            </div>
+
+                            <div class="school-card-footer">
+                                <div class="donation-amount">
+                                    <span class="donation-label">Your Contribution</span>
+                                    <span class="donation-value">₹2.5L</span>
+                                </div>
+                                <button class="btn-view-school">
+                                    View Details
+                                    <span class="material-symbols-outlined"
+                                        style="font-size: 1rem;">arrow_forward</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- School Card 2 -->
+                        <div class="school-card" onclick="window.location.href='school-details.html?id=2'">
+                            <div class="school-card-header">
+                                <img src="https://ui-avatars.com/api/?name=St+Xavier+Academy&background=10b981&color=fff&size=128&bold=true&font-size=0.4" alt="School Logo" class="school-logo">
+                                <div class="school-info-header">
+                                    <h3>St. Xavier's Academy</h3>
+                                    <span class="school-code">SXA-002 • Delhi</span>
+                                </div>
+                            </div>
+
+                            <div class="school-stats-mini">
+                                <div class="mini-stat">
+                                    <span class="mini-stat-label">Students</span>
+                                    <span class="mini-stat-value">523</span>
+                                </div>
+                                <div class="mini-stat">
+                                    <span class="mini-stat-label">Performance</span>
+                                    <span class="mini-stat-value">92%</span>
+                                </div>
+                                <div class="mini-stat">
+                                    <span class="mini-stat-label">Attendance</span>
+                                    <span class="mini-stat-value">97%</span>
+                                </div>
+                                <div class="mini-stat">
+                                    <span class="mini-stat-label">Teachers</span>
+                                    <span class="mini-stat-value">28</span>
+                                </div>
+                            </div>
+
+                            <div class="school-card-footer">
+                                <div class="donation-amount">
+                                    <span class="donation-label">Your Contribution</span>
+                                    <span class="donation-value">₹3.2L</span>
+                                </div>
+                                <button class="btn-view-school">
+                                    View Details
+                                    <span class="material-symbols-outlined"
+                                        style="font-size: 1rem;">arrow_forward</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- School Card 3 -->
+                        <div class="school-card" onclick="window.location.href='school-details.html?id=3'">
+                            <div class="school-card-header">
+                                <img src="https://ui-avatars.com/api/?name=Modern+Public+School&background=f59e0b&color=fff&size=128&bold=true&font-size=0.4" alt="School Logo" class="school-logo">
+                                <div class="school-info-header">
+                                    <h3>Modern Public School</h3>
+                                    <span class="school-code">MPS-003 • Pune</span>
+                                </div>
+                            </div>
+
+                            <div class="school-stats-mini">
+                                <div class="mini-stat">
+                                    <span class="mini-stat-label">Students</span>
+                                    <span class="mini-stat-value">385</span>
+                                </div>
+                                <div class="mini-stat">
+                                    <span class="mini-stat-label">Performance</span>
+                                    <span class="mini-stat-value">85%</span>
+                                </div>
+                                <div class="mini-stat">
+                                    <span class="mini-stat-label">Attendance</span>
+                                    <span class="mini-stat-value">93%</span>
+                                </div>
+                                <div class="mini-stat">
+                                    <span class="mini-stat-label">Teachers</span>
+                                    <span class="mini-stat-value">19</span>
+                                </div>
+                            </div>
+
+                            <div class="school-card-footer">
+                                <div class="donation-amount">
+                                    <span class="donation-label">Your Contribution</span>
+                                    <span class="donation-value">₹1.8L</span>
+                                </div>
+                                <button class="btn-view-school">
+                                    View Details
+                                    <span class="material-symbols-outlined"
+                                        style="font-size: 1rem;">arrow_forward</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Main Content Grid -->
+                <div class="main-content-grid">
+                    <!-- Left Column -->
+                    <div class="left-column">
+                        <!-- Performance Overview Chart -->
+                        <div class="card-custom">
+                            <div class="card-custom-header">
+                                <h3 class="card-custom-title">
+                                    <span class="material-symbols-outlined">insights</span>
+                                    Overall Performance Trends
+                                </h3>
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="performanceChart"></canvas>
+                            </div>
+                        </div>
+
+                        <!-- Impact Summary -->
+                        <div class="card-custom">
+                            <div class="card-custom-header">
+                                <h3 class="card-custom-title">
+                                    <span class="material-symbols-outlined">workspaces</span>
+                                    Your Impact Summary
+                                </h3>
+                            </div>
+                            <div class="impact-items">
+                                <div class="impact-item">
+                                    <div class="impact-icon">
+                                        <span class="material-symbols-outlined">menu_book</span>
+                                    </div>
+                                    <div class="impact-content">
+                                        <p class="impact-label">Total Sessions Funded</p>
+                                        <p class="impact-value">1,248</p>
+                                    </div>
+                                </div>
+                                <div class="impact-item">
+                                    <div class="impact-icon">
+                                        <span class="material-symbols-outlined">auto_stories</span>
+                                    </div>
+                                    <div class="impact-content">
+                                        <p class="impact-label">Learning Materials Provided</p>
+                                        <p class="impact-value">3,450</p>
+                                    </div>
+                                </div>
+                                <div class="impact-item">
+                                    <div class="impact-icon">
+                                        <span class="material-symbols-outlined">psychology</span>
+                                    </div>
+                                    <div class="impact-content">
+                                        <p class="impact-label">Coaches Supported</p>
+                                        <p class="impact-value">42</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column -->
+                    <div class="right-column">
+                        <!-- Recent Activities -->
+                        <div class="card-custom">
+                            <div class="card-custom-header">
+                                <h3 class="card-custom-title">
+                                    <span class="material-symbols-outlined">notifications</span>
+                                    Recent Updates
+                                </h3>
+                            </div>
+                            <div class="activity-list">
+                                <div class="activity-item">
+                                    <div class="activity-icon success">
+                                        <span class="material-symbols-outlined">check_circle</span>
+                                    </div>
+                                    <div class="activity-content">
+                                        <p class="activity-title">Donation processed for Greenwood High</p>
+                                        <p class="activity-time">2 hours ago</p>
+                                    </div>
+                                </div>
+                                <div class="activity-item">
+                                    <div class="activity-icon info">
+                                        <span class="material-symbols-outlined">campaign</span>
+                                    </div>
+                                    <div class="activity-content">
+                                        <p class="activity-title">St. Xavier's improved performance by 5%</p>
+                                        <p class="activity-time">1 day ago</p>
+                                    </div>
+                                </div>
+                                <div class="activity-item">
+                                    <div class="activity-icon success">
+                                        <span class="material-symbols-outlined">volunteer_activism</span>
+                                    </div>
+                                    <div class="activity-content">
+                                        <p class="activity-title">New school partnership: Modern Public</p>
+                                        <p class="activity-time">3 days ago</p>
+                                    </div>
+                                </div>
+                                <div class="activity-item">
+                                    <div class="activity-icon info">
+                                        <span class="material-symbols-outlined">assessment</span>
+                                    </div>
+                                    <div class="activity-content">
+                                        <p class="activity-title">Quarterly impact report available</p>
+                                        <p class="activity-time">5 days ago</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Load Sidebar and Header Components
+        document.addEventListener('DOMContentLoaded', function () {
+            Promise.all([
+                fetch('sidebar.html').then(response => response.text()),
+                fetch('header.html').then(response => response.text())
+            ]).then(([sidebarHTML, headerHTML]) => {
+                document.getElementById('sidebar-container').innerHTML = sidebarHTML;
+                document.getElementById('header-container').innerHTML = headerHTML;
+
+                setTimeout(() => {
+                    if (typeof initializeHeader === 'function') {
+                        initializeHeader();
+                    }
+
+                    document.getElementById('sidebar-container').classList.add('loaded');
+                    document.getElementById('header-container').classList.add('loaded');
+
+                    setActiveMenuItem();
+                }, 200);
+            });
+        });
+
+        function setActiveMenuItem() {
+            const currentPage = window.location.pathname.split('/').pop();
+            const dashboardLink = document.getElementById('nav-dashboard');
+            if (dashboardLink && (currentPage === 'dashboard.html' || currentPage === '')) {
+                dashboardLink.classList.add('active');
+            }
+        }
+
+        // Initialize Performance Chart
+        function initializeCharts() {
+            const ctx = document.getElementById('performanceChart').getContext('2d');
+            const performanceChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'],
+                    datasets: [
+                        {
+                            label: 'Greenwood High',
+                            data: [82, 84, 86, 87, 88, 89, 89, 90],
+                            borderColor: '#5A1F6E',
+                            backgroundColor: 'rgba(90, 31, 110, 0.1)',
+                            borderWidth: 2,
+                            tension: 0.4,
+                            fill: false,
+                            pointBackgroundColor: '#5A1F6E',
+                            pointBorderColor: '#fff',
+                            pointBorderWidth: 2,
+                            pointRadius: 4,
+                            pointHoverRadius: 6
+                        },
+                        {
+                            label: "St. Xavier's",
+                            data: [85, 86, 88, 89, 90, 91, 92, 92],
+                            borderColor: '#10b981',
+                            backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                            borderWidth: 2,
+                            tension: 0.4,
+                            fill: false,
+                            pointBackgroundColor: '#10b981',
+                            pointBorderColor: '#fff',
+                            pointBorderWidth: 2,
+                            pointRadius: 4,
+                            pointHoverRadius: 6
+                        },
+                        {
+                            label: 'Modern Public',
+                            data: [78, 80, 81, 82, 83, 84, 85, 85],
+                            borderColor: '#f59e0b',
+                            backgroundColor: 'rgba(245, 158, 11, 0.1)',
+                            borderWidth: 2,
+                            tension: 0.4,
+                            fill: false,
+                            pointBackgroundColor: '#f59e0b',
+                            pointBorderColor: '#fff',
+                            pointBorderWidth: 2,
+                            pointRadius: 4,
+                            pointHoverRadius: 6
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'bottom',
+                            labels: {
+                                font: {
+                                    family: 'Poppins',
+                                    size: 11
+                                },
+                                padding: 15,
+                                usePointStyle: true,
+                                pointStyle: 'circle'
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: '#1f2937',
+                            titleColor: '#fff',
+                            bodyColor: '#fff',
+                            borderColor: '#5A1F6E',
+                            borderWidth: 1,
+                            padding: 12,
+                            displayColors: true,
+                            callbacks: {
+                                label: function (context) {
+                                    return context.dataset.label + ': ' + context.parsed.y + '%';
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: false,
+                            min: 70,
+                            max: 100,
+                            ticks: {
+                                callback: function (value) {
+                                    return value + '%';
+                                },
+                                color: '#6b7280',
+                                font: {
+                                    size: 11,
+                                    family: 'Poppins'
+                                }
+                            },
+                            grid: {
+                                color: '#f3f4f6',
+                                drawBorder: false
+                            }
+                        },
+                        x: {
+                            ticks: {
+                                color: '#6b7280',
+                                font: {
+                                    size: 11,
+                                    family: 'Poppins'
+                                }
+                            },
+                            grid: {
+                                display: false,
+                                drawBorder: false
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Initialize charts after DOM is loaded
+        document.addEventListener('DOMContentLoaded', function () {
+            initializeCharts();
+        });
+
+        // Prevent default on school card button clicks
+        document.addEventListener('click', function (e) {
+            if (e.target.closest('.btn-view-school')) {
+                e.stopPropagation();
+            }
+        });
+    </script>
+</body>
+
+</html>

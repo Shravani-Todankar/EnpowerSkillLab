@@ -394,6 +394,59 @@
             line-height: 1.5;
         }
 
+        /* School Search Dropdown */
+        .school-search-container {
+            position: relative;
+        }
+
+        .school-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 0.5rem;
+            margin-top: 0.25rem;
+            max-height: 250px;
+            overflow-y: auto;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        .school-dropdown-item {
+            padding: 0.75rem 1rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 0.875rem;
+        }
+
+        .school-dropdown-item:last-child {
+            border-bottom: none;
+        }
+
+        .school-dropdown-item:hover {
+            background-color: #f7f6f8;
+        }
+
+        .school-dropdown-item.selected {
+            background-color: #f0e8f3;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .school-dropdown-item.no-results {
+            padding: 1rem;
+            text-align: center;
+            color: var(--text-subtle);
+            cursor: default;
+        }
+
+        .school-dropdown-item.no-results:hover {
+            background-color: white;
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .page-title {
@@ -445,19 +498,24 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="row g-3">
-                                        <!-- School Selection -->
+                                        <!-- School Selection with Search -->
                                         <div class="col-12">
                                             <label class="form-label-custom" for="school">
                                                 School Name <span class="required">*</span>
                                             </label>
-                                            <div class="input-with-icon">
+                                            <div class="input-with-icon school-search-container">
                                                 <span class="material-symbols-outlined input-icon-left">search</span>
-                                                <select class="form-select-custom form-control-with-icon-left" id="school" name="school">
-                                                    <option>Select School...</option>
-                                                    <option>Greenwood International High</option>
-                                                    <option>St. Xavier's Academy</option>
-                                                    <option>Modern Public School</option>
-                                                </select>
+                                                <input
+                                                    type="text"
+                                                    class="form-control-custom form-control-with-icon-left"
+                                                    id="school"
+                                                    name="school"
+                                                    placeholder="Search for a school..."
+                                                    autocomplete="off"
+                                                />
+                                                <div class="school-dropdown" id="schoolDropdown" style="display: none;">
+                                                    <!-- Dropdown items will be populated dynamically -->
+                                                </div>
                                             </div>
                                         </div>
 
@@ -498,7 +556,7 @@
                                                 Grade / Standard <span class="required">*</span>
                                             </label>
                                             <select class="form-select-custom" id="grade" name="grade">
-                                                <option>Select Grade...</option>
+                                                <option disabled hidden>Select Grade</option>
                                                 <option>Standard 8</option>
                                                 <option selected>Standard 9</option>
                                                 <option>Standard 10</option>
@@ -655,7 +713,8 @@
          */
         document.addEventListener('DOMContentLoaded', function() {
             // Form Elements
-            const schoolSelect = document.getElementById('school');
+            const schoolInput = document.getElementById('school');
+            const schoolDropdown = document.getElementById('schoolDropdown');
             const cityInput = document.getElementById('city');
             const academicYearSelect = document.getElementById('academic-year');
             const gradeSelect = document.getElementById('grade');
@@ -671,18 +730,112 @@
             // Program configuration
             const sessionsInput = document.getElementById('sessions');
 
+            // School data - list of available schools
+            const schools = [
+                'Greenwood International High',
+                "St. Xavier's Academy",
+                'Modern Public School',
+                'Delhi Public School',
+                'Ryan International School',
+                'DAV Public School',
+                'Kendriya Vidyalaya',
+                'Maharishi Vidya Mandir',
+                'Sardar Patel Vidyalaya',
+                'Springdales School'
+            ];
+
             // School and City Mapping
             const schoolCityMap = {
                 'Greenwood International High': 'Mumbai, India',
                 "St. Xavier's Academy": 'Delhi, India',
-                'Modern Public School': 'Pune, India'
+                'Modern Public School': 'Pune, India',
+                'Delhi Public School': 'Delhi, India',
+                'Ryan International School': 'Mumbai, India',
+                'DAV Public School': 'Pune, India',
+                'Kendriya Vidyalaya': 'Delhi, India',
+                'Maharishi Vidya Mandir': 'Mumbai, India',
+                'Sardar Patel Vidyalaya': 'Delhi, India',
+                'Springdales School': 'Pune, India'
             };
+
+            // Store selected school value
+            let selectedSchool = '';
 
             /**
              * ========================================
              * UTILITY FUNCTIONS
              * ========================================
              */
+
+            /**
+             * School Search Functions
+             */
+
+            // Filter schools based on search query
+            function filterSchools(query) {
+                if (!query) return schools;
+                const lowerQuery = query.toLowerCase();
+                return schools.filter(school => school.toLowerCase().includes(lowerQuery));
+            }
+
+            // Render school dropdown items
+            function renderSchoolDropdown(filteredSchools) {
+                schoolDropdown.innerHTML = '';
+
+                if (filteredSchools.length === 0) {
+                    const noResults = document.createElement('div');
+                    noResults.className = 'school-dropdown-item no-results';
+                    noResults.textContent = 'No schools found';
+                    schoolDropdown.appendChild(noResults);
+                } else {
+                    filteredSchools.forEach(school => {
+                        const item = document.createElement('div');
+                        item.className = 'school-dropdown-item';
+                        if (school === selectedSchool) {
+                            item.classList.add('selected');
+                        }
+                        item.textContent = school;
+                        item.addEventListener('click', function() {
+                            selectSchool(school);
+                        });
+                        schoolDropdown.appendChild(item);
+                    });
+                }
+            }
+
+            // Select a school
+            function selectSchool(school) {
+                selectedSchool = school;
+                schoolInput.value = school;
+
+                // Update city based on school
+                if (schoolCityMap[school]) {
+                    cityInput.value = schoolCityMap[school];
+                } else {
+                    cityInput.value = '';
+                }
+
+                // Hide dropdown
+                schoolDropdown.style.display = 'none';
+
+                // Update auto-generated fields
+                updateAutoGeneratedFields();
+            }
+
+            // Show dropdown
+            function showDropdown() {
+                const query = schoolInput.value;
+                const filteredSchools = filterSchools(query);
+                renderSchoolDropdown(filteredSchools);
+                schoolDropdown.style.display = 'block';
+            }
+
+            // Hide dropdown
+            function hideDropdown() {
+                setTimeout(() => {
+                    schoolDropdown.style.display = 'none';
+                }, 200);
+            }
 
             // Extract grade number from grade text (e.g., "Standard 9" -> "9")
             function extractGradeNumber(gradeText) {
@@ -715,8 +868,13 @@
                 const errors = [];
 
                 // Check school selection
-                if (!schoolSelect.value || schoolSelect.value === 'Select School...') {
-                    errors.push('Please select a school');
+                if (!selectedSchool || selectedSchool.trim() === '') {
+                    errors.push('Please select a school from the dropdown');
+                }
+
+                // Verify the school exists in the list
+                if (selectedSchool && !schools.includes(selectedSchool)) {
+                    errors.push('Please select a valid school from the dropdown');
                 }
 
                 // Check grade selection
@@ -747,15 +905,26 @@
              * ========================================
              */
 
-            // School selection change - update city
-            schoolSelect.addEventListener('change', function() {
-                const selectedSchool = this.value;
-                if (schoolCityMap[selectedSchool]) {
-                    cityInput.value = schoolCityMap[selectedSchool];
-                } else {
-                    cityInput.value = '';
+            // School input - search and filter
+            schoolInput.addEventListener('input', function() {
+                showDropdown();
+            });
+
+            // School input - show all options on focus
+            schoolInput.addEventListener('focus', function() {
+                showDropdown();
+            });
+
+            // School input - hide dropdown on blur
+            schoolInput.addEventListener('blur', function() {
+                hideDropdown();
+            });
+
+            // Click outside to close dropdown
+            document.addEventListener('click', function(e) {
+                if (!schoolInput.contains(e.target) && !schoolDropdown.contains(e.target)) {
+                    schoolDropdown.style.display = 'none';
                 }
-                updateAutoGeneratedFields();
             });
 
             // Academic year change - update class code
@@ -802,7 +971,7 @@
 
                 // Collect form data
                 const formData = {
-                    school: schoolSelect.value,
+                    school: selectedSchool,
                     city: cityInput.value,
                     academicYear: academicYearSelect.value,
                     grade: gradeSelect.value,

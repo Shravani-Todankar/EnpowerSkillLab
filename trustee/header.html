@@ -1,0 +1,119 @@
+<!-- Header Component -->
+<link rel="stylesheet" href="header.css">
+
+<header class="header">
+    <div class="header-left">
+        <button id="menuToggle">
+            <span class="material-symbols-outlined">menu</span>
+        </button>
+        <button class="fullscreen-btn">
+            <span class="material-symbols-outlined">fullscreen</span>
+        </button>
+    </div>
+    <div class="header-right">
+        <div class="notification-wrapper">
+            <button id="notificationToggle">
+                <span class="material-symbols-outlined">notifications</span>
+            </button>
+            <span class="notification-badge">4</span>
+
+            <!-- Notification Dropdown Menu -->
+            <div class="notification-dropdown-menu" id="notificationDropdownMenu">
+                <div class="notification-dropdown-header">
+                    <h4 class="notification-dropdown-title">
+                        <span class="material-symbols-outlined">notifications</span>
+                        Notifications
+                    </h4>
+                    <span class="notification-count">4 new</span>
+                </div>
+                <div class="notification-dropdown-body">
+                    <a href="#" class="notification-item unread">
+                        <div class="notification-icon bg-blue">
+                            <span class="material-symbols-outlined">person_add</span>
+                        </div>
+                        <div class="notification-content-header">
+                            <p class="notification-text"><strong>New Teacher Added</strong></p>
+                            <p class="notification-description">John Smith has been added to the system...</p>
+                            <span class="notification-time">5 minutes ago</span>
+                        </div>
+                    </a>
+
+                    <a href="#" class="notification-item unread">
+                        <div class="notification-icon bg-green">
+                            <span class="material-symbols-outlined">assignment_turned_in</span>
+                        </div>
+                        <div class="notification-content-header">
+                            <p class="notification-text"><strong>Attendance Submitted</strong></p>
+                            <p class="notification-description">Class 10-A attendance has been marked</p>
+                            <span class="notification-time">1 hour ago</span>
+                        </div>
+                    </a>
+
+                    <a href="#" class="notification-item unread">
+                        <div class="notification-icon bg-orange">
+                            <span class="material-symbols-outlined">event</span>
+                        </div>
+                        <div class="notification-content-header">
+                            <p class="notification-text"><strong>Upcoming Event</strong></p>
+                            <p class="notification-description">Parent-Teacher meeting scheduled for tomorrow</p>
+                            <span class="notification-time">3 hours ago</span>
+                        </div>
+                    </a>
+
+                    <a href="#" class="notification-item unread">
+                        <div class="notification-icon bg-purple">
+                            <span class="material-symbols-outlined">description</span>
+                        </div>
+                        <div class="notification-content-header">
+                            <p class="notification-text"><strong>Report Generated</strong></p>
+                            <p class="notification-description">Monthly performance report is ready</p>
+                            <span class="notification-time">5 hours ago</span>
+                        </div>
+                    </a>
+                </div>
+                <div class="notification-dropdown-footer">
+                    <a href="#" class="notification-footer-link">View All Notifications</a>
+                </div>
+            </div>
+        </div>
+        <div class="user-info-wrapper">
+            <div class="user-info" id="userInfoToggle">
+                <img alt="Kunal's avatar" class="user-avatar"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDcIJndixMoK4d7aUwjLNvUwGvQtwhoZp4zrBYHVGp_UbVoliCXsHU6Px_N4mBzfACwz3nJ2LpxL3Ws-XZbgIozb_cRIXJSxDOB2E2kzyb17yyplKyWeyRDLc-fj9vfq0_snyn1Sph7cn21sgjjyZvpAiuZIPF2nmJa_WqFLafr9reOBS1SXMU7f3XdOpsHE_wug6-xsGVmdXkOvYSvf5KdZDEIYmVUz-mfuhm5JroeQp4NP7_6_8NM9c77yCwB6A0DQSdxijqgA9Y" />
+                <span class="user-name">Shravani</span>
+                <span class="material-symbols-outlined user-dropdown">expand_more</span>
+            </div>
+
+            <!-- User Dropdown Menu -->
+            <div class="user-dropdown-menu" id="userDropdownMenu">
+                <div class="dropdown-header">
+                    <img alt="Kunal's avatar" class="dropdown-avatar"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuDcIJndixMoK4d7aUwjLNvUwGvQtwhoZp4zrBYHVGp_UbVoliCXsHU6Px_N4mBzfACwz3nJ2LpxL3Ws-XZbgIozb_cRIXJSxDOB2E2kzyb17yyplKyWeyRDLc-fj9vfq0_snyn1Sph7cn21sgjjyZvpAiuZIPF2nmJa_WqFLafr9reOBS1SXMU7f3XdOpsHE_wug6-xsGVmdXkOvYSvf5KdZDEIYmVUz-mfuhm5JroeQp4NP7_6_8NM9c77yCwB6A0DQSdxijqgA9Y" />
+                    <div class="dropdown-user-info">
+                        <h4 class="dropdown-user-name">Shravani</h4>
+                        <p class="dropdown-user-email">shravani@enpower.com</p>
+                        <p class="dropdown-user-email">School Admin</p>
+                    </div>
+                </div>
+                <div class="dropdown-divider"></div>
+                <a href="profile.html" class="dropdown-item" id="profileBtn">
+                    <span class="material-symbols-outlined">account_circle</span>
+                    <span>Profile</span>
+                </a>
+                <a href="account-settings.html" class="dropdown-item" id="accountSettingsBtn">
+                    <span class="material-symbols-outlined">settings</span>
+                    <span>Account Settings</span>
+                </a>
+                <a href="admin-dashboard.html" class="dropdown-item">
+                    <span class="material-symbols-outlined">dashboard</span>
+                    <span>Dashboard</span>
+                </a>
+                <div class="dropdown-divider"></div>
+                <a href="#" class="dropdown-item logout-item" id="logoutBtn">
+                    <span class="material-symbols-outlined">logout</span>
+                    <span>Logout</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</header>

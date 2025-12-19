@@ -497,11 +497,15 @@
         /* Form Actions */
         .form-actions {
             display: flex;
-            justify-content: space-between;
+            justify-content: flex-end;
             align-items: center;
             margin-top: 40px;
             padding-top: 30px;
             border-top: 1px solid #e5e5e7;
+        }
+
+        .form-actions .btn-back {
+            margin-right: auto;
         }
 
         .btn {
@@ -1132,15 +1136,13 @@
                                 <span class="arrow">←</span>
                                 Back
                             </button>
-                            <div>
-                                <button type="button" class="btn btn-next" id="nextBtn">
-                                    Next
-                                    <span class="arrow">→</span>
-                                </button>
-                                <button type="submit" class="btn btn-submit" id="submitBtn" style="display: none;">
-                                    Submit
-                                </button>
-                            </div>
+                            <button type="button" class="btn btn-next" id="nextBtn">
+                                Next
+                                <span class="arrow">→</span>
+                            </button>
+                            <button type="submit" class="btn btn-submit" id="submitBtn" style="display: none;">
+                                Submit
+                            </button>
                         </div>
                     </form>
                 </div>

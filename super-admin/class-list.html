@@ -193,51 +193,44 @@
         /* Specific column widths */
         table.dataTable thead th:nth-child(1),
         table.dataTable tbody td:nth-child(1) {
-            width: 20%;
-            min-width: 200px;
+            width: 25%;
+            min-width: 220px;
         }
 
         table.dataTable thead th:nth-child(2),
         table.dataTable tbody td:nth-child(2) {
-            width: 10%;
-            min-width: 100px;
+            width: 12%;
+            min-width: 120px;
         }
 
         table.dataTable thead th:nth-child(3),
         table.dataTable tbody td:nth-child(3) {
-            width: 8%;
-            min-width: 80px;
-            text-align: center;
+            width: 12%;
+            min-width: 120px;
         }
 
         table.dataTable thead th:nth-child(4),
         table.dataTable tbody td:nth-child(4) {
-            width: 10%;
-            min-width: 100px;
+            width: 20%;
+            min-width: 180px;
         }
 
         table.dataTable thead th:nth-child(5),
         table.dataTable tbody td:nth-child(5) {
-            width: 18%;
-            min-width: 180px;
-        }
-
-        table.dataTable thead th:nth-child(6),
-        table.dataTable tbody td:nth-child(6) {
             width: 8%;
             min-width: 80px;
             text-align: center;
         }
 
-        table.dataTable thead th:nth-child(7),
-        table.dataTable tbody td:nth-child(7) {
+        table.dataTable thead th:nth-child(6),
+        table.dataTable tbody td:nth-child(6) {
             width: 10%;
             min-width: 100px;
         }
 
-        table.dataTable thead th:nth-child(8),
-        table.dataTable tbody td:nth-child(8) {
-            width: 16%;
+        table.dataTable thead th:nth-child(7),
+        table.dataTable tbody td:nth-child(7) {
+            width: 13%;
             min-width: 130px;
             text-align: center;
         }
@@ -429,6 +422,313 @@
             padding: 0 4px;
             color: #666;
         }
+
+        /* ================= Edit Drawer Styles ================= */
+        .drawer-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1040;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .drawer-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .edit-drawer {
+            position: fixed;
+            top: 0;
+            right: -600px;
+            width: 600px;
+            height: 100%;
+            background: white;
+            box-shadow: -4px 0 20px rgba(0, 0, 0, 0.15);
+            z-index: 1050;
+            display: flex;
+            flex-direction: column;
+            transition: right 0.3s ease;
+        }
+
+        .edit-drawer.active {
+            right: 0;
+        }
+
+        .drawer-header {
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-shrink: 0;
+        }
+
+        .drawer-header-content h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin: 0 0 0.25rem 0;
+        }
+
+        .drawer-header-content p {
+            font-size: 0.875rem;
+            color: var(--text-subtle);
+            margin: 0;
+        }
+
+        .drawer-close-btn {
+            background: none;
+            border: none;
+            padding: 0.5rem;
+            cursor: pointer;
+            color: var(--text-subtle);
+            border-radius: 0.375rem;
+            transition: all 0.2s;
+        }
+
+        .drawer-close-btn:hover {
+            background-color: var(--background-light);
+            color: var(--text-main);
+        }
+
+        .drawer-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1.5rem 2rem 2rem;
+        }
+
+        .drawer-body::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .drawer-body::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        .drawer-body::-webkit-scrollbar-thumb {
+            background: #c1c1c1;
+            border-radius: 4px;
+        }
+
+        .drawer-card {
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .drawer-card-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .drawer-card-header .material-symbols-outlined {
+            color: var(--primary);
+            font-size: 20px;
+        }
+
+        .drawer-card-header h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin: 0;
+        }
+
+        .drawer-form-group {
+            margin-bottom: 1rem;
+        }
+
+        .drawer-form-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .drawer-form-label {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .drawer-form-label .required {
+            color: #dc3545;
+            margin-left: 0.25rem;
+        }
+
+        .drawer-helper-text {
+            font-size: 0.75rem;
+            color: var(--text-subtle);
+            margin-top: 0.375rem;
+            display: block;
+        }
+
+        .drawer-form-control,
+        .drawer-form-select {
+            background-color: var(--background-light);
+            border: 1px solid var(--border-color);
+            border-radius: 0.5rem;
+            padding: 0.625rem 0.75rem;
+            font-size: 0.875rem;
+            color: var(--text-main);
+            width: 100%;
+            transition: all 0.2s;
+        }
+
+        .drawer-form-control:focus,
+        .drawer-form-select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 0.2rem rgba(91, 31, 111, 0.25);
+            outline: none;
+        }
+
+        .drawer-form-control:read-only {
+            background-color: #f0f0f0;
+            color: var(--text-subtle);
+            cursor: not-allowed;
+        }
+
+        .drawer-form-control:disabled,
+        .drawer-form-select:disabled {
+            background-color: #f0f0f0;
+            color: var(--text-subtle);
+            cursor: not-allowed;
+        }
+
+        .drawer-toggle-group {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .drawer-toggle-group:last-child {
+            border-bottom: none;
+        }
+
+        .drawer-toggle-label {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .drawer-toggle-label .toggle-title {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .drawer-toggle-label .toggle-description {
+            font-size: 0.75rem;
+            color: var(--text-subtle);
+        }
+
+        .drawer-toggle-switch {
+            position: relative;
+            width: 44px;
+            height: 22px;
+            background: #d1d5db;
+            border-radius: 22px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            border: 2px solid #d1d5db;
+        }
+
+        .drawer-toggle-switch::after {
+            content: "";
+            width: 18px;
+            height: 18px;
+            background: #fff;
+            position: absolute;
+            left: 2px;
+            border-radius: 50%;
+            transition: left 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .drawer-toggle-switch.active {
+            background: var(--primary);
+            border-color: var(--primary);
+        }
+
+        .drawer-toggle-switch.active::after {
+            left: 22px;
+        }
+
+        .drawer-warning {
+            background-color: #fff3cd;
+            border: 1px solid #ffc107;
+            border-radius: 0.5rem;
+            padding: 0.75rem 1rem;
+            font-size: 0.8125rem;
+            color: #856404;
+            margin-top: 1rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+        }
+
+        .drawer-warning .material-symbols-outlined {
+            font-size: 18px;
+            color: #ffc107;
+        }
+
+        .drawer-footer {
+            padding: 1.25rem 2rem;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            gap: 0.75rem;
+            justify-content: flex-end;
+            flex-shrink: 0;
+            background: white;
+        }
+
+        .btn-drawer-primary {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            font-weight: 600;
+            border-radius: 0.5rem;
+            padding: 0.625rem 1.5rem;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-drawer-primary:hover {
+            background-color: #4a195b;
+        }
+
+        .btn-drawer-secondary {
+            background-color: white;
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+            font-weight: 600;
+            border-radius: 0.5rem;
+            padding: 0.625rem 1.5rem;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-drawer-secondary:hover {
+            background-color: var(--background-light);
+        }
+
+        @media (max-width: 768px) {
+            .edit-drawer {
+                width: 100%;
+                right: -100%;
+            }
+        }
     </style>
 </head>
 
@@ -487,7 +787,8 @@
                                 <select class="form-select form-select-custom" id="yearFilter">
                                     <option value="">All Years</option>
                                     <option value="2023-2024">2023-2024</option>
-                                    <option value="2022-2023">2022-2023</option>
+                                    <option value="2024-2025">2024-2025</option>
+                                    <option value="2025-2026">2025-2026</option>
                                 </select>
                             </div>
 
@@ -512,7 +813,7 @@
                         </div>
 
                         <div class="d-flex justify-content-end mt-3">
-                            <button class="btn btn-link text-decoration-none fw-medium p-0" style="color: var(--primary); font-size: 0.875rem;">
+                            <button class="btn btn-link text-decoration-none fw-medium p-0" id="resetFiltersBtn" style="color: var(--primary); font-size: 0.875rem;">
                                 <span class="material-symbols-outlined" style="font-size: 16px; vertical-align: middle;">refresh</span>
                                 Reset Filters
                             </button>
@@ -526,10 +827,9 @@
                                 <thead>
                                     <tr>
                                         <th>School Name</th>
-                                        <th>Grade / Class</th>
-                                        <th>Section</th>
+                                        <th>Class</th>
                                         <th>Academic Year</th>
-                                        <th>Class Teacher</th>
+                                        <th>Thinking Coach</th>
                                         <th>Students</th>
                                         <th>Status</th>
                                         <th>Actions</th>
@@ -543,8 +843,7 @@
                                                 Greenwood High - Mumbai
                                             </div>
                                         </td>
-                                        <td>Grade 10</td>
-                                        <td>A</td>
+                                        <td>Grade 10 A</td>
                                         <td>2023-2024</td>
                                         <td><div class="teacher-cell"><img src="https://i.pravatar.cc/32?img=1" class="teacher-avatar"><span>Sarah Jenkins</span></div></td>
                                         <td>32</td>
@@ -558,8 +857,7 @@
                                                 Greenwood High - Mumbai
                                             </div>
                                         </td>
-                                        <td>Grade 10</td>
-                                        <td>B</td>
+                                        <td>Grade 10 B</td>
                                         <td>2023-2024</td>
                                         <td><div class="teacher-cell"><img src="https://i.pravatar.cc/32?img=11" class="teacher-avatar"><span>Rajesh Kumar</span></div></td>
                                         <td>30</td>
@@ -573,8 +871,7 @@
                                                 St. Xaviers - Delhi
                                             </div>
                                         </td>
-                                        <td>Grade 9</td>
-                                        <td>A</td>
+                                        <td>Grade 9 A</td>
                                         <td>2023-2024</td>
                                         <td><div class="teacher-cell"><img src="https://i.pravatar.cc/32?img=5" class="teacher-avatar"><span>Emily Chen</span></div></td>
                                         <td>28</td>
@@ -588,8 +885,7 @@
                                                 St. Xaviers - Delhi
                                             </div>
                                         </td>
-                                        <td>Grade 9</td>
-                                        <td>B</td>
+                                        <td>Grade 9 B</td>
                                         <td>2023-2024</td>
                                         <td><div class="teacher-cell"><img src="https://i.pravatar.cc/32?img=12" class="teacher-avatar"><span>Michael Scott</span></div></td>
                                         <td>29</td>
@@ -603,8 +899,7 @@
                                                 St. Xaviers - Delhi
                                             </div>
                                         </td>
-                                        <td>Grade 8</td>
-                                        <td>A</td>
+                                        <td>Grade 8 A</td>
                                         <td>2023-2024</td>
                                         <td><div class="teacher-cell"><img src="https://i.pravatar.cc/32?img=9" class="teacher-avatar"><span>Pam Beesly</span></div></td>
                                         <td>31</td>
@@ -631,6 +926,176 @@
                     </div>
                 </main>
             </div>
+        </div>
+    </div>
+
+    <!-- Drawer Overlay -->
+    <div class="drawer-overlay" id="drawerOverlay"></div>
+
+    <!-- Edit Class Drawer -->
+    <div class="edit-drawer" id="editDrawer">
+        <!-- Drawer Header -->
+        <div class="drawer-header">
+            <div class="drawer-header-content">
+                <h2>Edit Class</h2>
+                <p>Editing: <span id="editingClassName">Std 9A</span></p>
+            </div>
+            <button class="drawer-close-btn" id="closeDrawerBtn">
+                <span class="material-symbols-outlined" style="font-size: 24px;">close</span>
+            </button>
+        </div>
+
+        <!-- Drawer Body (Scrollable) -->
+        <div class="drawer-body">
+            <!-- Section 1: Class Details -->
+            <div class="drawer-card">
+                <div class="drawer-card-header">
+                    <span class="material-symbols-outlined">meeting_room</span>
+                    <h3>Class Details</h3>
+                </div>
+                <div class="drawer-form-group">
+                    <label class="drawer-form-label">Grade / Standard <span class="required">*</span></label>
+                    <select class="drawer-form-select" id="editGrade">
+                        <option value="">Select Grade</option>
+                        <option value="6">Std 6</option>
+                        <option value="7">Std 7</option>
+                        <option value="8">Std 8</option>
+                        <option value="9" selected>Std 9</option>
+                        <option value="10">Std 10</option>
+                    </select>
+                </div>
+
+                <div class="drawer-form-group">
+                    <label class="drawer-form-label">Division <span class="required">*</span></label>
+                    <select class="drawer-form-select" id="editDivision">
+                        <option value="">Select Division</option>
+                        <option value="A" selected>A</option>
+                        <option value="B">B</option>
+                        <option value="C">C</option>
+                        <option value="D">D</option>
+                        <option value="E">E</option>
+                    </select>
+                </div>
+
+                <div class="drawer-form-group">
+                    <label class="drawer-form-label">Class Name</label>
+                    <input type="text" class="drawer-form-control" id="editClassName" value="Std 9A" readonly>
+                    <small class="drawer-helper-text">Class name updates automatically based on Grade and Division.</small>
+                </div>
+
+                <div class="drawer-form-group">
+                    <label class="drawer-form-label">Class Code</label>
+                    <input type="text" class="drawer-form-control" id="editClassCode" value="CLS-2025-9A-482" readonly>
+                </div>
+            </div>
+
+            <!-- Section 2: School & Academic Context -->
+            <div class="drawer-card">
+                <div class="drawer-card-header">
+                    <span class="material-symbols-outlined">school</span>
+                    <h3>School & Academic Context</h3>
+                </div>
+                <div class="drawer-form-group">
+                    <label class="drawer-form-label">School Name <span class="required">*</span></label>
+                    <select class="drawer-form-select" id="editSchool">
+                        <option value="">Select School</option>
+                        <option value="Greenwood High" selected>Greenwood International High</option>
+                        <option value="St. Xaviers">St. Xavier's Academy</option>
+                        <option value="Modern Public">Modern Public School</option>
+                    </select>
+                    <small class="drawer-helper-text">Changing school impacts reports and attendance data.</small>
+                </div>
+
+                <div class="drawer-form-group">
+                    <label class="drawer-form-label">City / Location</label>
+                    <input type="text" class="drawer-form-control" id="editCity" value="Mumbai, India" readonly>
+                </div>
+
+                <div class="drawer-form-group">
+                    <label class="drawer-form-label">Academic Year <span class="required">*</span></label>
+                    <select class="drawer-form-select" id="editAcademicYear">
+                        <option value="2025-2026" selected>2025-2026</option>
+                        <option value="2024-2025">2024-2025</option>
+                        <option value="2023-2024">2023-2024</option>
+                    </select>
+                    <small class="drawer-helper-text">Changing academic year impacts reports and attendance data.</small>
+                </div>
+            </div>
+
+            <!-- Section 3: Thinking Coach Assignment -->
+            <div class="drawer-card">
+                <div class="drawer-card-header">
+                    <span class="material-symbols-outlined">person_check</span>
+                    <h3>Thinking Coach Assignment</h3>
+                </div>
+                <div class="drawer-form-group">
+                    <label class="drawer-form-label">Thinking Coach</label>
+                    <select class="drawer-form-select" id="editCoach">
+                        <option value="">Select Coach</option>
+                        <option value="Sarah Jenkins" selected>Sarah Jenkins</option>
+                        <option value="Michael Chen">Michael Chen</option>
+                        <option value="Priya Patel">Priya Patel</option>
+                        <option value="Rajesh Kumar">Rajesh Kumar</option>
+                    </select>
+                    <small class="drawer-helper-text">This coach manages attendance, assignments, and assessments for this class.</small>
+                </div>
+            </div>
+
+            <!-- Section 4: Program Configuration -->
+            <div class="drawer-card">
+                <div class="drawer-card-header">
+                    <span class="material-symbols-outlined">event_note</span>
+                    <h3>Program Configuration</h3>
+                </div>
+                <div class="drawer-form-group">
+                    <label class="drawer-form-label">Total Sessions <span class="required">*</span></label>
+                    <input type="number" class="drawer-form-control" id="editSessions" value="48" min="1" max="100">
+                    <small class="drawer-helper-text">Each class runs for min 48 sessions in one academic year.</small>
+                </div>
+            </div>
+
+            <!-- Section 5: Class Status & Visibility -->
+            <div class="drawer-card">
+                <div class="drawer-card-header">
+                    <span class="material-symbols-outlined">settings</span>
+                    <h3>Class Status & Visibility</h3>
+                </div>
+
+                <div class="drawer-toggle-group">
+                    <div class="drawer-toggle-label">
+                        <span class="toggle-title">Class Status</span>
+                        <span class="toggle-description">Active / Inactive</span>
+                    </div>
+                    <div class="drawer-toggle-switch active" id="editClassStatus"></div>
+                </div>
+
+                <div class="drawer-toggle-group">
+                    <div class="drawer-toggle-label">
+                        <span class="toggle-title">Visible to Students</span>
+                        <span class="toggle-description">Show in student dashboards</span>
+                    </div>
+                    <div class="drawer-toggle-switch active" id="editStudentVisibility"></div>
+                </div>
+
+                <div class="drawer-toggle-group">
+                    <div class="drawer-toggle-label">
+                        <span class="toggle-title">Visible to Parents</span>
+                        <span class="toggle-description">Show in parent portals</span>
+                    </div>
+                    <div class="drawer-toggle-switch" id="editParentVisibility"></div>
+                </div>
+
+                <div class="drawer-warning">
+                    <span class="material-symbols-outlined">warning</span>
+                    <span>Inactive classes will not appear in dashboards or reports.</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Drawer Footer (Sticky) -->
+        <div class="drawer-footer">
+            <button class="btn-drawer-secondary" id="cancelDrawerBtn">Cancel</button>
+            <button class="btn-drawer-primary" id="updateClassBtn">Update Class</button>
         </div>
     </div>
 
@@ -686,60 +1151,52 @@
 
             /**
              * ========================================
-             * CUSTOM GLOBAL SEARCH FILTER
+             * CUSTOM FILTER FUNCTION FOR DATATABLES
              * ========================================
-             * This function is called by DataTables for every row
-             * whenever a filter changes or draw() is called.
-             *
-             * WHY THE ORIGINAL FAILED:
-             * - Used .indexOf() directly on HTML strings like "<div class='school-name'>..."
-             * - Location text was embedded inside School Name HTML, not extracted
-             * - Status column contained <span class="status-badge">Active</span>
-             * - No plain text extraction before comparison
-             *
-             * SOLUTION:
-             * - Extract plain text from HTML before filtering
-             * - Use case-insensitive partial matching for flexibility
-             * - Support multiple filters working together
              */
             $.fn.dataTable.ext.search.push(
                 function(settings, data, dataIndex) {
-                    // Get current filter values from dropdowns
+                    // Only apply to our specific table
+                    if (settings.nTable.id !== 'classTable') {
+                        return true;
+                    }
+
+                    // Get current filter values
                     const locationFilter = $('#locationFilter').val();
                     const schoolFilter = $('#schoolFilter').val();
                     const yearFilter = $('#yearFilter').val();
                     const statusFilter = $('#statusFilter').val();
 
                     // Extract plain text from HTML columns
-                    // data[0] = School Name column (contains <div class="school-name"><svg>...</svg>Greenwood High - Mumbai</div>)
-                    // data[3] = Academic Year column (plain text: "2023-2024")
-                    // data[6] = Status column (contains <span class="status-badge status-active">Active</span>)
-                    const schoolNameText = extractPlainText(data[0]);
-                    const yearText = extractPlainText(data[3]);
-                    const statusText = extractPlainText(data[6]);
+                    // Column indices: 0=School Name, 1=Class, 2=Academic Year, 3=Thinking Coach, 4=Students, 5=Status, 6=Actions
+                    const schoolNameText = extractPlainText(data[0]); // School Name column
+                    const yearText = extractPlainText(data[2]); // Academic Year column
+                    const statusText = extractPlainText(data[5]); // Status column
 
-                    // Apply Location Filter
-                    // Check if school name contains the location (e.g., "Mumbai" in "Greenwood High - Mumbai")
+                    console.log('Filter called - Location:', locationFilter, 'School Name:', schoolNameText);
+
+                    // Apply Location Filter - Check if school name contains the location
                     if (locationFilter && schoolNameText.indexOf(locationFilter) === -1) {
-                        return false; // Hide this row
+                        console.log('Hiding row - Location filter failed');
+                        return false;
                     }
 
-                    // Apply School Filter
-                    // Check if school name contains the school (e.g., "Greenwood High" in "Greenwood High - Mumbai")
+                    // Apply School Filter - Check if school name contains the school
                     if (schoolFilter && schoolNameText.indexOf(schoolFilter) === -1) {
-                        return false; // Hide this row
+                        console.log('Hiding row - School filter failed');
+                        return false;
                     }
 
-                    // Apply Academic Year Filter
-                    // Exact match for year (e.g., "2023-2024")
+                    // Apply Academic Year Filter - Check if year matches
                     if (yearFilter && yearText.indexOf(yearFilter) === -1) {
-                        return false; // Hide this row
+                        console.log('Hiding row - Year filter failed');
+                        return false;
                     }
 
-                    // Apply Status Filter
-                    // Check if status text contains the filter value (e.g., "Active")
+                    // Apply Status Filter - Check if status matches
                     if (statusFilter && statusText.indexOf(statusFilter) === -1) {
-                        return false; // Hide this row
+                        console.log('Hiding row - Status filter failed');
+                        return false;
                     }
 
                     // All filters passed - show this row
@@ -752,98 +1209,13 @@
              * DATATABLE INITIALIZATION
              * ========================================
              */
-            const table = $('#classTable').DataTable({
-                pageLength: 10,
-                order: [[0, 'asc'], [1, 'asc']], // Sort by School Name, then Grade
-                autoWidth: false,
-                columnDefs: [
-                    { orderable: false, targets: [7], className: 'text-center' }, // Disable sorting on Actions column
-                    { className: 'text-center', targets: [2, 5, 7] } // Center align Section, Students, Actions
-                ],
-                drawCallback: function() {
-                    updatePaginationInfo();
-                }
-            });
 
-            /**
-             * ========================================
-             * SEARCH INPUT HANDLER (Fixed Selector)
-             * ========================================
-             * WHY THE ORIGINAL FAILED:
-             * - Used '.form-control-custom' which is too broad
-             * - This class is applied to ALL form inputs, not just search
-             *
-             * SOLUTION:
-             * - Target the specific search input using its unique ID
-             * - This prevents conflicts with other inputs
-             */
-            $('#globalSearch').on('keyup', function() {
-                table.search(this.value).draw();
-            });
+            // Declare table variable first
+            let table;
 
-            /**
-             * ========================================
-             * DROPDOWN FILTER CHANGE HANDLERS
-             * ========================================
-             * When any dropdown changes, trigger DataTables redraw
-             * which will call our custom search function above
-             */
-
-            // Location Filter Change
-            $('#locationFilter').on('change', function() {
-                table.draw(); // Triggers custom search function
-            });
-
-            // School Filter Change
-            $('#schoolFilter').on('change', function() {
-                table.draw(); // Triggers custom search function
-            });
-
-            // Academic Year Filter Change
-            $('#yearFilter').on('change', function() {
-                table.draw(); // Triggers custom search function
-            });
-
-            // Status Filter Change
-            $('#statusFilter').on('change', function() {
-                table.draw(); // Triggers custom search function
-            });
-
-            /**
-             * ========================================
-             * RESET FILTERS HANDLER (Safe Selector)
-             * ========================================
-             * WHY THE ORIGINAL FAILED:
-             * - Used '.btn-link' which is too generic and unsafe
-             * - Could trigger on any button with that class
-             *
-             * SOLUTION:
-             * - Target the specific reset button in the filter card
-             * - Use a more specific selector scoped to the filter card
-             */
-            $('.filter-card .btn-link').on('click', function(e) {
-                e.preventDefault();
-
-                // Clear all filter dropdowns
-                $('#locationFilter').val('');
-                $('#schoolFilter').val('');
-                $('#yearFilter').val('');
-                $('#statusFilter').val('');
-
-                // Clear search input by ID
-                $('#globalSearch').val('');
-
-                // Clear DataTables global search and redraw
-                table.search('').draw();
-            });
-
-            // Rows per page change
-            $('#rowsPerPage').on('change', function() {
-                table.page.len(parseInt($(this).val())).draw();
-            });
-
-            // Update pagination info
-            function updatePaginationInfo() {
+            // Update pagination info function
+            const updatePaginationInfo = function() {
+                if (!table) return; // Guard against early calls
                 const info = table.page.info();
                 $('#startEntry').text(info.start + 1);
                 $('#endEntry').text(info.end);
@@ -853,8 +1225,9 @@
                 generatePaginationButtons(info);
             }
 
-            // Generate custom pagination buttons
-            function generatePaginationButtons(info) {
+            // Generate custom pagination buttons function
+            const generatePaginationButtons = function(info) {
+                if (!table) return; // Guard against early calls
                 const container = $('#paginationButtons');
                 container.empty();
 
@@ -894,8 +1267,335 @@
                 container.append(nextBtn);
             }
 
+            // Initialize DataTable
+            table = $('#classTable').DataTable({
+                pageLength: 10,
+                order: [[0, 'asc'], [1, 'asc']], // Sort by School Name, then Class
+                autoWidth: false,
+                columnDefs: [
+                    { orderable: false, targets: [6], className: 'text-center' }, // Disable sorting on Actions column
+                    { className: 'text-center', targets: [4, 6] } // Center align Students, Actions
+                ],
+                drawCallback: function() {
+                    updatePaginationInfo();
+                }
+            });
+
+            /**
+             * ========================================
+             * FILTER EVENT HANDLERS
+             * ========================================
+             */
+
+            // Global Search Input
+            $('#globalSearch').on('keyup', function() {
+                console.log('Search input:', this.value);
+                table.search(this.value).draw();
+            });
+
+            // Location Filter
+            $('#locationFilter').on('change', function() {
+                console.log('Location filter changed to:', this.value);
+                table.draw();
+            });
+
+            // School Filter
+            $('#schoolFilter').on('change', function() {
+                console.log('School filter changed to:', this.value);
+                table.draw();
+            });
+
+            // Academic Year Filter
+            $('#yearFilter').on('change', function() {
+                console.log('Year filter changed to:', this.value);
+                table.draw();
+            });
+
+            // Status Filter
+            $('#statusFilter').on('change', function() {
+                console.log('Status filter changed to:', this.value);
+                table.draw();
+            });
+
+            // Reset Filters Button
+            $('#resetFiltersBtn').on('click', function(e) {
+                e.preventDefault();
+                console.log('Resetting all filters');
+
+                // Clear all filter dropdowns
+                $('#locationFilter').val('');
+                $('#schoolFilter').val('');
+                $('#yearFilter').val('');
+                $('#statusFilter').val('');
+                $('#globalSearch').val('');
+
+                // Clear DataTables search and redraw
+                table.search('').draw();
+            });
+
+            // Rows per page change
+            $('#rowsPerPage').on('change', function() {
+                table.page.len(parseInt($(this).val())).draw();
+            });
+
             // Initial pagination update
             updatePaginationInfo();
+        });
+
+        /**
+         * ========================================
+         * EDIT DRAWER FUNCTIONALITY
+         * ========================================
+         */
+
+        // School to City mapping
+        const schoolCityMap = {
+            'Greenwood High': 'Mumbai, India',
+            'St. Xaviers': 'Delhi, India',
+            'Modern Public': 'Pune, India'
+        };
+
+        // Open drawer function
+        function openEditDrawer() {
+            $('#drawerOverlay').addClass('active');
+            $('#editDrawer').addClass('active');
+            $('body').css('overflow', 'hidden');
+        }
+
+        // Close drawer function
+        function closeEditDrawer() {
+            $('#drawerOverlay').removeClass('active');
+            $('#editDrawer').removeClass('active');
+            $('body').css('overflow', '');
+        }
+
+        // Close drawer on overlay click
+        $('#drawerOverlay').on('click', function() {
+            closeEditDrawer();
+        });
+
+        // Close drawer on close button click
+        $('#closeDrawerBtn').on('click', function() {
+            closeEditDrawer();
+        });
+
+        // Close drawer on cancel button click
+        $('#cancelDrawerBtn').on('click', function() {
+            closeEditDrawer();
+        });
+
+        // Escape key to close drawer
+        $(document).on('keydown', function(e) {
+            if (e.key === 'Escape' && $('#editDrawer').hasClass('active')) {
+                closeEditDrawer();
+            }
+        });
+
+        // Toggle switches functionality
+        $('.drawer-toggle-switch').on('click', function() {
+            $(this).toggleClass('active');
+        });
+
+        // Auto-update class name when grade or division changes
+        $('#editGrade, #editDivision').on('change', function() {
+            const grade = $('#editGrade option:selected').text().replace('Std ', '');
+            const division = $('#editDivision').val();
+
+            if (grade && division) {
+                $('#editClassName').val('Std ' + grade + division);
+            }
+        });
+
+        // Auto-update city when school changes
+        $('#editSchool').on('change', function() {
+            const school = $(this).val();
+            if (schoolCityMap[school]) {
+                $('#editCity').val(schoolCityMap[school]);
+            }
+        });
+
+        // Helper function to extract text from HTML
+        function extractTextContent(html) {
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = html;
+            return tempDiv.textContent.trim();
+        }
+
+        // Store reference to the row being edited
+        let currentEditingRow = null;
+
+        // Edit button click handler - attach to table dynamically
+        $(document).on('click', '.action-btn:nth-child(2)', function() {
+            // Store reference to the row being edited
+            currentEditingRow = $(this).closest('tr');
+            // This is the edit button (second action button)
+            const row = $(this).closest('tr');
+            const cells = row.find('td');
+
+            // Extract data from the row
+            const schoolNameFull = extractTextContent(cells.eq(0).html()); // e.g., "Greenwood High - Mumbai"
+            const classText = cells.eq(1).text().trim(); // e.g., "Grade 10 A"
+            const academicYear = cells.eq(2).text().trim(); // e.g., "2023-2024"
+            const coachName = cells.eq(3).find('span').text().trim(); // Extract coach name from Thinking Coach cell
+            const statusText = extractTextContent(cells.eq(5).html()); // e.g., "Active" or "Archived"
+
+            // Parse school name and city
+            const schoolParts = schoolNameFull.split(' - ');
+            const schoolName = schoolParts[0].trim();
+            const cityName = schoolParts.length > 1 ? schoolParts[1].trim() : '';
+
+            // Parse class text "Grade 10 A" -> grade="10", section="A"
+            const classParts = classText.split(' ');
+            const gradeNumber = classParts[1]; // "10"
+            const section = classParts[2]; // "A"
+
+            // Generate class name
+            const className = 'Std ' + gradeNumber + section;
+
+            // Populate drawer header
+            $('#editingClassName').text(className);
+
+            // Populate Class Details section
+            $('#editGrade').val(gradeNumber);
+            $('#editDivision').val(section);
+            $('#editClassName').val(className);
+
+            // Generate a class code (you can modify this logic as needed)
+            const yearStart = academicYear.split('-')[0];
+            const randomId = Math.floor(Math.random() * 900) + 100;
+            const classCode = `CLS-${yearStart}-${gradeNumber}${section}-${randomId.toString().padStart(3, '0')}`;
+            $('#editClassCode').val(classCode);
+
+            // Populate School & Academic Context section
+            // Map school name to dropdown value
+            let schoolValue = '';
+            if (schoolName.includes('Greenwood')) {
+                schoolValue = 'Greenwood High';
+            } else if (schoolName.includes('Xavier')) {
+                schoolValue = 'St. Xaviers';
+            } else if (schoolName.includes('Modern')) {
+                schoolValue = 'Modern Public';
+            }
+            $('#editSchool').val(schoolValue);
+
+            // Set city based on school or extracted city
+            if (cityName) {
+                $('#editCity').val(cityName + ', India');
+            } else if (schoolCityMap[schoolValue]) {
+                $('#editCity').val(schoolCityMap[schoolValue]);
+            }
+
+            // Set academic year
+            $('#editAcademicYear').val(academicYear);
+
+            // Populate Thinking Coach
+            $('#editCoach').val(coachName);
+
+            // Set a default session count (you can modify this logic)
+            const defaultSessions = 48;
+            $('#editSessions').val(defaultSessions);
+
+            // Set Class Status based on status text
+            if (statusText === 'Active') {
+                $('#editClassStatus').addClass('active');
+                $('#editStudentVisibility').addClass('active');
+                $('#editParentVisibility').removeClass('active'); // Default inactive
+            } else {
+                $('#editClassStatus').removeClass('active');
+                $('#editStudentVisibility').removeClass('active');
+                $('#editParentVisibility').removeClass('active');
+            }
+
+            // Open the drawer
+            openEditDrawer();
+        });
+
+        // Update Class button handler
+        $('#updateClassBtn').on('click', function() {
+            // Validate that we have a row to update
+            if (!currentEditingRow) {
+                alert('Error: No class selected for editing');
+                return;
+            }
+
+            // Collect form data
+            const updatedClass = {
+                grade: $('#editGrade').val(),
+                division: $('#editDivision').val(),
+                className: $('#editClassName').val(),
+                classCode: $('#editClassCode').val(),
+                school: $('#editSchool').val(),
+                city: $('#editCity').val(),
+                academicYear: $('#editAcademicYear').val(),
+                coach: $('#editCoach').val(),
+                sessions: $('#editSessions').val(),
+                classStatus: $('#editClassStatus').hasClass('active'),
+                studentVisibility: $('#editStudentVisibility').hasClass('active'),
+                parentVisibility: $('#editParentVisibility').hasClass('active')
+            };
+
+            console.log('Updated Class Data:', updatedClass);
+
+            // Update the table row with new data
+            const cells = currentEditingRow.find('td');
+
+            // Get school name from dropdown
+            const schoolText = $('#editSchool option:selected').text();
+            const cityText = $('#editCity').val().split(',')[0]; // Get city part (e.g., "Mumbai" from "Mumbai, India")
+            const fullSchoolName = schoolText + ' - ' + cityText;
+
+            // Update School Name (column 0)
+            cells.eq(0).html(`
+                <div class="school-name">
+                    <svg class="school-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                    ${fullSchoolName}
+                </div>
+            `);
+
+            // Update Class (column 1)
+            const gradeText = $('#editGrade option:selected').text().replace('Std ', '');
+            const classDisplay = 'Grade ' + gradeText + ' ' + updatedClass.division;
+            cells.eq(1).text(classDisplay);
+
+            // Update Academic Year (column 2)
+            cells.eq(2).text(updatedClass.academicYear);
+
+            // Update Thinking Coach (column 3)
+            const coachText = $('#editCoach option:selected').text();
+            if (coachText && coachText !== 'Select Coach') {
+                // Keep existing avatar or use a default one
+                const existingAvatar = cells.eq(3).find('img').attr('src') || 'https://i.pravatar.cc/32?img=' + Math.floor(Math.random() * 70);
+                cells.eq(3).html(`
+                    <div class="teacher-cell">
+                        <img src="${existingAvatar}" class="teacher-avatar">
+                        <span>${coachText}</span>
+                    </div>
+                `);
+            }
+
+            // Students count (column 4) - keep existing value
+            // No need to update as it's not editable in the drawer
+
+            // Update Status (column 5)
+            const statusBadgeClass = updatedClass.classStatus ? 'status-active' : 'status-archived';
+            const statusText = updatedClass.classStatus ? 'Active' : 'Archived';
+            cells.eq(5).html(`<span class="status-badge ${statusBadgeClass}">${statusText}</span>`);
+
+            // Actions column (column 6) - keep existing buttons
+            // No need to update
+
+            // Update the data-school attribute for filtering
+            currentEditingRow.attr('data-school', fullSchoolName);
+
+            // Show success message
+            alert('Class updated successfully!');
+
+            // Close drawer
+            closeEditDrawer();
+
+            // Redraw the table to apply any filters/sorting
+            const table = $('#classTable').DataTable();
+            table.draw(false); // false = stay on current page
         });
     </script>
 </body>
