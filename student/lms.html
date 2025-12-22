@@ -8,7 +8,9 @@
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+        rel="stylesheet" />
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -99,10 +101,12 @@
         .stat-card {
             background: white;
             border-radius: 1rem;
-            padding: 1.5rem;
+            padding: 1rem 1rem 0rem 1rem;
+            /* padding-bottom: 0rem; */
             border: 1px solid var(--border-color);
             display: flex;
-            align-items: center;
+            flex-direction: row;
+            align-items: flex-start;
             gap: 1rem;
             transition: all 0.3s ease;
         }
@@ -122,10 +126,30 @@
             font-size: 1.5rem;
         }
 
-        .stat-icon.purple { background: rgba(139, 92, 246, 0.1); color: var(--primary); }
-        .stat-icon.green { background: rgba(16, 185, 129, 0.1); color: #10b981; }
-        .stat-icon.blue { background: rgba(59, 130, 246, 0.1); color: #3b82f6; }
-        .stat-icon.amber { background: rgba(245, 158, 11, 0.1); color: #f59e0b; }
+        .stat-icon.purple {
+            background: rgba(139, 92, 246, 0.1);
+            color: var(--primary);
+        }
+
+        .stat-icon.green {
+            background: rgba(16, 185, 129, 0.1);
+            color: #10b981;
+        }
+
+        .stat-icon.blue {
+            background: rgba(59, 130, 246, 0.1);
+            color: #3b82f6;
+        }
+
+        .stat-icon.amber {
+            background: rgba(245, 158, 11, 0.1);
+            color: #f59e0b;
+        }
+
+        .stat-card .stat-icon span.material-symbols-outlined {
+            font-size: 32px !important;
+        }
+
 
         .stat-label {
             font-size: 0.875rem;
@@ -134,7 +158,7 @@
         }
 
         .stat-value {
-            font-size: 1.75rem;
+            font-size: 1.25rem;
             font-weight: 700;
             color: var(--text-main);
         }
@@ -346,7 +370,7 @@
             content: '';
             position: absolute;
             inset: 0;
-            background: linear-gradient(to top, rgba(0,0,0,0.6), transparent);
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
         }
 
         .lesson-badge {
@@ -367,10 +391,21 @@
             color: white;
         }
 
-        .status-badge.in-progress { background: #f59e0b; }
-        .status-badge.not-started { background: #6b7280; }
-        .status-badge.quiz-pending { background: #f59e0b; }
-        .status-badge.completed { background: #10b981; }
+        .status-badge.in-progress {
+            background: #f59e0b;
+        }
+
+        .status-badge.not-started {
+            background: #6b7280;
+        }
+
+        .status-badge.quiz-pending {
+            background: #f59e0b;
+        }
+
+        .status-badge.completed {
+            background: #10b981;
+        }
 
         .lesson-title-overlay {
             font-size: 1.125rem;
@@ -682,19 +717,25 @@
                     <!-- Left Column: Lessons -->
                     <div>
                         <!-- Recommended Section -->
-                        <a href="video-lesson.html" class="recommended-card" style="text-decoration: none; color: inherit; cursor: pointer;">
+                        <a href="video-lesson.html" class="recommended-card"
+                            style="text-decoration: none; color: inherit; cursor: pointer;">
                             <div class="recommended-badge">Low Competency Focus</div>
-                            <div class="recommended-image" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBKig0dWmPc6SsHb0bdnJ7ol1nFCZbhm8ikeazziiTmoPARYal-KaHtX8v7wXJcORTmjd3ypa6J-JZOYA8XHj7QtQ8qJZ5KRr9iNUjZlOY8_1Mfzn-MOzjyVNCtLE-5nn6eKEvK2LRZmj1g30Le5fb_SBYWKuIDoVeZQvUQBHnrt1r0kAuzlRofOejExWdi4CLk3ZBsYAlAGP3out2_dzlYkWpRHv3ky3jSYtPG5ih9SQdpE86UtFmZ7ykaJ3T6Jhh-wj6COPSvpe5A');"></div>
+                            <div class="recommended-image"
+                                style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBKig0dWmPc6SsHb0bdnJ7ol1nFCZbhm8ikeazziiTmoPARYal-KaHtX8v7wXJcORTmjd3ypa6J-JZOYA8XHj7QtQ8qJZ5KRr9iNUjZlOY8_1Mfzn-MOzjyVNCtLE-5nn6eKEvK2LRZmj1g30Le5fb_SBYWKuIDoVeZQvUQBHnrt1r0kAuzlRofOejExWdi4CLk3ZBsYAlAGP3out2_dzlYkWpRHv3ky3jSYtPG5ih9SQdpE86UtFmZ7ykaJ3T6Jhh-wj6COPSvpe5A');">
+                            </div>
                             <div class="recommended-content">
                                 <div>
                                     <span class="recommended-tag">Financial Literacy</span>
                                     <span class="recommended-type">
-                                        <span class="material-symbols-outlined" style="font-size: 0.875rem; vertical-align: middle;">play_circle</span>
+                                        <span class="material-symbols-outlined"
+                                            style="font-size: 0.875rem; vertical-align: middle;">play_circle</span>
                                         Video Lesson
                                     </span>
                                 </div>
                                 <h4 class="recommended-title">Understanding Compound Interest</h4>
-                                <p class="recommended-description">Master the power of compound interest and how it affects your savings over time. Recommended to help you improve in Financial Literacy.</p>
+                                <p class="recommended-description">Master the power of compound interest and how it
+                                    affects your savings over time. Recommended to help you improve in Financial
+                                    Literacy.</p>
                                 <div class="progress-bar-container">
                                     <div class="progress-bar">
                                         <div class="progress-fill" style="width: 15%;"></div>
@@ -728,32 +769,42 @@
                                     <option value="quiz-pending">Quiz Pending</option>
                                     <option value="completed">Completed</option>
                                 </select>
-                                <input type="text" class="search-input" id="lessonSearch" placeholder="Search lessons...">
+                                <input type="text" class="search-input" id="lessonSearch"
+                                    placeholder="Search lessons...">
                             </div>
                             <button class="reset-btn" id="resetFilters">Reset Filters</button>
                         </div>
 
                         <!-- Lesson List Grid -->
                         <div>
-                            <h3 style="font-size: 1.125rem; font-weight: 700; margin-bottom: 1.5rem;">Your Learning Path</h3>
+                            <h3 style="font-size: 1.125rem; font-weight: 700; margin-bottom: 1.5rem;">Your Learning Path
+                            </h3>
                             <div class="lessons-grid" id="lessonsContainer">
                                 <!-- Lesson Card: In Progress -->
-                                <a href="article-lesson.html" class="lesson-card" data-competency="career-prep" data-module="module-2" data-status="in-progress" data-title="The Basics of Photosynthesis" style="text-decoration: none; color: inherit; cursor: pointer;">
-                                    <div class="lesson-image" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDXCJLknkszU7zETv-fv_TpFBRPociuoTZziJtzAh_v6h3HqAS7dF5FhrWwpV_R2-qlKn9uLT8zX74nNH4w0hNb9pFQAC59Wthje20fa5Z3numBqqciji3kdXXtGwcPlwCZ9BXgq9ap2N-qAW_4Bi4SZVNentigQK5ONUUbTsZNnpHxdoamuAEMxePTyOF3xwF6-QqGFpTH5UzZfLpoAvHtjsnc8J-whFtEmnSbJr9_outqNIwYJmOj_jtsgNE2cH9fZ4r4nZIZTKEX');">
+                                <a href="article-lesson.html" class="lesson-card" data-competency="career-prep"
+                                    data-module="module-2" data-status="in-progress"
+                                    data-title="The Basics of Photosynthesis"
+                                    style="text-decoration: none; color: inherit; cursor: pointer;">
+                                    <div class="lesson-image"
+                                        style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDXCJLknkszU7zETv-fv_TpFBRPociuoTZziJtzAh_v6h3HqAS7dF5FhrWwpV_R2-qlKn9uLT8zX74nNH4w0hNb9pFQAC59Wthje20fa5Z3numBqqciji3kdXXtGwcPlwCZ9BXgq9ap2N-qAW_4Bi4SZVNentigQK5ONUUbTsZNnpHxdoamuAEMxePTyOF3xwF6-QqGFpTH5UzZfLpoAvHtjsnc8J-whFtEmnSbJr9_outqNIwYJmOj_jtsgNE2cH9fZ4r4nZIZTKEX');">
                                         <div class="lesson-badge">
                                             <span class="status-badge in-progress">In Progress</span>
                                         </div>
                                         <h4 class="lesson-title-overlay">The Basics of Photosynthesis</h4>
                                         <div class="lesson-icon">
-                                            <span class="material-symbols-outlined" style="font-size: 1.125rem;">article</span>
+                                            <span class="material-symbols-outlined"
+                                                style="font-size: 1.125rem;">article</span>
                                         </div>
                                     </div>
                                     <div class="lesson-content">
                                         <div class="lesson-meta">Career Prep • Module 2</div>
                                         <div class="lesson-progress">
-                                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
-                                                <span style="font-size: 0.75rem; font-weight: 600; color: var(--text-secondary);">Progress</span>
-                                                <span style="font-size: 0.75rem; font-weight: 700; color: var(--primary);">60%</span>
+                                            <div
+                                                style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                                <span
+                                                    style="font-size: 0.75rem; font-weight: 600; color: var(--text-secondary);">Progress</span>
+                                                <span
+                                                    style="font-size: 0.75rem; font-weight: 700; color: var(--primary);">60%</span>
                                             </div>
                                             <div class="progress-bar">
                                                 <div class="progress-fill" style="width: 60%;"></div>
@@ -764,22 +815,28 @@
                                 </a>
 
                                 <!-- Lesson Card: Not Started -->
-                                <div class="lesson-card" data-competency="communication" data-module="module-3" data-status="not-started" data-title="Public Speaking 101">
-                                    <div class="lesson-image" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAWi9LCNj-bo-nbkHM7ojDoXP8qxuWsCG-BZDS3v1po_JZJBrz9xkoe80SnDcU3MnW83Svi2_la66ms2cSaaFBFOVNpZenriLwFGhld0uPeIxJUW_x5e9IDkvxtVym_R0RO_cV5dlMSDlR8blw-CoeGlYdjNpLrusejaIZN1S3xUC8UCslbJByJHiHHsm3hQ8c18wN-fpvGvGWEDRoLu5UTnP4JOA_Lekx1m4BxyHaVg6zTPQEHLY2qpkfksaL3U2mFLNZ9189HtMYG');">
+                                <div class="lesson-card" data-competency="communication" data-module="module-3"
+                                    data-status="not-started" data-title="Public Speaking 101">
+                                    <div class="lesson-image"
+                                        style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAWi9LCNj-bo-nbkHM7ojDoXP8qxuWsCG-BZDS3v1po_JZJBrz9xkoe80SnDcU3MnW83Svi2_la66ms2cSaaFBFOVNpZenriLwFGhld0uPeIxJUW_x5e9IDkvxtVym_R0RO_cV5dlMSDlR8blw-CoeGlYdjNpLrusejaIZN1S3xUC8UCslbJByJHiHHsm3hQ8c18wN-fpvGvGWEDRoLu5UTnP4JOA_Lekx1m4BxyHaVg6zTPQEHLY2qpkfksaL3U2mFLNZ9189HtMYG');">
                                         <div class="lesson-badge">
                                             <span class="status-badge not-started">Not Started</span>
                                         </div>
                                         <h4 class="lesson-title-overlay">Public Speaking 101</h4>
                                         <div class="lesson-icon">
-                                            <span class="material-symbols-outlined" style="font-size: 1.125rem;">play_circle</span>
+                                            <span class="material-symbols-outlined"
+                                                style="font-size: 1.125rem;">play_circle</span>
                                         </div>
                                     </div>
                                     <div class="lesson-content">
                                         <div class="lesson-meta">Communication • Module 3</div>
                                         <div class="lesson-progress">
-                                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
-                                                <span style="font-size: 0.75rem; font-weight: 600; color: var(--text-secondary);">Progress</span>
-                                                <span style="font-size: 0.75rem; font-weight: 700; color: var(--text-secondary);">0%</span>
+                                            <div
+                                                style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                                <span
+                                                    style="font-size: 0.75rem; font-weight: 600; color: var(--text-secondary);">Progress</span>
+                                                <span
+                                                    style="font-size: 0.75rem; font-weight: 700; color: var(--text-secondary);">0%</span>
                                             </div>
                                             <div class="progress-bar">
                                                 <div class="progress-fill" style="width: 0%;"></div>
@@ -790,28 +847,40 @@
                                 </div>
 
                                 <!-- Lesson Card: Quiz Pending -->
-                                <a href="quiz-lesson.html" class="lesson-card" data-competency="critical-thinking" data-module="module-1" data-status="quiz-pending" data-title="Logical Fallacies Quiz" style="text-decoration: none; color: inherit; cursor: pointer;">
-                                    <div class="lesson-image" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCGGTYZNhUlLO0-b9LBPeWfMZJNXzM1yW1YtVMk0R1wznYdaTGKyxA-mdypwx5XiFkRJbeyYnhPR51a_OxPc01_viJoJWUE2j2gacq2CeOFvJSmy4ZxAhtiUcExzzFNtfFbIa-FWU-zXF3S-ZpxrlthIrUOxGydsNf5LgD-V1H6h0tTYLhUIALRRQ4fcunUWs7u0MkJTyfUU8MpHI97KA1EV2f1tad5idhYyjWmjKV2bLTyTZ7Jo4QcTBUDwkU_PB05Kjn2c62VpNfR');">
+                                <a href="quiz-lesson.html" class="lesson-card" data-competency="critical-thinking"
+                                    data-module="module-1" data-status="quiz-pending"
+                                    data-title="Logical Fallacies Quiz"
+                                    style="text-decoration: none; color: inherit; cursor: pointer;">
+                                    <div class="lesson-image"
+                                        style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCGGTYZNhUlLO0-b9LBPeWfMZJNXzM1yW1YtVMk0R1wznYdaTGKyxA-mdypwx5XiFkRJbeyYnhPR51a_OxPc01_viJoJWUE2j2gacq2CeOFvJSmy4ZxAhtiUcExzzFNtfFbIa-FWU-zXF3S-ZpxrlthIrUOxGydsNf5LgD-V1H6h0tTYLhUIALRRQ4fcunUWs7u0MkJTyfUU8MpHI97KA1EV2f1tad5idhYyjWmjKV2bLTyTZ7Jo4QcTBUDwkU_PB05Kjn2c62VpNfR');">
                                         <div class="lesson-badge">
                                             <span class="status-badge quiz-pending">Quiz Pending</span>
                                         </div>
                                         <h4 class="lesson-title-overlay">Logical Fallacies Quiz</h4>
                                         <div class="lesson-icon">
-                                            <span class="material-symbols-outlined" style="font-size: 1.125rem;">quiz</span>
+                                            <span class="material-symbols-outlined"
+                                                style="font-size: 1.125rem;">quiz</span>
                                         </div>
                                     </div>
                                     <div class="lesson-content">
                                         <div class="lesson-meta">Critical Thinking • Module 1</div>
                                         <div class="lesson-progress">
-                                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
-                                                <span style="font-size: 0.75rem; font-weight: 600; color: var(--text-secondary);">Review Content</span>
-                                                <span style="font-size: 0.75rem; font-weight: 700; color: var(--primary);">100% Read</span>
+                                            <div
+                                                style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                                <span
+                                                    style="font-size: 0.75rem; font-weight: 600; color: var(--text-secondary);">Review
+                                                    Content</span>
+                                                <span
+                                                    style="font-size: 0.75rem; font-weight: 700; color: var(--primary);">100%
+                                                    Read</span>
                                             </div>
                                             <div class="progress-bar">
-                                                <div class="progress-fill" style="width: 100%; background: #10b981;"></div>
+                                                <div class="progress-fill" style="width: 100%; background: #10b981;">
+                                                </div>
                                             </div>
                                             <button class="lesson-btn primary">
-                                                <span class="material-symbols-outlined" style="font-size: 0.875rem; vertical-align: middle;">edit_note</span>
+                                                <span class="material-symbols-outlined"
+                                                    style="font-size: 0.875rem; vertical-align: middle;">edit_note</span>
                                                 Take Quiz
                                             </button>
                                         </div>
@@ -819,27 +888,37 @@
                                 </a>
 
                                 <!-- Lesson Card: Completed -->
-                                <div class="lesson-card" data-competency="ethics" data-module="module-1" data-status="completed" data-title="Introduction to Ethics" style="opacity: 0.75;">
-                                    <div class="lesson-image" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBu8rYqAfy4UbsDDi24TYNCJrA9esbQOC0zWD_EPlci9cE8kS8m7X7sjKetzjP5xIfpxglGykWBnWfn5djreBmuQTVvwCwUSOdm6_tA4kEvYswygSfbSUGS-c6MC1HuCmhGlaWSbCXOkVqI4uI5IYUDmVfZweJ9Z57tP8Wj4HZhGubftgnII9oeG-c4WbyEp453f_epSXulCmHlSjfMUK_VoWDbo8CMi2nC2Dp2kjSqGR2fyQHQr1b3S5mF8qTvxo8G4DFBNcr3v-C8');">
+                                <div class="lesson-card" data-competency="ethics" data-module="module-1"
+                                    data-status="completed" data-title="Introduction to Ethics" style="opacity: 0.75;">
+                                    <div class="lesson-image"
+                                        style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBu8rYqAfy4UbsDDi24TYNCJrA9esbQOC0zWD_EPlci9cE8kS8m7X7sjKetzjP5xIfpxglGykWBnWfn5djreBmuQTVvwCwUSOdm6_tA4kEvYswygSfbSUGS-c6MC1HuCmhGlaWSbCXOkVqI4uI5IYUDmVfZweJ9Z57tP8Wj4HZhGubftgnII9oeG-c4WbyEp453f_epSXulCmHlSjfMUK_VoWDbo8CMi2nC2Dp2kjSqGR2fyQHQr1b3S5mF8qTvxo8G4DFBNcr3v-C8');">
                                         <div class="lesson-badge">
                                             <span class="status-badge completed">Completed</span>
                                         </div>
                                         <h4 class="lesson-title-overlay">Introduction to Ethics</h4>
-                                        <div class="lesson-icon" style="background: rgba(16, 185, 129, 0.1); color: #10b981;">
-                                            <span class="material-symbols-outlined" style="font-size: 1.125rem;">check</span>
+                                        <div class="lesson-icon"
+                                            style="background: rgba(16, 185, 129, 0.1); color: #10b981;">
+                                            <span class="material-symbols-outlined"
+                                                style="font-size: 1.125rem;">check</span>
                                         </div>
                                     </div>
                                     <div class="lesson-content">
                                         <div class="lesson-meta">Ethics • Module 1</div>
                                         <div class="lesson-progress">
-                                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
-                                                <span style="font-size: 0.75rem; font-weight: 600; color: var(--text-secondary);">Score</span>
-                                                <span style="font-size: 0.75rem; font-weight: 700; color: #10b981;">95/100</span>
+                                            <div
+                                                style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                                <span
+                                                    style="font-size: 0.75rem; font-weight: 600; color: var(--text-secondary);">Score</span>
+                                                <span
+                                                    style="font-size: 0.75rem; font-weight: 700; color: #10b981;">95/100</span>
                                             </div>
                                             <div class="progress-bar">
-                                                <div class="progress-fill" style="width: 100%; background: #10b981;"></div>
+                                                <div class="progress-fill" style="width: 100%; background: #10b981;">
+                                                </div>
                                             </div>
-                                            <button class="lesson-btn" style="background: var(--background-light); color: var(--text-secondary); border: 1px solid var(--border-color);">Review Lesson</button>
+                                            <button class="lesson-btn"
+                                                style="background: var(--background-light); color: var(--text-secondary); border: 1px solid var(--border-color);">Review
+                                                Lesson</button>
                                         </div>
                                     </div>
                                 </div>
@@ -890,7 +969,8 @@
                             <div class="competency-item">
                                 <div class="competency-header">
                                     <span class="competency-name">Digital Citizenship</span>
-                                    <span class="competency-level" style="background: rgba(107, 114, 128, 0.1); color: #6b7280;">Level 1</span>
+                                    <span class="competency-level"
+                                        style="background: rgba(107, 114, 128, 0.1); color: #6b7280;">Level 1</span>
                                 </div>
                                 <div class="competency-bar">
                                     <div class="progress-fill" style="width: 20%;"></div>
@@ -901,10 +981,12 @@
                                 <h4 class="achievements-title">Recent Achievements</h4>
                                 <div class="achievement-badges">
                                     <div class="achievement-badge gold" title="Math Whiz">
-                                        <span class="material-symbols-outlined" style="font-size: 1.25rem;">emoji_events</span>
+                                        <span class="material-symbols-outlined"
+                                            style="font-size: 1.25rem;">emoji_events</span>
                                     </div>
                                     <div class="achievement-badge purple" title="Bookworm">
-                                        <span class="material-symbols-outlined" style="font-size: 1.25rem;">auto_stories</span>
+                                        <span class="material-symbols-outlined"
+                                            style="font-size: 1.25rem;">auto_stories</span>
                                     </div>
                                     <div class="achievement-badge locked" title="Next Badge: Consistency">
                                         <span class="material-symbols-outlined" style="font-size: 1.25rem;">lock</span>
@@ -917,7 +999,8 @@
                         <div class="tip-card">
                             <span class="material-symbols-outlined tip-icon">lightbulb</span>
                             <h4 class="tip-title">Daily Learning Tip</h4>
-                            <p class="tip-text">Consistently spending 15 minutes a day is better than cramming for 2 hours once a week.</p>
+                            <p class="tip-text">Consistently spending 15 minutes a day is better than cramming for 2
+                                hours once a week.</p>
                         </div>
                     </div>
                 </div>

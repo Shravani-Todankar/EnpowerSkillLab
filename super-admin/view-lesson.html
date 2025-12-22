@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Lesson - Enpower Skill Lab</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;900&display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet">
+
+    <!-- Sidebar JS -->
+    <script src="sidebar.js"></script>
+    <!-- Header JS -->
+    <script src="header.js"></script>
+
+    <style>
+        /* Prevent FOUC - hide containers until loaded */
+        #sidebar-container:empty,
+        #header-container:empty {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        #sidebar-container.loaded,
+        #header-container.loaded {
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.2s ease-in;
+        }
+
+        :root {
+            --primary: #5b1f6f;
+            --bg-light: #f7f6f8;
+            --surface: #ffffff;
+            --text-main: #171019;
+            --text-secondary: #80588d;
+            --border-color: #dfd3e4;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-main);
+        }
+
+        .dashboard-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        .content-wrapper {
+            flex: 1;
+            padding: 0px 15px 0px 15px;
+        }
+
+        .page-header {
+            margin-bottom: 2rem;
+        }
+
+        .page-title {
+            font-weight: 700;
+            font-size: 30px;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-box {
+            background: var(--surface);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-box h5 {
+            font-size: 1.125rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--text-main);
+        }
+
+        .detail-row {
+            display: flex;
+            padding: 0.875rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .detail-row:last-child {
+            border-bottom: none;
+        }
+
+        .detail-label {
+            font-weight: 600;
+            color: var(--text-secondary);
+            min-width: 180px;
+            font-size: 0.875rem;
+        }
+
+        .detail-value {
+            color: var(--text-main);
+            font-size: 0.875rem;
+            flex: 1;
+        }
+
+        .badge-level {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.25rem 0.75rem;
+            border-radius: 0.375rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .badge-level-low {
+            background-color: #d1fae5;
+            color: #065f46;
+            border: 1px solid #a7f3d0;
+        }
+
+        .badge-level-medium {
+            background-color: #fef3c7;
+            color: #92400e;
+            border: 1px solid #fde68a;
+        }
+
+        .badge-level-high {
+            background-color: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #fecaca;
+        }
+
+        .badge-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .status-dot {
+            width: 0.5rem;
+            height: 0.5rem;
+            border-radius: 50%;
+        }
+
+        .badge-status-published {
+            background-color: #d1fae5;
+            color: #047857;
+            border: 1px solid #a7f3d0;
+        }
+
+        .badge-status-published .status-dot {
+            background-color: #10b981;
+        }
+
+        .badge-status-draft {
+            background-color: #f3f4f6;
+            color: #4b5563;
+            border: 1px solid #e5e7eb;
+        }
+
+        .badge-status-draft .status-dot {
+            background-color: #9ca3af;
+        }
+
+        .badge-status-archived {
+            background-color: #fff7ed;
+            color: #c2410c;
+            border: 1px solid #fed7aa;
+        }
+
+        .badge-status-archived .status-dot {
+            background-color: #f97316;
+        }
+
+        .btn-primary-custom {
+            background-color: var(--primary);
+            border: none;
+            color: white;
+            font-weight: 700;
+            padding: 0.625rem 1.5rem;
+            border-radius: 10px;
+            transition: background-color 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary-custom:hover {
+            background-color: #4a195b;
+            color: white;
+        }
+
+        .btn-outline-primary-custom {
+            background-color: white;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            font-weight: 600;
+            padding: 0.625rem 1.5rem;
+            border-radius: 10px;
+            transition: all 0.2s ease;
+        }
+
+        .btn-outline-primary-custom:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .content-type-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background-color: rgba(91, 31, 111, 0.1);
+            border: 1px solid rgba(91, 31, 111, 0.2);
+            border-radius: 0.5rem;
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+
+        .thumbnail-preview {
+            width: 100%;
+            max-width: 500px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar Container -->
+        <div id="sidebar-container"></div>
+
+        <!-- Main Content Area -->
+        <div class="main-content">
+            <!-- Header Container -->
+            <div id="header-container"></div>
+
+            <!-- Content Wrapper -->
+            <div class="content-wrapper">
+                <main class="container-xl py-4 px-4">
+                    <!-- Page Header -->
+                    <div class="page-header d-flex justify-content-between align-items-start">
+                        <div>
+                            <h1 class="page-title" id="lessonTitle">Loading...</h1>
+                            <p class="text-muted mb-0" id="lessonId">ID: Loading...</p>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <button class="btn-outline-primary-custom" onclick="editLesson()">
+                                <span class="material-symbols-outlined" style="font-size: 18px;">edit</span>
+                                Edit Lesson
+                            </button>
+                            <button class="btn-primary-custom" onclick="goBack()">
+                                <span class="material-symbols-outlined" style="font-size: 18px;">arrow_back</span>
+                                Back to Library
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Main Content Grid -->
+                    <div class="row g-4">
+                        <!-- Left Column -->
+                        <div class="col-lg-8">
+                            <!-- Basic Details Card -->
+                            <div class="card-box">
+                                <h5>Lesson Details</h5>
+                                <div class="detail-row">
+                                    <div class="detail-label">Lesson Title:</div>
+                                    <div class="detail-value" id="detailTitle">-</div>
+                                </div>
+                                <div class="detail-row">
+                                    <div class="detail-label">Lesson ID:</div>
+                                    <div class="detail-value" id="detailId">-</div>
+                                </div>
+                                <div class="detail-row">
+                                    <div class="detail-label">Content Type:</div>
+                                    <div class="detail-value" id="detailType">-</div>
+                                </div>
+                                <div class="detail-row">
+                                    <div class="detail-label">Competency:</div>
+                                    <div class="detail-value" id="detailCompetency">-</div>
+                                </div>
+                                <div class="detail-row">
+                                    <div class="detail-label">Difficulty Level:</div>
+                                    <div class="detail-value" id="detailLevel">-</div>
+                                </div>
+                                <div class="detail-row">
+                                    <div class="detail-label">Status:</div>
+                                    <div class="detail-value" id="detailStatus">-</div>
+                                </div>
+                                <div class="detail-row">
+                                    <div class="detail-label">Created On:</div>
+                                    <div class="detail-value" id="detailCreated">-</div>
+                                </div>
+                                <div class="detail-row">
+                                    <div class="detail-label">Last Updated:</div>
+                                    <div class="detail-value" id="detailUpdated">-</div>
+                                </div>
+                            </div>
+
+                            <!-- Short Description Card -->
+                            <div class="card-box">
+                                <h5>Short Description</h5>
+                                <p class="mb-0" id="detailDescription">No description available.</p>
+                            </div>
+                        </div>
+
+                        <!-- Right Column -->
+                        <div class="col-lg-4">
+                            <!-- Thumbnail Card -->
+                            <div class="card-box">
+                                <h5>Thumbnail</h5>
+                                <img src="https://via.placeholder.com/500x250/5b1f6f/ffffff?text=No+Thumbnail"
+                                     alt="Lesson Thumbnail"
+                                     class="thumbnail-preview"
+                                     id="thumbnailImage">
+                            </div>
+
+                            <!-- Quick Actions Card -->
+                            <div class="card-box">
+                                <h5>Quick Actions</h5>
+                                <button class="btn-primary-custom w-100 mb-2" onclick="editLesson()">
+                                    <span class="material-symbols-outlined" style="font-size: 18px;">edit</span>
+                                    Edit Lesson
+                                </button>
+                                <button class="btn-outline-primary-custom w-100" onclick="duplicateLesson()">
+                                    <span class="material-symbols-outlined" style="font-size: 18px;">content_copy</span>
+                                    Duplicate Lesson
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Load sidebar and header
+        Promise.all([
+            fetch('sidebar.html').then(response => response.text()),
+            fetch('header.html').then(response => response.text())
+        ]).then(([sidebarHTML, headerHTML]) => {
+            document.getElementById('sidebar-container').innerHTML = sidebarHTML;
+            document.getElementById('header-container').innerHTML = headerHTML;
+
+            setTimeout(() => {
+                if (typeof initializeHeader === 'function') {
+                    initializeHeader();
+                }
+                document.getElementById('sidebar-container').classList.add('loaded');
+                document.getElementById('header-container').classList.add('loaded');
+                setActiveMenuItem();
+            }, 200);
+        });
+
+        function setActiveMenuItem() {
+            const navLessonsLibrary = document.getElementById('nav-lessons-library');
+            if (navLessonsLibrary) {
+                navLessonsLibrary.classList.add('active');
+            }
+        }
+
+        // Get lesson data from URL parameters
+        function getLessonDataFromURL() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return {
+                id: urlParams.get('id') || 'LES-00124',
+                title: urlParams.get('title') || 'Intro to Public Speaking',
+                type: urlParams.get('type') || 'Video',
+                competency: urlParams.get('competency') || 'Communication',
+                level: urlParams.get('level') || 'Low',
+                status: urlParams.get('status') || 'Published',
+                created: urlParams.get('created') || 'Oct 12, 2023',
+                updated: urlParams.get('updated') || '2 hours ago'
+            };
+        }
+
+        // Populate lesson details
+        function populateLessonDetails() {
+            const lessonData = getLessonDataFromURL();
+
+            // Update page header
+            document.getElementById('lessonTitle').textContent = lessonData.title;
+            document.getElementById('lessonId').textContent = 'ID: ' + lessonData.id;
+
+            // Update detail rows
+            document.getElementById('detailTitle').textContent = lessonData.title;
+            document.getElementById('detailId').textContent = lessonData.id;
+
+            // Content type with icon
+            let typeIcon = 'article';
+            if (lessonData.type === 'Video') typeIcon = 'play_circle';
+            else if (lessonData.type === 'Quiz') typeIcon = 'quiz';
+            else if (lessonData.type === 'SCORM') typeIcon = 'extension';
+
+            document.getElementById('detailType').innerHTML = `
+                <span class="content-type-badge">
+                    <span class="material-symbols-outlined" style="font-size: 18px;">${typeIcon}</span>
+                    ${lessonData.type}
+                </span>
+            `;
+
+            document.getElementById('detailCompetency').textContent = lessonData.competency;
+
+            // Level badge
+            let levelClass = 'badge-level-low';
+            if (lessonData.level === 'Medium') levelClass = 'badge-level-medium';
+            else if (lessonData.level === 'High') levelClass = 'badge-level-high';
+
+            document.getElementById('detailLevel').innerHTML = `
+                <span class="badge-level ${levelClass}">${lessonData.level}</span>
+            `;
+
+            // Status badge
+            let statusClass = 'badge-status-draft';
+            if (lessonData.status === 'Published') statusClass = 'badge-status-published';
+            else if (lessonData.status === 'Archived') statusClass = 'badge-status-archived';
+
+            document.getElementById('detailStatus').innerHTML = `
+                <span class="badge-status ${statusClass}">
+                    <span class="status-dot"></span>
+                    ${lessonData.status}
+                </span>
+            `;
+
+            document.getElementById('detailCreated').textContent = lessonData.created;
+            document.getElementById('detailUpdated').textContent = lessonData.updated;
+
+            // Description (sample text)
+            document.getElementById('detailDescription').textContent =
+                `Learn the fundamentals of ${lessonData.title.toLowerCase()} through this comprehensive ${lessonData.type.toLowerCase()} lesson. This content is designed for ${lessonData.level.toLowerCase()} level learners and covers essential concepts in ${lessonData.competency}.`;
+
+            // Update thumbnail based on content type
+            updateThumbnail(lessonData.type);
+        }
+
+        function updateThumbnail(contentType) {
+            const thumbnailImage = document.getElementById('thumbnailImage');
+
+            if (contentType === 'Video') {
+                // For video lessons, show a video player preview
+                const videoSamples = [
+                    'https://www.w3schools.com/html/mov_bbb.mp4',
+                    'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+                    'https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4'
+                ];
+
+                // Create video element instead of image
+                const videoHTML = `
+                    <video class="thumbnail-preview" controls style="width: 100%; max-width: 500px; border-radius: 12px; border: 1px solid var(--border-color);">
+                        <source src="${videoSamples[0]}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                `;
+
+                thumbnailImage.parentElement.innerHTML = '<h5>Video Preview</h5>' + videoHTML;
+            } else if (contentType === 'Article') {
+                // Article thumbnail
+                thumbnailImage.src = 'https://via.placeholder.com/500x250/5b1f6f/ffffff?text=Article';
+            } else if (contentType === 'Quiz') {
+                // Quiz thumbnail
+                thumbnailImage.src = 'https://via.placeholder.com/500x250/5b1f6f/ffffff?text=Quiz';
+            } else if (contentType === 'SCORM') {
+                // SCORM thumbnail
+                thumbnailImage.src = 'https://via.placeholder.com/500x250/5b1f6f/ffffff?text=SCORM+Package';
+            } else {
+                // Default thumbnail
+                thumbnailImage.src = 'https://via.placeholder.com/500x250/5b1f6f/ffffff?text=No+Thumbnail';
+            }
+        }
+
+        // Edit lesson function
+        function editLesson() {
+            const lessonData = getLessonDataFromURL();
+            const params = new URLSearchParams(lessonData);
+            window.location.href = `edit-lesson.html?${params.toString()}`;
+        }
+
+        // Go back to library
+        function goBack() {
+            window.location.href = 'lessons-library.html';
+        }
+
+        // Duplicate lesson
+        function duplicateLesson() {
+            const lessonData = getLessonDataFromURL();
+            if (confirm(`Are you sure you want to duplicate "${lessonData.title}"?`)) {
+                alert(`Lesson "${lessonData.title}" has been duplicated successfully!`);
+            }
+        }
+
+        // Load lesson details on page load
+        window.addEventListener('DOMContentLoaded', populateLessonDetails);
+    </script>
+</body>
+
+</html>

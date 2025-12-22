@@ -1116,6 +1116,109 @@
                     alert(`Successfully deleted ${count} lesson${count > 1 ? 's' : ''}.`);
                 }
             });
+
+            // Helper function to extract lesson data from a table row
+            function getLessonDataFromRow(row) {
+                const $row = $(row);
+                const lessonTitle = $row.find('.lesson-title').text().trim();
+                const lessonId = $row.find('.lesson-id').text().replace('ID: ', '').trim();
+                const contentType = $row.find('.content-type-icon span:last-child').text().trim();
+                const competency = $row.find('td').eq(3).text().trim();
+                const levelBadge = $row.find('.badge-level').text().trim();
+                const statusBadge = $row.find('.badge-status').clone().children().remove().end().text().trim();
+                const createdDate = $row.find('td').eq(6).text().trim();
+                const updatedDate = $row.find('td').eq(7).text().trim();
+
+                return {
+                    id: lessonId,
+                    title: lessonTitle,
+                    type: contentType,
+                    competency: competency,
+                    level: levelBadge,
+                    status: statusBadge,
+                    created: createdDate,
+                    updated: updatedDate
+                };
+            }
+
+            // View button click handler (using event delegation)
+            $('#lessonsTable tbody').on('click', '.action-btn[title="View"]', function() {
+                const row = $(this).closest('tr');
+                const lessonData = getLessonDataFromRow(row);
+
+                // Build URL with parameters
+                const params = new URLSearchParams(lessonData);
+                window.location.href = `view-lesson.html?${params.toString()}`;
+            });
+
+            // Edit button click handler (using event delegation)
+            $('#lessonsTable tbody').on('click', '.action-btn[title="Edit"]', function() {
+                const row = $(this).closest('tr');
+                const lessonData = getLessonDataFromRow(row);
+
+                // Build URL with parameters
+                const params = new URLSearchParams(lessonData);
+                window.location.href = `edit-lesson.html?${params.toString()}`;
+            });
+
+            // Archive button click handler (using event delegation)
+            $('#lessonsTable tbody').on('click', '.action-btn[title="Archive"]', function() {
+                const row = $(this).closest('tr');
+                const lessonData = getLessonDataFromRow(row);
+
+                if (confirm(`Are you sure you want to archive "${lessonData.title}"?`)) {
+                    // Update status badge to Archived
+                    const statusCell = row.find('.badge-status');
+                    statusCell.removeClass('badge-status-published badge-status-draft')
+                              .addClass('badge-status-archived');
+                    statusCell.html('<span class="status-dot"></span>Archived');
+
+                    // Update action buttons - remove Edit and Archive, keep View and add Restore
+                    const actionButtons = row.find('.action-buttons');
+                    actionButtons.html(`
+                        <button class="action-btn" title="View">
+                            <span class="material-symbols-outlined">visibility</span>
+                        </button>
+                        <button class="action-btn" title="Restore">
+                            <span class="material-symbols-outlined">restore</span>
+                        </button>
+                    `);
+
+                    // Show success message
+                    alert(`"${lessonData.title}" has been archived successfully.`);
+                }
+            });
+
+            // Restore button click handler (using event delegation)
+            $('#lessonsTable tbody').on('click', '.action-btn[title="Restore"]', function() {
+                const row = $(this).closest('tr');
+                const lessonData = getLessonDataFromRow(row);
+
+                if (confirm(`Are you sure you want to restore "${lessonData.title}"?`)) {
+                    // Update status badge to Published
+                    const statusCell = row.find('.badge-status');
+                    statusCell.removeClass('badge-status-archived badge-status-draft')
+                              .addClass('badge-status-published');
+                    statusCell.html('<span class="status-dot"></span>Published');
+
+                    // Update action buttons - restore Edit and Archive buttons
+                    const actionButtons = row.find('.action-buttons');
+                    actionButtons.html(`
+                        <button class="action-btn" title="View">
+                            <span class="material-symbols-outlined">visibility</span>
+                        </button>
+                        <button class="action-btn" title="Edit">
+                            <span class="material-symbols-outlined">edit</span>
+                        </button>
+                        <button class="action-btn delete" title="Archive">
+                            <span class="material-symbols-outlined">archive</span>
+                        </button>
+                    `);
+
+                    // Show success message
+                    alert(`"${lessonData.title}" has been restored successfully.`);
+                }
+            });
         });
     </script>
 </body>
