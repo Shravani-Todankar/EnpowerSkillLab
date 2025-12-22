@@ -1,0 +1,1565 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Quiz Lesson - Enpower Skill Lab</title>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+        rel="stylesheet" />
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Header JS -->
+    <script src="header.js"></script>
+    <!-- Sidebar JS -->
+    <script src="sidebar.js"></script>
+
+    <style>
+        /* Prevent FOUC - hide containers until loaded */
+        #sidebar-container:empty,
+        #header-container:empty {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        #sidebar-container.loaded,
+        #header-container.loaded {
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.2s ease-in;
+            background: #fff;
+        }
+
+        :root {
+            --primary: #5b1f6f;
+            --primary-light: #7a2f91;
+            --primary-dark: #3d134b;
+            --background-light: #faf9fb;
+            --text-main: #171019;
+            --text-secondary: #80588d;
+            --border-color: #efe9f1;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --info: #3b82f6;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background-light);
+            color: var(--text-main);
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .dashboard-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        .content-wrapper {
+            padding: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        /* Top Navigation Bar */
+        nav.lesson-nav {
+            background: white;
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 1.5rem;
+            margin-bottom: 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .lesson-nav-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .back-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.875rem;
+            transition: color 0.2s;
+        }
+
+        .back-link:hover {
+            color: var(--primary);
+        }
+
+        .lesson-title-nav {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin: 0;
+        }
+
+        .nav-progress {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.75rem;
+        }
+
+        .progress-label {
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .course-progress-container {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+            min-width: 150px;
+        }
+
+        .course-progress-bar {
+            width: 100%;
+            height: 0.5rem;
+            background: #e5e7eb;
+            border-radius: 999px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .course-progress-fill {
+            height: 100%;
+            background: var(--primary);
+            border-radius: 999px;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .course-progress-text {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-align: right;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        /* Quiz Container */
+        .quiz-container {
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Quiz Header */
+        .quiz-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .quiz-icon-wrapper {
+            width: 4rem;
+            height: 4rem;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+        }
+
+        .quiz-icon-wrapper .material-symbols-outlined {
+            font-size: 2rem;
+        }
+
+        .quiz-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .quiz-subtitle {
+            font-size: 0.875rem;
+            opacity: 0.9;
+        }
+
+        /* Quiz Info Bar */
+        .quiz-info-bar {
+            display: flex;
+            justify-content: space-around;
+            padding: 1.5rem;
+            background: var(--background-light);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .quiz-info-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .quiz-info-label {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+        }
+
+        .quiz-info-value {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        /* Quiz Progress Bar */
+        .quiz-progress-container {
+            padding: 1rem 2rem;
+            background: white;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .quiz-progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .quiz-progress-label {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        .quiz-progress-count {
+            font-size: 0.875rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .quiz-progress-bar {
+            height: 0.5rem;
+            background: #e5e7eb;
+            border-radius: 999px;
+            overflow: hidden;
+        }
+
+        .quiz-progress-fill {
+            height: 100%;
+            background: var(--primary);
+            border-radius: 999px;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        /* Question Container */
+        .question-container {
+            padding: 2rem;
+            min-height: 400px;
+        }
+
+        .question-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .question-number {
+            width: 2.5rem;
+            height: 2.5rem;
+            background: rgba(139, 92, 246, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: var(--primary);
+            flex-shrink: 0;
+        }
+
+        .question-text {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        /* Answer Options */
+        .answer-options {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .answer-option {
+            position: relative;
+            background: var(--background-light);
+            border: 2px solid var(--border-color);
+            border-radius: 0.75rem;
+            padding: 1.25rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .answer-option:hover {
+            border-color: var(--primary);
+            background: rgba(139, 92, 246, 0.05);
+        }
+
+        .answer-option.selected {
+            border-color: var(--primary);
+            background: rgba(139, 92, 246, 0.1);
+        }
+
+        .answer-option.correct {
+            border-color: var(--success);
+            background: rgba(16, 185, 129, 0.1);
+        }
+
+        .answer-option.incorrect {
+            border-color: var(--danger);
+            background: rgba(239, 68, 68, 0.1);
+        }
+
+        .answer-option.disabled {
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        .answer-radio {
+            width: 1.5rem;
+            height: 1.5rem;
+            border: 2px solid var(--border-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: all 0.2s;
+        }
+
+        .answer-option:hover .answer-radio {
+            border-color: var(--primary);
+        }
+
+        .answer-option.selected .answer-radio {
+            border-color: var(--primary);
+            background: var(--primary);
+        }
+
+        .answer-option.correct .answer-radio {
+            border-color: var(--success);
+            background: var(--success);
+        }
+
+        .answer-option.incorrect .answer-radio {
+            border-color: var(--danger);
+            background: var(--danger);
+        }
+
+        .answer-radio-dot {
+            width: 0.5rem;
+            height: 0.5rem;
+            background: white;
+            border-radius: 50%;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .answer-option.selected .answer-radio-dot,
+        .answer-option.correct .answer-radio-dot,
+        .answer-option.incorrect .answer-radio-dot {
+            opacity: 1;
+        }
+
+        .answer-icon {
+            display: none;
+            margin-left: auto;
+        }
+
+        .answer-option.correct .answer-icon.correct-icon,
+        .answer-option.incorrect .answer-icon.incorrect-icon {
+            display: block;
+        }
+
+        .answer-text {
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--text-main);
+            flex: 1;
+        }
+
+        /* Feedback Message */
+        .feedback-message {
+            margin-top: 1.5rem;
+            padding: 1rem 1.25rem;
+            border-radius: 0.75rem;
+            display: none;
+            align-items: flex-start;
+            gap: 0.75rem;
+        }
+
+        .feedback-message.show {
+            display: flex;
+        }
+
+        .feedback-message.correct {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .feedback-message.incorrect {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+
+        .feedback-icon {
+            flex-shrink: 0;
+        }
+
+        .feedback-message.correct .feedback-icon {
+            color: var(--success);
+        }
+
+        .feedback-message.incorrect .feedback-icon {
+            color: var(--danger);
+        }
+
+        .feedback-content {
+            flex: 1;
+        }
+
+        .feedback-title {
+            font-weight: 700;
+            font-size: 0.875rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .feedback-message.correct .feedback-title {
+            color: var(--success);
+        }
+
+        .feedback-message.incorrect .feedback-title {
+            color: var(--danger);
+        }
+
+        .feedback-text {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* Quiz Actions */
+        .quiz-actions {
+            padding: 1.5rem 2rem;
+            background: var(--background-light);
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .btn-quiz {
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            font-size: 0.875rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-quiz.primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-quiz.primary:hover:not(:disabled) {
+            background: var(--primary-dark);
+        }
+
+        .btn-quiz.secondary {
+            background: white;
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-quiz.secondary:hover:not(:disabled) {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-quiz:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Quiz Results */
+        .quiz-results {
+            display: none;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .quiz-results.show {
+            display: block;
+        }
+
+        .results-icon-wrapper {
+            width: 6rem;
+            height: 6rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+        }
+
+        .results-icon-wrapper.pass {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+
+        .results-icon-wrapper.fail {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--danger);
+        }
+
+        .results-icon-wrapper .material-symbols-outlined {
+            font-size: 3.5rem;
+            font-variation-settings: 'FILL' 1;
+        }
+
+        .results-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .results-title.pass {
+            color: var(--success);
+        }
+
+        .results-title.fail {
+            color: var(--danger);
+        }
+
+        .results-subtitle {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .results-score {
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            background: var(--background-light);
+            padding: 1.5rem 2.5rem;
+            border-radius: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .results-score-value {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .results-score-label {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            text-align: left;
+        }
+
+        .results-stats {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .results-stat {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .results-stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .results-stat-value.correct {
+            color: var(--success);
+        }
+
+        .results-stat-value.incorrect {
+            color: var(--danger);
+        }
+
+        .results-stat-label {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .results-actions {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        /* Sidebar Cards */
+        .sticky-top {
+            z-index: 9 !important;
+        }
+
+        .sidebar-card {
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .sidebar-card-title {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .tag-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.375rem 0.75rem;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .tag-badge.blue {
+            background: rgba(59, 130, 246, 0.1);
+            color: #3b82f6;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+
+        .tag-badge.yellow {
+            background: rgba(245, 158, 11, 0.1);
+            color: #f59e0b;
+            border: 1px solid rgba(245, 158, 11, 0.2);
+        }
+
+        .tag-badge.purple {
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            color: var(--primary);
+        }
+
+        /* Quiz Tips */
+        .quiz-tips {
+            background: rgba(59, 130, 246, 0.05);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 0.75rem;
+            padding: 1rem;
+        }
+
+        .quiz-tips-title {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 700;
+            color: var(--info);
+            margin-bottom: 0.75rem;
+        }
+
+        .quiz-tips-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .quiz-tips-list li {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 0.5rem;
+            padding-left: 1.25rem;
+            position: relative;
+        }
+
+        .quiz-tips-list li:before {
+            content: '•';
+            position: absolute;
+            left: 0.5rem;
+            color: var(--info);
+            font-weight: 700;
+        }
+
+        .quiz-tips-list li:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .lesson-title-nav {
+                display: none;
+            }
+
+            nav.lesson-nav {
+                padding: 0.75rem 1rem;
+            }
+
+            .content-wrapper {
+                padding: 1rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-progress {
+                display: none;
+            }
+
+            .quiz-header {
+                padding: 1.5rem;
+            }
+
+            .quiz-title {
+                font-size: 1.5rem;
+            }
+
+            .quiz-info-bar {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+
+            .question-container {
+                padding: 1.5rem;
+            }
+
+            .question-text {
+                font-size: 1.125rem;
+            }
+
+            .quiz-actions {
+                flex-direction: column;
+            }
+
+            .btn-quiz {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .results-score-value {
+                font-size: 2.5rem;
+            }
+
+            .results-stats {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .results-actions {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .btn-quiz {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- Include Sidebar Component -->
+        <div id="sidebar-container"></div>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Include Header Component -->
+            <div id="header-container"></div>
+
+            <!-- Top Navigation Bar -->
+            <nav class="lesson-nav">
+                <div class="lesson-nav-content">
+                    <div style="display: flex; align-items: center; gap: 1.5rem;">
+                        <a href="lms.html" class="back-link">
+                            <span class="material-symbols-outlined">arrow_back</span>
+                            <span>Back to My Learning</span>
+                        </a>
+                        <div style="width: 1px; height: 1.5rem; background: var(--border-color); display: none;"
+                            class="desktop-only"></div>
+                        <h1 class="lesson-title-nav">Module 1 Review Quiz</h1>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 1.5rem;">
+                        <div class="nav-progress">
+                            <div class="course-progress-container">
+                                <div class="course-progress-bar">
+                                    <div class="course-progress-fill" id="courseProgressFill" style="width: 75%;"></div>
+                                </div>
+                                <div class="course-progress-text" id="courseProgressText">75% Completed</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- Content -->
+            <div class="content-wrapper">
+                <div class="row g-4">
+                    <!-- Left Column: Quiz Content -->
+                    <div class="col-lg-8">
+                        <div class="quiz-container">
+                            <!-- Quiz Header -->
+                            <div class="quiz-header">
+                                <div class="quiz-icon-wrapper">
+                                    <span class="material-symbols-outlined">quiz</span>
+                                </div>
+                                <h1 class="quiz-title">Module 1 Review Quiz</h1>
+                                <p class="quiz-subtitle">Test your knowledge of the concepts covered in this module</p>
+                            </div>
+
+                            <!-- Quiz Info Bar -->
+                            <div class="quiz-info-bar">
+                                <div class="quiz-info-item">
+                                    <span class="quiz-info-label">Total Questions</span>
+                                    <span class="quiz-info-value">
+                                        <span class="material-symbols-outlined">format_list_numbered</span>
+                                        <span id="totalQuestions">10</span>
+                                    </span>
+                                </div>
+                                <div class="quiz-info-item">
+                                    <span class="quiz-info-label">Time Limit</span>
+                                    <span class="quiz-info-value">
+                                        <span class="material-symbols-outlined">timer</span>
+                                        <span id="timeLimit">20</span> min
+                                    </span>
+                                </div>
+                                <div class="quiz-info-item">
+                                    <span class="quiz-info-label">Passing Score</span>
+                                    <span class="quiz-info-value">
+                                        <span class="material-symbols-outlined">emoji_events</span>
+                                        <span id="passingScore">70</span>%
+                                    </span>
+                                </div>
+                            </div>
+
+                            <!-- Quiz Progress -->
+                            <div class="quiz-progress-container">
+                                <div class="quiz-progress-header">
+                                    <span class="quiz-progress-label">Quiz Progress</span>
+                                    <span class="quiz-progress-count"><span id="currentQuestion">1</span> of <span id="totalQuestionsCount">10</span></span>
+                                </div>
+                                <div class="quiz-progress-bar">
+                                    <div class="quiz-progress-fill" id="quizProgressFill"></div>
+                                </div>
+                            </div>
+
+                            <!-- Question Container -->
+                            <div class="question-container" id="questionContainer">
+                                <div class="question-header">
+                                    <div class="question-number" id="questionNumber">1</div>
+                                    <h2 class="question-text" id="questionText">What is the primary function of photosynthesis in plants?</h2>
+                                </div>
+
+                                <div class="answer-options" id="answerOptions">
+                                    <div class="answer-option" data-answer="a">
+                                        <div class="answer-radio">
+                                            <div class="answer-radio-dot"></div>
+                                        </div>
+                                        <span class="answer-text">To produce oxygen for animals to breathe</span>
+                                        <span class="answer-icon correct-icon material-symbols-outlined" style="color: var(--success);">check_circle</span>
+                                        <span class="answer-icon incorrect-icon material-symbols-outlined" style="color: var(--danger);">cancel</span>
+                                    </div>
+
+                                    <div class="answer-option" data-answer="b">
+                                        <div class="answer-radio">
+                                            <div class="answer-radio-dot"></div>
+                                        </div>
+                                        <span class="answer-text">To convert light energy into chemical energy stored in glucose</span>
+                                        <span class="answer-icon correct-icon material-symbols-outlined" style="color: var(--success);">check_circle</span>
+                                        <span class="answer-icon incorrect-icon material-symbols-outlined" style="color: var(--danger);">cancel</span>
+                                    </div>
+
+                                    <div class="answer-option" data-answer="c">
+                                        <div class="answer-radio">
+                                            <div class="answer-radio-dot"></div>
+                                        </div>
+                                        <span class="answer-text">To absorb water from the soil</span>
+                                        <span class="answer-icon correct-icon material-symbols-outlined" style="color: var(--success);">check_circle</span>
+                                        <span class="answer-icon incorrect-icon material-symbols-outlined" style="color: var(--danger);">cancel</span>
+                                    </div>
+
+                                    <div class="answer-option" data-answer="d">
+                                        <div class="answer-radio">
+                                            <div class="answer-radio-dot"></div>
+                                        </div>
+                                        <span class="answer-text">To remove carbon dioxide from the atmosphere only</span>
+                                        <span class="answer-icon correct-icon material-symbols-outlined" style="color: var(--success);">check_circle</span>
+                                        <span class="answer-icon incorrect-icon material-symbols-outlined" style="color: var(--danger);">cancel</span>
+                                    </div>
+                                </div>
+
+                                <!-- Feedback Message -->
+                                <div class="feedback-message" id="feedbackMessage">
+                                    <span class="feedback-icon material-symbols-outlined">check_circle</span>
+                                    <div class="feedback-content">
+                                        <div class="feedback-title">Correct!</div>
+                                        <p class="feedback-text">Photosynthesis converts light energy into chemical energy stored in glucose, which plants use for growth and energy.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Quiz Results (Hidden initially) -->
+                            <div class="quiz-results" id="quizResults">
+                                <div class="results-icon-wrapper pass">
+                                    <span class="material-symbols-outlined">emoji_events</span>
+                                </div>
+                                <h2 class="results-title pass">Congratulations!</h2>
+                                <p class="results-subtitle">You've successfully completed the Module 1 Review Quiz</p>
+
+                                <div class="results-score">
+                                    <div class="results-score-value" id="finalScoreValue">85%</div>
+                                    <div class="results-score-label">
+                                        Your Score<br>
+                                        <strong id="correctAnswersCount">8</strong> out of <strong id="totalQuestionsResults">10</strong> correct
+                                    </div>
+                                </div>
+
+                                <div class="results-stats">
+                                    <div class="results-stat">
+                                        <div class="results-stat-value correct" id="correctCount">8</div>
+                                        <div class="results-stat-label">Correct</div>
+                                    </div>
+                                    <div class="results-stat">
+                                        <div class="results-stat-value incorrect" id="incorrectCount">2</div>
+                                        <div class="results-stat-label">Incorrect</div>
+                                    </div>
+                                </div>
+
+                                <div class="results-actions">
+                                    <button class="btn-quiz secondary" onclick="reviewAnswers()">
+                                        <span class="material-symbols-outlined">visibility</span>
+                                        Review Answers
+                                    </button>
+                                    <button class="btn-quiz primary" onclick="nextLesson()">
+                                        Next Lesson
+                                        <span class="material-symbols-outlined">arrow_forward</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Quiz Actions -->
+                            <div class="quiz-actions" id="quizActions">
+                                <button class="btn-quiz secondary" id="previousBtn" disabled>
+                                    <span class="material-symbols-outlined">arrow_back</span>
+                                    Previous
+                                </button>
+                                <div style="display: flex; gap: 1rem;">
+                                    <button class="btn-quiz secondary" id="submitBtn" disabled>
+                                        <span class="material-symbols-outlined">send</span>
+                                        Submit Answer
+                                    </button>
+                                    <button class="btn-quiz primary" id="nextBtn" disabled>
+                                        Next
+                                        <span class="material-symbols-outlined">arrow_forward</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Sidebar -->
+                    <div class="col-lg-4">
+                        <div class="sticky-top" style="top: 6rem;">
+                            <!-- Quiz Details Card -->
+                            <div class="sidebar-card">
+                                <h3 class="sidebar-card-title">Quiz Details</h3>
+                                <div class="mb-3">
+                                    <span class="tag-badge blue">
+                                        <span class="material-symbols-outlined"
+                                            style="font-size: 0.875rem; margin-right: 0.25rem;">school</span>
+                                        Module 1
+                                    </span>
+                                    <span class="tag-badge yellow">
+                                        <span class="material-symbols-outlined"
+                                            style="font-size: 0.875rem; margin-right: 0.25rem;">bar_chart</span>
+                                        Level: Medium
+                                    </span>
+                                    <span class="tag-badge purple">
+                                        <span class="material-symbols-outlined">quiz</span>
+                                        Type: Quiz
+                                    </span>
+                                </div>
+                                <div class="d-flex justify-content-between pt-3 border-top"
+                                    style="border-color: var(--border-color) !important; font-size: 0.875rem; color: var(--text-secondary);">
+                                    <span class="d-flex align-items-center">
+                                        <span class="material-symbols-outlined"
+                                            style="font-size: 1.125rem; margin-right: 0.25rem;">schedule</span>
+                                        20 min
+                                    </span>
+                                    <span class="d-flex align-items-center">
+                                        <span class="material-symbols-outlined"
+                                            style="font-size: 1.125rem; margin-right: 0.25rem;">question_mark</span>
+                                        10 Questions
+                                    </span>
+                                </div>
+                            </div>
+
+                            <!-- Quiz Tips -->
+                            <div class="sidebar-card">
+                                <div class="quiz-tips">
+                                    <div class="quiz-tips-title">
+                                        <span class="material-symbols-outlined">lightbulb</span>
+                                        Quiz Tips
+                                    </div>
+                                    <ul class="quiz-tips-list">
+                                        <li>Read each question carefully before selecting your answer</li>
+                                        <li>You can review your answers before submitting</li>
+                                        <li>Passing score is 70% or higher</li>
+                                        <li>You can retake the quiz if needed</li>
+                                        <li>Take your time - there's no rush!</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Load Sidebar and Header Components
+        Promise.all([
+            fetch('sidebar.html').then(response => response.text()),
+            fetch('header.html').then(response => response.text())
+        ]).then(([sidebarHTML, headerHTML]) => {
+            document.getElementById('sidebar-container').innerHTML = sidebarHTML;
+            document.getElementById('header-container').innerHTML = headerHTML;
+
+            setTimeout(() => {
+                initializeSidebar();
+                if (typeof initializeHeader === 'function') {
+                    initializeHeader();
+                }
+
+                document.getElementById('sidebar-container').classList.add('loaded');
+                document.getElementById('header-container').classList.add('loaded');
+
+                // Set active link
+                setActiveLink();
+            }, 0);
+        });
+
+        function initializeSidebar() {
+            const menuToggle = document.getElementById('menuToggle');
+            const closeSidebar = document.getElementById('closeSidebar');
+            const sidebar = document.getElementById('sidebar');
+            const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+            function toggleSidebar() {
+                if (window.innerWidth >= 1024) {
+                    sidebar.classList.toggle('collapsed');
+                } else {
+                    sidebar.classList.add('active');
+                    sidebarOverlay.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                }
+            }
+
+            function closeSidebarFunc() {
+                sidebar.classList.remove('active');
+                sidebarOverlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+
+            menuToggle.addEventListener('click', toggleSidebar);
+            closeSidebar.addEventListener('click', closeSidebarFunc);
+            sidebarOverlay.addEventListener('click', closeSidebarFunc);
+
+            const sidebarLinks = sidebar.querySelectorAll('a');
+            sidebarLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (window.innerWidth < 1024) {
+                        closeSidebarFunc();
+                    }
+                });
+            });
+
+            window.addEventListener('resize', () => {
+                if (window.innerWidth >= 1024) {
+                    closeSidebarFunc();
+                } else {
+                    sidebar.classList.remove('collapsed');
+                }
+            });
+        }
+
+        function setActiveLink() {
+            const currentPage = window.location.pathname.split('/').pop();
+            const navLmsLink = document.getElementById('nav-lms');
+            if (navLmsLink && currentPage === 'quiz-lesson.html') {
+                navLmsLink.classList.add('active');
+            }
+        }
+
+        // Quiz Data
+        const quizData = [
+            {
+                question: "What is the primary function of photosynthesis in plants?",
+                options: [
+                    "To produce oxygen for animals to breathe",
+                    "To convert light energy into chemical energy stored in glucose",
+                    "To absorb water from the soil",
+                    "To remove carbon dioxide from the atmosphere only"
+                ],
+                correctAnswer: 1,
+                explanation: "Photosynthesis converts light energy into chemical energy stored in glucose, which plants use for growth and energy."
+            },
+            {
+                question: "Which component of the cell is primarily responsible for photosynthesis?",
+                options: [
+                    "Mitochondria",
+                    "Nucleus",
+                    "Chloroplast",
+                    "Ribosome"
+                ],
+                correctAnswer: 2,
+                explanation: "Chloroplasts contain chlorophyll and are the sites where photosynthesis occurs in plant cells."
+            },
+            {
+                question: "What is compound interest?",
+                options: [
+                    "Interest calculated only on the principal amount",
+                    "Interest calculated on the principal and accumulated interest",
+                    "A fixed percentage added monthly",
+                    "Interest that decreases over time"
+                ],
+                correctAnswer: 1,
+                explanation: "Compound interest is calculated on both the initial principal and the accumulated interest from previous periods."
+            },
+            {
+                question: "In financial modeling, what does a balance sheet represent?",
+                options: [
+                    "Future projections only",
+                    "Assets, liabilities, and equity at a specific point in time",
+                    "Monthly expenses",
+                    "Revenue over a fiscal year"
+                ],
+                correctAnswer: 1,
+                explanation: "A balance sheet is a snapshot of a company's financial position, showing assets, liabilities, and equity at a specific moment."
+            },
+            {
+                question: "What does the chemical equation 6CO₂ + 6H₂O + Light Energy → C₆H₁₂O₆ + 6O₂ represent?",
+                options: [
+                    "Cellular respiration",
+                    "Photosynthesis",
+                    "Fermentation",
+                    "Protein synthesis"
+                ],
+                correctAnswer: 1,
+                explanation: "This equation represents photosynthesis, where carbon dioxide and water are converted into glucose and oxygen using light energy."
+            },
+            {
+                question: "Which of the following is a characteristic of autotrophic nutrition?",
+                options: [
+                    "Organisms consume other organisms for energy",
+                    "Organisms produce their own food using inorganic substances",
+                    "Organisms decompose dead matter",
+                    "Organisms rely solely on fermentation"
+                ],
+                correctAnswer: 1,
+                explanation: "Autotrophic organisms produce their own food from inorganic substances, typically using photosynthesis or chemosynthesis."
+            },
+            {
+                question: "What is the recommended time allocation for effective reading comprehension?",
+                options: [
+                    "5 minutes per article",
+                    "Read as fast as possible",
+                    "At least 15 minutes for a comprehensive article",
+                    "Time doesn't matter"
+                ],
+                correctAnswer: 2,
+                explanation: "Allocating adequate time (around 15 minutes for a comprehensive article) ensures better understanding and retention of the material."
+            },
+            {
+                question: "In a cash flow statement, what does positive cash flow indicate?",
+                options: [
+                    "The company is losing money",
+                    "More cash is coming in than going out",
+                    "The company has high debt",
+                    "Assets are decreasing"
+                ],
+                correctAnswer: 1,
+                explanation: "Positive cash flow means more cash is entering the business than leaving it, indicating healthy financial operations."
+            },
+            {
+                question: "Why is photosynthesis crucial for maintaining life on Earth?",
+                options: [
+                    "It only provides food for plants",
+                    "It is the primary source of organic matter and atmospheric oxygen",
+                    "It prevents global warming",
+                    "It creates water"
+                ],
+                correctAnswer: 1,
+                explanation: "Photosynthesis is essential as it provides organic matter for almost all living organisms and produces the oxygen we breathe."
+            },
+            {
+                question: "What is the relationship between risk and return in financial modeling?",
+                options: [
+                    "Higher risk typically offers lower returns",
+                    "Risk and return are unrelated",
+                    "Higher risk typically offers potential for higher returns",
+                    "Lower risk always guarantees higher returns"
+                ],
+                correctAnswer: 2,
+                explanation: "In finance, there's generally a positive correlation between risk and potential return - higher risk investments typically offer the possibility of higher returns."
+            }
+        ];
+
+        // Quiz State
+        let currentQuestionIndex = 0;
+        let selectedAnswer = null;
+        let userAnswers = [];
+        let quizCompleted = false;
+
+        // DOM Elements
+        const questionContainer = document.getElementById('questionContainer');
+        const quizResults = document.getElementById('quizResults');
+        const quizActions = document.getElementById('quizActions');
+        const questionNumber = document.getElementById('questionNumber');
+        const questionText = document.getElementById('questionText');
+        const answerOptions = document.getElementById('answerOptions');
+        const feedbackMessage = document.getElementById('feedbackMessage');
+        const previousBtn = document.getElementById('previousBtn');
+        const submitBtn = document.getElementById('submitBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const quizProgressFill = document.getElementById('quizProgressFill');
+        const currentQuestion = document.getElementById('currentQuestion');
+        const courseProgressFill = document.getElementById('courseProgressFill');
+        const courseProgressText = document.getElementById('courseProgressText');
+
+        // Initialize Quiz
+        function initQuiz() {
+            loadQuestion(currentQuestionIndex);
+            updateProgress();
+        }
+
+        // Load Question
+        function loadQuestion(index) {
+            const question = quizData[index];
+            questionNumber.textContent = index + 1;
+            questionText.textContent = question.question;
+
+            // Clear previous options
+            answerOptions.innerHTML = '';
+
+            // Create answer options
+            question.options.forEach((option, i) => {
+                const optionDiv = document.createElement('div');
+                optionDiv.className = 'answer-option';
+                optionDiv.setAttribute('data-answer', i);
+                optionDiv.innerHTML = `
+                    <div class="answer-radio">
+                        <div class="answer-radio-dot"></div>
+                    </div>
+                    <span class="answer-text">${option}</span>
+                    <span class="answer-icon correct-icon material-symbols-outlined" style="color: var(--success);">check_circle</span>
+                    <span class="answer-icon incorrect-icon material-symbols-outlined" style="color: var(--danger);">cancel</span>
+                `;
+
+                optionDiv.addEventListener('click', () => selectAnswer(i));
+                answerOptions.appendChild(optionDiv);
+            });
+
+            // Restore selected answer if exists
+            if (userAnswers[index] !== undefined) {
+                selectAnswer(userAnswers[index].selected, true);
+                if (userAnswers[index].submitted) {
+                    showFeedback(userAnswers[index].selected, question.correctAnswer, question.explanation);
+                }
+            } else {
+                feedbackMessage.classList.remove('show');
+                selectedAnswer = null;
+                submitBtn.disabled = true;
+                nextBtn.disabled = true;
+            }
+
+            // Update button states
+            previousBtn.disabled = index === 0;
+            updateProgress();
+        }
+
+        // Select Answer
+        function selectAnswer(answerIndex, restore = false) {
+            // Remove previous selection
+            document.querySelectorAll('.answer-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+
+            // Add selection to clicked option
+            const selectedOption = document.querySelector(`[data-answer="${answerIndex}"]`);
+            selectedOption.classList.add('selected');
+            selectedAnswer = answerIndex;
+
+            if (!restore) {
+                submitBtn.disabled = false;
+                feedbackMessage.classList.remove('show');
+            }
+        }
+
+        // Submit Answer
+        submitBtn.addEventListener('click', () => {
+            if (selectedAnswer === null) return;
+
+            const question = quizData[currentQuestionIndex];
+            const isCorrect = selectedAnswer === question.correctAnswer;
+
+            // Save user answer
+            userAnswers[currentQuestionIndex] = {
+                selected: selectedAnswer,
+                correct: question.correctAnswer,
+                isCorrect: isCorrect,
+                submitted: true
+            };
+
+            // Show feedback
+            showFeedback(selectedAnswer, question.correctAnswer, question.explanation);
+
+            // Disable submit button and enable next button
+            submitBtn.disabled = true;
+            nextBtn.disabled = false;
+
+            // Disable all answer options
+            document.querySelectorAll('.answer-option').forEach(opt => {
+                opt.classList.add('disabled');
+                opt.style.pointerEvents = 'none';
+            });
+        });
+
+        // Show Feedback
+        function showFeedback(selected, correct, explanation) {
+            const selectedOption = document.querySelector(`[data-answer="${selected}"]`);
+            const correctOption = document.querySelector(`[data-answer="${correct}"]`);
+
+            if (selected === correct) {
+                selectedOption.classList.add('correct');
+                feedbackMessage.className = 'feedback-message correct show';
+                feedbackMessage.innerHTML = `
+                    <span class="feedback-icon material-symbols-outlined">check_circle</span>
+                    <div class="feedback-content">
+                        <div class="feedback-title">Correct!</div>
+                        <p class="feedback-text">${explanation}</p>
+                    </div>
+                `;
+            } else {
+                selectedOption.classList.add('incorrect');
+                correctOption.classList.add('correct');
+                feedbackMessage.className = 'feedback-message incorrect show';
+                feedbackMessage.innerHTML = `
+                    <span class="feedback-icon material-symbols-outlined">cancel</span>
+                    <div class="feedback-content">
+                        <div class="feedback-title">Incorrect</div>
+                        <p class="feedback-text">${explanation}</p>
+                    </div>
+                `;
+            }
+        }
+
+        // Next Question
+        nextBtn.addEventListener('click', () => {
+            if (currentQuestionIndex < quizData.length - 1) {
+                currentQuestionIndex++;
+                loadQuestion(currentQuestionIndex);
+
+                // Re-enable answer options
+                document.querySelectorAll('.answer-option').forEach(opt => {
+                    opt.classList.remove('disabled');
+                    opt.style.pointerEvents = 'auto';
+                });
+            } else {
+                // Show results
+                showResults();
+            }
+        });
+
+        // Previous Question
+        previousBtn.addEventListener('click', () => {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                loadQuestion(currentQuestionIndex);
+
+                // Re-enable answer options if not submitted
+                if (!userAnswers[currentQuestionIndex] || !userAnswers[currentQuestionIndex].submitted) {
+                    document.querySelectorAll('.answer-option').forEach(opt => {
+                        opt.classList.remove('disabled');
+                        opt.style.pointerEvents = 'auto';
+                    });
+                }
+            }
+        });
+
+        // Update Progress
+        function updateProgress() {
+            const progress = ((currentQuestionIndex + 1) / quizData.length) * 100;
+            quizProgressFill.style.width = progress + '%';
+            currentQuestion.textContent = currentQuestionIndex + 1;
+
+            // Update course progress (assuming quiz is 25% of total course)
+            const initialProgress = 75; // 75% completed before quiz
+            const quizWeight = 25; // Quiz is 25% of course
+            const quizProgress = (userAnswers.filter(a => a && a.submitted).length / quizData.length) * quizWeight;
+            const totalProgress = initialProgress + quizProgress;
+            courseProgressFill.style.width = totalProgress + '%';
+            courseProgressText.textContent = Math.round(totalProgress) + '% Completed';
+        }
+
+        // Show Results
+        function showResults() {
+            const correctCount = userAnswers.filter(a => a.isCorrect).length;
+            const incorrectCount = quizData.length - correctCount;
+            const scorePercentage = Math.round((correctCount / quizData.length) * 100);
+            const passed = scorePercentage >= 70;
+
+            // Hide question container and actions
+            questionContainer.style.display = 'none';
+            quizActions.style.display = 'none';
+
+            // Update results
+            const resultsIconWrapper = quizResults.querySelector('.results-icon-wrapper');
+            const resultsTitle = quizResults.querySelector('.results-title');
+            const resultsSubtitle = quizResults.querySelector('.results-subtitle');
+
+            if (passed) {
+                resultsIconWrapper.className = 'results-icon-wrapper pass';
+                resultsIconWrapper.innerHTML = '<span class="material-symbols-outlined">emoji_events</span>';
+                resultsTitle.className = 'results-title pass';
+                resultsTitle.textContent = 'Congratulations!';
+                resultsSubtitle.textContent = "You've successfully completed the Module 1 Review Quiz";
+            } else {
+                resultsIconWrapper.className = 'results-icon-wrapper fail';
+                resultsIconWrapper.innerHTML = '<span class="material-symbols-outlined">close</span>';
+                resultsTitle.className = 'results-title fail';
+                resultsTitle.textContent = 'Keep Learning!';
+                resultsSubtitle.textContent = "Don't worry - you can review the material and try again";
+            }
+
+            document.getElementById('finalScoreValue').textContent = scorePercentage + '%';
+            document.getElementById('correctAnswersCount').textContent = correctCount;
+            document.getElementById('totalQuestionsResults').textContent = quizData.length;
+            document.getElementById('correctCount').textContent = correctCount;
+            document.getElementById('incorrectCount').textContent = incorrectCount;
+
+            // Show results
+            quizResults.classList.add('show');
+
+            // Update course progress to 100% if passed
+            if (passed) {
+                courseProgressFill.style.width = '100%';
+                courseProgressText.textContent = '100% Completed';
+            }
+
+            quizCompleted = true;
+        }
+
+        // Review Answers
+        function reviewAnswers() {
+            quizResults.classList.remove('show');
+            questionContainer.style.display = 'block';
+            quizActions.style.display = 'flex';
+            currentQuestionIndex = 0;
+            loadQuestion(currentQuestionIndex);
+
+            // Disable all interactions
+            document.querySelectorAll('.answer-option').forEach(opt => {
+                opt.style.pointerEvents = 'none';
+            });
+            submitBtn.style.display = 'none';
+            nextBtn.disabled = false;
+        }
+
+        // Next Lesson
+        function nextLesson() {
+            alert('Proceeding to next module...');
+            // window.location.href = 'next-module.html';
+        }
+
+        // Initialize quiz on page load
+        initQuiz();
+    </script>
+</body>
+
+</html>

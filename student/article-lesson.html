@@ -1,0 +1,1190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Article Lesson View - Enpower Skill Lab</title>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+        rel="stylesheet" />
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Header JS -->
+    <script src="header.js"></script>
+    <!-- Sidebar JS -->
+    <script src="sidebar.js"></script>
+
+    <style>
+        /* Prevent FOUC - hide containers until loaded */
+        #sidebar-container:empty,
+        #header-container:empty {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        #sidebar-container.loaded,
+        #header-container.loaded {
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.2s ease-in;
+            background: #fff;
+        }
+
+        :root {
+            --primary: #5b1f6f;
+            --primary-light: #7a2f91;
+            --primary-dark: #3d134b;
+            --background-light: #faf9fb;
+            --text-main: #171019;
+            --text-secondary: #80588d;
+            --border-color: #efe9f1;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background-light);
+            color: var(--text-main);
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .dashboard-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        .content-wrapper {
+            padding: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        /* Top Navigation Bar */
+        nav.lesson-nav {
+            background: white;
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 1.5rem;
+            margin-bottom: 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .lesson-nav-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .back-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.875rem;
+            transition: color 0.2s;
+        }
+
+        .back-link:hover {
+            color: var(--primary);
+        }
+
+        .lesson-title-nav {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin: 0;
+        }
+
+        .nav-progress {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.75rem;
+        }
+
+        .progress-label {
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .course-progress-container {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+            min-width: 150px;
+        }
+
+        .course-progress-bar {
+            width: 100%;
+            height: 0.5rem;
+            background: #e5e7eb;
+            border-radius: 999px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .course-progress-fill {
+            height: 100%;
+            background: var(--primary);
+            border-radius: 999px;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .course-progress-text {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-align: right;
+        }
+
+        /* Article Content Styles */
+        .article-content h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            color: var(--text-main);
+        }
+
+        .article-content p {
+            margin-bottom: 1.25rem;
+            line-height: 1.75;
+            color: #374151;
+        }
+
+        .article-content .lead {
+            font-size: 1.125rem;
+            font-style: italic;
+            border-left: 4px solid var(--primary);
+            padding-left: 1rem;
+            color: var(--text-secondary);
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        /* Article Hero */
+        .article-hero {
+            position: relative;
+            height: 400px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 0.5rem;
+            overflow: hidden;
+        }
+
+        .article-hero::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, transparent 50%);
+        }
+
+        .article-hero-content {
+            position: absolute;
+            bottom: 2rem;
+            left: 2rem;
+            right: 2rem;
+            z-index: 1;
+        }
+
+        .article-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.375rem 0.75rem;
+            background: rgba(139, 92, 246, 0.9);
+            color: white;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .article-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+
+        .article-subtitle {
+            color: #e5e7eb;
+            font-size: 1rem;
+        }
+
+        /* Progress Bar */
+        .lesson-progress-bar {
+            background: #e5e7eb;
+            height: 0.5rem;
+            border-radius: 999px;
+            overflow: hidden;
+            margin-bottom: 0.5rem;
+        }
+
+        .lesson-progress-fill {
+            height: 100%;
+            background: var(--primary);
+            border-radius: 999px;
+            transition: width 0.3s ease;
+        }
+
+        .progress-text {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        /* Info Box */
+        .info-box {
+            background: rgba(139, 92, 246, 0.05);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .info-box-icon {
+            width: 4rem;
+            height: 4rem;
+            background: rgba(139, 92, 246, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            color: var(--primary);
+        }
+
+        /* Code Block */
+        .code-block {
+            background: #f3f4f6;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            font-family: 'Courier New', monospace;
+            font-size: 0.875rem;
+            text-align: center;
+            margin: 1.5rem 0;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* Sidebar Cards */
+        .sticky-top {
+            z-index: 9 !important;
+        }
+
+        .sidebar-card {
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .sidebar-card-title {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .tag-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.375rem 0.75rem;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .tag-badge.blue {
+            background: rgba(59, 130, 246, 0.1);
+            color: #3b82f6;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+
+        .tag-badge.yellow {
+            background: rgba(245, 158, 11, 0.1);
+            color: #f59e0b;
+            border: 1px solid rgba(245, 158, 11, 0.2);
+        }
+
+        .tag-badge.gray {
+            background: rgba(107, 114, 128, 0.1);
+            border-color: rgba(107, 114, 128, 0.2);
+            color: #6b7280;
+        }
+
+        /* .chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            padding: 0.375rem 0.75rem;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            border: 1px solid;
+        } */
+
+        /* Table of Contents */
+        .toc-link {
+            display: flex;
+            align-items: center;
+            padding: 0.625rem 0.75rem;
+            border-radius: 0.5rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.2s;
+            margin-bottom: 0.25rem;
+        }
+
+        .toc-link:hover {
+            background: var(--background-light);
+            color: var(--text-main);
+        }
+
+        .toc-link.active {
+            background: rgba(139, 92, 246, 0.05);
+            color: var(--primary);
+        }
+
+        .toc-dot {
+            width: 0.375rem;
+            height: 0.375rem;
+            border-radius: 50%;
+            background: #cbd5e1;
+            margin-right: 0.75rem;
+        }
+
+        .toc-link.active .toc-dot {
+            background: var(--primary);
+        }
+
+        /* Resources */
+        .resource-item {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            color: var(--text-main);
+            transition: all 0.2s;
+            margin-bottom: 0.75rem;
+        }
+
+        .resource-item:hover {
+            background: var(--background-light);
+        }
+
+        .resource-icon {
+            width: 2rem;
+            height: 2rem;
+            border-radius: 0.375rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 0.75rem;
+            flex-shrink: 0;
+        }
+
+        .resource-icon.pdf {
+            background: rgba(239, 68, 68, 0.1);
+            color: #ef4444;
+        }
+
+        .resource-icon.image {
+            background: rgba(59, 130, 246, 0.1);
+            color: #3b82f6;
+        }
+
+        .resource-info {
+            flex: 1;
+        }
+
+        .resource-name {
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: 0.125rem;
+        }
+
+        .resource-size {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        /* Bottom Action Bar */
+        .action-bar {
+            position: sticky;
+            bottom: 0;
+            background: white;
+            border-top: 1px solid var(--border-color);
+            padding: 1rem 2rem;
+            box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.05);
+            z-index: 10;
+        }
+
+        .action-bar-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .action-info {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn-complete {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-complete:hover {
+            background: var(--primary-dark);
+        }
+
+        .btn-next {
+            background: white;
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-next:hover:not(:disabled) {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-next:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Confirmation Modal */
+        .modal-overlay {
+            position: fixed !important;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            backdrop-filter: blur(4px);
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: modalSlideIn 0.3s ease;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .modal-icon {
+            width: 3rem;
+            height: 3rem;
+            background: rgba(245, 158, 11, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #f59e0b;
+        }
+
+        .modal-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin: 0;
+        }
+
+        .modal-body {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .modal-footer {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .modal-btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            font-size: 0.875rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .modal-btn.cancel {
+            background: var(--background-light);
+            color: var(--text-secondary);
+            border: 1px solid #7a2f91;
+        }
+
+        .modal-btn.cancel:hover {
+            background: #e5e7eb;
+        }
+
+        .modal-btn.confirm {
+            background: var(--primary);
+            color: white;
+        }
+
+        .modal-btn.confirm:hover {
+            background: var(--primary-dark);
+        }
+
+        @media (max-width: 1024px) {
+            .lesson-title-nav {
+                display: none;
+            }
+
+            nav.lesson-nav {
+                padding: 0.75rem 1rem;
+            }
+
+            .content-wrapper {
+                padding: 1rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-progress {
+                display: none;
+            }
+
+            .content-wrapper {
+                padding: 1rem;
+            }
+
+            .article-title {
+                font-size: 1.75rem;
+            }
+
+            .article-hero {
+                height: 300px;
+            }
+
+            .action-bar-content {
+                flex-direction: column;
+            }
+
+            .action-info {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .action-buttons {
+                width: 100%;
+                flex-direction: column;
+            }
+
+            .btn-complete,
+            .btn-next {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- Include Sidebar Component -->
+        <div id="sidebar-container"></div>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Include Header Component -->
+            <div id="header-container"></div>
+
+            <!-- Top Navigation Bar -->
+            <nav class="lesson-nav">
+                <div class="lesson-nav-content">
+                    <div style="display: flex; align-items: center; gap: 1.5rem;">
+                        <a href="lms.html" class="back-link">
+                            <span class="material-symbols-outlined">arrow_back</span>
+                            <span>Back to My Learning</span>
+                        </a>
+                        <div style="width: 1px; height: 1.5rem; background: var(--border-color); display: none;"
+                            class="desktop-only"></div>
+                        <h1 class="lesson-title-nav">The Basics of Photosynthesis</h1>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 1.5rem;">
+                        <div class="nav-progress">
+                            <div class="course-progress-container">
+                                <div class="course-progress-bar">
+                                    <div class="course-progress-fill" id="courseProgressFill" style="width: 0%;"></div>
+                                </div>
+                                <div class="course-progress-text" id="courseProgressText">0% Completed</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- Content -->
+            <div class="content-wrapper">
+
+                <div class="row g-4">
+                    <!-- Left Column: Article Reader -->
+                    <div class="col-lg-8">
+                        <div class="bg-white rounded-3 shadow-sm border" style="border-color: var(--border-color);">
+                            <!-- Hero Image -->
+                            <div class="article-hero"
+                                style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCEg0ZB6sugZ4TeV3vbfMcvZZTA49hii1sgnI4MOLY33mu_NlI9GaEZ0jDJODgGL9rEKWF3ZJi0MWCEiQMXukb3oZi1zOY01obpSq04Eou12goPRYtlBohCXgPi0NmM6f7LiVrsOT53ZxAgTQllP9KsqpcfpmtGg3G0zJqryLEm_puV6h4kZ4h7msiLaU9QAA2DpG7s1mZ_qGJ2stqa6HZvEtX5hi6aEHdd3b6X2hQcjD8c4EGj9XjxYtXcomC7BqFoiNJT8U8mwmI5');">
+                                <div class="article-hero-content">
+                                    <!-- <span class="article-badge">
+                                        <span class="material-symbols-outlined" style="font-size: 0.875rem; margin-right: 0.25rem;">article</span>
+                                        Article
+                                    </span> -->
+                                    <h1 class="article-title">The Basics of Photosynthesis</h1>
+                                    <p class="article-subtitle">Understanding how plants convert light energy into
+                                        chemical energy to fuel their growth and the planet's ecosystem.</p>
+                                </div>
+                            </div>
+
+                            <!-- Article Body -->
+                            <div class="p-4 p-md-5 article-content">
+                                <p class="lead">
+                                    Photosynthesis is the process by which green plants and some other organisms use
+                                    sunlight to synthesize foods from carbon dioxide and water.
+                                </p>
+
+                                <h2 id="section-intro">Introduction</h2>
+                                <p>
+                                    Life on Earth is solar powered. The chloroplasts of plants capture light energy that
+                                    has traveled 150 million kilometers from the sun and convert it to chemical energy
+                                    that is stored in sugar and other organic molecules. This conversion process is
+                                    called photosynthesis.
+                                </p>
+                                <p>
+                                    Photosynthesis nourishes almost the entire living world directly or indirectly. An
+                                    organism acquires the organic compounds it uses for energy and carbon skeletons by
+                                    one of two major modes: autotrophic nutrition or heterotrophic nutrition.
+                                </p>
+
+                                <div class="info-box">
+                                    <div class="info-box-icon">
+                                        <span class="material-symbols-outlined"
+                                            style="font-size: 2rem;">light_mode</span>
+                                    </div>
+                                    <h3 style="font-size: 1.125rem; font-weight: 700; margin-bottom: 0.5rem;">Did you
+                                        know?</h3>
+                                    <p style="font-size: 0.875rem; color: var(--text-secondary); margin: 0;">
+                                        The word photosynthesis comes from the Greek words <em>phōs</em> (light) and
+                                        <em>synthesis</em> (putting together).
+                                    </p>
+                                </div>
+
+                                <h2 id="section-process">The Process</h2>
+                                <p>
+                                    In plants, photosynthesis generally takes place in leaves, which contain
+                                    chlorophyll. Chlorophyll is a pigment that gives plants their green color and helps
+                                    in the absorption of light energy.
+                                </p>
+                                <p>
+                                    The process can be summarized by the following chemical equation:
+                                </p>
+
+                                <div class="code-block">
+                                    6CO₂ + 6H₂O + Light Energy → C₆H₁₂O₆ + 6O₂
+                                </div>
+
+                                <p>
+                                    This means that six molecules of carbon dioxide and six molecules of water, using
+                                    light energy, produce one molecule of glucose and six molecules of oxygen.
+                                </p>
+
+                                <h2 id="section-importance">Ecological Importance</h2>
+                                <p>
+                                    Photosynthesis is crucial for maintaining life on Earth. It is the primary source of
+                                    organic matter for almost all living organisms. Furthermore, it is responsible for
+                                    the atmospheric oxygen we breathe.
+                                </p>
+                                <p>
+                                    Without photosynthesis, the carbon cycle could not occur, oxygen-requiring life
+                                    would not survive and plants would die. Green plants and trees use photosynthesis to
+                                    make food from sunlight, carbon dioxide and water in the atmosphere: It is their
+                                    primary source of energy.
+                                </p>
+                            </div>
+
+                            <!-- Footer within article -->
+                            <div class="px-4 py-3 border-top d-flex justify-content-between align-items-center"
+                                style="background: var(--background-light); border-color: var(--border-color) !important; font-size: 0.875rem; color: var(--text-secondary);">
+                                <span>Last updated: Oct 24, 2023</span>
+                                <span class="d-flex align-items-center" style="cursor: pointer; transition: color 0.2s;"
+                                    onmouseover="this.style.color='var(--primary)'"
+                                    onmouseout="this.style.color='var(--text-secondary)'">
+                                    <span class="material-symbols-outlined"
+                                        style="font-size: 1.125rem; margin-right: 0.25rem;">flag</span> Report Issue
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Sidebar -->
+                    <div class="col-lg-4">
+                        <div class="sticky-top" style="top: 6rem;">
+                            <!-- Metadata Card -->
+                            <div class="sidebar-card">
+                                <h3 class="sidebar-card-title">Lesson Details</h3>
+                                <div class="mb-3">
+                                    <span class="tag-badge blue">
+                                        <span class="material-symbols-outlined"
+                                            style="font-size: 0.875rem; margin-right: 0.25rem;">science</span>
+                                        Scientific Inquiry
+                                    </span>
+                                    <span class="tag-badge yellow">
+                                        <span class="material-symbols-outlined"
+                                            style="font-size: 0.875rem; margin-right: 0.25rem;">bar_chart</span>
+                                        Level: Medium
+                                    </span>
+                                    <span class="tag-badge gray">
+                                        <span class="material-symbols-outlined">article</span>
+                                        Type: Article
+                                    </span>
+                                </div>
+                                <div class="d-flex justify-content-between pt-3 border-top"
+                                    style="border-color: var(--border-color) !important; font-size: 0.875rem; color: var(--text-secondary);">
+                                    <span class="d-flex align-items-center">
+                                        <span class="material-symbols-outlined"
+                                            style="font-size: 1.125rem; margin-right: 0.25rem;">schedule</span>
+                                        15 min read
+                                    </span>
+                                    <span class="d-flex align-items-center">
+                                        <span class="material-symbols-outlined"
+                                            style="font-size: 1.125rem; margin-right: 0.25rem;">translate</span>
+                                        English
+                                    </span>
+                                </div>
+                            </div>
+
+                            <!-- Table of Contents -->
+                            <div class="sidebar-card">
+                                <h3 class="sidebar-card-title">In this lesson</h3>
+                                <nav>
+                                    <a href="#section-intro" class="toc-link active">
+                                        <span class="toc-dot"></span>
+                                        Introduction
+                                    </a>
+                                    <a href="#section-process" class="toc-link">
+                                        <span class="toc-dot"></span>
+                                        The Process
+                                    </a>
+                                    <a href="#section-importance" class="toc-link">
+                                        <span class="toc-dot"></span>
+                                        Ecological Importance
+                                    </a>
+                                </nav>
+                            </div>
+
+                            <!-- Resources -->
+                            <div class="sidebar-card">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <h3 class="sidebar-card-title mb-0">Resources</h3>
+                                    <!-- <span class="material-symbols-outlined"
+                                        style="color: var(--text-secondary); font-size: 1.25rem;">folder_open</span> -->
+                                </div>
+                                <a href="#" class="resource-item">
+                                    <div class="resource-icon pdf">
+                                        <span class="material-symbols-outlined"
+                                            style="font-size: 1.125rem;">picture_as_pdf</span>
+                                    </div>
+                                    <div class="resource-info">
+                                        <div class="resource-name">Study Guide.pdf</div>
+                                        <div class="resource-size">2.4 MB</div>
+                                    </div>
+                                    <span class="material-symbols-outlined"
+                                        style="color: var(--text-secondary);">download</span>
+                                </a>
+                                <a href="#" class="resource-item">
+                                    <div class="resource-icon image">
+                                        <span class="material-symbols-outlined"
+                                            style="font-size: 1.125rem;">image</span>
+                                    </div>
+                                    <div class="resource-info">
+                                        <div class="resource-name">Diagram_V2.png</div>
+                                        <div class="resource-size">1.1 MB</div>
+                                    </div>
+                                    <span class="material-symbols-outlined"
+                                        style="color: var(--text-secondary);">download</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Bottom Action Bar -->
+    <div class="action-bar">
+        <div class="action-bar-content">
+            <div class="action-info">
+                <span class="material-symbols-outlined" style="color: var(--primary);">info</span>
+                <span>Make sure to read the entire article before proceeding.</span>
+            </div>
+            <div class="action-buttons">
+                <button class="btn-next" id="nextLessonBtn">
+                    Next Lesson
+                    <span class="material-symbols-outlined" style="font-size: 1.125rem;">arrow_forward</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div class="modal-overlay" id="confirmModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-icon">
+                    <span class="material-symbols-outlined" style="font-size: 1.5rem;">warning</span>
+                </div>
+                <h3 class="modal-title">Have you completed the reading?</h3>
+            </div>
+            <div class="modal-body">
+                <p id="modalMessage">You've only been on this page for <strong id="timeSpent">0 minutes</strong>. The recommended reading time is <strong>15 minutes</strong>.</p>
+                <!-- <p style="margin-top: 1rem;">Are you sure you want to proceed to the next lesson without completing the article?</p> -->
+            </div>
+            <div class="modal-footer">
+                <button class="modal-btn cancel" id="cancelBtn">
+                    Continue Reading
+                </button>
+                <!-- <button class="modal-btn confirm" id="confirmBtn">
+                    Proceed Anyway
+                </button> -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Load Sidebar and Header Components
+        Promise.all([
+            fetch('sidebar.html').then(response => response.text()),
+            fetch('header.html').then(response => response.text())
+        ]).then(([sidebarHTML, headerHTML]) => {
+            document.getElementById('sidebar-container').innerHTML = sidebarHTML;
+            document.getElementById('header-container').innerHTML = headerHTML;
+
+            setTimeout(() => {
+                initializeSidebar();
+                if (typeof initializeHeader === 'function') {
+                    initializeHeader();
+                }
+
+                document.getElementById('sidebar-container').classList.add('loaded');
+                document.getElementById('header-container').classList.add('loaded');
+
+                // Set active link
+                setActiveLink();
+            }, 0);
+        });
+
+        function initializeSidebar() {
+            const menuToggle = document.getElementById('menuToggle');
+            const closeSidebar = document.getElementById('closeSidebar');
+            const sidebar = document.getElementById('sidebar');
+            const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+            function toggleSidebar() {
+                if (window.innerWidth >= 1024) {
+                    sidebar.classList.toggle('collapsed');
+                } else {
+                    sidebar.classList.add('active');
+                    sidebarOverlay.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                }
+            }
+
+            function closeSidebarFunc() {
+                sidebar.classList.remove('active');
+                sidebarOverlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+
+            menuToggle.addEventListener('click', toggleSidebar);
+            closeSidebar.addEventListener('click', closeSidebarFunc);
+            sidebarOverlay.addEventListener('click', closeSidebarFunc);
+
+            const sidebarLinks = sidebar.querySelectorAll('a');
+            sidebarLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (window.innerWidth < 1024) {
+                        closeSidebarFunc();
+                    }
+                });
+            });
+
+            window.addEventListener('resize', () => {
+                if (window.innerWidth >= 1024) {
+                    closeSidebarFunc();
+                } else {
+                    sidebar.classList.remove('collapsed');
+                }
+            });
+        }
+
+        function setActiveLink() {
+            const currentPage = window.location.pathname.split('/').pop();
+            const navLmsLink = document.getElementById('nav-lms');
+            if (navLmsLink && (currentPage === 'lms.html' || currentPage === 'article-lesson.html')) {
+                navLmsLink.classList.add('active');
+            }
+        }
+
+        // Lesson Timer and Progress Tracking
+        const ALLOCATED_TIME = 15 * 60; // 15 minutes in seconds
+        let elapsedTime = 0;
+        let timerInterval;
+        const totalLessons = 4; // Total lessons in the module
+        const completedLessons = 0; // Lessons completed before this one
+        const initialCourseProgress = completedLessons / totalLessons;
+
+        const nextLessonBtn = document.getElementById('nextLessonBtn');
+        const courseProgressFill = document.getElementById('courseProgressFill');
+        const courseProgressText = document.getElementById('courseProgressText');
+        const confirmModal = document.getElementById('confirmModal');
+        const cancelBtn = document.getElementById('cancelBtn');
+        const confirmBtn = document.getElementById('confirmBtn');
+        const timeSpentElement = document.getElementById('timeSpent');
+
+        function updateCourseProgress(courseProgress) {
+            const percentage = Math.round(courseProgress * 100);
+
+            // Update the line progress bar width
+            courseProgressFill.style.width = percentage + '%';
+            courseProgressText.textContent = percentage + '% Completed';
+        }
+
+        function updateCourseProgressDynamic(readingProgress) {
+            // Calculate overall course progress
+            // Each lesson contributes 1/4 (25%) to the total progress
+            // Current lesson contributes based on reading progress
+            const lessonWeight = 1 / totalLessons; // 25% per lesson
+            const currentLessonContribution = readingProgress * lessonWeight;
+            const overallProgress = initialCourseProgress + currentLessonContribution;
+
+            updateCourseProgress(overallProgress);
+        }
+
+        function startTimer() {
+            timerInterval = setInterval(() => {
+                elapsedTime++;
+            }, 1000);
+        }
+
+        // Start timer when page loads
+        startTimer();
+
+        // Update progress based on scroll
+        function updateProgress() {
+            const articleContent = document.querySelector('.article-content');
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const scrollHeight = articleContent.scrollHeight;
+            const clientHeight = window.innerHeight;
+            const scrollPercentage = (scrollTop / (scrollHeight - clientHeight)) * 100;
+            const progress = Math.min(Math.max(scrollPercentage, 0), 100) / 100; // Convert to 0-1 range
+
+            // Update course progress dynamically
+            updateCourseProgressDynamic(progress);
+        }
+
+        window.addEventListener('scroll', updateProgress);
+
+        // Initialize course progress on page load
+        updateCourseProgress(initialCourseProgress);
+
+        // Next Lesson Button Click Handler
+        nextLessonBtn.addEventListener('click', function() {
+            // Check if enough time has been spent on the page
+            if (elapsedTime < ALLOCATED_TIME) {
+                // Show confirmation modal
+                const minutesSpent = Math.floor(elapsedTime / 60);
+                const secondsSpent = elapsedTime % 60;
+                const timeText = minutesSpent > 0
+                    ? `${minutesSpent} minute${minutesSpent !== 1 ? 's' : ''}`
+                    : `${secondsSpent} second${secondsSpent !== 1 ? 's' : ''}`;
+
+                timeSpentElement.textContent = timeText;
+                confirmModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            } else {
+                // Proceed directly to next lesson
+                proceedToNextLesson();
+            }
+        });
+
+        // Cancel button - close modal
+        cancelBtn.addEventListener('click', function() {
+            confirmModal.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+
+        // Confirm button - proceed to next lesson
+        confirmBtn.addEventListener('click', function() {
+            confirmModal.classList.remove('active');
+            document.body.style.overflow = '';
+            proceedToNextLesson();
+        });
+
+        // Close modal when clicking outside
+        confirmModal.addEventListener('click', function(e) {
+            if (e.target === confirmModal) {
+                confirmModal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+
+        // Function to proceed to next lesson
+        function proceedToNextLesson() {
+            // Here you would navigate to the next lesson
+            // For now, we'll just show an alert or redirect
+            alert('Proceeding to next lesson...');
+            // window.location.href = 'next-lesson.html'; // Uncomment and update with actual next lesson URL
+        }
+
+        // Table of Contents Active State
+        const tocLinks = document.querySelectorAll('.toc-link');
+        const sections = document.querySelectorAll('.article-content h2');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (window.pageYOffset >= sectionTop - 100) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            tocLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Clean up timer when page unloads
+        window.addEventListener('beforeunload', () => {
+            if (timerInterval) {
+                clearInterval(timerInterval);
+            }
+        });
+    </script>
+</body>
+
+</html>
