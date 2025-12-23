@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Teacher List</title>
+  <title>THinking Coach List</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -365,6 +365,7 @@
       min-width: 130px;
       text-align: center;
     }
+
   </style>
 </head>
 
@@ -762,8 +763,55 @@
 
 
 
+    // Update table with localStorage data
+    function updateTableWithStoredData() {
+      const teachers = JSON.parse(localStorage.getItem('teachers') || '{}');
+
+      if (Object.keys(teachers).length > 0) {
+        $('#teacherTable tbody tr').each(function() {
+          const $row = $(this);
+          const teacherId = $row.find('td:first').text().trim();
+
+          if (teachers[teacherId]) {
+            const teacher = teachers[teacherId];
+
+            // Update name
+            const $nameCell = $row.find('td:nth-child(2)');
+            $nameCell.find('span').text(teacher.fullName);
+
+            // Update initials
+            const nameParts = teacher.fullName.split(' ');
+            const initials = nameParts.map(part => part.charAt(0).toUpperCase()).join('').substring(0, 2);
+            $nameCell.find('.initial-badge').text(initials);
+
+            // Update designation
+            $row.find('td:nth-child(3)').text(teacher.designation);
+
+            // Update contact
+            $row.find('td:nth-child(4)').text(teacher.contact);
+
+            // Update status
+            const $statusCell = $row.find('td:nth-child(5)');
+            const $statusPill = $statusCell.find('.control-pill');
+
+            // Remove all status classes and add the correct one
+            $statusPill.removeClass('status-present status-leave status-absent');
+
+            if (teacher.status === 'Present') {
+              $statusPill.addClass('status-present');
+            } else if (teacher.status === 'On Leave') {
+              $statusPill.addClass('status-leave');
+            } else if (teacher.status === 'Absent') {
+              $statusPill.addClass('status-absent');
+            }
+            $statusPill.text(teacher.status);
+          }
+        });
+      }
+    }
+
     $(function () {
-      $('#teacherTable').DataTable({
+      const table = $('#teacherTable').DataTable({
         paging: true,
         pageLength: 10,
         lengthMenu: [5, 10, 25, 50],
@@ -785,6 +833,67 @@
         },
         dom: '<"datatable-header d-flex flex-column flex-lg-row align-items-start align-items-lg-center justify-content-between gap-3 p-3 border-bottom"l<"w-100"f>><"table-scroll-wrapper"t><"datatable-footer d-flex flex-column flex-lg-row align-items-start align-items-lg-center justify-content-between gap-3 p-3 border-top"ip>'
       });
+
+      // Update table with stored data after initialization
+      updateTableWithStoredData();
+
+      // Action Button Handlers
+      $('#teacherTable').on('click', 'button', function(e) {
+        const $btn = $(this);
+        const $row = $btn.closest('tr');
+        const $cells = $row.find('td');
+
+        const rowData = {
+          id: $cells.eq(0).text().trim(),
+          name: $cells.eq(1).find('span').last().text().trim(),
+          designation: $cells.eq(2).text().trim(),
+          contact: $cells.eq(3).text().trim(),
+          status: $cells.eq(4).text().trim()
+        };
+
+        const btnIcon = $btn.find('.material-symbols-outlined').text();
+
+        if (btnIcon === 'edit') {
+          handleEdit(rowData, $row);
+        } else if (btnIcon === 'visibility') {
+          handleView(rowData);
+        } else if (btnIcon === 'delete') {
+          handleDelete(rowData, $row);
+        }
+      });
+
+      function handleEdit(data, $row) {
+        // Navigate to edit page with URL parameters
+        const params = new URLSearchParams({
+          id: data.id,
+          name: data.name,
+          designation: data.designation,
+          contact: data.contact,
+          status: data.status
+        });
+        window.location.href = `edit-teacher.html?${params.toString()}`;
+      }
+
+      function handleView(data) {
+        // Navigate to view page with URL parameters
+        const params = new URLSearchParams({
+          id: data.id,
+          name: data.name,
+          designation: data.designation,
+          contact: data.contact,
+          status: data.status
+        });
+        window.location.href = `view-teacher.html?${params.toString()}`;
+      }
+
+      function handleDelete(data, $row) {
+        if (confirm(`Are you sure you want to delete "${data.name}"?\n\nThis action cannot be undone.`)) {
+          $row.fadeOut(300, function() {
+            $('#teacherTable').DataTable().row($row).remove().draw();
+            alert('Teacher deleted successfully!');
+          });
+        }
+      }
     });
   </script>
 </body>

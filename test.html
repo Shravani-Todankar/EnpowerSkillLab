@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Lesson - Enpower Skill Lab</title>
+    <title>Edit Student - Enpower Skill Lab</title>
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -17,8 +17,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
         rel="stylesheet">
 
+    <!-- Sidebar JS -->
+    <script src="sidebar.js"></script>
+    <!-- Header JS -->
+    <script src="header.js"></script>
+
     <style>
-        /* Prevent FOUC - hide containers until loaded */
+        /* Prevent FOUC */
         #sidebar-container:empty,
         #header-container:empty {
             opacity: 0;
@@ -32,9 +37,8 @@
             transition: opacity 0.2s ease-in;
         }
 
-        /* ================= Root ================= */
         :root {
-            --primary: #5b1f6f;
+            --primary: #6B21A8;
             --bg-light: #f7f6f8;
             --surface: #ffffff;
             --text-main: #171019;
@@ -48,618 +52,381 @@
             color: var(--text-main);
             margin: 0;
             padding: 0;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
         }
 
-        /* ================= Dashboard Layout ================= */
-        .dashboard-container {
+        .edit-student-dashboard-container {
             display: flex;
             min-height: 100vh;
         }
 
-        .main-content {
+        .edit-student-main-content {
             flex: 1;
             display: flex;
             flex-direction: column;
             overflow-x: hidden;
         }
 
-        .content-wrapper {
+        .edit-student-content-wrapper {
             flex: 1;
-            padding: 0;
+            padding: 20px 30px;
         }
 
-        /* ================= Page Header ================= */
-        .create-head {
-            font-weight: 600;
-            font-size: 30px;
-            margin-bottom: 0;
-        }
-
-        /* ================= Card Styling ================= */
-        .card-box {
-            background: var(--surface);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 24px;
-            box-shadow: none;
-        }
-
-        .card-header-custom {
-            display: flex;
+        .edit-student-back-link {
+            display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
-            margin-bottom: 1.5rem;
+            gap: 8px;
+            color: #6b7280;
+            text-decoration: none;
+            font-size: 0.875rem;
+            margin-bottom: 16px;
+            font-weight: 500;
         }
 
-        .card-header-custom .material-symbols-outlined {
+        .edit-student-back-link:hover {
             color: var(--primary);
         }
 
-        .card-header-custom h2,
-        .card-box h5 {
-            font-size: 1.125rem;
-            font-weight: 700;
-            margin: 0;
-            color: var(--text-main);
+        .edit-student-back-link .material-symbols-outlined {
+            font-size: 1.25rem;
         }
 
-        /* ================= Form Controls ================= */
-        .form-label {
+        .edit-student-page-header {
+            font-weight: 700;
+            font-size: 28px;
+            margin-bottom: 4px;
+        }
+
+        .edit-student-page-subtitle {
+            color: #6b7280;
+            margin-bottom: 24px;
+            font-size: 0.875rem;
+        }
+
+        .edit-student-card-box {
+            background: var(--surface);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 32px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            margin-bottom: 24px;
+        }
+
+        .edit-student-section-title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .edit-student-section-title .material-symbols-outlined {
+            font-size: 1.25rem;
+            color: var(--primary);
+        }
+
+        .edit-student-form-label {
             font-size: 0.875rem;
             font-weight: 500;
             color: #374151;
             margin-bottom: 0.5rem;
+            display: block;
         }
 
-        .form-control,
-        .form-select,
-        textarea {
+        .edit-student-form-control,
+        .edit-student-form-select {
             border-radius: 10px;
             border: 1px solid var(--border-color);
             padding: 0.625rem 0.875rem;
             font-size: 0.875rem;
             background-color: #faf9fb;
+            width: 100%;
         }
 
-        .form-select {
-            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%2380588d' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
-            background-repeat: no-repeat;
-            background-position: right 0.75rem center;
-            background-size: 16px 12px;
-            padding-right: 2.5rem;
-            appearance: none;
-            height: 44px;
-        }
-
-        .form-control:focus,
-        .form-select:focus,
-        textarea:focus {
+        .edit-student-form-control:focus,
+        .edit-student-form-select:focus {
             border-color: var(--primary);
             box-shadow: 0 0 0 1px var(--primary);
             background-color: white;
             outline: none;
         }
 
-        .form-select:hover {
-            border-color: #9CA3AF;
+        .edit-student-photo-upload-section {
+            margin-bottom: 2rem;
         }
 
-        textarea.form-control {
-            resize: none;
+        .edit-student-photo-upload-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 20px;
         }
 
-        /* ================= File Upload Area ================= */
-        .upload-box {
+        .edit-student-photo-placeholder {
+            width: 100px;
+            height: 100px;
             border: 2px dashed var(--border-color);
-            border-radius: 14px;
-            background-color: var(--bg-light);
-            padding: 32px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .upload-box:hover {
-            background-color: #f0edff;
-            border-color: var(--primary);
-        }
-
-        .file-upload-icon {
-            width: 3rem;
-            height: 3rem;
-            background: white;
-            border-radius: 0.5rem;
-            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            border-radius: 12px;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 0.75rem;
-            transition: transform 0.3s ease;
+            background-color: #faf9fb;
+            color: #9ca3af;
+            font-size: 0.75rem;
         }
 
-        .upload-box:hover .file-upload-icon {
-            transform: scale(1.1);
+        .edit-student-photo-placeholder .material-symbols-outlined {
+            font-size: 2rem;
+            margin-bottom: 4px;
         }
 
-        .file-upload-icon .material-symbols-outlined {
-            color: var(--primary);
-        }
-
-        /* ================= Content Type Tabs ================= */
-        .lesson-tabs {
-            background-color: var(--bg-light);
-            padding: 6px;
+        .edit-student-btn-change-photo {
+            background-color: var(--primary);
+            border: none;
+            color: white;
+            font-weight: 600;
+            padding: 0.625rem 1.25rem;
             border-radius: 10px;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            font-size: 0.875rem;
+            display: inline-flex;
+            align-items: center;
             gap: 6px;
-            margin-bottom: 1.5rem;
-        }
-
-        .lesson-tabs button {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            padding: 10px;
-            border: none;
-            border-radius: 8px;
-            background: transparent;
-            color: var(--text-secondary);
-            font-size: 0.875rem;
-            font-weight: 500;
-            transition: all 0.2s ease;
             cursor: pointer;
         }
 
-        .lesson-tabs button:hover {
-            background-color: #F3F4F6;
-            color: var(--primary);
+        .edit-student-btn-change-photo:hover {
+            background-color: #581c87;
         }
 
-        .lesson-tabs button.active {
-            background-color: white;
-            color: var(--primary);
-            box-shadow: 0 0 0 1px rgba(0, 0, 0, .05);
+        .edit-student-photo-hint {
+            color: #9ca3af;
+            font-size: 0.75rem;
         }
 
-        .lesson-tabs button .material-symbols-outlined {
-            font-size: 1.125rem;
-        }
-
-        /* ================= Rich Text Editor ================= */
-        .editor-container {
-            border: 1px solid var(--border-color);
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-        .editor-toolbar {
-            background-color: var(--bg-light);
-            border-bottom: 1px solid var(--border-color);
-            padding: 8px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .editor-toolbar button {
-            padding: 0.375rem;
-            border: none;
-            background: transparent;
-            border-radius: 0.25rem;
-            color: var(--text-secondary);
-            cursor: pointer;
-            transition: background-color 0.2s ease;
-        }
-
-        .editor-toolbar button:hover {
-            background-color: #E5E7EB;
-        }
-
-        .editor-toolbar .material-symbols-outlined {
-            font-size: 1.125rem;
-        }
-
-        .editor-textarea {
-            border: none;
-            padding: 1rem;
-            min-height: 16rem;
-            width: 100%;
-            font-size: 0.875rem;
-        }
-
-        .editor-textarea:focus {
-            outline: none;
-        }
-
-        /* ================= Buttons ================= */
-        .btn-primary-custom {
+        .edit-student-btn-primary {
             background-color: var(--primary);
             border: none;
             color: white;
             font-weight: 700;
-            padding: 0.625rem 1rem;
+            padding: 0.75rem 1.75rem;
             border-radius: 10px;
-            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
             transition: background-color 0.2s ease;
-            display: flex;
+            display: inline-flex;
             align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
+            gap: 6px;
         }
 
-        .btn-primary-custom:hover {
-            background-color: #9141b1;
+        .edit-student-btn-primary:hover {
+            background-color: #581c87;
         }
 
-        .btn-outline-primary-custom {
-            background-color: white;
-            border: 1px solid var(--primary);
-            color: var(--primary);
-            font-weight: 600;
-            padding: 0.625rem 1rem;
-            border-radius: 10px;
-            transition: all 0.2s ease;
+        .edit-student-btn-primary .material-symbols-outlined {
+            font-size: 1.125rem;
         }
 
-        .btn-outline-primary-custom:hover {
-            background-color: var(--primary);
-            color: white;
-        }
-
-        .btn-ghost {
+        .edit-student-btn-ghost {
             background: transparent;
             border: 1px solid var(--border-color);
             color: #374151;
-            font-weight: 500;
-            padding: 0.625rem 1rem;
+            font-weight: 600;
+            padding: 0.75rem 1.5rem;
             border-radius: 10px;
             transition: background-color 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
         }
 
-        .btn-ghost:hover {
+        .edit-student-btn-ghost:hover {
             background-color: var(--bg-light);
         }
 
-        /* ================= Toggle Switch ================= */
-        .switch {
-            position: relative;
-            display: inline-block;
-            width: 44px;
-            height: 22px;
-            background: #d1d5db;
-            border-radius: 22px;
-            cursor: pointer;
-            transition: background 0.3s ease;
-            border: 2px solid #d1d5db;
+        .edit-student-btn-ghost .material-symbols-outlined {
+            font-size: 1.125rem;
         }
 
-        .switch::after {
-            content: "";
-            width: 18px;
-            height: 18px;
-            background: #fff;
-            position: absolute;
-            /* top: 2px; */
-            left: 2px;
-            border-radius: 50%;
-            transition: left 0.3s ease;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-        }
-
-        .switch.active {
-            background: var(--primary) !important;
-            border-color: var(--primary) !important;
-        }
-
-        .switch.active::after {
-            left: 22px;
-        }
-
-        /* ================= Video Items ================= */
-        .video-item {
-            transition: all 0.2s ease;
-            background-color: #faf9fb;
-        }
-
-        .video-item:hover {
-            background-color: #f0edff !important;
-            border-color: var(--primary) !important;
-        }
-
-        .remove-video-btn {
-            padding: 4px 8px;
-            opacity: 0.7;
-            transition: opacity 0.2s;
-        }
-
-        .remove-video-btn:hover {
-            opacity: 1;
-        }
-
-        #videoList:empty::before {
-            content: "No videos added yet. Upload files or add URLs above.";
-            display: block;
-            text-align: center;
-            padding: 20px;
-            color: var(--text-secondary);
-            font-size: 14px;
-            font-style: italic;
-        }
-
-        /* ================= Text Utilities ================= */
-        .text-xs {
-            font-size: 0.75rem;
-        }
-
-        .text-sm {
-            font-size: 0.875rem;
-        }
-
-        .required {
+        .edit-student-required {
             color: #DC2626;
-        }
-
-        /* ================= Responsive ================= */
-        @media (max-width: 767.98px) {
-            .lesson-tabs {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* ================= Alert ================= */
-        .alert-info {
-            background-color: #EFF6FF;
-            border: 1px solid #BFDBFE;
-            color: #1E40AF;
-            border-radius: 10px;
-            padding: 0.75rem 1rem;
-            font-size: 0.875rem;
         }
     </style>
 </head>
 
 <body>
-
-    <div class="dashboard-container">
+    <div class="edit-student-dashboard-container">
         <!-- Sidebar Container -->
         <div id="sidebar-container"></div>
 
         <!-- Main Content Area -->
-        <div class="main-content">
+        <div class="edit-student-main-content">
             <!-- Header Container -->
             <div id="header-container"></div>
 
             <!-- Content Wrapper -->
-            <div class="content-wrapper">
-                <main class="container-xl py-4 px-4">
+            <div class="edit-student-content-wrapper">
+                <main class="container-xl">
+                    <!-- Back Link -->
+                    <a href="student-list.html" class="edit-student-back-link">
+                        <span class="material-symbols-outlined">arrow_back</span>
+                        Back to Student List
+                    </a>
 
                     <!-- Page Header -->
                     <div class="mb-4">
-                        <h1 class="create-head">Create Lesson</h1>
-                        <p class="text-muted mb-0">Lessons are used for competency-based self-learning content.</p>
+                        <h1 class="edit-student-page-header">Edit Student</h1>
+                        <p class="edit-student-page-subtitle" id="studentIdHeader">Update information for Aadhya Dev Das</p>
                     </div>
 
-                    <!-- Main Content Grid -->
-                    <div class="row g-4">
-                        <!-- Left Column (Main Content) -->
-                        <div class="col-lg-8">
-                            <!-- Basic Details Card -->
-                            <div class="card-box mb-4">
-                                <h5 class="fw-bold mb-4">Basic Details</h5>
+                    <form id="editStudentForm">
+                        <!-- Basic Information Card -->
+                        <div class="edit-student-card-box">
+                            <div class="edit-student-section-title">
+                                <span class="material-symbols-outlined">person</span>
+                                Basic Information
+                            </div>
 
-                                <div class="mb-4">
-                                    <label for="lessonTitle" class="form-label">Lesson Title</label>
-                                    <input type="text" class="form-control" id="lessonTitle"
-                                        placeholder="e.g. Introduction to Financial Literacy">
-                                </div>
-
-                                <div class="mb-4">
-                                    <label for="shortDescription" class="form-label">Short Description</label>
-                                    <textarea class="form-control" id="shortDescription" rows="3"
-                                        placeholder="Briefly describe what the student will learn..."></textarea>
-                                </div>
-
-                                <div>
-                                    <label class="form-label mb-2">Thumbnail</label>
-                                    <div class="upload-box" id="fileUploadArea">
-                                        <div class="file-upload-icon">
-                                            <span class="material-symbols-outlined">add_photo_alternate</span>
-                                        </div>
-                                        <p class="mb-0 fw-medium">Click to upload or drag & drop</p>
-                                        <small class="text-muted">SVG, PNG, JPG (800×400)</small>
-                                        <input type="file" id="thumbnailInput" accept="image/*" style="display: none;">
+                            <!-- Photo Upload -->
+                            <div class="edit-student-photo-upload-section">
+                                <label class="edit-student-form-label">Student Photo</label>
+                                <div class="edit-student-photo-upload-wrapper">
+                                    <div class="edit-student-photo-placeholder">
+                                        <span class="material-symbols-outlined">photo_camera</span>
+                                        Upload Photo
+                                    </div>
+                                    <div>
+                                        <button type="button" class="edit-student-btn-change-photo">
+                                            <span class="material-symbols-outlined" style="font-size: 1rem;">upload</span>
+                                            Change Photo
+                                        </button>
+                                        <div class="edit-student-photo-hint mt-1">Recommended: Square image, max 2MB</div>
                                     </div>
                                 </div>
                             </div>
 
-                            <!-- Learning Content Card -->
-                            <div class="card-box">
-                                <h5 class="fw-bold mb-4">Learning Content</h5>
-
-                                <!-- Content Type Tabs -->
-                                <div class="lesson-tabs">
-                                    <button class="active" data-content-type="video">
-                                        <span class="material-symbols-outlined">play_circle</span>
-                                        Video
-                                    </button>
-                                    <button data-content-type="article">
-                                        <span class="material-symbols-outlined">article</span>
-                                        Article
-                                    </button>
-                                    <button data-content-type="quiz">
-                                        <span class="material-symbols-outlined">quiz</span>
-                                        Quiz
-                                    </button>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label for="firstName" class="edit-student-form-label">First Name <span class="edit-student-required">*</span></label>
+                                    <input type="text" class="edit-student-form-control" id="firstName" value="Aadhya" required>
                                 </div>
-
-                                <!-- Content Area -->
-                                <div id="contentArea"></div>
+                                <div class="col-md-6">
+                                    <label for="middleName" class="edit-student-form-label">Middle Name</label>
+                                    <input type="text" class="edit-student-form-control" id="middleName" value="Dev">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="lastName" class="edit-student-form-label">Last Name <span class="edit-student-required">*</span></label>
+                                    <input type="text" class="edit-student-form-control" id="lastName" value="Das" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="gender" class="edit-student-form-label">Gender <span class="edit-student-required">*</span></label>
+                                    <select class="edit-student-form-select" id="gender" required>
+                                        <option value="Male" selected>Male</option>
+                                        <option value="Female">Female</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="dateOfBirth" class="edit-student-form-label">Date of Birth <span class="edit-student-required">*</span></label>
+                                    <input type="date" class="edit-student-form-control" id="dateOfBirth" value="2006-06-11" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="nationality" class="edit-student-form-label">Nationality</label>
+                                    <input type="text" class="edit-student-form-control" id="nationality" value="Indian">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="motherTongue" class="edit-student-form-label">Mother Tongue</label>
+                                    <input type="text" class="edit-student-form-control" id="motherTongue" value="Telugu">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="bloodGroup" class="edit-student-form-label">Blood Group</label>
+                                    <select class="edit-student-form-select" id="bloodGroup">
+                                        <option value="">Select Blood Group</option>
+                                        <option value="O-" selected>O-</option>
+                                        <option value="O+">O+</option>
+                                        <option value="A-">A-</option>
+                                        <option value="A+">A+</option>
+                                        <option value="B-">B-</option>
+                                        <option value="B+">B+</option>
+                                        <option value="AB-">AB-</option>
+                                        <option value="AB+">AB+</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="aadharNumber" class="edit-student-form-label">Aadhar Number</label>
+                                    <input type="text" class="edit-student-form-control" id="aadharNumber" value="4589 8417 6625" maxlength="14">
+                                </div>
                             </div>
                         </div>
 
-                        <!-- Right Column (Sidebar) -->
-                        <div class="col-lg-4">
-                            <!-- Action Buttons Card -->
-                            <div class="card-box mb-4">
-                                <button type="button" class="btn btn-primary-custom w-100 mb-3" id="publishBtn">
-                                    <span class="material-symbols-outlined" style="font-size: 1.125rem;">publish</span>
-                                    Publish Lesson
-                                </button>
-                                <div class="row g-3">
-                                    <div class="col-6">
-                                        <button type="button" class="btn btn-outline-primary-custom w-100"
-                                            id="saveDraftBtn">
-                                            Save Draft
-                                        </button>
-                                    </div>
-                                    <div class="col-6">
-                                        <button type="button" class="btn btn-ghost w-100" id="cancelBtn">
-                                            Cancel
-                                        </button>
-                                    </div>
-                                </div>
+                        <!-- Academic Details Card -->
+                        <div class="edit-student-card-box">
+                            <div class="edit-student-section-title">
+                                <span class="material-symbols-outlined">school</span>
+                                Academic Details
                             </div>
-
-                            <!-- Assignment Card -->
-                            <div class="card-box mb-4">
-                                <h5 class="fw-bold mb-4 d-flex align-items-center gap-2">
-                                    <span class="material-symbols-outlined text-primary">school</span>
-                                    Assignment
-                                </h5>
-
-                                <div class="mb-3">
-                                    <label for="competency" class="form-label">Competency</label>
-                                    <select class="form-select" id="competency">
-                                        <option selected>Select Competency</option>
-                                        <option value="1">Financial Literacy</option>
-                                        <option value="2">Digital Skills</option>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label for="schoolName" class="edit-student-form-label">School Name <span class="edit-student-required">*</span></label>
+                                    <select class="edit-student-form-select" id="schoolName" required>
+                                        <option value="Holy Model Academy" selected>Holy Model Academy</option>
+                                        <option value="Other School">Other School</option>
                                     </select>
                                 </div>
-
-                                <div class="mb-3">
-                                    <label for="level" class="form-label">Level</label>
-                                    <select class="form-select" id="level">
-                                        <option selected>Select Difficulty</option>
-                                        <option value="1">Beginner</option>
-                                        <option value="2">Intermediate</option>
-                                        <option value="3">Advanced</option>
+                                <div class="col-md-6">
+                                    <label for="studentClass" class="edit-student-form-label">Class <span class="edit-student-required">*</span></label>
+                                    <select class="edit-student-form-select" id="studentClass" required>
+                                        <option value="">Select Class</option>
+                                        <option value="Class 6">Class 6</option>
+                                        <option value="Class 7">Class 7</option>
+                                        <option value="Class 8" selected>Class 8</option>
+                                        <option value="Class 9">Class 9</option>
+                                        <option value="Class 10">Class 10</option>
                                     </select>
                                 </div>
-
-                                <div>
-                                    <label for="module" class="form-label">Module / Category</label>
-                                    <select class="form-select" id="module">
-                                        <option selected>Select Module</option>
-                                        <option value="1">Module 1: Basics</option>
-                                        <option value="2">Module 2: Application</option>
+                                <div class="col-md-6">
+                                    <label for="division" class="edit-student-form-label">Division <span class="edit-student-required">*</span></label>
+                                    <select class="edit-student-form-select" id="division" required>
+                                        <option value="">Select Division</option>
+                                        <option value="Division A">Division A</option>
+                                        <option value="Division B">Division B</option>
+                                        <option value="Division C">Division C</option>
+                                        <option value="Division D" selected>Division D</option>
                                     </select>
                                 </div>
-                            </div>
-
-                            <!-- Lesson Context Card -->
-                            <div class="card-box mb-4">
-                                <h5 class="fw-bold mb-1 d-flex align-items-center gap-2">
-                                    <span class="material-symbols-outlined text-primary">groups</span>
-                                    Lesson Context
-                                </h5>
-                                <p class="text-xs text-muted mb-4">
-                                    Define where this lesson will be used.
-                                </p>
-
-                                <!-- Applicable Schools -->
-                                <div class="mb-3">
-                                    <label class="form-label">
-                                        Applicable School(s) <span class="required">*</span>
-                                    </label>
-                                    <select class="form-select" id="applicableSchools">
-                                        <option selected>All Schools</option>
-                                        <option>School A</option>
-                                        <option>School B</option>
-                                        <option>School C</option>
+                                <div class="col-md-6">
+                                    <label for="rollNumber" class="edit-student-form-label">Roll Number</label>
+                                    <input type="text" class="edit-student-form-control" id="rollNumber" value="38">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="academicYear" class="edit-student-form-label">Academic Year</label>
+                                    <select class="edit-student-form-select" id="academicYear">
+                                        <option value="2023-2024">2023-2024</option>
+                                        <option value="2024-2025" selected>2024-2025</option>
+                                        <option value="2025-2026">2025-2026</option>
                                     </select>
-                                    <small class="text-muted">
-                                        Select which school(s) this lesson applies to.
-                                    </small>
                                 </div>
-
-                                <!-- Applicable Grades -->
-                                <div class="mb-4">
-                                    <label class="form-label">
-                                        Applicable Grade(s) <span class="required">*</span>
-                                    </label>
-                                    <select class="form-select" id="applicableGrades">
-                                        <option selected>Select Grade</option>
-                                        <option value="8">Standard 8</option>
-                                        <option value="9">Standard 9</option>
-                                        <option value="10">Standard 10</option>
-                                        <option value="11">Standard 11</option>
-                                        <option value="12">Standard 12</option>
+                                <div class="col-md-6">
+                                    <label for="studentStatus" class="edit-student-form-label">Status</label>
+                                    <select class="edit-student-form-select" id="studentStatus">
+                                        <option value="Active" selected>Active</option>
+                                        <option value="Pending">Pending</option>
+                                        <option value="Inactive">Inactive</option>
                                     </select>
-                                    <small class="text-muted">
-                                        Select which grade this lesson applies to.
-                                    </small>
-                                </div>
-
-                                <!-- Section Toggle -->
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div>
-                                        <p class="text-sm fw-medium mb-1">
-                                            Limit to specific sections
-                                        </p>
-                                        <p class="text-xs text-muted mb-0">
-                                            Enable to select specific sections (A, B, C).
-                                        </p>
-                                    </div>
-                                    <div class="switch" id="sectionToggle"></div>
-                                </div>
-
-                                <!-- Section Selector -->
-                                <div id="sectionWrapper" class="mt-3 d-none">
-                                    <label class="form-label">Sections <span class="required">*</span></label>
-                                    <select class="form-select" id="sectionSelector">
-                                        <option selected>Select Section</option>
-                                        <option value="A">Section A</option>
-                                        <option value="B">Section B</option>
-                                        <option value="C">Section C</option>
-                                        <option value="D">Section D</option>
-                                        <option value="E">Section E</option>
-                                    </select>
-                                    <small class="text-muted">
-                                        Choose a specific section for this lesson.
-                                    </small>
-                                </div>
-                            </div>
-
-
-                            <!-- Visibility Card -->
-                            <div class="card-box">
-                                <h5 class="fw-bold mb-4">Visibility</h5>
-
-                                <div class="d-flex justify-content-between align-items-center mb-4">
-                                    <div>
-                                        <p class="text-sm fw-medium mb-1">Status</p>
-                                        <p class="text-xs text-muted mb-0">Draft or Published</p>
-                                    </div>
-                                    <div class="switch" id="statusToggle"></div>
-                                </div>
-
-                                <hr style="border-color: #F3F4F6;">
-
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div>
-                                        <p class="text-sm fw-medium mb-1">Recommend for Low Competency</p>
-                                        <p class="text-xs text-muted mb-0">Suggest to struggling students</p>
-                                    </div>
-                                    <div class="switch" id="recToggle"></div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
+                        <!-- Action Buttons -->
+                        <div class="d-flex justify-content-end gap-3 mb-4">
+                            <button type="button" class="edit-student-btn-ghost" id="cancelBtn">
+                                <span class="material-symbols-outlined">close</span>
+                                Cancel
+                            </button>
+                            <button type="submit" class="edit-student-btn-primary">
+                                <span class="material-symbols-outlined">save</span>
+                                Save Changes
+                            </button>
+                        </div>
+                    </form>
                 </main>
             </div>
         </div>
@@ -669,409 +436,113 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
-        // Load sidebar (placeholder for now)
-        document.addEventListener('DOMContentLoaded', function () {
-            const sidebarContainer = document.getElementById('sidebar-container');
-            // You can load sidebar.html here or just mark as loaded
-            sidebarContainer.classList.add('loaded');
+        // Load sidebar and header
+        Promise.all([
+            fetch('sidebar.html').then(response => response.text()),
+            fetch('header.html').then(response => response.text())
+        ]).then(([sidebarHTML, headerHTML]) => {
+            document.getElementById('sidebar-container').innerHTML = sidebarHTML;
+            document.getElementById('header-container').innerHTML = headerHTML;
 
-            const headerContainer = document.getElementById('header-container');
-            // You can load header.html here or just mark as loaded
-            headerContainer.classList.add('loaded');
+            setTimeout(() => {
+                if (typeof initializeHeader === 'function') {
+                    initializeHeader();
+                }
+                document.getElementById('sidebar-container').classList.add('loaded');
+                document.getElementById('header-container').classList.add('loaded');
+                setActiveMenuItem();
+            }, 200);
         });
 
-        // ================= Lesson Content Tabs =================
-        document.addEventListener('DOMContentLoaded', function () {
-            const tabButtons = document.querySelectorAll('.lesson-tabs button');
-            const contentAreas = {
-                'video': createVideoContent(),
-                'article': createArticleContent(),
-                'quiz': createQuizContent()
+        function setActiveMenuItem() {
+            const navStudentList = document.getElementById('nav-student-list');
+            if (navStudentList) {
+                navStudentList.classList.add('active');
+            }
+        }
+
+        // Get student data from URL parameters
+        function getStudentDataFromURL() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return {
+                id: urlParams.get('id') || '',
+                firstName: urlParams.get('firstName') || 'Aadhya',
+                middleName: urlParams.get('middleName') || 'Dev',
+                lastName: urlParams.get('lastName') || 'Das',
+                gender: urlParams.get('gender') || 'Male',
+                dateOfBirth: urlParams.get('dateOfBirth') || '2006-06-11',
+                nationality: urlParams.get('nationality') || 'Indian',
+                motherTongue: urlParams.get('motherTongue') || 'Telugu',
+                bloodGroup: urlParams.get('bloodGroup') || 'O-',
+                aadharNumber: urlParams.get('aadharNumber') || '4589 8417 6625',
+                schoolName: urlParams.get('schoolName') || 'Holy Model Academy',
+                class: urlParams.get('class') || 'Class 8',
+                division: urlParams.get('division') || 'Division D',
+                rollNumber: urlParams.get('rollNumber') || '38',
+                academicYear: urlParams.get('academicYear') || '2024-2025',
+                status: urlParams.get('status') || 'Active'
             };
+        }
 
-            // Initialize with Video content (first tab is active)
-            updateContentArea('video', contentAreas['video']);
+        // Populate form with student data
+        function populateStudentForm() {
+            const studentData = getStudentDataFromURL();
 
-            tabButtons.forEach(button => {
-                button.addEventListener('click', function () {
-                    // Remove active class from all buttons
-                    tabButtons.forEach(btn => btn.classList.remove('active'));
+            document.getElementById('studentIdHeader').textContent = `Update information for ${studentData.firstName} ${studentData.middleName} ${studentData.lastName}`;
+            document.getElementById('firstName').value = studentData.firstName;
+            document.getElementById('middleName').value = studentData.middleName;
+            document.getElementById('lastName').value = studentData.lastName;
+            document.getElementById('gender').value = studentData.gender;
+            document.getElementById('dateOfBirth').value = studentData.dateOfBirth;
+            document.getElementById('nationality').value = studentData.nationality;
+            document.getElementById('motherTongue').value = studentData.motherTongue;
+            document.getElementById('bloodGroup').value = studentData.bloodGroup;
+            document.getElementById('aadharNumber').value = studentData.aadharNumber;
+            document.getElementById('schoolName').value = studentData.schoolName;
+            document.getElementById('studentClass').value = studentData.class;
+            document.getElementById('division').value = studentData.division;
+            document.getElementById('rollNumber').value = studentData.rollNumber;
+            document.getElementById('academicYear').value = studentData.academicYear;
+            document.getElementById('studentStatus').value = studentData.status;
+        }
 
-                    // Add active class to clicked button
-                    this.classList.add('active');
-
-                    // Update content area based on selected tab
-                    const selectedTab = this.getAttribute('data-content-type');
-                    updateContentArea(selectedTab, contentAreas[selectedTab]);
-                });
-            });
-
-            // Content creators for different tab types
-            function createVideoContent() {
-                return `
-                <label class="form-label mb-2">Add Videos</label>
-                <div id="videoList" class="mb-3"></div>
-                <div class="upload-box video-upload-box" style="cursor: pointer;">
-                    <span class="material-symbols-outlined text-primary fs-2">video_library</span>
-                    <p class="mb-0 fw-medium">Click to upload videos</p>
-                    <small class="text-muted">MP4, WebM, MOV (Max 500MB per file) - Multiple files supported</small>
-                </div>
-                <div class="text-center text-muted my-3">— OR —</div>
-                <div class="d-flex gap-2 align-items-center">
-                    <input type="url" class="form-control video-url-input" placeholder="Enter YouTube or Vimeo URL">
-                    <button type="button" class="btn btn-outline-primary-custom add-url-btn" style="white-space: nowrap;">Add URL</button>
-                </div>
-            `;
-            }
-
-            function createArticleContent() {
-                return `
-                <label class="form-label mb-2">Article Content</label>
-                <div class="border rounded editor-container">
-                    <div class="editor-toolbar">
-                        <button type="button" data-command="bold"><span class="material-symbols-outlined">format_bold</span></button>
-                        <button type="button" data-command="italic"><span class="material-symbols-outlined">format_italic</span></button>
-                        <button type="button" data-command="underline"><span class="material-symbols-outlined">format_underlined</span></button>
-                        <button type="button" data-command="insertUnorderedList"><span class="material-symbols-outlined">format_list_bulleted</span></button>
-                        <button type="button" data-command="insertOrderedList"><span class="material-symbols-outlined">format_list_numbered</span></button>
-                        <button type="button" data-command="createLink"><span class="material-symbols-outlined">link</span></button>
-                    </div>
-                    <div contenteditable="true" id="articleEditor" class="form-control border-0 editor-textarea" placeholder="Start writing your lesson content here..."></div>
-                </div>
-            `;
-            }
-
-            function createQuizContent() {
-                return `
-                <label class="form-label mb-2">Quiz Questions</label>
-                <div id="quizContainer">
-                    <div class="quiz-question mb-3 p-3 border rounded">
-                        <div class="mb-3">
-                            <label class="form-label">Question 1</label>
-                            <input type="text" class="form-control" placeholder="Enter your question">
-                        </div>
-                        <div class="mb-2">
-                            <label class="form-label">Answer Options</label>
-                            <div class="mb-2">
-                                <input type="text" class="form-control" placeholder="Option A">
-                            </div>
-                            <div class="mb-2">
-                                <input type="text" class="form-control" placeholder="Option B">
-                            </div>
-                            <div class="mb-2">
-                                <input type="text" class="form-control" placeholder="Option C">
-                            </div>
-                            <div class="mb-2">
-                                <input type="text" class="form-control" placeholder="Option D">
-                            </div>
-                        </div>
-                        <select class="form-select">
-                            <option selected disabled>Select Correct Answer</option>
-                            <option>Option A</option>
-                            <option>Option B</option>
-                            <option>Option C</option>
-                            <option>Option D</option>
-                        </select>
-                    </div>
-                </div>
-                <button type="button" class="btn btn-outline-primary-custom w-100" onclick="addQuizQuestion()">
-                    <span class="material-symbols-outlined" style="vertical-align: middle;">add</span>
-                    Add Question
-                </button>
-            `;
-            }
-
-            function updateContentArea(tabName, content) {
-                const contentContainer = document.getElementById('contentArea');
-                contentContainer.innerHTML = content;
-
-                // Re-attach handlers based on tab type
-                if (tabName === 'article') {
-                    attachEditorToolbar();
-                } else if (tabName === 'video') {
-                    attachVideoHandlers();
-                }
-            }
-
-            // Editor toolbar functionality
-            function attachEditorToolbar() {
-                const toolbarButtons = document.querySelectorAll('.editor-toolbar button');
-                toolbarButtons.forEach(button => {
-                    button.addEventListener('click', function (e) {
-                        e.preventDefault();
-                        const command = this.getAttribute('data-command');
-                        if (command === 'createLink') {
-                            const url = prompt('Enter URL:');
-                            if (url) {
-                                document.execCommand(command, false, url);
-                            }
-                        } else {
-                            document.execCommand(command, false, null);
-                        }
-                    });
-                });
-            }
-
-            // Video upload functionality
-            let videoItems = [];
-
-            function attachVideoHandlers() {
-                const uploadBox = document.querySelector('.video-upload-box');
-                const addUrlBtn = document.querySelector('.add-url-btn');
-                const urlInput = document.querySelector('.video-url-input');
-
-                // File upload handler
-                if (uploadBox) {
-                    uploadBox.addEventListener('click', function () {
-                        const input = document.createElement('input');
-                        input.type = 'file';
-                        input.accept = 'video/*';
-                        input.multiple = true;
-
-                        input.addEventListener('change', function (e) {
-                            const files = Array.from(e.target.files);
-                            files.forEach(file => {
-                                if (file.type.startsWith('video/')) {
-                                    addVideoItem(file.name, 'file', file);
-                                }
-                            });
-                        });
-
-                        input.click();
-                    });
-                }
-
-                // URL handler
-                if (addUrlBtn) {
-                    addUrlBtn.addEventListener('click', function () {
-                        const url = urlInput.value.trim();
-                        if (url) {
-                            if (isValidVideoURL(url)) {
-                                addVideoItem(url, 'url', null);
-                                urlInput.value = '';
-                            } else {
-                                alert('Please enter a valid YouTube or Vimeo URL.');
-                            }
-                        }
-                    });
-
-                    urlInput.addEventListener('keypress', function (e) {
-                        if (e.key === 'Enter') {
-                            addUrlBtn.click();
-                        }
-                    });
-                }
-            }
-
-            function isValidVideoURL(url) {
-                const youtubeRegex = /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.be)\/.+/;
-                const vimeoRegex = /^(https?:\/\/)?(www\.)?vimeo\.com\/.+/;
-                return youtubeRegex.test(url) || vimeoRegex.test(url);
-            }
-
-            function addVideoItem(name, type, fileData) {
-                const videoId = Date.now() + Math.random();
-                videoItems.push({ id: videoId, name, type, fileData });
-
-                const videoList = document.getElementById('videoList');
-                const videoItem = document.createElement('div');
-                videoItem.className = 'video-item mb-2 p-3 border rounded d-flex align-items-center justify-content-between';
-                videoItem.dataset.videoId = videoId;
-
-                const icon = type === 'file' ? 'video_file' : 'link';
-
-                videoItem.innerHTML = `
-                <div class="d-flex align-items-center gap-2 flex-grow-1">
-                    <span class="material-symbols-outlined text-primary">${icon}</span>
-                    <div>
-                        <div class="fw-medium" style="font-size: 14px;">${name}</div>
-                        <small class="text-muted">${type === 'file' ? 'Video File' : 'Video URL'}</small>
-                    </div>
-                </div>
-                <button type="button" class="btn btn-sm btn-danger remove-video-btn" onclick="removeVideoItem(${videoId})">
-                    <span class="material-symbols-outlined" style="font-size: 18px;">close</span>
-                </button>
-            `;
-
-                videoList.appendChild(videoItem);
-            }
-
-            window.removeVideoItem = function (videoId) {
-                videoItems = videoItems.filter(item => item.id !== videoId);
-                const videoItem = document.querySelector(`[data-video-id="${videoId}"]`);
-                if (videoItem) {
-                    videoItem.remove();
-                }
-            };
-
-            // Quiz question management
-            let questionCount = 1;
-
-            window.addQuizQuestion = function () {
-                questionCount++;
-                const quizContainer = document.getElementById('quizContainer');
-                const newQuestion = document.createElement('div');
-                newQuestion.className = 'quiz-question mb-3 p-3 border rounded position-relative';
-                newQuestion.innerHTML = `
-                <button type="button" class="btn btn-sm btn-danger position-absolute top-0 end-0 m-2" onclick="removeQuestion(this)">
-                    <span class="material-symbols-outlined" style="font-size: 18px;">close</span>
-                </button>
-                <div class="mb-3">
-                    <label class="form-label">Question ${questionCount}</label>
-                    <input type="text" class="form-control" placeholder="Enter your question">
-                </div>
-                <div class="mb-2">
-                    <label class="form-label">Answer Options</label>
-                    <div class="mb-2">
-                        <input type="text" class="form-control" placeholder="Option A">
-                    </div>
-                    <div class="mb-2">
-                        <input type="text" class="form-control" placeholder="Option B">
-                    </div>
-                    <div class="mb-2">
-                        <input type="text" class="form-control" placeholder="Option C">
-                    </div>
-                    <div class="mb-2">
-                        <input type="text" class="form-control" placeholder="Option D">
-                    </div>
-                </div>
-                <select class="form-select">
-                    <option selected disabled>Select Correct Answer</option>
-                    <option>Option A</option>
-                    <option>Option B</option>
-                    <option>Option C</option>
-                    <option>Option D</option>
-                </select>
-            `;
-                quizContainer.appendChild(newQuestion);
-            };
-
-            window.removeQuestion = function (button) {
-                const questionDiv = button.closest('.quiz-question');
-                questionDiv.remove();
-
-                // Renumber remaining questions
-                const questions = document.querySelectorAll('.quiz-question');
-                questions.forEach((q, index) => {
-                    const label = q.querySelector('label');
-                    if (label) {
-                        label.textContent = `Question ${index + 1}`;
-                    }
-                });
-                questionCount = questions.length;
-            };
+        // Format Aadhar number as user types
+        document.getElementById('aadharNumber').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\s/g, '');
+            if (value.length > 12) value = value.substr(0, 12);
+            
+            let formatted = value.match(/.{1,4}/g);
+            e.target.value = formatted ? formatted.join(' ') : value;
         });
 
-        // ================= File Upload (Thumbnail) =================
-        const fileUploadArea = document.getElementById('fileUploadArea');
-        const thumbnailInput = document.getElementById('thumbnailInput');
-
-        fileUploadArea.addEventListener('click', () => {
-            thumbnailInput.click();
-        });
-
-        thumbnailInput.addEventListener('change', function (e) {
-            if (this.files && this.files[0]) {
-                const fileName = this.files[0].name;
-
-                const reader = new FileReader();
-                reader.onload = function (e) {
-                    fileUploadArea.innerHTML = `
-                    <img src="${e.target.result}" alt="Preview" style="max-width: 100%; max-height: 200px; border-radius: 8px; margin-bottom: 10px;">
-                    <p class="mb-0 fw-medium">${fileName}</p>
-                    <small class="text-muted">Click to change</small>
-                `;
-                };
-                reader.readAsDataURL(this.files[0]);
-            }
-        });
-
-        // Drag and Drop
-        fileUploadArea.addEventListener('dragover', (e) => {
+        // Handle form submission
+        document.getElementById('editStudentForm').addEventListener('submit', function (e) {
             e.preventDefault();
-            fileUploadArea.style.borderColor = 'var(--primary)';
-            fileUploadArea.style.backgroundColor = '#f0edff';
-        });
 
-        fileUploadArea.addEventListener('dragleave', (e) => {
-            e.preventDefault();
-            fileUploadArea.style.borderColor = 'var(--border-color)';
-            fileUploadArea.style.backgroundColor = 'var(--bg-light)';
-        });
+            const firstName = document.getElementById('firstName').value.trim();
+            const lastName = document.getElementById('lastName').value.trim();
 
-        fileUploadArea.addEventListener('drop', (e) => {
-            e.preventDefault();
-            fileUploadArea.style.borderColor = 'var(--border-color)';
-            fileUploadArea.style.backgroundColor = 'var(--bg-light)';
-
-            const files = e.dataTransfer.files;
-            if (files.length > 0) {
-                thumbnailInput.files = files;
-                const event = new Event('change');
-                thumbnailInput.dispatchEvent(event);
-            }
-        });
-
-        // ================= Toggle Switches =================
-        document.addEventListener('DOMContentLoaded', function () {
-            const switches = document.querySelectorAll('.switch');
-
-            switches.forEach(switchEl => {
-                switchEl.addEventListener('click', function () {
-                    this.classList.toggle('active');
-                });
-            });
-        });
-
-        // ================= Action Buttons =================
-        document.getElementById('publishBtn').addEventListener('click', function () {
-            const title = document.getElementById('lessonTitle').value.trim();
-
-            if (!title) {
-                alert('Please fill in the Lesson Title');
+            if (!firstName || !lastName) {
+                alert('Please fill in the required fields (First Name and Last Name)');
                 return;
             }
 
-            console.log('Publishing lesson...');
-            alert('✅ Lesson Published Successfully!\n\n"' + title + '" has been published and is now available in the lesson library.');
+            alert(`✅ Student Updated Successfully!\n\n"${firstName} ${lastName}" has been updated.`);
+
+            // Redirect back to list
+            window.location.href = 'student-list.html';
         });
 
-        document.getElementById('saveDraftBtn').addEventListener('click', function () {
-            const title = document.getElementById('lessonTitle').value.trim();
-
-            if (!title) {
-                alert('Please fill in the Lesson Title');
-                return;
-            }
-
-            console.log('Saving draft...');
-            alert('💾 Draft Saved Successfully!\n\n"' + title + '" has been saved as a draft.');
-        });
-
+        // Cancel button
         document.getElementById('cancelBtn').addEventListener('click', function () {
             if (confirm('Are you sure you want to cancel? All unsaved changes will be lost.')) {
-                console.log('Cancelled');
-                // You can redirect to another page here
+                window.location.href = 'student-list.html';
             }
         });
 
-        // ================= Section Toggle =================
-        document.addEventListener("DOMContentLoaded", function () {
-            const sectionToggle = document.getElementById("sectionToggle");
-            const sectionWrapper = document.getElementById("sectionWrapper");
-
-            sectionToggle.addEventListener("click", function () {
-                // active class is already handled globally
-                sectionWrapper.classList.toggle(
-                    "d-none",
-                    !sectionToggle.classList.contains("active")
-                );
-            });
-        });
-
-
+        // Load student data on page load
+        window.addEventListener('DOMContentLoaded', populateStudentForm);
     </script>
-
 </body>
 
 </html>

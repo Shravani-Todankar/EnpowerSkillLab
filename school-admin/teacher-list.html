@@ -365,6 +365,7 @@
       min-width: 130px;
       text-align: center;
     }
+
   </style>
 </head>
 
@@ -689,6 +690,61 @@
         },
         dom: '<"datatable-header d-flex flex-column flex-lg-row align-items-start align-items-lg-center justify-content-between gap-3 p-3 border-bottom"l<"w-100"f>><"table-scroll-wrapper"t><"datatable-footer d-flex flex-column flex-lg-row align-items-start align-items-lg-center justify-content-between gap-3 p-3 border-top"ip>'
       });
+
+      // Action Button Handlers
+      $('#teacherTable').on('click', 'button', function(e) {
+        const $btn = $(this);
+        const $row = $btn.closest('tr');
+        const $cells = $row.find('td');
+
+        const rowData = {
+          id: $cells.eq(0).text().trim(),
+          name: $cells.eq(1).find('span').last().text().trim(),
+          designation: $cells.eq(2).text().trim(),
+          email: $cells.eq(3).text().trim(),
+          status: $cells.eq(4).text().trim()
+        };
+
+        const btnIcon = $btn.find('.material-symbols-outlined').text();
+
+        if (btnIcon === 'edit') {
+          handleEdit(rowData, $row);
+        } else if (btnIcon === 'visibility') {
+          handleView(rowData);
+        } else if (btnIcon === 'delete') {
+          handleDelete(rowData, $row);
+        }
+      });
+
+      function handleEdit(data, $row) {
+        const params = new URLSearchParams({
+          id: data.id,
+          name: data.name,
+          designation: data.designation,
+          contact: data.email,
+          status: data.status
+        });
+        window.location.href = `edit-teacher.html?${params.toString()}`;
+      }
+
+      function handleView(data) {
+        const message = `Teacher Details:\n\n` +
+          `ID: ${data.id}\n` +
+          `Name: ${data.name}\n` +
+          `Designation: ${data.designation}\n` +
+          `Email: ${data.email}\n` +
+          `Status: ${data.status}`;
+        alert(message);
+      }
+
+      function handleDelete(data, $row) {
+        if (confirm(`Are you sure you want to delete "${data.name}"?\n\nThis action cannot be undone.`)) {
+          $row.fadeOut(300, function() {
+            $('#teacherTable').DataTable().row($row).remove().draw();
+            alert('Teacher deleted successfully!');
+          });
+        }
+      }
     });
   </script>
 </body>

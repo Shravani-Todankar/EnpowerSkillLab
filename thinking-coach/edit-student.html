@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Student - Enpower Skill Lab</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;900&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet">
+
+    <!-- Sidebar JS -->
+    <script src="sidebar.js"></script>
+    <!-- Header JS -->
+    <script src="header.js"></script>
+
+    <style>
+        /* Prevent FOUC */
+        #sidebar-container:empty,
+        #header-container:empty {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        #sidebar-container.loaded,
+        #header-container.loaded {
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.2s ease-in;
+        }
+
+        :root {
+            --primary: #6B21A8;
+            --bg-light: #f7f6f8;
+            --surface: #ffffff;
+            --text-main: #171019;
+            --text-secondary: #80588d;
+            --border-color: #dfd3e4;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+        }
+
+        .dashboard-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        .content-wrapper {
+            flex: 1;
+            padding: 20px 30px;
+        }
+
+        .page-header {
+            font-weight: 600;
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+
+        .page-subtitle {
+            color: #6b7280;
+            margin-bottom: 24px;
+        }
+
+        .card-box {
+            background: var(--surface);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            margin-bottom: 24px;
+        }
+
+        .card-box h5 {
+            font-size: 1.125rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--text-main);
+        }
+
+        .form-label {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #374151;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-control,
+        .form-select {
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            padding: 0.625rem 0.875rem;
+            font-size: 0.875rem;
+            background-color: #faf9fb;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 1px var(--primary);
+            background-color: white;
+            outline: none;
+        }
+
+        .btn-primary-custom {
+            background-color: var(--primary);
+            border: none;
+            color: white;
+            font-weight: 700;
+            padding: 0.625rem 1.5rem;
+            border-radius: 10px;
+            transition: background-color 0.2s ease;
+        }
+
+        .btn-primary-custom:hover {
+            background-color: #581c87;
+        }
+
+        .btn-ghost {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: #374151;
+            font-weight: 500;
+            padding: 0.625rem 1.5rem;
+            border-radius: 10px;
+            transition: background-color 0.2s ease;
+        }
+
+        .btn-ghost:hover {
+            background-color: var(--bg-light);
+        }
+
+        .required {
+            color: #DC2626;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar Container -->
+        <div id="sidebar-container"></div>
+
+        <!-- Main Content Area -->
+        <div class="main-content">
+            <!-- Header Container -->
+            <div id="header-container"></div>
+
+            <!-- Content Wrapper -->
+            <div class="content-wrapper">
+                <main class="container-xl">
+                    <!-- Page Header -->
+                    <div class="mb-4">
+                        <h1 class="page-header">Edit Student</h1>
+                        <p class="page-subtitle" id="studentIdHeader">Loading...</p>
+                    </div>
+
+                    <form id="editStudentForm">
+                        <!-- Basic Information Card -->
+                        <div class="card-box">
+                            <h5>Student Information</h5>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label for="studentId" class="form-label">Student ID</label>
+                                    <input type="text" class="form-control" id="studentId" readonly>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="studentName" class="form-label">Name <span class="required">*</span></label>
+                                    <input type="text" class="form-control" id="studentName" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="studentClass" class="form-label">Class <span class="required">*</span></label>
+                                    <input type="text" class="form-control" id="studentClass" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="studentStatus" class="form-label">Status</label>
+                                    <select class="form-select" id="studentStatus">
+                                        <option value="Active">Active</option>
+                                        <option value="Pending">Pending</option>
+                                        <option value="Inactive">Inactive</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="d-flex justify-content-end gap-3">
+                            <button type="button" class="btn btn-ghost" id="cancelBtn">Cancel</button>
+                            <button type="submit" class="btn btn-primary-custom">
+                                <span class="material-symbols-outlined" style="font-size: 1.125rem; vertical-align: middle;">save</span>
+                                Save Changes
+                            </button>
+                        </div>
+                    </form>
+                </main>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Load sidebar and header
+        Promise.all([
+            fetch('sidebar.html').then(response => response.text()),
+            fetch('header.html').then(response => response.text())
+        ]).then(([sidebarHTML, headerHTML]) => {
+            document.getElementById('sidebar-container').innerHTML = sidebarHTML;
+            document.getElementById('header-container').innerHTML = headerHTML;
+
+            setTimeout(() => {
+                if (typeof initializeHeader === 'function') {
+                    initializeHeader();
+                }
+                document.getElementById('sidebar-container').classList.add('loaded');
+                document.getElementById('header-container').classList.add('loaded');
+                setActiveMenuItem();
+            }, 200);
+        });
+
+        function setActiveMenuItem() {
+            const navStudentList = document.getElementById('nav-student-list');
+            if (navStudentList) {
+                navStudentList.classList.add('active');
+            }
+        }
+
+        // Get student data from URL parameters
+        function getStudentDataFromURL() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return {
+                id: urlParams.get('id') || '',
+                name: urlParams.get('name') || '',
+                class: urlParams.get('class') || '',
+                status: urlParams.get('status') || 'Active'
+            };
+        }
+
+        // Populate form with student data
+        function populateStudentForm() {
+            const studentData = getStudentDataFromURL();
+
+            document.getElementById('studentIdHeader').textContent = 'Editing: ' + studentData.id;
+            document.getElementById('studentId').value = studentData.id;
+            document.getElementById('studentName').value = studentData.name;
+            document.getElementById('studentClass').value = studentData.class;
+            document.getElementById('studentStatus').value = studentData.status;
+        }
+
+        // Handle form submission
+        document.getElementById('editStudentForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const name = document.getElementById('studentName').value.trim();
+            const studentId = document.getElementById('studentId').value;
+
+            if (!name) {
+                alert('Please fill in the student name');
+                return;
+            }
+
+            alert(`✅ Student Updated Successfully!\n\n"${name}" (ID: ${studentId}) has been updated.`);
+
+            // Redirect back to list
+            window.location.href = 'student-list.html';
+        });
+
+        // Cancel button
+        document.getElementById('cancelBtn').addEventListener('click', function () {
+            if (confirm('Are you sure you want to cancel? All unsaved changes will be lost.')) {
+                window.location.href = 'student-list.html';
+            }
+        });
+
+        // Load student data on page load
+        window.addEventListener('DOMContentLoaded', populateStudentForm);
+    </script>
+</body>
+
+</html>

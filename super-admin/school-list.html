@@ -384,8 +384,9 @@
     @media (max-width: 768px) {
       div.dataTables_wrapper div.dataTables_filter{
         text-align: left;
-      } 
+      }
     }
+
   </style>
 </head>
 
@@ -646,6 +647,61 @@
 
 
 
+    // Update table with data from localStorage
+    function updateTableWithStoredData() {
+      const schools = JSON.parse(localStorage.getItem('schools') || '{}');
+
+      if (Object.keys(schools).length > 0) {
+        $('#schoolTable tbody tr').each(function() {
+          const $row = $(this);
+          const schoolId = $row.find('td:first').text().trim();
+
+          if (schools[schoolId]) {
+            const school = schools[schoolId];
+
+            // Update school name
+            if (school.name) {
+              $row.find('td:nth-child(2) span').last().text(school.name);
+
+              // Update initials
+              const nameParts = school.name.split(' ');
+              const initials = nameParts.map(part => part.charAt(0).toUpperCase()).join('').substring(0, 3);
+              $row.find('.initial-badge').text(initials);
+            }
+
+            // Update location
+            if (school.location) {
+              $row.find('td:nth-child(3)').text(school.location);
+            }
+
+            // Update contact information
+            if (school.contact) {
+              $row.find('td:nth-child(4)').text(school.contact);
+            }
+
+            // Update number of students
+            if (school.students) {
+              $row.find('td:nth-child(5)').text(school.students);
+            }
+
+            // Update status
+            if (school.status) {
+              const $statusPill = $row.find('.control-pill');
+              $statusPill.removeClass('status-active status-inactive');
+
+              if (school.status === 'Active') {
+                $statusPill.addClass('status-active');
+              } else if (school.status === 'Inactive') {
+                $statusPill.addClass('status-inactive');
+              }
+
+              $statusPill.text(school.status);
+            }
+          }
+        });
+      }
+    }
+
     $(function () {
       $('#schoolTable').DataTable({
         paging: true,
@@ -669,6 +725,70 @@
         },
         dom: '<"datatable-header d-flex flex-column flex-lg-row align-items-start align-items-lg-center justify-content-between gap-3 p-3 border-bottom"l<"w-100"f>><"table-scroll-wrapper"t><"datatable-footer d-flex flex-column flex-lg-row align-items-start align-items-lg-center justify-content-between gap-3 p-3 border-top"ip>'
       });
+
+      // Update table with localStorage data after DataTable is initialized
+      updateTableWithStoredData();
+
+      // Action Button Handlers
+      $('#schoolTable').on('click', 'button', function(e) {
+        const $btn = $(this);
+        const $row = $btn.closest('tr');
+        const $cells = $row.find('td');
+
+        // Extract row data
+        const rowData = {
+          id: $cells.eq(0).text().trim(),
+          name: $cells.eq(1).find('span').last().text().trim(),
+          location: $cells.eq(2).text().trim(),
+          contact: $cells.eq(3).text().trim(),
+          students: $cells.eq(4).text().trim(),
+          status: $cells.eq(5).text().trim()
+        };
+
+        // Determine which button was clicked
+        const btnIcon = $btn.find('.material-symbols-outlined').text();
+
+        if (btnIcon === 'edit') {
+          handleEdit(rowData, $row);
+        } else if (btnIcon === 'visibility') {
+          handleView(rowData);
+        } else if (btnIcon === 'delete') {
+          handleDelete(rowData, $row);
+        }
+      });
+
+      function handleEdit(data, $row) {
+        const params = new URLSearchParams({
+          id: data.id,
+          name: data.name,
+          location: data.location,
+          contact: data.contact,
+          students: data.students,
+          status: data.status
+        });
+        window.location.href = `edit-school.html?${params.toString()}`;
+      }
+
+      function handleView(data) {
+        const params = new URLSearchParams({
+          id: data.id,
+          name: data.name,
+          location: data.location,
+          contact: data.contact,
+          students: data.students,
+          status: data.status
+        });
+        window.location.href = `view-school.html?${params.toString()}`;
+      }
+
+      function handleDelete(data, $row) {
+        if (confirm(`Are you sure you want to delete "${data.name}"?\n\nThis action cannot be undone.`)) {
+          $row.fadeOut(300, function() {
+            $('#schoolTable').DataTable().row($row).remove().draw();
+            alert('School deleted successfully!');
+          });
+        }
+      }
     });
   </script>
 </body>

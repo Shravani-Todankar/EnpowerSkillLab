@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit School - Enpower Skill Lab</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;900&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet">
+
+    <!-- Sidebar JS -->
+    <script src="sidebar.js"></script>
+    <!-- Header JS -->
+    <script src="header.js"></script>
+
+    <style>
+        /* Prevent FOUC */
+        #sidebar-container:empty,
+        #header-container:empty {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        #sidebar-container.loaded,
+        #header-container.loaded {
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.2s ease-in;
+        }
+
+        :root {
+            --primary: #6B21A8;
+            --bg-light: #f7f6f8;
+            --surface: #ffffff;
+            --text-main: #171019;
+            --text-secondary: #80588d;
+            --border-color: #dfd3e4;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+        }
+
+        .dashboard-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        .content-wrapper {
+            flex: 1;
+            padding: 20px 30px;
+        }
+
+        .page-header {
+            font-weight: 600;
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+
+        .page-subtitle {
+            color: #6b7280;
+            margin-bottom: 24px;
+        }
+
+        .card-box {
+            background: var(--surface);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            margin-bottom: 24px;
+        }
+
+        .card-box h5 {
+            font-size: 1.125rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--text-main);
+        }
+
+        .form-label {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #374151;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-control,
+        .form-select {
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            padding: 0.625rem 0.875rem;
+            font-size: 0.875rem;
+            background-color: #faf9fb;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 1px var(--primary);
+            background-color: white;
+            outline: none;
+        }
+
+        .btn-primary-custom {
+            background-color: var(--primary);
+            border: none;
+            color: white;
+            font-weight: 700;
+            padding: 0.625rem 1.5rem;
+            border-radius: 10px;
+            transition: background-color 0.2s ease;
+        }
+
+        .btn-primary-custom:hover {
+            background-color: #581c87;
+        }
+
+        .btn-ghost {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: #374151;
+            font-weight: 500;
+            padding: 0.625rem 1.5rem;
+            border-radius: 10px;
+            transition: background-color 0.2s ease;
+        }
+
+        .btn-ghost:hover {
+            background-color: var(--bg-light);
+        }
+
+        .required {
+            color: #DC2626;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar Container -->
+        <div id="sidebar-container"></div>
+
+        <!-- Main Content Area -->
+        <div class="main-content">
+            <!-- Header Container -->
+            <div id="header-container"></div>
+
+            <!-- Content Wrapper -->
+            <div class="content-wrapper">
+                <main class="container-xl">
+                    <!-- Page Header -->
+                    <div class="mb-4">
+                        <h1 class="page-header">Edit School</h1>
+                        <p class="page-subtitle" id="schoolIdHeader">Loading...</p>
+                    </div>
+
+                    <form id="editSchoolForm">
+                        <!-- School Information Card -->
+                        <div class="card-box">
+                            <h5><span class="material-symbols-outlined" style="vertical-align: middle;">school</span> School Information</h5>
+                            <div class="row g-3">
+                                <!-- School Logo Upload -->
+                                <div class="col-12">
+                                    <label class="form-label">School Logo</label>
+                                    <div class="d-flex align-items-center gap-3">
+                                        <div id="logoPreview" style="width: 100px; height: 100px; border-radius: 12px; border: 2px dashed #dfd3e4; display: flex; align-items: center; justify-content: center; background: #faf9fb; cursor: pointer;">
+                                            <span class="material-symbols-outlined" style="font-size: 32px; color: #6b7280;">image</span>
+                                        </div>
+                                        <input type="file" id="schoolLogo" name="school_logo" accept="image/*" style="display: none;">
+                                        <button type="button" class="btn btn-primary-custom" id="uploadLogoBtn">
+                                            <span class="material-symbols-outlined" style="font-size: 1rem; vertical-align: middle;">upload</span>
+                                            Change Logo
+                                        </button>
+                                        <small class="text-muted">Recommended: Square Image, max 2MB</small>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="schoolId" class="form-label">School ID</label>
+                                    <input type="text" class="form-control" id="schoolId" name="school_id" readonly>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="schoolName" class="form-label">School Name <span class="required">*</span></label>
+                                    <input type="text" class="form-control" id="schoolName" name="school_name" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="schoolType" class="form-label">School Type</label>
+                                    <select class="form-select" id="schoolType" name="school_type">
+                                        <option value="">Select Type</option>
+                                        <option value="Primary">Primary School</option>
+                                        <option value="Secondary">Secondary School</option>
+                                        <option value="High School">High School</option>
+                                        <option value="International">International School</option>
+                                        <option value="Public">Public School</option>
+                                        <option value="Private">Private School</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="establishedYear" class="form-label">Established Year</label>
+                                    <input type="number" class="form-control" id="establishedYear" name="established_year" min="1900" max="2099">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="affiliationBoard" class="form-label">Affiliation Board</label>
+                                    <select class="form-select" id="affiliationBoard" name="affiliation_board">
+                                        <option value="">Select Board</option>
+                                        <option value="CBSE">CBSE</option>
+                                        <option value="ICSE">ICSE</option>
+                                        <option value="State Board">State Board</option>
+                                        <option value="IB">International Baccalaureate (IB)</option>
+                                        <option value="Cambridge">Cambridge</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="principalName" class="form-label">Principal Name</label>
+                                    <input type="text" class="form-control" id="principalName" name="principal_name">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Contact Details Card -->
+                        <div class="card-box">
+                            <h5><span class="material-symbols-outlined" style="vertical-align: middle;">contact_mail</span> Contact Details</h5>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label for="schoolContact" class="form-label">Email Address <span class="required">*</span></label>
+                                    <input type="email" class="form-control" id="schoolContact" name="school_contact" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="phoneNumber" class="form-label">Phone Number</label>
+                                    <input type="tel" class="form-control" id="phoneNumber" name="phone_number">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="alternatePhone" class="form-label">Alternate Phone</label>
+                                    <input type="tel" class="form-control" id="alternatePhone" name="alternate_phone">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="website" class="form-label">Website</label>
+                                    <input type="url" class="form-control" id="website" name="website" placeholder="https://">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Location Details Card -->
+                        <div class="card-box">
+                            <h5><span class="material-symbols-outlined" style="vertical-align: middle;">location_on</span> Location Details</h5>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label for="schoolLocation" class="form-label">City <span class="required">*</span></label>
+                                    <input type="text" class="form-control" id="schoolLocation" name="school_location" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="state" class="form-label">State/Province</label>
+                                    <input type="text" class="form-control" id="state" name="state">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="country" class="form-label">Country</label>
+                                    <input type="text" class="form-control" id="country" name="country" value="India">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="postalCode" class="form-label">Postal Code</label>
+                                    <input type="text" class="form-control" id="postalCode" name="postal_code">
+                                </div>
+                                <div class="col-12">
+                                    <label for="fullAddress" class="form-label">Full Address</label>
+                                    <textarea class="form-control" id="fullAddress" name="full_address" rows="2"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Student & Staff Information Card -->
+                        <div class="card-box">
+                            <h5><span class="material-symbols-outlined" style="vertical-align: middle;">groups</span> Student & Staff Information</h5>
+                            <div class="row g-3">
+                                <div class="col-md-4">
+                                    <label for="schoolStudents" class="form-label">Number of Students <span class="required">*</span></label>
+                                    <input type="number" class="form-control" id="schoolStudents" name="school_students" min="0" required>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="numberOfTeachers" class="form-label">Number of Teachers</label>
+                                    <input type="number" class="form-control" id="numberOfTeachers" name="number_of_teachers" min="0">
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="numberOfStaff" class="form-label">Number of Staff</label>
+                                    <input type="number" class="form-control" id="numberOfStaff" name="number_of_staff" min="0">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="schoolStatus" class="form-label">Status</label>
+                                    <select class="form-select" id="schoolStatus" name="school_status">
+                                        <option value="Active">Active</option>
+                                        <option value="Inactive">Inactive</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="partnershipDate" class="form-label">Partnership Date</label>
+                                    <input type="date" class="form-control" id="partnershipDate" name="partnership_date">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="d-flex justify-content-end gap-3">
+                            <button type="button" class="btn btn-ghost" id="cancelBtn">
+                                <span class="material-symbols-outlined" style="font-size: 1.125rem; vertical-align: middle;">close</span>
+                                Cancel
+                            </button>
+                            <button type="submit" class="btn btn-primary-custom">
+                                <span class="material-symbols-outlined" style="font-size: 1.125rem; vertical-align: middle;">save</span>
+                                Save Changes
+                            </button>
+                        </div>
+                    </form>
+                </main>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Load sidebar and header
+        Promise.all([
+            fetch('sidebar.html').then(response => response.text()),
+            fetch('header.html').then(response => response.text())
+        ]).then(([sidebarHTML, headerHTML]) => {
+            document.getElementById('sidebar-container').innerHTML = sidebarHTML;
+            document.getElementById('header-container').innerHTML = headerHTML;
+
+            setTimeout(() => {
+                if (typeof initializeHeader === 'function') {
+                    initializeHeader();
+                }
+                document.getElementById('sidebar-container').classList.add('loaded');
+                document.getElementById('header-container').classList.add('loaded');
+                setActiveMenuItem();
+            }, 200);
+        });
+
+        function setActiveMenuItem() {
+            const navSchoolList = document.getElementById('nav-school-list');
+            if (navSchoolList) {
+                navSchoolList.classList.add('active');
+            }
+        }
+
+        // Logo upload functionality
+        const logoInput = document.getElementById('schoolLogo');
+        const logoPreview = document.getElementById('logoPreview');
+        const uploadLogoBtn = document.getElementById('uploadLogoBtn');
+
+        if (uploadLogoBtn && logoInput) {
+            uploadLogoBtn.addEventListener('click', function () {
+                logoInput.click();
+            });
+
+            logoPreview.addEventListener('click', function () {
+                logoInput.click();
+            });
+
+            logoInput.addEventListener('change', function (e) {
+                const file = e.target.files[0];
+                if (file) {
+                    if (file.size > 2 * 1024 * 1024) {
+                        alert('File size must be less than 2MB');
+                        logoInput.value = '';
+                        return;
+                    }
+
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        logoPreview.innerHTML = `<img src="${e.target.result}" alt="School Logo" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;">`;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        }
+
+        // Get school data from URL parameters
+        function getSchoolDataFromURL() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return {
+                id: urlParams.get('id') || '',
+                name: urlParams.get('name') || '',
+                location: urlParams.get('location') || '',
+                contact: urlParams.get('contact') || '',
+                students: urlParams.get('students') || '',
+                status: urlParams.get('status') || 'Active'
+            };
+        }
+
+        // Populate form with school data
+        function populateSchoolForm() {
+            const schoolData = getSchoolDataFromURL();
+
+            document.getElementById('schoolIdHeader').textContent = 'Update information for ' + schoolData.name;
+            document.getElementById('schoolId').value = schoolData.id;
+            document.getElementById('schoolName').value = schoolData.name;
+            document.getElementById('schoolLocation').value = schoolData.location;
+            document.getElementById('schoolContact').value = schoolData.contact;
+            document.getElementById('schoolStudents').value = schoolData.students;
+            document.getElementById('schoolStatus').value = schoolData.status;
+
+            // Load additional data from localStorage if available
+            const schools = JSON.parse(localStorage.getItem('schools') || '{}');
+            if (schools[schoolData.id]) {
+                const school = schools[schoolData.id];
+
+                if (school.schoolType) document.getElementById('schoolType').value = school.schoolType;
+                if (school.establishedYear) document.getElementById('establishedYear').value = school.establishedYear;
+                if (school.affiliationBoard) document.getElementById('affiliationBoard').value = school.affiliationBoard;
+                if (school.principalName) document.getElementById('principalName').value = school.principalName;
+                if (school.phoneNumber) document.getElementById('phoneNumber').value = school.phoneNumber;
+                if (school.alternatePhone) document.getElementById('alternatePhone').value = school.alternatePhone;
+                if (school.website) document.getElementById('website').value = school.website;
+                if (school.state) document.getElementById('state').value = school.state;
+                if (school.country) document.getElementById('country').value = school.country;
+                if (school.postalCode) document.getElementById('postalCode').value = school.postalCode;
+                if (school.fullAddress) document.getElementById('fullAddress').value = school.fullAddress;
+                if (school.numberOfTeachers) document.getElementById('numberOfTeachers').value = school.numberOfTeachers;
+                if (school.numberOfStaff) document.getElementById('numberOfStaff').value = school.numberOfStaff;
+                if (school.partnershipDate) document.getElementById('partnershipDate').value = school.partnershipDate;
+            }
+        }
+
+        // Handle form submission
+        document.getElementById('editSchoolForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            // Get form data
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData.entries());
+
+            const schoolId = document.getElementById('schoolId').value;
+
+            if (!data.school_name || !data.school_location || !data.school_contact || !data.school_students) {
+                alert('Please fill in all required fields');
+                return;
+            }
+
+            // Create updated school object
+            const updatedSchool = {
+                id: schoolId,
+                name: data.school_name,
+                location: data.school_location,
+                contact: data.school_contact,
+                students: data.school_students,
+                status: data.school_status,
+                schoolType: data.school_type,
+                establishedYear: data.established_year,
+                affiliationBoard: data.affiliation_board,
+                principalName: data.principal_name,
+                phoneNumber: data.phone_number,
+                alternatePhone: data.alternate_phone,
+                website: data.website,
+                state: data.state,
+                country: data.country,
+                postalCode: data.postal_code,
+                fullAddress: data.full_address,
+                numberOfTeachers: data.number_of_teachers,
+                numberOfStaff: data.number_of_staff,
+                partnershipDate: data.partnership_date
+            };
+
+            // Save to localStorage
+            let schools = JSON.parse(localStorage.getItem('schools') || '{}');
+            schools[schoolId] = updatedSchool;
+            localStorage.setItem('schools', JSON.stringify(schools));
+
+            console.log('Updated school data:', updatedSchool);
+            alert('School information updated successfully!');
+
+            // Redirect back to list
+            window.location.href = 'school-list.html';
+        });
+
+        // Cancel button
+        document.getElementById('cancelBtn').addEventListener('click', function () {
+            if (confirm('Are you sure you want to cancel? All unsaved changes will be lost.')) {
+                window.location.href = 'school-list.html';
+            }
+        });
+
+        // Load school data on page load
+        window.addEventListener('DOMContentLoaded', populateSchoolForm);
+    </script>
+</body>
+
+</html>
