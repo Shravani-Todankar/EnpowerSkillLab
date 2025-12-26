@@ -1,17 +1,20 @@
 /* Program Coordinator Dashboard Styles */
 
 :root {
-    --primary-color: #3b82f6;
-    --primary-hover: #2563eb;
+    --primary: #5A1F6E;
+    --primary-light: rgba(90, 31, 110, 0.1);
+    --primary-lighter: rgba(90, 31, 110, 0.05);
+    --primary-color: #5A1F6E;
+    --primary-hover: rgba(90, 31, 110, 0.9);
     --success-color: #10b981;
     --warning-color: #f59e0b;
     --danger-color: #ef4444;
     --info-color: #06b6d4;
-    --purple-color: #8b5cf6;
+    --purple-color: #5A1F6E;
 
     --text-color: #1f2937;
     --text-secondary: #6b7280;
-    --background-color: #f9fafb;
+    --background-color: #f7f6f8;
     --card-background: #ffffff;
     --border-color: #e5e7eb;
 }
@@ -53,7 +56,7 @@ body {
     right: 0;
     width: 600px;
     height: 600px;
-    background: radial-gradient(circle, rgba(102, 126, 234, 0.08) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(90, 31, 110, 0.08) 0%, transparent 70%);
     pointer-events: none;
     z-index: 0;
 }
@@ -89,7 +92,7 @@ body {
 
 .page-title-icon {
     font-size: 2.5rem;
-    color: var(--primary-color);
+    color: var(--primary);
 }
 
 .page-subtitle {
@@ -157,35 +160,34 @@ body {
 }
 
 .stat-icon {
-    width: 60px;
-    height: 60px;
-    border-radius: 14px;
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .stat-icon .material-symbols-outlined {
-    font-size: 1.75rem;
-    color: white;
+    font-size: 1.5rem;
+    color: var(--primary);
 }
 
 .stat-icon.schools {
-    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    background: var(--primary-light);
 }
 
 .stat-icon.teachers {
-    background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%);
+    background: var(--primary-light);
 }
 
 .stat-icon.students {
-    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    background: var(--primary-light);
 }
 
 .stat-icon.alerts {
-    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    background: var(--primary-light);
 }
 
 .stat-content {
@@ -223,7 +225,7 @@ body {
     left: 0;
     right: 0;
     height: 3px;
-    background: linear-gradient(90deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+    background: var(--primary);
     opacity: 0;
     transition: opacity 0.4s ease;
 }
@@ -254,7 +256,7 @@ body {
     left: 0;
     right: 0;
     height: 2px;
-    background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.3), transparent);
+    background: linear-gradient(90deg, transparent, rgba(90, 31, 110, 0.3), transparent);
 }
 
 .card-title {
@@ -270,10 +272,7 @@ body {
 
 .card-title .material-symbols-outlined {
     font-size: 1.5rem;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: var(--primary);
 }
 
 .card-action {
@@ -281,10 +280,7 @@ body {
     font-weight: 600;
     text-decoration: none;
     transition: all 0.3s ease;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: var(--primary);
     position: relative;
 }
 
@@ -293,6 +289,10 @@ body {
     margin-left: 0.25rem;
     transition: transform 0.3s ease;
     display: inline-block;
+}
+
+.card-action:hover {
+    color: var(--primary);
 }
 
 .card-action:hover::after {
@@ -330,7 +330,7 @@ body {
 }
 
 .schools-table tbody tr:hover {
-    background: rgba(102, 126, 234, 0.03);
+    background: rgba(90, 31, 110, 0.03);
 }
 
 .schools-table tbody td {
@@ -350,7 +350,7 @@ body {
     width: 40px;
     height: 40px;
     border-radius: 8px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: var(--primary);
     color: white;
     display: flex;
     align-items: center;
@@ -455,28 +455,27 @@ body {
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .trend-icon .material-symbols-outlined {
     font-size: 1.5rem;
-    color: white;
+    color: var(--primary);
 }
 
 .trend-icon.mathematics {
-    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    background: var(--primary-light);
 }
 
 .trend-icon.science {
-    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    background: var(--primary-light);
 }
 
 .trend-icon.english {
-    background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%);
+    background: var(--primary-light);
 }
 
 .trend-icon.social {
-    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    background: var(--primary-light);
 }
 
 .trend-info {
@@ -535,19 +534,19 @@ body {
 }
 
 .trend-progress-fill.mathematics {
-    background: linear-gradient(90deg, #3b82f6 0%, #2563eb 100%);
+    background: var(--primary);
 }
 
 .trend-progress-fill.science {
-    background: linear-gradient(90deg, #10b981 0%, #059669 100%);
+    background: var(--primary);
 }
 
 .trend-progress-fill.english {
-    background: linear-gradient(90deg, #8b5cf6 0%, #6d28d9 100%);
+    background: var(--primary);
 }
 
 .trend-progress-fill.social {
-    background: linear-gradient(90deg, #f59e0b 0%, #d97706 100%);
+    background: var(--primary);
 }
 
 .trend-stats {
@@ -674,7 +673,7 @@ body {
     align-items: center;
     gap: 0.5rem;
     padding: 0.625rem 1.25rem;
-    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    background: var(--primary);
     color: white;
     border: none;
     border-radius: 8px;
@@ -688,11 +687,11 @@ body {
 
 .btn-review:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+    box-shadow: 0 4px 12px rgba(90, 31, 110, 0.3);
 }
 
 .btn-review:disabled {
-    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    background: var(--success-color);
     cursor: default;
 }
 
@@ -754,15 +753,15 @@ body {
 }
 
 .teacher-summary-fill.excellent {
-    background: linear-gradient(90deg, #10b981 0%, #059669 100%);
+    background: var(--primary);
 }
 
 .teacher-summary-fill.good {
-    background: linear-gradient(90deg, #3b82f6 0%, #2563eb 100%);
+    background: var(--primary);
 }
 
 .teacher-summary-fill.needs-improvement {
-    background: linear-gradient(90deg, #f59e0b 0%, #d97706 100%);
+    background: var(--primary);
 }
 
 /* Quick Actions */
@@ -793,7 +792,7 @@ body {
 .quick-action-btn:hover {
     transform: translateY(-4px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: var(--primary);
     color: white;
 }
 
