@@ -1,17 +1,20 @@
 /* Super Admin Dashboard Styles */
 
 :root {
-    --primary-color: #3b82f6;
-    --primary-hover: #2563eb;
+    --primary: #5A1F6E;
+    --primary-light: rgba(90, 31, 110, 0.1);
+    --primary-lighter: rgba(90, 31, 110, 0.05);
+    --primary-color: #5A1F6E;
+    --primary-hover: rgba(90, 31, 110, 0.9);
     --success-color: #10b981;
     --warning-color: #f59e0b;
     --danger-color: #ef4444;
     --info-color: #06b6d4;
-    --purple-color: #8b5cf6;
+    --purple-color: #5A1F6E;
 
     --text-color: #1f2937;
     --text-secondary: #6b7280;
-    --background-color: #f9fafb;
+    --background-color: #f7f6f8;
     --card-background: #ffffff;
     --border-color: #e5e7eb;
 }
@@ -53,7 +56,7 @@ body {
     right: 0;
     width: 600px;
     height: 600px;
-    background: radial-gradient(circle, rgba(102, 126, 234, 0.08) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(90, 31, 110, 0.08) 0%, transparent 70%);
     pointer-events: none;
     z-index: 0;
 }
@@ -89,7 +92,7 @@ body {
 
 .page-title-icon {
     font-size: 2.5rem;
-    color: var(--primary-color);
+    color: var(--primary);
 }
 
 .page-subtitle {
@@ -150,8 +153,8 @@ body {
 }
 
 .stat-icon {
-    width: 64px;
-    height: 64px;
+    width: 48px;
+    height: 48px;
     border-radius: 12px;
     display: flex;
     align-items: center;
@@ -160,24 +163,24 @@ body {
 }
 
 .stat-icon .material-symbols-outlined {
-    font-size: 2rem;
-    color: white;
+    font-size: 1.5rem;
+    color: var(--primary);
 }
 
 .stat-icon.schools {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: var(--primary-light);
 }
 
 .stat-icon.teachers {
-    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    background: var(--primary-light);
 }
 
 .stat-icon.students {
-    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    background: var(--primary-light);
 }
 
 .stat-icon.active {
-    background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+    background: var(--primary-light);
 }
 
 .stat-content {
@@ -239,7 +242,7 @@ body {
     left: 0;
     right: 0;
     height: 3px;
-    background: linear-gradient(90deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+    background: var(--primary);
     opacity: 0;
     transition: opacity 0.4s ease;
 }
@@ -270,7 +273,7 @@ body {
     left: 0;
     right: 0;
     height: 2px;
-    background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.3), transparent);
+    background: linear-gradient(90deg, transparent, rgba(90, 31, 110, 0.3), transparent);
 }
 
 .card-title {
@@ -286,10 +289,7 @@ body {
 
 .card-title .material-symbols-outlined {
     font-size: 1.5rem;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: var(--primary);
 }
 
 .card-header-actions {
@@ -318,10 +318,7 @@ body {
     font-weight: 600;
     text-decoration: none;
     transition: all 0.3s ease;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: var(--primary);
     position: relative;
 }
 
@@ -330,6 +327,10 @@ body {
     margin-left: 0.25rem;
     transition: transform 0.3s ease;
     display: inline-block;
+}
+
+.card-action:hover {
+    color: var(--primary);
 }
 
 .card-action:hover::after {
@@ -386,7 +387,7 @@ body {
     cursor: pointer;
     transition: all 0.3s ease;
     position: relative;
-    background: rgba(59, 130, 246, calc(var(--intensity) * 0.8));
+    background: rgba(90, 31, 110, calc(var(--intensity) * 0.8));
     color: white;
     border: 2px solid rgba(255, 255, 255, 0.2);
 }
@@ -436,11 +437,11 @@ body {
     height: 10px;
     border-radius: 5px;
     background: linear-gradient(90deg,
-            rgba(59, 130, 246, 0.1) 0%,
-            rgba(59, 130, 246, 0.3) 25%,
-            rgba(59, 130, 246, 0.5) 50%,
-            rgba(59, 130, 246, 0.7) 75%,
-            rgba(59, 130, 246, 0.9) 100%);
+            rgba(90, 31, 110, 0.1) 0%,
+            rgba(90, 31, 110, 0.3) 25%,
+            rgba(90, 31, 110, 0.5) 50%,
+            rgba(90, 31, 110, 0.7) 75%,
+            rgba(90, 31, 110, 0.9) 100%);
 }
 
 /* LMS Stats */
@@ -468,35 +469,34 @@ body {
 }
 
 .lms-stat-icon {
-    width: 52px;
-    height: 52px;
+    width: 48px;
+    height: 48px;
     border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .lms-stat-icon .material-symbols-outlined {
     font-size: 1.5rem;
-    color: white;
+    color: var(--primary);
 }
 
 .lms-stat-icon.lessons {
-    background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%);
+    background: var(--primary-light);
 }
 
 .lms-stat-icon.active-users {
-    background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
+    background: var(--primary-light);
 }
 
 .lms-stat-icon.completion {
-    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    background: var(--primary-light);
 }
 
 .lms-stat-icon.time {
-    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    background: var(--primary-light);
 }
 
 .lms-stat-content {
@@ -572,19 +572,19 @@ body {
 }
 
 .breakdown-fill[data-color="primary"] {
-    background: linear-gradient(90deg, #3b82f6 0%, #2563eb 100%);
+    background: var(--primary);
 }
 
 .breakdown-fill[data-color="success"] {
-    background: linear-gradient(90deg, #10b981 0%, #059669 100%);
+    background: var(--primary);
 }
 
 .breakdown-fill[data-color="warning"] {
-    background: linear-gradient(90deg, #f59e0b 0%, #d97706 100%);
+    background: var(--primary);
 }
 
 .breakdown-fill[data-color="info"] {
-    background: linear-gradient(90deg, #06b6d4 0%, #0891b2 100%);
+    background: var(--primary);
 }
 
 .breakdown-percentage {
@@ -717,48 +717,46 @@ body {
 }
 
 .quick-action-icon {
-    width: 64px;
-    height: 64px;
-    border-radius: 16px;
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
     transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .quick-action-item:hover .quick-action-icon {
-    transform: scale(1.1) rotate(5deg);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+    transform: scale(1.05);
 }
 
 .quick-action-icon .material-symbols-outlined {
-    font-size: 2rem;
-    color: white;
+    font-size: 1.5rem;
+    color: var(--primary);
 }
 
 .quick-action-icon.schools {
-    background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%);
+    background: var(--primary-light);
 }
 
 .quick-action-icon.admins {
-    background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
+    background: var(--primary-light);
 }
 
 .quick-action-icon.lessons {
-    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    background: var(--primary-light);
 }
 
 .quick-action-icon.analytics {
-    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    background: var(--primary-light);
 }
 
 .quick-action-icon.settings {
-    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    background: var(--primary-light);
 }
 
 .quick-action-icon.reports {
-    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+    background: var(--primary-light);
 }
 
 .quick-action-label {
@@ -816,40 +814,39 @@ body {
 }
 
 .activity-icon {
-    width: 52px;
-    height: 52px;
-    border-radius: 14px;
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     transition: transform 0.3s ease;
 }
 
 .activity-item:hover .activity-icon {
-    transform: scale(1.05) rotate(-2deg);
+    transform: scale(1.05);
 }
 
 .activity-icon .material-symbols-outlined {
     font-size: 1.5rem;
-    color: white;
+    color: var(--primary);
 }
 
 .activity-icon.school {
-    background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%);
+    background: var(--primary-light);
 }
 
 .activity-icon.admin {
-    background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
+    background: var(--primary-light);
 }
 
 .activity-icon.lesson {
-    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    background: var(--primary-light);
 }
 
 .activity-icon.assessment {
-    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    background: var(--primary-light);
 }
 
 .activity-content {

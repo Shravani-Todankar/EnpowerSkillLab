@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Program Coordinator - Enpower Skill Lab</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+
+    <!-- Sidebar JS -->
+    <script src="sidebar.js"></script>
+    <!-- Header JS -->
+    <script src="header.js"></script>
+
+    <style>
+        /* Prevent FOUC */
+        #sidebar-container:empty,
+        #header-container:empty {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        #sidebar-container.loaded,
+        #header-container.loaded {
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.2s ease-in;
+        }
+
+        :root {
+            --primary: #6B21A8;
+            --bg-light: #f7f6f8;
+            --surface: #ffffff;
+            --text-main: #171019;
+            --text-secondary: #80588d;
+            --border-color: #dfd3e4;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+        }
+
+        .dashboard-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        .content-wrapper {
+            flex: 1;
+            padding: 20px 30px;
+        }
+
+        .page-header {
+            font-weight: 600;
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+
+        .page-subtitle {
+            color: #6b7280;
+            margin-bottom: 24px;
+        }
+
+        .card-box {
+            background: var(--surface);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            margin-bottom: 24px;
+        }
+
+        .card-box h5 {
+            font-size: 1.125rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--text-main);
+        }
+
+        .form-label {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #374151;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-control,
+        .form-select {
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            padding: 0.625rem 0.875rem;
+            font-size: 0.875rem;
+            background-color: #faf9fb;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 1px var(--primary);
+            background-color: white;
+            outline: none;
+        }
+
+        .btn-primary-custom {
+            background-color: var(--primary);
+            border: none;
+            color: white;
+            font-weight: 700;
+            padding: 0.625rem 1.5rem;
+            border-radius: 10px;
+            transition: background-color 0.2s ease;
+        }
+
+        .btn-primary-custom:hover {
+            background-color: #581c87;
+        }
+
+        .btn-ghost {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: #374151;
+            font-weight: 500;
+            padding: 0.625rem 1.5rem;
+            border-radius: 10px;
+            transition: background-color 0.2s ease;
+        }
+
+        .btn-ghost:hover {
+            background-color: var(--bg-light);
+        }
+
+        .required {
+            color: #DC2626;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar Container -->
+        <div id="sidebar-container"></div>
+
+        <!-- Main Content Area -->
+        <div class="main-content">
+            <!-- Header Container -->
+            <div id="header-container"></div>
+
+            <!-- Content Wrapper -->
+            <div class="content-wrapper">
+                <main class="container-xl">
+                    <!-- Page Header -->
+                    <div class="mb-4">
+                        <h1 class="page-header">Edit Program Coordinator</h1>
+                        <p class="page-subtitle" id="pcIdHeader">Loading...</p>
+                    </div>
+
+                    <form id="editPCForm">
+                        <!-- Basic Information Card -->
+                        <div class="card-box">
+                            <h5><span class="material-symbols-outlined" style="vertical-align: middle;">person</span> A. Basic Information</h5>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label for="fullName" class="form-label">Full Name (as per Aadhar card) <span class="required">*</span></label>
+                                    <input type="text" class="form-control" id="fullName" name="fullName" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="gender" class="form-label">Gender <span class="required">*</span></label>
+                                    <select class="form-select" id="gender" name="gender" required>
+                                        <option value="">Select gender</option>
+                                        <option value="male">Male</option>
+                                        <option value="female">Female</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="dateOfBirth" class="form-label">Date of Birth <span class="required">*</span></label>
+                                    <input type="date" class="form-control" id="dateOfBirth" name="dateOfBirth" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="age" class="form-label">Age (auto-calculated)</label>
+                                    <input type="text" class="form-control" id="age" name="age" readonly>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="bloodGroup" class="form-label">Blood Group</label>
+                                    <select class="form-select" id="bloodGroup" name="bloodGroup">
+                                        <option value="">Select blood group</option>
+                                        <option value="A+">A+</option>
+                                        <option value="A-">A-</option>
+                                        <option value="B+">B+</option>
+                                        <option value="B-">B-</option>
+                                        <option value="AB+">AB+</option>
+                                        <option value="AB-">AB-</option>
+                                        <option value="O+">O+</option>
+                                        <option value="O-">O-</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="nationality" class="form-label">Nationality <span class="required">*</span></label>
+                                    <input type="text" class="form-control" id="nationality" name="nationality" value="Indian" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="employeeId" class="form-label">Employee / Coach ID</label>
+                                    <input type="text" class="form-control" id="employeeId" name="employeeId" readonly>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="aadharNumber" class="form-label">Aadhar Number <span class="required">*</span></label>
+                                    <input type="text" class="form-control" id="aadharNumber" name="aadharNumber" maxlength="12" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="panNumber" class="form-label">PAN Number <span class="required">*</span></label>
+                                    <input type="text" class="form-control" id="panNumber" name="panNumber" maxlength="10" style="text-transform: uppercase;" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Professional Details Card -->
+                        <div class="card-box">
+                            <h5><span class="material-symbols-outlined" style="vertical-align: middle;">work</span> B. Professional Details</h5>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label for="designation" class="form-label">Designation <span class="required">*</span></label>
+                                    <select class="form-select" id="designation" name="designation" required>
+                                        <option value="">Select designation</option>
+                                        <option value="Program Coordinator">Program Coordinator</option>
+                                        <option value="Project Coordinator">Project Coordinator</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="qualification" class="form-label">Qualification <span class="required">*</span></label>
+                                    <input type="text" class="form-control" id="qualification" name="qualification" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="specialization" class="form-label">Specialization <span class="required">*</span></label>
+                                    <select class="form-select" id="specialization" name="specialization" required>
+                                        <option value="">Select specialization</option>
+                                        <option value="Operations">Operations</option>
+                                        <option value="Education">Education</option>
+                                        <option value="Project Management">Project Management</option>
+                                        <option value="Others">Others</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="totalExperience" class="form-label">Total Experience <span class="required">*</span></label>
+                                    <input type="text" class="form-control" id="totalExperience" name="totalExperience" placeholder="e.g., 5 Years 6 Months" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="programManagementExp" class="form-label">Experience in Project / Program Management</label>
+                                    <input type="text" class="form-control" id="programManagementExp" name="programManagementExp" placeholder="e.g., 3 Years">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="educationExp" class="form-label">Experience in Education / School Programs (Years)</label>
+                                    <input type="text" class="form-control" id="educationExp" name="educationExp" placeholder="e.g., 2 Years">
+                                </div>
+                                <div class="col-12">
+                                    <label for="previousOrganizations" class="form-label">Previous Organizations</label>
+                                    <textarea class="form-control" id="previousOrganizations" name="previousOrganizations" rows="2"></textarea>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="languagesKnown" class="form-label">Languages Known <span class="required">*</span></label>
+                                    <input type="text" class="form-control" id="languagesKnown" name="languagesKnown" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="certifications" class="form-label">Certifications (PMP / Agile / Operations / Education – if any)</label>
+                                    <input type="text" class="form-control" id="certifications" name="certifications">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Contact Information Card -->
+                        <div class="card-box">
+                            <h5><span class="material-symbols-outlined" style="vertical-align: middle;">contact_phone</span> C. Contact Information</h5>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label for="mobileNumber" class="form-label">Mobile Number <span class="required">*</span></label>
+                                    <input type="tel" class="form-control" id="mobileNumber" name="mobileNumber" maxlength="10" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="alternateNumber" class="form-label">Alternate Number</label>
+                                    <input type="tel" class="form-control" id="alternateNumber" name="alternateNumber" maxlength="10">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="officialEmail" class="form-label">Official Email ID <span class="required">*</span></label>
+                                    <input type="email" class="form-control" id="officialEmail" name="officialEmail" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="personalEmail" class="form-label">Personal Email (optional)</label>
+                                    <input type="email" class="form-control" id="personalEmail" name="personalEmail">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Address Details Card -->
+                        <div class="card-box">
+                            <h5><span class="material-symbols-outlined" style="vertical-align: middle;">home</span> D. Address Details</h5>
+                            <div class="row g-3">
+                                <div class="col-12">
+                                    <label for="currentAddress" class="form-label">Current Residential Address <span class="required">*</span></label>
+                                    <textarea class="form-control" id="currentAddress" name="currentAddress" rows="2" required></textarea>
+                                </div>
+                                <div class="col-12">
+                                    <label for="permanentAddress" class="form-label">Permanent Address</label>
+                                    <textarea class="form-control" id="permanentAddress" name="permanentAddress" rows="2"></textarea>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="city" class="form-label">City <span class="required">*</span></label>
+                                    <input type="text" class="form-control" id="city" name="city" required>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="state" class="form-label">State <span class="required">*</span></label>
+                                    <input type="text" class="form-control" id="state" name="state" required>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="pincode" class="form-label">Pin Code <span class="required">*</span></label>
+                                    <input type="text" class="form-control" id="pincode" name="pincode" maxlength="6" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Work Assignment Details Card -->
+                        <div class="card-box">
+                            <h5><span class="material-symbols-outlined" style="vertical-align: middle;">assignment</span> F. Program & Work Assignment Details</h5>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label for="programAssigned" class="form-label">Program Assigned <span class="required">*</span></label>
+                                    <select class="form-select" id="programAssigned" name="programAssigned" required>
+                                        <option value="">Select program</option>
+                                        <option value="CSL">CSL</option>
+                                        <option value="CSL+">CSL+</option>
+                                        <option value="Idea Lab Aff">Idea Lab Aff</option>
+                                        <option value="Idea Lab Certf">Idea Lab Certf</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="zoneAssigned" class="form-label">Zone Assigned</label>
+                                    <input type="text" class="form-control" id="zoneAssigned" name="zoneAssigned">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="branchRegion" class="form-label">Branch / Region</label>
+                                    <input type="text" class="form-control" id="branchRegion" name="branchRegion">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="reportingManager" class="form-label">Reporting Manager</label>
+                                    <input type="text" class="form-control" id="reportingManager" name="reportingManager">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="joiningDate" class="form-label">Joining Date <span class="required">*</span></label>
+                                    <input type="date" class="form-control" id="joiningDate" name="joiningDate" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="employmentType" class="form-label">Employment Type <span class="required">*</span></label>
+                                    <select class="form-select" id="employmentType" name="employmentType" required>
+                                        <option value="">Select employment type</option>
+                                        <option value="Full-time">Full-time</option>
+                                        <option value="Contract">Contract</option>
+                                        <option value="Consultant">Consultant</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Bank Details Card -->
+                        <div class="card-box">
+                            <h5><span class="material-symbols-outlined" style="vertical-align: middle;">account_balance</span> G. Bank & Payroll Details</h5>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label for="bankName" class="form-label">Bank Name <span class="required">*</span></label>
+                                    <input type="text" class="form-control" id="bankName" name="bankName" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="branchName" class="form-label">Branch Name <span class="required">*</span></label>
+                                    <input type="text" class="form-control" id="branchName" name="branchName" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="accountNumber" class="form-label">Bank Account Number <span class="required">*</span></label>
+                                    <input type="text" class="form-control" id="accountNumber" name="accountNumber" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="ifscCode" class="form-label">IFSC Code <span class="required">*</span></label>
+                                    <input type="text" class="form-control" id="ifscCode" name="ifscCode" maxlength="11" style="text-transform: uppercase;" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Additional Optional Data Card -->
+                        <div class="card-box">
+                            <h5><span class="material-symbols-outlined" style="vertical-align: middle;">info</span> H. Additional Optional Data</h5>
+                            <div class="row g-3">
+                                <div class="col-12">
+                                    <label for="strengthAreas" class="form-label">Strength Areas</label>
+                                    <textarea class="form-control" id="strengthAreas" name="strengthAreas" rows="2"></textarea>
+                                </div>
+                                <div class="col-12">
+                                    <label for="hobbies" class="form-label">Hobbies / Interests</label>
+                                    <textarea class="form-control" id="hobbies" name="hobbies" rows="2"></textarea>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="workStyle" class="form-label">Preferred Work Style</label>
+                                    <select class="form-select" id="workStyle" name="workStyle">
+                                        <option value="">Select work style</option>
+                                        <option value="Field">Field</option>
+                                        <option value="Remote">Remote</option>
+                                        <option value="Hybrid">Hybrid</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="toolsComfortable" class="form-label">Tools Comfortable With</label>
+                                    <input type="text" class="form-control" id="toolsComfortable" name="toolsComfortable">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="d-flex justify-content-end gap-3">
+                            <button type="button" class="btn btn-ghost" id="cancelBtn">
+                                <span class="material-symbols-outlined" style="font-size: 1.125rem; vertical-align: middle;">close</span>
+                                Cancel
+                            </button>
+                            <button type="submit" class="btn btn-primary-custom">
+                                <span class="material-symbols-outlined" style="font-size: 1.125rem; vertical-align: middle;">save</span>
+                                Save Changes
+                            </button>
+                        </div>
+                    </form>
+                </main>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Load sidebar and header
+        Promise.all([
+            fetch('sidebar.html').then(response => response.text()),
+            fetch('header.html').then(response => response.text())
+        ]).then(([sidebarHTML, headerHTML]) => {
+            document.getElementById('sidebar-container').innerHTML = sidebarHTML;
+            document.getElementById('header-container').innerHTML = headerHTML;
+
+            setTimeout(() => {
+                if (typeof initializeHeader === 'function') {
+                    initializeHeader();
+                }
+                document.getElementById('sidebar-container').classList.add('loaded');
+                document.getElementById('header-container').classList.add('loaded');
+                setActiveMenuItem();
+            }, 200);
+        });
+
+        function setActiveMenuItem() {
+            const navPCList = document.getElementById('nav-coordinator-list');
+            if (navPCList) {
+                navPCList.classList.add('active');
+            }
+        }
+
+        // Calculate age from date of birth
+        document.getElementById('dateOfBirth').addEventListener('change', function() {
+            const dob = new Date(this.value);
+            const today = new Date();
+            let age = today.getFullYear() - dob.getFullYear();
+            const monthDiff = today.getMonth() - dob.getMonth();
+            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < dob.getDate())) {
+                age--;
+            }
+            document.getElementById('age').value = age >= 0 ? age + ' years' : '';
+        });
+
+        // Get PC ID from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const pcId = urlParams.get('id') || '';
+
+        // Populate form (simulated data)
+        if (pcId) {
+            document.getElementById('pcIdHeader').textContent = 'Update information for ' + pcId;
+            document.getElementById('employeeId').value = pcId;
+
+            // You would typically fetch this data from your backend/database
+            // For now, we'll populate with sample data
+            document.getElementById('fullName').value = 'Priya Sharma';
+            document.getElementById('gender').value = 'female';
+            document.getElementById('dateOfBirth').value = '1990-05-15';
+            document.getElementById('bloodGroup').value = 'O+';
+            document.getElementById('designation').value = 'Program Coordinator';
+            document.getElementById('qualification').value = 'MBA in Operations';
+            document.getElementById('specialization').value = 'Project Management';
+            document.getElementById('totalExperience').value = '5 Years 6 Months';
+            document.getElementById('mobileNumber').value = '9876543210';
+            document.getElementById('officialEmail').value = 'priya.sharma@example.com';
+            document.getElementById('programAssigned').value = 'CSL+';
+            document.getElementById('zoneAssigned').value = 'West Zone';
+            document.getElementById('joiningDate').value = '2024-01-15';
+            document.getElementById('employmentType').value = 'Full-time';
+            document.getElementById('bankName').value = 'HDFC Bank';
+            document.getElementById('branchName').value = 'MG Road Branch';
+            document.getElementById('accountNumber').value = '50100123456789';
+            document.getElementById('ifscCode').value = 'HDFC0001234';
+
+            // Trigger age calculation
+            document.getElementById('dateOfBirth').dispatchEvent(new Event('change'));
+        }
+
+        // Handle form submission
+        document.getElementById('editPCForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData.entries());
+
+            console.log('Updated PC data:', data);
+            alert('Program Coordinator information updated successfully!');
+
+            // Redirect back to list
+            window.location.href = 'program-coordinator-list.html';
+        });
+
+        // Cancel button
+        document.getElementById('cancelBtn').addEventListener('click', function () {
+            if (confirm('Are you sure you want to cancel? All unsaved changes will be lost.')) {
+                window.location.href = 'program-coordinator-list.html';
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -338,43 +338,68 @@
       z-index: 1;
     }
 
-    /* Specific column widths */
+    /* Specific column widths - auto-sizing based on content */
     table.dataTable thead th:nth-child(1),
     table.dataTable tbody td:nth-child(1) {
-      width: 12%;
-      min-width: 120px;
+      width: auto;
+      min-width: 100px;
+      white-space: nowrap;
     }
 
     table.dataTable thead th:nth-child(2),
     table.dataTable tbody td:nth-child(2) {
-      width: 20%;
-      min-width: 200px;
+      width: auto;
+      min-width: 170px;
     }
 
     table.dataTable thead th:nth-child(3),
     table.dataTable tbody td:nth-child(3) {
-      width: 20%;
-      min-width: 180px;
+      width: auto;
+      min-width: 165px;
     }
 
     table.dataTable thead th:nth-child(4),
     table.dataTable tbody td:nth-child(4) {
-      width: 25%;
-      min-width: 220px;
+      width: auto;
+      min-width: 180px;
     }
 
     table.dataTable thead th:nth-child(5),
     table.dataTable tbody td:nth-child(5) {
-      width: 10%;
-      min-width: 100px;
+      width: auto;
+      min-width: 150px;
       text-align: center;
     }
 
     table.dataTable thead th:nth-child(6),
     table.dataTable tbody td:nth-child(6) {
-      width: 13%;
-      min-width: 130px;
+      width: auto;
+      min-width: 90px;
       text-align: center;
+      white-space: nowrap;
+    }
+
+    table.dataTable thead th:nth-child(7),
+    table.dataTable tbody td:nth-child(7) {
+      width: auto;
+      min-width: 100px;
+      white-space: nowrap;
+    }
+
+    table.dataTable thead th:nth-child(8),
+    table.dataTable tbody td:nth-child(8) {
+      width: auto;
+      min-width: 80px;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    table.dataTable thead th:nth-child(9),
+    table.dataTable tbody td:nth-child(9) {
+      width: auto;
+      min-width: 120px;
+      text-align: center;
+      white-space: nowrap;
     }
 
   </style>
@@ -420,43 +445,42 @@
                 <table id="coordinatorTable" class="table mb-0 align-middle">
                 <thead>
                   <tr>
-                    <th scope="col">Coordinator ID</th>
+                    <th scope="col">Employee ID</th>
                     <th scope="col">
                       <div class="d-inline-flex align-items-center gap-1">
                         Name
                         <span class="material-symbols-outlined" style="font-size:16px;">arrow_upward</span>
                       </div>
                     </th>
-                    <th scope="col">Contact Information</th>
-                    <th scope="col">Programs Managed</th>
+                    <th scope="col">Designation</th>
+                    <th scope="col">Contact</th>
+                    <th scope="col">Program Assigned</th>
+                    <th scope="col">Zone</th>
+                    <th scope="col">Joining Date</th>
                     <th scope="col">Status</th>
                     <th scope="col">Actions</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr class="border-top-0">
-                    <td class="text-muted text-monospace">C10234</td>
+                    <td class="text-muted text-monospace">PC001</td>
                     <td class="fw-semibold">
                       <div class="d-flex align-items-center gap-3">
                         <div class="initial-badge" style="background-color:#f97316;">RJ</div>
                         <span>Rohan Joshi</span>
                       </div>
                     </td>
-                    <td class="text-muted">rohan.joshi@example.com</td>
-                    <td>
-                      <div class="d-flex flex-wrap gap-2">
-                        <span class="badge bg-primary-subtle text-primary fw-semibold badge-pill">LMS Management</span>
-                        <span class="badge bg-indigo-100 text-primary fw-semibold badge-pill">Attendance</span>
-                      </div>
-                    </td>
-                    <td>
-                      <span class="control-pill status-active">Active</span>
-                    </td>
+                    <td class="text-muted">Program Coordinator</td>
+                    <td class="text-muted">rohan.joshi@example.com<br><small>+91 9876543210</small></td>
+                    <td><span class="badge bg-primary-subtle text-primary fw-semibold badge-pill">CSL</span></td>
+                    <td class="text-muted">North Zone</td>
+                    <td class="text-muted">15 Jan 2024</td>
+                    <td><span class="control-pill status-active">Active</span></td>
                     <td>
                       <div class="d-flex align-items-center gap-3 text-muted">
-                        <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary"><span
+                        <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary" onclick="window.location.href='edit-pc.html?id=PC001'"><span
                             class="material-symbols-outlined">edit</span></button>
-                        <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary"><span
+                        <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary" onclick="window.location.href='view-pc.html?id=PC001'"><span
                             class="material-symbols-outlined">visibility</span></button>
                         <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary" title="Delete"><span
                             class="material-symbols-outlined">delete</span></button>
@@ -464,27 +488,24 @@
                     </td>
                   </tr>
                   <tr>
-                    <td class="text-muted text-monospace">C10235</td>
+                    <td class="text-muted text-monospace">PC002</td>
                     <td class="fw-semibold">
                       <div class="d-flex align-items-center gap-3">
                         <div class="initial-badge" style="background-color:#6366f1;">PS</div>
                         <span>Priya Singh</span>
                       </div>
                     </td>
-                    <td class="text-muted">priya.singh@example.com</td>
-                    <td>
-                      <div class="d-flex flex-wrap gap-2">
-                        <span class="badge bg-success-subtle text-success fw-semibold badge-pill">Assessments</span>
-                      </div>
-                    </td>
-                    <td>
-                      <span class="control-pill status-active">Active</span>
-                    </td>
+                    <td class="text-muted">Project Coordinator</td>
+                    <td class="text-muted">priya.singh@example.com<br><small>+91 9876543211</small></td>
+                    <td><span class="badge bg-success-subtle text-success fw-semibold badge-pill">CSL+</span></td>
+                    <td class="text-muted">South Zone</td>
+                    <td class="text-muted">20 Feb 2024</td>
+                    <td><span class="control-pill status-active">Active</span></td>
                     <td>
                       <div class="d-flex align-items-center gap-3 text-muted">
-                        <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary"><span
+                        <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary" onclick="window.location.href='edit-pc.html?id=PC002'"><span
                             class="material-symbols-outlined">edit</span></button>
-                        <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary"><span
+                        <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary" onclick="window.location.href='view-pc.html?id=PC002'"><span
                             class="material-symbols-outlined">visibility</span></button>
                         <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary" title="Delete"><span
                             class="material-symbols-outlined">delete</span></button>
@@ -492,28 +513,24 @@
                     </td>
                   </tr>
                   <tr>
-                    <td class="text-muted text-monospace">C10236</td>
+                    <td class="text-muted text-monospace">PC003</td>
                     <td class="fw-semibold">
                       <div class="d-flex align-items-center gap-3">
                         <div class="initial-badge" style="background-color:#3b82f6;">AS</div>
                         <span>Aditya Sharma</span>
                       </div>
                     </td>
-                    <td class="text-muted">aditya.sharma@example.com</td>
-                    <td>
-                      <div class="d-flex flex-wrap gap-2">
-                        <span class="badge bg-danger-subtle text-danger fw-semibold badge-pill">Schools monitoring</span>
-                        <span class="badge bg-primary-subtle text-primary fw-semibold badge-pill">Teacher monitoring</span>
-                      </div>
-                    </td>
-                    <td>
-                      <span class="control-pill status-inactive">Inactive</span>
-                    </td>
+                    <td class="text-muted">Program Coordinator</td>
+                    <td class="text-muted">aditya.sharma@example.com<br><small>+91 9876543212</small></td>
+                    <td><span class="badge bg-warning-subtle text-warning fw-semibold badge-pill">Idea Lab Aff</span></td>
+                    <td class="text-muted">East Zone</td>
+                    <td class="text-muted">10 Mar 2024</td>
+                    <td><span class="control-pill status-inactive">Inactive</span></td>
                     <td>
                       <div class="d-flex align-items-center gap-3 text-muted">
-                        <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary"><span
+                        <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary" onclick="window.location.href='edit-pc.html?id=PC003'"><span
                             class="material-symbols-outlined">edit</span></button>
-                        <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary"><span
+                        <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary" onclick="window.location.href='view-pc.html?id=PC003'"><span
                             class="material-symbols-outlined">visibility</span></button>
                         <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary" title="Delete"><span
                             class="material-symbols-outlined">delete</span></button>
@@ -521,27 +538,24 @@
                     </td>
                   </tr>
                   <tr>
-                    <td class="text-muted text-monospace">C10237</td>
+                    <td class="text-muted text-monospace">PC004</td>
                     <td class="fw-semibold">
                       <div class="d-flex align-items-center gap-3">
                         <div class="initial-badge" style="background-color:#ef4444;">NG</div>
                         <span>Neha Gupta</span>
                       </div>
                     </td>
-                    <td class="text-muted">neha.gupta@example.com</td>
-                    <td>
-                      <div class="d-flex flex-wrap gap-2">
-                        <span class="badge bg-primary-subtle text-primary fw-semibold badge-pill">Academics Data</span>
-                      </div>
-                    </td>
-                    <td>
-                      <span class="control-pill status-pending">Pending</span>
-                    </td>
+                    <td class="text-muted">Project Coordinator</td>
+                    <td class="text-muted">neha.gupta@example.com<br><small>+91 9876543213</small></td>
+                    <td><span class="badge bg-danger-subtle text-danger fw-semibold badge-pill">Idea Lab Certf</span></td>
+                    <td class="text-muted">West Zone</td>
+                    <td class="text-muted">05 Apr 2024</td>
+                    <td><span class="control-pill status-pending">Pending</span></td>
                     <td>
                       <div class="d-flex align-items-center gap-3 text-muted">
-                        <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary"><span
+                        <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary" onclick="window.location.href='edit-pc.html?id=PC004'"><span
                             class="material-symbols-outlined">edit</span></button>
-                        <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary"><span
+                        <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary" onclick="window.location.href='view-pc.html?id=PC004'"><span
                             class="material-symbols-outlined">visibility</span></button>
                         <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary" title="Delete"><span
                             class="material-symbols-outlined">delete</span></button>
@@ -549,29 +563,24 @@
                     </td>
                   </tr>
                   <tr>
-                    <td class="text-muted text-monospace">C10238</td>
+                    <td class="text-muted text-monospace">PC005</td>
                     <td class="fw-semibold">
                       <div class="d-flex align-items-center gap-3">
                         <div class="initial-badge" style="background-color:#10b981;">VK</div>
                         <span>Vikram Kumar</span>
                       </div>
                     </td>
-                    <td class="text-muted">vikram.kumar@example.com</td>
-                    <td>
-                      <div class="d-flex flex-wrap gap-2">
-                        <span class="badge bg-primary-subtle text-primary fw-semibold badge-pill">LMS Management</span>
-                        <span class="badge bg-danger-subtle text-danger fw-semibold badge-pill">Attendance</span>
-                        <span class="badge bg-primary-subtle text-primary fw-semibold badge-pill">Academics Data</span>
-                      </div>
-                    </td>
-                    <td>
-                      <span class="control-pill status-active">Active</span>
-                    </td>
+                    <td class="text-muted">Program Coordinator</td>
+                    <td class="text-muted">vikram.kumar@example.com<br><small>+91 9876543214</small></td>
+                    <td><span class="badge bg-primary-subtle text-primary fw-semibold badge-pill">CSL</span></td>
+                    <td class="text-muted">Central Zone</td>
+                    <td class="text-muted">12 May 2024</td>
+                    <td><span class="control-pill status-active">Active</span></td>
                     <td>
                       <div class="d-flex align-items-center gap-3 text-muted">
-                        <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary"><span
+                        <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary" onclick="window.location.href='edit-pc.html?id=PC005'"><span
                             class="material-symbols-outlined">edit</span></button>
-                        <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary"><span
+                        <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary" onclick="window.location.href='view-pc.html?id=PC005'"><span
                             class="material-symbols-outlined">visibility</span></button>
                         <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary" title="Delete"><span
                             class="material-symbols-outlined">delete</span></button>
@@ -579,28 +588,24 @@
                     </td>
                   </tr>
                   <tr>
-                    <td class="text-muted text-monospace">C10239</td>
+                    <td class="text-muted text-monospace">PC006</td>
                     <td class="fw-semibold">
                       <div class="d-flex align-items-center gap-3">
                         <div class="initial-badge" style="background-color:#f43f5e;">AP</div>
                         <span>Anjali Patel</span>
                       </div>
                     </td>
-                    <td class="text-muted">anjali.patel@example.com</td>
-                    <td>
-                      <div class="d-flex flex-wrap gap-2">
-                        <span class="badge bg-primary-subtle text-primary fw-semibold badge-pill">Teacher monitoring</span>
-                        <span class="badge bg-success-subtle text-success fw-semibold badge-pill">Assessments</span>
-                      </div>
-                    </td>
-                    <td>
-                      <span class="control-pill status-pending">Pending</span>
-                    </td>
+                    <td class="text-muted">Project Coordinator</td>
+                    <td class="text-muted">anjali.patel@example.com<br><small>+91 9876543215</small></td>
+                    <td><span class="badge bg-success-subtle text-success fw-semibold badge-pill">CSL+</span></td>
+                    <td class="text-muted">North Zone</td>
+                    <td class="text-muted">18 Jun 2024</td>
+                    <td><span class="control-pill status-pending">Pending</span></td>
                     <td>
                       <div class="d-flex align-items-center gap-3 text-muted">
-                        <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary"><span
+                        <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary" onclick="window.location.href='edit-pc.html?id=PC006'"><span
                             class="material-symbols-outlined">edit</span></button>
-                        <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary"><span
+                        <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary" onclick="window.location.href='view-pc.html?id=PC006'"><span
                             class="material-symbols-outlined">visibility</span></button>
                         <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary" title="Delete"><span
                             class="material-symbols-outlined">delete</span></button>
@@ -666,7 +671,7 @@
         lengthMenu: [5, 10, 25, 50],
         order: [[1, 'asc']],
         columnDefs: [
-          { orderable: false, targets: [3, 5] }
+          { orderable: false, targets: [4, 8] }
         ],
         language: {
           search: 'Search coordinators:',
@@ -709,24 +714,11 @@
       });
 
       function handleEdit(data, $row) {
-        const params = new URLSearchParams({
-          id: data.id,
-          name: data.name,
-          contact: data.contact,
-          programs: data.programs,
-          status: data.status
-        });
-        window.location.href = `edit-program-coordinator.html?${params.toString()}`;
+        window.location.href = `edit-pc.html?id=${data.id}`;
       }
 
       function handleView(data) {
-        const message = `Program Coordinator Details:\n\n` +
-          `ID: ${data.id}\n` +
-          `Name: ${data.name}\n` +
-          `Contact: ${data.contact}\n` +
-          `Programs: ${data.programs}\n` +
-          `Status: ${data.status}`;
-        alert(message);
+        window.location.href = `view-pc.html?id=${data.id}`;
       }
 
       function handleDelete(data, $row) {

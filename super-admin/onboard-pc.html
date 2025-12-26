@@ -101,12 +101,14 @@
             justify-content: space-between;
             margin-bottom: 50px;
             position: relative;
+            overflow-x: auto;
+            padding: 10px 0;
         }
 
         .stepper::before {
             content: '';
             position: absolute;
-            top: 20px;
+            top: 30px;
             left: 5%;
             right: 5%;
             height: 2px;
@@ -121,6 +123,7 @@
             position: relative;
             z-index: 1;
             flex: 1;
+            min-width: 100px;
         }
 
         .step-icon {
@@ -139,9 +142,9 @@
         }
 
         .step.active .step-icon {
-            background: #6b277e;
+            background: #5A1F6E;
             color: white;
-            box-shadow: 0 0 0 4px rgba(107, 39, 126, 0.1);
+            box-shadow: 0 0 0 4px rgba(90, 31, 110, 0.1);
         }
 
         .step.completed .step-icon {
@@ -150,10 +153,11 @@
         }
 
         .step-label {
-            font-size: 12px;
+            font-size: 11px;
             color: #86868b;
             text-align: center;
             font-weight: 500;
+            max-width: 100px;
         }
 
         .step.completed .step-label {
@@ -161,7 +165,7 @@
         }
 
         .step.active .step-label {
-            color: #6b277e;
+            color: #5A1F6E;
             font-weight: 600;
         }
 
@@ -184,6 +188,10 @@
             grid-template-columns: 1fr;
         }
 
+        .form-row.three-col {
+            grid-template-columns: 1fr 1fr 1fr;
+        }
+
         .form-group {
             display: flex;
             flex-direction: column;
@@ -202,7 +210,8 @@
         }
 
         .form-group input,
-        .form-group select {
+        .form-group select,
+        .form-group textarea {
             padding: 12px 16px;
             border: 1px solid #d2d2d7;
             border-radius: 8px;
@@ -213,14 +222,21 @@
             font-family: inherit;
         }
 
-        .form-group input:focus,
-        .form-group select:focus {
-            outline: none;
-            border-color: #6b277e;
-            box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
         }
 
-        .form-group input::placeholder {
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #5A1F6E;
+            box-shadow: 0 0 0 3px rgba(90, 31, 110, 0.1);
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
             color: #86868b;
         }
 
@@ -271,7 +287,7 @@
         }
 
         .photo-preview:hover {
-            border-color: #6b277e;
+            border-color: #5A1F6E;
         }
 
         .photo-preview .material-symbols-outlined {
@@ -292,7 +308,7 @@
             align-items: center;
             gap: 0.5rem;
             padding: 0.75rem 1.5rem;
-            background-color: #6b277e;
+            background-color: #5A1F6E;
             color: #ffffff;
             border: none;
             border-radius: 0.5rem;
@@ -304,12 +320,49 @@
         }
 
         .upload-photo-btn:hover {
-            background-color: #8b4da0;
+            background-color: rgba(90, 31, 110, 0.9);
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(107, 39, 126, 0.3);
+            box-shadow: 0 4px 12px rgba(90, 31, 110, 0.3);
         }
 
         .photo-hint {
+            font-size: 0.813rem;
+            color: #6b7280;
+        }
+
+        /* File Upload Button */
+        .file-upload-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+
+        .file-upload-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background-color: #f3f4f6;
+            color: #1d1d1f;
+            border: 2px solid #d2d2d7;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            font-family: 'Poppins', sans-serif;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .file-upload-btn:hover {
+            background-color: #e5e7eb;
+            border-color: #5A1F6E;
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .file-name {
+            margin-top: 0.5rem;
             font-size: 0.813rem;
             color: #6b7280;
         }
@@ -335,7 +388,7 @@
 
         .selected-items:hover,
         .selected-items.active {
-            border-color: #6b277e;
+            border-color: #5A1F6E;
         }
 
         .selected-items.error {
@@ -348,8 +401,8 @@
         }
 
         .selected-tag {
-            background: #f3f0ff;
-            color: #6b277e;
+            background: rgba(90, 31, 110, 0.1);
+            color: #5A1F6E;
             padding: 4px 10px;
             border-radius: 6px;
             font-size: 13px;
@@ -367,7 +420,7 @@
         }
 
         .selected-tag .remove:hover {
-            color: #5b21b6;
+            color: #3b1053;
         }
 
         .multi-select-dropdown {
@@ -405,7 +458,7 @@
 
         .search-box input:focus {
             outline: none;
-            border-color: #6b277e;
+            border-color: #5A1F6E;
         }
 
         .options-list {
@@ -432,7 +485,7 @@
             height: 18px;
             margin-right: 12px;
             cursor: pointer;
-            accent-color: #6b277e;
+            accent-color: #5A1F6E;
         }
 
         .checkbox-option span {
@@ -480,13 +533,13 @@
 
         .btn-next,
         .btn-submit {
-            background: #6b277e;
+            background: #5A1F6E;
             color: white;
         }
 
         .btn-next:hover,
         .btn-submit:hover {
-            background: #8b4da0;
+            background: rgba(90, 31, 110, 0.9);
         }
 
         .btn-next:active,
@@ -502,6 +555,10 @@
         @media (max-width: 1024px) {
             .dashboard-page {
                 padding: 1.5rem;
+            }
+
+            .form-row.three-col {
+                grid-template-columns: 1fr 1fr;
             }
         }
 
@@ -528,6 +585,10 @@
                 height: 36px;
                 font-size: 13px;
             }
+
+            .form-row.three-col {
+                grid-template-columns: 1fr;
+            }
         }
 
         @media (max-width: 640px) {
@@ -547,16 +608,15 @@
             .stepper {
                 overflow-x: auto;
                 padding: 0 5px;
-                min-width: max-content;
             }
 
             .stepper::before {
-                left: 40px;
-                right: 40px;
+                left: 50px;
+                right: 50px;
             }
 
             .step {
-                min-width: 80px;
+                min-width: 90px;
             }
 
             .step-icon {
@@ -567,7 +627,7 @@
 
             .step-label {
                 font-size: 10px;
-                max-width: 80px;
+                max-width: 90px;
             }
         }
     </style>
@@ -587,7 +647,7 @@
             <div class="dashboard-page">
                 <div class="onboard-coordinator-container">
                     <div class="page-header">
-                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
                             <div>
                                 <h1>Onboard Program Coordinator</h1>
                                 <p>Fill in the coordinator details to onboard them to the system</p>
@@ -603,68 +663,417 @@
                     <div class="stepper">
                         <div class="step active">
                             <div class="step-icon">1</div>
-                            <div class="step-label">Personal Details</div>
+                            <div class="step-label">Basic Info</div>
                         </div>
                         <div class="step">
                             <div class="step-icon">2</div>
-                            <div class="step-label">School Assignment</div>
+                            <div class="step-label">Professional</div>
                         </div>
                         <div class="step">
                             <div class="step-icon">3</div>
-                            <div class="step-label">Profile & Preferences</div>
+                            <div class="step-label">Contact</div>
+                        </div>
+                        <div class="step">
+                            <div class="step-icon">4</div>
+                            <div class="step-label">Address</div>
+                        </div>
+                        <div class="step">
+                            <div class="step-icon">5</div>
+                            <div class="step-label">Compliance</div>
+                        </div>
+                        <div class="step">
+                            <div class="step-icon">6</div>
+                            <div class="step-label">Assignment</div>
+                        </div>
+                        <div class="step">
+                            <div class="step-icon">7</div>
+                            <div class="step-label">Bank Details</div>
+                        </div>
+                        <div class="step">
+                            <div class="step-icon">8</div>
+                            <div class="step-label">Additional</div>
                         </div>
                     </div>
 
                     <!-- Form -->
                     <form id="coordinatorForm">
-                        <!-- Hidden Role Field -->
-                        <input type="hidden" id="role" name="role" value="Program Coordinator">
-
-                        <!-- Step 1: Personal Details -->
+                        <!-- Step 1: Basic Information -->
                         <div class="form-section" id="step1">
-                            <h2>Personal Details</h2>
+                            <h2>A. Basic Information</h2>
+
+                            <div class="form-row full">
+                                <div class="form-group">
+                                    <label>Profile Photo</label>
+                                    <div class="photo-upload-container">
+                                        <div class="photo-preview" id="photoPreview">
+                                            <span class="material-symbols-outlined">add_a_photo</span>
+                                            <span class="photo-preview-text">Upload Photo</span>
+                                        </div>
+                                        <input type="file" id="profilePhoto" name="profilePhoto" accept="image/*"
+                                            class="photo-input">
+                                        <button type="button" class="upload-photo-btn" id="uploadPhotoBtn">
+                                            <span class="material-symbols-outlined">upload</span>
+                                            Choose Photo
+                                        </button>
+                                        <p class="photo-hint">Passport size photograph (Square image, max 2MB)</p>
+                                    </div>
+                                </div>
+                            </div>
 
                             <div class="form-row">
                                 <div class="form-group">
-                                    <label>Full Name <span class="required">*</span></label>
-                                    <input type="text" id="fullName" name="fullName" placeholder="Enter full name"
+                                    <label>Full Name (as per Aadhar card) <span class="required">*</span></label>
+                                    <input type="text" id="fullName" name="fullName" placeholder="Enter full name as per Aadhar"
                                         required>
                                     <span class="error-message" id="fullNameError"></span>
                                 </div>
                                 <div class="form-group">
-                                    <label>Email Address ( Used For Log In ) <span class="required">*</span></label>
-                                    <input type="email" id="email" name="email" placeholder="coordinator@example.com"
-                                        required>
-                                    <span class="error-message" id="emailError"></span>
+                                    <label>Gender <span class="required">*</span></label>
+                                    <select id="gender" name="gender" required>
+                                        <option value="">Select gender</option>
+                                        <option value="male">Male</option>
+                                        <option value="female">Female</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                    <span class="error-message" id="genderError"></span>
                                 </div>
                             </div>
 
                             <div class="form-row">
                                 <div class="form-group">
-                                    <label>Phone Number <span class="required">*</span></label>
-                                    <input type="tel" id="phoneNumber" name="phoneNumber" placeholder="+91 XXXXX XXXXX"
-                                        required maxlength="10">
-                                    <span class="error-message" id="phoneNumberError"></span>
+                                    <label>Date of Birth <span class="required">*</span></label>
+                                    <input type="date" id="dateOfBirth" name="dateOfBirth" required>
+                                    <span class="error-message" id="dateOfBirthError"></span>
                                 </div>
                                 <div class="form-group">
-                                    <label>Alternate Phone Number</label>
-                                    <input type="tel" id="alternatePhone" name="alternatePhone"
-                                        placeholder="+91 XXXXX XXXXX" maxlength="10">
-                                    <span class="error-message" id="alternatePhoneError"></span>
+                                    <label>Age (auto-calculated)</label>
+                                    <input type="text" id="age" name="age" readonly placeholder="Age will be calculated">
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Blood Group</label>
+                                    <select id="bloodGroup" name="bloodGroup">
+                                        <option value="">Select blood group</option>
+                                        <option value="A+">A+</option>
+                                        <option value="A-">A-</option>
+                                        <option value="B+">B+</option>
+                                        <option value="B-">B-</option>
+                                        <option value="AB+">AB+</option>
+                                        <option value="AB-">AB-</option>
+                                        <option value="O+">O+</option>
+                                        <option value="O-">O-</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Nationality <span class="required">*</span></label>
+                                    <input type="text" id="nationality" name="nationality" value="Indian" required>
+                                    <span class="error-message" id="nationalityError"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Employee / Coach ID</label>
+                                    <input type="text" id="employeeId" name="employeeId" placeholder="e.g., PC001">
+                                </div>
+                                <div class="form-group">
+                                    <label>Aadhar Number <span class="required">*</span></label>
+                                    <input type="text" id="aadharNumber" name="aadharNumber" placeholder="Enter 12-digit Aadhar number"
+                                        maxlength="12" required>
+                                    <span class="error-message" id="aadharNumberError"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>PAN Number <span class="required">*</span></label>
+                                    <input type="text" id="panNumber" name="panNumber" placeholder="e.g., ABCDE1234F"
+                                        maxlength="10" style="text-transform: uppercase;" required>
+                                    <span class="error-message" id="panNumberError"></span>
+                                </div>
+                                <div class="form-group">
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Step 2: School Assignment -->
+                        <!-- Step 2: Professional Details -->
                         <div class="form-section" id="step2" style="display: none;">
-                            <h2>School Assignment</h2>
+                            <h2>B. Professional Details</h2>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Designation <span class="required">*</span></label>
+                                    <select id="designation" name="designation" required>
+                                        <option value="">Select designation</option>
+                                        <option value="Program Coordinator">Program Coordinator</option>
+                                        <option value="Project Coordinator">Project Coordinator</option>
+                                    </select>
+                                    <span class="error-message" id="designationError"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Qualification <span class="required">*</span></label>
+                                    <input type="text" id="qualification" name="qualification" placeholder="e.g., MBA, B.Tech"
+                                        required>
+                                    <span class="error-message" id="qualificationError"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Specialization <span class="required">*</span></label>
+                                    <select id="specialization" name="specialization" required>
+                                        <option value="">Select specialization</option>
+                                        <option value="Operations">Operations</option>
+                                        <option value="Education">Education</option>
+                                        <option value="Project Management">Project Management</option>
+                                        <option value="Others">Others</option>
+                                    </select>
+                                    <span class="error-message" id="specializationError"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Total Experience <span class="required">*</span></label>
+                                    <input type="text" id="totalExperience" name="totalExperience" placeholder="e.g., 5 Years 6 Months"
+                                        required>
+                                    <span class="error-message" id="totalExperienceError"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Experience in Project / Program Management</label>
+                                    <input type="text" id="programManagementExp" name="programManagementExp" placeholder="e.g., 3 Years">
+                                </div>
+                                <div class="form-group">
+                                    <label>Experience in Education / School Programs (Years)</label>
+                                    <input type="text" id="educationExp" name="educationExp" placeholder="e.g., 2 Years">
+                                </div>
+                            </div>
 
                             <div class="form-row full">
                                 <div class="form-group">
-                                    <label>Assign Schools <span class="required">*</span></label>
+                                    <label>Previous Organizations</label>
+                                    <textarea id="previousOrganizations" name="previousOrganizations" placeholder="List previous organizations (one per line)"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Languages Known <span class="required">*</span></label>
+                                    <input type="text" id="languagesKnown" name="languagesKnown" placeholder="e.g., English, Hindi, Tamil"
+                                        required>
+                                    <span class="error-message" id="languagesKnownError"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Certifications (PMP / Agile / Operations / Education – if any)</label>
+                                    <input type="text" id="certifications" name="certifications" placeholder="e.g., PMP Certified, Agile Scrum Master">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 3: Contact Information -->
+                        <div class="form-section" id="step3" style="display: none;">
+                            <h2>C. Contact Information</h2>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Mobile Number <span class="required">*</span></label>
+                                    <input type="tel" id="mobileNumber" name="mobileNumber" placeholder="+91 XXXXX XXXXX"
+                                        required maxlength="10">
+                                    <span class="error-message" id="mobileNumberError"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Alternate Number</label>
+                                    <input type="tel" id="alternateNumber" name="alternateNumber"
+                                        placeholder="+91 XXXXX XXXXX" maxlength="10">
+                                    <span class="error-message" id="alternateNumberError"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Official Email ID <span class="required">*</span></label>
+                                    <input type="email" id="officialEmail" name="officialEmail" placeholder="official@example.com"
+                                        required>
+                                    <span class="error-message" id="officialEmailError"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Personal Email (optional)</label>
+                                    <input type="email" id="personalEmail" name="personalEmail" placeholder="personal@example.com">
+                                    <span class="error-message" id="personalEmailError"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 4: Address Details -->
+                        <div class="form-section" id="step4" style="display: none;">
+                            <h2>D. Address Details</h2>
+
+                            <div class="form-row full">
+                                <div class="form-group">
+                                    <label>Current Residential Address <span class="required">*</span></label>
+                                    <textarea id="currentAddress" name="currentAddress" placeholder="Enter complete current address" required></textarea>
+                                    <span class="error-message" id="currentAddressError"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-row full">
+                                <div class="form-group">
+                                    <label>Permanent Address</label>
+                                    <textarea id="permanentAddress" name="permanentAddress" placeholder="Enter complete permanent address (leave blank if same as current)"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>City <span class="required">*</span></label>
+                                    <input type="text" id="city" name="city" placeholder="City" required>
+                                    <span class="error-message" id="cityError"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>State <span class="required">*</span></label>
+                                    <input type="text" id="state" name="state" placeholder="State" required>
+                                    <span class="error-message" id="stateError"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Pin Code <span class="required">*</span></label>
+                                    <input type="text" id="pincode" name="pincode" placeholder="6-digit PIN code"
+                                        maxlength="6" required>
+                                    <span class="error-message" id="pincodeError"></span>
+                                </div>
+                                <div class="form-group">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 5: Compliance & Documentation -->
+                        <div class="form-section" id="step5" style="display: none;">
+                            <h2>E. Compliance & Documentation</h2>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>ID Proof Submitted <span class="required">*</span></label>
+                                    <select id="idProof" name="idProof" required>
+                                        <option value="">Select ID proof</option>
+                                        <option value="Aadhar">Aadhar</option>
+                                        <option value="PAN">PAN</option>
+                                        <option value="Both">Both (Aadhar & PAN)</option>
+                                    </select>
+                                    <span class="error-message" id="idProofError"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Address Proof Submitted</label>
+                                    <select id="addressProof" name="addressProof">
+                                        <option value="">Select address proof</option>
+                                        <option value="Aadhar">Aadhar</option>
+                                        <option value="Utility Bill">Utility Bill</option>
+                                        <option value="Passport">Passport</option>
+                                        <option value="Rental Agreement">Rental Agreement</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Police Verification Status</label>
+                                    <select id="policeVerification" name="policeVerification">
+                                        <option value="">Select status</option>
+                                        <option value="Pending">Pending</option>
+                                        <option value="In Progress">In Progress</option>
+                                        <option value="Completed">Completed</option>
+                                        <option value="Not Required">Not Required</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Passport Size Photograph Uploaded</label>
+                                    <select id="passportPhotoUploaded" name="passportPhotoUploaded">
+                                        <option value="">Select option</option>
+                                        <option value="Yes">Yes</option>
+                                        <option value="No">No</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Signed Contract Uploaded</label>
+                                    <select id="contractUploaded" name="contractUploaded">
+                                        <option value="">Select option</option>
+                                        <option value="Yes">Yes</option>
+                                        <option value="No">No</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>PAN Linked with Aadhar</label>
+                                    <select id="panAadharLinked" name="panAadharLinked">
+                                        <option value="">Select option</option>
+                                        <option value="Yes">Yes</option>
+                                        <option value="No">No</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-row full">
+                                <div class="form-group">
+                                    <label>Upload your latest resume (pdf / word format)</label>
+                                    <div class="file-upload-wrapper">
+                                        <input type="file" id="resumeUpload" name="resumeUpload" accept=".pdf,.doc,.docx" class="file-input">
+                                        <button type="button" class="file-upload-btn" onclick="document.getElementById('resumeUpload').click()">
+                                            <span class="material-symbols-outlined">upload_file</span>
+                                            Choose Resume File
+                                        </button>
+                                        <div class="file-name" id="resumeFileName">No file chosen</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>NDA / Confidentiality Agreement Signed (optional)</label>
+                                    <select id="ndaSigned" name="ndaSigned">
+                                        <option value="">Select option</option>
+                                        <option value="Yes">Yes</option>
+                                        <option value="No">No</option>
+                                        <option value="Not Required">Not Required</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 6: Program & Work Assignment Details -->
+                        <div class="form-section" id="step6" style="display: none;">
+                            <h2>F. Program & Work Assignment Details</h2>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Program Assigned <span class="required">*</span></label>
+                                    <select id="programAssigned" name="programAssigned" required>
+                                        <option value="">Select program</option>
+                                        <option value="CSL">CSL</option>
+                                        <option value="CSL+">CSL+</option>
+                                        <option value="Idea Lab Aff">Idea Lab Aff</option>
+                                        <option value="Idea Lab Certf">Idea Lab Certf</option>
+                                    </select>
+                                    <span class="error-message" id="programAssignedError"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Zone Assigned</label>
+                                    <input type="text" id="zoneAssigned" name="zoneAssigned" placeholder="e.g., North Zone, South Zone">
+                                </div>
+                            </div>
+
+                            <div class="form-row full">
+                                <div class="form-group">
+                                    <label>Schools Assigned <span class="required">*</span></label>
                                     <div class="multi-select-container">
                                         <div class="selected-items" id="selectedSchools">
-                                            <span class="placeholder">Select schools to assign</span>
+                                            <span class="placeholder">Select schools to assign (Single / Multiple)</span>
                                         </div>
                                         <div class="multi-select-dropdown" id="schoolsDropdown">
                                             <div class="search-box">
@@ -717,86 +1126,154 @@
                                     <span class="error-message" id="schoolsError"></span>
                                 </div>
                             </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Branch / Region</label>
+                                    <input type="text" id="branchRegion" name="branchRegion" placeholder="e.g., Delhi NCR, Mumbai">
+                                </div>
+                                <div class="form-group">
+                                    <label>Reporting Manager</label>
+                                    <input type="text" id="reportingManager" name="reportingManager" placeholder="Manager name">
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Dashboard Login Role & Permissions</label>
+                                    <select id="loginRole" name="loginRole">
+                                        <option value="">Select role</option>
+                                        <option value="Program Coordinator">Program Coordinator</option>
+                                        <option value="Project Coordinator">Project Coordinator</option>
+                                        <option value="Senior Coordinator">Senior Coordinator</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Joining Date <span class="required">*</span></label>
+                                    <input type="date" id="joiningDate" name="joiningDate" required>
+                                    <span class="error-message" id="joiningDateError"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Employment Type <span class="required">*</span></label>
+                                    <select id="employmentType" name="employmentType" required>
+                                        <option value="">Select employment type</option>
+                                        <option value="Full-time">Full-time</option>
+                                        <option value="Contract">Contract</option>
+                                        <option value="Consultant">Consultant</option>
+                                    </select>
+                                    <span class="error-message" id="employmentTypeError"></span>
+                                </div>
+                                <div class="form-group">
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Contract Start Date</label>
+                                    <input type="date" id="contractStartDate" name="contractStartDate">
+                                </div>
+                                <div class="form-group">
+                                    <label>Contract End Date</label>
+                                    <input type="date" id="contractEndDate" name="contractEndDate">
+                                </div>
+                            </div>
                         </div>
 
-                        <!-- Step 3: Optional Profile Fields -->
-                        <div class="form-section" id="step3" style="display: none;">
-                            <h2>Profile & Preferences</h2>
+                        <!-- Step 7: Bank & Payroll Details -->
+                        <div class="form-section" id="step7" style="display: none;">
+                            <h2>G. Bank & Payroll Details</h2>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Bank Name <span class="required">*</span></label>
+                                    <input type="text" id="bankName" name="bankName" placeholder="e.g., HDFC Bank, ICICI Bank" required>
+                                    <span class="error-message" id="bankNameError"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Branch Name <span class="required">*</span></label>
+                                    <input type="text" id="branchName" name="branchName" placeholder="e.g., MG Road Branch" required>
+                                    <span class="error-message" id="branchNameError"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Bank Account Number <span class="required">*</span></label>
+                                    <input type="text" id="accountNumber" name="accountNumber" placeholder="Enter account number" required>
+                                    <span class="error-message" id="accountNumberError"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label>IFSC Code <span class="required">*</span></label>
+                                    <input type="text" id="ifscCode" name="ifscCode" placeholder="e.g., HDFC0001234"
+                                        maxlength="11" style="text-transform: uppercase;" required>
+                                    <span class="error-message" id="ifscCodeError"></span>
+                                </div>
+                            </div>
 
                             <div class="form-row full">
                                 <div class="form-group">
-                                    <label>Profile Photo</label>
-                                    <div class="photo-upload-container">
-                                        <div class="photo-preview" id="photoPreview">
-                                            <span class="material-symbols-outlined">add_a_photo</span>
-                                            <span class="photo-preview-text">Upload Photo</span>
-                                        </div>
-                                        <input type="file" id="profilePhoto" name="profilePhoto" accept="image/*"
-                                            class="photo-input">
-                                        <button type="button" class="upload-photo-btn" id="uploadPhotoBtn">
-                                            <span class="material-symbols-outlined">upload</span>
-                                            Choose Photo
+                                    <label>Bank Passbook / Cancelled Cheque Copy</label>
+                                    <div class="file-upload-wrapper">
+                                        <input type="file" id="bankProofUpload" name="bankProofUpload" accept=".pdf,.jpg,.jpeg,.png" class="file-input">
+                                        <button type="button" class="file-upload-btn" onclick="document.getElementById('bankProofUpload').click()">
+                                            <span class="material-symbols-outlined">upload_file</span>
+                                            Choose Bank Proof File
                                         </button>
-                                        <p class="photo-hint">Recommended: Square image, max 2MB</p>
+                                        <div class="file-name" id="bankProofFileName">No file chosen</div>
                                     </div>
                                 </div>
                             </div>
+                        </div>
 
-                            <div class="form-row">
+                        <!-- Step 8: Additional Optional Data -->
+                        <div class="form-section" id="step8" style="display: none;">
+                            <h2>H. Additional Optional Data</h2>
+
+                            <div class="form-row full">
                                 <div class="form-group">
-                                    <label>Gender</label>
-                                    <select id="gender" name="gender">
-                                        <option value="">Select gender</option>
-                                        <option value="male">Male</option>
-                                        <option value="female">Female</option>
-                                        <option value="other">Other</option>
-                                        <option value="prefer-not-to-say">Prefer not to say</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label>Date of Birth</label>
-                                    <input type="date" id="dateOfBirth" name="dateOfBirth">
-                                    <span class="error-message" id="dateOfBirthError"></span>
+                                    <label>Strength Areas</label>
+                                    <textarea id="strengthAreas" name="strengthAreas" placeholder="e.g., Team Management, Communication, Problem Solving"></textarea>
                                 </div>
                             </div>
 
                             <div class="form-row full">
                                 <div class="form-group">
-                                    <label>Address</label>
-                                    <input type="text" id="address" name="address" placeholder="Complete address">
-                                    <span class="error-message" id="addressError"></span>
+                                    <label>Hobbies / Interests</label>
+                                    <textarea id="hobbies" name="hobbies" placeholder="e.g., Reading, Sports, Music"></textarea>
                                 </div>
                             </div>
 
                             <div class="form-row">
                                 <div class="form-group">
-                                    <label>City</label>
-                                    <input type="text" id="city" name="city" placeholder="City">
-                                </div>
-                                <div class="form-group">
-                                    <label>State</label>
-                                    <input type="text" id="state" name="state" placeholder="State">
-                                </div>
-                            </div>
-
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label>PIN Code</label>
-                                    <input type="text" id="pincode" name="pincode" placeholder="6-digit PIN code"
-                                        maxlength="6">
-                                    <span class="error-message" id="pincodeError"></span>
-                                </div>
-                                <!-- <div class="form-group">
-                                    <label>Country</label>
-                                    <select id="country" name="country">
-                                        <option value="">Select country</option>
-                                        <option value="india" selected>India</option>
-                                        <option value="usa">United States</option>
-                                        <option value="uk">United Kingdom</option>
-                                        <option value="canada">Canada</option>
-                                        <option value="australia">Australia</option>
+                                    <label>Preferred Work Style</label>
+                                    <select id="workStyle" name="workStyle">
+                                        <option value="">Select work style</option>
+                                        <option value="Field">Field</option>
+                                        <option value="Remote">Remote</option>
+                                        <option value="Hybrid">Hybrid</option>
                                     </select>
-                                </div> -->
+                                </div>
+                                <div class="form-group">
+                                    <label>Tools Comfortable With</label>
+                                    <input type="text" id="toolsComfortable" name="toolsComfortable" placeholder="e.g., Google Sheets, Dashboards, PM Tools">
+                                </div>
+                            </div>
+
+                            <div class="form-row full">
+                                <div class="form-group">
+                                    <label>Achievements & Recognition</label>
+                                    <textarea id="achievements" name="achievements" placeholder="List any achievements, awards, or recognition received"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-row full">
+                                <div class="form-group">
+                                    <label>Career Aspirations</label>
+                                    <textarea id="careerAspirations" name="careerAspirations" placeholder="Your career goals and aspirations"></textarea>
+                                </div>
                             </div>
                         </div>
 
@@ -829,12 +1306,9 @@
             ]).then(([sidebarHTML, headerHTML]) => {
                 document.getElementById('sidebar-container').innerHTML = sidebarHTML;
                 document.getElementById('header-container').innerHTML = headerHTML;
-                // Call header initialization directly instead of relying on DOMContentLoaded
                 if (typeof initializeHeader === 'function') {
                     initializeHeader();
                 }
-
-                // Wait a bit for sidebar.js to initialize, then set active state
                 setTimeout(() => {
                     setActiveMenuItem();
                 }, 200);
@@ -843,10 +1317,9 @@
 
         function setActiveMenuItem() {
             const currentPage = window.location.pathname.split('/').pop();
-            const navAddSchoolAdmins = document.getElementById('nav-add-school-admins');
-            if (navAddSchoolAdmins && currentPage === 'onboard-school-admin.html') {
-                navAddSchoolAdmins.classList.add('active');
-                // Also expand the Users dropdown
+            const navProgramCoordinators = document.getElementById('nav-program-coordinators');
+            if (navProgramCoordinators && currentPage === 'onboard-pc.html') {
+                navProgramCoordinators.classList.add('active');
                 const usersDropdown = document.getElementById('users-dropdown');
                 if (usersDropdown) {
                     usersDropdown.classList.add('active');
@@ -860,107 +1333,19 @@
 
         // Multi-step form logic
         let currentStep = 1;
-        const totalSteps = 3;
+        const totalSteps = 8;
         const formData = {};
 
-        // Validators
-        const validators = {
-            fullName: {
-                validate: (value) => {
-                    if (!value.trim()) return 'Full name is required';
-                    if (value.trim().length < 3) return 'Name must be at least 3 characters';
-                    if (!/^[a-zA-Z\s.]+$/.test(value)) return 'Name should only contain letters';
-                    return '';
-                }
-            },
-            email: {
-                validate: (value) => {
-                    if (!value.trim()) return 'Email address is required';
-                    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) return 'Please enter a valid email address';
-                    return '';
-                }
-            },
-            phoneNumber: {
-                validate: (value) => {
-                    if (!value.trim()) return 'Phone number is required';
-                    if (!/^[6-9]\d{9}$/.test(value)) return 'Please enter a valid 10-digit mobile number';
-                    return '';
-                }
-            },
-            alternatePhone: {
-                validate: (value) => {
-                    if (value && !/^[6-9]\d{9}$/.test(value)) return 'Please enter a valid 10-digit mobile number';
-                    return '';
-                }
-            },
-            dateOfBirth: {
-                validate: (value) => {
-                    if (value) {
-                        const dob = new Date(value);
-                        const today = new Date();
-                        let age = today.getFullYear() - dob.getFullYear();
-                        if (dob > today) return 'Date of birth cannot be in the future';
-                        if (age < 18) return 'Coordinator must be at least 18 years old';
-                        if (age > 100) return 'Please enter a valid date of birth';
-                    }
-                    return '';
-                }
-            },
-            address: {
-                validate: (value) => {
-                    if (value && value.trim().length < 10) return 'Address must be at least 10 characters';
-                    return '';
-                }
-            },
-            pincode: {
-                validate: (value) => {
-                    if (value && !/^\d{6}$/.test(value)) return 'PIN code must be exactly 6 digits';
-                    return '';
-                }
+        // Calculate age from date of birth
+        document.getElementById('dateOfBirth').addEventListener('change', function() {
+            const dob = new Date(this.value);
+            const today = new Date();
+            let age = today.getFullYear() - dob.getFullYear();
+            const monthDiff = today.getMonth() - dob.getMonth();
+            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < dob.getDate())) {
+                age--;
             }
-        };
-
-        // Helper function to show error
-        function showError(fieldId, message) {
-            const field = document.getElementById(fieldId);
-            const errorElement = document.getElementById(fieldId + 'Error');
-
-            if (field && errorElement) {
-                field.classList.add('error');
-                errorElement.textContent = message;
-                errorElement.style.display = 'block';
-            }
-        }
-
-        // Helper function to clear error
-        function clearError(fieldId) {
-            const field = document.getElementById(fieldId);
-            const errorElement = document.getElementById(fieldId + 'Error');
-
-            if (field && errorElement) {
-                field.classList.remove('error');
-                errorElement.textContent = '';
-                errorElement.style.display = 'none';
-            }
-        }
-
-        // Add real-time validation listeners for all fields
-        Object.keys(validators).forEach(fieldName => {
-            const field = document.getElementById(fieldName);
-            if (field) {
-                field.addEventListener('blur', function () {
-                    const error = validators[fieldName].validate(this.value);
-                    if (error) {
-                        showError(fieldName, error);
-                    } else {
-                        clearError(fieldName);
-                    }
-                });
-
-                field.addEventListener('input', function () {
-                    clearError(fieldName);
-                });
-            }
+            document.getElementById('age').value = age >= 0 ? age + ' years' : '';
         });
 
         // Phone number formatting
@@ -974,6 +1359,18 @@
                 e.target.value = value;
             });
         });
+
+        // Aadhar number formatting
+        const aadharInput = document.getElementById('aadharNumber');
+        if (aadharInput) {
+            aadharInput.addEventListener('input', function (e) {
+                let value = e.target.value.replace(/\D/g, '');
+                if (value.length > 12) {
+                    value = value.slice(0, 12);
+                }
+                e.target.value = value;
+            });
+        }
 
         // PIN code formatting
         const pincodeInput = document.getElementById('pincode');
@@ -1020,6 +1417,15 @@
             }
         });
 
+        // File upload handlers
+        document.getElementById('resumeUpload').addEventListener('change', function() {
+            document.getElementById('resumeFileName').textContent = this.files[0] ? this.files[0].name : 'No file chosen';
+        });
+
+        document.getElementById('bankProofUpload').addEventListener('change', function() {
+            document.getElementById('bankProofFileName').textContent = this.files[0] ? this.files[0].name : 'No file chosen';
+        });
+
         // Multi-select dropdown functionality
         const selectedItemsContainer = document.getElementById('selectedSchools');
         const dropdown = document.getElementById('schoolsDropdown');
@@ -1031,7 +1437,6 @@
             selectedItemsContainer.classList.toggle('active');
         });
 
-        // Close dropdown when clicking outside
         document.addEventListener('click', function (e) {
             if (!e.target.closest('.multi-select-container')) {
                 dropdown.classList.remove('active');
@@ -1039,7 +1444,6 @@
             }
         });
 
-        // Handle checkbox changes
         checkboxes.forEach(checkbox => {
             checkbox.addEventListener('change', function () {
                 updateSelectedSchools();
@@ -1055,7 +1459,7 @@
                 }));
 
             if (selected.length === 0) {
-                selectedItemsContainer.innerHTML = '<span class="placeholder">Select schools to assign</span>';
+                selectedItemsContainer.innerHTML = '<span class="placeholder">Select schools to assign (Single / Multiple)</span>';
             } else {
                 selectedItemsContainer.innerHTML = selected.map(item => `
                     <span class="selected-tag">
@@ -1064,7 +1468,6 @@
                     </span>
                 `).join('');
 
-                // Add remove handlers
                 selectedItemsContainer.querySelectorAll('.remove').forEach(btn => {
                     btn.addEventListener('click', function (e) {
                         e.stopPropagation();
@@ -1076,14 +1479,11 @@
                 });
             }
 
-            // Clear border error if schools are selected
             if (selected.length > 0) {
                 selectedItemsContainer.classList.remove('error');
-                clearError('schools');
             }
         }
 
-        // Search functionality
         searchInput.addEventListener('input', function () {
             const searchTerm = this.value.toLowerCase();
             const options = document.querySelectorAll('.checkbox-option');
@@ -1096,32 +1496,83 @@
 
         // Auto Fill Dummy Data Function
         function autoFillForm() {
-            // Step 1: Personal Details
-            document.getElementById('fullName').value = 'Priya Patel';
-            document.getElementById('email').value = 'priya.patel@example.com';
-            document.getElementById('phoneNumber').value = '9876543210';
-            document.getElementById('alternatePhone').value = '9876543211';
-
-            // Step 2: School Assignment
-            const schoolCheckboxes = document.querySelectorAll('input[name="schools"]');
-            // Select first 3 schools
-            if (schoolCheckboxes.length > 0) schoolCheckboxes[0].checked = true;
-            if (schoolCheckboxes.length > 1) schoolCheckboxes[1].checked = true;
-            if (schoolCheckboxes.length > 2) schoolCheckboxes[2].checked = true;
-            updateSelectedSchools(); // Update the display
-
-            // Step 3: Profile & Preferences
+            // Step 1: Basic Information
+            document.getElementById('fullName').value = 'Priya Sharma';
             document.getElementById('gender').value = 'female';
-            document.getElementById('dateOfBirth').value = '1990-08-20';
-            document.getElementById('address').value = 'Flat 505, Sunrise Apartments, MG Road, Pune';
+            document.getElementById('dateOfBirth').value = '1990-05-15';
+            document.getElementById('bloodGroup').value = 'O+';
+            document.getElementById('nationality').value = 'Indian';
+            document.getElementById('employeeId').value = 'PC001';
+            document.getElementById('aadharNumber').value = '123456789012';
+            document.getElementById('panNumber').value = 'ABCDE1234F';
+
+            // Step 2: Professional Details
+            document.getElementById('designation').value = 'Program Coordinator';
+            document.getElementById('qualification').value = 'MBA in Operations';
+            document.getElementById('specialization').value = 'Project Management';
+            document.getElementById('totalExperience').value = '5 Years 6 Months';
+            document.getElementById('programManagementExp').value = '3 Years';
+            document.getElementById('educationExp').value = '2 Years';
+            document.getElementById('previousOrganizations').value = 'ABC Education Solutions\nXYZ Learning Institute';
+            document.getElementById('languagesKnown').value = 'English, Hindi, Marathi';
+            document.getElementById('certifications').value = 'PMP Certified, Agile Scrum Master';
+
+            // Step 3: Contact Information
+            document.getElementById('mobileNumber').value = '9876543210';
+            document.getElementById('alternateNumber').value = '9876543211';
+            document.getElementById('officialEmail').value = 'priya.sharma@example.com';
+            document.getElementById('personalEmail').value = 'priya.personal@gmail.com';
+
+            // Step 4: Address Details
+            document.getElementById('currentAddress').value = 'Flat 505, Sunrise Apartments, MG Road';
+            document.getElementById('permanentAddress').value = 'House No. 12, Green Valley Colony';
             document.getElementById('city').value = 'Pune';
             document.getElementById('state').value = 'Maharashtra';
             document.getElementById('pincode').value = '411001';
 
+            // Step 5: Compliance & Documentation
+            document.getElementById('idProof').value = 'Both';
+            document.getElementById('addressProof').value = 'Aadhar';
+            document.getElementById('policeVerification').value = 'Completed';
+            document.getElementById('passportPhotoUploaded').value = 'Yes';
+            document.getElementById('contractUploaded').value = 'Yes';
+            document.getElementById('panAadharLinked').value = 'Yes';
+            document.getElementById('ndaSigned').value = 'Yes';
+
+            // Step 6: Program & Work Assignment Details
+            document.getElementById('programAssigned').value = 'CSL+';
+            document.getElementById('zoneAssigned').value = 'West Zone';
+            const schoolCheckboxes = document.querySelectorAll('input[name="schools"]');
+            if (schoolCheckboxes.length > 0) schoolCheckboxes[0].checked = true;
+            if (schoolCheckboxes.length > 1) schoolCheckboxes[1].checked = true;
+            if (schoolCheckboxes.length > 2) schoolCheckboxes[2].checked = true;
+            updateSelectedSchools();
+            document.getElementById('branchRegion').value = 'Pune Region';
+            document.getElementById('reportingManager').value = 'Rajesh Kumar';
+            document.getElementById('loginRole').value = 'Program Coordinator';
+            document.getElementById('joiningDate').value = '2024-01-15';
+            document.getElementById('employmentType').value = 'Full-time';
+
+            // Step 7: Bank & Payroll Details
+            document.getElementById('bankName').value = 'HDFC Bank';
+            document.getElementById('branchName').value = 'MG Road Branch';
+            document.getElementById('accountNumber').value = '50100123456789';
+            document.getElementById('ifscCode').value = 'HDFC0001234';
+
+            // Step 8: Additional Optional Data
+            document.getElementById('strengthAreas').value = 'Team Management, Communication, Problem Solving';
+            document.getElementById('hobbies').value = 'Reading, Traveling, Photography';
+            document.getElementById('workStyle').value = 'Hybrid';
+            document.getElementById('toolsComfortable').value = 'Google Sheets, Trello, Asana';
+            document.getElementById('achievements').value = 'Best Program Coordinator Award 2023';
+            document.getElementById('careerAspirations').value = 'To lead large-scale educational programs';
+
+            // Trigger age calculation
+            document.getElementById('dateOfBirth').dispatchEvent(new Event('change'));
+
             alert('Form auto-filled with dummy data!');
         }
 
-        // Auto Fill Button Handler
         document.getElementById('autoFillBtn').addEventListener('click', autoFillForm);
 
         // Initialize
@@ -1134,6 +1585,7 @@
                 if (currentStep < totalSteps) {
                     currentStep++;
                     updateStepDisplay();
+                    window.scrollTo(0, 0);
                 }
             }
         });
@@ -1143,6 +1595,7 @@
             if (currentStep > 1) {
                 currentStep--;
                 updateStepDisplay();
+                window.scrollTo(0, 0);
             }
         });
 
@@ -1154,7 +1607,6 @@
                 saveCurrentStepData();
                 console.log('Final Form Data:', formData);
                 alert('Program Coordinator onboarded successfully!\n\nCheck console for form data.');
-                // Here you would typically send the data to your backend
             }
         });
 
@@ -1191,35 +1643,31 @@
             let isValid = true;
             const currentStepElement = document.getElementById(`step${currentStep}`);
 
-            // Get all fields with validators in the current step
-            const fieldsToValidate = currentStepElement.querySelectorAll('input[id], select[id]');
+            // Get all required fields in the current step
+            const requiredFields = currentStepElement.querySelectorAll('input[required], select[required], textarea[required]');
 
-            fieldsToValidate.forEach(field => {
-                const fieldId = field.id;
-                if (validators[fieldId]) {
-                    const error = validators[fieldId].validate(field.value);
-                    if (error) {
-                        showError(fieldId, error);
-                        isValid = false;
-                    } else {
-                        clearError(fieldId);
-                    }
+            requiredFields.forEach(field => {
+                if (!field.value.trim()) {
+                    field.classList.add('error');
+                    isValid = false;
+                } else {
+                    field.classList.remove('error');
                 }
             });
 
-            // Special validation for multi-select schools in step 2
-            if (currentStep === 2) {
+            // Special validation for multi-select schools in step 6
+            if (currentStep === 6) {
                 const selectedSchools = document.querySelectorAll('input[name="schools"]:checked');
-                const selectedItemsContainer = document.getElementById('selectedSchools');
-
                 if (selectedSchools.length === 0) {
                     isValid = false;
                     selectedItemsContainer.classList.add('error');
-                    showError('schools', 'Please assign at least one school');
                 } else {
                     selectedItemsContainer.classList.remove('error');
-                    clearError('schools');
                 }
+            }
+
+            if (!isValid) {
+                alert('Please fill in all required fields marked with *');
             }
 
             return isValid;
@@ -1227,7 +1675,7 @@
 
         function saveCurrentStepData() {
             const currentStepElement = document.getElementById(`step${currentStep}`);
-            const inputs = currentStepElement.querySelectorAll('input, select');
+            const inputs = currentStepElement.querySelectorAll('input, select, textarea');
 
             inputs.forEach(input => {
                 if (input.type === 'checkbox' && input.name === 'schools') {
@@ -1237,6 +1685,8 @@
                     }
                 } else if (input.name && input.type !== 'file') {
                     formData[input.name] = input.value;
+                } else if (input.type === 'file' && input.files[0]) {
+                    formData[input.name] = input.files[0].name;
                 }
             });
         }
