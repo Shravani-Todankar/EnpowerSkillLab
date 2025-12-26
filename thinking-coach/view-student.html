@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rahul Kumar - Student Details</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Material Symbols -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+        rel="stylesheet">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Sidebar & Header CSS -->
+    <link rel="stylesheet" href="sidebar.css">
+    <link rel="stylesheet" href="header.css">
+
+    <!-- Sidebar & Header JS -->
+    <script src="sidebar.js"></script>
+    <script src="header.js"></script>
+
+    <style>
+        /* Reset & Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #f9fafb;
+            color: #1f2937;
+        }
+
+        .dashboard-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        .student-profile {
+            padding: 1.5rem;
+            max-width: 100%;
+            margin: 0;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #6b7280;
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            transition: color 0.2s;
+        }
+
+        .back-link:hover {
+            color: #6B21A8;
+        }
+
+        .profile-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            padding: 2rem;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            flex-wrap: wrap;
+        }
+
+        .profile-photo {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #f3f4f6;
+            flex-shrink: 0;
+        }
+
+        .profile-photo-placeholder {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #7E22CE, #6B21A8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 2.5rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .profile-info {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .profile-info h1 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #1f2937;
+            margin: 0 0 0.5rem 0;
+        }
+
+        .profile-info .student-id {
+            color: #6b7280;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Status Pills */
+        .control-pill {
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.25rem 0.6rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .status-active {
+            background-color: #d1fae5;
+            color: #166534;
+        }
+
+        .status-pending {
+            background-color: #fef3c7;
+            color: #92400e;
+        }
+
+        .status-inactive {
+            background-color: #fee2e2;
+            color: #991b1b;
+        }
+
+        /* Info Cards */
+        .info-card {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            margin-bottom: 1.5rem;
+        }
+
+        .info-card-header {
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .info-card-header h2 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1f2937;
+            margin: 0;
+        }
+
+        .info-card-header .material-symbols-outlined {
+            color: #6B21A8;
+            font-size: 24px;
+        }
+
+        .info-card-body {
+            padding: 1.5rem;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .info-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .info-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .info-value {
+            font-size: 0.95rem;
+            color: #1f2937;
+            font-weight: 500;
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .student-profile {
+                padding: 1rem;
+            }
+
+            .profile-header {
+                padding: 1.5rem;
+            }
+
+            .profile-info h1 {
+                font-size: 1.5rem;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+
+    <style>
+        /* Prevent FOUC - hide containers until loaded */
+        #sidebar-container:empty,
+        #header-container:empty {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        #sidebar-container.loaded,
+        #header-container.loaded {
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.2s ease-in;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- Include Sidebar Component -->
+        <div id="sidebar-container"></div>
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Include Header Component -->
+            <div id="header-container"></div>
+            <div class="student-profile">
+                <a href="student-list.html" class="back-link" onclick="window.history.back(); return false;">
+                    <span class="material-symbols-outlined">arrow_back</span>
+                    Back to Student List
+                </a>
+
+                <!-- Profile Header -->
+                <div class="profile-header">
+                    <div class="profile-photo-placeholder">
+                        RK
+                    </div>
+
+                    <div class="profile-info">
+                        <h1>Rahul Kumar</h1>
+                        <p class="student-id">
+                            <strong>Skill Lab ID:</strong> STU001 |
+                            <strong>GR Number:</strong> GR2024001
+                        </p>
+                        <span class="control-pill status-active">
+                            Active
+                        </span>
+                    </div>
+
+                </div>
+
+                <!-- Basic Information -->
+                <div class="info-card">
+                    <div class="info-card-header">
+                        <span class="material-symbols-outlined">person</span>
+                        <h2>Basic Information</h2>
+                    </div>
+                    <div class="info-card-body">
+                        <div class="info-grid">
+                            <div class="info-item">
+                                <span class="info-label">First Name</span>
+                                <span class="info-value">Rahul</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Middle Name</span>
+                                <span class="info-value">-</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Last Name</span>
+                                <span class="info-value">Kumar</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Gender</span>
+                                <span class="info-value">Male</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Date of Birth</span>
+                                <span class="info-value">15 May 2010</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Nationality</span>
+                                <span class="info-value">Indian</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Mother Tongue</span>
+                                <span class="info-value">Hindi</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Blood Group</span>
+                                <span class="info-value">B+</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Aadhar Number</span>
+                                <span class="info-value">1234-5678-9012</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Academic Details -->
+                <div class="info-card">
+                    <div class="info-card-header">
+                        <span class="material-symbols-outlined">school</span>
+                        <h2>Academic Details</h2>
+                    </div>
+                    <div class="info-card-body">
+                        <div class="info-grid">
+                            <div class="info-item">
+                                <span class="info-label">School Name</span>
+                                <span class="info-value">Delhi Public School</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">School Branch</span>
+                                <span class="info-value">Rohini</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Class</span>
+                                <span class="info-value">9</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Division</span>
+                                <span class="info-value">A</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Roll Number</span>
+                                <span class="info-value">1</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Academic Year</span>
+                                <span class="info-value">2024-2025</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">School Board</span>
+                                <span class="info-value">CBSE</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Stream</span>
+                                <span class="info-value">Science</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Details -->
+                <div class="info-card">
+                    <div class="info-card-header">
+                        <span class="material-symbols-outlined">contact_phone</span>
+                        <h2>Contact Details</h2>
+                    </div>
+                    <div class="info-card-body">
+                        <div class="info-grid">
+                            <div class="info-item">
+                                <span class="info-label">Student Mobile</span>
+                                <span class="info-value">+91 98765 43210</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">School Email</span>
+                                <span class="info-value">rahul.kumar@dps.edu.in</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Personal Email</span>
+                                <span class="info-value">rahul.kumar2010@gmail.com</span>
+                            </div>
+                            <div class="info-item full-width">
+                                <span class="info-label">Address</span>
+                                <span class="info-value">Block A, Sector 15, Rohini, New Delhi - 110085</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Emergency Contact -->
+                <div class="info-card">
+                    <div class="info-card-header">
+                        <span class="material-symbols-outlined">emergency</span>
+                        <h2>Emergency Contact</h2>
+                    </div>
+                    <div class="info-card-body">
+                        <div class="info-grid">
+                            <div class="info-item">
+                                <span class="info-label">Contact Name</span>
+                                <span class="info-value">Rajesh Kumar</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Relationship</span>
+                                <span class="info-value">Father</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Mobile</span>
+                                <span class="info-value">+91 99887 76655</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Alternate Mobile</span>
+                                <span class="info-value">+91 98776 54321</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Load Sidebar and Header Components
+        document.addEventListener('DOMContentLoaded', function () {
+            Promise.all([
+                fetch('sidebar.html').then(response => response.text()),
+                fetch('header.html').then(response => response.text())
+            ]).then(([sidebarHTML, headerHTML]) => {
+                document.getElementById('sidebar-container').innerHTML = sidebarHTML;
+                document.getElementById('header-container').innerHTML = headerHTML;
+                // Call header initialization directly instead of relying on DOMContentLoaded
+                if (typeof initializeHeader === 'function') {
+                    initializeHeader();
+                }
+
+                // Wait a bit for sidebar.js to initialize, then set active state
+                setTimeout(() => {
+                    setActiveMenuItem();
+                }, 200);
+            });
+
+            // Populate page with URL parameters
+            populateStudentData();
+        });
+
+        function populateStudentData() {
+            const urlParams = new URLSearchParams(window.location.search);
+
+            // Get data from URL parameters
+            const studentId = urlParams.get('id');
+            const studentName = urlParams.get('name');
+            const studentClass = urlParams.get('class');
+            const studentStatus = urlParams.get('status');
+
+            if (studentName) {
+                // Update page title
+                document.title = `${studentName} - Student Details`;
+
+                // Update profile header name
+                const profileName = document.querySelector('.profile-info h1');
+                if (profileName) {
+                    profileName.textContent = studentName;
+                }
+
+                // Update initials in profile photo placeholder
+                const nameParts = studentName.split(' ');
+                const initials = nameParts.map(part => part.charAt(0).toUpperCase()).join('');
+                const photoPlaceholder = document.querySelector('.profile-photo-placeholder');
+                if (photoPlaceholder) {
+                    photoPlaceholder.textContent = initials.substring(0, 2);
+                }
+
+                // Update name fields in basic information
+                if (nameParts.length >= 2) {
+                    const firstNameValue = document.querySelector('.info-item:nth-child(1) .info-value');
+                    if (firstNameValue) firstNameValue.textContent = nameParts[0];
+
+                    const lastNameValue = document.querySelector('.info-item:nth-child(3) .info-value');
+                    if (lastNameValue) lastNameValue.textContent = nameParts[nameParts.length - 1];
+
+                    if (nameParts.length > 2) {
+                        const middleNameValue = document.querySelector('.info-item:nth-child(2) .info-value');
+                        if (middleNameValue) middleNameValue.textContent = nameParts.slice(1, -1).join(' ');
+                    }
+                }
+
+                // Log for analytics
+                console.log('Student profile viewed:', studentName);
+            }
+
+            if (studentId) {
+                // Update student ID in profile
+                const studentIdElement = document.querySelector('.student-id');
+                if (studentIdElement) {
+                    studentIdElement.innerHTML = `<strong>Student ID:</strong> ${studentId} | <strong>GR Number:</strong> GR2024001`;
+                }
+            }
+
+            if (studentClass) {
+                // Update class in academic details
+                const classMatch = studentClass.match(/Class (\d+)-?([A-Z])?/);
+                if (classMatch) {
+                    const classNumber = classMatch[1];
+                    const division = classMatch[2];
+
+                    // Update class value (5th item in academic details)
+                    const academicCard = document.querySelectorAll('.info-card')[1];
+                    if (academicCard) {
+                        const classValue = academicCard.querySelector('.info-item:nth-child(3) .info-value');
+                        if (classValue) classValue.textContent = classNumber;
+
+                        if (division) {
+                            const divisionValue = academicCard.querySelector('.info-item:nth-child(4) .info-value');
+                            if (divisionValue) divisionValue.textContent = division;
+                        }
+                    }
+                }
+            }
+
+            if (studentStatus) {
+                // Update status pill
+                const statusPill = document.querySelector('.control-pill');
+                if (statusPill) {
+                    // Remove all status classes
+                    statusPill.classList.remove('status-active', 'status-pending', 'status-inactive');
+
+                    // Add appropriate class based on status
+                    const status = studentStatus.toLowerCase();
+                    if (status === 'active') {
+                        statusPill.classList.add('status-active');
+                        statusPill.textContent = 'Active';
+                    } else if (status === 'pending') {
+                        statusPill.classList.add('status-pending');
+                        statusPill.textContent = 'Pending';
+                    } else if (status === 'inactive') {
+                        statusPill.classList.add('status-inactive');
+                        statusPill.textContent = 'Inactive';
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>

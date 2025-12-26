@@ -437,7 +437,7 @@
                       <span class="control-pill status-present">Present</span>
                     </td>
                     <td>
-                      <div class="d-flex align-items-center gap-3 text-muted">
+                      <div class="d-flex align-items-center justify-content-center gap-3 text-muted">
                         <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary"><span
                             class="material-symbols-outlined">edit</span></button>
                         <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary"><span
@@ -461,7 +461,7 @@
                       <span class="control-pill status-leave">On Leave</span>
                     </td>
                     <td>
-                      <div class="d-flex align-items-center gap-3 text-muted">
+                      <div class="d-flex align-items-center justify-content-center gap-3 text-muted">
                         <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary"><span
                             class="material-symbols-outlined">edit</span></button>
                         <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary"><span
@@ -485,7 +485,7 @@
                       <span class="control-pill status-absent">Absent</span>
                     </td>
                     <td>
-                      <div class="d-flex align-items-center gap-3 text-muted">
+                      <div class="d-flex align-items-center justify-content-center gap-3 text-muted">
                         <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary"><span
                             class="material-symbols-outlined">edit</span></button>
                         <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary"><span
@@ -509,7 +509,7 @@
                       <span class="control-pill status-present">Present</span>
                     </td>
                     <td>
-                      <div class="d-flex align-items-center gap-3 text-muted">
+                      <div class="d-flex align-items-center justify-content-center gap-3 text-muted">
                         <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary"><span
                             class="material-symbols-outlined">edit</span></button>
                         <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary"><span
@@ -533,7 +533,7 @@
                       <span class="control-pill status-present">Present</span>
                     </td>
                     <td>
-                      <div class="d-flex align-items-center gap-3 text-muted">
+                      <div class="d-flex align-items-center justify-content-center gap-3 text-muted">
                         <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary"><span
                             class="material-symbols-outlined">edit</span></button>
                         <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary"><span
@@ -557,7 +557,7 @@
                       <span class="control-pill status-leave">On Leave</span>
                     </td>
                     <td>
-                      <div class="d-flex align-items-center gap-3 text-muted">
+                      <div class="d-flex align-items-center justify-content-center gap-3 text-muted">
                         <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary"><span
                             class="material-symbols-outlined">edit</span></button>
                         <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary"><span
@@ -581,7 +581,7 @@
                       <span class="control-pill status-present">Present</span>
                     </td>
                     <td>
-                      <div class="d-flex align-items-center gap-3 text-muted">
+                      <div class="d-flex align-items-center justify-content-center gap-3 text-muted">
                         <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary"><span
                             class="material-symbols-outlined">edit</span></button>
                         <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary"><span
@@ -605,7 +605,7 @@
                       <span class="control-pill status-absent">Absent</span>
                     </td>
                     <td>
-                      <div class="d-flex align-items-center gap-3 text-muted">
+                      <div class="d-flex align-items-center justify-content-center gap-3 text-muted">
                         <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary"><span
                             class="material-symbols-outlined">edit</span></button>
                         <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary"><span
@@ -668,7 +668,7 @@
 
 
     $(function () {
-      $('#teacherTable').DataTable({
+      const dataTable = $('#teacherTable').DataTable({
         paging: true,
         pageLength: 10,
         lengthMenu: [5, 10, 25, 50],
@@ -690,6 +690,48 @@
         },
         dom: '<"datatable-header d-flex flex-column flex-lg-row align-items-start align-items-lg-center justify-content-between gap-3 p-3 border-bottom"l<"w-100"f>><"table-scroll-wrapper"t><"datatable-footer d-flex flex-column flex-lg-row align-items-start align-items-lg-center justify-content-between gap-3 p-3 border-top"ip>'
       });
+
+      // Load and update data from localStorage
+      const teachers = JSON.parse(localStorage.getItem('teachers') || '{}');
+      if (Object.keys(teachers).length > 0) {
+        dataTable.rows().every(function() {
+          const row = this.node();
+          const $row = $(row);
+          const teacherId = $row.find('td').eq(0).text().trim();
+
+          if (teachers[teacherId]) {
+            const teacher = teachers[teacherId];
+
+            // Update name with initials
+            const nameParts = teacher.fullName.split(' ');
+            const initials = nameParts.map(p => p.charAt(0).toUpperCase()).join('').substring(0, 2);
+            const existingBadgeColor = $row.find('.initial-badge').css('background-color') || '#3b82f6';
+            $row.find('td').eq(1).html(`
+              <div class="d-flex align-items-center gap-3">
+                <div class="initial-badge" style="background-color:${existingBadgeColor};">${initials}</div>
+                <span>${teacher.fullName}</span>
+              </div>
+            `);
+
+            // Update designation
+            if (teacher.designation) {
+              $row.find('td').eq(2).text(teacher.designation);
+            }
+
+            // Update email
+            if (teacher.email) {
+              $row.find('td').eq(3).text(teacher.email);
+            }
+
+            // Update status
+            const statusText = teacher.status.charAt(0).toUpperCase() + teacher.status.slice(1);
+            const statusClass = `status-${teacher.status}`;
+            $row.find('td').eq(4).html(`<span class="control-pill ${statusClass}">${statusText}</span>`);
+          }
+        });
+
+        dataTable.draw(false);
+      }
 
       // Action Button Handlers
       $('#teacherTable').on('click', 'button', function(e) {
@@ -728,13 +770,14 @@
       }
 
       function handleView(data) {
-        const message = `Teacher Details:\n\n` +
-          `ID: ${data.id}\n` +
-          `Name: ${data.name}\n` +
-          `Designation: ${data.designation}\n` +
-          `Email: ${data.email}\n` +
-          `Status: ${data.status}`;
-        alert(message);
+        const params = new URLSearchParams({
+          id: data.id,
+          name: data.name,
+          designation: data.designation,
+          email: data.email,
+          status: data.status
+        });
+        window.location.href = `view-teacher.html?${params.toString()}`;
       }
 
       function handleDelete(data, $row) {

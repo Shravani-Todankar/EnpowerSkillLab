@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Teacher - Enpower Skill Lab</title>
+    <title>Edit Thinking Coach - Enpower Skill Lab</title>
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -178,27 +178,121 @@
                     <form id="editTeacherForm">
                         <!-- Basic Information Card -->
                         <div class="card-box">
-                            <h5>Basic Information</h5>
+                            <h5><span class="material-symbols-outlined" style="vertical-align: middle;">person</span> Basic Information</h5>
+                            <div class="row g-3">
+                                <!-- Photo Upload -->
+                                <div class="col-12">
+                                    <label class="form-label">Teacher Photo</label>
+                                    <div class="d-flex align-items-center gap-3">
+                                        <div id="photoPreview" style="width: 100px; height: 100px; border-radius: 50%; border: 2px dashed #dfd3e4; display: flex; align-items: center; justify-content: center; background: #faf9fb; cursor: pointer;">
+                                            <span class="material-symbols-outlined" style="font-size: 32px; color: #6b7280;">photo_camera</span>
+                                        </div>
+                                        <input type="file" id="teacherPhoto" name="teacher_photo" accept="image/*" style="display: none;">
+                                        <button type="button" class="btn btn-primary-custom" id="uploadPhotoBtn">
+                                            <span class="material-symbols-outlined" style="font-size: 1rem; vertical-align: middle;">upload</span>
+                                            Change Photo
+                                        </button>
+                                        <small class="text-muted">Recommended: Square Image, max 2MB</small>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label for="firstName" class="form-label">First Name <span class="required">*</span></label>
+                                    <input type="text" class="form-control" id="firstName" name="first_name" required>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="middleName" class="form-label">Middle Name</label>
+                                    <input type="text" class="form-control" id="middleName" name="middle_name">
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="lastName" class="form-label">Last Name <span class="required">*</span></label>
+                                    <input type="text" class="form-control" id="lastName" name="last_name" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="gender" class="form-label">Gender <span class="required">*</span></label>
+                                    <select class="form-select" id="gender" name="gender" required>
+                                        <option value="male">Male</option>
+                                        <option value="female">Female</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="dateOfBirth" class="form-label">Date of Birth <span class="required">*</span></label>
+                                    <input type="date" class="form-control" id="dateOfBirth" name="date_of_birth" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="email" class="form-label">Email <span class="required">*</span></label>
+                                    <input type="email" class="form-control" id="email" name="email" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="phone" class="form-label">Phone Number <span class="required">*</span></label>
+                                    <input type="tel" class="form-control" id="phone" name="phone" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="alternatePhone" class="form-label">Alternate Phone</label>
+                                    <input type="tel" class="form-control" id="alternatePhone" name="alternate_phone">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="nationality" class="form-label">Nationality</label>
+                                    <input type="text" class="form-control" id="nationality" name="nationality" value="Indian">
+                                </div>
+                                <div class="col-12">
+                                    <label for="address" class="form-label">Address</label>
+                                    <textarea class="form-control" id="address" name="address" rows="2"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Professional Details Card -->
+                        <div class="card-box">
+                            <h5><span class="material-symbols-outlined" style="vertical-align: middle;">work</span> Professional Details</h5>
                             <div class="row g-3">
                                 <div class="col-md-6">
                                     <label for="teacherId" class="form-label">Teacher ID</label>
-                                    <input type="text" class="form-control" id="teacherId" readonly>
+                                    <input type="text" class="form-control" id="teacherId" name="teacher_id" readonly>
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="teacherName" class="form-label">Name <span class="required">*</span></label>
-                                    <input type="text" class="form-control" id="teacherName" required>
+                                    <label for="employeeId" class="form-label">Employee ID</label>
+                                    <input type="text" class="form-control" id="employeeId" name="employee_id">
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="teacherDesignation" class="form-label">Designation <span class="required">*</span></label>
-                                    <input type="text" class="form-control" id="teacherDesignation" required>
+                                    <label for="designation" class="form-label">Designation <span class="required">*</span></label>
+                                    <select class="form-select" id="designation" name="designation" required>
+                                        <option value="">Select designation</option>
+                                        <option value="Principal">Principal</option>
+                                        <option value="Head Teacher">Head Teacher</option>
+                                        <option value="Teacher">Teacher</option>
+                                        <option value="Assistant Teacher">Assistant Teacher</option>
+                                        <option value="Management Staff">Management Staff</option>
+                                    </select>
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="teacherContact" class="form-label">Contact Information <span class="required">*</span></label>
-                                    <input type="email" class="form-control" id="teacherContact" required>
+                                    <label for="department" class="form-label">Department</label>
+                                    <select class="form-select" id="department" name="department">
+                                        <option value="">Select department</option>
+                                        <option value="Administration">Administration</option>
+                                        <option value="Science">Science</option>
+                                        <option value="Mathematics">Mathematics</option>
+                                        <option value="English">English</option>
+                                        <option value="Social Studies">Social Studies</option>
+                                        <option value="Physical Education">Physical Education</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="joiningDate" class="form-label">Joining Date</label>
+                                    <input type="date" class="form-control" id="joiningDate" name="joining_date">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="qualification" class="form-label">Qualification</label>
+                                    <input type="text" class="form-control" id="qualification" name="qualification" placeholder="e.g., M.Ed, B.Ed">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="experience" class="form-label">Experience (Years)</label>
+                                    <input type="number" class="form-control" id="experience" name="experience" min="0">
                                 </div>
                                 <div class="col-md-6">
                                     <label for="teacherStatus" class="form-label">Status</label>
-                                    <select class="form-select" id="teacherStatus">
+                                    <select class="form-select" id="teacherStatus" name="teacher_status">
                                         <option value="Present">Present</option>
                                         <option value="On Leave">On Leave</option>
                                         <option value="Absent">Absent</option>
@@ -209,7 +303,10 @@
 
                         <!-- Action Buttons -->
                         <div class="d-flex justify-content-end gap-3">
-                            <button type="button" class="btn btn-ghost" id="cancelBtn">Cancel</button>
+                            <button type="button" class="btn btn-ghost" id="cancelBtn">
+                                <span class="material-symbols-outlined" style="font-size: 1.125rem; vertical-align: middle;">close</span>
+                                Cancel
+                            </button>
                             <button type="submit" class="btn btn-primary-custom">
                                 <span class="material-symbols-outlined" style="font-size: 1.125rem; vertical-align: middle;">save</span>
                                 Save Changes
@@ -266,27 +363,107 @@
         function populateTeacherForm() {
             const teacherData = getTeacherDataFromURL();
 
-            document.getElementById('teacherIdHeader').textContent = 'Editing: ' + teacherData.id;
+            document.getElementById('teacherIdHeader').textContent = 'Update information for ' + teacherData.name;
             document.getElementById('teacherId').value = teacherData.id;
-            document.getElementById('teacherName').value = teacherData.name;
-            document.getElementById('teacherDesignation').value = teacherData.designation;
-            document.getElementById('teacherContact').value = teacherData.contact;
+
+            // Parse name into parts
+            if (teacherData.name) {
+                const nameParts = teacherData.name.split(' ');
+                if (nameParts.length >= 2) {
+                    document.getElementById('firstName').value = nameParts[0];
+                    document.getElementById('lastName').value = nameParts[nameParts.length - 1];
+                    if (nameParts.length > 2) {
+                        document.getElementById('middleName').value = nameParts.slice(1, -1).join(' ');
+                    }
+                }
+            }
+
+            document.getElementById('designation').value = teacherData.designation;
+            document.getElementById('email').value = teacherData.contact;
             document.getElementById('teacherStatus').value = teacherData.status;
+        }
+
+        // Photo upload functionality
+        const photoInput = document.getElementById('teacherPhoto');
+        const photoPreview = document.getElementById('photoPreview');
+        const uploadPhotoBtn = document.getElementById('uploadPhotoBtn');
+
+        if (uploadPhotoBtn && photoInput) {
+            uploadPhotoBtn.addEventListener('click', function () {
+                photoInput.click();
+            });
+
+            photoPreview.addEventListener('click', function () {
+                photoInput.click();
+            });
+
+            photoInput.addEventListener('change', function (e) {
+                const file = e.target.files[0];
+                if (file) {
+                    if (file.size > 2 * 1024 * 1024) {
+                        alert('File size must be less than 2MB');
+                        photoInput.value = '';
+                        return;
+                    }
+
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        photoPreview.innerHTML = `<img src="${e.target.result}" alt="Preview" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">`;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
         }
 
         // Handle form submission
         document.getElementById('editTeacherForm').addEventListener('submit', function (e) {
             e.preventDefault();
 
-            const name = document.getElementById('teacherName').value.trim();
+            // Get form data
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData.entries());
+
             const teacherId = document.getElementById('teacherId').value;
 
-            if (!name) {
-                alert('Please fill in the teacher name');
+            if (!data.first_name || !data.last_name || !data.email || !data.designation) {
+                alert('Please fill in all required fields');
                 return;
             }
 
-            alert(`✅ Teacher Updated Successfully!\n\n"${name}" (ID: ${teacherId}) has been updated.`);
+            // Create full name
+            const fullName = `${data.first_name} ${data.middle_name ? data.middle_name + ' ' : ''}${data.last_name}`.trim();
+
+            // Create updated teacher object with all fields
+            const updatedTeacher = {
+                id: teacherId,
+                firstName: data.first_name,
+                middleName: data.middle_name,
+                lastName: data.last_name,
+                fullName: fullName,
+                designation: data.designation,
+                contact: data.email,
+                status: data.teacher_status,
+                gender: data.gender,
+                dateOfBirth: data.date_of_birth,
+                email: data.email,
+                phone: data.phone,
+                alternatePhone: data.alternate_phone,
+                nationality: data.nationality,
+                address: data.address,
+                employeeId: data.employee_id,
+                department: data.department,
+                joiningDate: data.joining_date,
+                qualification: data.qualification,
+                experience: data.experience
+            };
+
+            // Save to localStorage
+            let teachers = JSON.parse(localStorage.getItem('teachers') || '{}');
+            teachers[teacherId] = updatedTeacher;
+            localStorage.setItem('teachers', JSON.stringify(teachers));
+
+            console.log('Updated teacher data:', updatedTeacher);
+            alert('Teacher information updated successfully!');
 
             // Redirect back to list
             window.location.href = 'teacher-list.html';

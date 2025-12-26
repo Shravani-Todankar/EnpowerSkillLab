@@ -236,10 +236,12 @@
 
     .btn-upload {
       background: linear-gradient(90deg, #10B981, #059669);
+      display: none;
     }
 
     .btn-add {
       background: linear-gradient(90deg, #7E22CE, #6B21A8);
+      display: none;
     }
 
     .btn-gradient .material-symbols-outlined {
@@ -247,7 +249,7 @@
       font-weight: 600;
     }
 
-    div.dataTables_wrapper div.dataTables_length select{
+    div.dataTables_wrapper div.dataTables_length select {
       width: 70px !important;
     }
 
@@ -257,39 +259,46 @@
     }
 
     /* Set specific column widths for better content fit */
-    #schoolTable thead th:nth-child(1) { /* School ID */
+    #schoolTable thead th:nth-child(1) {
+      /* School ID */
       width: 100px;
       min-width: 100px;
     }
 
-    #schoolTable thead th:nth-child(2) { /* School Name */
+    #schoolTable thead th:nth-child(2) {
+      /* School Name */
       width: 220px;
       min-width: 200px;
     }
 
-    #schoolTable thead th:nth-child(3) { /* Location */
+    #schoolTable thead th:nth-child(3) {
+      /* Location */
       width: 150px;
       min-width: 130px;
     }
 
-    #schoolTable thead th:nth-child(4) { /* Contact Information */
+    #schoolTable thead th:nth-child(4) {
+      /* Contact Information */
       width: 220px;
       min-width: 180px;
     }
 
-    #schoolTable thead th:nth-child(5) { /* Number of Students */
+    #schoolTable thead th:nth-child(5) {
+      /* Number of Students */
       width: 140px;
       min-width: 140px;
       text-align: center;
     }
 
-    #schoolTable thead th:nth-child(6) { /* Status */
+    #schoolTable thead th:nth-child(6) {
+      /* Status */
       width: 110px;
       min-width: 100px;
       text-align: center;
     }
 
-    #schoolTable thead th:nth-child(7) { /* Actions */
+    #schoolTable thead th:nth-child(7) {
+      /* Actions */
       width: 100px;
       min-width: 90px;
       text-align: center;
@@ -380,7 +389,6 @@
       white-space: normal;
       word-wrap: break-word;
     }
-
   </style>
 </head>
 
@@ -422,175 +430,151 @@
             <div class="table-wrapper-outer">
               <div class="table-responsive">
                 <table id="schoolTable" class="table mb-0 align-middle">
-                <thead>
-                  <tr>
-                    <th scope="col">School ID</th>
-                    <th scope="col">
-                      <div class="d-inline-flex align-items-center gap-1">
-                        School Name
-                        <span class="material-symbols-outlined" style="font-size:16px;">arrow_upward</span>
-                      </div>
-                    </th>
-                    <th scope="col">Location</th>
-                    <th scope="col">Contact Information</th>
-                    <th scope="col">Number of Students</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr class="border-top-0">
-                    <td class="text-muted text-monospace">SCH-001</td>
-                    <td class="fw-semibold">
-                      <div class="d-flex align-items-center gap-3">
-                        <div class="initial-badge" style="background-color:#3b82f6;">GH</div>
-                        <span>Greenwood High</span>
-                      </div>
-                    </td>
-                    <td class="text-muted">Mumbai, India</td>
-                    <td class="text-muted">contact@greenwood.edu</td>
-                    <td class="text-muted">1250</td>
-                    <td>
-                      <span class="control-pill status-active">Active</span>
-                    </td>
-                    <td>
-                      <div class="d-flex align-items-center gap-3 text-muted">
-                        <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary"><span
-                            class="material-symbols-outlined">edit</span></button>
-                        <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary"><span
-                            class="material-symbols-outlined">visibility</span></button>
-                        <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary" title="Delete"><span
-                            class="material-symbols-outlined">delete</span></button>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="text-muted text-monospace">SCH-002</td>
-                    <td class="fw-semibold">
-                      <div class="d-flex align-items-center gap-3">
-                        <div class="initial-badge" style="background-color:#8b5cf6;">OI</div>
-                        <span>Oakridge International</span>
-                      </div>
-                    </td>
-                    <td class="text-muted">Delhi, India</td>
-                    <td class="text-muted">info@oakridge.ac.in</td>
-                    <td class="text-muted">800</td>
-                    <td>
-                      <span class="control-pill status-active">Active</span>
-                    </td>
-                    <td>
-                      <div class="d-flex align-items-center gap-3 text-muted">
-                        <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary"><span
-                            class="material-symbols-outlined">edit</span></button>
-                        <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary"><span
-                            class="material-symbols-outlined">visibility</span></button>
-                        <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary" title="Delete"><span
-                            class="material-symbols-outlined">delete</span></button>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="text-muted text-monospace">SCH-003</td>
-                    <td class="fw-semibold">
-                      <div class="d-flex align-items-center gap-3">
-                        <div class="initial-badge" style="background-color:#10b981;">HA</div>
-                        <span>Heritage Academy</span>
-                      </div>
-                    </td>
-                    <td class="text-muted">Bangalore, India</td>
-                    <td class="text-muted">admissions@heritage.com</td>
-                    <td class="text-muted">1500</td>
-                    <td>
-                      <span class="control-pill status-inactive">Inactive</span>
-                    </td>
-                    <td>
-                      <div class="d-flex align-items-center gap-3 text-muted">
-                        <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary"><span
-                            class="material-symbols-outlined">edit</span></button>
-                        <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary"><span
-                            class="material-symbols-outlined">visibility</span></button>
-                        <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary" title="Delete"><span
-                            class="material-symbols-outlined">delete</span></button>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="text-muted text-monospace">SCH-004</td>
-                    <td class="fw-semibold">
-                      <div class="d-flex align-items-center gap-3">
-                        <div class="initial-badge" style="background-color:#f59e0b;">GP</div>
-                        <span>Global Public School</span>
-                      </div>
-                    </td>
-                    <td class="text-muted">Chennai, India</td>
-                    <td class="text-muted">support@globalps.org</td>
-                    <td class="text-muted">950</td>
-                    <td>
-                      <span class="control-pill status-active">Active</span>
-                    </td>
-                    <td>
-                      <div class="d-flex align-items-center gap-3 text-muted">
-                        <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary"><span
-                            class="material-symbols-outlined">edit</span></button>
-                        <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary"><span
-                            class="material-symbols-outlined">visibility</span></button>
-                        <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary" title="Delete"><span
-                            class="material-symbols-outlined">delete</span></button>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="text-muted text-monospace">SCH-005</td>
-                    <td class="fw-semibold">
-                      <div class="d-flex align-items-center gap-3">
-                        <div class="initial-badge" style="background-color:#ef4444;">MS</div>
-                        <span>Modern School</span>
-                      </div>
-                    </td>
-                    <td class="text-muted">Pune, India</td>
-                    <td class="text-muted">principal@modernschool.in</td>
-                    <td class="text-muted">2100</td>
-                    <td>
-                      <span class="control-pill status-active">Active</span>
-                    </td>
-                    <td>
-                      <div class="d-flex align-items-center gap-3 text-muted">
-                        <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary"><span
-                            class="material-symbols-outlined">edit</span></button>
-                        <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary"><span
-                            class="material-symbols-outlined">visibility</span></button>
-                        <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary" title="Delete"><span
-                            class="material-symbols-outlined">delete</span></button>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="text-muted text-monospace">SCH-006</td>
-                    <td class="fw-semibold">
-                      <div class="d-flex align-items-center gap-3">
-                        <div class="initial-badge" style="background-color:#06b6d4;">RA</div>
-                        <span>Riverside Academy</span>
-                      </div>
-                    </td>
-                    <td class="text-muted">Hyderabad, India</td>
-                    <td class="text-muted">helpdesk@riverside.edu</td>
-                    <td class="text-muted">1100</td>
-                    <td>
-                      <span class="control-pill status-inactive">Inactive</span>
-                    </td>
-                    <td>
-                      <div class="d-flex align-items-center gap-3 text-muted">
-                        <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary"><span
-                            class="material-symbols-outlined">edit</span></button>
-                        <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary"><span
-                            class="material-symbols-outlined">visibility</span></button>
-                        <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary" title="Delete"><span
-                            class="material-symbols-outlined">delete</span></button>
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+                  <thead>
+                    <tr>
+                      <th scope="col">School ID</th>
+                      <th scope="col">
+                        <div class="d-inline-flex align-items-center gap-1">
+                          School Name
+                          <span class="material-symbols-outlined" style="font-size:16px;">arrow_upward</span>
+                        </div>
+                      </th>
+                      <th scope="col">Location</th>
+                      <th scope="col">Contact Information</th>
+                      <th scope="col">Number of Students</th>
+                      <th scope="col">Status</th>
+                      <th scope="col">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class="border-top-0">
+                      <td class="text-muted text-monospace">SCH-001</td>
+                      <td class="fw-semibold">
+                        <div class="d-flex align-items-center gap-3">
+                          <div class="initial-badge" style="background-color:#3b82f6;">GH</div>
+                          <span>Greenwood High</span>
+                        </div>
+                      </td>
+                      <td class="text-muted">Mumbai, India</td>
+                      <td class="text-muted">contact@greenwood.edu</td>
+                      <td class="text-muted">1250</td>
+                      <td>
+                        <span class="control-pill status-active">Active</span>
+                      </td>
+                      <td>
+                        <div class="d-flex align-items-center justify-content-center gap-3 text-muted">
+                          <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary"><span
+                              class="material-symbols-outlined">visibility</span></button>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="text-muted text-monospace">SCH-002</td>
+                      <td class="fw-semibold">
+                        <div class="d-flex align-items-center gap-3">
+                          <div class="initial-badge" style="background-color:#8b5cf6;">OI</div>
+                          <span>Oakridge International</span>
+                        </div>
+                      </td>
+                      <td class="text-muted">Delhi, India</td>
+                      <td class="text-muted">info@oakridge.ac.in</td>
+                      <td class="text-muted">800</td>
+                      <td>
+                        <span class="control-pill status-active">Active</span>
+                      </td>
+                      <td>
+                        <div class="d-flex align-items-center justify-content-center gap-3 text-muted">
+                          <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary"><span
+                              class="material-symbols-outlined">visibility</span></button>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="text-muted text-monospace">SCH-003</td>
+                      <td class="fw-semibold">
+                        <div class="d-flex align-items-center gap-3">
+                          <div class="initial-badge" style="background-color:#10b981;">HA</div>
+                          <span>Heritage Academy</span>
+                        </div>
+                      </td>
+                      <td class="text-muted">Bangalore, India</td>
+                      <td class="text-muted">admissions@heritage.com</td>
+                      <td class="text-muted">1500</td>
+                      <td>
+                        <span class="control-pill status-inactive">Inactive</span>
+                      </td>
+                      <td>
+                        <div class="d-flex align-items-center justify-content-center gap-3 text-muted">
+                          <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary"><span
+                              class="material-symbols-outlined">visibility</span></button>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="text-muted text-monospace">SCH-004</td>
+                      <td class="fw-semibold">
+                        <div class="d-flex align-items-center gap-3">
+                          <div class="initial-badge" style="background-color:#f59e0b;">GP</div>
+                          <span>Global Public School</span>
+                        </div>
+                      </td>
+                      <td class="text-muted">Chennai, India</td>
+                      <td class="text-muted">support@globalps.org</td>
+                      <td class="text-muted">950</td>
+                      <td>
+                        <span class="control-pill status-active">Active</span>
+                      </td>
+                      <td>
+                        <div class="d-flex align-items-center justify-content-center gap-3 text-muted">
+                          <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary"><span
+                              class="material-symbols-outlined">visibility</span></button>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="text-muted text-monospace">SCH-005</td>
+                      <td class="fw-semibold">
+                        <div class="d-flex align-items-center gap-3">
+                          <div class="initial-badge" style="background-color:#ef4444;">MS</div>
+                          <span>Modern School</span>
+                        </div>
+                      </td>
+                      <td class="text-muted">Pune, India</td>
+                      <td class="text-muted">principal@modernschool.in</td>
+                      <td class="text-muted">2100</td>
+                      <td>
+                        <span class="control-pill status-active">Active</span>
+                      </td>
+                      <td>
+                        <div class="d-flex align-items-center justify-content-center gap-3 text-muted">
+                          <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary"><span
+                              class="material-symbols-outlined">visibility</span></button>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="text-muted text-monospace">SCH-006</td>
+                      <td class="fw-semibold">
+                        <div class="d-flex align-items-center gap-3">
+                          <div class="initial-badge" style="background-color:#06b6d4;">RA</div>
+                          <span>Riverside Academy</span>
+                        </div>
+                      </td>
+                      <td class="text-muted">Hyderabad, India</td>
+                      <td class="text-muted">helpdesk@riverside.edu</td>
+                      <td class="text-muted">1100</td>
+                      <td>
+                        <span class="control-pill status-inactive">Inactive</span>
+                      </td>
+                      <td>
+                        <div class="d-flex align-items-center justify-content-center gap-3 text-muted">
+                          <button class="btn btn-link p-0 text-decoration-none text-muted hover-primary"><span
+                              class="material-symbols-outlined">visibility</span></button>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
           </main>
@@ -666,7 +650,7 @@
       });
 
       // Action Button Handlers
-      $('#schoolTable').on('click', 'button', function(e) {
+      $('#schoolTable').on('click', 'button', function (e) {
         const $btn = $(this);
         const $row = $btn.closest('tr');
         const $cells = $row.find('td');
@@ -684,16 +668,12 @@
         // Determine which button was clicked
         const btnIcon = $btn.find('.material-symbols-outlined').text();
 
-        if (btnIcon === 'edit') {
-          handleEdit(rowData, $row);
-        } else if (btnIcon === 'visibility') {
+        if (btnIcon === 'visibility') {
           handleView(rowData);
-        } else if (btnIcon === 'delete') {
-          handleDelete(rowData, $row);
         }
       });
 
-      function handleEdit(data, $row) {
+      function handleView(data) {
         const params = new URLSearchParams({
           id: data.id,
           name: data.name,
@@ -702,27 +682,7 @@
           students: data.students,
           status: data.status
         });
-        window.location.href = `edit-school.html?${params.toString()}`;
-      }
-
-      function handleView(data) {
-        const message = `School Details:\n\n` +
-          `ID: ${data.id}\n` +
-          `Name: ${data.name}\n` +
-          `Location: ${data.location}\n` +
-          `Contact: ${data.contact}\n` +
-          `Students: ${data.students}\n` +
-          `Status: ${data.status}`;
-        alert(message);
-      }
-
-      function handleDelete(data, $row) {
-        if (confirm(`Are you sure you want to delete "${data.name}"?\n\nThis action cannot be undone.`)) {
-          $row.fadeOut(300, function() {
-            $('#schoolTable').DataTable().row($row).remove().draw();
-            alert('School deleted successfully!');
-          });
-        }
+        window.location.href = `view-school.html?${params.toString()}`;
       }
     });
   </script>

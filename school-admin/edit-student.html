@@ -6,24 +6,327 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Student - Enpower Skill Lab</title>
 
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Material Symbols -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+        rel="stylesheet">
+
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;900&display=swap"
-        rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
-        rel="stylesheet">
+    <!-- Sidebar & Header CSS -->
+    <link rel="stylesheet" href="sidebar.css">
+    <link rel="stylesheet" href="header.css">
 
-    <!-- Sidebar JS -->
+    <!-- Sidebar & Header JS -->
     <script src="sidebar.js"></script>
-    <!-- Header JS -->
     <script src="header.js"></script>
 
     <style>
-        /* Prevent FOUC */
+        /* Reset & Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #f9fafb;
+            color: #1f2937;
+        }
+
+        .dashboard-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        .edit-student-page {
+            padding: 1rem;
+            max-width: 100%;
+            width: 100%;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #6b7280;
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            padding: 0 1rem;
+            transition: color 0.2s;
+        }
+
+        .back-link:hover {
+            color: #6B21A8;
+        }
+
+        .edit-student-page .add-student-form {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            padding: 0;
+            overflow: hidden;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .edit-student-page .form-header {
+            padding: 2rem;
+            border-bottom: 1px solid #e5e7eb;
+            margin: 0;
+        }
+
+        .edit-student-page .page-title {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #000;
+            margin: 0 0 0.5rem 0;
+        }
+
+        .edit-student-page .page-subtitle {
+            font-size: 1rem;
+            color: #000;
+            opacity: 0.95;
+            margin: 0;
+        }
+
+        .edit-student-page .form-section {
+            padding: 2rem;
+            border-bottom: 1px solid #e5e7eb;
+            margin: 0;
+        }
+
+        .edit-student-page .form-section:last-of-type {
+            border-bottom: none;
+        }
+
+        .edit-student-page .section-header {
+            margin-bottom: 1.25rem;
+            padding: 0;
+        }
+
+        .edit-student-page .section-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #1F2937;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin: 0;
+        }
+
+        .edit-student-page .section-title .material-symbols-outlined {
+            font-size: 28px;
+            color: #6B21A8;
+        }
+
+        .edit-student-page .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.25rem;
+        }
+
+        .edit-student-page .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .edit-student-page .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .edit-student-page .form-label {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 0.25rem;
+        }
+
+        .edit-student-page .form-input {
+            width: 100%;
+            padding: 12px 16px;
+            font-size: 0.9375rem;
+            color: #000;
+            background-color: #F9FAFB;
+            border: 1px solid #E5E7EB;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .edit-student-page .form-input:focus {
+            outline: none;
+            border-color: #6B21A8;
+            background: #fff;
+            box-shadow: 0 0 0 3px rgba(107, 33, 168, 0.1);
+        }
+
+        .edit-student-page .photo-upload-container {
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+            flex-wrap: wrap;
+        }
+
+        .edit-student-page .photo-preview {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            border: 2px dashed #d1d5db;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: #f9fafb;
+            color: #9ca3af;
+            cursor: pointer;
+            overflow: hidden;
+            flex-shrink: 0;
+            transition: all 0.2s ease;
+        }
+
+        .edit-student-page .photo-preview:hover {
+            border-color: #6B21A8;
+        }
+
+        .edit-student-page .photo-preview .material-symbols-outlined {
+            font-size: 32px;
+        }
+
+        .edit-student-page .photo-preview-text {
+            font-size: 0.75rem;
+            margin-top: 0.25rem;
+        }
+
+        .photo-input {
+            display: none;
+        }
+
+        .edit-student-page .upload-photo-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background-color: #6b277e;
+            color: #ffffff;
+            border: none;
+            border-radius: 0.5rem;
+            font-size: 0.938rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .edit-student-page .upload-photo-btn:hover {
+            background: #5b1d91;
+            transform: translateY(-1px);
+        }
+
+        .edit-student-page .field-hint {
+            font-size: 0.813rem;
+            color: #6B7280;
+        }
+
+        .edit-student-page .form-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem;
+            background: #F9FAFB;
+            border-top: 1px solid #E5E7EB;
+            margin: 0;
+        }
+
+        .edit-student-page .btn-cancel {
+            padding: 0.75rem 1.5rem;
+            background: #fff;
+            color: #374151;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .edit-student-page .btn-cancel:hover {
+            background: #f3f4f6;
+            border-color: #9ca3af;
+        }
+
+        .edit-student-page .btn-submit {
+            padding: 0.75rem 1.5rem;
+            background: linear-gradient(135deg, #7E22CE, #6B21A8);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 8px rgba(107, 33, 168, 0.3);
+        }
+
+        .edit-student-page .btn-submit:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(107, 33, 168, 0.4);
+        }
+
+        .edit-student-page .required {
+            color: #dc2626;
+        }
+
+        @media (max-width: 768px) {
+            .edit-student-page .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .edit-student-page .form-header,
+            .edit-student-page .form-section,
+            .edit-student-page .form-actions {
+                padding: 1.5rem;
+            }
+
+            .edit-student-page .page-title {
+                font-size: 1.5rem;
+            }
+
+            .edit-student-page .form-actions {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .edit-student-page .btn-cancel,
+            .edit-student-page .btn-submit {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+
+    <style>
+        /* Prevent FOUC - hide containers until loaded */
         #sidebar-container:empty,
         #header-container:empty {
             opacity: 0;
@@ -36,265 +339,382 @@
             visibility: visible;
             transition: opacity 0.2s ease-in;
         }
-
-        :root {
-            --primary: #6B21A8;
-            --bg-light: #f7f6f8;
-            --surface: #ffffff;
-            --text-main: #171019;
-            --text-secondary: #80588d;
-            --border-color: #dfd3e4;
-        }
-
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--bg-light);
-            color: var(--text-main);
-            margin: 0;
-            padding: 0;
-        }
-
-        .dashboard-container {
-            display: flex;
-            min-height: 100vh;
-        }
-
-        .main-content {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            overflow-x: hidden;
-        }
-
-        .content-wrapper {
-            flex: 1;
-            padding: 20px 30px;
-        }
-
-        .page-header {
-            font-weight: 600;
-            font-size: 28px;
-            margin-bottom: 8px;
-        }
-
-        .page-subtitle {
-            color: #6b7280;
-            margin-bottom: 24px;
-        }
-
-        .card-box {
-            background: var(--surface);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 24px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-            margin-bottom: 24px;
-        }
-
-        .card-box h5 {
-            font-size: 1.125rem;
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-            color: var(--text-main);
-        }
-
-        .form-label {
-            font-size: 0.875rem;
-            font-weight: 500;
-            color: #374151;
-            margin-bottom: 0.5rem;
-        }
-
-        .form-control,
-        .form-select {
-            border-radius: 10px;
-            border: 1px solid var(--border-color);
-            padding: 0.625rem 0.875rem;
-            font-size: 0.875rem;
-            background-color: #faf9fb;
-        }
-
-        .form-control:focus,
-        .form-select:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 1px var(--primary);
-            background-color: white;
-            outline: none;
-        }
-
-        .btn-primary-custom {
-            background-color: var(--primary);
-            border: none;
-            color: white;
-            font-weight: 700;
-            padding: 0.625rem 1.5rem;
-            border-radius: 10px;
-            transition: background-color 0.2s ease;
-        }
-
-        .btn-primary-custom:hover {
-            background-color: #581c87;
-        }
-
-        .btn-ghost {
-            background: transparent;
-            border: 1px solid var(--border-color);
-            color: #374151;
-            font-weight: 500;
-            padding: 0.625rem 1.5rem;
-            border-radius: 10px;
-            transition: background-color 0.2s ease;
-        }
-
-        .btn-ghost:hover {
-            background-color: var(--bg-light);
-        }
-
-        .required {
-            color: #DC2626;
-        }
     </style>
 </head>
 
 <body>
     <div class="dashboard-container">
-        <!-- Sidebar Container -->
+        <!-- Include Sidebar Component -->
         <div id="sidebar-container"></div>
-
-        <!-- Main Content Area -->
-        <div class="main-content">
-            <!-- Header Container -->
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Include Header Component -->
             <div id="header-container"></div>
+            <div class="edit-student-page">
+                <a href="#" class="back-link" onclick="window.history.back(); return false;">
+                    <span class="material-symbols-outlined">arrow_back</span>
+                    Back to Student List
+                </a>
 
-            <!-- Content Wrapper -->
-            <div class="content-wrapper">
-                <main class="container-xl">
-                    <!-- Page Header -->
-                    <div class="mb-4">
-                        <h1 class="page-header">Edit Student</h1>
-                        <p class="page-subtitle" id="studentIdHeader">Loading...</p>
+                <form class="add-student-form" id="editStudentForm" onsubmit="handleFormSubmit(event)">
+
+                    <div class="form-header">
+                        <h1 class="page-title">Edit Student</h1>
+                        <p class="page-subtitle">Update information for Rahul Kumar</p>
                     </div>
 
-                    <form id="editStudentForm">
-                        <!-- Basic Information Card -->
-                        <div class="card-box">
-                            <h5>Student Information</h5>
-                            <div class="row g-3">
-                                <div class="col-md-6">
-                                    <label for="studentId" class="form-label">Student ID</label>
-                                    <input type="text" class="form-control" id="studentId" readonly>
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="studentName" class="form-label">Name <span class="required">*</span></label>
-                                    <input type="text" class="form-control" id="studentName" required>
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="studentClass" class="form-label">Class <span class="required">*</span></label>
-                                    <input type="text" class="form-control" id="studentClass" required>
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="studentStatus" class="form-label">Status</label>
-                                    <select class="form-select" id="studentStatus">
-                                        <option value="Active">Active</option>
-                                        <option value="Pending">Pending</option>
-                                        <option value="Inactive">Inactive</option>
-                                    </select>
+                    <!-- Basic Information -->
+                    <div class="form-section">
+                        <div class="section-header">
+                            <h2 class="section-title">
+                                <span class="material-symbols-outlined">person</span>
+                                Basic Information
+                            </h2>
+                        </div>
+                        <div class="form-grid">
+                            <div class="form-group full-width">
+                                <label for="studentPhoto" class="form-label">Student Photo</label>
+                                <div class="photo-upload-container">
+                                    <div class="photo-preview" id="photoPreview">
+                                        <span class="material-symbols-outlined">photo_camera</span>
+                                        <span class="photo-preview-text">Upload Photo</span>
+                                    </div>
+                                    <input type="file" id="studentPhoto" name="student_photo" accept="image/*"
+                                        class="photo-input">
+                                    <button type="button" class="upload-photo-btn" id="uploadPhotoBtn">
+                                        <span class="material-symbols-outlined">upload</span>
+                                        Change Photo
+                                    </button>
+                                    <span class="field-hint">Recommended: Square Image, max 2MB</span>
                                 </div>
                             </div>
-                        </div>
 
-                        <!-- Action Buttons -->
-                        <div class="d-flex justify-content-end gap-3">
-                            <button type="button" class="btn btn-ghost" id="cancelBtn">Cancel</button>
-                            <button type="submit" class="btn btn-primary-custom">
-                                <span class="material-symbols-outlined" style="font-size: 1.125rem; vertical-align: middle;">save</span>
+                            <div class="form-group">
+                                <label for="firstName" class="form-label">First Name <span
+                                        class="required">*</span></label>
+                                <input type="text" id="firstName" name="first_name" class="form-input" value="Rahul"
+                                    required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="middleName" class="form-label">Middle Name</label>
+                                <input type="text" id="middleName" name="middle_name" class="form-input" value="">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="lastName" class="form-label">Last Name <span
+                                        class="required">*</span></label>
+                                <input type="text" id="lastName" name="last_name" class="form-input" value="Kumar"
+                                    required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="gender" class="form-label">Gender <span class="required">*</span></label>
+                                <select id="gender" name="gender" class="form-input" required>
+                                    <option value="male" selected>Male</option>
+                                    <option value="female">Female</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="dateOfBirth" class="form-label">Date of Birth <span
+                                        class="required">*</span></label>
+                                <input type="date" id="dateOfBirth" name="date_of_birth" class="form-input"
+                                    value="2010-05-15" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="nationality" class="form-label">Nationality</label>
+                                <input type="text" id="nationality" name="nationality" class="form-input"
+                                    value="Indian">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="motherTongue" class="form-label">Mother Tongue</label>
+                                <input type="text" id="motherTongue" name="mother_tongue" class="form-input"
+                                    value="Hindi">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="bloodGroup" class="form-label">Blood Group</label>
+                                <select id="bloodGroup" name="blood_group" class="form-input">
+                                    <option value="">Select blood group</option>
+                                    <option value="A+">A+</option>
+                                    <option value="A-">A-</option>
+                                    <option value="B+" selected>B+</option>
+                                    <option value="B-">B-</option>
+                                    <option value="AB+">AB+</option>
+                                    <option value="AB-">AB-</option>
+                                    <option value="O+">O+</option>
+                                    <option value="O-">O-</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="aadharNumber" class="form-label">Aadhar Number</label>
+                                <input type="text" id="aadharNumber" name="aadhar_number" class="form-input"
+                                    value="1234-5678-9012" maxlength="14">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Academic Details -->
+                    <div class="form-section">
+                        <div class="section-header">
+                            <h2 class="section-title">
+                                <span class="material-symbols-outlined">school</span>
+                                Academic Details
+                            </h2>
+                        </div>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="schoolName" class="form-label">School Name <span
+                                        class="required">*</span></label>
+                                <select id="schoolName" name="school_name" class="form-input" required>
+                                    <option value="">Select school</option>
+                                    <option value="Delhi Public School" selected>Delhi Public School</option>
+                                    <option value="Ryan International School">Ryan International School</option>
+                                    <option value="St. Xavier's School">St. Xavier's School</option>
+                                    <option value="Modern School">Modern School</option>
+                                    <option value="DPS International">DPS International</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="studentClass" class="form-label">Class <span
+                                        class="required">*</span></label>
+                                <select id="studentClass" name="student_class" class="form-input" required>
+                                    <option value="1">Class 1</option>
+                                    <option value="2">Class 2</option>
+                                    <option value="3">Class 3</option>
+                                    <option value="4">Class 4</option>
+                                    <option value="5">Class 5</option>
+                                    <option value="6">Class 6</option>
+                                    <option value="7">Class 7</option>
+                                    <option value="8">Class 8</option>
+                                    <option value="9" selected>Class 9</option>
+                                    <option value="10">Class 10</option>
+                                    <option value="11">Class 11</option>
+                                    <option value="12">Class 12</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="division" class="form-label">Division <span
+                                        class="required">*</span></label>
+                                <select id="division" name="division" class="form-input" required>
+                                    <option value="A" selected>Division A</option>
+                                    <option value="B">Division B</option>
+                                    <option value="C">Division C</option>
+                                    <option value="D">Division D</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="rollNumber" class="form-label">Roll Number</label>
+                                <input type="text" id="rollNumber" name="roll_number" class="form-input" value="1">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="academicYear" class="form-label">Academic Year</label>
+                                <select id="academicYear" name="academic_year" class="form-input">
+                                    <option value="2024-2025" selected>2024-2025</option>
+                                    <option value="2025-2026">2025-2026</option>
+                                    <option value="2026-2027">2026-2027</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="attendanceStatus" class="form-label">Status</label>
+                                <select id="attendanceStatus" name="attendance_status" class="form-input">
+                                    <option value="active" selected>Active</option>
+                                    <option value="inactive">Inactive</option>
+                                    <option value="pending">Pending</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Form Actions -->
+                    <div class="form-actions">
+                        <a href="#" class="btn-cancel" onclick="window.history.back(); return false;">
+                            <span class="material-symbols-outlined">close</span>
+                            Cancel
+                        </a>
+                        <div class="action-buttons-right">
+                            <button type="submit" class="btn-submit">
+                                <span class="material-symbols-outlined">save</span>
                                 Save Changes
                             </button>
                         </div>
-                    </form>
-                </main>
+                    </div>
+                </form>
             </div>
-        </div>
+        </main>
     </div>
 
-    <!-- Bootstrap JS Bundle -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
     <script>
-        // Load sidebar and header
-        Promise.all([
-            fetch('sidebar.html').then(response => response.text()),
-            fetch('header.html').then(response => response.text())
-        ]).then(([sidebarHTML, headerHTML]) => {
-            document.getElementById('sidebar-container').innerHTML = sidebarHTML;
-            document.getElementById('header-container').innerHTML = headerHTML;
-
-            setTimeout(() => {
+        // Load Sidebar and Header Components
+        document.addEventListener('DOMContentLoaded', function () {
+            Promise.all([
+                fetch('sidebar.html').then(response => response.text()),
+                fetch('header.html').then(response => response.text())
+            ]).then(([sidebarHTML, headerHTML]) => {
+                document.getElementById('sidebar-container').innerHTML = sidebarHTML;
+                document.getElementById('header-container').innerHTML = headerHTML;
+                // Call header initialization directly instead of relying on DOMContentLoaded
                 if (typeof initializeHeader === 'function') {
                     initializeHeader();
                 }
-                document.getElementById('sidebar-container').classList.add('loaded');
-                document.getElementById('header-container').classList.add('loaded');
-                setActiveMenuItem();
-            }, 200);
+
+                // Wait a bit for sidebar.js to initialize, then set active state
+                setTimeout(() => {
+                    setActiveMenuItem();
+                }, 200);
+            });
+
+            // Populate form with URL parameters
+            populateFormData();
         });
 
-        function setActiveMenuItem() {
-            const navStudentList = document.getElementById('nav-student-list');
-            if (navStudentList) {
-                navStudentList.classList.add('active');
+        function populateFormData() {
+            const urlParams = new URLSearchParams(window.location.search);
+
+            // Get data from URL parameters
+            const studentId = urlParams.get('id');
+            const studentName = urlParams.get('name');
+            const studentClass = urlParams.get('class');
+            const studentStatus = urlParams.get('status');
+
+            if (studentName) {
+                // Update page subtitle
+                const pageSubtitle = document.querySelector('.page-subtitle');
+                if (pageSubtitle) {
+                    pageSubtitle.textContent = `Update information for ${studentName}`;
+                }
+
+                // Parse name into parts
+                const nameParts = studentName.split(' ');
+                if (nameParts.length >= 2) {
+                    document.getElementById('firstName').value = nameParts[0];
+                    document.getElementById('lastName').value = nameParts[nameParts.length - 1];
+                    if (nameParts.length > 2) {
+                        document.getElementById('middleName').value = nameParts.slice(1, -1).join(' ');
+                    }
+                }
+            }
+
+            // Set class if provided (e.g., "Class 9-A")
+            if (studentClass) {
+                const classMatch = studentClass.match(/Class (\d+)-?([A-Z])?/);
+                if (classMatch) {
+                    const classNumber = classMatch[1];
+                    const division = classMatch[2];
+
+                    const classSelect = document.getElementById('studentClass');
+                    if (classSelect && classNumber) {
+                        classSelect.value = classNumber;
+                    }
+
+                    const divisionSelect = document.getElementById('division');
+                    if (divisionSelect && division) {
+                        divisionSelect.value = division;
+                    }
+                }
+            }
+
+            // Set status if provided
+            if (studentStatus) {
+                const statusSelect = document.getElementById('attendanceStatus');
+                if (statusSelect) {
+                    statusSelect.value = studentStatus.toLowerCase();
+                }
             }
         }
 
-        // Get student data from URL parameters
-        function getStudentDataFromURL() {
-            const urlParams = new URLSearchParams(window.location.search);
-            return {
-                id: urlParams.get('id') || '',
-                name: urlParams.get('name') || '',
-                class: urlParams.get('class') || '',
-                status: urlParams.get('status') || 'Active'
-            };
-        }
+        // Photo upload functionality
+        const photoInput = document.getElementById('studentPhoto');
+        const photoPreview = document.getElementById('photoPreview');
+        const uploadPhotoBtn = document.getElementById('uploadPhotoBtn');
 
-        // Populate form with student data
-        function populateStudentForm() {
-            const studentData = getStudentDataFromURL();
+        if (uploadPhotoBtn && photoInput) {
+            uploadPhotoBtn.addEventListener('click', function () {
+                photoInput.click();
+            });
 
-            document.getElementById('studentIdHeader').textContent = 'Editing: ' + studentData.id;
-            document.getElementById('studentId').value = studentData.id;
-            document.getElementById('studentName').value = studentData.name;
-            document.getElementById('studentClass').value = studentData.class;
-            document.getElementById('studentStatus').value = studentData.status;
+            photoPreview.addEventListener('click', function () {
+                photoInput.click();
+            });
+
+            photoInput.addEventListener('change', function (e) {
+                const file = e.target.files[0];
+                if (file) {
+                    if (file.size > 2 * 1024 * 1024) {
+                        alert('File size must be less than 2MB');
+                        photoInput.value = '';
+                        return;
+                    }
+
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        photoPreview.innerHTML = `<img src="${e.target.result}" alt="Preview" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">`;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
         }
 
         // Handle form submission
-        document.getElementById('editStudentForm').addEventListener('submit', function (e) {
-            e.preventDefault();
+        function handleFormSubmit(event) {
+            event.preventDefault();
 
-            const name = document.getElementById('studentName').value.trim();
-            const studentId = document.getElementById('studentId').value;
+            // Get form data
+            const formData = new FormData(event.target);
+            const data = Object.fromEntries(formData.entries());
 
-            if (!name) {
-                alert('Please fill in the student name');
-                return;
-            }
+            // Get URL parameters to identify the student
+            const urlParams = new URLSearchParams(window.location.search);
+            const studentId = urlParams.get('id');
 
-            alert(`✅ Student Updated Successfully!\n\n"${name}" (ID: ${studentId}) has been updated.`);
+            if (studentId) {
+                // Create updated student object
+                const updatedStudent = {
+                    id: studentId,
+                    firstName: data.first_name,
+                    middleName: data.middle_name,
+                    lastName: data.last_name,
+                    fullName: `${data.first_name} ${data.middle_name ? data.middle_name + ' ' : ''}${data.last_name}`.trim(),
+                    class: `Class ${data.student_class}-${data.division}`,
+                    status: data.attendance_status,
+                    gender: data.gender,
+                    dateOfBirth: data.date_of_birth,
+                    nationality: data.nationality,
+                    motherTongue: data.mother_tongue,
+                    bloodGroup: data.blood_group,
+                    aadharNumber: data.aadhar_number,
+                    schoolName: data.school_name,
+                    division: data.division,
+                    rollNumber: data.roll_number,
+                    academicYear: data.academic_year
+                };
 
-            // Redirect back to list
-            window.location.href = 'student-list.html';
-        });
+                // Save to localStorage
+                let students = JSON.parse(localStorage.getItem('students') || '{}');
+                students[studentId] = updatedStudent;
+                localStorage.setItem('students', JSON.stringify(students));
 
-        // Cancel button
-        document.getElementById('cancelBtn').addEventListener('click', function () {
-            if (confirm('Are you sure you want to cancel? All unsaved changes will be lost.')) {
+                console.log('Updated student data:', updatedStudent);
+                alert('Student information updated successfully!');
+
+                // Redirect back to student list
                 window.location.href = 'student-list.html';
+            } else {
+                alert('Error: Student ID not found. Cannot save changes.');
             }
-        });
 
-        // Load student data on page load
-        window.addEventListener('DOMContentLoaded', populateStudentForm);
+            return false;
+        }
     </script>
 </body>
 
