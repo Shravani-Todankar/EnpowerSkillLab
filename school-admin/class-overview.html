@@ -1,0 +1,1059 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classes Overview - School Admin</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+    <!-- Sidebar & Header JS -->
+    <script src="sidebar.js"></script>
+    <script src="header.js"></script>
+
+    <style>
+        /* Prevent FOUC - hide containers until loaded */
+        #sidebar-container:empty,
+        #header-container:empty {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        #sidebar-container.loaded,
+        #header-container.loaded {
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.2s ease-in;
+        }
+
+        :root {
+            --primary: #6B21A8;
+            --background-light: #F3F4F6;
+            --card-radius: 0.5rem;
+            --shadow: 0 1px 2px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background-light);
+            color: #374151;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .dashboard-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        .card {
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            border-radius: var(--card-radius);
+            box-shadow: var(--shadow);
+            background-color: #fff;
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            font-size: 20px;
+            line-height: 1;
+        }
+
+        /* KPI Cards */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        @media (max-width: 1200px) {
+            .kpi-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .kpi-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 576px) {
+            .kpi-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .kpi-card {
+            background: #fff;
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            border-radius: var(--card-radius);
+            padding: 1.25rem;
+            box-shadow: var(--shadow);
+        }
+
+        .kpi-card-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .kpi-icon {
+            width: 2.5rem;
+            height: 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(107, 33, 168, 0.1);
+        }
+
+        .kpi-icon .material-symbols-outlined {
+            color: var(--primary);
+            font-size: 1.5rem;
+        }
+
+        .kpi-icon.red {
+            background: #fee2e2;
+        }
+
+        .kpi-icon.red .material-symbols-outlined {
+            color: #dc2626;
+        }
+
+        .kpi-label {
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+        }
+
+        .kpi-value {
+            font-size: 1.875rem;
+            font-weight: 700;
+            color: #111827;
+            margin: 0;
+        }
+
+        /* Gradient Buttons */
+        .btn-gradient {
+            border: none;
+            border-radius: 10px;
+            padding: 10px 22px;
+            font-weight: 600;
+            color: #fff !important;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+            transition: all 0.2s ease-in-out;
+        }
+
+        .btn-gradient:hover {
+            opacity: 0.95;
+        }
+
+        .btn-download {
+            background: linear-gradient(90deg, #0EA5E9, #0284C7);
+        }
+
+        .btn-gradient .material-symbols-outlined {
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        /* DataTables Styling */
+        .table> :not(caption)>*>* {
+            padding: 0.85rem 1.25rem;
+            vertical-align: middle;
+        }
+
+        .table thead th {
+            font-size: 0.75rem;
+            letter-spacing: 0.02em;
+            color: #6b7280;
+            text-transform: uppercase;
+            border-bottom: 1px solid #e5e7eb;
+            background: #f9fafb;
+        }
+
+        .table tbody td {
+            color: #111827;
+        }
+
+        div.dataTables_wrapper div.dataTables_length select {
+            width: 70px !important;
+        }
+
+        .table-wrapper-outer {
+            width: 100%;
+            overflow: visible;
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+            overflow-y: visible;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .table-responsive::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .table-responsive::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+
+        .table-responsive::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+
+        .table-responsive::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        .datatable-header,
+        .datatable-footer {
+            background: white;
+            position: relative;
+            z-index: 2;
+        }
+
+        .table-scroll-wrapper {
+            overflow-x: auto;
+            overflow-y: visible;
+            -webkit-overflow-scrolling: touch;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Progress Bars */
+        .progress-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .progress-bar-custom {
+            width: 6rem;
+            height: 0.375rem;
+            background-color: #e5e7eb;
+            border-radius: 9999px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            border-radius: 9999px;
+            transition: width 0.3s;
+        }
+
+        .progress-fill.primary {
+            background-color: var(--primary);
+        }
+
+        .progress-fill.green {
+            background-color: #10b981;
+        }
+
+        .progress-fill.yellow {
+            background-color: #fbbf24;
+        }
+
+        .progress-fill.red {
+            background-color: #ef4444;
+        }
+
+        .progress-value {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #111827;
+        }
+
+        /* Status Badges */
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.25rem 0.625rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .status-badge.active {
+            background-color: #d1fae5;
+            color: #166534;
+        }
+
+        .status-badge.archived {
+            background-color: #fee2e2;
+            color: #991b1b;
+        }
+
+        /* Action Buttons */
+        .btn-action {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            color: #6b7280;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            transition: color 0.2s;
+        }
+
+        .btn-action:hover {
+            color: var(--primary);
+        }
+
+        /* Charts Section */
+        .charts-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        @media (max-width: 1200px) {
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .chart-card {
+            background: #fff;
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            border-radius: var(--card-radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+        }
+
+        .chart-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+        }
+
+        .chart-title {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: #111827;
+        }
+
+        .chart-container {
+            height: 16rem;
+            margin-top: 1rem;
+            border-radius: 0.375rem;
+            overflow: hidden;
+        }
+
+        /* Attendance Progress Bars */
+        .attendance-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .attendance-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .attendance-label {
+            font-size: 0.875rem;
+            font-weight: 700;
+            color: #111827;
+            width: 8rem;
+        }
+
+        .attendance-progress {
+            flex: 1;
+            height: 0.75rem;
+            background-color: #e5e7eb;
+            border-radius: 9999px;
+            overflow: hidden;
+            margin: 0 1rem;
+        }
+
+        .attendance-value {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #111827;
+            width: 3rem;
+            text-align: right;
+        }
+
+        /* Alerts Section */
+        .alerts-card {
+            background: #fff;
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            border-radius: var(--card-radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            height: 100%;
+        }
+
+        .alerts-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #e5e7eb;
+            margin-bottom: 1.5rem;
+        }
+
+        .alerts-header .material-symbols-outlined {
+            color: #f59e0b;
+            font-size: 1.5rem;
+        }
+
+        .alerts-title {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: #111827;
+        }
+
+        .alert-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .alert-item {
+            display: flex;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+        }
+
+        .alert-item.red {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+        }
+
+        .alert-item.orange {
+            background: #fff7ed;
+            border: 1px solid #fed7aa;
+        }
+
+        .alert-item.blue {
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+        }
+
+        .alert-icon-wrapper .material-symbols-outlined {
+            font-size: 1.25rem;
+        }
+
+        .alert-item.red .material-symbols-outlined {
+            color: #dc2626;
+        }
+
+        .alert-item.orange .material-symbols-outlined {
+            color: #ea580c;
+        }
+
+        .alert-item.blue .material-symbols-outlined {
+            color: #2563eb;
+        }
+
+        .alert-content .alert-title {
+            font-size: 0.875rem;
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 0.25rem;
+        }
+
+        .alert-content .alert-description {
+            font-size: 0.75rem;
+            color: #6b7280;
+            margin: 0;
+        }
+
+        /* Insights Section */
+        .insights-section {
+            padding-top: 1rem;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .insights-title {
+            font-size: 0.875rem;
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 0.75rem;
+        }
+
+        .insight-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .insight-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+            font-size: 0.75rem;
+            color: #6b7280;
+        }
+
+        .insight-item .material-symbols-outlined {
+            font-size: 1rem;
+        }
+
+        .insight-item .material-symbols-outlined.green {
+            color: #10b981;
+        }
+
+        .insight-item .material-symbols-outlined.primary {
+            color: var(--primary);
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Include Sidebar Component -->
+        <div id="sidebar-container"></div>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Include Header Component -->
+            <div id="header-container"></div>
+
+            <div class="py-4 py-sm-5 py-lg-5">
+                <div class="container-xl" style="max-width: 1200px;">
+                    <!-- Page Header -->
+                    <header class="mb-4 d-flex flex-column flex-lg-row align-items-start align-items-lg-center justify-content-between gap-3">
+                        <h1 class="h4 mb-0 fw-bold text-dark">Classes Overview</h1>
+                        <div class="d-flex flex-wrap gap-2 align-items-center justify-content-start justify-content-lg-end">
+                            <button class="btn-gradient btn-download">
+                                <span class="material-symbols-outlined">download</span>
+                                Download Class Report
+                            </button>
+                        </div>
+                    </header>
+
+                    <!-- KPI Cards -->
+                    <div class="kpi-grid">
+                        <div class="kpi-card">
+                            <div class="kpi-card-header">
+                                <div class="kpi-icon">
+                                    <span class="material-symbols-outlined">class</span>
+                                </div>
+                                <p class="kpi-label mb-0">Total Classes</p>
+                            </div>
+                            <p class="kpi-value">24</p>
+                        </div>
+
+                        <div class="kpi-card">
+                            <div class="kpi-card-header">
+                                <div class="kpi-icon">
+                                    <span class="material-symbols-outlined">groups</span>
+                                </div>
+                                <p class="kpi-label mb-0">Total Students</p>
+                            </div>
+                            <p class="kpi-value">650</p>
+                        </div>
+
+                        <div class="kpi-card">
+                            <div class="kpi-card-header">
+                                <div class="kpi-icon">
+                                    <span class="material-symbols-outlined">monitoring</span>
+                                </div>
+                                <p class="kpi-label mb-0">Avg Performance</p>
+                            </div>
+                            <p class="kpi-value">78%</p>
+                        </div>
+
+                        <div class="kpi-card">
+                            <div class="kpi-card-header">
+                                <div class="kpi-icon">
+                                    <span class="material-symbols-outlined">calendar_today</span>
+                                </div>
+                                <p class="kpi-label mb-0">Avg Attendance</p>
+                            </div>
+                            <p class="kpi-value">85%</p>
+                        </div>
+
+                        <div class="kpi-card">
+                            <div class="kpi-card-header">
+                                <div class="kpi-icon red">
+                                    <span class="material-symbols-outlined">trending_down</span>
+                                </div>
+                                <p class="kpi-label mb-0">Lowest Performing</p>
+                            </div>
+                            <p class="kpi-value">Grade 8 B</p>
+                        </div>
+                    </div>
+
+                    <!-- Table Section -->
+                    <main class="card">
+                        <div class="table-wrapper-outer">
+                            <div class="table-responsive">
+                                <table id="classTable" class="table mb-0 align-middle">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Class / Grade</th>
+                                            <th scope="col">Section</th>
+                                            <th scope="col">Class Teacher</th>
+                                            <th scope="col">No. of Students</th>
+                                            <th scope="col">Avg Performance</th>
+                                            <th scope="col">Avg Attendance</th>
+                                            <th scope="col">Status</th>
+                                            <th scope="col">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="fw-semibold">Grade 10</td>
+                                            <td>A</td>
+                                            <td>Sarah Connor</td>
+                                            <td>32</td>
+                                            <td>
+                                                <div class="progress-wrapper">
+                                                    <div class="progress-bar-custom">
+                                                        <div class="progress-fill primary" style="width: 88%"></div>
+                                                    </div>
+                                                    <span class="progress-value">88%</span>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="progress-wrapper">
+                                                    <div class="progress-bar-custom">
+                                                        <div class="progress-fill green" style="width: 95%"></div>
+                                                    </div>
+                                                    <span class="progress-value">95%</span>
+                                                </div>
+                                            </td>
+                                            <td><span class="status-badge active">Active</span></td>
+                                            <td>
+                                                <div class="d-flex align-items-center justify-content-center gap-3">
+                                                    <button class="btn-action"><span class="material-symbols-outlined">edit</span></button>
+                                                    <button class="btn-action"><span class="material-symbols-outlined">visibility</span></button>
+                                                    <button class="btn-action"><span class="material-symbols-outlined">delete</span></button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="fw-semibold">Grade 10</td>
+                                            <td>B</td>
+                                            <td>John Smith</td>
+                                            <td>30</td>
+                                            <td>
+                                                <div class="progress-wrapper">
+                                                    <div class="progress-bar-custom">
+                                                        <div class="progress-fill primary" style="width: 82%"></div>
+                                                    </div>
+                                                    <span class="progress-value">82%</span>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="progress-wrapper">
+                                                    <div class="progress-bar-custom">
+                                                        <div class="progress-fill green" style="width: 92%"></div>
+                                                    </div>
+                                                    <span class="progress-value">92%</span>
+                                                </div>
+                                            </td>
+                                            <td><span class="status-badge active">Active</span></td>
+                                            <td>
+                                                <div class="d-flex align-items-center justify-content-center gap-3">
+                                                    <button class="btn-action"><span class="material-symbols-outlined">edit</span></button>
+                                                    <button class="btn-action"><span class="material-symbols-outlined">visibility</span></button>
+                                                    <button class="btn-action"><span class="material-symbols-outlined">delete</span></button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="fw-semibold">Grade 9</td>
+                                            <td>A</td>
+                                            <td>Emily Blunt</td>
+                                            <td>28</td>
+                                            <td>
+                                                <div class="progress-wrapper">
+                                                    <div class="progress-bar-custom">
+                                                        <div class="progress-fill primary" style="width: 76%"></div>
+                                                    </div>
+                                                    <span class="progress-value">76%</span>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="progress-wrapper">
+                                                    <div class="progress-bar-custom">
+                                                        <div class="progress-fill yellow" style="width: 88%"></div>
+                                                    </div>
+                                                    <span class="progress-value">88%</span>
+                                                </div>
+                                            </td>
+                                            <td><span class="status-badge active">Active</span></td>
+                                            <td>
+                                                <div class="d-flex align-items-center justify-content-center gap-3">
+                                                    <button class="btn-action"><span class="material-symbols-outlined">edit</span></button>
+                                                    <button class="btn-action"><span class="material-symbols-outlined">visibility</span></button>
+                                                    <button class="btn-action"><span class="material-symbols-outlined">delete</span></button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="fw-semibold">Grade 9</td>
+                                            <td>B</td>
+                                            <td>Rick Sanchez</td>
+                                            <td>29</td>
+                                            <td>
+                                                <div class="progress-wrapper">
+                                                    <div class="progress-bar-custom">
+                                                        <div class="progress-fill primary" style="width: 79%"></div>
+                                                    </div>
+                                                    <span class="progress-value">79%</span>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="progress-wrapper">
+                                                    <div class="progress-bar-custom">
+                                                        <div class="progress-fill yellow" style="width: 89%"></div>
+                                                    </div>
+                                                    <span class="progress-value">89%</span>
+                                                </div>
+                                            </td>
+                                            <td><span class="status-badge archived">Archived</span></td>
+                                            <td>
+                                                <div class="d-flex align-items-center justify-content-center gap-3">
+                                                    <button class="btn-action"><span class="material-symbols-outlined">edit</span></button>
+                                                    <button class="btn-action"><span class="material-symbols-outlined">visibility</span></button>
+                                                    <button class="btn-action"><span class="material-symbols-outlined">delete</span></button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="fw-semibold">Grade 8</td>
+                                            <td>B</td>
+                                            <td>Morty Smith</td>
+                                            <td>25</td>
+                                            <td>
+                                                <div class="progress-wrapper">
+                                                    <div class="progress-bar-custom">
+                                                        <div class="progress-fill primary" style="width: 65%"></div>
+                                                    </div>
+                                                    <span class="progress-value">65%</span>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="progress-wrapper">
+                                                    <div class="progress-bar-custom">
+                                                        <div class="progress-fill red" style="width: 80%"></div>
+                                                    </div>
+                                                    <span class="progress-value">80%</span>
+                                                </div>
+                                            </td>
+                                            <td><span class="status-badge active">Active</span></td>
+                                            <td>
+                                                <div class="d-flex align-items-center justify-content-center gap-3">
+                                                    <button class="btn-action"><span class="material-symbols-outlined">edit</span></button>
+                                                    <button class="btn-action"><span class="material-symbols-outlined">visibility</span></button>
+                                                    <button class="btn-action"><span class="material-symbols-outlined">delete</span></button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </main>
+
+                    <!-- Charts Section -->
+                    <div class="charts-grid">
+                        <!-- Left Column - Charts -->
+                        <div>
+                            <!-- Performance Chart -->
+                            <div class="chart-card mb-4">
+                                <div class="chart-header">
+                                    <h3 class="chart-title mb-0">Class Performance Comparison</h3>
+                                </div>
+                                <div class="chart-container">
+                                    <canvas id="performanceChart"></canvas>
+                                </div>
+                            </div>
+
+                            <!-- Attendance Chart -->
+                            <div class="chart-card">
+                                <div class="chart-header">
+                                    <h3 class="chart-title mb-0">Attendance Overview</h3>
+                                </div>
+                                <div class="attendance-list mt-3">
+                                    <div class="attendance-item">
+                                        <span class="attendance-label">Grade 10</span>
+                                        <div class="attendance-progress">
+                                            <div class="progress-fill green" style="width: 95%"></div>
+                                        </div>
+                                        <span class="attendance-value">95%</span>
+                                    </div>
+                                    <div class="attendance-item">
+                                        <span class="attendance-label">Grade 9</span>
+                                        <div class="attendance-progress">
+                                            <div class="progress-fill green" style="width: 88%"></div>
+                                        </div>
+                                        <span class="attendance-value">88%</span>
+                                    </div>
+                                    <div class="attendance-item">
+                                        <span class="attendance-label">Grade 8</span>
+                                        <div class="attendance-progress">
+                                            <div class="progress-fill yellow" style="width: 78%"></div>
+                                        </div>
+                                        <span class="attendance-value">78%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right Column - Alerts -->
+                        <div>
+                            <div class="alerts-card">
+                                <div class="alerts-header">
+                                    <span class="material-symbols-outlined">notifications_active</span>
+                                    <h3 class="alerts-title mb-0">Class Alerts</h3>
+                                </div>
+                                <div class="alert-list">
+                                    <div class="alert-item red">
+                                        <div class="alert-icon-wrapper">
+                                            <span class="material-symbols-outlined">warning</span>
+                                        </div>
+                                        <div class="alert-content">
+                                            <p class="alert-title">Low Performance Alert</p>
+                                            <p class="alert-description">Grade 8 B average dropped below 65% in Mathematics.</p>
+                                        </div>
+                                    </div>
+                                    <div class="alert-item orange">
+                                        <div class="alert-icon-wrapper">
+                                            <span class="material-symbols-outlined">event_busy</span>
+                                        </div>
+                                        <div class="alert-content">
+                                            <p class="alert-title">Low Attendance</p>
+                                            <p class="alert-description">Grade 9 A attendance is at 76%, trending downwards.</p>
+                                        </div>
+                                    </div>
+                                    <div class="alert-item blue">
+                                        <div class="alert-icon-wrapper">
+                                            <span class="material-symbols-outlined">assignment_late</span>
+                                        </div>
+                                        <div class="alert-content">
+                                            <p class="alert-title">Pending Assessments</p>
+                                            <p class="alert-description">Grade 10 A has 3 pending assessments for this week.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="insights-section">
+                                    <h4 class="insights-title">Quick Insights</h4>
+                                    <ul class="insight-list">
+                                        <li class="insight-item">
+                                            <span class="material-symbols-outlined green">trending_up</span>
+                                            Grade 10 B showed 12% improvement in Science.
+                                        </li>
+                                        <li class="insight-item">
+                                            <span class="material-symbols-outlined primary">person_add</span>
+                                            New student enrollment increased by 5% in Grade 8.
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- jQuery (required for DataTables) -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Load Sidebar and Header Components
+        document.addEventListener('DOMContentLoaded', function() {
+            Promise.all([
+                fetch('sidebar.html').then(response => response.text()),
+                fetch('header.html').then(response => response.text())
+            ]).then(([sidebarHTML, headerHTML]) => {
+                document.getElementById('sidebar-container').innerHTML = sidebarHTML;
+                document.getElementById('header-container').innerHTML = headerHTML;
+
+                setTimeout(() => {
+                    if (typeof initializeHeader === 'function') {
+                        initializeHeader();
+                    }
+
+                    document.getElementById('sidebar-container').classList.add('loaded');
+                    document.getElementById('header-container').classList.add('loaded');
+
+                    setActiveMenuItem();
+                }, 200);
+            });
+
+            // Initialize DataTable
+            $('#classTable').DataTable({
+                paging: true,
+                pageLength: 10,
+                lengthMenu: [5, 10, 25, 50],
+                order: [[0, 'asc']],
+                columnDefs: [
+                    { orderable: false, targets: [4, 5, 7] }
+                ],
+                language: {
+                    search: 'Search classes:',
+                    lengthMenu: 'Show _MENU_ entries',
+                    info: 'Showing _START_ to _END_ of _TOTAL_ classes',
+                    infoEmpty: 'No classes to show',
+                    infoFiltered: '(_MAX_ total)',
+                    zeroRecords: 'No matching classes found',
+                    paginate: {
+                        next: 'Next',
+                        previous: 'Previous'
+                    }
+                },
+                dom: '<"datatable-header d-flex flex-column flex-lg-row align-items-start align-items-lg-center justify-content-between gap-3 p-3 border-bottom"l<"w-100"f>><"table-scroll-wrapper"t><"datatable-footer d-flex flex-column flex-lg-row align-items-start align-items-lg-center justify-content-between gap-3 p-3 border-top"ip>'
+            });
+
+            // Initialize Performance Chart
+            initializePerformanceChart();
+        });
+
+        function setActiveMenuItem() {
+            const currentPage = window.location.pathname.split('/').pop();
+            const classOverviewLink = document.getElementById('nav-class-overview');
+            if (classOverviewLink && currentPage === 'class-overview.html') {
+                classOverviewLink.classList.add('active');
+            }
+        }
+
+        function initializePerformanceChart() {
+            const ctx = document.getElementById('performanceChart').getContext('2d');
+
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['10A', '10B', '9A', '9B', '8A', '8B'],
+                    datasets: [
+                        {
+                            label: 'Current Term',
+                            data: [88, 82, 76, 79, 72, 65],
+                            backgroundColor: '#6B21A8',
+                            borderRadius: 6,
+                            barThickness: 30
+                        },
+                        {
+                            label: 'Last Term',
+                            data: [85, 78, 80, 75, 70, 68],
+                            backgroundColor: '#d8b4fe',
+                            borderRadius: 6,
+                            barThickness: 30
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'top',
+                            align: 'end',
+                            labels: {
+                                usePointStyle: true,
+                                pointStyle: 'circle',
+                                padding: 15,
+                                font: {
+                                    size: 12,
+                                    family: 'Poppins',
+                                    weight: '500'
+                                }
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: '#1f2937',
+                            titleColor: '#fff',
+                            bodyColor: '#fff',
+                            borderColor: '#6B21A8',
+                            borderWidth: 1,
+                            padding: 12,
+                            displayColors: true,
+                            callbacks: {
+                                label: function(context) {
+                                    return context.dataset.label + ': ' + context.parsed.y + '%';
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            ticks: {
+                                callback: function(value) {
+                                    return value + '%';
+                                },
+                                color: '#6b7280',
+                                font: {
+                                    size: 11,
+                                    family: 'Poppins'
+                                }
+                            },
+                            grid: {
+                                color: '#f3f4f6',
+                                drawBorder: false
+                            }
+                        },
+                        x: {
+                            ticks: {
+                                color: '#6b7280',
+                                font: {
+                                    size: 11,
+                                    family: 'Poppins',
+                                    weight: '500'
+                                }
+                            },
+                            grid: {
+                                display: false,
+                                drawBorder: false
+                            }
+                        }
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>
