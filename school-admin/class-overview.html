@@ -972,20 +972,26 @@
                             data: [88, 82, 76, 79, 72, 65],
                             backgroundColor: '#6B21A8',
                             borderRadius: 6,
-                            barThickness: 30
+                            barPercentage: 0.8,
+                            categoryPercentage: 0.7
                         },
                         {
                             label: 'Last Term',
                             data: [85, 78, 80, 75, 70, 68],
-                            backgroundColor: '#d8b4fe',
+                            backgroundColor: '#c084fc',
                             borderRadius: 6,
-                            barThickness: 30
+                            barPercentage: 0.8,
+                            categoryPercentage: 0.7
                         }
                     ]
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
+                    interaction: {
+                        mode: 'index',
+                        intersect: false
+                    },
                     plugins: {
                         legend: {
                             display: true,
@@ -996,10 +1002,11 @@
                                 pointStyle: 'circle',
                                 padding: 15,
                                 font: {
-                                    size: 12,
+                                    size: 13,
                                     family: 'Poppins',
-                                    weight: '500'
-                                }
+                                    weight: '600'
+                                },
+                                color: '#111827'
                             }
                         },
                         tooltip: {
@@ -1010,9 +1017,18 @@
                             borderWidth: 1,
                             padding: 12,
                             displayColors: true,
+                            bodyFont: {
+                                size: 13,
+                                family: 'Poppins'
+                            },
+                            titleFont: {
+                                size: 14,
+                                family: 'Poppins',
+                                weight: '600'
+                            },
                             callbacks: {
                                 label: function(context) {
-                                    return context.dataset.label + ': ' + context.parsed.y + '%';
+                                    return ' ' + context.dataset.label + ': ' + context.parsed.y + '%';
                                 }
                             }
                         }
@@ -1027,22 +1043,23 @@
                                 },
                                 color: '#6b7280',
                                 font: {
-                                    size: 11,
+                                    size: 12,
                                     family: 'Poppins'
-                                }
+                                },
+                                stepSize: 20
                             },
                             grid: {
-                                color: '#f3f4f6',
+                                color: '#e5e7eb',
                                 drawBorder: false
                             }
                         },
                         x: {
                             ticks: {
-                                color: '#6b7280',
+                                color: '#374151',
                                 font: {
-                                    size: 11,
+                                    size: 12,
                                     family: 'Poppins',
-                                    weight: '500'
+                                    weight: '600'
                                 }
                             },
                             grid: {

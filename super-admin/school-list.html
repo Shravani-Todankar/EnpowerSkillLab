@@ -283,13 +283,19 @@
       text-align: center;
     }
 
-    #schoolTable thead th:nth-child(6) { /* Status */
+    #schoolTable thead th:nth-child(6) { /* Date of adding school */
+      width: 140px;
+      min-width: 160px;
+      text-align: center;
+    }
+
+    #schoolTable thead th:nth-child(7) { /* Status */
       width: 110px;
       min-width: 100px;
       text-align: center;
     }
 
-    #schoolTable thead th:nth-child(7) { /* Actions */
+    #schoolTable thead th:nth-child(8) { /* Actions */
       width: 100px;
       min-width: 90px;
       text-align: center;
@@ -297,7 +303,8 @@
 
     #schoolTable tbody td:nth-child(5),
     #schoolTable tbody td:nth-child(6),
-    #schoolTable tbody td:nth-child(7) {
+    #schoolTable tbody td:nth-child(7),
+    #schoolTable tbody td:nth-child(8) {
       text-align: center;
     }
 
@@ -440,6 +447,7 @@
                     <th scope="col">Location</th>
                     <th scope="col">Contact Information</th>
                     <th scope="col">Number of Students</th>
+                    <th scope="col">Date of adding school</th>
                     <th scope="col">Status</th>
                     <th scope="col">Actions</th>
                   </tr>
@@ -456,6 +464,7 @@
                     <td class="text-muted">Mumbai, India</td>
                     <td class="text-muted">contact@greenwood.edu</td>
                     <td class="text-muted">1250</td>
+                    <td class="text-muted">2024-01-15</td>
                     <td>
                       <span class="control-pill status-active">Active</span>
                     </td>
@@ -481,6 +490,7 @@
                     <td class="text-muted">Delhi, India</td>
                     <td class="text-muted">info@oakridge.ac.in</td>
                     <td class="text-muted">800</td>
+                    <td class="text-muted">2024-02-20</td>
                     <td>
                       <span class="control-pill status-active">Active</span>
                     </td>
@@ -506,6 +516,7 @@
                     <td class="text-muted">Bangalore, India</td>
                     <td class="text-muted">admissions@heritage.com</td>
                     <td class="text-muted">1500</td>
+                    <td class="text-muted">2024-03-10</td>
                     <td>
                       <span class="control-pill status-inactive">Inactive</span>
                     </td>
@@ -531,6 +542,7 @@
                     <td class="text-muted">Chennai, India</td>
                     <td class="text-muted">support@globalps.org</td>
                     <td class="text-muted">950</td>
+                    <td class="text-muted">2024-04-05</td>
                     <td>
                       <span class="control-pill status-active">Active</span>
                     </td>
@@ -556,6 +568,7 @@
                     <td class="text-muted">Pune, India</td>
                     <td class="text-muted">principal@modernschool.in</td>
                     <td class="text-muted">2100</td>
+                    <td class="text-muted">2024-05-12</td>
                     <td>
                       <span class="control-pill status-active">Active</span>
                     </td>
@@ -581,6 +594,7 @@
                     <td class="text-muted">Hyderabad, India</td>
                     <td class="text-muted">helpdesk@riverside.edu</td>
                     <td class="text-muted">1100</td>
+                    <td class="text-muted">2024-06-18</td>
                     <td>
                       <span class="control-pill status-inactive">Inactive</span>
                     </td>
@@ -709,7 +723,7 @@
         lengthMenu: [5, 10, 25, 50],
         order: [[1, 'asc']],
         columnDefs: [
-          { orderable: false, targets: 6 }
+          { orderable: false, targets: 7 }
         ],
         language: {
           search: 'Search schools:',
@@ -742,7 +756,8 @@
           location: $cells.eq(2).text().trim(),
           contact: $cells.eq(3).text().trim(),
           students: $cells.eq(4).text().trim(),
-          status: $cells.eq(5).text().trim()
+          dateAdded: $cells.eq(5).text().trim(),
+          status: $cells.eq(6).text().trim()
         };
 
         // Determine which button was clicked
@@ -764,6 +779,7 @@
           location: data.location,
           contact: data.contact,
           students: data.students,
+          dateAdded: data.dateAdded,
           status: data.status
         });
         window.location.href = `edit-school.html?${params.toString()}`;
@@ -776,6 +792,7 @@
           location: data.location,
           contact: data.contact,
           students: data.students,
+          dateAdded: data.dateAdded,
           status: data.status
         });
         window.location.href = `view-school.html?${params.toString()}`;
