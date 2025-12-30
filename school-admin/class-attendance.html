@@ -65,8 +65,20 @@
             height: 400px;
         }
 
+        @media (max-width: 768px) {
+            .attendance-comparison-card {
+                height: auto;
+            }
+        }
+
         .attendance-trend-card{
             height: 400px;
+        }
+
+        @media (max-width: 768px) {
+            .attendance-trend-card {
+                height: auto;
+            }
         }
 
         .card {
@@ -98,7 +110,7 @@
 
         @media (max-width: 576px) {
             .kpi-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns: repeat(2, 1fr);
             }
         }
 
@@ -281,22 +293,27 @@
             text-align: right;
         }
 
-        /* Custom scrollbar */
-        .table-responsive::-webkit-scrollbar {
+        /* Custom scrollbar for table wrapper only */
+        .table-scroll-wrapper {
+            overflow-x: auto;
+            overflow-y: visible;
+        }
+
+        .table-scroll-wrapper::-webkit-scrollbar {
             height: 8px;
         }
 
-        .table-responsive::-webkit-scrollbar-track {
+        .table-scroll-wrapper::-webkit-scrollbar-track {
             background: #f1f1f1;
             border-radius: 4px;
         }
 
-        .table-responsive::-webkit-scrollbar-thumb {
+        .table-scroll-wrapper::-webkit-scrollbar-thumb {
             background: #cbd5e1;
             border-radius: 4px;
         }
 
-        .table-responsive::-webkit-scrollbar-thumb:hover {
+        .table-scroll-wrapper::-webkit-scrollbar-thumb:hover {
             background: #94a3b8;
         }
 
@@ -762,7 +779,7 @@
                         previous: 'Previous'
                     }
                 },
-                dom: '<"d-flex flex-column flex-lg-row align-items-start align-items-lg-center justify-content-between gap-3 p-3 border-bottom"l<"w-100"f>><"table-scroll-wrapper"t><"d-flex flex-column flex-lg-row align-items-start align-items-lg-center justify-content-between gap-3 p-3 border-top"ip>'
+                dom: '<"d-flex flex-column flex-lg-row align-items-start align-items-lg-center justify-content-between gap-3 p-3 border-bottom"l<"w-50"f>><"table-scroll-wrapper"t><"d-flex flex-column flex-lg-row align-items-start align-items-lg-center justify-content-between gap-3 p-3 border-top"ip>'
             });
 
             // View Details Button Handler

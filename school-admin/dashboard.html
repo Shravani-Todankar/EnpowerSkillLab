@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,7 +13,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100..900&display=swap" rel="stylesheet">
 
     <!-- Material Icons -->
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet">
 
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
@@ -153,7 +155,7 @@
 
         @media (max-width: 576px) {
             .stats-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns: repeat(2, 1fr);
                 gap: 1rem;
             }
         }
@@ -468,7 +470,7 @@
             padding: 0.75rem 0;
         }
 
-        .metric-item + .metric-item {
+        .metric-item+.metric-item {
             border-top: 1px solid #f3f4f6;
         }
 
@@ -788,7 +790,7 @@
             }
 
             .btn-primary-custom {
-                width: 100%;
+                width: 60%;
                 justify-content: center;
             }
 
@@ -948,6 +950,9 @@
             .card-custom-header {
                 gap: 0.5rem;
                 margin-bottom: 1rem;
+                flex-direction: row;
+                flex-wrap: nowrap;
+                align-items: center;
             }
 
             .class-overview-stats {
@@ -1102,6 +1107,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="dashboard-container">
         <!-- Include Sidebar Component -->
@@ -1114,88 +1120,89 @@
 
             <!-- Dashboard Content -->
             <div class="main-container">
-        <!-- Header -->
-        <div class="dashboard-header">
-            <div>
-                <h1>Dashboard</h1>
-                <p>Monitor your school's overall performance and activity.</p>
-            </div>
-            <button class="btn-primary-custom">
-                <span class="material-symbols-outlined">download</span>
-                <span>Download School Report</span>
-            </button>
-        </div>
-
-        <!-- Stats Cards -->
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-card-header">
-                    <p>Total Students</p>
-                    <span class="material-symbols-outlined">groups</span>
+                <!-- Header -->
+                <div class="dashboard-header">
+                    <div>
+                        <h1>Dashboard</h1>
+                        <p>Monitor your school's overall performance and activity.</p>
+                    </div>
+                    <button class="btn-primary-custom">
+                        <span class="material-symbols-outlined">download</span>
+                        <span>Download School Report</span>
+                    </button>
                 </div>
-                <p class="stat-card-value">1,234</p>
-            </div>
-            <!-- <div class="stat-card">
+
+                <!-- Stats Cards -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-card-header">
+                            <p>Total Students</p>
+                            <span class="material-symbols-outlined">groups</span>
+                        </div>
+                        <p class="stat-card-value">1,234</p>
+                    </div>
+                    <!-- <div class="stat-card">
                 <div class="stat-card-header">
                     <p>Total Teachers</p>
                     <span class="material-symbols-outlined">school</span>
                 </div>
                 <p class="stat-card-value">56</p>
             </div> -->
-            <div class="stat-card">
-                <div class="stat-card-header">
-                    <p>Avg Student Performance</p>
-                    <span class="material-symbols-outlined">trending_up</span>
+                    <div class="stat-card">
+                        <div class="stat-card-header">
+                            <p>Avg Student Performance</p>
+                            <span class="material-symbols-outlined">trending_up</span>
+                        </div>
+                        <p class="stat-card-value">88%</p>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-header">
+                            <p>Attendance Rate</p>
+                            <span class="material-symbols-outlined">event_available</span>
+                        </div>
+                        <p class="stat-card-value">95%</p>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-header">
+                            <p>Assessments Completed</p>
+                            <span class="material-symbols-outlined">checklist</span>
+                        </div>
+                        <p class="stat-card-value">75%</p>
+                    </div>
                 </div>
-                <p class="stat-card-value">88%</p>
-            </div>
-            <div class="stat-card">
-                <div class="stat-card-header">
-                    <p>Attendance Rate</p>
-                    <span class="material-symbols-outlined">event_available</span>
-                </div>
-                <p class="stat-card-value">95%</p>
-            </div>
-            <div class="stat-card">
-                <div class="stat-card-header">
-                    <p>Assessments Completed</p>
-                    <span class="material-symbols-outlined">checklist</span>
-                </div>
-                <p class="stat-card-value">75%</p>
-            </div>
-        </div>
 
-        <!-- School Info Bar -->
-        <div class="school-info-bar">
-            <div class="school-info-grid">
-                <div class="school-info-item">
-                    <div class="school-info-icon">
-                        <span class="material-symbols-outlined">corporate_fare</span>
-                    </div>
-                    <div>
-                        <p class="label">School Name</p>
-                        <p class="value">Enpower Skill Lab High</p>
-                    </div>
-                </div>
-                <div class="school-info-item">
-                    <div class="school-info-icon">
-                        <span class="material-symbols-outlined">badge</span>
-                    </div>
-                    <div>
-                        <p class="label">School Code / ID</p>
-                        <p class="value">ESL-HS-001</p>
-                    </div>
-                </div>
-                <div class="school-info-item">
-                    <div class="school-info-icon">
-                        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBsvQjAXacU1y9SmpVybyLmK5KlXPv-PMNFt08-LkdR4I1nKeLUcE_OedV0Mb48NyT817JAXumHE_PUFtEwFWFUZPd6kFqIkbSggMh3N0cX6PxKBSqGgdrU0kd-J8ieXPqbL7I5SxvlE7sXNOWPu60WCDoK0oeOxSmZBMhNJpvix0T7kCwUPqZBmQt-etFCYLsbwc__HCovEEtCA-GyzjVF1krVkN3ma1SVFG9SZ1keztqYMc5eEZwqf8Io6JheDgv1M3NUZ1S7hEUa" alt="Coach avatar">
-                    </div>
-                    <div>
-                        <p class="label">Assigned Program Coordinator</p>
-                        <p class="value">Amelia Earhart</p>
-                    </div>
-                </div>
-                <!-- <div class="school-info-item">
+                <!-- School Info Bar -->
+                <div class="school-info-bar">
+                    <div class="school-info-grid">
+                        <div class="school-info-item">
+                            <div class="school-info-icon">
+                                <span class="material-symbols-outlined">corporate_fare</span>
+                            </div>
+                            <div>
+                                <p class="label">School Name</p>
+                                <p class="value">Enpower Skill Lab High</p>
+                            </div>
+                        </div>
+                        <div class="school-info-item">
+                            <div class="school-info-icon">
+                                <span class="material-symbols-outlined">badge</span>
+                            </div>
+                            <div>
+                                <p class="label">School Code / ID</p>
+                                <p class="value">ESL-HS-001</p>
+                            </div>
+                        </div>
+                        <div class="school-info-item">
+                            <div class="school-info-icon">
+                                <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBsvQjAXacU1y9SmpVybyLmK5KlXPv-PMNFt08-LkdR4I1nKeLUcE_OedV0Mb48NyT817JAXumHE_PUFtEwFWFUZPd6kFqIkbSggMh3N0cX6PxKBSqGgdrU0kd-J8ieXPqbL7I5SxvlE7sXNOWPu60WCDoK0oeOxSmZBMhNJpvix0T7kCwUPqZBmQt-etFCYLsbwc__HCovEEtCA-GyzjVF1krVkN3ma1SVFG9SZ1keztqYMc5eEZwqf8Io6JheDgv1M3NUZ1S7hEUa"
+                                    alt="Coach avatar">
+                            </div>
+                            <div>
+                                <p class="label">Assigned Program Coordinator</p>
+                                <p class="value">Amelia Earhart</p>
+                            </div>
+                        </div>
+                        <!-- <div class="school-info-item">
                     <div class="school-info-icon">
                         <span class="material-symbols-outlined">stairs</span>
                     </div>
@@ -1204,176 +1211,176 @@
                         <p class="value">Grades 9-12</p>
                     </div>
                 </div> -->
-            </div>
-        </div>
-
-        <!-- Main Content Area -->
-        <div class="main-content-grid">
-            <!-- Left Column -->
-            <div class="left-column">
-                <!-- Class Overview -->
-                <div class="card-custom">
-                    <div class="card-custom-header">
-                        <h3 class="card-custom-title">Class Overview</h3>
-                        <button class="btn-primary-custom">
-                            <span>View Classes</span>
-                            <span class="material-symbols-outlined">arrow_forward</span>
-                        </button>
-                    </div>
-                    <div class="class-overview-stats">
-                        <div class="class-stat-item">
-                            <div class="class-stat-icon">
-                                <span class="material-symbols-outlined">class</span>
-                            </div>
-                            <div>
-                                <p class="class-stat-label">Number of Sessions</p>
-                                <p class="class-stat-value">15</p>
-                            </div>
-                        </div>
-                        <div class="class-stat-item">
-                            <div class="class-stat-icon">
-                                <span class="material-symbols-outlined">emoji_events</span>
-                            </div>
-                            <div>
-                                <p class="class-stat-label">Best Performing Class</p>
-                                <p class="class-stat-value">Grade 10A</p>
-                            </div>
-                        </div>
-                        <div class="class-stat-item">
-                            <div class="class-stat-icon">
-                                <span class="material-symbols-outlined">pie_chart</span>
-                            </div>
-                            <div>
-                                <p class="class-stat-label">Class Attendance</p>
-                                <p class="class-stat-value">96%</p>
-                            </div>
-                        </div>
                     </div>
                 </div>
 
-                <!-- Attendance Cards -->
-                <div class="two-col-grid">
-                    <div class="card-custom">
-                        <div class="card-custom-header mb-0">
-                            <h3 class="card-custom-title-sm">Student Attendance Trend</h3>
-                            <div class="trend-badge">
-                                <span class="material-symbols-outlined">arrow_upward</span>
-                                <span>+2.1%</span>
+                <!-- Main Content Area -->
+                <div class="main-content-grid">
+                    <!-- Left Column -->
+                    <div class="left-column">
+                        <!-- Class Overview -->
+                        <div class="card-custom">
+                            <div class="card-custom-header">
+                                <h3 class="card-custom-title">Class Overview</h3>
+                                <button class="btn-primary-custom">
+                                    <span>View Classes</span>
+                                    <span class="material-symbols-outlined">arrow_forward</span>
+                                </button>
                             </div>
-                        </div>
-                        <div class="chart-container">
-                            <canvas id="attendanceChart"></canvas>
-                        </div>
-                    </div>
-                    <div class="card-custom">
-                        <h3 class="card-custom-title-sm">Teacher Attendance Summary</h3>
-                        <div class="attendance-summary">
-                            <p class="label">Marking Rate</p>
-                            <p class="value">99%</p>
-                            <div class="warning-badge">
-                                <span class="material-symbols-outlined">warning</span>
-                                <span>1 Missing Marking</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Assessment Section -->
-                <div class="assessment-grid">
-                    <div class="card-custom">
-                        <h3 class="card-custom-title-sm">Class-wise Assessment Performance</h3>
-                        <div class="chart-container-lg">
-                            <canvas id="assessmentChart"></canvas>
-                        </div>
-                    </div>
-                    <div class="card-custom">
-                        <h3 class="card-custom-title-sm">Assessment Metrics</h3>
-                        <div class="metrics-list">
-                            <div class="metric-item">
-                                <span class="material-symbols-outlined primary">task_alt</span>
-                                <div>
-                                    <p class="metric-label">Assessments Completed</p>
-                                    <p class="metric-value">75%</p>
+                            <div class="class-overview-stats">
+                                <div class="class-stat-item">
+                                    <div class="class-stat-icon">
+                                        <span class="material-symbols-outlined">class</span>
+                                    </div>
+                                    <div>
+                                        <p class="class-stat-label">Number of Sessions</p>
+                                        <p class="class-stat-value">15</p>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="metric-item">
-                                <span class="material-symbols-outlined yellow">pending</span>
-                                <div>
-                                    <p class="metric-label">Pending Assessments</p>
-                                    <p class="metric-value">24</p>
+                                <div class="class-stat-item">
+                                    <div class="class-stat-icon">
+                                        <span class="material-symbols-outlined">emoji_events</span>
+                                    </div>
+                                    <div>
+                                        <p class="class-stat-label">Best Performing Class</p>
+                                        <p class="class-stat-value">Grade 10A</p>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="metric-item">
-                                <span class="material-symbols-outlined green">scoreboard</span>
-                                <div>
-                                    <p class="metric-label">Average Score</p>
-                                    <p class="metric-value">82%</p>
+                                <div class="class-stat-item">
+                                    <div class="class-stat-icon">
+                                        <span class="material-symbols-outlined">pie_chart</span>
+                                    </div>
+                                    <div>
+                                        <p class="class-stat-label">Class Attendance</p>
+                                        <p class="class-stat-value">96%</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Attendance Cards -->
+                        <div class="two-col-grid">
+                            <div class="card-custom">
+                                <div class="card-custom-header mb-0">
+                                    <h3 class="card-custom-title-sm">Student Attendance Trend</h3>
+                                    <div class="trend-badge">
+                                        <span class="material-symbols-outlined">arrow_upward</span>
+                                        <span>+2.1%</span>
+                                    </div>
+                                </div>
+                                <div class="chart-container">
+                                    <canvas id="attendanceChart"></canvas>
+                                </div>
+                            </div>
+                            <div class="card-custom">
+                                <h3 class="card-custom-title-sm">Teacher Attendance Summary</h3>
+                                <div class="attendance-summary">
+                                    <p class="label">Marking Rate</p>
+                                    <p class="value">99%</p>
+                                    <div class="warning-badge">
+                                        <span class="material-symbols-outlined">warning</span>
+                                        <span>1 Missing Marking</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Assessment Section -->
+                        <div class="assessment-grid">
+                            <div class="card-custom">
+                                <h3 class="card-custom-title-sm">Class-wise Assessment Performance</h3>
+                                <div class="chart-container-lg">
+                                    <canvas id="assessmentChart"></canvas>
+                                </div>
+                            </div>
+                            <div class="card-custom">
+                                <h3 class="card-custom-title-sm">Assessment Metrics</h3>
+                                <div class="metrics-list">
+                                    <div class="metric-item">
+                                        <span class="material-symbols-outlined primary">task_alt</span>
+                                        <div>
+                                            <p class="metric-label">Assessments Completed</p>
+                                            <p class="metric-value">75%</p>
+                                        </div>
+                                    </div>
+                                    <div class="metric-item">
+                                        <span class="material-symbols-outlined yellow">pending</span>
+                                        <div>
+                                            <p class="metric-label">Pending Assessments</p>
+                                            <p class="metric-value">24</p>
+                                        </div>
+                                    </div>
+                                    <div class="metric-item">
+                                        <span class="material-symbols-outlined green">scoreboard</span>
+                                        <div>
+                                            <p class="metric-label">Average Score</p>
+                                            <p class="metric-value">82%</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
 
-            <!-- Right Column - Alerts -->
-            <div class="right-column">
-                <div class="card-custom alerts-sidebar">
-                    <h3 class="card-custom-title-sm">Alerts & Notifications</h3>
-                    <ul class="alert-list">
-                        <li class="alert-item red">
-                            <div class="alert-icon red">
-                                <span class="material-symbols-outlined">group_off</span>
-                            </div>
-                            <div class="alert-content">
-                                <p class="title">Low attendance warning: 5 students</p>
-                                <!-- <p class="time">2 min ago</p> -->
-                            </div>
-                        </li>
-                        <li class="alert-item yellow">
-                            <div class="alert-icon yellow">
-                                <span class="material-symbols-outlined">pending_actions</span>
-                            </div>
-                            <div class="alert-content">
-                                <p class="title">Pending assessment for Grade 11 Physics</p>
-                                <!-- <p class="time">1 hour ago</p> -->
-                            </div>
-                        </li>
-                        <li class="alert-item blue">
-                            <div class="alert-icon blue">
-                                <span class="material-symbols-outlined">campaign</span>
-                            </div>
-                            <div class="alert-content">
-                                <p class="title">New announcement: School Fair next week</p>
-                                <!-- <p class="time">4 hours ago</p> -->
-                            </div>
-                        </li>
-                        <li class="alert-item green">
-                            <div class="alert-icon green">
-                                <span class="material-symbols-outlined">chat</span>
-                            </div>
-                            <div class="alert-content">
-                                <p class="title">Parent feedback received for Emily Jones</p>
-                                <!-- <p class="time">1 day ago</p> -->
-                            </div>
-                        </li>
-                    </ul>
-                </div>
+                    <!-- Right Column - Alerts -->
+                    <div class="right-column">
+                        <div class="card-custom alerts-sidebar">
+                            <h3 class="card-custom-title-sm">Alerts & Notifications</h3>
+                            <ul class="alert-list">
+                                <li class="alert-item red">
+                                    <div class="alert-icon red">
+                                        <span class="material-symbols-outlined">group_off</span>
+                                    </div>
+                                    <div class="alert-content">
+                                        <p class="title">Low attendance warning: 5 students</p>
+                                        <!-- <p class="time">2 min ago</p> -->
+                                    </div>
+                                </li>
+                                <li class="alert-item yellow">
+                                    <div class="alert-icon yellow">
+                                        <span class="material-symbols-outlined">pending_actions</span>
+                                    </div>
+                                    <div class="alert-content">
+                                        <p class="title">Pending assessment for Grade 11 Physics</p>
+                                        <!-- <p class="time">1 hour ago</p> -->
+                                    </div>
+                                </li>
+                                <li class="alert-item blue">
+                                    <div class="alert-icon blue">
+                                        <span class="material-symbols-outlined">campaign</span>
+                                    </div>
+                                    <div class="alert-content">
+                                        <p class="title">New announcement: School Fair next week</p>
+                                        <!-- <p class="time">4 hours ago</p> -->
+                                    </div>
+                                </li>
+                                <li class="alert-item green">
+                                    <div class="alert-icon green">
+                                        <span class="material-symbols-outlined">chat</span>
+                                    </div>
+                                    <div class="alert-content">
+                                        <p class="title">Parent feedback received for Emily Jones</p>
+                                        <!-- <p class="time">1 day ago</p> -->
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
 
-                <!-- Quick Actions Card -->
-                <div class="card-custom">
-                    <h3 class="card-custom-title-sm">Quick Actions</h3>
-                    <div class="quick-actions-list">
-                        <a href="add-student.html" class="quick-action-btn">
-                            <div class="quick-action-icon-wrapper">
-                                <span class="material-symbols-outlined">person_add</span>
-                            </div>
-                            <div class="quick-action-content">
-                                <p class="quick-action-title">Add Student</p>
-                                <p class="quick-action-desc">Onboard a new student</p>
-                            </div>
-                            <span class="material-symbols-outlined quick-action-arrow">arrow_forward</span>
-                        </a>
-                        <!-- <a href="add-teacher.html" class="quick-action-btn">
+                        <!-- Quick Actions Card -->
+                        <div class="card-custom">
+                            <h3 class="card-custom-title-sm">Quick Actions</h3>
+                            <div class="quick-actions-list">
+                                <a href="add-student.html" class="quick-action-btn">
+                                    <div class="quick-action-icon-wrapper">
+                                        <span class="material-symbols-outlined">person_add</span>
+                                    </div>
+                                    <div class="quick-action-content">
+                                        <p class="quick-action-title">Add Student</p>
+                                        <p class="quick-action-desc">Onboard a new student</p>
+                                    </div>
+                                    <span class="material-symbols-outlined quick-action-arrow">arrow_forward</span>
+                                </a>
+                                <!-- <a href="add-teacher.html" class="quick-action-btn">
                             <div class="quick-action-icon-wrapper">
                                 <span class="material-symbols-outlined">psychology</span>
                             </div>
@@ -1383,23 +1390,23 @@
                             </div>
                             <span class="material-symbols-outlined quick-action-arrow">arrow_forward</span>
                         </a> -->
-                        <a href="onboard-parent.html" class="quick-action-btn">
-                            <div class="quick-action-icon-wrapper">
-                                <span class="material-symbols-outlined">family_restroom</span>
+                                <a href="onboard-parent.html" class="quick-action-btn">
+                                    <div class="quick-action-icon-wrapper">
+                                        <span class="material-symbols-outlined">family_restroom</span>
+                                    </div>
+                                    <div class="quick-action-content">
+                                        <p class="quick-action-title">Add Parent</p>
+                                        <p class="quick-action-desc">Onboard a new parent</p>
+                                    </div>
+                                    <span class="material-symbols-outlined quick-action-arrow">arrow_forward</span>
+                                </a>
                             </div>
-                            <div class="quick-action-content">
-                                <p class="quick-action-title">Add Parent</p>
-                                <p class="quick-action-desc">Onboard a new parent</p>
-                            </div>
-                            <span class="material-symbols-outlined quick-action-arrow">arrow_forward</span>
-                        </a>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
 
-        <!-- Teacher Summary Table -->
-        <!-- <div class="card-custom mt-4">
+                <!-- Teacher Summary Table -->
+                <!-- <div class="card-custom mt-4">
             <h3 class="card-custom-title">Teacher Summary</h3>
             <div class="table-responsive-wrapper">
                 <table class="table-custom mt-4">
@@ -1442,73 +1449,81 @@
             </div>
         </div> -->
 
-        <!-- Student Summary Table -->
-        <div class="card-custom mt-4">
-            <h3 class="card-custom-title">Student Summary</h3>
-            <div class="table-responsive-wrapper">
-                <table class="table-custom mt-4">
-                    <thead>
-                        <tr>
-                            <th>Student Name</th>
-                            <th>Grade</th>
-                            <th>Attendance %</th>
-                            <th>Performance %</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>
-                                <div class="user-cell">
-                                    <img class="user-avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDUKqFI268De72VqtMw0iVx2R4NoPvPqxINxuJbXGgdSD14TTLtRAcxPKf33dAEo2FainoXMmvgwmxZX2qZ5xvN3fMqPlmkaw8pgHxU4spyWt7chJL4fddhTTquUZfWj6hceD9WcUtapIch9yfhBJG-l5XNvLWj0RxtQ_qHBEG6bC6POhfSPFgS7HKj4kBgEAbKUf9XRgMguUjFi4OagUCPFyaeE8aCP7v3iuYecayEqhAUXaOEl1qWn1kNz8WDZ7pTwZ8WSJ-OzRLr" alt="Michael Brown">
-                                    <span class="user-name">Michael Brown</span>
-                                </div>
-                            </td>
-                            <td>Grade 10A</td>
-                            <td><span class="bold-value">98%</span></td>
-                            <td><span class="bold-value">95%</span></td>
-                            <td class="text-end"><button class="btn-view">View Student</button></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="user-cell">
-                                    <img class="user-avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDUKqFI268De72VqtMw0iVx2R4NoPvPqxINxuJbXGgdSD14TTLtRAcxPKf33dAEo2FainoXMmvgwmxZX2qZ5xvN3fMqPlmkaw8pgHxU4spyWt7chJL4fddhTTquUZfWj6hceD9WcUtapIch9yfhBJG-l5XNvLWj0RxtQ_qHBEG6bC6POhfSPFgS7HKj4kBgEAbKUf9XRgMguUjFi4OagUCPFyaeE8aCP7v3iuYecayEqhAUXaOEl1qWn1kNz8WDZ7pTwZ8WSJ-OzRLr" alt="Michael Brown">
-                                    <span class="user-name">Jenna Ortega</span>
-                                </div>
-                            </td>
-                            <td>Grade 10B</td>
-                            <td><span class="bold-value">90%</span></td>
-                            <td><span class="bold-value">87%</span></td>
-                            <td class="text-end"><button class="btn-view">View Student</button></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="user-cell">
-                                    <img class="user-avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuASJyPOVz-rikWc-PPF9QCfRJnTvjAcwIhUhu28YmaaYjpnZ7Wpj2ptWF_SGPo4MYhcxa1TRnPI95qk8pL5JLghjVkX01Ml3edIX3cqYX3nHDqpRezWPmnXBnUxDuK4Z3xMRF_qwFRZleHf8GyXD-lolhBlEzRzqadyZLHqbt04_2l9G0nb9ycAR2qngdxyfJgKICTKCRjLqg1mdpEEizt2GiKHoTw_Rx5sB77Vxjhg2jhbC9rK6bacHzK2lgD9Hq0mDyt6wN3FzluE" alt="Emily Jones">
-                                    <span class="user-name">Emily Jones</span>
-                                </div>
-                            </td>
-                            <td>Grade 9B</td>
-                            <td><span class="bold-value">92%</span></td>
-                            <td><span class="bold-value">89%</span></td>
-                            <td class="text-end"><button class="btn-view">View Student</button></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="user-cell">
-                                    <img class="user-avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuASJyPOVz-rikWc-PPF9QCfRJnTvjAcwIhUhu28YmaaYjpnZ7Wpj2ptWF_SGPo4MYhcxa1TRnPI95qk8pL5JLghjVkX01Ml3edIX3cqYX3nHDqpRezWPmnXBnUxDuK4Z3xMRF_qwFRZleHf8GyXD-lolhBlEzRzqadyZLHqbt04_2l9G0nb9ycAR2qngdxyfJgKICTKCRjLqg1mdpEEizt2GiKHoTw_Rx5sB77Vxjhg2jhbC9rK6bacHzK2lgD9Hq0mDyt6wN3FzluE" alt="Emily Jones">
-                                    <span class="user-name">Kunal Darji</span>
-                                </div>
-                            </td>
-                            <td>Grade 8B</td>
-                            <td><span class="bold-value">99%</span></td>
-                            <td><span class="bold-value">94%</span></td>
-                            <td class="text-end"><button class="btn-view">View Student</button></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+                <!-- Student Summary Table -->
+                <div class="card-custom mt-4">
+                    <h3 class="card-custom-title">Student Summary</h3>
+                    <div class="table-responsive-wrapper">
+                        <table class="table-custom mt-4">
+                            <thead>
+                                <tr>
+                                    <th>Student Name</th>
+                                    <th>Grade</th>
+                                    <th>Attendance %</th>
+                                    <th>Performance %</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="user-cell">
+                                            <img class="user-avatar"
+                                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDUKqFI268De72VqtMw0iVx2R4NoPvPqxINxuJbXGgdSD14TTLtRAcxPKf33dAEo2FainoXMmvgwmxZX2qZ5xvN3fMqPlmkaw8pgHxU4spyWt7chJL4fddhTTquUZfWj6hceD9WcUtapIch9yfhBJG-l5XNvLWj0RxtQ_qHBEG6bC6POhfSPFgS7HKj4kBgEAbKUf9XRgMguUjFi4OagUCPFyaeE8aCP7v3iuYecayEqhAUXaOEl1qWn1kNz8WDZ7pTwZ8WSJ-OzRLr"
+                                                alt="Michael Brown">
+                                            <span class="user-name">Michael Brown</span>
+                                        </div>
+                                    </td>
+                                    <td>Grade 10A</td>
+                                    <td><span class="bold-value">98%</span></td>
+                                    <td><span class="bold-value">95%</span></td>
+                                    <td class="text-end"><button class="btn-view">View Student</button></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="user-cell">
+                                            <img class="user-avatar"
+                                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDUKqFI268De72VqtMw0iVx2R4NoPvPqxINxuJbXGgdSD14TTLtRAcxPKf33dAEo2FainoXMmvgwmxZX2qZ5xvN3fMqPlmkaw8pgHxU4spyWt7chJL4fddhTTquUZfWj6hceD9WcUtapIch9yfhBJG-l5XNvLWj0RxtQ_qHBEG6bC6POhfSPFgS7HKj4kBgEAbKUf9XRgMguUjFi4OagUCPFyaeE8aCP7v3iuYecayEqhAUXaOEl1qWn1kNz8WDZ7pTwZ8WSJ-OzRLr"
+                                                alt="Michael Brown">
+                                            <span class="user-name">Jenna Ortega</span>
+                                        </div>
+                                    </td>
+                                    <td>Grade 10B</td>
+                                    <td><span class="bold-value">90%</span></td>
+                                    <td><span class="bold-value">87%</span></td>
+                                    <td class="text-end"><button class="btn-view">View Student</button></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="user-cell">
+                                            <img class="user-avatar"
+                                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuASJyPOVz-rikWc-PPF9QCfRJnTvjAcwIhUhu28YmaaYjpnZ7Wpj2ptWF_SGPo4MYhcxa1TRnPI95qk8pL5JLghjVkX01Ml3edIX3cqYX3nHDqpRezWPmnXBnUxDuK4Z3xMRF_qwFRZleHf8GyXD-lolhBlEzRzqadyZLHqbt04_2l9G0nb9ycAR2qngdxyfJgKICTKCRjLqg1mdpEEizt2GiKHoTw_Rx5sB77Vxjhg2jhbC9rK6bacHzK2lgD9Hq0mDyt6wN3FzluE"
+                                                alt="Emily Jones">
+                                            <span class="user-name">Emily Jones</span>
+                                        </div>
+                                    </td>
+                                    <td>Grade 9B</td>
+                                    <td><span class="bold-value">92%</span></td>
+                                    <td><span class="bold-value">89%</span></td>
+                                    <td class="text-end"><button class="btn-view">View Student</button></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="user-cell">
+                                            <img class="user-avatar"
+                                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuASJyPOVz-rikWc-PPF9QCfRJnTvjAcwIhUhu28YmaaYjpnZ7Wpj2ptWF_SGPo4MYhcxa1TRnPI95qk8pL5JLghjVkX01Ml3edIX3cqYX3nHDqpRezWPmnXBnUxDuK4Z3xMRF_qwFRZleHf8GyXD-lolhBlEzRzqadyZLHqbt04_2l9G0nb9ycAR2qngdxyfJgKICTKCRjLqg1mdpEEizt2GiKHoTw_Rx5sB77Vxjhg2jhbC9rK6bacHzK2lgD9Hq0mDyt6wN3FzluE"
+                                                alt="Emily Jones">
+                                            <span class="user-name">Kunal Darji</span>
+                                        </div>
+                                    </td>
+                                    <td>Grade 8B</td>
+                                    <td><span class="bold-value">99%</span></td>
+                                    <td><span class="bold-value">94%</span></td>
+                                    <td class="text-end"><button class="btn-view">View Student</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </main>
     </div>
@@ -1518,7 +1533,7 @@
 
     <script>
         // Load Sidebar and Header Components
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             Promise.all([
                 fetch('sidebar.html').then(response => response.text()),
                 fetch('header.html').then(response => response.text())
@@ -1592,7 +1607,7 @@
                             padding: 12,
                             displayColors: false,
                             callbacks: {
-                                label: function(context) {
+                                label: function (context) {
                                     return 'Attendance: ' + context.parsed.y + '%';
                                 }
                             }
@@ -1604,7 +1619,7 @@
                             min: 85,
                             max: 100,
                             ticks: {
-                                callback: function(value) {
+                                callback: function (value) {
                                     return value + '%';
                                 },
                                 color: '#6b7280',
@@ -1665,7 +1680,7 @@
                             padding: 12,
                             displayColors: false,
                             callbacks: {
-                                label: function(context) {
+                                label: function (context) {
                                     return 'Performance: ' + context.parsed.y + '%';
                                 }
                             }
@@ -1677,7 +1692,7 @@
                             min: 70,
                             max: 100,
                             ticks: {
-                                callback: function(value) {
+                                callback: function (value) {
                                     return value + '%';
                                 },
                                 color: '#6b7280',
@@ -1710,9 +1725,10 @@
         }
 
         // Initialize charts after DOM is loaded
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             initializeCharts();
         });
     </script>
 </body>
+
 </html>

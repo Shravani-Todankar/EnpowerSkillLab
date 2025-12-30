@@ -51,14 +51,17 @@
                 <form class="add-teacher-form" id="teacherForm">
                     <!-- Form Header -->
                     <div class="form-header">
-                        <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; flex-direction: column;
+    gap: 1rem;">
                             <div>
                                 <h1 class="page-title">
                                     Add New Teacher
                                 </h1>
-                                <p class="page-subtitle">Fill in the teacher information below to add a new teacher to the system</p>
+                                <p class="page-subtitle">Fill in the teacher information below to add a new teacher to
+                                    the system</p>
                             </div>
-                            <button type="button" class="btn btn-next" id="autoFillBtn" style="display: flex; align-items: center; gap: 8px;">
+                            <button type="button" class="btn btn-next" id="autoFillBtn"
+                                style="display: flex; align-items: center; gap: 8px;">
                                 <span class="material-symbols-outlined" style="font-size: 18px;">auto_fix_high</span>
                                 Auto Fill
                             </button>
@@ -103,583 +106,607 @@
                         </div>
                     </div>
 
-                        <!-- Step 1: Basic Information -->
-                        <div class="form-section step-content" id="step1">
-                            <div class="section-header">
-                                <h2 class="section-title">
-                                    <span class="material-symbols-outlined">badge</span>
-                                    A. Basic Information
-                                </h2>
-                            </div>
+                    <!-- Step 1: Basic Information -->
+                    <div class="form-section step-content" id="step1">
+                        <div class="section-header">
+                            <h2 class="section-title">
+                                <span class="material-symbols-outlined">badge</span>
+                                A. Basic Information
+                            </h2>
+                        </div>
 
-                            <div class="form-group full-width">
-                                <label for="studentPhoto" class="form-label">Profile Photo</label>
-                                <div class="photo-upload-container">
-                                    <div class="photo-preview" id="photoPreview">
-                                        <span class="material-symbols-outlined">add_a_photo</span>
-                                        <span class="photo-preview-text">Upload Photo</span>
-                                    </div>
-                                    <input type="file" id="studentPhoto" name="studentPhoto" accept="image/*"
-                                        class="photo-input">
-                                    <button type="button" class="upload-photo-btn" id="uploadPhotoBtn">
-                                        <span class="material-symbols-outlined">upload</span>
-                                        Choose Photo
-                                    </button>
-                                    <p class="field-hint">Recommended: Square image, max 2MB</p>
+                        <div class="form-group full-width">
+                            <label for="studentPhoto" class="form-label">Profile Photo</label>
+                            <div class="photo-upload-container">
+                                <div class="photo-preview" id="photoPreview">
+                                    <span class="material-symbols-outlined">add_a_photo</span>
+                                    <span class="photo-preview-text">Upload Photo</span>
                                 </div>
+                                <input type="file" id="studentPhoto" name="studentPhoto" accept="image/*"
+                                    class="photo-input">
+                                <button type="button" class="upload-photo-btn" id="uploadPhotoBtn">
+                                    <span class="material-symbols-outlined">upload</span>
+                                    Choose Photo
+                                </button>
+                                <p class="field-hint">Recommended: Square image, max 2MB</p>
                             </div>
+                        </div>
 
-                            <div class="form-grid">
-                                <!-- <div class="form-group">
+                        <div class="form-grid">
+                            <!-- <div class="form-group">
                                     <label for="profile-photo" class="form-label">Profile Photo</label>
                                     <input type="file" id="profile-photo" name="profile-photo" class="form-input" accept="image/*">
                                     <p class="field-hint">Max size 2MB, recommended square image</p>
                                 </div> -->
 
-                                <div class="form-group">
-                                    <label for="employee-id" class="form-label">Employee / Coach ID</label>
-                                    <input type="text" id="employee-id" name="employee-id" class="form-input"
-                                        placeholder="Auto-generated" readonly>
-                                    <p class="field-hint">Auto-generated upon submission</p>
-                                </div>
+                            <div class="form-group">
+                                <label for="employee-id" class="form-label">Employee / Coach ID</label>
+                                <input type="text" id="employee-id" name="employee-id" class="form-input"
+                                    placeholder="Auto-generated" readonly>
+                                <p class="field-hint">Auto-generated upon submission</p>
+                            </div>
 
-                                <div class="form-group">
-                                    <label for="full-name" class="form-label">Full Name (as per Aadhar card) <span class="required">*</span></label>
-                                    <input type="text" id="full-name" name="full-name" class="form-input"
-                                        placeholder="Enter full name as per Aadhar" required>
-                                </div>
+                            <div class="form-group">
+                                <label for="full-name" class="form-label">Full Name (as per Aadhar card) <span
+                                        class="required">*</span></label>
+                                <input type="text" id="full-name" name="full-name" class="form-input"
+                                    placeholder="Enter full name as per Aadhar" required>
+                            </div>
 
-                                <div class="form-group">
-                                    <label for="gender" class="form-label">Gender <span class="required">*</span></label>
-                                    <select id="gender" name="gender" class="form-input" required>
-                                        <option value="" disabled selected hidden>Select gender</option>
-                                        <option value="male">Male</option>
-                                        <option value="female">Female</option>
-                                        <option value="other">Other</option>
-                                    </select>
-                                </div>
+                            <div class="form-group">
+                                <label for="gender" class="form-label">Gender <span class="required">*</span></label>
+                                <select id="gender" name="gender" class="form-input" required>
+                                    <option value="" disabled selected hidden>Select gender</option>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
 
-                                <div class="form-group">
-                                    <label for="dob" class="form-label">Date of Birth <span class="required">*</span></label>
-                                    <input type="date" id="dob" name="dob" class="form-input" required>
-                                </div>
+                            <div class="form-group">
+                                <label for="dob" class="form-label">Date of Birth <span
+                                        class="required">*</span></label>
+                                <input type="date" id="dob" name="dob" class="form-input" required>
+                            </div>
 
-                                <div class="form-group">
-                                    <label for="age" class="form-label">Age</label>
-                                    <input type="text" id="age" name="age" class="form-input"
-                                        placeholder="Auto-calculated" readonly>
-                                    <p class="field-hint">Auto-calculated from Date of Birth</p>
-                                </div>
+                            <div class="form-group">
+                                <label for="age" class="form-label">Age</label>
+                                <input type="text" id="age" name="age" class="form-input" placeholder="Auto-calculated"
+                                    readonly>
+                                <p class="field-hint">Auto-calculated from Date of Birth</p>
+                            </div>
 
-                                <div class="form-group">
-                                    <label for="blood-group" class="form-label">Blood Group</label>
-                                    <select id="blood-group" name="blood-group" class="form-input">
-                                        <option value="" disabled selected hidden>Select blood group</option>
-                                        <option value="A+">A+</option>
-                                        <option value="A-">A-</option>
-                                        <option value="B+">B+</option>
-                                        <option value="B-">B-</option>
-                                        <option value="AB+">AB+</option>
-                                        <option value="AB-">AB-</option>
-                                        <option value="O+">O+</option>
-                                        <option value="O-">O-</option>
-                                    </select>
-                                </div>
+                            <div class="form-group">
+                                <label for="blood-group" class="form-label">Blood Group</label>
+                                <select id="blood-group" name="blood-group" class="form-input">
+                                    <option value="" disabled selected hidden>Select blood group</option>
+                                    <option value="A+">A+</option>
+                                    <option value="A-">A-</option>
+                                    <option value="B+">B+</option>
+                                    <option value="B-">B-</option>
+                                    <option value="AB+">AB+</option>
+                                    <option value="AB-">AB-</option>
+                                    <option value="O+">O+</option>
+                                    <option value="O-">O-</option>
+                                </select>
+                            </div>
 
-                                <div class="form-group">
-                                    <label for="nationality" class="form-label">Nationality <span class="required">*</span></label>
-                                    <input type="text" id="nationality" name="nationality" class="form-input"
-                                        placeholder="Enter nationality" value="Indian" required>
-                                </div>
+                            <div class="form-group">
+                                <label for="nationality" class="form-label">Nationality <span
+                                        class="required">*</span></label>
+                                <input type="text" id="nationality" name="nationality" class="form-input"
+                                    placeholder="Enter nationality" value="Indian" required>
+                            </div>
 
-                                <div class="form-group">
-                                    <label for="aadhar-number" class="form-label">Aadhar Number</label>
-                                    <input type="text" id="aadhar-number" name="aadhar-number" class="form-input"
-                                        placeholder="XXXX XXXX XXXX" maxlength="14">
-                                </div>
+                            <div class="form-group">
+                                <label for="aadhar-number" class="form-label">Aadhar Number</label>
+                                <input type="text" id="aadhar-number" name="aadhar-number" class="form-input"
+                                    placeholder="XXXX XXXX XXXX" maxlength="14">
+                            </div>
 
-                                <div class="form-group">
-                                    <label for="pan-number" class="form-label">PAN Number</label>
-                                    <input type="text" id="pan-number" name="pan-number" class="form-input"
-                                        placeholder="e.g., ABCDE1234F" maxlength="10">
-                                </div>
+                            <div class="form-group">
+                                <label for="pan-number" class="form-label">PAN Number</label>
+                                <input type="text" id="pan-number" name="pan-number" class="form-input"
+                                    placeholder="e.g., ABCDE1234F" maxlength="10">
                             </div>
                         </div>
+                    </div>
 
-                        <!-- Step 2: Professional Details -->
-                        <div class="form-section step-content" id="step2" style="display: none;">
-                            <div class="section-header">
-                                <h2 class="section-title">
-                                    <span class="material-symbols-outlined">work</span>
-                                    B. Professional Details
-                                </h2>
+                    <!-- Step 2: Professional Details -->
+                    <div class="form-section step-content" id="step2" style="display: none;">
+                        <div class="section-header">
+                            <h2 class="section-title">
+                                <span class="material-symbols-outlined">work</span>
+                                B. Professional Details
+                            </h2>
+                        </div>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="designation" class="form-label">Designation <span
+                                        class="required">*</span></label>
+                                <select id="designation" name="designation" class="form-input" required>
+                                    <option value="" disabled selected hidden>Select designation</option>
+                                    <option value="enpower-trainer">ENpower Trainer</option>
+                                    <option value="school-teacher">School Teacher</option>
+                                </select>
                             </div>
-                            <div class="form-grid">
-                                <div class="form-group">
-                                    <label for="designation" class="form-label">Designation <span class="required">*</span></label>
-                                    <select id="designation" name="designation" class="form-input" required>
-                                        <option value="" disabled selected hidden>Select designation</option>
-                                        <option value="enpower-trainer">ENpower Trainer</option>
-                                        <option value="school-teacher">School Teacher</option>
-                                    </select>
-                                </div>
 
-                                <div class="form-group">
-                                    <label for="qualification" class="form-label">Qualification <span class="required">*</span></label>
-                                    <input type="text" id="qualification" name="qualification" class="form-input"
-                                        placeholder="e.g., M.A., B.Ed., Ph.D." required>
-                                </div>
+                            <div class="form-group">
+                                <label for="qualification" class="form-label">Qualification <span
+                                        class="required">*</span></label>
+                                <input type="text" id="qualification" name="qualification" class="form-input"
+                                    placeholder="e.g., M.A., B.Ed., Ph.D." required>
+                            </div>
 
-                                <div class="form-group">
-                                    <label for="specialization" class="form-label">Specialization</label>
-                                    <input type="text" id="specialization" name="specialization" class="form-input"
-                                        placeholder="e.g., Mathematics, Physics">
-                                </div>
+                            <div class="form-group">
+                                <label for="specialization" class="form-label">Specialization</label>
+                                <input type="text" id="specialization" name="specialization" class="form-input"
+                                    placeholder="e.g., Mathematics, Physics">
+                            </div>
 
-                                <div class="form-group">
-                                    <label for="total-experience" class="form-label">Total Experience (Years/Months) <span class="required">*</span></label>
-                                    <input type="text" id="total-experience" name="total-experience" class="form-input"
-                                        placeholder="e.g., 5 years 3 months" required>
-                                </div>
+                            <div class="form-group">
+                                <label for="total-experience" class="form-label">Total Experience (Years/Months) <span
+                                        class="required">*</span></label>
+                                <input type="text" id="total-experience" name="total-experience" class="form-input"
+                                    placeholder="e.g., 5 years 3 months" required>
+                            </div>
 
-                                <div class="form-group">
-                                    <label for="skill-training-experience" class="form-label">Experience in Skill-Based Training (Optional)</label>
-                                    <input type="text" id="skill-training-experience" name="skill-training-experience" class="form-input"
-                                        placeholder="e.g., 2 years">
-                                </div>
+                            <div class="form-group">
+                                <label for="skill-training-experience" class="form-label">Experience in Skill-Based
+                                    Training (Optional)</label>
+                                <input type="text" id="skill-training-experience" name="skill-training-experience"
+                                    class="form-input" placeholder="e.g., 2 years">
+                            </div>
 
-                                <div class="form-group">
-                                    <label for="previous-organizations" class="form-label">Previous Organizations</label>
-                                    <input type="text" id="previous-organizations" name="previous-organizations" class="form-input"
-                                        placeholder="List previous workplaces">
-                                </div>
+                            <div class="form-group">
+                                <label for="previous-organizations" class="form-label">Previous Organizations</label>
+                                <input type="text" id="previous-organizations" name="previous-organizations"
+                                    class="form-input" placeholder="List previous workplaces">
+                            </div>
 
-                                <div class="form-group">
-                                    <label for="certifications" class="form-label">Certifications</label>
-                                    <input type="text" id="certifications" name="certifications" class="form-input"
-                                        placeholder="e.g., TET, CTET, B.Ed.">
-                                </div>
+                            <div class="form-group">
+                                <label for="certifications" class="form-label">Certifications</label>
+                                <input type="text" id="certifications" name="certifications" class="form-input"
+                                    placeholder="e.g., TET, CTET, B.Ed.">
+                            </div>
 
-                                <div class="form-group">
-                                    <label for="languages-known" class="form-label">Languages Known</label>
-                                    <input type="text" id="languages-known" name="languages-known" class="form-input"
-                                        placeholder="e.g., English, Hindi, Marathi">
-                                </div>
+                            <div class="form-group">
+                                <label for="languages-known" class="form-label">Languages Known</label>
+                                <input type="text" id="languages-known" name="languages-known" class="form-input"
+                                    placeholder="e.g., English, Hindi, Marathi">
+                            </div>
 
-                                <div class="form-group">
-                                    <label for="grades-taught" class="form-label">Grades Taught</label>
-                                    <input type="text" id="grades-taught" name="grades-taught" class="form-input"
-                                        placeholder="e.g., 5th to 10th">
-                                </div>
+                            <div class="form-group">
+                                <label for="grades-taught" class="form-label">Grades Taught</label>
+                                <input type="text" id="grades-taught" name="grades-taught" class="form-input"
+                                    placeholder="e.g., 5th to 10th">
+                            </div>
 
-                                <div class="form-group">
-                                    <label for="training-style" class="form-label">Training Style</label>
-                                    <select id="training-style" name="training-style" class="form-input">
-                                        <option value="" disabled selected hidden>Select training style</option>
-                                        <option value="interactive">Interactive</option>
-                                        <option value="conceptual">Conceptual</option>
-                                        <option value="activity-based">Activity-Based</option>
-                                        <option value="mixed">Mixed Approach</option>
-                                    </select>
-                                </div>
+                            <div class="form-group">
+                                <label for="training-style" class="form-label">Training Style</label>
+                                <select id="training-style" name="training-style" class="form-input">
+                                    <option value="" disabled selected hidden>Select training style</option>
+                                    <option value="interactive">Interactive</option>
+                                    <option value="conceptual">Conceptual</option>
+                                    <option value="activity-based">Activity-Based</option>
+                                    <option value="mixed">Mixed Approach</option>
+                                </select>
                             </div>
                         </div>
+                    </div>
 
-                        <!-- Step 3: Contact Information -->
-                        <div class="form-section step-content" id="step3" style="display: none;">
-                            <div class="section-header">
-                                <h2 class="section-title">
-                                    <span class="material-symbols-outlined">phone</span>
-                                    C. Contact Information
-                                </h2>
+                    <!-- Step 3: Contact Information -->
+                    <div class="form-section step-content" id="step3" style="display: none;">
+                        <div class="section-header">
+                            <h2 class="section-title">
+                                <span class="material-symbols-outlined">phone</span>
+                                C. Contact Information
+                            </h2>
+                        </div>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="mobile-number" class="form-label">Mobile Number <span
+                                        class="required">*</span></label>
+                                <input type="tel" id="mobile-number" name="mobile-number" class="form-input"
+                                    placeholder="+91 XXXXX XXXXX" required maxlength="10">
                             </div>
-                            <div class="form-grid">
-                                <div class="form-group">
-                                    <label for="mobile-number" class="form-label">Mobile Number <span class="required">*</span></label>
-                                    <input type="tel" id="mobile-number" name="mobile-number" class="form-input"
-                                        placeholder="+91 XXXXX XXXXX" required maxlength="10">
-                                </div>
 
-                                <div class="form-group">
-                                    <label for="alternate-number" class="form-label">Alternate Number</label>
-                                    <input type="tel" id="alternate-number" name="alternate-number" class="form-input"
-                                        placeholder="+91 XXXXX XXXXX" maxlength="10">
-                                </div>
+                            <div class="form-group">
+                                <label for="alternate-number" class="form-label">Alternate Number</label>
+                                <input type="tel" id="alternate-number" name="alternate-number" class="form-input"
+                                    placeholder="+91 XXXXX XXXXX" maxlength="10">
+                            </div>
 
-                                <div class="form-group">
-                                    <label for="official-email" class="form-label">Official Email ID <span class="required">*</span></label>
-                                    <input type="email" id="official-email" name="official-email" class="form-input"
-                                        placeholder="coach@example.com" required>
-                                    <p class="field-hint">Used for login</p>
-                                </div>
+                            <div class="form-group">
+                                <label for="official-email" class="form-label">Official Email ID <span
+                                        class="required">*</span></label>
+                                <input type="email" id="official-email" name="official-email" class="form-input"
+                                    placeholder="coach@example.com" required>
+                                <p class="field-hint">Used for login</p>
+                            </div>
 
-                                <div class="form-group">
-                                    <label for="personal-email" class="form-label">Personal Email (Optional)</label>
-                                    <input type="email" id="personal-email" name="personal-email" class="form-input"
-                                        placeholder="personal@example.com">
-                                </div>
+                            <div class="form-group">
+                                <label for="personal-email" class="form-label">Personal Email (Optional)</label>
+                                <input type="email" id="personal-email" name="personal-email" class="form-input"
+                                    placeholder="personal@example.com">
                             </div>
                         </div>
+                    </div>
 
-                        <!-- Step 4: Address Details -->
-                        <div class="form-section step-content" id="step4" style="display: none;">
-                            <div class="section-header">
-                                <h2 class="section-title">
-                                    <span class="material-symbols-outlined">home</span>
-                                    D. Address Details
-                                </h2>
+                    <!-- Step 4: Address Details -->
+                    <div class="form-section step-content" id="step4" style="display: none;">
+                        <div class="section-header">
+                            <h2 class="section-title">
+                                <span class="material-symbols-outlined">home</span>
+                                D. Address Details
+                            </h2>
+                        </div>
+                        <div class="form-grid">
+                            <div class="form-group full-width">
+                                <label for="current-address" class="form-label">Current Residential Address <span
+                                        class="required">*</span></label>
+                                <input type="text" id="current-address" name="current-address" class="form-input"
+                                    placeholder="House No., Street, Area" required>
                             </div>
-                            <div class="form-grid">
-                                <div class="form-group full-width">
-                                    <label for="current-address" class="form-label">Current Residential Address <span class="required">*</span></label>
-                                    <input type="text" id="current-address" name="current-address" class="form-input"
-                                        placeholder="House No., Street, Area" required>
-                                </div>
 
-                                <div class="form-group full-width">
-                                    <label for="permanent-address" class="form-label">Permanent Address</label>
-                                    <input type="text" id="permanent-address" name="permanent-address" class="form-input"
-                                        placeholder="Enter if different from current address">
-                                </div>
+                            <div class="form-group full-width">
+                                <label for="permanent-address" class="form-label">Permanent Address</label>
+                                <input type="text" id="permanent-address" name="permanent-address" class="form-input"
+                                    placeholder="Enter if different from current address">
+                            </div>
 
-                                <div class="form-group">
-                                    <label for="city" class="form-label">City <span class="required">*</span></label>
-                                    <input type="text" id="city" name="city" class="form-input"
-                                        placeholder="Enter city" required>
-                                </div>
+                            <div class="form-group">
+                                <label for="city" class="form-label">City <span class="required">*</span></label>
+                                <input type="text" id="city" name="city" class="form-input" placeholder="Enter city"
+                                    required>
+                            </div>
 
-                                <div class="form-group">
-                                    <label for="state" class="form-label">State <span class="required">*</span></label>
-                                    <input type="text" id="state" name="state" class="form-input"
-                                        placeholder="Enter state" required>
-                                </div>
+                            <div class="form-group">
+                                <label for="state" class="form-label">State <span class="required">*</span></label>
+                                <input type="text" id="state" name="state" class="form-input" placeholder="Enter state"
+                                    required>
+                            </div>
 
-                                <div class="form-group">
-                                    <label for="pin-code" class="form-label">Pin Code <span class="required">*</span></label>
-                                    <input type="text" id="pin-code" name="pin-code" class="form-input"
-                                        placeholder="6-digit PIN" maxlength="6" required>
-                                </div>
+                            <div class="form-group">
+                                <label for="pin-code" class="form-label">Pin Code <span
+                                        class="required">*</span></label>
+                                <input type="text" id="pin-code" name="pin-code" class="form-input"
+                                    placeholder="6-digit PIN" maxlength="6" required>
                             </div>
                         </div>
+                    </div>
 
-                        <!-- Step 5: Skill Lab Work Details -->
-                        <div class="form-section step-content" id="step5" style="display: none;">
-                            <div class="section-header">
-                                <h2 class="section-title">
-                                    <span class="material-symbols-outlined">science</span>
-                                    E. Skill Lab Work Details
-                                </h2>
+                    <!-- Step 5: Skill Lab Work Details -->
+                    <div class="form-section step-content" id="step5" style="display: none;">
+                        <div class="section-header">
+                            <h2 class="section-title">
+                                <span class="material-symbols-outlined">science</span>
+                                E. Skill Lab Work Details
+                            </h2>
+                        </div>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="skill-lab-center" class="form-label">Skill Lab Center / School
+                                    Assigned</label>
+                                <input type="text" id="skill-lab-center" name="skill-lab-center" class="form-input"
+                                    placeholder="Enter assigned center/school">
                             </div>
-                            <div class="form-grid">
-                                <div class="form-group">
-                                    <label for="skill-lab-center" class="form-label">Skill Lab Center / School Assigned</label>
-                                    <input type="text" id="skill-lab-center" name="skill-lab-center" class="form-input"
-                                        placeholder="Enter assigned center/school">
-                                </div>
 
-                                <div class="form-group">
-                                    <label for="branch-location" class="form-label">Branch Location</label>
-                                    <input type="text" id="branch-location" name="branch-location" class="form-input"
-                                        placeholder="Enter branch location">
-                                </div>
+                            <div class="form-group">
+                                <label for="branch-location" class="form-label">Branch Location</label>
+                                <input type="text" id="branch-location" name="branch-location" class="form-input"
+                                    placeholder="Enter branch location">
+                            </div>
 
-                                <div class="form-group">
-                                    <label for="batch-timings" class="form-label">Batch Timings</label>
-                                    <input type="text" id="batch-timings" name="batch-timings" class="form-input"
-                                        placeholder="e.g., 9:00 AM - 12:00 PM">
-                                </div>
+                            <div class="form-group">
+                                <label for="batch-timings" class="form-label">Batch Timings</label>
+                                <input type="text" id="batch-timings" name="batch-timings" class="form-input"
+                                    placeholder="e.g., 9:00 AM - 12:00 PM">
+                            </div>
 
-                                <div class="form-group">
-                                    <label for="weekly-timetable" class="form-label">Weekly Timetable</label>
-                                    <input type="text" id="weekly-timetable" name="weekly-timetable" class="form-input"
-                                        placeholder="e.g., Mon-Fri, 9 AM - 3 PM">
-                                </div>
+                            <div class="form-group">
+                                <label for="weekly-timetable" class="form-label">Weekly Timetable</label>
+                                <input type="text" id="weekly-timetable" name="weekly-timetable" class="form-input"
+                                    placeholder="e.g., Mon-Fri, 9 AM - 3 PM">
+                            </div>
 
-                                <div class="form-group">
-                                    <label for="student-groups" class="form-label">Student Groups Assigned</label>
-                                    <input type="text" id="student-groups" name="student-groups" class="form-input"
-                                        placeholder="e.g., Group A, Group B">
-                                </div>
+                            <div class="form-group">
+                                <label for="student-groups" class="form-label">Student Groups Assigned</label>
+                                <input type="text" id="student-groups" name="student-groups" class="form-input"
+                                    placeholder="e.g., Group A, Group B">
+                            </div>
 
-                                <div class="form-group">
-                                    <label for="modules-assigned" class="form-label">Modules Assigned to Teach</label>
-                                    <input type="text" id="modules-assigned" name="modules-assigned" class="form-input"
-                                        placeholder="e.g., Critical Thinking, Communication">
-                                </div>
+                            <div class="form-group">
+                                <label for="modules-assigned" class="form-label">Modules Assigned to Teach</label>
+                                <input type="text" id="modules-assigned" name="modules-assigned" class="form-input"
+                                    placeholder="e.g., Critical Thinking, Communication">
+                            </div>
 
-                                <div class="form-group">
-                                    <label for="active-classes" class="form-label">Active Classes List</label>
-                                    <input type="text" id="active-classes" name="active-classes" class="form-input"
-                                        placeholder="e.g., 5A, 6B, 7C">
-                                </div>
+                            <div class="form-group">
+                                <label for="active-classes" class="form-label">Active Classes List</label>
+                                <input type="text" id="active-classes" name="active-classes" class="form-input"
+                                    placeholder="e.g., 5A, 6B, 7C">
+                            </div>
 
-                                <div class="form-group">
-                                    <label for="total-students" class="form-label">Total Students Under the Coach</label>
-                                    <input type="number" id="total-students" name="total-students" class="form-input"
-                                        placeholder="Enter number" min="0">
-                                </div>
+                            <div class="form-group">
+                                <label for="total-students" class="form-label">Total Students Under the Coach</label>
+                                <input type="number" id="total-students" name="total-students" class="form-input"
+                                    placeholder="Enter number" min="0">
+                            </div>
 
-                                <div class="form-group">
-                                    <label for="dashboard-role" class="form-label">Dashboard Login Role & Permissions</label>
-                                    <select id="dashboard-role" name="dashboard-role" class="form-input">
-                                        <option value="" disabled selected hidden>Select role</option>
-                                        <option value="coach">Thinking Coach</option>
-                                        <option value="senior-coach">Senior Coach</option>
-                                        <option value="coordinator">Program Coordinator</option>
-                                        <option value="admin">Admin</option>
-                                    </select>
-                                </div>
+                            <div class="form-group">
+                                <label for="dashboard-role" class="form-label">Dashboard Login Role &
+                                    Permissions</label>
+                                <select id="dashboard-role" name="dashboard-role" class="form-input">
+                                    <option value="" disabled selected hidden>Select role</option>
+                                    <option value="coach">Thinking Coach</option>
+                                    <option value="senior-coach">Senior Coach</option>
+                                    <option value="coordinator">Program Coordinator</option>
+                                    <option value="admin">Admin</option>
+                                </select>
+                            </div>
 
-                                <div class="form-group">
-                                    <label for="joining-date" class="form-label">Joining Date <span class="required">*</span></label>
-                                    <input type="date" id="joining-date" name="joining-date" class="form-input" required>
-                                </div>
+                            <div class="form-group">
+                                <label for="joining-date" class="form-label">Joining Date <span
+                                        class="required">*</span></label>
+                                <input type="date" id="joining-date" name="joining-date" class="form-input" required>
+                            </div>
 
-                                <div class="form-group">
-                                    <label for="contract-end-date" class="form-label">Contract End Date</label>
-                                    <input type="date" id="contract-end-date" name="contract-end-date" class="form-input">
-                                </div>
+                            <div class="form-group">
+                                <label for="contract-end-date" class="form-label">Contract End Date</label>
+                                <input type="date" id="contract-end-date" name="contract-end-date" class="form-input">
+                            </div>
 
-                                <div class="form-group">
-                                    <label for="employment-type" class="form-label">Employment Type <span class="required">*</span></label>
-                                    <select id="employment-type" name="employment-type" class="form-input" required>
-                                        <option value="" disabled selected hidden>Select type</option>
-                                        <option value="full-time">Full-time</option>
-                                        <option value="part-time">Part-time</option>
-                                        <option value="visiting">Visiting</option>
-                                        <option value="contract">Contract</option>
-                                    </select>
-                                </div>
+                            <div class="form-group">
+                                <label for="employment-type" class="form-label">Employment Type <span
+                                        class="required">*</span></label>
+                                <select id="employment-type" name="employment-type" class="form-input" required>
+                                    <option value="" disabled selected hidden>Select type</option>
+                                    <option value="full-time">Full-time</option>
+                                    <option value="part-time">Part-time</option>
+                                    <option value="visiting">Visiting</option>
+                                    <option value="contract">Contract</option>
+                                </select>
                             </div>
                         </div>
+                    </div>
 
-                        <!-- Step 6: Emergency Information -->
-                        <div class="form-section step-content" id="step6" style="display: none;">
-                            <div class="section-header">
-                                <h2 class="section-title">
-                                    <span class="material-symbols-outlined">emergency</span>
-                                    F. Emergency Information
-                                </h2>
+                    <!-- Step 6: Emergency Information -->
+                    <div class="form-section step-content" id="step6" style="display: none;">
+                        <div class="section-header">
+                            <h2 class="section-title">
+                                <span class="material-symbols-outlined">emergency</span>
+                                F. Emergency Information
+                            </h2>
+                        </div>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="emergency-contact-name" class="form-label">Emergency Contact Name <span
+                                        class="required">*</span></label>
+                                <input type="text" id="emergency-contact-name" name="emergency-contact-name"
+                                    class="form-input" placeholder="Enter contact name" required>
                             </div>
-                            <div class="form-grid">
-                                <div class="form-group">
-                                    <label for="emergency-contact-name" class="form-label">Emergency Contact Name <span class="required">*</span></label>
-                                    <input type="text" id="emergency-contact-name" name="emergency-contact-name" class="form-input"
-                                        placeholder="Enter contact name" required>
-                                </div>
 
-                                <div class="form-group">
-                                    <label for="emergency-relation" class="form-label">Relation <span class="required">*</span></label>
-                                    <select id="emergency-relation" name="emergency-relation" class="form-input" required>
-                                        <option value="" disabled selected hidden>Select relation</option>
-                                        <option value="spouse">Spouse</option>
-                                        <option value="parent">Parent</option>
-                                        <option value="sibling">Sibling</option>
-                                        <option value="child">Child</option>
-                                        <option value="friend">Friend</option>
-                                        <option value="other">Other</option>
-                                    </select>
-                                </div>
+                            <div class="form-group">
+                                <label for="emergency-relation" class="form-label">Relation <span
+                                        class="required">*</span></label>
+                                <select id="emergency-relation" name="emergency-relation" class="form-input" required>
+                                    <option value="" disabled selected hidden>Select relation</option>
+                                    <option value="spouse">Spouse</option>
+                                    <option value="parent">Parent</option>
+                                    <option value="sibling">Sibling</option>
+                                    <option value="child">Child</option>
+                                    <option value="friend">Friend</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
 
-                                <div class="form-group">
-                                    <label for="emergency-mobile" class="form-label">Mobile Number <span class="required">*</span></label>
-                                    <input type="tel" id="emergency-mobile" name="emergency-mobile" class="form-input"
-                                        placeholder="+91 XXXXX XXXXX" required maxlength="10">
-                                </div>
+                            <div class="form-group">
+                                <label for="emergency-mobile" class="form-label">Mobile Number <span
+                                        class="required">*</span></label>
+                                <input type="tel" id="emergency-mobile" name="emergency-mobile" class="form-input"
+                                    placeholder="+91 XXXXX XXXXX" required maxlength="10">
+                            </div>
 
-                                <div class="form-group">
-                                    <label for="emergency-secondary" class="form-label">Secondary Number</label>
-                                    <input type="tel" id="emergency-secondary" name="emergency-secondary" class="form-input"
-                                        placeholder="+91 XXXXX XXXXX" maxlength="10">
-                                </div>
+                            <div class="form-group">
+                                <label for="emergency-secondary" class="form-label">Secondary Number</label>
+                                <input type="tel" id="emergency-secondary" name="emergency-secondary" class="form-input"
+                                    placeholder="+91 XXXXX XXXXX" maxlength="10">
+                            </div>
 
-                                <div class="form-group full-width">
-                                    <label for="health-notes" class="form-label">Health Notes (if any)</label>
-                                    <textarea id="health-notes" name="health-notes" class="form-input"
-                                        placeholder="Any health conditions, allergies, or medical notes" rows="3"></textarea>
-                                </div>
+                            <div class="form-group full-width">
+                                <label for="health-notes" class="form-label">Health Notes (if any)</label>
+                                <textarea id="health-notes" name="health-notes" class="form-input"
+                                    placeholder="Any health conditions, allergies, or medical notes"
+                                    rows="3"></textarea>
                             </div>
                         </div>
+                    </div>
 
-                        <!-- Step 7: Compliance & Documentation -->
-                        <div class="form-section step-content" id="step7" style="display: none;">
-                            <div class="section-header">
-                                <h2 class="section-title">
-                                    <span class="material-symbols-outlined">folder</span>
-                                    G. Compliance & Documentation
-                                </h2>
+                    <!-- Step 7: Compliance & Documentation -->
+                    <div class="form-section step-content" id="step7" style="display: none;">
+                        <div class="section-header">
+                            <h2 class="section-title">
+                                <span class="material-symbols-outlined">folder</span>
+                                G. Compliance & Documentation
+                            </h2>
+                        </div>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="id-proof-submitted" class="form-label">ID Proof Submitted (Aadhar /
+                                    PAN)</label>
+                                <select id="id-proof-submitted" name="id-proof-submitted" class="form-input">
+                                    <option value="" disabled selected hidden>Select status</option>
+                                    <option value="aadhar">Aadhar Card</option>
+                                    <option value="pan">PAN Card</option>
+                                    <option value="both">Both</option>
+                                    <option value="pending">Pending</option>
+                                </select>
                             </div>
-                            <div class="form-grid">
-                                <div class="form-group">
-                                    <label for="id-proof-submitted" class="form-label">ID Proof Submitted (Aadhar / PAN)</label>
-                                    <select id="id-proof-submitted" name="id-proof-submitted" class="form-input">
-                                        <option value="" disabled selected hidden>Select status</option>
-                                        <option value="aadhar">Aadhar Card</option>
-                                        <option value="pan">PAN Card</option>
-                                        <option value="both">Both</option>
-                                        <option value="pending">Pending</option>
-                                    </select>
-                                </div>
 
-                                <div class="form-group">
-                                    <label for="address-proof-submitted" class="form-label">Address Proof Submitted</label>
-                                    <select id="address-proof-submitted" name="address-proof-submitted" class="form-input">
-                                        <option value="" disabled selected hidden>Select status</option>
-                                        <option value="yes">Yes</option>
-                                        <option value="no">No</option>
-                                        <option value="pending">Pending</option>
-                                    </select>
-                                </div>
+                            <div class="form-group">
+                                <label for="address-proof-submitted" class="form-label">Address Proof Submitted</label>
+                                <select id="address-proof-submitted" name="address-proof-submitted" class="form-input">
+                                    <option value="" disabled selected hidden>Select status</option>
+                                    <option value="yes">Yes</option>
+                                    <option value="no">No</option>
+                                    <option value="pending">Pending</option>
+                                </select>
+                            </div>
 
-                                <div class="form-group">
-                                    <label for="police-verification" class="form-label">Police Verification Status</label>
-                                    <select id="police-verification" name="police-verification" class="form-input">
-                                        <option value="" disabled selected hidden>Select status</option>
-                                        <option value="verified">Verified</option>
-                                        <option value="pending">Pending</option>
-                                        <option value="not-required">Not Required</option>
-                                    </select>
-                                </div>
+                            <div class="form-group">
+                                <label for="police-verification" class="form-label">Police Verification Status</label>
+                                <select id="police-verification" name="police-verification" class="form-input">
+                                    <option value="" disabled selected hidden>Select status</option>
+                                    <option value="verified">Verified</option>
+                                    <option value="pending">Pending</option>
+                                    <option value="not-required">Not Required</option>
+                                </select>
+                            </div>
 
-                                <div class="form-group">
-                                    <label for="contract-uploaded" class="form-label">Contract Uploaded</label>
-                                    <select id="contract-uploaded" name="contract-uploaded" class="form-input">
-                                        <option value="" disabled selected hidden>Select status</option>
-                                        <option value="yes">Yes</option>
-                                        <option value="no">No</option>
-                                        <option value="pending">Pending</option>
-                                    </select>
-                                </div>
+                            <div class="form-group">
+                                <label for="contract-uploaded" class="form-label">Contract Uploaded</label>
+                                <select id="contract-uploaded" name="contract-uploaded" class="form-input">
+                                    <option value="" disabled selected hidden>Select status</option>
+                                    <option value="yes">Yes</option>
+                                    <option value="no">No</option>
+                                    <option value="pending">Pending</option>
+                                </select>
+                            </div>
 
-                                <div class="form-group">
-                                    <label for="passport-photo" class="form-label">Passport Size Photo</label>
-                                    <input type="file" id="passport-photo" name="passport-photo" class="form-input" accept="image/*">
-                                </div>
+                            <div class="form-group">
+                                <label for="passport-photo" class="form-label">Passport Size Photo</label>
+                                <input type="file" id="passport-photo" name="passport-photo" class="form-input"
+                                    accept="image/*">
+                            </div>
 
-                                <div class="form-group">
-                                    <label for="pan-aadhar-linked" class="form-label">Is PAN Card Linked to Aadhar Card?</label>
-                                    <select id="pan-aadhar-linked" name="pan-aadhar-linked" class="form-input">
-                                        <option value="" disabled selected hidden>Select</option>
-                                        <option value="yes">Yes</option>
-                                        <option value="no">No</option>
-                                        <option value="not-sure">Not Sure</option>
-                                    </select>
-                                </div>
+                            <div class="form-group">
+                                <label for="pan-aadhar-linked" class="form-label">Is PAN Card Linked to Aadhar
+                                    Card?</label>
+                                <select id="pan-aadhar-linked" name="pan-aadhar-linked" class="form-input">
+                                    <option value="" disabled selected hidden>Select</option>
+                                    <option value="yes">Yes</option>
+                                    <option value="no">No</option>
+                                    <option value="not-sure">Not Sure</option>
+                                </select>
+                            </div>
 
-                                <div class="form-group">
-                                    <label for="resume-upload" class="form-label">Upload Resume (PDF / Word)</label>
-                                    <input type="file" id="resume-upload" name="resume-upload" class="form-input" 
-                                        accept=".pdf,.doc,.docx">
-                                    <p class="field-hint">Accepted formats: PDF, DOC, DOCX</p>
-                                </div>
+                            <div class="form-group">
+                                <label for="resume-upload" class="form-label">Upload Resume (PDF / Word)</label>
+                                <input type="file" id="resume-upload" name="resume-upload" class="form-input"
+                                    accept=".pdf,.doc,.docx">
+                                <p class="field-hint">Accepted formats: PDF, DOC, DOCX</p>
+                            </div>
 
-                                <div class="form-group">
-                                    <label for="bank-details-submitted" class="form-label">Bank Details Submitted (for salary)</label>
-                                    <select id="bank-details-submitted" name="bank-details-submitted" class="form-input">
-                                        <option value="" disabled selected hidden>Select status</option>
-                                        <option value="yes">Yes</option>
-                                        <option value="no">No</option>
-                                        <option value="pending">Pending</option>
-                                    </select>
-                                </div>
+                            <div class="form-group">
+                                <label for="bank-details-submitted" class="form-label">Bank Details Submitted (for
+                                    salary)</label>
+                                <select id="bank-details-submitted" name="bank-details-submitted" class="form-input">
+                                    <option value="" disabled selected hidden>Select status</option>
+                                    <option value="yes">Yes</option>
+                                    <option value="no">No</option>
+                                    <option value="pending">Pending</option>
+                                </select>
+                            </div>
 
-                                <div class="form-group">
-                                    <label for="ifsc-code" class="form-label">IFSC Code</label>
-                                    <input type="text" id="ifsc-code" name="ifsc-code" class="form-input"
-                                        placeholder="e.g., SBIN0001234" maxlength="11">
-                                </div>
+                            <div class="form-group">
+                                <label for="ifsc-code" class="form-label">IFSC Code</label>
+                                <input type="text" id="ifsc-code" name="ifsc-code" class="form-input"
+                                    placeholder="e.g., SBIN0001234" maxlength="11">
+                            </div>
 
-                                <div class="form-group">
-                                    <label for="bank-account-number" class="form-label">Bank Account Number</label>
-                                    <input type="text" id="bank-account-number" name="bank-account-number" class="form-input"
-                                        placeholder="Enter account number">
-                                </div>
+                            <div class="form-group">
+                                <label for="bank-account-number" class="form-label">Bank Account Number</label>
+                                <input type="text" id="bank-account-number" name="bank-account-number"
+                                    class="form-input" placeholder="Enter account number">
+                            </div>
 
-                                <div class="form-group">
-                                    <label for="bank-name" class="form-label">Bank Name</label>
-                                    <input type="text" id="bank-name" name="bank-name" class="form-input"
-                                        placeholder="Enter bank name">
-                                </div>
+                            <div class="form-group">
+                                <label for="bank-name" class="form-label">Bank Name</label>
+                                <input type="text" id="bank-name" name="bank-name" class="form-input"
+                                    placeholder="Enter bank name">
+                            </div>
 
-                                <div class="form-group">
-                                    <label for="branch-name" class="form-label">Branch Name</label>
-                                    <input type="text" id="branch-name" name="branch-name" class="form-input"
-                                        placeholder="Enter branch name">
-                                </div>
+                            <div class="form-group">
+                                <label for="branch-name" class="form-label">Branch Name</label>
+                                <input type="text" id="branch-name" name="branch-name" class="form-input"
+                                    placeholder="Enter branch name">
+                            </div>
 
-                                <div class="form-group">
-                                    <label for="passbook-copy" class="form-label">Bank Passbook Copy</label>
-                                    <input type="file" id="passbook-copy" name="passbook-copy" class="form-input" 
-                                        accept="image/*,.pdf">
-                                    <p class="field-hint">First page with account details</p>
-                                </div>
+                            <div class="form-group">
+                                <label for="passbook-copy" class="form-label">Bank Passbook Copy</label>
+                                <input type="file" id="passbook-copy" name="passbook-copy" class="form-input"
+                                    accept="image/*,.pdf">
+                                <p class="field-hint">First page with account details</p>
                             </div>
                         </div>
+                    </div>
 
-                        <!-- Step 8: Additional Optional Data -->
-                        <div class="form-section step-content" id="step8" style="display: none;">
-                            <div class="section-header">
-                                <h2 class="section-title">
-                                    <span class="material-symbols-outlined">more_horiz</span>
-                                    H. Additional Optional Data
-                                </h2>
+                    <!-- Step 8: Additional Optional Data -->
+                    <div class="form-section step-content" id="step8" style="display: none;">
+                        <div class="section-header">
+                            <h2 class="section-title">
+                                <span class="material-symbols-outlined">more_horiz</span>
+                                H. Additional Optional Data
+                            </h2>
+                        </div>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="hobbies" class="form-label">Hobbies / Interests</label>
+                                <input type="text" id="hobbies" name="hobbies" class="form-input"
+                                    placeholder="e.g., Reading, Music, Sports">
                             </div>
-                            <div class="form-grid">
-                                <div class="form-group">
-                                    <label for="hobbies" class="form-label">Hobbies / Interests</label>
-                                    <input type="text" id="hobbies" name="hobbies" class="form-input"
-                                        placeholder="e.g., Reading, Music, Sports">
-                                </div>
 
-                                <div class="form-group">
-                                    <label for="strength-areas" class="form-label">Strength Areas</label>
-                                    <input type="text" id="strength-areas" name="strength-areas" class="form-input"
-                                        placeholder="e.g., Communication, Problem Solving">
-                                </div>
+                            <div class="form-group">
+                                <label for="strength-areas" class="form-label">Strength Areas</label>
+                                <input type="text" id="strength-areas" name="strength-areas" class="form-input"
+                                    placeholder="e.g., Communication, Problem Solving">
+                            </div>
 
-                                <div class="form-group">
-                                    <label for="improvement-areas" class="form-label">Areas for Improvement</label>
-                                    <input type="text" id="improvement-areas" name="improvement-areas" class="form-input"
-                                        placeholder="e.g., Time Management">
-                                </div>
+                            <div class="form-group">
+                                <label for="improvement-areas" class="form-label">Areas for Improvement</label>
+                                <input type="text" id="improvement-areas" name="improvement-areas" class="form-input"
+                                    placeholder="e.g., Time Management">
+                            </div>
 
-                                <div class="form-group">
-                                    <label for="training-resources" class="form-label">Preferred Training Resources</label>
-                                    <input type="text" id="training-resources" name="training-resources" class="form-input"
-                                        placeholder="e.g., Videos, Books, Workshops">
-                                </div>
+                            <div class="form-group">
+                                <label for="training-resources" class="form-label">Preferred Training Resources</label>
+                                <input type="text" id="training-resources" name="training-resources" class="form-input"
+                                    placeholder="e.g., Videos, Books, Workshops">
+                            </div>
 
-                                <div class="form-group full-width">
-                                    <label for="achievements" class="form-label">Achievements & Recognition</label>
-                                    <textarea id="achievements" name="achievements" class="form-input"
-                                        placeholder="List any awards, recognitions, or notable achievements" rows="3"></textarea>
-                                </div>
+                            <div class="form-group full-width">
+                                <label for="achievements" class="form-label">Achievements & Recognition</label>
+                                <textarea id="achievements" name="achievements" class="form-input"
+                                    placeholder="List any awards, recognitions, or notable achievements"
+                                    rows="3"></textarea>
                             </div>
                         </div>
+                    </div>
 
-                        <!-- Form Actions -->
-                        <div class="form-actions">
-                            <button type="button" class="btn-cancel" id="cancelBtn">
-                                <span class="material-symbols-outlined">close</span>
-                                Cancel
+                    <!-- Form Actions -->
+                    <div class="form-actions">
+                        <button type="button" class="btn-cancel" id="cancelBtn">
+                            <span class="material-symbols-outlined">close</span>
+                            Cancel
+                        </button>
+                        <div class="action-buttons-right">
+                            <button type="button" class="btn-back" id="backBtn" style="display: none;">
+                                <span class="material-symbols-outlined">arrow_back</span>
+                                Back
                             </button>
-                            <div class="action-buttons-right">
-                                <button type="button" class="btn-back" id="backBtn" style="display: none;">
-                                    <span class="material-symbols-outlined">arrow_back</span>
-                                    Back
-                                </button>
-                                <button type="button" class="btn-next" id="nextBtn">
-                                    Next
-                                    <span class="material-symbols-outlined">arrow_forward</span>
-                                </button>
-                                <button type="submit" class="btn-submit" id="submitBtn" style="display: none;">
-                                    <span class="material-symbols-outlined">check_circle</span>
-                                    Submit
-                                </button>
-                            </div>
+                            <button type="button" class="btn-next" id="nextBtn">
+                                Next
+                                <span class="material-symbols-outlined">arrow_forward</span>
+                            </button>
+                            <button type="submit" class="btn-submit" id="submitBtn" style="display: none;">
+                                <span class="material-symbols-outlined">check_circle</span>
+                                Submit
+                            </button>
                         </div>
-                    </form>
-                </div>
+                    </div>
+                </form>
+            </div>
         </main>
     </div>
 
@@ -741,20 +768,20 @@
         function initializeAgeCalculation() {
             const dobInput = document.getElementById('dob');
             const ageInput = document.getElementById('age');
-            
+
             if (dobInput && ageInput) {
-                dobInput.addEventListener('change', function() {
+                dobInput.addEventListener('change', function () {
                     const dob = new Date(this.value);
                     const today = new Date();
-                    
+
                     if (this.value && dob < today) {
                         let age = today.getFullYear() - dob.getFullYear();
                         const monthDiff = today.getMonth() - dob.getMonth();
-                        
+
                         if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < dob.getDate())) {
                             age--;
                         }
-                        
+
                         ageInput.value = age + ' years';
                     } else {
                         ageInput.value = '';
@@ -766,14 +793,14 @@
         // Aadhar number formatting (XXXX XXXX XXXX)
         function initializeAadharFormatting() {
             const aadharInput = document.getElementById('aadhar-number');
-            
+
             if (aadharInput) {
-                aadharInput.addEventListener('input', function(e) {
+                aadharInput.addEventListener('input', function (e) {
                     let value = e.target.value.replace(/\D/g, '');
                     if (value.length > 12) {
                         value = value.slice(0, 12);
                     }
-                    
+
                     // Format as XXXX XXXX XXXX
                     let formatted = '';
                     for (let i = 0; i < value.length; i++) {

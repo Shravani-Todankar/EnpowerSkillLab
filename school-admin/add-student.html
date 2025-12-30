@@ -53,15 +53,18 @@
                 <form class="add-student-form" id="addStudentForm">
                     <!-- Form Header -->
                     <div class="form-header">
-                        <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; flex-direction: column;
+    gap: 1rem;">
                             <div>
                                 <h1 class="page-title">
                                     Add New Student
                                 </h1>
-                                <p class="page-subtitle">Fill in the student information below to add a new student to the
+                                <p class="page-subtitle">Fill in the student information below to add a new student to
+                                    the
                                     system</p>
                             </div>
-                            <button type="button" class="btn btn-next" id="autoFillBtn" style="display: flex; align-items: center; gap: 8px;">
+                            <button type="button" class="btn btn-next" id="autoFillBtn"
+                                style="display: flex; align-items: center; gap: 8px;">
                                 <span class="material-symbols-outlined" style="font-size: 18px;">auto_fix_high</span>
                                 Auto Fill
                             </button>
@@ -171,8 +174,8 @@
 
                             <div class="form-group">
                                 <label for="age" class="form-label">Age</label>
-                                <input type="text" id="age" name="age" class="form-input"
-                                    placeholder="Auto-calculated" readonly>
+                                <input type="text" id="age" name="age" class="form-input" placeholder="Auto-calculated"
+                                    readonly>
                                 <p class="field-hint">Auto-calculated from Date of Birth</p>
                             </div>
 
@@ -226,7 +229,8 @@
                         </div>
                         <div class="form-grid">
                             <div class="form-group">
-                                <label for="schoolName" class="form-label">School Name <span class="required">*</span></label>
+                                <label for="schoolName" class="form-label">School Name <span
+                                        class="required">*</span></label>
                                 <select id="schoolName" name="schoolName" class="form-input" required>
                                     <option value="" disabled selected hidden>Select school</option>
                                     <option value="greenwood">Greenwood High School</option>
@@ -264,7 +268,8 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="division" class="form-label">Division <span class="required">*</span></label>
+                                <label for="division" class="form-label">Division <span
+                                        class="required">*</span></label>
                                 <select id="division" name="division" class="form-input" required>
                                     <option value="" disabled selected hidden>Select division</option>
                                     <option value="A">Division A</option>
@@ -276,14 +281,16 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="rollNumber" class="form-label">Roll Number <span class="required">*</span></label>
+                                <label for="rollNumber" class="form-label">Roll Number <span
+                                        class="required">*</span></label>
                                 <input type="text" id="rollNumber" name="rollNumber" class="form-input"
                                     placeholder="Enter roll number" required>
                                 <span class="error-message" id="rollNumberError"></span>
                             </div>
 
                             <div class="form-group">
-                                <label for="academicYear" class="form-label">Academic Year <span class="required">*</span></label>
+                                <label for="academicYear" class="form-label">Academic Year <span
+                                        class="required">*</span></label>
                                 <select id="academicYear" name="academicYear" class="form-input" required>
                                     <option value="" disabled selected hidden>Select academic year</option>
                                     <option value="2024-2025">2024-2025</option>
@@ -294,7 +301,8 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="grNumber" class="form-label">GR Number / Admission Number <span class="required">*</span></label>
+                                <label for="grNumber" class="form-label">GR Number / Admission Number <span
+                                        class="required">*</span></label>
                                 <input type="text" id="grNumber" name="grNumber" class="form-input"
                                     placeholder="Enter GR/Admission number" required>
                                 <span class="error-message" id="grNumberError"></span>
@@ -320,7 +328,8 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="schoolBoard" class="form-label">School Board <span class="required">*</span></label>
+                                <label for="schoolBoard" class="form-label">School Board <span
+                                        class="required">*</span></label>
                                 <select id="schoolBoard" name="schoolBoard" class="form-input" required>
                                     <option value="" disabled selected hidden>Select board</option>
                                     <option value="CBSE">CBSE</option>
@@ -352,7 +361,8 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="schoolEmail" class="form-label">School Email ID <span class="required">*</span></label>
+                                <label for="schoolEmail" class="form-label">School Email ID <span
+                                        class="required">*</span></label>
                                 <input type="email" id="schoolEmail" name="schoolEmail" class="form-input"
                                     placeholder="student@school.edu" required>
                                 <span class="error-message" id="schoolEmailError"></span>
@@ -392,8 +402,10 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="enrollmentDate" class="form-label">Enrollment Date <span class="required">*</span></label>
-                                <input type="date" id="enrollmentDate" name="enrollmentDate" class="form-input" required>
+                                <label for="enrollmentDate" class="form-label">Enrollment Date <span
+                                        class="required">*</span></label>
+                                <input type="date" id="enrollmentDate" name="enrollmentDate" class="form-input"
+                                    required>
                                 <span class="error-message" id="enrollmentDateError"></span>
                             </div>
 
@@ -453,7 +465,8 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="preferredLanguage" class="form-label">Preferred Language of Instruction</label>
+                                <label for="preferredLanguage" class="form-label">Preferred Language of
+                                    Instruction</label>
                                 <select id="preferredLanguage" name="preferredLanguage" class="form-input">
                                     <option value="" disabled selected hidden>Select language</option>
                                     <option value="english">English</option>
@@ -523,8 +536,8 @@
 
                             <div class="form-group full-width">
                                 <label for="emergencyInstructions" class="form-label">Emergency Instructions</label>
-                                <textarea id="emergencyInstructions" name="emergencyInstructions" class="form-textarea" rows="3"
-                                    placeholder="Special instructions in case of emergency"></textarea>
+                                <textarea id="emergencyInstructions" name="emergencyInstructions" class="form-textarea"
+                                    rows="3" placeholder="Special instructions in case of emergency"></textarea>
                                 <span class="error-message" id="emergencyInstructionsError"></span>
                             </div>
 
@@ -544,7 +557,8 @@
 
                             <div class="form-group full-width">
                                 <label for="physicalLimitations" class="form-label">Physical Limitations</label>
-                                <textarea id="physicalLimitations" name="physicalLimitations" class="form-textarea" rows="3"
+                                <textarea id="physicalLimitations" name="physicalLimitations" class="form-textarea"
+                                    rows="3"
                                     placeholder="Important for skill lab activities - list any physical limitations"></textarea>
                                 <span class="error-message" id="physicalLimitationsError"></span>
                             </div>
@@ -561,15 +575,18 @@
                         </div>
                         <div class="form-grid">
                             <div class="form-group">
-                                <label for="emergencyName" class="form-label">Contact Name <span class="required">*</span></label>
+                                <label for="emergencyName" class="form-label">Contact Name <span
+                                        class="required">*</span></label>
                                 <input type="text" id="emergencyName" name="emergencyName" class="form-input"
                                     placeholder="Enter emergency contact name" required>
                                 <span class="error-message" id="emergencyNameError"></span>
                             </div>
 
                             <div class="form-group">
-                                <label for="emergencyRelationship" class="form-label">Relationship <span class="required">*</span></label>
-                                <select id="emergencyRelationship" name="emergencyRelationship" class="form-input" required>
+                                <label for="emergencyRelationship" class="form-label">Relationship <span
+                                        class="required">*</span></label>
+                                <select id="emergencyRelationship" name="emergencyRelationship" class="form-input"
+                                    required>
                                     <option value="" disabled selected hidden>Select relationship</option>
                                     <option value="father">Father</option>
                                     <option value="mother">Mother</option>
@@ -584,7 +601,8 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="emergencyMobile" class="form-label">Mobile Number <span class="required">*</span></label>
+                                <label for="emergencyMobile" class="form-label">Mobile Number <span
+                                        class="required">*</span></label>
                                 <input type="tel" id="emergencyMobile" name="emergencyMobile" class="form-input"
                                     placeholder="+91 XXXXX XXXXX" required>
                                 <span class="error-message" id="emergencyMobileError"></span>
@@ -598,7 +616,8 @@
                             </div>
 
                             <div class="form-group full-width">
-                                <label for="emergencyAddress" class="form-label">Address (if different from student)</label>
+                                <label for="emergencyAddress" class="form-label">Address (if different from
+                                    student)</label>
                                 <textarea id="emergencyAddress" name="emergencyAddress" class="form-textarea" rows="3"
                                     placeholder="Enter address if different from student's address"></textarea>
                                 <span class="error-message" id="emergencyAddressError"></span>
@@ -624,13 +643,14 @@
 
                             <div class="form-group">
                                 <label for="sibling1ClassSchool" class="form-label">Sibling 1 Class / School</label>
-                                <input type="text" id="sibling1ClassSchool" name="sibling1ClassSchool" class="form-input"
-                                    placeholder="e.g., Class 5, ABC School">
+                                <input type="text" id="sibling1ClassSchool" name="sibling1ClassSchool"
+                                    class="form-input" placeholder="e.g., Class 5, ABC School">
                                 <span class="error-message" id="sibling1ClassSchoolError"></span>
                             </div>
 
                             <div class="form-group">
-                                <label for="sibling1SkillLabId" class="form-label">Sibling 1 Skill Lab ID (if enrolled)</label>
+                                <label for="sibling1SkillLabId" class="form-label">Sibling 1 Skill Lab ID (if
+                                    enrolled)</label>
                                 <input type="text" id="sibling1SkillLabId" name="sibling1SkillLabId" class="form-input"
                                     placeholder="Enter Skill Lab ID">
                                 <span class="error-message" id="sibling1SkillLabIdError"></span>
@@ -645,13 +665,14 @@
 
                             <div class="form-group">
                                 <label for="sibling2ClassSchool" class="form-label">Sibling 2 Class / School</label>
-                                <input type="text" id="sibling2ClassSchool" name="sibling2ClassSchool" class="form-input"
-                                    placeholder="e.g., Class 8, XYZ School">
+                                <input type="text" id="sibling2ClassSchool" name="sibling2ClassSchool"
+                                    class="form-input" placeholder="e.g., Class 8, XYZ School">
                                 <span class="error-message" id="sibling2ClassSchoolError"></span>
                             </div>
 
                             <div class="form-group">
-                                <label for="sibling2SkillLabId" class="form-label">Sibling 2 Skill Lab ID (if enrolled)</label>
+                                <label for="sibling2SkillLabId" class="form-label">Sibling 2 Skill Lab ID (if
+                                    enrolled)</label>
                                 <input type="text" id="sibling2SkillLabId" name="sibling2SkillLabId" class="form-input"
                                     placeholder="Enter Skill Lab ID">
                                 <span class="error-message" id="sibling2SkillLabIdError"></span>
@@ -666,13 +687,14 @@
 
                             <div class="form-group">
                                 <label for="sibling3ClassSchool" class="form-label">Sibling 3 Class / School</label>
-                                <input type="text" id="sibling3ClassSchool" name="sibling3ClassSchool" class="form-input"
-                                    placeholder="e.g., Class 10, PQR School">
+                                <input type="text" id="sibling3ClassSchool" name="sibling3ClassSchool"
+                                    class="form-input" placeholder="e.g., Class 10, PQR School">
                                 <span class="error-message" id="sibling3ClassSchoolError"></span>
                             </div>
 
                             <div class="form-group">
-                                <label for="sibling3SkillLabId" class="form-label">Sibling 3 Skill Lab ID (if enrolled)</label>
+                                <label for="sibling3SkillLabId" class="form-label">Sibling 3 Skill Lab ID (if
+                                    enrolled)</label>
                                 <input type="text" id="sibling3SkillLabId" name="sibling3SkillLabId" class="form-input"
                                     placeholder="Enter Skill Lab ID">
                                 <span class="error-message" id="sibling3SkillLabIdError"></span>
@@ -763,12 +785,12 @@
         function initializeAgeCalculation() {
             const dobInput = document.getElementById('dateOfBirth');
             const ageInput = document.getElementById('age');
-            
+
             if (dobInput && ageInput) {
-                dobInput.addEventListener('change', function() {
+                dobInput.addEventListener('change', function () {
                     const dob = new Date(this.value);
                     const today = new Date();
-                    
+
                     if (!isNaN(dob.getTime()) && dob < today) {
                         let age = today.getFullYear() - dob.getFullYear();
                         const monthDiff = today.getMonth() - dob.getMonth();
@@ -787,7 +809,7 @@
         function initializeAadharFormatting() {
             const aadharInput = document.getElementById('aadharNumber');
             if (aadharInput) {
-                aadharInput.addEventListener('input', function(e) {
+                aadharInput.addEventListener('input', function (e) {
                     let value = e.target.value.replace(/\D/g, '');
                     if (value.length > 12) {
                         value = value.slice(0, 12);

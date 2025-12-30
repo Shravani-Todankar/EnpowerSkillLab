@@ -303,15 +303,6 @@
             .class-subtitle {
                 font-size: 0.813rem;
             }
-
-            .class-stats-row {
-                flex-direction: column;
-                gap: 0.5rem;
-            }
-
-            .class-stat-item {
-                width: 100%;
-            }
         }
 
         /* Info Cards Grid */
@@ -320,6 +311,12 @@
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 1.5rem;
             margin-bottom: 1.5rem;
+        }
+
+        @media (max-width: 576px) {
+            .info-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
 
         .info-card {
@@ -407,6 +404,9 @@
         .detail-value {
             color: #111827;
             flex: 1;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            word-break: break-word;
         }
 
         /* Progress Bars */
@@ -467,6 +467,12 @@
             margin-top: 1.5rem;
         }
 
+        @media (max-width: 576px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
         .stat-box {
             background: #f9fafb;
             border: 1px solid #e5e7eb;
@@ -491,16 +497,83 @@
 
         @media (max-width: 768px) {
             .info-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
             }
 
             .detail-row {
                 flex-direction: column;
                 gap: 0.5rem;
+                padding: 0.75rem 0;
             }
 
             .detail-label {
                 width: 100%;
+                font-size: 0.875rem;
+            }
+
+            .detail-value {
+                font-size: 0.938rem;
+                padding-left: 0;
+            }
+
+            .stats-grid{
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .details-section {
+                padding: 1rem;
+            }
+
+            .section-title {
+                font-size: 1.125rem;
+                margin-bottom: 1rem;
+            }
+
+            .info-card {
+                padding: 1rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .info-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .detail-row {
+                padding: 0.625rem 0;
+            }
+
+            .detail-label {
+                font-size: 0.813rem;
+                font-weight: 700;
+            }
+
+            .detail-value {
+                font-size: 0.875rem;
+                margin-top: 0.25rem;
+            }
+
+            .details-section {
+                padding: 0.75rem;
+            }
+
+            .section-title {
+                font-size: 1rem;
+            }
+
+            .info-card {
+                padding: 0.875rem;
+            }
+
+            .view-dash {
+                padding-left: 0.5rem !important;
+                padding-right: 0.5rem !important;
             }
         }
     </style>

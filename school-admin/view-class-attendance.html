@@ -91,58 +91,124 @@
             transition: all 0.3s ease;
         }
 
-        .class-header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
+        .class-header-card:hover {
+            border-color: rgba(107, 33, 168, 0.25);
+            box-shadow: 0 4px 16px rgba(107, 33, 168, 0.08);
         }
 
-        .class-title-section h1 {
+        .class-header-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 300px;
+            height: 100%;
+            background: linear-gradient(90deg, transparent 0%, rgba(107, 33, 168, 0.04) 100%);
+            pointer-events: none;
+        }
+
+        .class-header-content {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1.5rem;
+        }
+
+        .class-main-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex: 1;
+        }
+
+        .class-icon-badge {
+            width: 3.5rem;
+            height: 3.5rem;
+            background: linear-gradient(135deg, #7C3AED 0%, #6B21A8 100%);
+            border-radius: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(107, 33, 168, 0.25);
+            flex-shrink: 0;
+        }
+
+        .class-icon-badge .material-symbols-outlined {
             font-size: 1.75rem;
+            color: #fff;
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 48;
+        }
+
+        .class-text-info {
+            flex: 1;
+        }
+
+        .class-title {
+            font-size: 1.5rem;
             font-weight: 700;
+            margin-bottom: 0.25rem;
             color: #111827;
-            margin: 0 0 0.5rem 0;
+            letter-spacing: -0.01em;
         }
 
         .class-subtitle {
-            color: #6b7280;
             font-size: 0.875rem;
-            margin: 0;
+            color: #6b7280;
+            margin-bottom: 0;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.375rem;
         }
 
-        .class-stats-section {
+        .class-subtitle .material-symbols-outlined {
+            font-size: 1rem;
+            color: #9ca3af;
+        }
+
+        .class-stats-row {
             display: flex;
-            gap: 1.5rem;
             align-items: center;
+            gap: 1.5rem;
+            flex-shrink: 0;
         }
 
         .class-stat-item {
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
             align-items: center;
-            gap: 0.25rem;
-            padding: 0.75rem 1.25rem;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
             background: #ffffff;
             border-radius: 0.625rem;
             border: 1px solid rgba(107, 33, 168, 0.12);
             box-shadow: 0 2px 8px rgba(107, 33, 168, 0.06);
+            transition: all 0.2s ease;
             min-width: 100px;
         }
 
-        .stat-label {
-            font-size: 0.75rem;
-            color: #6b7280;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 0.03em;
+        .class-stat-item:hover {
+            border-color: rgba(107, 33, 168, 0.25);
+            box-shadow: 0 4px 12px rgba(107, 33, 168, 0.12);
+            transform: translateY(-1px);
         }
 
-        .stat-value {
-            font-size: 1.5rem;
+        .class-stat-label {
+            font-size: 0.688rem;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            font-weight: 600;
+            line-height: 1;
+        }
+
+        .class-stat-value {
+            font-size: 0.9rem;
             font-weight: 700;
-            color: var(--primary);
+            color: #111827;
+            line-height: 1.2;
         }
 
         .status-badge {
@@ -326,6 +392,50 @@
             height: 300px;
             width: 100%;
         }
+
+        @media (max-width: 992px) {
+            .class-header-content {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .class-stats-row {
+                justify-content: space-between;
+                width: 100%;
+            }
+
+            .class-stat-item {
+                flex: 1;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .class-header-card {
+                padding: 1rem;
+            }
+
+            .class-main-info {
+                gap: 0.75rem;
+            }
+
+            .class-icon-badge {
+                width: 3rem;
+                height: 3rem;
+            }
+
+            .class-icon-badge .material-symbols-outlined {
+                font-size: 1.5rem;
+            }
+
+            .class-title {
+                font-size: 1.25rem;
+            }
+
+            .class-subtitle {
+                font-size: 0.813rem;
+            }
+        }
     </style>
 </head>
 
@@ -352,22 +462,24 @@
                     <!-- Class Header Card -->
                     <div class="class-header-card">
                         <div class="class-header-content">
-                            <div class="class-title-section">
-                                <h1 id="classTitle">Class Details</h1>
-                                <!-- <p class="class-subtitle">
-                                    <span class="material-symbols-outlined" style="font-size: 16px; vertical-align: middle;">person</span>
-                                    <span id="teacherName">Teacher Name</span>
-                                </p> -->
+                            <div class="class-main-info">
+                                <div class="class-icon-badge">
+                                    <span class="material-symbols-outlined">calendar_today</span>
+                                </div>
+                                <div class="class-text-info">
+                                    <h1 class="class-title" id="classTitle">Loading...</h1>
+                                    <p class="class-subtitle">
+                                        <span class="material-symbols-outlined">person</span>
+                                        <span id="classTeacher">Loading...</span>
+                                    </p>
+                                </div>
                             </div>
-                            <div class="class-stats-section">
+                            <div class="class-stats-row">
                                 <div class="class-stat-item">
-                                    <span class="stat-label">Students</span>
-                                    <span class="stat-value" id="totalStudents">0</span>
+                                    <div class="class-stat-label">Students</div>
+                                    <div class="class-stat-value" id="headerStudents">0</div>
                                 </div>
-                                <div class="class-stat-item">
-                                    <span class="stat-label">Status</span>
-                                    <span class="status-badge" id="statusBadge">Good</span>
-                                </div>
+                                <span class="status-badge good" id="statusBadge">Good</span>
                             </div>
                         </div>
                     </div>
@@ -711,8 +823,8 @@
 
             // Update page content
             document.getElementById('classTitle').textContent = `${grade} - Section ${section}`;
-            // document.getElementById('teacherName').textContent = teacher;
-            document.getElementById('totalStudents').textContent = students;
+            document.getElementById('classTeacher').textContent = teacher;
+            document.getElementById('headerStudents').textContent = students;
             document.getElementById('attendanceRate').textContent = attendance;
             document.getElementById('absenteeRate').textContent = absenteeRate;
 
