@@ -249,6 +249,76 @@
             z-index: 1;
         }
 
+        /* Column Width Adjustments */
+        #classTable {
+            width: 100% !important;
+        }
+
+        #classTable thead th:nth-child(1) { /* Class / Grade */
+            width: 120px;
+            min-width: 100px;
+        }
+
+        #classTable thead th:nth-child(2) { /* Section */
+            width: 80px;
+            min-width: 70px;
+            text-align: center;
+        }
+
+        #classTable thead th:nth-child(3) { /* Class Teacher */
+            width: 150px;
+            min-width: 130px;
+        }
+
+        #classTable thead th:nth-child(4) { /* No. of Students */
+            width: 130px;
+            min-width: 110px;
+            text-align: center;
+        }
+
+        #classTable thead th:nth-child(5) { /* Avg Performance */
+            width: 180px;
+            min-width: 160px;
+        }
+
+        #classTable thead th:nth-child(6) { /* Avg Attendance */
+            width: 180px;
+            min-width: 160px;
+        }
+
+        #classTable thead th:nth-child(7) { /* Status */
+            width: 100px;
+            min-width: 90px;
+            text-align: center;
+        }
+
+        #classTable thead th:nth-child(8) { /* Actions */
+            width: 80px;
+            min-width: 70px;
+            text-align: center;
+        }
+
+        #classTable tbody td:nth-child(2),
+        #classTable tbody td:nth-child(4),
+        #classTable tbody td:nth-child(7),
+        #classTable tbody td:nth-child(8) {
+            text-align: center;
+        }
+
+        /* Prevent text wrapping in specific columns */
+        #classTable tbody td:nth-child(1),
+        #classTable tbody td:nth-child(2),
+        #classTable tbody td:nth-child(4),
+        #classTable tbody td:nth-child(7) {
+            white-space: nowrap;
+        }
+
+        /* Allow controlled wrapping for teacher names */
+        #classTable tbody td:nth-child(3) {
+            white-space: normal;
+            word-wrap: break-word;
+        }
+
         /* Progress Bars */
         .progress-wrapper {
             display: flex;
@@ -657,9 +727,7 @@
                                             <td><span class="status-badge active">Active</span></td>
                                             <td>
                                                 <div class="d-flex align-items-center justify-content-center gap-3">
-                                                    <button class="btn-action"><span class="material-symbols-outlined">edit</span></button>
-                                                    <button class="btn-action"><span class="material-symbols-outlined">visibility</span></button>
-                                                    <button class="btn-action"><span class="material-symbols-outlined">delete</span></button>
+                                                    <button class="btn-action view-btn"><span class="material-symbols-outlined">visibility</span></button>
                                                 </div>
                                             </td>
                                         </tr>
@@ -687,9 +755,7 @@
                                             <td><span class="status-badge active">Active</span></td>
                                             <td>
                                                 <div class="d-flex align-items-center justify-content-center gap-3">
-                                                    <button class="btn-action"><span class="material-symbols-outlined">edit</span></button>
-                                                    <button class="btn-action"><span class="material-symbols-outlined">visibility</span></button>
-                                                    <button class="btn-action"><span class="material-symbols-outlined">delete</span></button>
+                                                    <button class="btn-action view-btn"><span class="material-symbols-outlined">visibility</span></button>
                                                 </div>
                                             </td>
                                         </tr>
@@ -717,9 +783,7 @@
                                             <td><span class="status-badge active">Active</span></td>
                                             <td>
                                                 <div class="d-flex align-items-center justify-content-center gap-3">
-                                                    <button class="btn-action"><span class="material-symbols-outlined">edit</span></button>
-                                                    <button class="btn-action"><span class="material-symbols-outlined">visibility</span></button>
-                                                    <button class="btn-action"><span class="material-symbols-outlined">delete</span></button>
+                                                    <button class="btn-action view-btn"><span class="material-symbols-outlined">visibility</span></button>
                                                 </div>
                                             </td>
                                         </tr>
@@ -747,9 +811,7 @@
                                             <td><span class="status-badge archived">Archived</span></td>
                                             <td>
                                                 <div class="d-flex align-items-center justify-content-center gap-3">
-                                                    <button class="btn-action"><span class="material-symbols-outlined">edit</span></button>
-                                                    <button class="btn-action"><span class="material-symbols-outlined">visibility</span></button>
-                                                    <button class="btn-action"><span class="material-symbols-outlined">delete</span></button>
+                                                    <button class="btn-action view-btn"><span class="material-symbols-outlined">visibility</span></button>
                                                 </div>
                                             </td>
                                         </tr>
@@ -777,9 +839,7 @@
                                             <td><span class="status-badge active">Active</span></td>
                                             <td>
                                                 <div class="d-flex align-items-center justify-content-center gap-3">
-                                                    <button class="btn-action"><span class="material-symbols-outlined">edit</span></button>
-                                                    <button class="btn-action"><span class="material-symbols-outlined">visibility</span></button>
-                                                    <button class="btn-action"><span class="material-symbols-outlined">delete</span></button>
+                                                    <button class="btn-action view-btn"><span class="material-symbols-outlined">visibility</span></button>
                                                 </div>
                                             </td>
                                         </tr>
@@ -949,6 +1009,28 @@
 
             // Initialize Performance Chart
             initializePerformanceChart();
+
+            // View Button Handler
+            $('#classTable').on('click', '.view-btn', function(e) {
+                const $btn = $(this);
+                const $row = $btn.closest('tr');
+                const $cells = $row.find('td');
+
+                // Extract row data
+                const classData = {
+                    grade: $cells.eq(0).text().trim(),
+                    section: $cells.eq(1).text().trim(),
+                    teacher: $cells.eq(2).text().trim(),
+                    students: $cells.eq(3).text().trim(),
+                    performance: $cells.eq(4).find('.progress-value').text().trim(),
+                    attendance: $cells.eq(5).find('.progress-value').text().trim(),
+                    status: $cells.eq(6).text().trim()
+                };
+
+                // Redirect to view page with parameters
+                const params = new URLSearchParams(classData);
+                window.location.href = `view-class.html?${params.toString()}`;
+            });
         });
 
         function setActiveMenuItem() {

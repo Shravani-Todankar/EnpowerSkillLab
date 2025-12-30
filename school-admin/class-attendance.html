@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classes Attendance - School Admin</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
+
+    <!-- Sidebar & Header JS -->
+    <script src="sidebar.js"></script>
+    <script src="header.js"></script>
+
+    <style>
+        /* Prevent FOUC - hide containers until loaded */
+        #sidebar-container:empty,
+        #header-container:empty {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        #sidebar-container.loaded,
+        #header-container.loaded {
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.2s ease-in;
+        }
+
+        :root {
+            --primary: #6B21A8;
+            --background-light: #F3F4F6;
+            --card-radius: 0.5rem;
+            --shadow: 0 1px 2px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background-light);
+            color: #374151;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .dashboard-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        .attendance-comparison-card{
+            height: 400px;
+        }
+
+        .attendance-trend-card{
+            height: 400px;
+        }
+
+        .card {
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            border-radius: var(--card-radius);
+            box-shadow: var(--shadow);
+            background-color: #fff;
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            font-size: 20px;
+            line-height: 1;
+        }
+
+        /* KPI Cards */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        @media (max-width: 1200px) {
+            .kpi-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 576px) {
+            .kpi-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .kpi-card {
+            background: #fff;
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            transition: all 0.3s ease;
+        }
+
+        .kpi-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+        }
+
+        .kpi-icon {
+            width: 2.5rem;
+            height: 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(107, 33, 168, 0.1) 0%, rgba(147, 51, 234, 0.15) 100%);
+            margin-bottom: 0.75rem;
+        }
+
+        .kpi-icon .material-symbols-outlined {
+            color: var(--primary);
+            font-size: 24px;
+        }
+
+        .kpi-label {
+            font-size: 0.875rem;
+            color: #6b7280;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .kpi-value {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #111827;
+            margin: 0;
+        }
+
+        /* DataTables */
+        .table> :not(caption)>*>* {
+            padding: 0.85rem 1.25rem;
+            vertical-align: middle;
+        }
+
+        .table thead th {
+            font-size: 0.75rem;
+            letter-spacing: 0.02em;
+            color: #6b7280;
+            text-transform: uppercase;
+            border-bottom: 1px solid #e5e7eb;
+            background: #f9fafb;
+        }
+
+        .table tbody td {
+            color: #111827;
+        }
+
+        .badge-status {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.25rem 0.625rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .badge-status.good {
+            background: #d1fae5;
+            color: #166534;
+        }
+
+        .badge-status.average {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .badge-status.attention {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .btn-view {
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 0.875rem;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .btn-view:hover {
+            color: #581c87;
+            text-decoration: underline;
+        }
+
+        .btn-download {
+            background: linear-gradient(90deg, #0EA5E9, #0284C7);
+            border: none;
+            border-radius: 10px;
+            padding: 10px 22px;
+            font-weight: 600;
+            color: #fff !important;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+            transition: all 0.2s ease-in-out;
+        }
+
+        .btn-download:hover {
+            opacity: 0.95;
+        }
+
+        div.dataTables_wrapper div.dataTables_length select {
+            width: 70px !important;
+        }
+
+        /* Table Column Widths */
+        #attendanceTable thead th:nth-child(1) {
+            width: 120px;
+            min-width: 100px;
+        }
+
+        #attendanceTable thead th:nth-child(2) {
+            width: 80px;
+            min-width: 70px;
+        }
+
+        #attendanceTable thead th:nth-child(3) {
+            width: 180px;
+            min-width: 160px;
+        }
+
+        #attendanceTable thead th:nth-child(4) {
+            width: 120px;
+            min-width: 120px;
+            text-align: center;
+        }
+
+        #attendanceTable thead th:nth-child(5) {
+            width: 120px;
+            min-width: 100px;
+            text-align: center;
+        }
+
+        #attendanceTable thead th:nth-child(6) {
+            width: 130px;
+            min-width: 120px;
+            text-align: center;
+        }
+
+        #attendanceTable thead th:nth-child(7) {
+            width: 140px;
+            min-width: 130px;
+            text-align: center;
+        }
+
+        #attendanceTable thead th:nth-child(8) {
+            width: 140px;
+            min-width: 120px;
+            text-align: right;
+        }
+
+        #attendanceTable tbody td:nth-child(4),
+        #attendanceTable tbody td:nth-child(5),
+        #attendanceTable tbody td:nth-child(6),
+        #attendanceTable tbody td:nth-child(7) {
+            text-align: center;
+        }
+
+        #attendanceTable tbody td:nth-child(8) {
+            text-align: right;
+        }
+
+        /* Custom scrollbar */
+        .table-responsive::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .table-responsive::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+
+        .table-responsive::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+
+        .table-responsive::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        /* Visualization Sections */
+        .insights-card {
+            background: #fff5f5;
+            border: 1px solid #fee2e2;
+            border-radius: var(--card-radius);
+            padding: 1.5rem;
+        }
+
+        .insights-card .insight-item {
+            background: #fff;
+            border: 1px solid #fee2e2;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .insights-card .insight-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .insight-badge {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .insight-badge.critical {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+
+        .insight-badge.warning {
+            background: #fed7aa;
+            color: #ea580c;
+        }
+
+        .insight-badge.pattern {
+            background: #fed7aa;
+            color: #ea580c;
+        }
+
+        .holiday-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.75rem;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .holiday-item:last-child {
+            border-bottom: none;
+        }
+
+        .holiday-date {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.5rem;
+            width: 3rem;
+            height: 3rem;
+            flex-shrink: 0;
+        }
+
+        .holiday-date .month {
+            font-size: 0.625rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .holiday-date .day {
+            font-size: 0.875rem;
+            font-weight: 900;
+            color: #111827;
+        }
+
+        .chart-legend {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.75rem;
+            color: #6b7280;
+        }
+
+        .legend-dot {
+            width: 0.75rem;
+            height: 0.75rem;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- Include Sidebar Component -->
+        <div id="sidebar-container"></div>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Include Header Component -->
+            <div id="header-container"></div>
+
+            <div class="py-4 py-sm-5 py-lg-5">
+                <div class="container-xl" style="max-width: 1400px;">
+                    <!-- Page Header -->
+                    <header class="mb-4 d-flex flex-column flex-lg-row align-items-start align-items-lg-center justify-content-between gap-3">
+                        <div>
+                            <h1 class="h3 mb-1 fw-bold text-dark">Classes Attendance</h1>
+                            <p class="text-muted mb-0">Monitor class-wise attendance trends and patterns.</p>
+                        </div>
+                        <button class="btn-download text-decoration-none">
+                            <span class="material-symbols-outlined">download</span>
+                            Download Attendance Report
+                        </button>
+                    </header>
+
+                    <!-- KPI Cards -->
+                    <div class="kpi-grid">
+                        <div class="kpi-card">
+                            <div class="kpi-icon">
+                                <span class="material-symbols-outlined">analytics</span>
+                            </div>
+                            <p class="kpi-label mb-0">Avg School Attendance</p>
+                            <p class="kpi-value">92%</p>
+                        </div>
+
+                        <div class="kpi-card">
+                            <div class="kpi-icon">
+                                <span class="material-symbols-outlined">emoji_events</span>
+                            </div>
+                            <p class="kpi-label mb-0">Best Attendance Class</p>
+                            <p class="kpi-value">Class 10-A</p>
+                        </div>
+
+                        <div class="kpi-card">
+                            <div class="kpi-icon">
+                                <span class="material-symbols-outlined">trending_down</span>
+                            </div>
+                            <p class="kpi-label mb-0">Lowest Attendance Class</p>
+                            <p class="kpi-value">Class 8-C</p>
+                        </div>
+
+                        <div class="kpi-card">
+                            <div class="kpi-icon">
+                                <span class="material-symbols-outlined">warning</span>
+                            </div>
+                            <p class="kpi-label mb-0">Below Threshold</p>
+                            <p class="kpi-value">3 Classes</p>
+                        </div>
+                    </div>
+
+                    <!-- Main Data Table -->
+                    <div class="card">
+                        <div class="table-responsive">
+                            <table id="attendanceTable" class="table mb-0 align-middle">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Class / Grade</th>
+                                        <th scope="col">Section</th>
+                                        <th scope="col">Class Teacher</th>
+                                        <th scope="col">No. of Students</th>
+                                        <th scope="col">Attendance %</th>
+                                        <th scope="col">Absentee Rate %</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="fw-semibold">Class 10</td>
+                                        <td>A</td>
+                                        <td>Mr. Robert Fox</td>
+                                        <td>32</td>
+                                        <td class="fw-bold" style="color: var(--primary);">98%</td>
+                                        <td class="text-muted">2%</td>
+                                        <td><span class="badge-status good">Good</span></td>
+                                        <td>
+                                            <a href="#" class="btn-view">View Details</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fw-semibold">Class 9</td>
+                                        <td>B</td>
+                                        <td>Ms. Esther Howard</td>
+                                        <td>28</td>
+                                        <td class="fw-bold" style="color: var(--primary);">92%</td>
+                                        <td class="text-muted">8%</td>
+                                        <td><span class="badge-status good">Good</span></td>
+                                        <td>
+                                            <a href="#" class="btn-view">View Details</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fw-semibold">Class 8</td>
+                                        <td>C</td>
+                                        <td>Mr. Cameron Williamson</td>
+                                        <td>30</td>
+                                        <td class="fw-bold text-danger">72%</td>
+                                        <td class="text-muted">28%</td>
+                                        <td><span class="badge-status attention">Needs Attention</span></td>
+                                        <td>
+                                            <a href="#" class="btn-view">View Details</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fw-semibold">Class 10</td>
+                                        <td>B</td>
+                                        <td>Ms. Jane Cooper</td>
+                                        <td>31</td>
+                                        <td class="fw-bold text-warning">84%</td>
+                                        <td class="text-muted">16%</td>
+                                        <td><span class="badge-status average">Average</span></td>
+                                        <td>
+                                            <a href="#" class="btn-view">View Details</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fw-semibold">Class 7</td>
+                                        <td>A</td>
+                                        <td>Mr. Cody Fisher</td>
+                                        <td>29</td>
+                                        <td class="fw-bold" style="color: var(--primary);">95%</td>
+                                        <td class="text-muted">5%</td>
+                                        <td><span class="badge-status good">Good</span></td>
+                                        <td>
+                                            <a href="#" class="btn-view">View Details</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fw-semibold">Class 11</td>
+                                        <td>C</td>
+                                        <td>Ms. Sarah Williams</td>
+                                        <td>27</td>
+                                        <td class="fw-bold" style="color: var(--primary);">89%</td>
+                                        <td class="text-muted">11%</td>
+                                        <td><span class="badge-status good">Good</span></td>
+                                        <td>
+                                            <a href="#" class="btn-view">View Details</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fw-semibold">Class 9</td>
+                                        <td>A</td>
+                                        <td>Mr. John Anderson</td>
+                                        <td>33</td>
+                                        <td class="fw-bold text-warning">81%</td>
+                                        <td class="text-muted">19%</td>
+                                        <td><span class="badge-status average">Average</span></td>
+                                        <td>
+                                            <a href="#" class="btn-view">View Details</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fw-semibold">Class 12</td>
+                                        <td>A</td>
+                                        <td>Dr. Michael Brown</td>
+                                        <td>25</td>
+                                        <td class="fw-bold" style="color: var(--primary);">94%</td>
+                                        <td class="text-muted">6%</td>
+                                        <td><span class="badge-status good">Good</span></td>
+                                        <td>
+                                            <a href="#" class="btn-view">View Details</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Visualizations and Insights Grid -->
+                    <div class="row g-4 mt-2 mb-5">
+                        <!-- Left Column: Charts -->
+                        <div class="col-12 col-lg-8">
+                            <div class="row g-4">
+                                <!-- Class-wise Attendance Comparison Chart -->
+                                <div class="col-12">
+                                    <div class="card attendance-comparison-card">
+                                        <div class="card-body">
+                                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                                <h5 class="card-title mb-0 fw-bold">Class-wise Attendance Comparison</h5>
+                                            </div>
+                                            <canvas id="attendanceComparisonChart" height="130"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Attendance Trend Chart -->
+                                <div class="col-12">
+                                    <div class="card attendance-trend-card">
+                                        <div class="card-body">
+                                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                                <h5 class="card-title mb-0 fw-bold">Attendance Trend</h5>
+                                                <select class="form-select form-select-sm" style="width: 130px; font-size: 0.875rem; border-color: #e5e7eb;">
+                                                    <option>This Week</option>
+                                                    <option>Last Week</option>
+                                                    <option>This Month</option>
+                                                </select>
+                                            </div>
+                                            <canvas id="attendanceTrendChart" height="130"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right Column: Insights & Holidays -->
+                        <div class="col-12 col-lg-4">
+                            <div class="row g-4">
+                                <!-- Low Attendance Insights -->
+                                <div class="col-12">
+                                    <div class="insights-card">
+                                        <div class="d-flex align-items-center gap-2 mb-3">
+                                            <div style="width: 2rem; height: 2rem; border-radius: 50%; background: #fee2e2; display: flex; align-items: center; justify-content: center;">
+                                                <span class="material-symbols-outlined" style="color: #dc2626; font-size: 18px;">priority_high</span>
+                                            </div>
+                                            <h5 class="mb-0 fw-bold">Low Attendance Insights</h5>
+                                        </div>
+
+                                        <div class="insight-item">
+                                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                                <span class="fw-bold" style="font-size: 0.875rem;">Class 8-C</span>
+                                                <span class="insight-badge critical">Critical</span>
+                                            </div>
+                                            <p class="mb-0 text-muted" style="font-size: 0.75rem; line-height: 1.5;">Consistently below threshold (75%) for the last 3 weeks.</p>
+                                        </div>
+
+                                        <div class="insight-item">
+                                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                                <span class="fw-bold" style="font-size: 0.875rem;">Class 10-B</span>
+                                                <span class="insight-badge warning">Warning</span>
+                                            </div>
+                                            <p class="mb-0 text-muted" style="font-size: 0.75rem; line-height: 1.5;">Sudden drop of 12% attendance observed this Monday.</p>
+                                        </div>
+
+                                        <div class="insight-item">
+                                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                                <span class="fw-bold" style="font-size: 0.875rem;">Grade 8 Aggregate</span>
+                                                <span class="insight-badge pattern">Pattern</span>
+                                            </div>
+                                            <p class="mb-0 text-muted" style="font-size: 0.75rem; line-height: 1.5;">Lowest attendance recorded on Fridays across all sections.</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Upcoming Holidays -->
+                                <div class="col-12">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="d-flex align-items-center gap-2 mb-3">
+                                                <div style="width: 2rem; height: 2rem; border-radius: 50%; background: rgba(107, 33, 168, 0.1); display: flex; align-items: center; justify-content: center;">
+                                                    <span class="material-symbols-outlined" style="color: var(--primary); font-size: 18px;">calendar_month</span>
+                                                </div>
+                                                <h5 class="mb-0 fw-bold">Upcoming Holidays</h5>
+                                            </div>
+                                            <p class="text-muted mb-3" style="font-size: 0.75rem;">Upcoming holidays may impact attendance trends next week.</p>
+
+                                            <div>
+                                                <div class="holiday-item">
+                                                    <div class="holiday-date">
+                                                        <span class="month">JAN</span>
+                                                        <span class="day">1</span>
+                                                    </div>
+                                                    <div>
+                                                        <p class="mb-0 fw-bold" style="font-size: 0.875rem;">New Year</p>
+                                                        <p class="mb-0 text-muted" style="font-size: 0.75rem;">School Closed</p>
+                                                    </div>
+                                                </div>
+
+                                                <div class="holiday-item">
+                                                    <div class="holiday-date">
+                                                        <span class="month">JAN</span>
+                                                        <span class="day">10</span>
+                                                    </div>
+                                                    <div>
+                                                        <p class="mb-0 fw-bold" style="font-size: 0.875rem;">Teacher Training</p>
+                                                        <p class="mb-0 text-muted" style="font-size: 0.75rem;">Half Day for Students</p>
+                                                    </div>
+                                                </div>
+
+                                                <div class="holiday-item">
+                                                    <div class="holiday-date">
+                                                        <span class="month">JAN</span>
+                                                        <span class="day">14</span>
+                                                    </div>
+                                                    <div>
+                                                        <p class="mb-0 fw-bold" style="font-size: 0.875rem;">Makarsankrati</p>
+                                                        <p class="mb-0 text-muted" style="font-size: 0.75rem;">School Closed</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+    <script>
+        // Load Sidebar and Header Components
+        document.addEventListener('DOMContentLoaded', function() {
+            Promise.all([
+                fetch('sidebar.html').then(response => response.text()),
+                fetch('header.html').then(response => response.text())
+            ]).then(([sidebarHTML, headerHTML]) => {
+                document.getElementById('sidebar-container').innerHTML = sidebarHTML;
+                document.getElementById('header-container').innerHTML = headerHTML;
+
+                setTimeout(() => {
+                    if (typeof initializeHeader === 'function') {
+                        initializeHeader();
+                    }
+
+                    document.getElementById('sidebar-container').classList.add('loaded');
+                    document.getElementById('header-container').classList.add('loaded');
+
+                    setActiveMenuItem();
+                }, 200);
+            });
+
+            // Initialize DataTable with only search filter
+            $('#attendanceTable').DataTable({
+                paging: true,
+                pageLength: 10,
+                lengthMenu: [5, 10, 25, 50],
+                order: [[4, 'desc']], // Order by Attendance % descending
+                columnDefs: [
+                    { orderable: false, targets: [7] } // Disable sorting on Action column
+                ],
+                language: {
+                    search: 'Search classes:',
+                    lengthMenu: 'Show _MENU_ entries',
+                    info: 'Showing _START_ to _END_ of _TOTAL_ classes',
+                    infoEmpty: 'No classes to show',
+                    infoFiltered: '(_MAX_ total)',
+                    zeroRecords: 'No matching classes found',
+                    paginate: {
+                        next: 'Next',
+                        previous: 'Previous'
+                    }
+                },
+                dom: '<"d-flex flex-column flex-lg-row align-items-start align-items-lg-center justify-content-between gap-3 p-3 border-bottom"l<"w-100"f>><"table-scroll-wrapper"t><"d-flex flex-column flex-lg-row align-items-start align-items-lg-center justify-content-between gap-3 p-3 border-top"ip>'
+            });
+
+            // View Details Button Handler
+            $('#attendanceTable').on('click', '.btn-view', function(e) {
+                e.preventDefault();
+                const $btn = $(this);
+                const $row = $btn.closest('tr');
+                const $cells = $row.find('td');
+
+                // Extract row data
+                const classData = {
+                    grade: $cells.eq(0).text().trim(),
+                    section: $cells.eq(1).text().trim(),
+                    teacher: $cells.eq(2).text().trim(),
+                    students: $cells.eq(3).text().trim(),
+                    attendance: $cells.eq(4).text().trim(),
+                    absenteeRate: $cells.eq(5).text().trim(),
+                    status: $cells.eq(6).text().trim()
+                };
+
+                // Redirect to detail page with parameters
+                const params = new URLSearchParams(classData);
+                window.location.href = `view-class-attendance.html?${params.toString()}`;
+            });
+        });
+
+        function setActiveMenuItem() {
+            // Add active menu item logic here if needed
+        }
+
+        // Initialize Charts
+        function initializeCharts() {
+            // Class-wise Attendance Comparison Chart (Comparative Bar Chart)
+            const comparisonCtx = document.getElementById('attendanceComparisonChart');
+            if (comparisonCtx) {
+                new Chart(comparisonCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['10-A', '7-A', '9-B', '10-B', '8-C'],
+                        datasets: [
+                            {
+                                label: 'Current Month',
+                                data: [98, 95, 92, 84, 72],
+                                backgroundColor: 'rgba(107, 33, 168, 0.9)',
+                                borderColor: 'rgba(107, 33, 168, 1)',
+                                borderWidth: 1,
+                                borderRadius: 6,
+                                barThickness: 35
+                            },
+                            {
+                                label: 'Last Month',
+                                data: [95, 93, 88, 86, 75],
+                                backgroundColor: '#eddff9',
+                                borderColor: '#eddff9',
+                                borderWidth: 1,
+                                borderRadius: 6,
+                                barThickness: 35
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: true,
+                        plugins: {
+                            legend: {
+                                display: true,
+                                position: 'top',
+                                align: 'end',
+                                labels: {
+                                    usePointStyle: true,
+                                    pointStyle: 'circle',
+                                    padding: 15,
+                                    font: {
+                                        size: 12,
+                                        family: 'Poppins'
+                                    },
+                                    color: '#6b7280'
+                                }
+                            },
+                            tooltip: {
+                                backgroundColor: '#fff',
+                                titleColor: '#111827',
+                                bodyColor: '#6b7280',
+                                borderColor: '#e5e7eb',
+                                borderWidth: 1,
+                                padding: 12,
+                                boxPadding: 6,
+                                usePointStyle: true,
+                                callbacks: {
+                                    label: function(context) {
+                                        return context.dataset.label + ': ' + context.parsed.y + '%';
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                max: 100,
+                                ticks: {
+                                    callback: function(value) {
+                                        return value + '%';
+                                    },
+                                    color: '#6b7280',
+                                    font: {
+                                        size: 11
+                                    }
+                                },
+                                grid: {
+                                    color: '#f3f4f6',
+                                    drawBorder: false
+                                }
+                            },
+                            x: {
+                                ticks: {
+                                    color: '#6b7280',
+                                    font: {
+                                        size: 12,
+                                        weight: '600'
+                                    }
+                                },
+                                grid: {
+                                    display: false,
+                                    drawBorder: false
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Attendance Trend Chart (Line Chart)
+            const trendCtx = document.getElementById('attendanceTrendChart');
+            if (trendCtx) {
+                new Chart(trendCtx, {
+                    type: 'line',
+                    data: {
+                        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
+                        datasets: [{
+                            label: 'Attendance %',
+                            data: [85, 92, 95, 88, 94],
+                            borderColor: 'rgba(107, 33, 168, 1)',
+                            backgroundColor: 'rgba(107, 33, 168, 0.05)',
+                            borderWidth: 3,
+                            fill: true,
+                            tension: 0.4,
+                            pointRadius: 5,
+                            pointBackgroundColor: '#fff',
+                            pointBorderColor: 'rgba(107, 33, 168, 1)',
+                            pointBorderWidth: 2,
+                            pointHoverRadius: 7
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: true,
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            tooltip: {
+                                backgroundColor: '#fff',
+                                titleColor: '#111827',
+                                bodyColor: '#6b7280',
+                                borderColor: '#e5e7eb',
+                                borderWidth: 1,
+                                padding: 12,
+                                boxPadding: 6,
+                                usePointStyle: true,
+                                callbacks: {
+                                    label: function(context) {
+                                        return 'Attendance: ' + context.parsed.y + '%';
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                max: 100,
+                                ticks: {
+                                    callback: function(value) {
+                                        return value + '%';
+                                    },
+                                    color: '#6b7280',
+                                    font: {
+                                        size: 11
+                                    }
+                                },
+                                grid: {
+                                    color: '#f3f4f6',
+                                    drawBorder: false
+                                }
+                            },
+                            x: {
+                                ticks: {
+                                    color: '#6b7280',
+                                    font: {
+                                        size: 11
+                                    }
+                                },
+                                grid: {
+                                    color: '#f3f4f6',
+                                    drawBorder: false
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+        }
+
+        // Initialize charts after page load
+        document.addEventListener('DOMContentLoaded', initializeCharts);
+    </script>
+</body>
+
+</html>

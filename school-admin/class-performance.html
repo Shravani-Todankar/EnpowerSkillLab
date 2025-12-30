@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classes Performance - School Admin</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
+
+    <!-- Sidebar & Header JS -->
+    <script src="sidebar.js"></script>
+    <script src="header.js"></script>
+
+    <style>
+        /* Prevent FOUC - hide containers until loaded */
+        #sidebar-container:empty,
+        #header-container:empty {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        #sidebar-container.loaded,
+        #header-container.loaded {
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.2s ease-in;
+        }
+
+        :root {
+            --primary: #6B21A8;
+            --background-light: #F3F4F6;
+            --card-radius: 0.5rem;
+            --shadow: 0 1px 2px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background-light);
+            color: #374151;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .dashboard-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        .perf-dash {
+            padding-top: 1rem !important;
+        }
+
+        .card {
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            border-radius: var(--card-radius);
+            box-shadow: var(--shadow);
+            background-color: #fff;
+        }
+
+        .perf-section {
+            display: flex;
+            flex-direction: row;
+            gap: 9.5rem;
+            flex-wrap: nowrap;
+        }
+
+        .perf-bar-card {
+            height: 400px;
+            width: 800px;
+        }
+
+        .perf-progress-bar {
+            height: 400px;
+            width: 300px;
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            font-size: 20px;
+            line-height: 1;
+        }
+
+        /* KPI Cards - Animated & Redesigned */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        @media (max-width: 1200px) {
+            .kpi-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 576px) {
+            .kpi-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .kpi-card {
+            background: #fff;
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            transform: translateY(0);
+        }
+
+        .kpi-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+            border-color: rgba(0, 0, 0, 0.08);
+        }
+
+        .kpi-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .kpi-label {
+            font-size: 0.9rem;
+            color: #6b7280;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            line-height: 1.4;
+        }
+
+        .kpi-icon {
+            width: 3rem;
+            height: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0.75rem;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        /* .kpi-card:hover .kpi-icon {
+            transform: rotate(10deg) scale(1.1);
+        } */
+
+        .kpi-icon.primary {
+            background: linear-gradient(135deg, rgba(107, 33, 168, 0.1) 0%, rgba(147, 51, 234, 0.15) 100%);
+        }
+
+        .kpi-icon.primary .material-symbols-outlined {
+            color: var(--primary);
+            font-variation-settings: 'FILL' 1, 'wght' 500, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .kpi-icon.green {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(5, 150, 105, 0.15) 100%);
+        }
+
+        .kpi-icon.green .material-symbols-outlined {
+            color: #10b981;
+            font-variation-settings: 'FILL' 1, 'wght' 500, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .kpi-icon.red {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(220, 38, 38, 0.15) 100%);
+        }
+
+        .kpi-icon.red .material-symbols-outlined {
+            color: #ef4444;
+            font-variation-settings: 'FILL' 1, 'wght' 500, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .kpi-icon.blue {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(37, 99, 235, 0.15) 100%);
+        }
+
+        .kpi-icon.blue .material-symbols-outlined {
+            color: #3b82f6;
+            font-variation-settings: 'FILL' 1, 'wght' 500, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .kpi-value {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #111827;
+            margin: 0;
+            line-height: 1.2;
+            transition: all 0.3s ease;
+        }
+
+        .kpi-card:hover .kpi-value {
+            transform: scale(1.05);
+        }
+
+        /* Stagger animation on page load */
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .kpi-card {
+            animation: slideInUp 0.5s ease-out backwards;
+        }
+
+        .kpi-card:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .kpi-card:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .kpi-card:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .kpi-card:nth-child(4) {
+            animation-delay: 0.4s;
+        }
+
+        /* Insight Alert */
+        .insight-alert {
+            background: #fffbeb;
+            border: 1px solid #fef3c7;
+            border-radius: var(--card-radius);
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .insight-alert .material-symbols-outlined {
+            color: #f59e0b;
+            font-size: 1.5rem;
+        }
+
+        .insight-title {
+            font-size: 0.875rem;
+            font-weight: 700;
+            color: #78350f;
+            margin-bottom: 0.25rem;
+        }
+
+        .insight-text {
+            font-size: 0.875rem;
+            color: #92400e;
+            margin: 0;
+        }
+
+        /* DataTables */
+        .table> :not(caption)>*>* {
+            padding: 0.85rem 1.25rem;
+            vertical-align: middle;
+        }
+
+        .table thead th {
+            font-size: 0.75rem;
+            letter-spacing: 0.02em;
+            color: #6b7280;
+            text-transform: uppercase;
+            border-bottom: 1px solid #e5e7eb;
+            background: #f9fafb;
+        }
+
+        .table tbody td {
+            color: #111827;
+        }
+
+        .teacher-cell {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .teacher-avatar {
+            width: 1.5rem;
+            height: 1.5rem;
+            border-radius: 50%;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .badge-status {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.25rem 0.625rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .badge-status.good {
+            background: #d1fae5;
+            color: #166534;
+        }
+
+        .badge-status.average {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .badge-status.attention {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .trend-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .trend-icon.up {
+            color: #10b981;
+        }
+
+        .trend-icon.down {
+            color: #ef4444;
+        }
+
+        .trend-icon.neutral {
+            color: #6b7280;
+        }
+
+        .btn-view {
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 0.875rem;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .btn-view:hover {
+            color: #581c87;
+            text-decoration: underline;
+        }
+
+        .btn-download {
+            background: linear-gradient(90deg, #0EA5E9, #0284C7);
+            border: none;
+            border-radius: 10px;
+            padding: 10px 22px;
+            font-weight: 600;
+            color: #fff !important;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+            transition: all 0.2s ease-in-out;
+        }
+
+        .btn-download:hover {
+            opacity: 0.95;
+        }
+
+        div.dataTables_wrapper div.dataTables_length select {
+            width: 70px !important;
+        }
+
+        /* Custom scrollbar */
+        .table-responsive::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .table-responsive::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+
+        .table-responsive::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+
+        .table-responsive::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        /* Table Column Widths */
+        #performanceTable thead th:nth-child(1) {
+            /* Class / Grade */
+            width: 120px;
+            min-width: 100px;
+        }
+
+        #performanceTable thead th:nth-child(2) {
+            /* Section */
+            width: 80px;
+            min-width: 70px;
+        }
+
+        #performanceTable thead th:nth-child(3) {
+            /* Class Teacher */
+            width: 180px;
+            min-width: 160px;
+        }
+
+        #performanceTable thead th:nth-child(4) {
+            /* No. Students */
+            width: 120px;
+            min-width: 100px;
+        }
+
+        #performanceTable thead th:nth-child(5) {
+            /* Avg Score % */
+            width: 120px;
+            min-width: 100px;
+        }
+
+        #performanceTable thead th:nth-child(6) {
+            /* Performance Status */
+            width: 160px;
+            min-width: 160px;
+        }
+
+        #performanceTable thead th:nth-child(7) {
+            /* Trend */
+            width: 80px;
+            min-width: 70px;
+        }
+
+        #performanceTable thead th:nth-child(8) {
+            /* Action */
+            width: 140px;
+            min-width: 120px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- Include Sidebar Component -->
+        <div id="sidebar-container"></div>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Include Header Component -->
+            <div id="header-container"></div>
+
+            <div class="py-4 py-sm-5 py-lg-5 perf-dash">
+                <div class="container-xl" style="max-width: 1400px;">
+                    <!-- Page Header -->
+                    <header
+                        class="mb-4 d-flex flex-column flex-lg-row align-items-start align-items-lg-center justify-content-between gap-3">
+                        <div>
+                            <h1 class="h3 mb-1 fw-bold text-dark">Classes Performance</h1>
+                            <p class="text-muted mb-0">Analyze academic performance across classes.</p>
+                        </div>
+                        <button class="btn-download text-decoration-none">
+                            <span class="material-symbols-outlined">download</span>
+                            Download Report
+                        </button>
+                    </header>
+
+                    <!-- KPI Cards -->
+                    <div class="kpi-grid">
+                        <div class="kpi-card primary">
+                            <div class="kpi-header">
+                                <p class="kpi-label mb-0">Avg School Performance</p>
+                                <div class="kpi-icon primary">
+                                    <span class="material-symbols-outlined">monitoring</span>
+                                </div>
+                            </div>
+                            <p class="kpi-value">76%</p>
+                        </div>
+
+                        <div class="kpi-card green">
+                            <div class="kpi-header">
+                                <p class="kpi-label mb-0">Best Performing Class</p>
+                                <div class="kpi-icon green">
+                                    <span class="material-symbols-outlined">emoji_events</span>
+                                </div>
+                            </div>
+                            <p class="kpi-value">Grade 10-A</p>
+                        </div>
+
+                        <div class="kpi-card red">
+                            <div class="kpi-header">
+                                <p class="kpi-label mb-0">Lowest Performing Class</p>
+                                <div class="kpi-icon red">
+                                    <span class="material-symbols-outlined">trending_down</span>
+                                </div>
+                            </div>
+                            <p class="kpi-value">Grade 8-B</p>
+                        </div>
+
+                        <div class="kpi-card blue">
+                            <div class="kpi-header">
+                                <p class="kpi-label mb-0">Assessments Completed</p>
+                                <div class="kpi-icon blue">
+                                    <span class="material-symbols-outlined">check_circle</span>
+                                </div>
+                            </div>
+                            <p class="kpi-value">92%</p>
+                        </div>
+                    </div>
+
+                    <!-- Insight Alert -->
+                    <div class="insight-alert">
+                        <span class="material-symbols-outlined">lightbulb</span>
+                        <div>
+                            <h3 class="insight-title">Low Performance Insight</h3>
+                            <p class="insight-text">3 classes (Grade 8-B, Grade 7-C, Grade 9-A) have shown a consistent
+                                drop in average scores below 60% for the last two assessment cycles. Suggested review of
+                                curriculum pacing.</p>
+                        </div>
+                    </div>
+
+                    <!-- Main Data Table -->
+                    <div class="card mb-4">
+                        <div class="table-responsive">
+                            <table id="performanceTable" class="table mb-0 align-middle">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Class / Grade</th>
+                                        <th scope="col">Section</th>
+                                        <th scope="col">Class Teacher</th>
+                                        <th scope="col" class="text-center">No. Students</th>
+                                        <th scope="col" class="text-center">Avg Score %</th>
+                                        <th scope="col">Performance Status</th>
+                                        <th scope="col" class="text-center">Trend</th>
+                                        <th scope="col" class="text-end">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="fw-semibold">Grade 10</td>
+                                        <td>A</td>
+                                        <td>
+                                            <div class="teacher-cell">
+                                                <div class="teacher-avatar"
+                                                    style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCZxl4HLHjMZ0wVpEbkRHjyyXgD21SugjmljUNYavnOVhUr2paAKufC1Ibbt4DDrx9kQPHNVyObAcjdGhM8UWfAixtDMeShZrmgEzik7mrfvYTXjsGFmwm6foo-6GjBwt0i_daXhQqsmqInCwBTim53CO_T_Kvj683VmYVGRSW5AXGzkokvt3nhUQKyNpzhhoDFeDfuVK2lXIRxf6LeqZ3Z1_hhiKPhdUJkmocCXcRVF7JTnsq1wZOUXn218ABNTLrV0epNVLHvNi53');">
+                                                </div>
+                                                Sarah Jenkins
+                                            </div>
+                                        </td>
+                                        <td class="text-center">32</td>
+                                        <td class="text-center fw-bold">88%</td>
+                                        <td><span class="badge-status good">Good</span></td>
+                                        <td class="text-center">
+                                            <span class="trend-icon up">
+                                                <span class="material-symbols-outlined">trending_up</span>
+                                            </span>
+                                        </td>
+                                        <td class="text-end">
+                                            <a href="#" class="btn-view">View Performance</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fw-semibold">Grade 10</td>
+                                        <td>B</td>
+                                        <td>
+                                            <div class="teacher-cell">
+                                                <div class="teacher-avatar"
+                                                    style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAZEI2fMorEAdlwK0rvMdA7lIeu8Alt4ctVFYnYACTbtTOHlC70TL_1I3UCrSDvvJbnw30wqzceMsPPFnE-upxF71L7XVa6xIYS0-gHnUyiXLC775dfJjcFKHwcvJKBxXc8oENnJ6Er5UQMaBU6NTiF6I8Dbvl_n-ffcKQv2oVY4waLTZB2eRXR7W_FrVGK-ycmQY0j2oNdhbJZcNwQ75XULzxPMZ-r7W5P_Rz5flWEaCSCaNbPEpi6VCbY7iOhLcm7LcYh_D9YwbTx');">
+                                                </div>
+                                                Michael Chen
+                                            </div>
+                                        </td>
+                                        <td class="text-center">28</td>
+                                        <td class="text-center fw-bold">72%</td>
+                                        <td><span class="badge-status average">Average</span></td>
+                                        <td class="text-center">
+                                            <span class="trend-icon neutral">
+                                                <span class="material-symbols-outlined">remove</span>
+                                            </span>
+                                        </td>
+                                        <td class="text-end">
+                                            <a href="#" class="btn-view">View Performance</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fw-semibold">Grade 9</td>
+                                        <td>A</td>
+                                        <td>
+                                            <div class="teacher-cell">
+                                                <div class="teacher-avatar"
+                                                    style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuChZDtCdw1V40zNaybV9jZTnsKl2nuuWRvmQw7uxwIMOkgQ7s470uXCH_pQS7eHSKTRbzSpMq77X2RGkgZvjGB8e4b9slRtFIvjRxunugP_IFXkBI2jwp0FmMcX9Tkyn36ZS09WAszD3Riyo97Q173rh7EuwJUA5Ff-djlO7ImAr-qJE-c38ww7kiC3YhVngoBw4K0-77fWs62KKiYCj1npYGIg_8j5cMyO9Oq5sA43kVHT7K3TMjOcNXBYvTCjIkKKnT9OPH5bnYkB');">
+                                                </div>
+                                                Robert Fox
+                                            </div>
+                                        </td>
+                                        <td class="text-center">30</td>
+                                        <td class="text-center fw-bold">65%</td>
+                                        <td><span class="badge-status average">Average</span></td>
+                                        <td class="text-center">
+                                            <span class="trend-icon down">
+                                                <span class="material-symbols-outlined">trending_down</span>
+                                            </span>
+                                        </td>
+                                        <td class="text-end">
+                                            <a href="#" class="btn-view">View Performance</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fw-semibold">Grade 8</td>
+                                        <td>B</td>
+                                        <td>
+                                            <div class="teacher-cell">
+                                                <div class="teacher-avatar"
+                                                    style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBE4bO83qQsHipOXOsVR9tuyCblg-vh10pEQ_P2oVhxzs9ddUQXZFAhY12-KJp040PN_oBr0HkXoQy7rtuRU0cgcACaCiAkfci3vu1UNS5TEnIIpaOfXAOpVnPPgEzLUQYbljiIwWniEwpdVjW_Xlyib9zGvfT2DV6vC5xZa93PexBIpfzXAS7OjBFWAwp-prfGECcMAI9GYfvG401Ho5yg7dEs8jmuwczhXPoNs0yldlnlcvek4XEnKb5hS3IQ1qWBn5hr_BcEr3Ip');">
+                                                </div>
+                                                Emily White
+                                            </div>
+                                        </td>
+                                        <td class="text-center">25</td>
+                                        <td class="text-center fw-bold">54%</td>
+                                        <td><span class="badge-status attention">Needs Attention</span></td>
+                                        <td class="text-center">
+                                            <span class="trend-icon down">
+                                                <span class="material-symbols-outlined">trending_down</span>
+                                            </span>
+                                        </td>
+                                        <td class="text-end">
+                                            <a href="#" class="btn-view">View Performance</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fw-semibold">Grade 11</td>
+                                        <td>C</td>
+                                        <td>
+                                            <div class="teacher-cell">
+                                                <div class="teacher-avatar"
+                                                    style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAHx-fF3nBNAuY700SHmEgvXzCchlHM7Qyp7kl-n3MRxQtg9nySvBeNhGwcoA5irIIbOum_fQikeOdJ27l9AviSLEEide7aJ89hpwxA3O1DNhOjjJ2xcFlTNampcMhi7KeIXaxiE-sE-s1CrhBzLB5XhuffQRsIlJxkCFI8z7O6uoWanX18tVlyuPTrDpkS7PlVpMzDVvZ5dbT1Qb4btwVvbrSl8nj3aPfoSlNVWQoYdkD1QUaUuby9r06w9DXZA7WvEyXO2Kwbu1Xo');">
+                                                </div>
+                                                Alex Johnson
+                                            </div>
+                                        </td>
+                                        <td class="text-center">29</td>
+                                        <td class="text-center fw-bold">79%</td>
+                                        <td><span class="badge-status good">Good</span></td>
+                                        <td class="text-center">
+                                            <span class="trend-icon up">
+                                                <span class="material-symbols-outlined">trending_up</span>
+                                            </span>
+                                        </td>
+                                        <td class="text-end">
+                                            <a href="#" class="btn-view">View Performance</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Performance Analytics Section -->
+                    <div class="row g-4 perf-section">
+                        <!-- Class-wise Performance Comparison Chart -->
+                        <div class="col-12 col-lg-7">
+                            <div class="card perf-bar-card">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <h5 class="card-title mb-0 fw-bold">Class-wise Performance Comparison</h5>
+                                    </div>
+                                    <canvas id="performanceComparisonChart" height="130"></canvas>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Performance Distribution Chart -->
+                        <div class="col-12 col-lg-5">
+                            <div class="card perf-progress-bar">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <h5 class="card-title mb-0 fw-bold">Performance Distribution</h5>
+                                    </div>
+                                    <div class="text-center position-relative"
+                                        style="height: 200px; justify-items: center;">
+                                        <canvas id="performanceDistributionChart"></canvas>
+                                    </div>
+                                    <div class="mt-4">
+                                        <div class="d-flex justify-content-between align-items-center mb-2">
+                                            <div class="d-flex align-items-center gap-2">
+                                                <span class="rounded-circle"
+                                                    style="width: 12px; height: 12px; background-color: #10b981; display: inline-block;"></span>
+                                                <span class="text-muted" style="font-size: 0.875rem;">High
+                                                    Performing</span>
+                                            </div>
+                                            <span class="fw-bold">35%</span>
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-center mb-2">
+                                            <div class="d-flex align-items-center gap-2">
+                                                <span class="rounded-circle"
+                                                    style="width: 12px; height: 12px; background-color: #f59e0b; display: inline-block;"></span>
+                                                <span class="text-muted" style="font-size: 0.875rem;">Average</span>
+                                            </div>
+                                            <span class="fw-bold">50%</span>
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div class="d-flex align-items-center gap-2">
+                                                <span class="rounded-circle"
+                                                    style="width: 12px; height: 12px; background-color: #ef4444; display: inline-block;"></span>
+                                                <span class="text-muted" style="font-size: 0.875rem;">Low
+                                                    Performing</span>
+                                            </div>
+                                            <span class="fw-bold">15%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+    <script>
+        // Load Sidebar and Header Components
+        document.addEventListener('DOMContentLoaded', function () {
+            Promise.all([
+                fetch('sidebar.html').then(response => response.text()),
+                fetch('header.html').then(response => response.text())
+            ]).then(([sidebarHTML, headerHTML]) => {
+                document.getElementById('sidebar-container').innerHTML = sidebarHTML;
+                document.getElementById('header-container').innerHTML = headerHTML;
+
+                setTimeout(() => {
+                    if (typeof initializeHeader === 'function') {
+                        initializeHeader();
+                    }
+
+                    document.getElementById('sidebar-container').classList.add('loaded');
+                    document.getElementById('header-container').classList.add('loaded');
+
+                    setActiveMenuItem();
+                }, 200);
+            });
+
+            // Initialize DataTable with only search filter
+            $('#performanceTable').DataTable({
+                paging: true,
+                pageLength: 10,
+                lengthMenu: [5, 10, 25, 50],
+                order: [[4, 'desc']], // Order by Avg Score % descending
+                columnDefs: [
+                    { orderable: false, targets: [7] } // Disable sorting on Action column
+                ],
+                language: {
+                    search: 'Search classes:',
+                    lengthMenu: 'Show _MENU_ entries',
+                    info: 'Showing _START_ to _END_ of _TOTAL_ classes',
+                    infoEmpty: 'No classes to show',
+                    infoFiltered: '(_MAX_ total)',
+                    zeroRecords: 'No matching classes found',
+                    paginate: {
+                        next: 'Next',
+                        previous: 'Previous'
+                    }
+                },
+                dom: '<"d-flex flex-column flex-lg-row align-items-start align-items-lg-center justify-content-between gap-3 p-3 border-bottom"l<"w-100"f>><"table-scroll-wrapper"t><"d-flex flex-column flex-lg-row align-items-start align-items-lg-center justify-content-between gap-3 p-3 border-top"ip>'
+            });
+
+            // View Performance Button Handler
+            $('#performanceTable').on('click', '.btn-view', function (e) {
+                e.preventDefault();
+                const $btn = $(this);
+                const $row = $btn.closest('tr');
+                const $cells = $row.find('td');
+
+                // Extract row data
+                const classData = {
+                    grade: $cells.eq(0).text().trim(),
+                    section: $cells.eq(1).text().trim(),
+                    teacher: $cells.eq(2).find('div').contents().filter(function () {
+                        return this.nodeType === 3;
+                    }).text().trim(),
+                    students: $cells.eq(3).text().trim(),
+                    avgScore: $cells.eq(4).text().trim(),
+                    status: $cells.eq(5).text().trim(),
+                    trend: $cells.eq(6).find('.material-symbols-outlined').text().trim()
+                };
+
+                // Redirect to view page with parameters
+                const params = new URLSearchParams(classData);
+                window.location.href = `view-class-performance.html?${params.toString()}`;
+            });
+        });
+
+        function setActiveMenuItem() {
+            // You can add active menu item logic here if needed
+            // For example, highlighting "Classes Performance" in the sidebar
+        }
+
+        // Initialize Charts
+        function initializeCharts() {
+            // Class-wise Performance Comparison Chart (Bar Chart)
+            const comparisonCtx = document.getElementById('performanceComparisonChart');
+            if (comparisonCtx) {
+                new Chart(comparisonCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['10-A', '10-B', '9-A', '8-B', '11-C'],
+                        datasets: [{
+                            label: 'Average Score %',
+                            data: [88, 72, 65, 54, 79],
+                            backgroundColor: [
+                                'rgba(107, 33, 168, 0.8)',
+                                'rgba(107, 33, 168, 0.8)',
+                                'rgba(107, 33, 168, 0.8)',
+                                'rgba(107, 33, 168, 0.8)',
+                                'rgba(107, 33, 168, 0.8)'
+                            ],
+                            borderColor: [
+                                'rgba(107, 33, 168, 1)',
+                                'rgba(107, 33, 168, 1)',
+                                'rgba(107, 33, 168, 1)',
+                                'rgba(107, 33, 168, 1)',
+                                'rgba(107, 33, 168, 1)'
+                            ],
+                            borderWidth: 1,
+                            borderRadius: 6,
+                            barThickness: 40
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: true,
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            tooltip: {
+                                backgroundColor: '#fff',
+                                titleColor: '#111827',
+                                bodyColor: '#6b7280',
+                                borderColor: '#e5e7eb',
+                                borderWidth: 1,
+                                padding: 12,
+                                boxPadding: 6,
+                                usePointStyle: true,
+                                callbacks: {
+                                    label: function (context) {
+                                        return 'Score: ' + context.parsed.y + '%';
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                max: 100,
+                                ticks: {
+                                    callback: function (value) {
+                                        return value + '%';
+                                    },
+                                    color: '#6b7280',
+                                    font: {
+                                        size: 11
+                                    }
+                                },
+                                grid: {
+                                    color: '#f3f4f6',
+                                    drawBorder: false
+                                }
+                            },
+                            x: {
+                                ticks: {
+                                    color: '#6b7280',
+                                    font: {
+                                        size: 11,
+                                        weight: '600'
+                                    }
+                                },
+                                grid: {
+                                    display: false,
+                                    drawBorder: false
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Performance Distribution Chart (Donut Chart)
+            const distributionCtx = document.getElementById('performanceDistributionChart');
+            if (distributionCtx) {
+                new Chart(distributionCtx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['High Performing', 'Average', 'Low Performing'],
+                        datasets: [{
+                            data: [35, 50, 15],
+                            backgroundColor: [
+                                '#10b981',
+                                '#f59e0b',
+                                '#ef4444'
+                            ],
+                            borderColor: '#fff',
+                            borderWidth: 3,
+                            hoverOffset: 8
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: true,
+                        cutout: '70%',
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            tooltip: {
+                                backgroundColor: '#fff',
+                                titleColor: '#111827',
+                                bodyColor: '#6b7280',
+                                borderColor: '#e5e7eb',
+                                borderWidth: 1,
+                                padding: 12,
+                                boxPadding: 6,
+                                usePointStyle: true,
+                                callbacks: {
+                                    label: function (context) {
+                                        return context.label + ': ' + context.parsed + '%';
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    plugins: [{
+                        id: 'centerText',
+                        afterDraw: function (chart) {
+                            const ctx = chart.ctx;
+                            const centerX = (chart.chartArea.left + chart.chartArea.right) / 2;
+                            const centerY = (chart.chartArea.top + chart.chartArea.bottom) / 2;
+
+                            ctx.save();
+                            ctx.font = 'bold 28px Poppins';
+                            ctx.fillStyle = '#111827';
+                            ctx.textAlign = 'center';
+                            ctx.textBaseline = 'middle';
+                            ctx.fillText('24', centerX, centerY - 10);
+
+                            ctx.font = '12px Poppins';
+                            ctx.fillStyle = '#6b7280';
+                            ctx.fillText('Total Classes', centerX, centerY + 15);
+                            ctx.restore();
+                        }
+                    }]
+                });
+            }
+        }
+
+        // Initialize charts after page load
+        document.addEventListener('DOMContentLoaded', initializeCharts);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class Attendance Details - School Admin</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+
+    <!-- Sidebar & Header JS -->
+    <script src="sidebar.js"></script>
+    <script src="header.js"></script>
+
+    <style>
+        /* Prevent FOUC - hide containers until loaded */
+        #sidebar-container:empty,
+        #header-container:empty {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        #sidebar-container.loaded,
+        #header-container.loaded {
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.2s ease-in;
+        }
+
+        :root {
+            --primary: #6B21A8;
+            --background-light: #F3F4F6;
+            --card-radius: 0.5rem;
+            --shadow: 0 1px 2px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background-light);
+            color: #374151;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .dashboard-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        .class-info-card {
+            height: auto;
+        }
+
+        .att-view-dash {
+            padding-top: 1rem !important;
+        }
+
+        .card {
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            border-radius: var(--card-radius);
+            box-shadow: var(--shadow);
+            background-color: #fff;
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            font-size: 20px;
+            line-height: 1;
+        }
+
+        /* Class Header Card */
+        .class-header-card {
+            position: relative;
+            background: linear-gradient(135deg, rgba(107, 33, 168, 0.08) 0%, rgba(147, 51, 234, 0.12) 100%);
+            border: 1px solid rgba(107, 33, 168, 0.15);
+            border-radius: var(--card-radius);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .class-header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .class-title-section h1 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #111827;
+            margin: 0 0 0.5rem 0;
+        }
+
+        .class-subtitle {
+            color: #6b7280;
+            font-size: 0.875rem;
+            margin: 0;
+        }
+
+        .class-stats-section {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .class-stat-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.25rem;
+            padding: 0.75rem 1.25rem;
+            background: #ffffff;
+            border-radius: 0.625rem;
+            border: 1px solid rgba(107, 33, 168, 0.12);
+            box-shadow: 0 2px 8px rgba(107, 33, 168, 0.06);
+            min-width: 100px;
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: #6b7280;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        .status-badge.good {
+            background: #d1fae5;
+            color: #166534;
+        }
+
+        .status-badge.average {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .status-badge.attention {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        /* Metric Cards */
+        .metric-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        @media (max-width: 1200px) {
+            .metric-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 576px) {
+            .metric-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .metric-card {
+            background: #fff;
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            transition: all 0.3s ease;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+        }
+
+        .metric-icon {
+            width: 3rem;
+            height: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .metric-icon.primary {
+            background: linear-gradient(135deg, rgba(107, 33, 168, 0.1) 0%, rgba(147, 51, 234, 0.15) 100%);
+        }
+
+        .metric-icon.primary .material-symbols-outlined {
+            color: var(--primary);
+            font-variation-settings: 'FILL' 1, 'wght' 500, 'GRAD' 0, 'opsz' 24;
+            font-size: 28px;
+        }
+
+        .metric-icon.green {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(5, 150, 105, 0.15) 100%);
+        }
+
+        .metric-icon.green .material-symbols-outlined {
+            color: #10b981;
+            font-variation-settings: 'FILL' 1, 'wght' 500, 'GRAD' 0, 'opsz' 24;
+            font-size: 28px;
+        }
+
+        .metric-icon.red {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(220, 38, 38, 0.15) 100%);
+        }
+
+        .metric-icon.red .material-symbols-outlined {
+            color: #ef4444;
+            font-variation-settings: 'FILL' 1, 'wght' 500, 'GRAD' 0, 'opsz' 24;
+            font-size: 28px;
+        }
+
+        .metric-icon.blue {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(37, 99, 235, 0.15) 100%);
+        }
+
+        .metric-icon.blue .material-symbols-outlined {
+            color: #3b82f6;
+            font-variation-settings: 'FILL' 1, 'wght' 500, 'GRAD' 0, 'opsz' 24;
+            font-size: 28px;
+        }
+
+        .metric-label {
+            font-size: 0.875rem;
+            color: #6b7280;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .metric-value {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #111827;
+            margin: 0;
+        }
+
+        /* Info Section */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .info-item {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .info-label {
+            font-size: 0.75rem;
+            color: #6b7280;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+
+        .info-value {
+            font-size: 1rem;
+            color: #111827;
+            font-weight: 600;
+        }
+
+        .btn-back {
+            /* background: #fff; */
+            /* border: 1px solid #e5e7eb; */
+            /* border-radius: 0.5rem; */
+            padding: 0.5rem 1rem;
+            font-weight: 600;
+            color: #374151;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+
+        .btn-back:hover {
+            /* background: #f9fafb; */
+            color: #6B21A8;
+            /* border-color: #d1d5db; */
+        }
+
+        /* Chart Container */
+        .chart-container {
+            position: relative;
+            height: 300px;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- Include Sidebar Component -->
+        <div id="sidebar-container"></div>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Include Header Component -->
+            <div id="header-container"></div>
+
+            <div class="py-4 py-sm-5 py-lg-5 att-view-dash">
+                <div class="container-xl" style="max-width: 1400px;">
+                    <!-- Back Button -->
+                    <div class="mb-3">
+                        <a href="class-attendance.html" class="btn-back">
+                            <span class="material-symbols-outlined" style="font-size: 18px;">arrow_back</span>
+                            Back to Classes Attendance
+                        </a>
+                    </div>
+
+                    <!-- Class Header Card -->
+                    <div class="class-header-card">
+                        <div class="class-header-content">
+                            <div class="class-title-section">
+                                <h1 id="classTitle">Class Details</h1>
+                                <!-- <p class="class-subtitle">
+                                    <span class="material-symbols-outlined" style="font-size: 16px; vertical-align: middle;">person</span>
+                                    <span id="teacherName">Teacher Name</span>
+                                </p> -->
+                            </div>
+                            <div class="class-stats-section">
+                                <div class="class-stat-item">
+                                    <span class="stat-label">Students</span>
+                                    <span class="stat-value" id="totalStudents">0</span>
+                                </div>
+                                <div class="class-stat-item">
+                                    <span class="stat-label">Status</span>
+                                    <span class="status-badge" id="statusBadge">Good</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Metrics Cards -->
+                    <div class="metric-grid">
+                        <div class="metric-card">
+                            <div class="metric-icon primary">
+                                <span class="material-symbols-outlined">percent</span>
+                            </div>
+                            <p class="metric-label mb-0">Current Attendance Rate</p>
+                            <p class="metric-value" id="attendanceRate">0%</p>
+                        </div>
+
+                        <div class="metric-card">
+                            <div class="metric-icon red">
+                                <span class="material-symbols-outlined">person_off</span>
+                            </div>
+                            <p class="metric-label mb-0">Absentee Rate</p>
+                            <p class="metric-value" id="absenteeRate">0%</p>
+                        </div>
+
+                        <div class="metric-card">
+                            <div class="metric-icon green">
+                                <span class="material-symbols-outlined">check_circle</span>
+                            </div>
+                            <p class="metric-label mb-0">Avg. Daily Present</p>
+                            <p class="metric-value" id="avgPresent">0</p>
+                        </div>
+
+                        <div class="metric-card">
+                            <div class="metric-icon blue">
+                                <span class="material-symbols-outlined">calendar_month</span>
+                            </div>
+                            <p class="metric-label mb-0">Days Tracked</p>
+                            <p class="metric-value" id="daysTracked">22</p>
+                        </div>
+                    </div>
+
+                    <!-- Details Section -->
+                    <div class="row g-4">
+                        <!-- Class Information -->
+                        <div class="col-12 col-lg-6">
+                            <div class="card class-info-card">
+                                <div class="card-body">
+                                    <h5 class="card-title fw-bold mb-4">Class Information</h5>
+                                    <div class="info-grid">
+                                        <div class="info-item">
+                                            <span class="info-label">Class / Grade</span>
+                                            <span class="info-value" id="infoGrade">-</span>
+                                        </div>
+                                        <div class="info-item">
+                                            <span class="info-label">Section</span>
+                                            <span class="info-value" id="infoSection">-</span>
+                                        </div>
+                                        <div class="info-item">
+                                            <span class="info-label">Class Teacher</span>
+                                            <span class="info-value" id="infoTeacher">-</span>
+                                        </div>
+                                        <div class="info-item">
+                                            <span class="info-label">Total Students</span>
+                                            <span class="info-value" id="infoStudents">-</span>
+                                        </div>
+                                        <div class="info-item">
+                                            <span class="info-label">Boys</span>
+                                            <span class="info-value" id="infoMale">-</span>
+                                        </div>
+                                        <div class="info-item">
+                                            <span class="info-label">Girls</span>
+                                            <span class="info-value" id="infoFemale">-</span>
+                                        </div>
+                                        <div class="info-item">
+                                            <span class="info-label">Academic Year</span>
+                                            <span class="info-value">2024-2025</span>
+                                        </div>
+                                        <div class="info-item">
+                                            <span class="info-label">Room Number</span>
+                                            <span class="info-value" id="infoRoom">-</span>
+                                        </div>
+                                        <div class="info-item">
+                                            <span class="info-label">Performance Status</span>
+                                            <span class="info-value" id="infoStatus">-</span>
+                                        </div>
+                                        <div class="info-item">
+                                            <span class="info-label">Class Timing</span>
+                                            <span class="info-value">8:00 AM - 2:00 PM</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Attendance Trend Chart -->
+                        <div class="col-12 col-lg-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title fw-bold mb-3">Weekly Attendance Trend</h5>
+                                    <div class="chart-container">
+                                        <canvas id="attendanceTrendChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Today's Attendance Status -->
+                        <div class="col-12 col-lg-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title fw-bold mb-4">Today's Attendance Status</h5>
+                                    <div class="d-flex justify-content-between align-items-center mb-3 pb-3" style="border-bottom: 1px solid #e5e7eb;">
+                                        <div class="d-flex align-items-center gap-2">
+                                            <div style="width: 2.5rem; height: 2.5rem; border-radius: 50%; background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(5, 150, 105, 0.15) 100%); display: flex; align-items: center; justify-content: center;">
+                                                <span class="material-symbols-outlined" style="color: #10b981; font-size: 20px;">check_circle</span>
+                                            </div>
+                                            <div>
+                                                <div class="text-muted" style="font-size: 0.75rem;">Present</div>
+                                                <div class="fw-bold" style="font-size: 1.25rem;" id="todayPresent">28</div>
+                                            </div>
+                                        </div>
+                                        <div class="text-end">
+                                            <div class="fw-bold" style="font-size: 1.25rem; color: #10b981;">93%</div>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center mb-3 pb-3" style="border-bottom: 1px solid #e5e7eb;">
+                                        <div class="d-flex align-items-center gap-2">
+                                            <div style="width: 2.5rem; height: 2.5rem; border-radius: 50%; background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(220, 38, 38, 0.15) 100%); display: flex; align-items: center; justify-content: center;">
+                                                <span class="material-symbols-outlined" style="color: #ef4444; font-size: 20px;">cancel</span>
+                                            </div>
+                                            <div>
+                                                <div class="text-muted" style="font-size: 0.75rem;">Absent</div>
+                                                <div class="fw-bold" style="font-size: 1.25rem;" id="todayAbsent">2</div>
+                                            </div>
+                                        </div>
+                                        <div class="text-end">
+                                            <div class="fw-bold" style="font-size: 1.25rem; color: #ef4444;">7%</div>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="d-flex align-items-center gap-2">
+                                            <div style="width: 2.5rem; height: 2.5rem; border-radius: 50%; background: linear-gradient(135deg, rgba(249, 115, 22, 0.1) 0%, rgba(234, 88, 12, 0.15) 100%); display: flex; align-items: center; justify-content: center;">
+                                                <span class="material-symbols-outlined" style="color: #f97316; font-size: 20px;">schedule</span>
+                                            </div>
+                                            <div>
+                                                <div class="text-muted" style="font-size: 0.75rem;">Late Arrival</div>
+                                                <div class="fw-bold" style="font-size: 1.25rem;" id="todayLate">0</div>
+                                            </div>
+                                        </div>
+                                        <div class="text-end">
+                                            <div class="fw-bold" style="font-size: 1.25rem; color: #f97316;">0%</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Attendance Distribution -->
+                        <div class="col-12 col-lg-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title fw-bold mb-3">Attendance Distribution</h5>
+                                    <div style="height: 250px; display: flex; align-items: center; justify-content: center;">
+                                        <canvas id="attendanceDistributionChart"></canvas>
+                                    </div>
+                                    <div class="mt-3">
+                                        <div class="d-flex justify-content-between align-items-center mb-2">
+                                            <div class="d-flex align-items-center gap-2">
+                                                <span class="rounded-circle" style="width: 12px; height: 12px; background-color: #10b981; display: inline-block;"></span>
+                                                <span class="text-muted" style="font-size: 0.875rem;">Excellent (>90%)</span>
+                                            </div>
+                                            <span class="fw-bold">65%</span>
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-center mb-2">
+                                            <div class="d-flex align-items-center gap-2">
+                                                <span class="rounded-circle" style="width: 12px; height: 12px; background-color: #f59e0b; display: inline-block;"></span>
+                                                <span class="text-muted" style="font-size: 0.875rem;">Good (75-90%)</span>
+                                            </div>
+                                            <span class="fw-bold">25%</span>
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div class="d-flex align-items-center gap-2">
+                                                <span class="rounded-circle" style="width: 12px; height: 12px; background-color: #ef4444; display: inline-block;"></span>
+                                                <span class="text-muted" style="font-size: 0.875rem;">Needs Attention (<75%)</span>
+                                            </div>
+                                            <span class="fw-bold">10%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Recent Attendance Records -->
+                        <div class="col-12 col-lg-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title fw-bold mb-4">Recent Attendance Records</h5>
+                                    <div class="d-flex flex-column gap-3">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <div class="fw-semibold" style="font-size: 0.875rem;">Monday, Dec 25</div>
+                                                <div class="text-muted" style="font-size: 0.75rem;">30 out of 32</div>
+                                            </div>
+                                            <div class="text-end">
+                                                <div class="fw-bold" style="color: #10b981;">94%</div>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <div class="fw-semibold" style="font-size: 0.875rem;">Tuesday, Dec 26</div>
+                                                <div class="text-muted" style="font-size: 0.75rem;">31 out of 32</div>
+                                            </div>
+                                            <div class="text-end">
+                                                <div class="fw-bold" style="color: #10b981;">97%</div>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <div class="fw-semibold" style="font-size: 0.875rem;">Wednesday, Dec 27</div>
+                                                <div class="text-muted" style="font-size: 0.75rem;">28 out of 32</div>
+                                            </div>
+                                            <div class="text-end">
+                                                <div class="fw-bold" style="color: #f59e0b;">88%</div>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <div class="fw-semibold" style="font-size: 0.875rem;">Thursday, Dec 28</div>
+                                                <div class="text-muted" style="font-size: 0.75rem;">32 out of 32</div>
+                                            </div>
+                                            <div class="text-end">
+                                                <div class="fw-bold" style="color: #10b981;">100%</div>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <div class="fw-semibold" style="font-size: 0.875rem;">Friday, Dec 29</div>
+                                                <div class="text-muted" style="font-size: 0.75rem;">29 out of 32</div>
+                                            </div>
+                                            <div class="text-end">
+                                                <div class="fw-bold" style="color: #10b981;">91%</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Monthly Attendance Overview -->
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title fw-bold mb-4">Monthly Attendance Overview</h5>
+                                    <div class="row g-3">
+                                        <div class="col-6 col-md-3">
+                                            <div class="text-center p-3"
+                                                style="background: #f9fafb; border-radius: 0.5rem;">
+                                                <div class="fw-bold text-muted"
+                                                    style="font-size: 0.75rem; margin-bottom: 0.5rem;">WEEK 1</div>
+                                                <div class="fw-bold" style="font-size: 1.5rem; color: var(--primary);">
+                                                    94%</div>
+                                                <div class="text-muted" style="font-size: 0.75rem;">5 Days</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6 col-md-3">
+                                            <div class="text-center p-3"
+                                                style="background: #f9fafb; border-radius: 0.5rem;">
+                                                <div class="fw-bold text-muted"
+                                                    style="font-size: 0.75rem; margin-bottom: 0.5rem;">WEEK 2</div>
+                                                <div class="fw-bold" style="font-size: 1.5rem; color: var(--primary);">
+                                                    96%</div>
+                                                <div class="text-muted" style="font-size: 0.75rem;">5 Days</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6 col-md-3">
+                                            <div class="text-center p-3"
+                                                style="background: #f9fafb; border-radius: 0.5rem;">
+                                                <div class="fw-bold text-muted"
+                                                    style="font-size: 0.75rem; margin-bottom: 0.5rem;">WEEK 3</div>
+                                                <div class="fw-bold" style="font-size: 1.5rem; color: var(--primary);">
+                                                    92%</div>
+                                                <div class="text-muted" style="font-size: 0.75rem;">6 Days</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6 col-md-3">
+                                            <div class="text-center p-3"
+                                                style="background: #f9fafb; border-radius: 0.5rem;">
+                                                <div class="fw-bold text-muted"
+                                                    style="font-size: 0.75rem; margin-bottom: 0.5rem;">WEEK 4</div>
+                                                <div class="fw-bold" style="font-size: 1.5rem; color: var(--primary);">
+                                                    98%</div>
+                                                <div class="text-muted" style="font-size: 0.75rem;">6 Days</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+    <script>
+        // Load Sidebar and Header Components
+        document.addEventListener('DOMContentLoaded', function () {
+            Promise.all([
+                fetch('sidebar.html').then(response => response.text()),
+                fetch('header.html').then(response => response.text())
+            ]).then(([sidebarHTML, headerHTML]) => {
+                document.getElementById('sidebar-container').innerHTML = sidebarHTML;
+                document.getElementById('header-container').innerHTML = headerHTML;
+
+                setTimeout(() => {
+                    if (typeof initializeHeader === 'function') {
+                        initializeHeader();
+                    }
+
+                    document.getElementById('sidebar-container').classList.add('loaded');
+                    document.getElementById('header-container').classList.add('loaded');
+                }, 200);
+            });
+
+            // Get URL parameters
+            const urlParams = new URLSearchParams(window.location.search);
+            const grade = urlParams.get('grade') || 'Class 10';
+            const section = urlParams.get('section') || 'A';
+            const teacher = urlParams.get('teacher') || 'Teacher Name';
+            const students = urlParams.get('students') || '30';
+            const attendance = urlParams.get('attendance') || '95%';
+            const absenteeRate = urlParams.get('absenteeRate') || '5%';
+            const status = urlParams.get('status') || 'Good';
+
+            // Update page content
+            document.getElementById('classTitle').textContent = `${grade} - Section ${section}`;
+            // document.getElementById('teacherName').textContent = teacher;
+            document.getElementById('totalStudents').textContent = students;
+            document.getElementById('attendanceRate').textContent = attendance;
+            document.getElementById('absenteeRate').textContent = absenteeRate;
+
+            // Calculate average present students
+            const attendancePercent = parseFloat(attendance);
+            const totalStud = parseInt(students);
+            const avgPresent = Math.round((attendancePercent / 100) * totalStud);
+            document.getElementById('avgPresent').textContent = avgPresent;
+
+            // Update status badge
+            const statusBadge = document.getElementById('statusBadge');
+            statusBadge.textContent = status;
+            statusBadge.className = 'status-badge';
+            if (status === 'Good') {
+                statusBadge.classList.add('good');
+            } else if (status === 'Average') {
+                statusBadge.classList.add('average');
+            } else {
+                statusBadge.classList.add('attention');
+            }
+
+            // Update info section
+            document.getElementById('infoGrade').textContent = grade;
+            document.getElementById('infoSection').textContent = section;
+            document.getElementById('infoTeacher').textContent = teacher;
+            document.getElementById('infoStudents').textContent = students;
+            document.getElementById('infoStatus').textContent = status;
+
+            // Calculate and update gender distribution (assuming roughly 50-50 split)
+            const maleStudents = Math.floor(totalStud * 0.55);
+            const femaleStudents = totalStud - maleStudents;
+            document.getElementById('infoMale').textContent = maleStudents;
+            document.getElementById('infoFemale').textContent = femaleStudents;
+
+            // Set room number based on grade and section
+            document.getElementById('infoRoom').textContent = `Room ${grade.replace('Class ', '')}${section}`;
+
+            // Initialize Attendance Trend Chart
+            const trendCtx = document.getElementById('attendanceTrendChart');
+            if (trendCtx) {
+                new Chart(trendCtx, {
+                    type: 'line',
+                    data: {
+                        labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+                        datasets: [{
+                            label: 'Attendance %',
+                            data: [94, 96, 92, 98],
+                            borderColor: 'rgba(107, 33, 168, 1)',
+                            backgroundColor: 'rgba(107, 33, 168, 0.1)',
+                            borderWidth: 3,
+                            fill: true,
+                            tension: 0.4,
+                            pointRadius: 6,
+                            pointBackgroundColor: '#fff',
+                            pointBorderColor: 'rgba(107, 33, 168, 1)',
+                            pointBorderWidth: 2,
+                            pointHoverRadius: 8
+                        }, {
+                            label: 'Target (90%)',
+                            data: [90, 90, 90, 90],
+                            borderColor: 'rgba(16, 185, 129, 0.5)',
+                            backgroundColor: 'transparent',
+                            borderWidth: 2,
+                            borderDash: [5, 5],
+                            fill: false,
+                            pointRadius: 0
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: true,
+                        aspectRatio: 2,
+                        plugins: {
+                            legend: {
+                                display: true,
+                                position: 'top',
+                                align: 'end',
+                                labels: {
+                                    usePointStyle: true,
+                                    pointStyle: 'circle',
+                                    padding: 15,
+                                    font: {
+                                        size: 12,
+                                        family: 'Poppins'
+                                    },
+                                    color: '#6b7280'
+                                }
+                            },
+                            tooltip: {
+                                backgroundColor: '#fff',
+                                titleColor: '#111827',
+                                bodyColor: '#6b7280',
+                                borderColor: '#e5e7eb',
+                                borderWidth: 1,
+                                padding: 12,
+                                boxPadding: 6,
+                                usePointStyle: true,
+                                callbacks: {
+                                    label: function (context) {
+                                        return context.dataset.label + ': ' + context.parsed.y + '%';
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                max: 100,
+                                ticks: {
+                                    callback: function (value) {
+                                        return value + '%';
+                                    },
+                                    color: '#6b7280',
+                                    font: {
+                                        size: 11
+                                    }
+                                },
+                                grid: {
+                                    color: '#f3f4f6',
+                                    drawBorder: false
+                                }
+                            },
+                            x: {
+                                ticks: {
+                                    color: '#6b7280',
+                                    font: {
+                                        size: 11
+                                    }
+                                },
+                                grid: {
+                                    color: '#f3f4f6',
+                                    drawBorder: false
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Initialize Attendance Distribution Chart (Donut Chart)
+            const distributionCtx = document.getElementById('attendanceDistributionChart');
+            if (distributionCtx) {
+                new Chart(distributionCtx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Excellent (>90%)', 'Good (75-90%)', 'Needs Attention (<75%)'],
+                        datasets: [{
+                            data: [65, 25, 10],
+                            backgroundColor: [
+                                '#10b981',
+                                '#f59e0b',
+                                '#ef4444'
+                            ],
+                            borderColor: '#fff',
+                            borderWidth: 3,
+                            hoverOffset: 8
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: true,
+                        cutout: '65%',
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            tooltip: {
+                                backgroundColor: '#fff',
+                                titleColor: '#111827',
+                                bodyColor: '#6b7280',
+                                borderColor: '#e5e7eb',
+                                borderWidth: 1,
+                                padding: 12,
+                                boxPadding: 6,
+                                usePointStyle: true,
+                                callbacks: {
+                                    label: function(context) {
+                                        return context.label + ': ' + context.parsed + '%';
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>
