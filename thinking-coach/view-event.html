@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Event – Enpower Skill Lab</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;900&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+
+    <!-- Sidebar JS -->
+    <script src="sidebar.js"></script>
+    <!-- Header JS -->
+    <script src="header.js"></script>
+
+    <style>
+        /* Prevent FOUC - hide containers until loaded */
+        #sidebar-container:empty,
+        #header-container:empty {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        #sidebar-container.loaded,
+        #header-container.loaded {
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.2s ease-in;
+        }
+
+        /* ================= Root ================= */
+        :root {
+            --primary: #5b1f6f;
+            --bg-light: #f7f6f8;
+            --surface: #ffffff;
+            --text-main: #171019;
+            --text-secondary: #80588d;
+            --border-color: #dfd3e4;
+        }
+
+        body {
+            background: var(--bg-light);
+            font-family: "Poppins", sans-serif;
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+        }
+
+        /* ================= Dashboard Layout ================= */
+        .dashboard-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        .page-head {
+            font-weight: 600;
+            font-size: 30px;
+            margin-bottom: 0;
+        }
+
+        .content-wrapper {
+            flex: 1;
+            padding: 0;
+        }
+
+        /* ================= Cards ================= */
+        .card-box {
+            background: var(--surface);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 24px;
+        }
+
+        /* ================= Event Header ================= */
+        .event-header {
+            background: linear-gradient(135deg, #a67db1 0%, #6e3fbd 100%);
+            border-radius: 16px;
+            padding: 32px;
+            color: white;
+            margin-bottom: 24px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .event-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 300px;
+            height: 300px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+        }
+
+        .event-icon-large {
+            width: 80px;
+            height: 80px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: #fff;
+            font-size: 2rem;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .status-upcoming {
+            background-color: #dbeafe;
+            color: #1e40af;
+        }
+
+        .status-ongoing {
+            background-color: #d1fae5;
+            color: #166534;
+        }
+
+        .status-completed {
+            background-color: #e5e7eb;
+            color: #4b5563;
+        }
+
+        .status-cancelled {
+            background-color: #fee2e2;
+            color: #991b1b;
+        }
+
+        /* ================= Info Grid ================= */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 16px;
+            background: var(--bg-light);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        .info-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            color: white;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .info-content {
+            flex: 1;
+        }
+
+        .info-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .info-value {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        /* ================= Buttons ================= */
+        .btn-primary-custom {
+            background: var(--primary);
+            color: #fff;
+            font-weight: 600;
+            border-radius: 10px;
+            padding: 10px 24px;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+
+        .btn-primary-custom:hover {
+            background: #4a195b;
+            color: #fff;
+        }
+
+        .btn-outline-custom {
+            border: 2px solid var(--border-color);
+            color: var(--text-main);
+            font-weight: 600;
+            border-radius: 10px;
+            padding: 10px 24px;
+            background: white;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+
+        .btn-outline-custom:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            background: #f0edff;
+        }
+
+        /* ================= Badge Pills ================= */
+        .badge-pill-custom {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            background: #e0e7ff;
+            color: #4338ca;
+        }
+
+        .priority-normal {
+            background: #e0e7ff;
+            color: #4338ca;
+        }
+
+        .priority-high {
+            background: #fed7aa;
+            color: #c2410c;
+        }
+
+        .priority-urgent {
+            background: #fecaca;
+            color: #991b1b;
+        }
+
+        /* ================= Timeline ================= */
+        .timeline-item {
+            display: flex;
+            gap: 16px;
+            padding: 16px;
+            background: var(--bg-light);
+            border-radius: 12px;
+            border-left: 4px solid var(--primary);
+            margin-bottom: 12px;
+        }
+
+        .timeline-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .timeline-content {
+            flex: 1;
+        }
+
+        .timeline-time {
+            font-size: 13px;
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+
+        .timeline-text {
+            font-size: 15px;
+            color: var(--text-main);
+            margin-top: 4px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <div id="sidebar-container"></div>
+
+        <!-- Main Content Area -->
+        <div class="main-content">
+            <!-- Header -->
+            <div id="header-container"></div>
+
+            <!-- Content -->
+            <div class="content-wrapper">
+                <main class="container-xl py-5">
+
+                    <!-- Back Button -->
+                    <div class="mb-4">
+                        <a href="event-list.html" class="btn-outline-custom text-decoration-none">
+                            <span class="material-symbols-outlined">arrow_back</span>
+                            Back to Event List
+                        </a>
+                    </div>
+
+                    <!-- Event Header -->
+                    <div class="event-header">
+                        <div class="d-flex align-items-start justify-content-between flex-wrap gap-3"
+                            style="position: relative; z-index: 1;">
+                            <div class="d-flex align-items-start gap-4">
+                                <div class="event-icon-large" id="eventIconLarge">
+                                    <span class="material-symbols-outlined"
+                                        style="font-size: 48px;">calendar_today</span>
+                                </div>
+                                <div>
+                                    <h1 class="page-head text-white mb-2" id="eventTitle">Loading...</h1>
+                                    <p class="mb-3 opacity-90" id="eventDescription">Loading event details...</p>
+                                    <span class="status-badge" id="eventStatusBadge">Loading</span>
+                                </div>
+                            </div>
+                            <div class="d-flex gap-2 flex-wrap">
+                                <button class="btn btn-light" id="editEventBtn">
+                                    <span class="material-symbols-outlined"
+                                        style="font-size: 20px; vertical-align: middle;">edit</span>
+                                    Edit Event
+                                </button>
+                                <button class="btn btn-outline-light" id="deleteEventBtn">
+                                    <span class="material-symbols-outlined"
+                                        style="font-size: 20px; vertical-align: middle;">delete</span>
+                                    Delete
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row g-4">
+                        <!-- Left Column -->
+                        <div class="col-lg-8">
+                            <!-- Event Details -->
+                            <div class="card-box mb-4">
+                                <h5 class="fw-bold mb-4">Event Information</h5>
+                                <div class="info-grid">
+                                    <div class="info-item">
+                                        <div class="info-icon">
+                                            <span class="material-symbols-outlined">event</span>
+                                        </div>
+                                        <div class="info-content">
+                                            <div class="info-label">Event Type</div>
+                                            <div class="info-value" id="eventType">-</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="info-item">
+                                        <div class="info-icon">
+                                            <span class="material-symbols-outlined">location_on</span>
+                                        </div>
+                                        <div class="info-content">
+                                            <div class="info-label">Location</div>
+                                            <div class="info-value" id="eventLocation">-</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="info-item">
+                                        <div class="info-icon">
+                                            <span class="material-symbols-outlined">school</span>
+                                        </div>
+                                        <div class="info-content">
+                                            <div class="info-label">Class</div>
+                                            <div class="info-value" id="eventClass">-</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="info-item">
+                                        <div class="info-icon">
+                                            <span class="material-symbols-outlined">flag</span>
+                                        </div>
+                                        <div class="info-content">
+                                            <div class="info-label">Priority</div>
+                                            <div class="info-value">
+                                                <span class="badge-pill-custom" id="eventPriority">-</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Date & Time Details -->
+                            <div class="card-box mb-4">
+                                <h5 class="fw-bold mb-4">Schedule</h5>
+                                <div class="timeline-item">
+                                    <div class="timeline-icon">
+                                        <span class="material-symbols-outlined">schedule</span>
+                                    </div>
+                                    <div class="timeline-content">
+                                        <div class="timeline-time">Start Date & Time</div>
+                                        <div class="timeline-text" id="startDateTime">-</div>
+                                    </div>
+                                </div>
+                                <div class="timeline-item">
+                                    <div class="timeline-icon">
+                                        <span class="material-symbols-outlined">event_available</span>
+                                    </div>
+                                    <div class="timeline-content">
+                                        <div class="timeline-time">End Date & Time</div>
+                                        <div class="timeline-text" id="endDateTime">-</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Description -->
+                            <div class="card-box" id="descriptionCard" style="display: none;">
+                                <h5 class="fw-bold mb-3">Description</h5>
+                                <p class="mb-0" style="line-height: 1.7;" id="fullDescription">-</p>
+                            </div>
+                        </div>
+
+                        <!-- Right Column -->
+                        <div class="col-lg-4">
+                            <!-- Notifications -->
+                            <div class="card-box mb-4">
+                                <h5 class="fw-bold mb-4 d-flex align-items-center gap-2">
+                                    <span class="material-symbols-outlined">notifications</span>
+                                    Notifications
+                                </h5>
+
+                                <div class="d-flex justify-content-between align-items-center mb-3 pb-3"
+                                    style="border-bottom: 1px solid var(--border-color);">
+                                    <div>
+                                        <strong style="font-size: 14px;">Students</strong>
+                                        <!-- <div class="text-muted small">Email notifications</div> -->
+                                    </div>
+                                    <span class="material-symbols-outlined" id="notifyStudentsIcon"
+                                        style="color: #10b981;">check_circle</span>
+                                </div>
+
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <strong style="font-size: 14px;">Parents</strong>
+                                        <!-- <div class="text-muted small">Email notifications</div> -->
+                                    </div>
+                                    <span class="material-symbols-outlined" id="notifyParentsIcon"
+                                        style="color: #10b981;">check_circle</span>
+                                </div>
+                            </div>
+
+                            <!-- Reminder -->
+                            <div class="card-box">
+                                <h5 class="fw-bold mb-4 d-flex align-items-center gap-2">
+                                    <span class="material-symbols-outlined">alarm</span>
+                                    Reminder
+                                </h5>
+
+                                <div class="info-item">
+                                    <div class="info-icon">
+                                        <span class="material-symbols-outlined">notifications_active</span>
+                                    </div>
+                                    <div class="info-content">
+                                        <div class="info-label">Reminder Set</div>
+                                        <div class="info-value" id="reminderTime">-</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </main>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Load sidebar
+        fetch('sidebar.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('sidebar-container').innerHTML = data;
+                document.getElementById('sidebar-container').classList.add('loaded');
+            })
+            .catch(error => console.error('Error loading sidebar:', error));
+
+        // Load header
+        fetch('header.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header-container').innerHTML = data;
+                document.getElementById('header-container').classList.add('loaded');
+            })
+            .catch(error => console.error('Error loading header:', error));
+
+        document.addEventListener('DOMContentLoaded', function () {
+            // Get event ID from URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const eventId = urlParams.get('id');
+
+            if (!eventId) {
+                alert('No event ID provided!');
+                window.location.href = 'event-list.html';
+                return;
+            }
+
+            // Load event data
+            loadEventData(eventId);
+
+            // Edit button handler
+            document.getElementById('editEventBtn').addEventListener('click', function () {
+                window.location.href = `edit-event.html?id=${eventId}`;
+            });
+
+            // Delete button handler
+            document.getElementById('deleteEventBtn').addEventListener('click', function () {
+                if (confirm('Are you sure you want to delete this event?\n\nThis action cannot be undone.')) {
+                    deleteEvent(eventId);
+                }
+            });
+        });
+
+        function loadEventData(eventId) {
+            // Load from localStorage
+            const events = JSON.parse(localStorage.getItem('classEvents') || '[]');
+            const event = events.find(e => e.id == eventId);
+
+            if (!event) {
+                alert('Event not found!');
+                window.location.href = 'event-list.html';
+                return;
+            }
+
+            // Populate event details
+            document.getElementById('eventTitle').textContent = event.name;
+            document.getElementById('eventDescription').textContent = event.description || 'No description provided.';
+
+            // Show description card if description exists
+            if (event.description) {
+                document.getElementById('descriptionCard').style.display = 'block';
+                document.getElementById('fullDescription').textContent = event.description;
+            }
+
+            // Set icon and color
+            const iconLarge = document.getElementById('eventIconLarge');
+            iconLarge.style.backgroundColor = event.color;
+            iconLarge.innerHTML = `<span class="material-symbols-outlined" style="font-size: 48px;">${event.icon}</span>`;
+
+            // Set status badge
+            const statusBadge = document.getElementById('eventStatusBadge');
+            statusBadge.className = `status-badge status-${event.status}`;
+            statusBadge.textContent = event.status.charAt(0).toUpperCase() + event.status.slice(1);
+
+            // Event information
+            document.getElementById('eventType').textContent = event.type;
+            document.getElementById('eventLocation').textContent = event.location || 'Not specified';
+            document.getElementById('eventClass').textContent = event.class;
+
+            // Priority
+            const priorityBadge = document.getElementById('eventPriority');
+            priorityBadge.textContent = event.priority.charAt(0).toUpperCase() + event.priority.slice(1);
+            priorityBadge.className = `badge-pill-custom priority-${event.priority}`;
+
+            // Format dates
+            const startDate = new Date(event.startDate + ' ' + event.startTime);
+            const endDate = new Date(event.endDate + ' ' + event.endTime);
+            const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            const timeOptions = { hour: '2-digit', minute: '2-digit', hour12: true };
+
+            document.getElementById('startDateTime').textContent =
+                startDate.toLocaleDateString('en-US', dateOptions) + ' at ' +
+                startDate.toLocaleTimeString('en-US', timeOptions);
+
+            document.getElementById('endDateTime').textContent =
+                endDate.toLocaleDateString('en-US', dateOptions) + ' at ' +
+                endDate.toLocaleTimeString('en-US', timeOptions);
+
+            // Notifications
+            const notifyStudentsIcon = document.getElementById('notifyStudentsIcon');
+            const notifyParentsIcon = document.getElementById('notifyParentsIcon');
+
+            if (event.notifyStudents) {
+                notifyStudentsIcon.textContent = 'check_circle';
+                notifyStudentsIcon.style.color = '#10b981';
+            } else {
+                notifyStudentsIcon.textContent = 'cancel';
+                notifyStudentsIcon.style.color = '#ef4444';
+            }
+
+            if (event.notifyParents) {
+                notifyParentsIcon.textContent = 'check_circle';
+                notifyParentsIcon.style.color = '#10b981';
+            } else {
+                notifyParentsIcon.textContent = 'cancel';
+                notifyParentsIcon.style.color = '#ef4444';
+            }
+
+            // Reminder
+            const reminderMap = {
+                'none': 'No Reminder',
+                '1hour': '1 Hour Before Event',
+                '1day': '1 Day Before Event',
+                '2days': '2 Days Before Event',
+                '1week': '1 Week Before Event'
+            };
+            document.getElementById('reminderTime').textContent = reminderMap[event.reminder] || event.reminder;
+
+            // Set active menu item
+            setTimeout(() => {
+                const navEventList = document.getElementById('nav-event-list');
+                if (navEventList) {
+                    navEventList.classList.add('active');
+                }
+            }, 300);
+        }
+
+        function deleteEvent(eventId) {
+            // Remove from localStorage
+            let events = JSON.parse(localStorage.getItem('classEvents') || '[]');
+            events = events.filter(event => event.id != eventId);
+            localStorage.setItem('classEvents', JSON.stringify(events));
+
+            alert('Event deleted successfully!');
+            window.location.href = 'event-list.html';
+        }
+    </script>
+
+</body>
+
+</html>

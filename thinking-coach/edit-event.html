@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Class Event – Enpower Skill Lab</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;900&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+
+    <!-- Sidebar JS -->
+    <script src="sidebar.js"></script>
+    <!-- Header JS -->
+    <script src="header.js"></script>
+
+    <style>
+        /* Prevent FOUC - hide containers until loaded */
+        #sidebar-container:empty,
+        #header-container:empty {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        #sidebar-container.loaded,
+        #header-container.loaded {
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.2s ease-in;
+        }
+
+        /* ================= Root ================= */
+        :root {
+            --primary: #5b1f6f;
+            --bg-light: #f7f6f8;
+            --surface: #ffffff;
+            --text-main: #171019;
+            --text-secondary: #80588d;
+            --border-color: #dfd3e4;
+        }
+
+        body {
+            background: var(--bg-light);
+            font-family: "Poppins", sans-serif;
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+        }
+
+        /* ================= Dashboard Layout ================= */
+        .dashboard-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        .create-head {
+            font-weight: 600;
+            font-size: 30px;
+            margin-bottom: 0;
+        }
+
+        .content-wrapper {
+            flex: 1;
+            padding: 0;
+        }
+
+        /* ================= Cards ================= */
+        .card-box {
+            background: var(--surface);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 24px;
+        }
+
+        /* ================= Inputs ================= */
+        .form-control,
+        .form-select,
+        textarea {
+            background: #faf9fb;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            font-size: 14px;
+        }
+
+        .form-control:focus,
+        .form-select:focus,
+        textarea:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 1px var(--primary);
+            background: #fff;
+        }
+
+        /* ================= Event Icon Badge ================= */
+        .event-icon-selector {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .icon-option {
+            padding: 16px;
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background: #faf9fb;
+        }
+
+        .icon-option:hover {
+            border-color: var(--primary);
+            background: #f0edff;
+        }
+
+        .icon-option.selected {
+            border-color: var(--primary);
+            background: var(--primary);
+            color: white;
+        }
+
+        .icon-option .material-symbols-outlined {
+            font-size: 32px;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .icon-option .icon-label {
+            font-size: 11px;
+            font-weight: 500;
+        }
+
+        /* ================= Color Picker ================= */
+        .color-picker {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .color-option {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            border: 3px solid transparent;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .color-option:hover {
+            transform: scale(1.1);
+        }
+
+        .color-option.selected {
+            border-color: var(--text-main);
+            box-shadow: 0 0 0 2px white, 0 0 0 4px var(--text-main);
+        }
+
+        .color-option.selected::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+            text-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+        }
+
+        /* ================= Buttons ================= */
+        .btn-primary-custom {
+            background: var(--primary);
+            color: #fff;
+            font-weight: 700;
+            border-radius: 10px;
+        }
+
+        .btn-primary-custom:hover {
+            background: #9141b1;
+            color: #fff;
+        }
+
+        .btn-outline-primary-custom {
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            font-weight: 600;
+            border-radius: 10px;
+        }
+
+        .btn-outline-primary-custom:hover {
+            background: var(--primary);
+            color: #fff;
+        }
+
+        /* ================= Toggle ================= */
+        .switch {
+            width: 44px;
+            height: 22px;
+            background: #e5e5e5;
+            border-radius: 22px;
+            position: relative;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .switch::after {
+            content: "";
+            width: 18px;
+            height: 18px;
+            background: #fff;
+            position: absolute;
+            top: 2px;
+            left: var(--switch-left, 2px);
+            border-radius: 50%;
+            transition: left 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .switch.active {
+            background: var(--primary);
+        }
+
+        .switch.active::after {
+            left: 22px;
+        }
+
+        /* ================= Date/Time Inputs ================= */
+        .datetime-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        @media (max-width: 768px) {
+            .datetime-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ================= Event Type Pills ================= */
+        .event-type-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .type-pill {
+            padding: 8px 16px;
+            border: 2px solid var(--border-color);
+            border-radius: 20px;
+            background: #faf9fb;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .type-pill:hover {
+            border-color: var(--primary);
+            background: #f0edff;
+        }
+
+        .type-pill.selected {
+            border-color: var(--primary);
+            background: var(--primary);
+            color: white;
+        }
+
+        /* ================= Mobile Right Sidebar Order ================= */
+        @media (max-width: 991px) {
+            .right-sidebar-mobile {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .action-card-mobile {
+                order: 3; /* Move to end in mobile */
+            }
+
+            .class-assignment-mobile {
+                order: 0;
+            }
+
+            .notifications-mobile {
+                order: 1;
+            }
+
+            .reminder-mobile {
+                order: 2;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <div id="sidebar-container"></div>
+
+        <!-- Main Content Area -->
+        <div class="main-content">
+            <!-- Header -->
+            <div id="header-container"></div>
+
+            <!-- Content -->
+            <div class="content-wrapper">
+                <main class="container-xl py-5">
+
+                    <!-- Back Button -->
+                    <div class="mb-4">
+                        <a href="event-list.html" class="btn btn-outline-secondary text-decoration-none">
+                            <span class="material-symbols-outlined" style="font-size: 20px; vertical-align: middle;">arrow_back</span>
+                            Back to Event List
+                        </a>
+                    </div>
+
+                    <!-- Page Title -->
+                    <div class="mb-4 d-flex align-items-center justify-content-between flex-wrap gap-3">
+                        <div>
+                            <h1 class="create-head">Edit Class Event</h1>
+                            <p class="text-muted">Update event details and settings.</p>
+                        </div>
+                        <button class="btn btn-outline-primary-custom" id="autoFillBtn">
+                            Auto Fill
+                        </button>
+                    </div>
+
+                    <div class="row g-4" style="display: flex; flex-wrap: wrap;">
+
+                        <!-- LEFT COLUMN -->
+                        <div class="col-lg-8" style="flex: 1 1 auto;">
+
+                            <!-- Basic Details -->
+                            <div class="card-box mb-4">
+                                <h5 class="fw-bold mb-3">Event Details</h5>
+
+                                <div class="mb-3">
+                                    <label class="form-label">Event Name <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="eventName"
+                                        placeholder="e.g. Science Fair, Sports Day, Parent-Teacher Meeting">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label">Description</label>
+                                    <textarea rows="4" class="form-control" id="eventDescription"
+                                        placeholder="Provide details about the event, what students should prepare, etc..."></textarea>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label">Event Type <span class="text-danger">*</span></label>
+                                    <div class="event-type-pills">
+                                        <div class="type-pill" data-type="Academic">
+                                            <span class="material-symbols-outlined"
+                                                style="font-size: 16px; vertical-align: middle;">school</span>
+                                            Academic
+                                        </div>
+                                        <div class="type-pill" data-type="Sports">
+                                            <span class="material-symbols-outlined"
+                                                style="font-size: 16px; vertical-align: middle;">sports_soccer</span>
+                                            Sports
+                                        </div>
+                                        <div class="type-pill" data-type="Cultural">
+                                            <span class="material-symbols-outlined"
+                                                style="font-size: 16px; vertical-align: middle;">theater_comedy</span>
+                                            Cultural
+                                        </div>
+                                        <div class="type-pill" data-type="National">
+                                            <span class="material-symbols-outlined"
+                                                style="font-size: 16px; vertical-align: middle;">flag</span>
+                                            National
+                                        </div>
+                                        <div class="type-pill" data-type="Meeting">
+                                            <span class="material-symbols-outlined"
+                                                style="font-size: 16px; vertical-align: middle;">groups</span>
+                                            Meeting
+                                        </div>
+                                        <div class="type-pill" data-type="Special Day">
+                                            <span class="material-symbols-outlined"
+                                                style="font-size: 16px; vertical-align: middle;">celebration</span>
+                                            Special Day
+                                        </div>
+                                        <div class="type-pill" data-type="Competition">
+                                            <span class="material-symbols-outlined"
+                                                style="font-size: 16px; vertical-align: middle;">emoji_events</span>
+                                            Competition
+                                        </div>
+                                        <div class="type-pill" data-type="Other">
+                                            <span class="material-symbols-outlined"
+                                                style="font-size: 16px; vertical-align: middle;">event</span>
+                                            Other
+                                        </div>
+                                    </div>
+                                    <input type="hidden" id="selectedEventType">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label">Location</label>
+                                    <input type="text" class="form-control" id="eventLocation"
+                                        placeholder="e.g. School Auditorium, Sports Ground, Classroom 5A">
+                                </div>
+                            </div>
+
+                            <!-- Date & Time -->
+                            <div class="card-box mb-4">
+                                <h5 class="fw-bold mb-3">Date & Time</h5>
+
+                                <div class="mb-3">
+                                    <label class="form-label">Start Date & Time <span
+                                            class="text-danger">*</span></label>
+                                    <div class="datetime-row">
+                                        <input type="date" class="form-control" id="startDate" required>
+                                        <input type="time" class="form-control" id="startTime" required>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label">End Date & Time <span class="text-danger">*</span></label>
+                                    <div class="datetime-row">
+                                        <input type="date" class="form-control" id="endDate" required>
+                                        <input type="time" class="form-control" id="endTime" required>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label class="form-label">All Day Event</label>
+                                    <div class="d-flex align-items-center gap-2">
+                                        <div class="switch" id="allDaySwitch"></div>
+                                        <small class="text-muted">Toggle if this is an all-day event</small>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Event Appearance -->
+                            <div class="card-box">
+                                <h5 class="fw-bold mb-3">Event Appearance</h5>
+
+                                <div class="mb-3">
+                                    <label class="form-label">Event Icon</label>
+                                    <div class="event-icon-selector">
+                                        <div class="icon-option" data-icon="calendar_today">
+                                            <span class="material-symbols-outlined">calendar_today</span>
+                                            <div class="icon-label">Calendar</div>
+                                        </div>
+                                        <div class="icon-option" data-icon="school">
+                                            <span class="material-symbols-outlined">school</span>
+                                            <div class="icon-label">School</div>
+                                        </div>
+                                        <div class="icon-option" data-icon="sports">
+                                            <span class="material-symbols-outlined">sports</span>
+                                            <div class="icon-label">Sports</div>
+                                        </div>
+                                        <div class="icon-option" data-icon="celebration">
+                                            <span class="material-symbols-outlined">celebration</span>
+                                            <div class="icon-label">Party</div>
+                                        </div>
+                                        <div class="icon-option" data-icon="emoji_events">
+                                            <span class="material-symbols-outlined">emoji_events</span>
+                                            <div class="icon-label">Trophy</div>
+                                        </div>
+                                        <div class="icon-option selected" data-icon="event">
+                                            <span class="material-symbols-outlined">event</span>
+                                            <div class="icon-label">Event</div>
+                                        </div>
+                                        <div class="icon-option" data-icon="groups">
+                                            <span class="material-symbols-outlined">groups</span>
+                                            <div class="icon-label">Groups</div>
+                                        </div>
+                                        <div class="icon-option" data-icon="flag">
+                                            <span class="material-symbols-outlined">flag</span>
+                                            <div class="icon-label">Flag</div>
+                                        </div>
+                                    </div>
+                                    <input type="hidden" id="selectedIcon" value="event">
+                                </div>
+
+                                <div>
+                                    <label class="form-label">Badge Color</label>
+                                    <div class="color-picker">
+                                        <div class="color-option" data-color="#3b82f6"
+                                            style="background-color: #3b82f6;"></div>
+                                        <div class="color-option" data-color="#8b5cf6"
+                                            style="background-color: #8b5cf6;"></div>
+                                        <div class="color-option" data-color="#ec4899"
+                                            style="background-color: #ec4899;"></div>
+                                        <div class="color-option" data-color="#f59e0b"
+                                            style="background-color: #f59e0b;"></div>
+                                        <div class="color-option selected" data-color="#10b981"
+                                            style="background-color: #10b981;"></div>
+                                        <div class="color-option" data-color="#06b6d4"
+                                            style="background-color: #06b6d4;"></div>
+                                        <div class="color-option" data-color="#ef4444"
+                                            style="background-color: #ef4444;"></div>
+                                        <div class="color-option" data-color="#f97316"
+                                            style="background-color: #f97316;"></div>
+                                    </div>
+                                    <input type="hidden" id="selectedColor" value="#10b981">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- RIGHT COLUMN -->
+                        <div class="col-lg-4 right-sidebar-mobile" style="flex: 1 1 auto;">
+
+                            <!-- Actions -->
+                            <div class="card-box mb-4 action-card-mobile">
+                                <button class="btn btn-primary-custom w-100 mb-3" id="updateEventBtn">Update
+                                    Event</button>
+                                <div class="d-flex gap-2">
+                                    <button class="btn btn-outline-danger w-50" id="deleteEventBtn">Delete</button>
+                                    <button class="btn w-50" id="cancelBtn">Cancel</button>
+                                </div>
+                            </div>
+
+                            <!-- Class Assignment -->
+                            <div class="card-box mb-4 class-assignment-mobile">
+                                <h5 class="fw-bold mb-4 d-flex align-items-center gap-2">
+                                    <span class="material-symbols-outlined">school</span>
+                                    Class Assignment
+                                </h5>
+
+                                <div class="mb-3">
+                                    <label class="form-label">Select Class <span class="text-danger">*</span></label>
+                                    <select class="form-select" id="classSelect">
+                                        <option selected disabled>Select Class</option>
+                                        <option value="class-9a">Class 9-A</option>
+                                        <option value="class-9b">Class 9-B</option>
+                                        <option value="class-10a">Class 10-A</option>
+                                        <option value="class-10b">Class 10-B</option>
+                                        <option value="class-11a">Class 11-A</option>
+                                        <option value="class-12a">Class 12-A</option>
+                                    </select>
+                                </div>
+
+                                <div>
+                                    <label class="form-label">Priority Level</label>
+                                    <select class="form-select" id="prioritySelect">
+                                        <option value="normal" selected>Normal</option>
+                                        <option value="high">High</option>
+                                        <option value="urgent">Urgent</option>
+                                    </select>
+                                    <small class="text-muted d-block mt-2">High priority events will be highlighted in
+                                        student dashboards</small>
+                                </div>
+                            </div>
+
+                            <!-- Notifications -->
+                            <div class="card-box mb-4 notifications-mobile">
+                                <h5 class="fw-bold mb-3">Notifications</h5>
+
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <div>
+                                        <strong>Notify Students</strong>
+                                        <!-- <div class="text-muted small">Send email to students</div> -->
+                                    </div>
+                                    <div class="switch active" id="notifyStudentsSwitch"></div>
+                                </div>
+
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <strong>Notify Parents</strong>
+                                        <!-- <div class="text-muted small">Send email to parents</div> -->
+                                    </div>
+                                    <div class="switch active" id="notifyParentsSwitch"></div>
+                                </div>
+                            </div>
+
+                            <!-- Reminder -->
+                            <div class="card-box reminder-mobile">
+                                <h5 class="fw-bold mb-3">Reminder</h5>
+
+                                <div class="mb-3">
+                                    <label class="form-label">Send Reminder</label>
+                                    <select class="form-select" id="reminderSelect">
+                                        <option value="none">No Reminder</option>
+                                        <option value="1hour">1 Hour Before</option>
+                                        <option value="1day" selected>1 Day Before</option>
+                                        <option value="2days">2 Days Before</option>
+                                        <option value="1week">1 Week Before</option>
+                                    </select>
+                                </div>
+
+                                <div class="alert alert-info mb-0" style="font-size: 13px;">
+                                    <span class="material-symbols-outlined"
+                                        style="font-size: 16px; vertical-align: middle;">info</span>
+                                    Reminders will be sent via in-app notifications
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </main>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Load sidebar
+        fetch('sidebar.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('sidebar-container').innerHTML = data;
+                document.getElementById('sidebar-container').classList.add('loaded');
+            })
+            .catch(error => console.error('Error loading sidebar:', error));
+
+        // Load header
+        fetch('header.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header-container').innerHTML = data;
+                document.getElementById('header-container').classList.add('loaded');
+            })
+            .catch(error => console.error('Error loading header:', error));
+
+        // Store event ID globally
+        let currentEventId = null;
+
+        document.addEventListener('DOMContentLoaded', function () {
+            // Get event ID from URL
+            const urlParams = new URLSearchParams(window.location.search);
+            currentEventId = urlParams.get('id');
+
+            if (!currentEventId) {
+                alert('No event ID provided!');
+                window.location.href = 'event-list.html';
+                return;
+            }
+
+            // Load event data
+            loadEventData(currentEventId);
+
+            // ================= Load Event Data Function =================
+            function loadEventData(eventId) {
+                const events = JSON.parse(localStorage.getItem('classEvents') || '[]');
+                const event = events.find(e => e.id == eventId);
+
+                if (!event) {
+                    alert('Event not found!');
+                    window.location.href = 'event-list.html';
+                    return;
+                }
+
+                // Populate form fields
+                document.getElementById('eventName').value = event.name;
+                document.getElementById('eventDescription').value = event.description || '';
+                document.getElementById('eventLocation').value = event.location || '';
+                document.getElementById('startDate').value = event.startDate;
+                document.getElementById('startTime').value = event.startTime;
+                document.getElementById('endDate').value = event.endDate;
+                document.getElementById('endTime').value = event.endTime;
+                document.getElementById('classSelect').value = event.class.toLowerCase().replace(' ', '-');
+                document.getElementById('prioritySelect').value = event.priority;
+                document.getElementById('reminderSelect').value = event.reminder;
+
+                // Set event type
+                const typePills = document.querySelectorAll('.type-pill');
+                typePills.forEach(pill => {
+                    if (pill.getAttribute('data-type') === event.type) {
+                        pill.classList.add('selected');
+                        document.getElementById('selectedEventType').value = event.type;
+                    }
+                });
+
+                // Set icon
+                const iconOptions = document.querySelectorAll('.icon-option');
+                iconOptions.forEach(option => {
+                    option.classList.remove('selected');
+                    if (option.getAttribute('data-icon') === event.icon) {
+                        option.classList.add('selected');
+                        document.getElementById('selectedIcon').value = event.icon;
+                    }
+                });
+
+                // Set color
+                const colorOptions = document.querySelectorAll('.color-option');
+                colorOptions.forEach(option => {
+                    option.classList.remove('selected');
+                    if (option.getAttribute('data-color') === event.color) {
+                        option.classList.add('selected');
+                        document.getElementById('selectedColor').value = event.color;
+                    }
+                });
+
+                // Set notification switches
+                if (event.notifyStudents) {
+                    document.getElementById('notifyStudentsSwitch').classList.add('active');
+                }
+                if (event.notifyParents) {
+                    document.getElementById('notifyParentsSwitch').classList.add('active');
+                }
+            }
+
+            // ================= Auto-Fill Sample Data =================
+            document.getElementById('autoFillBtn').addEventListener('click', function() {
+                const sampleData = {
+                    eventName: 'Science Fair 2025',
+                    description: 'Annual science fair showcasing student projects and experiments. Students should prepare their presentations and project displays.',
+                    location: 'School Auditorium',
+                    startDate: '2025-03-15',
+                    startTime: '09:00',
+                    endDate: '2025-03-15',
+                    endTime: '15:00',
+                    eventType: 'Academic',
+                    icon: 'school',
+                    color: '#3b82f6',
+                    class: 'class-9a',
+                    priority: 'high'
+                };
+
+                // Fill form fields
+                document.getElementById('eventName').value = sampleData.eventName;
+                document.getElementById('eventDescription').value = sampleData.description;
+                document.getElementById('eventLocation').value = sampleData.location;
+                document.getElementById('startDate').value = sampleData.startDate;
+                document.getElementById('startTime').value = sampleData.startTime;
+                document.getElementById('endDate').value = sampleData.endDate;
+                document.getElementById('endTime').value = sampleData.endTime;
+                document.getElementById('classSelect').value = sampleData.class;
+                document.getElementById('prioritySelect').value = sampleData.priority;
+
+                // Select event type
+                const typePills = document.querySelectorAll('.type-pill');
+                typePills.forEach(pill => {
+                    if (pill.getAttribute('data-type') === sampleData.eventType) {
+                        typePills.forEach(p => p.classList.remove('selected'));
+                        pill.classList.add('selected');
+                        document.getElementById('selectedEventType').value = sampleData.eventType;
+                    }
+                });
+
+                // Select icon
+                const iconOptions = document.querySelectorAll('.icon-option');
+                iconOptions.forEach(option => {
+                    if (option.getAttribute('data-icon') === sampleData.icon) {
+                        iconOptions.forEach(opt => opt.classList.remove('selected'));
+                        option.classList.add('selected');
+                        document.getElementById('selectedIcon').value = sampleData.icon;
+                    }
+                });
+
+                // Select color
+                const colorOptions = document.querySelectorAll('.color-option');
+                colorOptions.forEach(option => {
+                    if (option.getAttribute('data-color') === sampleData.color) {
+                        colorOptions.forEach(opt => opt.classList.remove('selected'));
+                        option.classList.add('selected');
+                        document.getElementById('selectedColor').value = sampleData.color;
+                    }
+                });
+
+                alert('✨ Sample data filled successfully!');
+            });
+
+
+            // ================= Event Type Selection =================
+            const typePills = document.querySelectorAll('.type-pill');
+            const selectedTypeInput = document.getElementById('selectedEventType');
+
+            typePills.forEach(pill => {
+                pill.addEventListener('click', function () {
+                    typePills.forEach(p => p.classList.remove('selected'));
+                    this.classList.add('selected');
+                    selectedTypeInput.value = this.getAttribute('data-type');
+                });
+            });
+
+            // ================= Icon Selection =================
+            const iconOptions = document.querySelectorAll('.icon-option');
+            const selectedIconInput = document.getElementById('selectedIcon');
+
+            iconOptions.forEach(option => {
+                option.addEventListener('click', function () {
+                    iconOptions.forEach(opt => opt.classList.remove('selected'));
+                    this.classList.add('selected');
+                    selectedIconInput.value = this.getAttribute('data-icon');
+                });
+            });
+
+            // ================= Color Selection =================
+            const colorOptions = document.querySelectorAll('.color-option');
+            const selectedColorInput = document.getElementById('selectedColor');
+
+            colorOptions.forEach(option => {
+                option.addEventListener('click', function () {
+                    colorOptions.forEach(opt => opt.classList.remove('selected'));
+                    this.classList.add('selected');
+                    selectedColorInput.value = this.getAttribute('data-color');
+                });
+            });
+
+            // ================= Toggle Switches =================
+            const switches = document.querySelectorAll('.switch');
+
+            switches.forEach(switchEl => {
+                switchEl.addEventListener('click', function () {
+                    this.classList.toggle('active');
+
+                    // Special handling for all-day event
+                    if (this.id === 'allDaySwitch') {
+                        const startTime = document.getElementById('startTime');
+                        const endTime = document.getElementById('endTime');
+
+                        if (this.classList.contains('active')) {
+                            startTime.disabled = true;
+                            endTime.disabled = true;
+                            startTime.value = '00:00';
+                            endTime.value = '23:59';
+                        } else {
+                            startTime.disabled = false;
+                            endTime.disabled = false;
+                        }
+                    }
+                });
+            });
+
+            // ================= Form Validation =================
+            function validateForm() {
+                const eventName = document.getElementById('eventName').value.trim();
+                const eventType = document.getElementById('selectedEventType').value;
+                const startDate = document.getElementById('startDate').value;
+                const startTime = document.getElementById('startTime').value;
+                const endDate = document.getElementById('endDate').value;
+                const endTime = document.getElementById('endTime').value;
+                const classSelect = document.getElementById('classSelect').value;
+
+                if (!eventName) {
+                    alert('Please enter an event name.');
+                    document.getElementById('eventName').focus();
+                    return false;
+                }
+
+                if (!eventType) {
+                    alert('Please select an event type.');
+                    return false;
+                }
+
+                if (!startDate || !endDate) {
+                    alert('Please select start and end dates.');
+                    return false;
+                }
+
+                const allDayActive = document.getElementById('allDaySwitch').classList.contains('active');
+                if (!allDayActive && (!startTime || !endTime)) {
+                    alert('Please select start and end times, or enable "All Day Event".');
+                    return false;
+                }
+
+                if (!classSelect || classSelect === 'Select Class') {
+                    alert('Please select a class.');
+                    document.getElementById('classSelect').focus();
+                    return false;
+                }
+
+                // Validate end date is not before start date
+                const start = new Date(startDate + ' ' + (startTime || '00:00'));
+                const end = new Date(endDate + ' ' + (endTime || '23:59'));
+
+                if (end < start) {
+                    alert('End date/time cannot be before start date/time.');
+                    return false;
+                }
+
+                return true;
+            }
+
+            // ================= Update Event Button =================
+            document.getElementById('updateEventBtn').addEventListener('click', function () {
+                if (validateForm()) {
+                    const eventName = document.getElementById('eventName').value.trim();
+                    const eventDescription = document.getElementById('eventDescription').value.trim();
+                    const eventType = document.getElementById('selectedEventType').value;
+                    const eventLocation = document.getElementById('eventLocation').value.trim();
+                    const startDate = document.getElementById('startDate').value;
+                    const startTime = document.getElementById('startTime').value;
+                    const endDate = document.getElementById('endDate').value;
+                    const endTime = document.getElementById('endTime').value;
+                    const selectedIcon = document.getElementById('selectedIcon').value;
+                    const selectedColor = document.getElementById('selectedColor').value;
+                    const classValue = document.getElementById('classSelect').options[document.getElementById('classSelect').selectedIndex].text;
+                    const priority = document.getElementById('prioritySelect').value;
+                    const notifyStudents = document.getElementById('notifyStudentsSwitch').classList.contains('active');
+                    const notifyParents = document.getElementById('notifyParentsSwitch').classList.contains('active');
+                    const reminder = document.getElementById('reminderSelect').value;
+
+                    // Format date for display
+                    const startDateObj = new Date(startDate);
+                    const options = { year: 'numeric', month: 'short', day: 'numeric' };
+                    const formattedDate = startDateObj.toLocaleDateString('en-US', options);
+
+                    // Determine status based on date
+                    const today = new Date();
+                    today.setHours(0, 0, 0, 0);
+                    const eventStartDate = new Date(startDate);
+                    eventStartDate.setHours(0, 0, 0, 0);
+                    const eventEndDate = new Date(endDate);
+                    eventEndDate.setHours(23, 59, 59, 999);
+
+                    let status = 'upcoming';
+                    if (today >= eventStartDate && today <= eventEndDate) {
+                        status = 'ongoing';
+                    } else if (today > eventEndDate) {
+                        status = 'completed';
+                    }
+
+                    // Update event object
+                    const updatedEvent = {
+                        id: currentEventId,
+                        name: eventName,
+                        description: eventDescription,
+                        type: eventType,
+                        location: eventLocation,
+                        startDate: startDate,
+                        startTime: startTime,
+                        endDate: endDate,
+                        endTime: endTime,
+                        formattedDate: formattedDate,
+                        icon: selectedIcon,
+                        color: selectedColor,
+                        class: classValue,
+                        priority: priority,
+                        status: status,
+                        notifyStudents: notifyStudents,
+                        notifyParents: notifyParents,
+                        reminder: reminder,
+                        updatedAt: new Date().toISOString()
+                    };
+
+                    // Update in localStorage
+                    let events = JSON.parse(localStorage.getItem('classEvents') || '[]');
+                    const eventIndex = events.findIndex(e => e.id == currentEventId);
+
+                    if (eventIndex !== -1) {
+                        // Preserve createdAt if it exists
+                        updatedEvent.createdAt = events[eventIndex].createdAt || new Date().toISOString();
+                        events[eventIndex] = updatedEvent;
+                        localStorage.setItem('classEvents', JSON.stringify(events));
+
+                        // Show success message
+                        alert(`✅ Event Updated Successfully!\n\n"${eventName}" has been updated.`);
+
+                        // Redirect to event list
+                        window.location.href = 'event-list.html';
+                    } else {
+                        alert('Error: Event not found!');
+                    }
+                }
+            });
+
+            // ================= Delete Event Button =================
+            document.getElementById('deleteEventBtn').addEventListener('click', function () {
+                if (confirm('Are you sure you want to delete this event?\n\nThis action cannot be undone.')) {
+                    // Remove from localStorage
+                    let events = JSON.parse(localStorage.getItem('classEvents') || '[]');
+                    events = events.filter(event => event.id != currentEventId);
+                    localStorage.setItem('classEvents', JSON.stringify(events));
+
+                    alert('Event deleted successfully!');
+                    window.location.href = 'event-list.html';
+                }
+            });
+
+            // ================= Cancel Button =================
+            document.getElementById('cancelBtn').addEventListener('click', function () {
+                if (confirm('Are you sure you want to cancel? Any unsaved changes will be lost.')) {
+                    window.location.href = 'event-list.html';
+                }
+            });
+
+            // ================= Set Minimum Date to Today =================
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('startDate').setAttribute('min', today);
+            document.getElementById('endDate').setAttribute('min', today);
+
+            // ================= Auto-update End Date =================
+            document.getElementById('startDate').addEventListener('change', function () {
+                const endDateInput = document.getElementById('endDate');
+                if (!endDateInput.value || new Date(endDateInput.value) < new Date(this.value)) {
+                    endDateInput.value = this.value;
+                }
+                endDateInput.setAttribute('min', this.value);
+            });
+
+            // Set active menu item
+            setTimeout(() => {
+                const navEventList = document.getElementById('nav-event-list');
+                if (navEventList) {
+                    navEventList.classList.add('active');
+                }
+            }, 300);
+        });
+    </script>
+
+</body>
+
+</html>
