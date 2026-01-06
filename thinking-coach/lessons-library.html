@@ -991,9 +991,14 @@
 
                 // Use setTimeout to ensure DOM has parsed the inserted HTML
                 setTimeout(() => {
-                    // Call header initialization directly instead of relying on DOMContentLoaded
+                    // Initialize header functionality
                     if (typeof initializeHeader === 'function') {
                         initializeHeader();
+                    }
+
+                    // Initialize sidebar functionality
+                    if (typeof initializeSidebar === 'function') {
+                        initializeSidebar();
                     }
 
                     // Mark containers as loaded to make them visible with smooth transition

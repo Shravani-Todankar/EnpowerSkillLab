@@ -1049,8 +1049,14 @@
                 document.getElementById('header-container').innerHTML = headerHTML;
 
                 setTimeout(() => {
+                    // Initialize header functionality
                     if (typeof initializeHeader === 'function') {
                         initializeHeader();
+                    }
+
+                    // Initialize sidebar functionality
+                    if (typeof initializeSidebar === 'function') {
+                        initializeSidebar();
                     }
 
                     document.getElementById('sidebar-container').classList.add('loaded');

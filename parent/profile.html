@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Profile - Thinking Coach</title>
+    <title>My Profile - Parent</title>
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -277,6 +277,79 @@
             cursor: pointer;
         }
 
+        /* Children Information Card */
+        .children-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .child-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px;
+            background: #f9fafb;
+            border-radius: 12px;
+            border: 1px solid #e5e7eb;
+            transition: all 0.3s ease;
+        }
+
+        .child-item:hover {
+            background: #f3f4f6;
+            border-color: #d1d5db;
+            transform: translateX(4px);
+        }
+
+        .child-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #6b277e 0%, #A67DB1 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .child-details {
+            flex: 1;
+        }
+
+        .child-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1d1d1f;
+            margin-bottom: 4px;
+        }
+
+        .child-info {
+            font-size: 13px;
+            color: #6b7280;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .child-info .material-symbols-outlined {
+            font-size: 16px;
+        }
+
+        .child-grade {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .child-school {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
         /* Role Information Card */
         .role-info-grid {
             display: grid;
@@ -431,6 +504,12 @@
             .page-header h1 {
                 font-size: 24px;
             }
+
+            .child-info {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 4px;
+            }
         }
 
         @media (max-width: 640px) {
@@ -505,13 +584,13 @@
                                 <div class="form-grid">
                                     <div class="form-group">
                                         <label class="form-label">Full Name <span class="required">*</span></label>
-                                        <input type="text" id="fullName" class="form-input" value="Sarah Johnson" readonly>
+                                        <input type="text" id="fullName" class="form-input" value="John Doe" readonly>
                                         <span class="error-message" id="fullNameError"></span>
                                     </div>
 
                                     <div class="form-group">
                                         <label class="form-label">Email Address <span class="required">*</span></label>
-                                        <input type="email" id="email" class="form-input" value="sarah.johnson@enpower.com" readonly>
+                                        <input type="email" id="email" class="form-input" value="john.doe@parent.com" readonly>
                                         <span class="error-message" id="emailError"></span>
                                     </div>
 
@@ -531,8 +610,8 @@
                                         <label class="form-label">Gender</label>
                                         <select id="gender" class="form-select" disabled>
                                             <option value="">Select gender</option>
-                                            <option value="male">Male</option>
-                                            <option value="female" selected>Female</option>
+                                            <option value="male" selected>Male</option>
+                                            <option value="female">Female</option>
                                             <option value="other">Other</option>
                                             <option value="prefer-not-to-say">Prefer not to say</option>
                                         </select>
@@ -541,7 +620,7 @@
 
                                     <div class="form-group">
                                         <label class="form-label">Date of Birth</label>
-                                        <input type="date" id="dateOfBirth" class="form-input" value="1990-05-15" readonly>
+                                        <input type="date" id="dateOfBirth" class="form-input" value="1985-03-20" readonly>
                                         <span class="error-message" id="dateOfBirthError"></span>
                                     </div>
                                 </div>
@@ -564,10 +643,56 @@
                             </form>
                         </div>
 
+                        <!-- Children Information Card -->
+                        <div class="profile-card full-width">
+                            <div class="card-header">
+                                <span class="material-symbols-outlined">groups</span>
+                                <h2>My Children</h2>
+                            </div>
+
+                            <div class="children-list">
+                                <div class="child-item">
+                                    <div class="child-avatar">AD</div>
+                                    <div class="child-details">
+                                        <div class="child-name">Alex Doe</div>
+                                        <div class="child-info">
+                                            <span class="child-grade">
+                                                <span class="material-symbols-outlined">school</span>
+                                                Grade 10
+                                            </span>
+                                            <span style="color: #d1d5db;">|</span>
+                                            <span class="child-school">
+                                                <span class="material-symbols-outlined">domain</span>
+                                                Greenwood High
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="child-item">
+                                    <div class="child-avatar">SD</div>
+                                    <div class="child-details">
+                                        <div class="child-name">Sarah Doe</div>
+                                        <div class="child-info">
+                                            <span class="child-grade">
+                                                <span class="material-symbols-outlined">school</span>
+                                                Grade 8
+                                            </span>
+                                            <span style="color: #d1d5db;">|</span>
+                                            <span class="child-school">
+                                                <span class="material-symbols-outlined">domain</span>
+                                                Greenwood High
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         <!-- Role Information Card -->
                         <div class="profile-card">
                             <div class="card-header">
-                                <span class="material-symbols-outlined">psychology</span>
+                                <span class="material-symbols-outlined">family_restroom</span>
                                 <h2>Role Information</h2>
                             </div>
 
@@ -576,13 +701,13 @@
                                     <span class="info-label">Role</span>
                                     <div class="role-badge">
                                         <span class="material-symbols-outlined">verified</span>
-                                        Thinking Coach
+                                        Parent
                                     </div>
                                 </div>
 
                                 <div class="info-item">
                                     <span class="info-label">Account Created On</span>
-                                    <span class="info-value">January 15, 2024</span>
+                                    <span class="info-value">January 15, 2025</span>
                                 </div>
 
                                 <div class="info-item">
@@ -593,8 +718,8 @@
                                 <div class="info-item full-width" style="margin-top: 12px;">
                                     <span class="info-label">Assigned Permissions</span>
                                     <div class="permission-badge">
-                                        <span class="material-symbols-outlined">security</span>
-                                        Coaching & Student Management
+                                        <span class="material-symbols-outlined">visibility</span>
+                                        Child Progress Monitoring
                                     </div>
                                 </div>
                             </div>
@@ -615,7 +740,7 @@
 
                                 <div class="info-item">
                                     <span class="info-label">Last Password Change</span>
-                                    <span class="info-value">December 10, 2024</span>
+                                    <span class="info-value">December 10, 2025</span>
                                 </div>
                             </div>
 

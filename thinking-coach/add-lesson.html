@@ -434,23 +434,31 @@ textarea:focus {
 </div>
 
 <script>
-    // Load sidebar
-    fetch('sidebar.html')
-        .then(response => response.text())
-        .then(data => {
-            document.getElementById('sidebar-container').innerHTML = data;
-            document.getElementById('sidebar-container').classList.add('loaded');
-        })
-        .catch(error => console.error('Error loading sidebar:', error));
+    // Load Sidebar and Header Components
+    Promise.all([
+        fetch('sidebar.html').then(response => response.text()),
+        fetch('header.html').then(response => response.text())
+    ]).then(([sidebarHTML, headerHTML]) => {
+        document.getElementById('sidebar-container').innerHTML = sidebarHTML;
+        document.getElementById('header-container').innerHTML = headerHTML;
 
-    // Load header
-    fetch('header.html')
-        .then(response => response.text())
-        .then(data => {
-            document.getElementById('header-container').innerHTML = data;
+        // Use setTimeout to ensure DOM has parsed the inserted HTML
+        setTimeout(() => {
+            // Initialize header functionality
+            if (typeof initializeHeader === 'function') {
+                initializeHeader();
+            }
+
+            // Initialize sidebar functionality
+            if (typeof initializeSidebar === 'function') {
+                initializeSidebar();
+            }
+
+            // Mark containers as loaded
+            document.getElementById('sidebar-container').classList.add('loaded');
             document.getElementById('header-container').classList.add('loaded');
-        })
-        .catch(error => console.error('Error loading header:', error));
+        }, 100);
+    }).catch(error => console.error('Error loading components:', error));
 
     // ================= Lesson Content Tabs =================
     document.addEventListener('DOMContentLoaded', function() {

@@ -18,7 +18,7 @@ div#sidebar-container {
     overflow-y: auto;
     overflow-x: hidden;
     transition: width 0.3s ease-in-out, margin-left 0.3s ease-in-out;
-    height: 100vh;
+    height: 150vh;
 }
 
 /* Scrollbar Styling */
@@ -279,6 +279,14 @@ body.dark .sidebar-dropdown-menu a.active {
 .sidebar-overlay {
     display: none;
 }
+
+a#nav-logout:hover {
+    background-color: rgba(239, 68, 68, 0.1);
+}
+a#nav-logout {
+    color: var(--red-600);
+}
+
 
 /* Responsive Styles */
 @media (max-width: 1023px) {

@@ -66,8 +66,12 @@ function initializeHeader() {
         logoutBtn.addEventListener('click', (e) => {
             e.preventDefault();
             if (confirm('Are you sure you want to logout?')) {
-                // Add logout logic here
-                // window.location.href = '/login';
+                // Clear any session data if needed
+                // localStorage.clear();
+                // sessionStorage.clear();
+
+                // Redirect to sign-in page
+                window.location.href = '../auth/sign-in.html';
             }
         });
     }

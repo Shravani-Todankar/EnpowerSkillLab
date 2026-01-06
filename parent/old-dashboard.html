@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Parent Dashboard - Enpower Skill Lab</title>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+        rel="stylesheet" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="old-dashboard.css">
+    <!-- Sidebar JS -->
+    <script src="sidebar.js"></script>
+    <!-- Header JS -->
+    <script src="header.js"></script>
+
+    <style>
+        /* Prevent FOUC - hide containers until loaded */
+        #sidebar-container:empty,
+        #header-container:empty {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        #sidebar-container.loaded,
+        #header-container.loaded {
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.2s ease-in;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- Include Sidebar Component -->
+        <div id="sidebar-container"></div>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Include Header Component -->
+            <div id="header-container"></div>
+
+            <!-- Dashboard Content -->
+            <div class="dashboard-page">
+                <!-- Page Header -->
+                <div class="page-header">
+                    <div class="page-header-content">
+                        <h1 class="page-title">
+                            <span class="material-symbols-outlined page-title-icon">dashboard</span>
+                            Dashboard
+                        </h1>
+                        <p class="page-subtitle">Welcome back! Here's how your child is performing</p>
+                    </div>
+                    <div class="page-header-actions">
+                        <button class="btn-secondary">
+                            <span class="material-symbols-outlined">swap_horiz</span>
+                            Switch Child
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Child Overview -->
+                <div class="child-overview-section">
+                    <div class="child-profile-card">
+                        <div class="child-profile-header">
+                            <div class="child-avatar">
+                                <img src="../assets/images/default-avatar.png" alt="Child Avatar" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22100%22%3E%3Crect fill=%22%233b82f6%22 width=%22100%22 height=%22100%22/%3E%3Ctext fill=%22white%22 font-size=%2248%22 font-family=%22Arial%22 x=%2250%%22 y=%2250%%22 text-anchor=%22middle%22 dy=%22.3em%22%3EA%3C/text%3E%3C/svg%3E'" />
+                            </div>
+                            <div class="child-profile-info">
+                                <h2 class="child-name">Aarav Kumar</h2>
+                                <div class="child-details">
+                                    <span class="detail-item">
+                                        <span class="material-symbols-outlined">school</span>
+                                        Grade 5-A
+                                    </span>
+                                    <span class="detail-item">
+                                        <span class="material-symbols-outlined">location_on</span>
+                                        Delhi Public School
+                                    </span>
+                                    <span class="detail-item">
+                                        <span class="material-symbols-outlined">calendar_today</span>
+                                        Roll No: 2024-A-015
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="child-stats-grid">
+                            <div class="child-stat-item">
+                                <div class="child-stat-icon attendance">
+                                    <span class="material-symbols-outlined">how_to_reg</span>
+                                </div>
+                                <div class="child-stat-content">
+                                    <div class="child-stat-value">95%</div>
+                                    <div class="child-stat-label">Attendance</div>
+                                </div>
+                            </div>
+
+                            <div class="child-stat-item">
+                                <div class="child-stat-icon performance">
+                                    <span class="material-symbols-outlined">trending_up</span>
+                                </div>
+                                <div class="child-stat-content">
+                                    <div class="child-stat-value">92%</div>
+                                    <div class="child-stat-label">Overall Performance</div>
+                                </div>
+                            </div>
+
+                            <div class="child-stat-item">
+                                <div class="child-stat-icon assessments">
+                                    <span class="material-symbols-outlined">quiz</span>
+                                </div>
+                                <div class="child-stat-content">
+                                    <div class="child-stat-value">24/28</div>
+                                    <div class="child-stat-label">Assessments Completed</div>
+                                </div>
+                            </div>
+
+                            <div class="child-stat-item">
+                                <div class="child-stat-icon lessons">
+                                    <span class="material-symbols-outlined">auto_stories</span>
+                                </div>
+                                <div class="child-stat-content">
+                                    <div class="child-stat-value">45/60</div>
+                                    <div class="child-stat-label">Lessons Completed</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Main Content Grid -->
+                <div class="content-grid">
+                    <!-- Badges Earned -->
+                    <div class="card badges-card">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                <span class="material-symbols-outlined">workspace_premium</span>
+                                Badges Earned
+                            </h3>
+                            <a href="skill-passport.html" class="card-action">View All Badges</a>
+                        </div>
+                        <div class="card-body">
+                            <div class="badges-grid">
+                                <div class="badge-item">
+                                    <div class="badge-icon gold">
+                                        <span class="material-symbols-outlined">military_tech</span>
+                                    </div>
+                                    <div class="badge-info">
+                                        <div class="badge-name">Critical Thinking Master</div>
+                                        <div class="badge-date">Earned on Nov 15, 2024</div>
+                                    </div>
+                                </div>
+
+                                <div class="badge-item">
+                                    <div class="badge-icon silver">
+                                        <span class="material-symbols-outlined">emoji_events</span>
+                                    </div>
+                                    <div class="badge-info">
+                                        <div class="badge-name">Problem Solver</div>
+                                        <div class="badge-date">Earned on Nov 8, 2024</div>
+                                    </div>
+                                </div>
+
+                                <div class="badge-item">
+                                    <div class="badge-icon bronze">
+                                        <span class="material-symbols-outlined">stars</span>
+                                    </div>
+                                    <div class="badge-info">
+                                        <div class="badge-name">Team Player</div>
+                                        <div class="badge-date">Earned on Oct 28, 2024</div>
+                                    </div>
+                                </div>
+
+                                <div class="badge-item">
+                                    <div class="badge-icon gold">
+                                        <span class="material-symbols-outlined">lightbulb</span>
+                                    </div>
+                                    <div class="badge-info">
+                                        <div class="badge-name">Creative Thinker</div>
+                                        <div class="badge-date">Earned on Oct 20, 2024</div>
+                                    </div>
+                                </div>
+
+                                <div class="badge-item">
+                                    <div class="badge-icon silver">
+                                        <span class="material-symbols-outlined">school</span>
+                                    </div>
+                                    <div class="badge-info">
+                                        <div class="badge-name">Quick Learner</div>
+                                        <div class="badge-date">Earned on Oct 12, 2024</div>
+                                    </div>
+                                </div>
+
+                                <div class="badge-item">
+                                    <div class="badge-icon bronze">
+                                        <span class="material-symbols-outlined">flag</span>
+                                    </div>
+                                    <div class="badge-info">
+                                        <div class="badge-name">Goal Achiever</div>
+                                        <div class="badge-date">Earned on Oct 5, 2024</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Lesson Progress -->
+                    <div class="card lesson-progress-card">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                <span class="material-symbols-outlined">auto_stories</span>
+                                Lesson Progress
+                            </h3>
+                            <a href="lesson-progress.html" class="card-action">View All Lessons</a>
+                        </div>
+                        <div class="card-body">
+                            <div class="lesson-list">
+                                <div class="lesson-item">
+                                    <div class="lesson-icon mathematics">
+                                        <span class="material-symbols-outlined">calculate</span>
+                                    </div>
+                                    <div class="lesson-info">
+                                        <div class="lesson-title">Advanced Mathematics</div>
+                                        <div class="lesson-details">
+                                            <span>Module 3 of 5</span> • <span>Last accessed: Today</span>
+                                        </div>
+                                        <div class="lesson-progress-bar">
+                                            <div class="lesson-progress-fill" style="width: 60%;" data-color="mathematics"></div>
+                                        </div>
+                                        <div class="lesson-progress-text">60% Complete</div>
+                                    </div>
+                                    <button class="btn-continue">
+                                        <span class="material-symbols-outlined">play_arrow</span>
+                                        Continue
+                                    </button>
+                                </div>
+
+                                <div class="lesson-item">
+                                    <div class="lesson-icon science">
+                                        <span class="material-symbols-outlined">science</span>
+                                    </div>
+                                    <div class="lesson-info">
+                                        <div class="lesson-title">Environmental Science</div>
+                                        <div class="lesson-details">
+                                            <span>Module 4 of 6</span> • <span>Last accessed: Yesterday</span>
+                                        </div>
+                                        <div class="lesson-progress-bar">
+                                            <div class="lesson-progress-fill" style="width: 67%;" data-color="science"></div>
+                                        </div>
+                                        <div class="lesson-progress-text">67% Complete</div>
+                                    </div>
+                                    <button class="btn-continue">
+                                        <span class="material-symbols-outlined">play_arrow</span>
+                                        Continue
+                                    </button>
+                                </div>
+
+                                <div class="lesson-item">
+                                    <div class="lesson-icon english">
+                                        <span class="material-symbols-outlined">menu_book</span>
+                                    </div>
+                                    <div class="lesson-info">
+                                        <div class="lesson-title">English Literature</div>
+                                        <div class="lesson-details">
+                                            <span>Module 2 of 4</span> • <span>Last accessed: 2 days ago</span>
+                                        </div>
+                                        <div class="lesson-progress-bar">
+                                            <div class="lesson-progress-fill" style="width: 50%;" data-color="english"></div>
+                                        </div>
+                                        <div class="lesson-progress-text">50% Complete</div>
+                                    </div>
+                                    <button class="btn-continue">
+                                        <span class="material-symbols-outlined">play_arrow</span>
+                                        Continue
+                                    </button>
+                                </div>
+
+                                <div class="lesson-item">
+                                    <div class="lesson-icon arts">
+                                        <span class="material-symbols-outlined">palette</span>
+                                    </div>
+                                    <div class="lesson-info">
+                                        <div class="lesson-title">Creative Arts</div>
+                                        <div class="lesson-details">
+                                            <span>Module 5 of 5</span> • <span>Last accessed: 3 days ago</span>
+                                        </div>
+                                        <div class="lesson-progress-bar">
+                                            <div class="lesson-progress-fill" style="width: 100%;" data-color="arts"></div>
+                                        </div>
+                                        <div class="lesson-progress-text">100% Complete</div>
+                                    </div>
+                                    <button class="btn-completed" disabled>
+                                        <span class="material-symbols-outlined">check_circle</span>
+                                        Completed
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bottom Grid -->
+                <div class="bottom-grid">
+                    <!-- Recent Activities -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                <span class="material-symbols-outlined">history</span>
+                                Recent Activities
+                            </h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="activity-list">
+                                <div class="activity-item">
+                                    <div class="activity-icon assessment">
+                                        <span class="material-symbols-outlined">assignment_turned_in</span>
+                                    </div>
+                                    <div class="activity-content">
+                                        <div class="activity-title">Completed Assessment</div>
+                                        <div class="activity-description">Mathematics - Chapter 5 Test (Score: 92%)</div>
+                                        <div class="activity-time">2 hours ago</div>
+                                    </div>
+                                </div>
+
+                                <div class="activity-item">
+                                    <div class="activity-icon lesson">
+                                        <span class="material-symbols-outlined">auto_stories</span>
+                                    </div>
+                                    <div class="activity-content">
+                                        <div class="activity-title">Lesson Completed</div>
+                                        <div class="activity-description">Advanced Mathematics - Module 3</div>
+                                        <div class="activity-time">5 hours ago</div>
+                                    </div>
+                                </div>
+
+                                <div class="activity-item">
+                                    <div class="activity-icon badge">
+                                        <span class="material-symbols-outlined">military_tech</span>
+                                    </div>
+                                    <div class="activity-content">
+                                        <div class="activity-title">Badge Earned</div>
+                                        <div class="activity-description">Critical Thinking Master badge awarded</div>
+                                        <div class="activity-time">1 day ago</div>
+                                    </div>
+                                </div>
+
+                                <div class="activity-item">
+                                    <div class="activity-icon attendance">
+                                        <span class="material-symbols-outlined">how_to_reg</span>
+                                    </div>
+                                    <div class="activity-content">
+                                        <div class="activity-title">Perfect Attendance Week</div>
+                                        <div class="activity-description">100% attendance for the week</div>
+                                        <div class="activity-time">2 days ago</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Upcoming Assessments -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                <span class="material-symbols-outlined">event</span>
+                                Upcoming Assessments
+                            </h3>
+                            <a href="assessment-summary.html" class="card-action">View All</a>
+                        </div>
+                        <div class="card-body">
+                            <div class="upcoming-list">
+                                <div class="upcoming-item">
+                                    <div class="upcoming-date">
+                                        <div class="date-day">05</div>
+                                        <div class="date-month">Dec</div>
+                                    </div>
+                                    <div class="upcoming-info">
+                                        <div class="upcoming-title">Science Quiz - Chapter 8</div>
+                                        <div class="upcoming-meta">
+                                            <span class="material-symbols-outlined">schedule</span>
+                                            10:00 AM
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="upcoming-item">
+                                    <div class="upcoming-date">
+                                        <div class="date-day">08</div>
+                                        <div class="date-month">Dec</div>
+                                    </div>
+                                    <div class="upcoming-info">
+                                        <div class="upcoming-title">English Literature Essay</div>
+                                        <div class="upcoming-meta">
+                                            <span class="material-symbols-outlined">schedule</span>
+                                            11:30 AM
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="upcoming-item">
+                                    <div class="upcoming-date">
+                                        <div class="date-day">12</div>
+                                        <div class="date-month">Dec</div>
+                                    </div>
+                                    <div class="upcoming-info">
+                                        <div class="upcoming-title">Social Studies Test</div>
+                                        <div class="upcoming-meta">
+                                            <span class="material-symbols-outlined">schedule</span>
+                                            9:00 AM
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Load Sidebar and Header Components
+        document.addEventListener('DOMContentLoaded', function() {
+            Promise.all([
+                fetch('sidebar.html').then(response => response.text()),
+                fetch('header.html').then(response => response.text())
+            ]).then(([sidebarHTML, headerHTML]) => {
+                document.getElementById('sidebar-container').innerHTML = sidebarHTML;
+                document.getElementById('header-container').innerHTML = headerHTML;
+
+                // Use setTimeout to ensure DOM has parsed the inserted HTML
+                setTimeout(() => {
+                    // Call header initialization directly instead of relying on DOMContentLoaded
+                    if (typeof initializeHeader === 'function') {
+                        initializeHeader();
+                    }
+
+                    // Mark containers as loaded to make them visible with smooth transition
+                    document.getElementById('sidebar-container').classList.add('loaded');
+                    document.getElementById('header-container').classList.add('loaded');
+
+                    // Wait a bit for sidebar.js to initialize, then set active state
+                    setActiveMenuItem();
+                }, 200);
+            });
+        });
+
+        function setActiveMenuItem() {
+            const currentPage = window.location.pathname.split('/').pop();
+            const navDashboard = document.getElementById('nav-dashboard');
+            if (navDashboard && currentPage === 'dashboard.html') {
+                navDashboard.classList.add('active');
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -1,11 +1,19 @@
 // Sidebar Component JavaScript
 
-// Wait for DOM to be ready before initializing
-document.addEventListener('DOMContentLoaded', function() {
-    initializeSidebar();
-});
+// Track if sidebar has been initialized to prevent duplicate event listeners
+let isSidebarInitialized = false;
+let sidebarRetryCount = 0;
+const MAX_SIDEBAR_RETRIES = 20; // Max 2 seconds of retries
+
+// Note: initializeSidebar should be called explicitly from the HTML page
+// after the sidebar HTML is loaded via fetch, not via DOMContentLoaded
 
 function initializeSidebar() {
+    // Prevent multiple initializations
+    if (isSidebarInitialized) {
+        return;
+    }
+
     // Sidebar toggle functionality for both mobile and desktop
     const menuToggle = document.getElementById('menuToggle');
     const closeSidebar = document.getElementById('closeSidebar');
@@ -15,9 +23,17 @@ function initializeSidebar() {
     // Check if elements exist before adding listeners
     if (!menuToggle || !closeSidebar || !sidebar || !sidebarOverlay) {
         // Retry after a short delay if elements aren't ready
-        setTimeout(initializeSidebar, 100);
+        sidebarRetryCount++;
+        if (sidebarRetryCount < MAX_SIDEBAR_RETRIES) {
+            setTimeout(initializeSidebar, 100);
+        } else {
+            console.error('Sidebar elements not found after maximum retries');
+        }
         return;
     }
+
+    // Mark as initialized to prevent duplicate event listeners
+    isSidebarInitialized = true;
 
     function toggleSidebar() {
         if (window.innerWidth >= 1024) {

@@ -230,9 +230,17 @@
             document.getElementById('header-container').innerHTML = headerHTML;
 
             setTimeout(() => {
+                // Initialize header functionality
                 if (typeof initializeHeader === 'function') {
                     initializeHeader();
                 }
+
+                // Initialize sidebar functionality
+                if (typeof initializeSidebar === 'function') {
+                    initializeSidebar();
+                }
+
+                // Mark containers as loaded
                 document.getElementById('sidebar-container').classList.add('loaded');
                 document.getElementById('header-container').classList.add('loaded');
                 setActiveMenuItem();

@@ -1,11 +1,19 @@
 // Sidebar Component JavaScript
 
-// Wait for DOM to be ready before initializing
-document.addEventListener('DOMContentLoaded', function() {
-    initializeSidebar();
-});
+// Track if sidebar has been initialized to prevent duplicate event listeners
+let isSidebarInitialized = false;
+let sidebarRetryCount = 0;
+const MAX_SIDEBAR_RETRIES = 20; // Max 2 seconds of retries
+
+// Note: initializeSidebar should be called explicitly from the HTML page
+// after the sidebar HTML is loaded via fetch, not via DOMContentLoaded
 
 function initializeSidebar() {
+    // Prevent multiple initializations
+    if (isSidebarInitialized) {
+        return;
+    }
+
     // Sidebar toggle functionality for both mobile and desktop
     const menuToggle = document.getElementById('menuToggle');
     const closeSidebar = document.getElementById('closeSidebar');
@@ -15,9 +23,17 @@ function initializeSidebar() {
     // Check if elements exist before adding listeners
     if (!menuToggle || !closeSidebar || !sidebar || !sidebarOverlay) {
         // Retry after a short delay if elements aren't ready
-        setTimeout(initializeSidebar, 100);
+        sidebarRetryCount++;
+        if (sidebarRetryCount < MAX_SIDEBAR_RETRIES) {
+            setTimeout(initializeSidebar, 100);
+        } else {
+            console.error('Sidebar elements not found after maximum retries');
+        }
         return;
     }
+
+    // Mark as initialized to prevent duplicate event listeners
+    isSidebarInitialized = true;
 
     function toggleSidebar() {
         if (window.innerWidth >= 1024) {
@@ -63,6 +79,7 @@ function initializeSidebar() {
         const currentPage = window.location.pathname.split('/').pop();
         const navLinks = {
             'teacher-dashboard.html': 'nav-dashboard',
+            'dashboard.html': 'nav-dashboard',
             'student-list.html': 'nav-student-list',
             'student-profile.html': 'nav-student-profile',
             'mark-attendance.html': 'nav-mark-attendance',
@@ -77,20 +94,29 @@ function initializeSidebar() {
             'view-past-remarks.html': 'nav-view-remarks',
             'create-class-events.html': 'nav-create-events',
             'event-list.html': 'nav-event-list',
+            'view-event.html': 'nav-event-list',
+            'edit-event.html': 'nav-event-list',
             'class-performance-summary.html': 'nav-class-performance',
             'student-reports.html': 'nav-student-reports',
-            'my-profile.html': 'nav-my-profile',
+            'profile.html': 'nav-profile',
             'change-password.html': 'nav-change-password'
         };
 
-        // Remove all active classes
-        sidebarLinks.forEach(link => link.classList.remove('active'));
+        // Remove all active classes from sidebar links
+        const allSidebarLinks = document.querySelectorAll('.sidebar-dropdown-menu a, .sidebar-nav > a');
+        allSidebarLinks.forEach(link => link.classList.remove('active'));
 
         // Add active class to current page link
         if (navLinks[currentPage]) {
             const activeLink = document.getElementById(navLinks[currentPage]);
             if (activeLink) {
                 activeLink.classList.add('active');
+
+                // If the active link is inside a dropdown, open that dropdown
+                const parentDropdown = activeLink.closest('.sidebar-dropdown');
+                if (parentDropdown) {
+                    parentDropdown.classList.add('active');
+                }
             }
         }
     }
@@ -106,7 +132,11 @@ function initializeDropdowns() {
     const dropdownToggles = document.querySelectorAll('.sidebar-dropdown-toggle');
 
     dropdownToggles.forEach(toggle => {
-        toggle.addEventListener('click', function(e) {
+        // Remove any existing listeners by cloning and replacing (prevents duplicate listeners)
+        const newToggle = toggle.cloneNode(true);
+        toggle.parentNode.replaceChild(newToggle, toggle);
+
+        newToggle.addEventListener('click', function(e) {
             e.preventDefault();
 
             const dropdown = this.closest('.sidebar-dropdown');
