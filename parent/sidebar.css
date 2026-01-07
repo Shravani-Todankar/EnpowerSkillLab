@@ -246,7 +246,7 @@ body.dark .sidebar-dropdown-menu a.active {
         position: fixed;
         left: -100%;
         top: 0;
-        height: 100vh;
+        height: 200vh;
         z-index: 50;
         transition: left 0.3s ease-in-out;
         width: 280px;
