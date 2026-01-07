@@ -260,13 +260,23 @@ body.dark .sidebar-dropdown-menu a.active {
         left: -100%;
         top: 0;
         height: 100vh;
+        max-height: 100vh;
         z-index: 50;
         transition: left 0.3s ease-in-out;
         width: 280px;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        -webkit-overflow-scrolling: touch;
     }
 
     .sidebar.active {
         left: 0;
+    }
+
+    .sidebar-nav {
+        overflow-y: visible;
+        flex: 1;
+        padding-bottom: 40px;
     }
 
     .sidebar-overlay.active {

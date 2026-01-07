@@ -712,8 +712,7 @@ body.dark .dropdown-item .material-symbols-outlined {
 @media (max-width: 767px) {
     .notification-dropdown-menu {
         width: calc(100vw - 48px);
-        right: 0px;
-        left: -300px;
+        right: -45px;
     }
 }
 
