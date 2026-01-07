@@ -1,0 +1,1835 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Announcements - Parent Dashboard</title>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+        rel="stylesheet" />
+
+    <!-- Sidebar & Header CSS -->
+    <link rel="stylesheet" href="sidebar.css">
+    <link rel="stylesheet" href="header.css">
+
+    <!-- Sidebar & Header JS -->
+    <script src="sidebar.js"></script>
+    <script src="header.js"></script>
+
+    <style>
+        /* Prevent FOUC - hide containers until loaded */
+        #sidebar-container:empty,
+        #header-container:empty {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        #sidebar-container.loaded,
+        #header-container.loaded {
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.2s ease-in;
+        }
+
+        :root {
+            --primary: #5b1f6f;
+            --background-light: #f7f6f8;
+            --text-dark: #171019;
+            --text-muted: #80588d;
+            --border-color: #efe9f1;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--background-light);
+            color: var(--text-dark);
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .dashboard-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        .dashboard-page {
+            padding: 2rem;
+            flex: 1;
+        }
+
+        /* Page Header */
+        .page-header {
+            margin-bottom: 24px;
+        }
+
+        .page-title-section h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--text-dark);
+        }
+
+        .page-title-section p {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+
+        /* Search Bar */
+        .search-container {
+            position: relative;
+            max-width: 500px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px 16px 12px 48px;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            background: white;
+            color: var(--text-dark);
+            font-size: 14px;
+            font-family: inherit;
+            transition: all 0.2s ease;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(91, 31, 111, 0.1);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            pointer-events: none;
+        }
+
+        /* Two Column Layout */
+        .announcements-layout {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 24px;
+            align-items: start;
+        }
+
+        /* Left Sidebar */
+        .announcements-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            position: sticky;
+            top: 24px;
+        }
+
+        .sidebar-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .sidebar-card-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .sidebar-card-title .material-symbols-outlined {
+            font-size: 22px;
+            color: var(--primary);
+        }
+
+        /* Stats Cards */
+        .stats-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px;
+            background: var(--background-light);
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .stat-item:hover {
+            background: rgba(91, 31, 111, 0.05);
+        }
+
+        .stat-item.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .stat-label {
+            font-size: 13px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .stat-label .material-symbols-outlined {
+            font-size: 18px;
+        }
+
+        .stat-item.active .stat-label .material-symbols-outlined {
+            color: white;
+        }
+
+        .stat-value {
+            font-size: 16px;
+            font-weight: 700;
+            background: white;
+            padding: 4px 10px;
+            border-radius: 6px;
+            color: var(--primary);
+        }
+
+        .stat-item.active .stat-value {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        /* Category Filters */
+        .category-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .category-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 12px;
+            background: var(--background-light);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 2px solid transparent;
+        }
+
+        .category-item:hover {
+            background: rgba(91, 31, 111, 0.05);
+        }
+
+        .category-item.active {
+            border-color: var(--primary);
+            background: rgba(91, 31, 111, 0.08);
+        }
+
+        .category-item-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .category-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .category-icon.emergency {
+            background: rgba(239, 68, 68, 0.1);
+            color: #dc2626;
+        }
+
+        .category-icon.academic {
+            background: rgba(59, 130, 246, 0.1);
+            color: #2563eb;
+        }
+
+        .category-icon.technology {
+            background: rgba(16, 185, 129, 0.1);
+            color: #059669;
+        }
+
+        .category-icon.finance {
+            background: rgba(245, 158, 11, 0.1);
+            color: #d97706;
+        }
+
+        .category-icon.health {
+            background: rgba(236, 72, 153, 0.1);
+            color: #db2777;
+        }
+
+        .category-icon.events {
+            background: rgba(139, 92, 246, 0.1);
+            color: #7c3aed;
+        }
+
+        .category-icon.security {
+            background: rgba(107, 114, 128, 0.1);
+            color: #4b5563;
+        }
+
+        .category-icon.library {
+            background: rgba(20, 184, 166, 0.1);
+            color: #0d9488;
+        }
+
+        .category-name {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .category-count {
+            font-size: 12px;
+            font-weight: 700;
+            background: white;
+            padding: 3px 8px;
+            border-radius: 12px;
+            color: var(--text-muted);
+        }
+
+        .category-item.active .category-count {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Priority Filters */
+        .priority-filters {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .priority-filter-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 12px;
+            background: var(--background-light);
+            border: 2px solid transparent;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: inherit;
+            color: var(--text-dark);
+        }
+
+        .priority-filter-btn:hover {
+            background: rgba(91, 31, 111, 0.05);
+        }
+
+        .priority-filter-btn.active {
+            border-color: var(--primary);
+            background: rgba(91, 31, 111, 0.08);
+        }
+
+        .priority-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .priority-dot.high {
+            background: #dc2626;
+        }
+
+        .priority-dot.medium {
+            background: #d97706;
+        }
+
+        .priority-dot.low {
+            background: #2563eb;
+        }
+
+        /* Main Content Area */
+        .announcements-main {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* Toolbar */
+        .announcements-toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: white;
+            padding: 16px 20px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .toolbar-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .results-count {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        .results-count strong {
+            color: var(--text-dark);
+            font-weight: 700;
+        }
+
+        .toolbar-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .toolbar-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 14px;
+            background: var(--background-light);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: inherit;
+            color: var(--text-dark);
+        }
+
+        .toolbar-btn:hover {
+            background: var(--border-color);
+        }
+
+        .toolbar-btn .material-symbols-outlined {
+            font-size: 18px;
+        }
+
+        /* Announcement Cards */
+        .announcements-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .announcement-card {
+            background: white;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .announcement-card:hover {
+            box-shadow: 0 6px 16px rgba(91, 31, 111, 0.12);
+            border-color: rgba(91, 31, 111, 0.2);
+        }
+
+        .announcement-card.unread::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--primary);
+        }
+
+        .announcement-card-header {
+            padding: 20px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 16px;
+        }
+
+        .announcement-card-content {
+            flex: 1;
+        }
+
+        .announcement-top-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+
+        .priority-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .priority-badge.high {
+            background: rgba(239, 68, 68, 0.1);
+            color: #dc2626;
+        }
+
+        .priority-badge.medium {
+            background: rgba(245, 158, 11, 0.1);
+            color: #d97706;
+        }
+
+        .priority-badge.low {
+            background: rgba(59, 130, 246, 0.1);
+            color: #2563eb;
+        }
+
+        .priority-badge .material-symbols-outlined {
+            font-size: 14px;
+        }
+
+        .category-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 10px;
+            background: rgba(91, 31, 111, 0.08);
+            color: var(--primary);
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .category-badge .material-symbols-outlined {
+            font-size: 14px;
+        }
+
+        .announcement-title {
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+
+        .announcement-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+
+        .announcement-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .announcement-meta-item .material-symbols-outlined {
+            font-size: 16px;
+        }
+
+        .announcement-excerpt {
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--text-dark);
+            opacity: 0.85;
+        }
+
+        .announcement-card-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .action-icon-btn {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--background-light);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .action-icon-btn:hover {
+            background: var(--border-color);
+        }
+
+        .action-icon-btn.read-toggle.unread {
+            background: rgba(91, 31, 111, 0.1);
+            border-color: var(--primary);
+        }
+
+        .action-icon-btn.read-toggle.unread .material-symbols-outlined {
+            color: var(--primary);
+        }
+
+        .action-icon-btn .material-symbols-outlined {
+            font-size: 20px;
+            color: var(--text-muted);
+        }
+
+        .announcement-card-footer {
+            padding: 16px 24px;
+            background: var(--background-light);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .announcement-author {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .author-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), #9333ea);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 13px;
+        }
+
+        .author-name {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .view-details-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: inherit;
+        }
+
+        .view-details-btn:hover {
+            background: #7c3aed;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(91, 31, 111, 0.3);
+        }
+
+        .view-details-btn .material-symbols-outlined {
+            font-size: 18px;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            background: white;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        .empty-state .material-symbols-outlined {
+            font-size: 80px;
+            color: var(--text-muted);
+            opacity: 0.5;
+            margin-bottom: 20px;
+        }
+
+        .empty-state h3 {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+        }
+
+        .empty-state p {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .announcements-layout {
+                grid-template-columns: 260px 1fr;
+                gap: 20px;
+            }
+
+            .sidebar-card {
+                padding: 18px;
+            }
+        }
+
+        /* Mobile Filters Dropdown */
+        .mobile-filters {
+            display: none;
+        }
+
+        @media (max-width: 1024px) {
+            .dashboard-page {
+                padding: 1.5rem;
+            }
+
+            .announcements-layout {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            /* Hide desktop sidebar on mobile */
+            .announcements-sidebar {
+                display: none;
+            }
+
+            /* Show mobile filters */
+            .mobile-filters {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 12px;
+                margin-bottom: 20px;
+            }
+
+            .mobile-filter-dropdown {
+                position: relative;
+            }
+
+            .mobile-filter-select {
+                width: 100%;
+                padding: 12px 36px 12px 14px;
+                border: 1px solid var(--border-color);
+                border-radius: 10px;
+                background: white;
+                color: var(--text-dark);
+                font-size: 13px;
+                font-weight: 600;
+                cursor: pointer;
+                font-family: inherit;
+                appearance: none;
+                background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%2380588d' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+                background-repeat: no-repeat;
+                background-position: right 12px center;
+                transition: all 0.2s ease;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            }
+
+            .mobile-filter-select:focus {
+                outline: none;
+                border-color: var(--primary);
+                box-shadow: 0 0 0 3px rgba(91, 31, 111, 0.1);
+            }
+
+            .search-container {
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-page {
+                padding: 1rem;
+            }
+
+            .page-title-section h1 {
+                font-size: 24px;
+            }
+
+            .page-title-section p {
+                font-size: 13px;
+            }
+
+            .search-input {
+                padding: 11px 14px 11px 44px;
+                font-size: 13px;
+            }
+
+            .search-icon {
+                left: 12px;
+                font-size: 20px;
+            }
+
+            .mobile-filters {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 10px;
+            }
+
+            .mobile-filter-select {
+                padding: 11px 32px 11px 12px;
+                font-size: 12px;
+                border-radius: 8px;
+            }
+
+            .announcements-sidebar {
+                gap: 12px;
+            }
+
+            .sidebar-card {
+                min-width: 260px;
+                padding: 16px;
+            }
+
+            .sidebar-card-title {
+                font-size: 15px;
+                margin-bottom: 14px;
+            }
+
+            .announcements-toolbar {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 12px;
+                padding: 14px 16px;
+            }
+
+            .toolbar-left {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+
+            .results-count {
+                font-size: 13px;
+            }
+
+            .toolbar-actions {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 8px;
+            }
+
+            .toolbar-btn {
+                justify-content: center;
+                padding: 10px 12px;
+                font-size: 12px;
+            }
+
+            .toolbar-btn .material-symbols-outlined {
+                font-size: 16px;
+            }
+
+            .announcement-card-header {
+                flex-direction: column;
+                padding: 16px;
+            }
+
+            .announcement-top-row {
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+
+            .priority-badge,
+            .category-badge {
+                font-size: 10px;
+                padding: 3px 8px;
+            }
+
+            .announcement-title {
+                font-size: 16px;
+                margin-bottom: 8px;
+            }
+
+            .announcement-meta {
+                gap: 12px;
+                font-size: 12px;
+            }
+
+            .announcement-meta-item .material-symbols-outlined {
+                font-size: 15px;
+            }
+
+            .announcement-excerpt {
+                font-size: 13px;
+                line-height: 1.5;
+            }
+
+            .announcement-card-actions {
+                flex-direction: row;
+                width: 100%;
+                justify-content: flex-end;
+            }
+
+            .action-icon-btn {
+                width: 38px;
+                height: 38px;
+            }
+
+            .announcement-card-footer {
+                flex-direction: column;
+                gap: 12px;
+                align-items: stretch;
+                padding: 14px 16px;
+            }
+
+            .author-avatar {
+                width: 32px;
+                height: 32px;
+                font-size: 12px;
+            }
+
+            .author-name {
+                font-size: 12px;
+            }
+
+            .view-details-btn {
+                width: 100%;
+                justify-content: center;
+                padding: 10px 16px;
+                font-size: 12px;
+            }
+
+            .view-details-btn .material-symbols-outlined {
+                font-size: 16px;
+            }
+
+            .empty-state {
+                padding: 40px 20px;
+            }
+
+            .empty-state .material-symbols-outlined {
+                font-size: 60px;
+            }
+
+            .empty-state h3 {
+                font-size: 18px;
+            }
+
+            .empty-state p {
+                font-size: 13px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .dashboard-page {
+                padding: 0.75rem;
+            }
+
+            .page-title-section h1 {
+                font-size: 22px;
+            }
+
+            .page-title-section p {
+                font-size: 12px;
+                margin-bottom: 16px;
+            }
+
+            .mobile-filters {
+                grid-template-columns: repeat(3, 1fr);;
+                gap: 8px;
+            }
+
+            .mobile-filter-select {
+                padding: 10px 30px 10px 10px;
+                font-size: 11px;
+            }
+
+            .announcements-sidebar {
+                gap: 10px;
+            }
+
+            .sidebar-card {
+                min-width: 240px;
+                padding: 14px;
+            }
+
+            .sidebar-card-title {
+                font-size: 14px;
+                margin-bottom: 12px;
+            }
+
+            .stat-item,
+            .category-item {
+                padding: 10px;
+            }
+
+            .stat-label,
+            .category-name {
+                font-size: 12px;
+            }
+
+            .stat-value,
+            .category-count {
+                font-size: 12px;
+                padding: 3px 8px;
+            }
+
+            .category-icon {
+                width: 32px;
+                height: 32px;
+                font-size: 16px;
+            }
+
+            .priority-filter-btn {
+                font-size: 12px;
+                padding: 9px 10px;
+            }
+
+            .announcements-toolbar {
+                padding: 12px;
+            }
+
+            .announcement-card-header {
+                padding: 14px;
+            }
+
+            .announcement-card-footer {
+                padding: 12px;
+            }
+
+            .announcement-title {
+                font-size: 15px;
+            }
+
+            .announcement-meta {
+                gap: 10px;
+                font-size: 11px;
+            }
+
+            .announcement-excerpt {
+                font-size: 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .dashboard-page {
+                padding: 0.5rem;
+            }
+
+            .page-header {
+                margin-bottom: 20px;
+            }
+
+            .page-title-section h1 {
+                font-size: 20px;
+            }
+
+            .page-title-section p {
+                font-size: 11px;
+                margin-bottom: 14px;
+            }
+
+            .search-input {
+                padding: 10px 12px 10px 40px;
+                font-size: 12px;
+                border-radius: 8px;
+            }
+
+            .search-icon {
+                left: 10px;
+                font-size: 18px;
+            }
+
+            .announcements-sidebar {
+                gap: 8px;
+            }
+
+            .sidebar-card {
+                min-width: 220px;
+                padding: 12px;
+                border-radius: 10px;
+            }
+
+            .sidebar-card-title {
+                font-size: 13px;
+                margin-bottom: 10px;
+            }
+
+            .sidebar-card-title .material-symbols-outlined {
+                font-size: 18px;
+            }
+
+            .stats-grid,
+            .priority-filters,
+            .category-list {
+                gap: 8px;
+            }
+
+            .stat-item,
+            .category-item {
+                padding: 8px 10px;
+                border-radius: 6px;
+            }
+
+            .stat-label,
+            .category-name {
+                font-size: 11px;
+            }
+
+            .stat-label .material-symbols-outlined,
+            .category-icon .material-symbols-outlined {
+                font-size: 14px;
+            }
+
+            .stat-value,
+            .category-count {
+                font-size: 11px;
+                padding: 2px 6px;
+            }
+
+            .category-icon {
+                width: 28px;
+                height: 28px;
+                font-size: 14px;
+            }
+
+            .priority-filter-btn {
+                font-size: 11px;
+                padding: 8px;
+            }
+
+            .priority-dot {
+                width: 8px;
+                height: 8px;
+            }
+
+            .announcements-toolbar {
+                padding: 10px;
+                border-radius: 10px;
+            }
+
+            .toolbar-btn {
+                padding: 8px 10px;
+                font-size: 11px;
+                border-radius: 6px;
+            }
+
+            .toolbar-btn .material-symbols-outlined {
+                font-size: 14px;
+            }
+
+            .announcements-list {
+                gap: 12px;
+            }
+
+            .announcement-card {
+                border-radius: 10px;
+            }
+
+            .announcement-card-header {
+                padding: 12px;
+            }
+
+            .announcement-top-row {
+                gap: 6px;
+                margin-bottom: 8px;
+            }
+
+            .priority-badge,
+            .category-badge {
+                font-size: 9px;
+                padding: 2px 6px;
+                border-radius: 4px;
+            }
+
+            .priority-badge .material-symbols-outlined,
+            .category-badge .material-symbols-outlined {
+                font-size: 12px;
+            }
+
+            .announcement-title {
+                font-size: 14px;
+                margin-bottom: 6px;
+            }
+
+            .announcement-meta {
+                gap: 8px;
+                font-size: 10px;
+                margin-bottom: 10px;
+            }
+
+            .announcement-meta-item .material-symbols-outlined {
+                font-size: 13px;
+            }
+
+            .announcement-excerpt {
+                font-size: 11px;
+                line-height: 1.4;
+            }
+
+            .action-icon-btn {
+                width: 34px;
+                height: 34px;
+                border-radius: 6px;
+            }
+
+            .action-icon-btn .material-symbols-outlined {
+                font-size: 18px;
+            }
+
+            .announcement-card-footer {
+                padding: 10px 12px;
+            }
+
+            .author-avatar {
+                width: 28px;
+                height: 28px;
+                font-size: 11px;
+            }
+
+            .author-name {
+                font-size: 11px;
+            }
+
+            .view-details-btn {
+                padding: 8px 12px;
+                font-size: 11px;
+                border-radius: 6px;
+            }
+
+            .view-details-btn .material-symbols-outlined {
+                font-size: 14px;
+            }
+
+            .empty-state {
+                padding: 30px 16px;
+                border-radius: 10px;
+            }
+
+            .empty-state .material-symbols-outlined {
+                font-size: 50px;
+            }
+
+            .empty-state h3 {
+                font-size: 16px;
+            }
+
+            .empty-state p {
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- Include Sidebar Component -->
+        <div id="sidebar-container"></div>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Include Header Component -->
+            <div id="header-container"></div>
+
+            <!-- Page Content -->
+            <div class="dashboard-page">
+                <!-- Page Header -->
+                <div class="page-header">
+                    <div class="page-title-section">
+                        <h1>Announcements</h1>
+                        <p>Stay updated with important announcements from school administration</p>
+                    </div>
+                    <div class="search-container">
+                        <span class="material-symbols-outlined search-icon">search</span>
+                        <input type="text" class="search-input" id="searchInput" placeholder="Search announcements...">
+                    </div>
+                </div>
+
+                <!-- Mobile Filters (visible only on mobile) -->
+                <div class="mobile-filters">
+                    <div class="mobile-filter-dropdown">
+                        <select class="mobile-filter-select" id="mobileStatusFilter" onchange="filterByStatus(this.value)">
+                            <option value="all">All (8)</option>
+                            <option value="unread">Unread (3)</option>
+                            <option value="read">Read (5)</option>
+                        </select>
+                    </div>
+                    <div class="mobile-filter-dropdown">
+                        <select class="mobile-filter-select" id="mobilePriorityFilter" onchange="filterByPriority(this.value)">
+                            <option value="all">All Priorities</option>
+                            <option value="high">High Priority</option>
+                            <option value="medium">Medium Priority</option>
+                            <option value="low">Low Priority</option>
+                        </select>
+                    </div>
+                    <div class="mobile-filter-dropdown">
+                        <select class="mobile-filter-select" id="mobileCategoryFilter" onchange="filterByCategory(this.value)">
+                            <option value="all">All Categories</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Two Column Layout -->
+                <div class="announcements-layout">
+                    <!-- Left Sidebar -->
+                    <div class="announcements-sidebar">
+                        <!-- Stats Card -->
+                        <div class="sidebar-card">
+                            <div class="sidebar-card-title">
+                                <span class="material-symbols-outlined">monitoring</span>
+                                Quick Stats
+                            </div>
+                            <div class="stats-grid">
+                                <div class="stat-item" data-filter="all" onclick="filterByStatus('all')">
+                                    <span class="stat-label">
+                                        <span class="material-symbols-outlined">campaign</span>
+                                        All
+                                    </span>
+                                    <span class="stat-value" id="stat-all">8</span>
+                                </div>
+                                <div class="stat-item" data-filter="unread" onclick="filterByStatus('unread')">
+                                    <span class="stat-label">
+                                        <span class="material-symbols-outlined">mark_email_unread</span>
+                                        Unread
+                                    </span>
+                                    <span class="stat-value" id="stat-unread">3</span>
+                                </div>
+                                <div class="stat-item" data-filter="read" onclick="filterByStatus('read')">
+                                    <span class="stat-label">
+                                        <span class="material-symbols-outlined">drafts</span>
+                                        Read
+                                    </span>
+                                    <span class="stat-value" id="stat-read">5</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Priority Filters -->
+                        <div class="sidebar-card">
+                            <div class="sidebar-card-title">
+                                <span class="material-symbols-outlined">priority_high</span>
+                                Priority
+                            </div>
+                            <div class="priority-filters">
+                                <button class="priority-filter-btn active" data-priority="all" onclick="filterByPriority('all')">
+                                    <span class="priority-dot" style="background: var(--text-muted);"></span>
+                                    All Priorities
+                                </button>
+                                <button class="priority-filter-btn" data-priority="high" onclick="filterByPriority('high')">
+                                    <span class="priority-dot high"></span>
+                                    High Priority
+                                </button>
+                                <button class="priority-filter-btn" data-priority="medium" onclick="filterByPriority('medium')">
+                                    <span class="priority-dot medium"></span>
+                                    Medium Priority
+                                </button>
+                                <button class="priority-filter-btn" data-priority="low" onclick="filterByPriority('low')">
+                                    <span class="priority-dot low"></span>
+                                    Low Priority
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Category Filters -->
+                        <div class="sidebar-card">
+                            <div class="sidebar-card-title">
+                                <span class="material-symbols-outlined">category</span>
+                                Categories
+                            </div>
+                            <div class="category-list" id="categoryList">
+                                <!-- Categories will be populated dynamically -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Main Content Area -->
+                    <div class="announcements-main">
+                        <!-- Toolbar -->
+                        <div class="announcements-toolbar">
+                            <div class="toolbar-left">
+                                <div class="results-count">
+                                    Showing <strong id="resultsCount">8</strong> announcements
+                                </div>
+                            </div>
+                            <div class="toolbar-actions">
+                                <button class="toolbar-btn" onclick="markAllAsRead()">
+                                    <span class="material-symbols-outlined">done_all</span>
+                                    Mark All Read
+                                </button>
+                                <button class="toolbar-btn" onclick="refreshAnnouncements()">
+                                    <span class="material-symbols-outlined">refresh</span>
+                                    Refresh
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Announcements List -->
+                        <div class="announcements-list" id="announcementsList">
+                            <!-- Announcements will be dynamically loaded here -->
+                        </div>
+
+                        <!-- Empty State -->
+                        <div class="empty-state" id="emptyState" style="display: none;">
+                            <span class="material-symbols-outlined">campaign</span>
+                            <h3>No Announcements Found</h3>
+                            <p>There are no announcements matching your search criteria.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Load Sidebar and Header Components
+        document.addEventListener('DOMContentLoaded', function () {
+            Promise.all([
+                fetch('sidebar.html').then(response => response.text()),
+                fetch('header.html').then(response => response.text())
+            ]).then(([sidebarHTML, headerHTML]) => {
+                document.getElementById('sidebar-container').innerHTML = sidebarHTML;
+                document.getElementById('header-container').innerHTML = headerHTML;
+
+                setTimeout(() => {
+                    if (typeof initializeSidebar === 'function') {
+                        initializeSidebar();
+                    }
+                    if (typeof initializeHeader === 'function') {
+                        initializeHeader();
+                    }
+                    document.getElementById('sidebar-container').classList.add('loaded');
+                    document.getElementById('header-container').classList.add('loaded');
+                    setActiveMenuItem();
+                }, 200);
+            });
+
+            loadAnnouncements();
+        });
+
+        function setActiveMenuItem() {
+            const navAnnouncements = document.getElementById('nav-announcements');
+            if (navAnnouncements) {
+                navAnnouncements.classList.add('active');
+                const eventsNoticesDropdown = document.getElementById('events-notices-dropdown');
+                if (eventsNoticesDropdown) {
+                    const dropdown = eventsNoticesDropdown.closest('.sidebar-dropdown');
+                    if (dropdown) {
+                        dropdown.classList.add('active');
+                    }
+                }
+            }
+        }
+
+        // Sample announcements data
+        const announcementsData = [
+            {
+                id: 1,
+                title: "School Closure Due to Weather Emergency",
+                content: "Due to severe weather conditions, the school will remain closed on January 10th, 2025. All classes and activities are postponed. Online learning sessions will be conducted instead.",
+                priority: "high",
+                category: "Emergency",
+                categoryIcon: "warning",
+                isRead: false,
+                postedBy: "Super Admin",
+                postedByInitials: "SA",
+                postedDate: "2025-01-07",
+                postedTime: "08:30 AM",
+                attachments: 1
+            },
+            {
+                id: 2,
+                title: "Upcoming Parent-Teacher Conference Schedule",
+                content: "We are pleased to announce the Parent-Teacher Conference scheduled for January 20th, 2025. Individual time slots have been assigned to each parent.",
+                priority: "medium",
+                category: "Academic",
+                categoryIcon: "school",
+                isRead: false,
+                postedBy: "Academic Coordinator",
+                postedByInitials: "AC",
+                postedDate: "2025-01-06",
+                postedTime: "02:15 PM",
+                attachments: 2
+            },
+            {
+                id: 3,
+                title: "New Online Learning Portal Features",
+                content: "We are excited to introduce new features to our online learning portal. The updated platform includes interactive quizzes, video lessons, and progress tracking.",
+                priority: "low",
+                category: "Technology",
+                categoryIcon: "computer",
+                isRead: true,
+                postedBy: "IT Department",
+                postedByInitials: "IT",
+                postedDate: "2025-01-05",
+                postedTime: "11:00 AM",
+                attachments: 2
+            },
+            {
+                id: 4,
+                title: "Annual Fee Payment Deadline Extension",
+                content: "The deadline for annual fee payment has been extended to January 31st, 2025. Parents who have not yet completed the payment are requested to do so before the extended deadline.",
+                priority: "high",
+                category: "Finance",
+                categoryIcon: "payments",
+                isRead: false,
+                postedBy: "Accounts Department",
+                postedByInitials: "AD",
+                postedDate: "2025-01-04",
+                postedTime: "09:45 AM",
+                attachments: 2
+            },
+            {
+                id: 5,
+                title: "Health and Safety Guidelines Update",
+                content: "As part of our ongoing commitment to student health and safety, we have updated our health protocols. All students must undergo health screening before entering the school premises.",
+                priority: "medium",
+                category: "Health",
+                categoryIcon: "health_and_safety",
+                isRead: true,
+                postedBy: "Health Committee",
+                postedByInitials: "HC",
+                postedDate: "2025-01-03",
+                postedTime: "03:30 PM",
+                attachments: 0
+            },
+            {
+                id: 6,
+                title: "Cultural Festival Participation Invitation",
+                content: "We invite all students to participate in our upcoming Cultural Festival scheduled for February 5th, 2025. Students can showcase their talents in music, dance, drama, and art.",
+                priority: "low",
+                category: "Events",
+                categoryIcon: "theater_comedy",
+                isRead: true,
+                postedBy: "Cultural Committee",
+                postedByInitials: "CC",
+                postedDate: "2025-01-02",
+                postedTime: "10:00 AM",
+                attachments: 1
+            },
+            {
+                id: 7,
+                title: "New Security Measures Implementation",
+                content: "To ensure the safety of our students, we are implementing new security measures effective immediately. All visitors must register at the security gate and obtain a visitor's pass.",
+                priority: "high",
+                category: "Security",
+                categoryIcon: "shield",
+                isRead: true,
+                postedBy: "Super Admin",
+                postedByInitials: "SA",
+                postedDate: "2025-01-01",
+                postedTime: "08:00 AM",
+                attachments: 1
+            },
+            {
+                id: 8,
+                title: "Library Books Return Reminder",
+                content: "This is a friendly reminder to all students who have borrowed books from the school library. Please return all overdue books by January 15th, 2025.",
+                priority: "low",
+                category: "Library",
+                categoryIcon: "local_library",
+                isRead: true,
+                postedBy: "Librarian",
+                postedByInitials: "LB",
+                postedDate: "2024-12-30",
+                postedTime: "01:00 PM",
+                attachments: 0
+            }
+        ];
+
+        let currentFilters = {
+            status: 'all',
+            priority: 'all',
+            category: 'all',
+            search: ''
+        };
+
+        function loadAnnouncements() {
+            populateCategories();
+            updateStats();
+            renderAnnouncements();
+            setupSearch();
+        }
+
+        function populateCategories() {
+            const categories = {};
+            announcementsData.forEach(ann => {
+                if (!categories[ann.category]) {
+                    categories[ann.category] = {
+                        name: ann.category,
+                        icon: ann.categoryIcon,
+                        count: 0
+                    };
+                }
+                categories[ann.category].count++;
+            });
+
+            // Populate desktop sidebar
+            const categoryList = document.getElementById('categoryList');
+            categoryList.innerHTML = `
+                <div class="category-item active" data-category="all" onclick="filterByCategory('all')">
+                    <div class="category-item-left">
+                        <div class="category-icon" style="background: rgba(91, 31, 111, 0.1); color: var(--primary);">
+                            <span class="material-symbols-outlined">dashboard</span>
+                        </div>
+                        <span class="category-name">All Categories</span>
+                    </div>
+                    <span class="category-count">${announcementsData.length}</span>
+                </div>
+                ${Object.values(categories).map(cat => `
+                    <div class="category-item" data-category="${cat.name.toLowerCase()}" onclick="filterByCategory('${cat.name.toLowerCase()}')">
+                        <div class="category-item-left">
+                            <div class="category-icon ${cat.name.toLowerCase()}">
+                                <span class="material-symbols-outlined">${cat.icon}</span>
+                            </div>
+                            <span class="category-name">${cat.name}</span>
+                        </div>
+                        <span class="category-count">${cat.count}</span>
+                    </div>
+                `).join('')}
+            `;
+
+            // Populate mobile category dropdown
+            const mobileCategoryFilter = document.getElementById('mobileCategoryFilter');
+            if (mobileCategoryFilter) {
+                mobileCategoryFilter.innerHTML = `
+                    <option value="all">All Categories</option>
+                    ${Object.values(categories).map(cat => `
+                        <option value="${cat.name.toLowerCase()}">${cat.name} (${cat.count})</option>
+                    `).join('')}
+                `;
+            }
+        }
+
+        function updateStats() {
+            const unreadCount = announcementsData.filter(a => !a.isRead).length;
+            const readCount = announcementsData.filter(a => a.isRead).length;
+
+            // Update desktop stats
+            document.getElementById('stat-all').textContent = announcementsData.length;
+            document.getElementById('stat-unread').textContent = unreadCount;
+            document.getElementById('stat-read').textContent = readCount;
+
+            // Update mobile dropdown options
+            const mobileStatusFilter = document.getElementById('mobileStatusFilter');
+            if (mobileStatusFilter) {
+                const currentValue = mobileStatusFilter.value;
+                mobileStatusFilter.innerHTML = `
+                    <option value="all">All (${announcementsData.length})</option>
+                    <option value="unread">Unread (${unreadCount})</option>
+                    <option value="read">Read (${readCount})</option>
+                `;
+                mobileStatusFilter.value = currentValue;
+            }
+        }
+
+        function renderAnnouncements() {
+            const filtered = announcementsData.filter(ann => {
+                const matchesStatus = currentFilters.status === 'all' ||
+                    (currentFilters.status === 'unread' && !ann.isRead) ||
+                    (currentFilters.status === 'read' && ann.isRead);
+                const matchesPriority = currentFilters.priority === 'all' || ann.priority === currentFilters.priority;
+                const matchesCategory = currentFilters.category === 'all' || ann.category.toLowerCase() === currentFilters.category;
+                const matchesSearch = ann.title.toLowerCase().includes(currentFilters.search) ||
+                    ann.content.toLowerCase().includes(currentFilters.search);
+
+                return matchesStatus && matchesPriority && matchesCategory && matchesSearch;
+            });
+
+            const list = document.getElementById('announcementsList');
+            const emptyState = document.getElementById('emptyState');
+
+            document.getElementById('resultsCount').textContent = filtered.length;
+
+            if (filtered.length === 0) {
+                list.style.display = 'none';
+                emptyState.style.display = 'block';
+                return;
+            }
+
+            list.style.display = 'flex';
+            emptyState.style.display = 'none';
+
+            list.innerHTML = filtered.map(ann => `
+                <div class="announcement-card ${ann.isRead ? '' : 'unread'}">
+                    <div class="announcement-card-header">
+                        <div class="announcement-card-content">
+                            <div class="announcement-top-row">
+                                <div class="priority-badge ${ann.priority}">
+                                    <span class="material-symbols-outlined">${getPriorityIcon(ann.priority)}</span>
+                                    ${ann.priority}
+                                </div>
+                                <div class="category-badge">
+                                    <span class="material-symbols-outlined">${ann.categoryIcon}</span>
+                                    ${ann.category}
+                                </div>
+                            </div>
+                            <h3 class="announcement-title">${ann.title}</h3>
+                            <div class="announcement-meta">
+                                <div class="announcement-meta-item">
+                                    <span class="material-symbols-outlined">person</span>
+                                    ${ann.postedBy}
+                                </div>
+                                <div class="announcement-meta-item">
+                                    <span class="material-symbols-outlined">calendar_today</span>
+                                    ${formatDate(ann.postedDate)}
+                                </div>
+                                <div class="announcement-meta-item">
+                                    <span class="material-symbols-outlined">schedule</span>
+                                    ${ann.postedTime}
+                                </div>
+                                ${ann.attachments > 0 ? `
+                                    <div class="announcement-meta-item">
+                                        <span class="material-symbols-outlined">attach_file</span>
+                                        ${ann.attachments} attachment${ann.attachments > 1 ? 's' : ''}
+                                    </div>
+                                ` : ''}
+                            </div>
+                            <p class="announcement-excerpt">${ann.content}</p>
+                        </div>
+                        <div class="announcement-card-actions">
+                            <button class="action-icon-btn read-toggle ${ann.isRead ? '' : 'unread'}"
+                                    onclick="toggleReadStatus(${ann.id})"
+                                    title="${ann.isRead ? 'Mark as unread' : 'Mark as read'}">
+                                <span class="material-symbols-outlined">${ann.isRead ? 'mail' : 'mark_email_unread'}</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="announcement-card-footer">
+                        <div class="announcement-author">
+                            <div class="author-avatar">${ann.postedByInitials}</div>
+                            <div class="author-name">${ann.postedBy}</div>
+                        </div>
+                        <button class="view-details-btn" onclick="viewDetails(${ann.id})">
+                            <span class="material-symbols-outlined">visibility</span>
+                            View Details
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function setupSearch() {
+            document.getElementById('searchInput').addEventListener('input', (e) => {
+                currentFilters.search = e.target.value.toLowerCase();
+                renderAnnouncements();
+            });
+        }
+
+        function filterByStatus(status) {
+            currentFilters.status = status;
+
+            // Update desktop sidebar
+            document.querySelectorAll('.stat-item').forEach(el => {
+                el.classList.toggle('active', el.dataset.filter === status);
+            });
+
+            // Update mobile dropdown
+            const mobileStatusFilter = document.getElementById('mobileStatusFilter');
+            if (mobileStatusFilter) {
+                mobileStatusFilter.value = status;
+            }
+
+            renderAnnouncements();
+        }
+
+        function filterByPriority(priority) {
+            currentFilters.priority = priority;
+
+            // Update desktop sidebar
+            document.querySelectorAll('.priority-filter-btn').forEach(el => {
+                el.classList.toggle('active', el.dataset.priority === priority);
+            });
+
+            // Update mobile dropdown
+            const mobilePriorityFilter = document.getElementById('mobilePriorityFilter');
+            if (mobilePriorityFilter) {
+                mobilePriorityFilter.value = priority;
+            }
+
+            renderAnnouncements();
+        }
+
+        function filterByCategory(category) {
+            currentFilters.category = category;
+
+            // Update desktop sidebar
+            document.querySelectorAll('.category-item').forEach(el => {
+                el.classList.toggle('active', el.dataset.category === category);
+            });
+
+            // Update mobile dropdown
+            const mobileCategoryFilter = document.getElementById('mobileCategoryFilter');
+            if (mobileCategoryFilter) {
+                mobileCategoryFilter.value = category;
+            }
+
+            renderAnnouncements();
+        }
+
+        function toggleReadStatus(id) {
+            const announcement = announcementsData.find(a => a.id === id);
+            if (announcement) {
+                announcement.isRead = !announcement.isRead;
+                updateStats();
+                renderAnnouncements();
+            }
+        }
+
+        function markAllAsRead() {
+            announcementsData.forEach(a => a.isRead = true);
+            updateStats();
+            renderAnnouncements();
+        }
+
+        function refreshAnnouncements() {
+            renderAnnouncements();
+        }
+
+        function viewDetails(id) {
+            const announcement = announcementsData.find(a => a.id === id);
+            if (announcement) {
+                announcement.isRead = true;
+                updateStats();
+                alert(`Viewing details for: ${announcement.title}\n\n${announcement.content}`);
+                renderAnnouncements();
+            }
+        }
+
+        function getPriorityIcon(priority) {
+            const icons = { high: 'priority_high', medium: 'error', low: 'info' };
+            return icons[priority] || 'info';
+        }
+
+        function formatDate(dateString) {
+            const options = { month: 'short', day: 'numeric', year: 'numeric' };
+            return new Date(dateString).toLocaleDateString('en-US', options);
+        }
+    </script>
+</body>
+
+</html>
