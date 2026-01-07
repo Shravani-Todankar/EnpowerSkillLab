@@ -246,10 +246,12 @@ body.dark .sidebar-dropdown-menu a.active {
         position: fixed;
         left: -100%;
         top: 0;
-        height: 200vh;
+        height: 100vh;
         z-index: 50;
         transition: left 0.3s ease-in-out;
         width: 280px;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
     }
 
     .sidebar.active {
