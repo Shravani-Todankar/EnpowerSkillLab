@@ -15,7 +15,40 @@ div#sidebar-container{
     display: flex;
     flex-direction: column;
     overflow-y: auto;
+    overflow-x: hidden;
     transition: width 0.3s ease-in-out, margin-left 0.3s ease-in-out;
+    height: 100vh;
+}
+
+/* Scrollbar Styling */
+.sidebar::-webkit-scrollbar {
+    width: 2px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0);
+    border-radius: 4px;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0);
+    border-radius: 4px;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0);
+}
+
+body.dark .sidebar::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+body.dark .sidebar::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+body.dark .sidebar::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
 }
 
 .sidebar.collapsed {
@@ -60,10 +93,10 @@ body.dark .sidebar-close {
 .sidebar-nav {
     flex: 1;
     padding: 20px 16px;
+    padding-bottom: 120px;
     display: flex;
     flex-direction: column;
     gap: 12px;
-    overflow-y: auto;
 }
 
 .sidebar-nav .menu-label {
