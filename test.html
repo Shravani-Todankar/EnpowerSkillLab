@@ -1,548 +1,615 @@
 <!DOCTYPE html>
-<html lang="en">
+<html class="dark" lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Student - Enpower Skill Lab</title>
-
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;900&display=swap"
-        rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
-        rel="stylesheet">
-
-    <!-- Sidebar JS -->
-    <script src="sidebar.js"></script>
-    <!-- Header JS -->
-    <script src="header.js"></script>
-
-    <style>
-        /* Prevent FOUC */
-        #sidebar-container:empty,
-        #header-container:empty {
-            opacity: 0;
-            visibility: hidden;
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Strategic Overview Dashboard - India's Future Tycoon</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&amp;family=Manrope:wght@200..800&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1132d4",
+                        "gold": "#D4AF37",
+                        "gold-muted": "#A6892E",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#05060f",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"],
+                        "serif": ["Playfair Display", "serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
         }
-
-        #sidebar-container.loaded,
-        #header-container.loaded {
-            opacity: 1;
-            visibility: visible;
-            transition: opacity 0.2s ease-in;
+    </script>
+    <style type="text/tailwindcss">
+        .glass-card {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         }
-
-        :root {
-            --primary: #6B21A8;
-            --bg-light: #f7f6f8;
-            --surface: #ffffff;
-            --text-main: #171019;
-            --text-secondary: #80588d;
-            --border-color: #dfd3e4;
+        .glass-card:hover {
+            border-color: rgba(212, 175, 55, 0.5);
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px -10px rgba(0, 0, 0, 0.5);
         }
-
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--bg-light);
-            color: var(--text-main);
-            margin: 0;
-            padding: 0;
+        .gold-glow {
+            text-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
         }
-
-        .edit-student-dashboard-container {
-            display: flex;
-            min-height: 100vh;
+        .gradient-bg {
+            background: radial-gradient(circle at 50% 0%, rgba(17, 50, 212, 0.12) 0%, transparent 40%), 
+                        radial-gradient(circle at 100% 100%, rgba(212, 175, 55, 0.03) 0%, transparent 30%);
+            background-color: #05060f;
         }
-
-        .edit-student-main-content {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            overflow-x: hidden;
+        .data-label {
+            @apply text-[10px] uppercase tracking-wider text-[#929bc9]/60 font-bold mb-0.5;
         }
-
-        .edit-student-content-wrapper {
-            flex: 1;
-            padding: 20px 30px;
-        }
-
-        .edit-student-back-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            color: #6b7280;
-            text-decoration: none;
-            font-size: 0.875rem;
-            margin-bottom: 16px;
-            font-weight: 500;
-        }
-
-        .edit-student-back-link:hover {
-            color: var(--primary);
-        }
-
-        .edit-student-back-link .material-symbols-outlined {
-            font-size: 1.25rem;
-        }
-
-        .edit-student-page-header {
-            font-weight: 700;
-            font-size: 28px;
-            margin-bottom: 4px;
-        }
-
-        .edit-student-page-subtitle {
-            color: #6b7280;
-            margin-bottom: 24px;
-            font-size: 0.875rem;
-        }
-
-        .edit-student-card-box {
-            background: var(--surface);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 32px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-            margin-bottom: 24px;
-        }
-
-        .edit-student-section-title {
-            font-size: 1rem;
-            font-weight: 600;
-            margin-bottom: 1.5rem;
-            color: var(--text-main);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .edit-student-section-title .material-symbols-outlined {
-            font-size: 1.25rem;
-            color: var(--primary);
-        }
-
-        .edit-student-form-label {
-            font-size: 0.875rem;
-            font-weight: 500;
-            color: #374151;
-            margin-bottom: 0.5rem;
-            display: block;
-        }
-
-        .edit-student-form-control,
-        .edit-student-form-select {
-            border-radius: 10px;
-            border: 1px solid var(--border-color);
-            padding: 0.625rem 0.875rem;
-            font-size: 0.875rem;
-            background-color: #faf9fb;
-            width: 100%;
-        }
-
-        .edit-student-form-control:focus,
-        .edit-student-form-select:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 1px var(--primary);
-            background-color: white;
-            outline: none;
-        }
-
-        .edit-student-photo-upload-section {
-            margin-bottom: 2rem;
-        }
-
-        .edit-student-photo-upload-wrapper {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .edit-student-photo-placeholder {
-            width: 100px;
-            height: 100px;
-            border: 2px dashed var(--border-color);
-            border-radius: 12px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background-color: #faf9fb;
-            color: #9ca3af;
-            font-size: 0.75rem;
-        }
-
-        .edit-student-photo-placeholder .material-symbols-outlined {
-            font-size: 2rem;
-            margin-bottom: 4px;
-        }
-
-        .edit-student-btn-change-photo {
-            background-color: var(--primary);
-            border: none;
-            color: white;
-            font-weight: 600;
-            padding: 0.625rem 1.25rem;
-            border-radius: 10px;
-            font-size: 0.875rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            cursor: pointer;
-        }
-
-        .edit-student-btn-change-photo:hover {
-            background-color: #581c87;
-        }
-
-        .edit-student-photo-hint {
-            color: #9ca3af;
-            font-size: 0.75rem;
-        }
-
-        .edit-student-btn-primary {
-            background-color: var(--primary);
-            border: none;
-            color: white;
-            font-weight: 700;
-            padding: 0.75rem 1.75rem;
-            border-radius: 10px;
-            transition: background-color 0.2s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .edit-student-btn-primary:hover {
-            background-color: #581c87;
-        }
-
-        .edit-student-btn-primary .material-symbols-outlined {
-            font-size: 1.125rem;
-        }
-
-        .edit-student-btn-ghost {
-            background: transparent;
-            border: 1px solid var(--border-color);
-            color: #374151;
-            font-weight: 600;
-            padding: 0.75rem 1.5rem;
-            border-radius: 10px;
-            transition: background-color 0.2s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .edit-student-btn-ghost:hover {
-            background-color: var(--bg-light);
-        }
-
-        .edit-student-btn-ghost .material-symbols-outlined {
-            font-size: 1.125rem;
-        }
-
-        .edit-student-required {
-            color: #DC2626;
+        .data-value {
+            @apply text-xs text-white/90 font-medium truncate;
         }
     </style>
 </head>
 
-<body>
-    <div class="edit-student-dashboard-container">
-        <!-- Sidebar Container -->
-        <div id="sidebar-container"></div>
-
-        <!-- Main Content Area -->
-        <div class="edit-student-main-content">
-            <!-- Header Container -->
-            <div id="header-container"></div>
-
-            <!-- Content Wrapper -->
-            <div class="edit-student-content-wrapper">
-                <main class="container-xl">
-                    <!-- Back Link -->
-                    <a href="student-list.html" class="edit-student-back-link">
-                        <span class="material-symbols-outlined">arrow_back</span>
-                        Back to Student List
-                    </a>
-
-                    <!-- Page Header -->
-                    <div class="mb-4">
-                        <h1 class="edit-student-page-header">Edit Student</h1>
-                        <p class="edit-student-page-subtitle" id="studentIdHeader">Update information for Aadhya Dev Das</p>
-                    </div>
-
-                    <form id="editStudentForm">
-                        <!-- Basic Information Card -->
-                        <div class="edit-student-card-box">
-                            <div class="edit-student-section-title">
-                                <span class="material-symbols-outlined">person</span>
-                                Basic Information
-                            </div>
-
-                            <!-- Photo Upload -->
-                            <div class="edit-student-photo-upload-section">
-                                <label class="edit-student-form-label">Student Photo</label>
-                                <div class="edit-student-photo-upload-wrapper">
-                                    <div class="edit-student-photo-placeholder">
-                                        <span class="material-symbols-outlined">photo_camera</span>
-                                        Upload Photo
-                                    </div>
-                                    <div>
-                                        <button type="button" class="edit-student-btn-change-photo">
-                                            <span class="material-symbols-outlined" style="font-size: 1rem;">upload</span>
-                                            Change Photo
-                                        </button>
-                                        <div class="edit-student-photo-hint mt-1">Recommended: Square image, max 2MB</div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row g-3">
-                                <div class="col-md-6">
-                                    <label for="firstName" class="edit-student-form-label">First Name <span class="edit-student-required">*</span></label>
-                                    <input type="text" class="edit-student-form-control" id="firstName" value="Aadhya" required>
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="middleName" class="edit-student-form-label">Middle Name</label>
-                                    <input type="text" class="edit-student-form-control" id="middleName" value="Dev">
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="lastName" class="edit-student-form-label">Last Name <span class="edit-student-required">*</span></label>
-                                    <input type="text" class="edit-student-form-control" id="lastName" value="Das" required>
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="gender" class="edit-student-form-label">Gender <span class="edit-student-required">*</span></label>
-                                    <select class="edit-student-form-select" id="gender" required>
-                                        <option value="Male" selected>Male</option>
-                                        <option value="Female">Female</option>
-                                        <option value="Other">Other</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="dateOfBirth" class="edit-student-form-label">Date of Birth <span class="edit-student-required">*</span></label>
-                                    <input type="date" class="edit-student-form-control" id="dateOfBirth" value="2006-06-11" required>
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="nationality" class="edit-student-form-label">Nationality</label>
-                                    <input type="text" class="edit-student-form-control" id="nationality" value="Indian">
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="motherTongue" class="edit-student-form-label">Mother Tongue</label>
-                                    <input type="text" class="edit-student-form-control" id="motherTongue" value="Telugu">
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="bloodGroup" class="edit-student-form-label">Blood Group</label>
-                                    <select class="edit-student-form-select" id="bloodGroup">
-                                        <option value="">Select Blood Group</option>
-                                        <option value="O-" selected>O-</option>
-                                        <option value="O+">O+</option>
-                                        <option value="A-">A-</option>
-                                        <option value="A+">A+</option>
-                                        <option value="B-">B-</option>
-                                        <option value="B+">B+</option>
-                                        <option value="AB-">AB-</option>
-                                        <option value="AB+">AB+</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="aadharNumber" class="edit-student-form-label">Aadhar Number</label>
-                                    <input type="text" class="edit-student-form-control" id="aadharNumber" value="4589 8417 6625" maxlength="14">
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Academic Details Card -->
-                        <div class="edit-student-card-box">
-                            <div class="edit-student-section-title">
-                                <span class="material-symbols-outlined">school</span>
-                                Academic Details
-                            </div>
-                            <div class="row g-3">
-                                <div class="col-md-6">
-                                    <label for="schoolName" class="edit-student-form-label">School Name <span class="edit-student-required">*</span></label>
-                                    <select class="edit-student-form-select" id="schoolName" required>
-                                        <option value="Holy Model Academy" selected>Holy Model Academy</option>
-                                        <option value="Other School">Other School</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="studentClass" class="edit-student-form-label">Class <span class="edit-student-required">*</span></label>
-                                    <select class="edit-student-form-select" id="studentClass" required>
-                                        <option value="">Select Class</option>
-                                        <option value="Class 6">Class 6</option>
-                                        <option value="Class 7">Class 7</option>
-                                        <option value="Class 8" selected>Class 8</option>
-                                        <option value="Class 9">Class 9</option>
-                                        <option value="Class 10">Class 10</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="division" class="edit-student-form-label">Division <span class="edit-student-required">*</span></label>
-                                    <select class="edit-student-form-select" id="division" required>
-                                        <option value="">Select Division</option>
-                                        <option value="Division A">Division A</option>
-                                        <option value="Division B">Division B</option>
-                                        <option value="Division C">Division C</option>
-                                        <option value="Division D" selected>Division D</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="rollNumber" class="edit-student-form-label">Roll Number</label>
-                                    <input type="text" class="edit-student-form-control" id="rollNumber" value="38">
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="academicYear" class="edit-student-form-label">Academic Year</label>
-                                    <select class="edit-student-form-select" id="academicYear">
-                                        <option value="2023-2024">2023-2024</option>
-                                        <option value="2024-2025" selected>2024-2025</option>
-                                        <option value="2025-2026">2025-2026</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="studentStatus" class="edit-student-form-label">Status</label>
-                                    <select class="edit-student-form-select" id="studentStatus">
-                                        <option value="Active" selected>Active</option>
-                                        <option value="Pending">Pending</option>
-                                        <option value="Inactive">Inactive</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Action Buttons -->
-                        <div class="d-flex justify-content-end gap-3 mb-4">
-                            <button type="button" class="edit-student-btn-ghost" id="cancelBtn">
-                                <span class="material-symbols-outlined">close</span>
-                                Cancel
-                            </button>
-                            <button type="submit" class="edit-student-btn-primary">
-                                <span class="material-symbols-outlined">save</span>
-                                Save Changes
-                            </button>
-                        </div>
-                    </form>
-                </main>
+<body class="bg-background-dark font-display text-white selection:bg-gold/30">
+    <div class="relative min-h-screen w-full flex flex-col overflow-x-hidden gradient-bg">
+        <header class="flex items-center justify-between border-b border-white/5 px-8 py-4 w-full">
+            <div class="flex items-center gap-4">
+                <div class="size-8 text-gold">
+                    <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M39.5563 34.1455V13.8546C39.5563 15.708 36.8773 17.3437 32.7927 18.3189C30.2914 18.916 27.263 19.2655 24 19.2655C20.737 19.2655 17.7086 18.916 15.2073 18.3189C11.1227 17.3437 8.44365 15.708 8.44365 13.8546V34.1455C8.44365 35.9988 11.1227 37.6346 15.2073 38.6098C17.7086 39.2069 20.737 39.5564 24 39.5564C27.1288 39.5564 30.2914 39.2069 32.7927 38.6098C36.8773 37.6346 39.5563 35.9988 39.5563 34.1455Z"
+                            fill="currentColor"></path>
+                        <path clip-rule="evenodd"
+                            d="M10.4485 13.8519C10.4749 13.9271 10.6203 14.246 11.379 14.7361C12.298 15.3298 13.7492 15.9145 15.6717 16.3735C18.0007 16.9296 20.8712 17.2655 24 17.2655C27.1288 17.2655 29.9993 16.9296 32.3283 16.3735C34.2508 15.9145 35.702 15.3298 36.621 14.7361C37.3796 14.246 37.5251 13.9271 37.5515 13.8519C37.5287 13.7876 37.4333 13.5973 37.0635 13.2931C36.5266 12.8516 35.6288 12.3647 34.343 11.9175C31.79 11.0295 28.1333 10.4437 24 10.4437C19.8667 10.4437 16.2099 11.0295 13.657 11.9175C12.3712 12.3647 11.4734 12.8516 10.9365 13.2931C10.5667 13.5973 10.4713 13.7876 10.4485 13.8519ZM37.5563 18.7877C36.3176 19.3925 34.8502 19.8839 33.2571 20.2642C30.5836 20.9025 27.3973 21.2655 24 21.2655C20.6027 21.2655 17.4164 20.9025 14.7429 20.2642C13.1498 19.8839 11.6824 19.3925 10.4436 18.7877V34.1275C10.4515 34.1545 10.5427 34.4867 11.379 35.027C12.298 35.6207 13.7492 36.2054 15.6717 36.6644C18.0007 37.2205 20.8712 37.5564 24 37.5564C27.1288 37.5564 29.9993 37.2205 32.3283 36.6644C34.2508 36.2054 35.702 35.6207 36.621 35.027C37.4573 34.4867 37.5485 34.1546 37.5563 34.1275V18.7877ZM41.5563 13.8546V34.1455C41.5563 36.1078 40.158 37.5042 38.7915 38.3869C37.3498 39.3182 35.4192 40.0389 33.2571 40.5551C30.5836 41.1934 27.3973 41.5564 24 41.5564C20.6027 41.5564 17.4164 41.1934 14.7429 40.5551C12.5808 40.0389 10.6502 39.3182 9.20848 38.3869C7.84205 37.5042 6.44365 36.1078 6.44365 34.1455L6.44365 13.8546C6.44365 12.2684 7.37223 11.0454 8.39581 10.2036C9.43325 9.3505 10.8137 8.67141 12.343 8.13948C15.4203 7.06909 19.5418 6.44366 24 6.44366C28.4582 6.44366 32.5797 7.06909 35.657 8.13948C37.1863 8.67141 38.5667 9.3505 39.6042 10.2036C40.6278 11.0454 41.5563 12.2684 41.5563 13.8546Z"
+                            fill="currentColor" fill-rule="evenodd"></path>
+                    </svg>
+                </div>
+                <h2 class="text-white text-base font-bold tracking-tight">IFT Dashboard</h2>
             </div>
-        </div>
+            <div class="flex items-center gap-8">
+                <nav class="hidden md:flex items-center gap-6">
+                    <a class="text-white/50 hover:text-white text-xs font-semibold" href="#">ANALYTICS</a>
+                    <a class="text-gold text-xs font-bold border-b border-gold pb-1" href="#">EVALUATION</a>
+                    <a class="text-white/50 hover:text-white text-xs font-semibold" href="#">PROJECTS</a>
+                </nav>
+                <div class="h-6 w-px bg-white/10 mx-2"></div>
+                <button
+                    class="bg-white/5 hover:bg-white/10 text-white text-[11px] font-bold px-4 py-1.5 rounded border border-white/10">
+                    EXPORT DATA
+                </button>
+            </div>
+        </header>
+        <main class="flex-1 max-w-[1600px] mx-auto w-full px-6 py-10">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
+                <div class="space-y-2">
+                    <div class="flex items-center gap-2 mb-1">
+                        <span class="w-2 h-2 rounded-full bg-gold shadow-[0_0_8px_rgba(212,175,55,0.8)]"></span>
+                        <span class="text-gold font-bold text-xs tracking-widest uppercase">Live Strategic
+                            Evaluation</span>
+                    </div>
+                    <h1 class="text-white font-serif text-4xl md:text-5xl font-semibold">Strategic Overview Dashboard
+                    </h1>
+                    <p class="text-[#929bc9] text-sm max-w-xl">
+                        Performance metrics and innovation scores for the Top 24 Finalists of India’s Future Tycoon.
+                    </p>
+                </div>
+                <div class="flex gap-4">
+                    <div class="bg-white/5 border border-white/10 rounded-lg p-3 min-w-[140px]">
+                        <p class="text-[10px] text-[#929bc9] font-bold uppercase mb-1">Total Teams</p>
+                        <p class="text-2xl font-serif text-gold">24</p>
+                    </div>
+                    <div class="bg-white/5 border border-white/10 rounded-lg p-3 min-w-[140px]">
+                        <p class="text-[10px] text-[#929bc9] font-bold uppercase mb-1">Avg Innovation</p>
+                        <p class="text-2xl font-serif text-gold">8.4<span class="text-xs text-[#929bc9]">/10</span></p>
+                    </div>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                <div class="glass-card p-5 rounded-lg flex flex-col group">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="flex items-center gap-3">
+                            <div class="size-12 rounded-full border border-gold/20 overflow-hidden bg-white/5">
+                                <div class="w-full h-full bg-center bg-cover"
+                                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuC1ZpO0CEuRza5Egy6kZhyNlcNdIr7iNHX9jbMMMB0AG0WHuVot12E_4Xpv26QWXTxfyMGJgSN9Hg2f-zhpjs8HZ6Mim0fCb85BOO5YERoCLfZ5w6WjFirjac_gPMkOYIsTWwdFTZhG225vqez6dtIIzVs6BcothKPY5w5rEwUN3uYm6jDjZoUk-oVZaqEiR5c_N5F0HR4S-jzc2zL4uhfvRrTvynyVSVxPAecd_yPTUS5e1-LHMfK3D6gSg0Ux9b9MUzM-YgNJEzU");'>
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="text-white text-sm font-bold truncate max-w-[120px]">Eco-Innovators</h3>
+                                <p class="text-[10px] text-primary font-bold tracking-tight">IFT-ID: 2024-001</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-[10px] font-bold text-gold uppercase tracking-tighter">Score</div>
+                            <div class="text-lg font-serif text-white">9.2</div>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-y-3 pt-4 border-t border-white/5">
+                        <div>
+                            <p class="data-label">Project Category</p>
+                            <p class="data-value">Sustainability</p>
+                        </div>
+                        <div>
+                            <p class="data-label">Industry Focus</p>
+                            <p class="data-value">Clean Energy</p>
+                        </div>
+                        <div>
+                            <p class="data-label">Innovation Score</p>
+                            <div class="w-full h-1 bg-white/10 rounded-full mt-1.5 overflow-hidden">
+                                <div class="h-full bg-gold w-[92%]"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="data-label">Market Ready</p>
+                            <p class="data-value text-green-400">High Tier</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="glass-card p-5 rounded-lg flex flex-col group">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="flex items-center gap-3">
+                            <div class="size-12 rounded-full border border-gold/20 overflow-hidden bg-white/5">
+                                <div class="w-full h-full bg-center bg-cover"
+                                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBgSzSz6H5BrQNGUr9PdP2Onw9HHlnNFX0_L60gFzGAFDDR3HKsC2mhMUjv1EB__pw4rwPA82nmn6p6ARCXW05F_MJW_s2lz7gK-uZaIFJbQK9bef71iGNrY65Uj8iDfg5RcoCNgkXxYC_IDpG4ALkYzMmT02IBcnbQ7XMh8Cqh3opJaftAMvpHHYAHEzdXevai5FZgVbsy6MahHm2gR_TjVN2BZ9Lp9a-mLmui6SSjX3LRE0rnj6OwrHX1thdErR_AmaC0t1cId88");'>
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="text-white text-sm font-bold truncate max-w-[120px]">Visionary Titans</h3>
+                                <p class="text-[10px] text-primary font-bold tracking-tight">IFT-ID: 2024-002</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-[10px] font-bold text-gold uppercase tracking-tighter">Score</div>
+                            <div class="text-lg font-serif text-white">8.8</div>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-y-3 pt-4 border-t border-white/5">
+                        <div>
+                            <p class="data-label">Project Category</p>
+                            <p class="data-value">Advanced AI</p>
+                        </div>
+                        <div>
+                            <p class="data-label">Industry Focus</p>
+                            <p class="data-value">E-commerce</p>
+                        </div>
+                        <div>
+                            <p class="data-label">Innovation Score</p>
+                            <div class="w-full h-1 bg-white/10 rounded-full mt-1.5 overflow-hidden">
+                                <div class="h-full bg-gold w-[88%]"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="data-label">Market Ready</p>
+                            <p class="data-value text-blue-400">Scaling</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="glass-card p-5 rounded-lg flex flex-col group">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="flex items-center gap-3">
+                            <div class="size-12 rounded-full border border-gold/20 overflow-hidden bg-white/5">
+                                <div class="w-full h-full bg-center bg-cover"
+                                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAUDrdGnJ2-UQ9svF3UDLJrOtUBYlFjqYLmveaQ5zH3EnYeyqMKEAYBxqp9mqx6bdhQtyZ7MMFDOwCymC_t7zQL2aenIn6cn0iMO_5pMA_Wt0Tq7rq4HCLuFDvh-TRcid1aGqNEiggPVBZgqG1PhLnzsFnwvK2GaSxb2be90_Da1HD94bpl9TZ-Kpw2Lwxu7JY02Um0hhws6vQxXZH7QjjMsMXaH4KD7Ua65NDgH4VgzrjHGPbd0cXNcjQXqcr7mGVtwwNVzm8udg4");'>
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="text-white text-sm font-bold truncate max-w-[120px]">Team Alpha</h3>
+                                <p class="text-[10px] text-primary font-bold tracking-tight">IFT-ID: 2024-003</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-[10px] font-bold text-gold uppercase tracking-tighter">Score</div>
+                            <div class="text-lg font-serif text-white">8.5</div>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-y-3 pt-4 border-t border-white/5">
+                        <div>
+                            <p class="data-label">Project Category</p>
+                            <p class="data-value">EdTech</p>
+                        </div>
+                        <div>
+                            <p class="data-label">Industry Focus</p>
+                            <p class="data-value">Education</p>
+                        </div>
+                        <div>
+                            <p class="data-label">Innovation Score</p>
+                            <div class="w-full h-1 bg-white/10 rounded-full mt-1.5 overflow-hidden">
+                                <div class="h-full bg-gold w-[85%]"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="data-label">Market Ready</p>
+                            <p class="data-value text-gold">MVP Phase</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="glass-card p-5 rounded-lg flex flex-col group">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="flex items-center gap-3">
+                            <div class="size-12 rounded-full border border-gold/20 overflow-hidden bg-white/5">
+                                <div class="w-full h-full bg-center bg-cover"
+                                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDWAMz47QnsYRQs8vUVwtJvtm1PPrauyR-7P-kl7fCFJhjbTnvtrjPRiuwacIQFVkiN1a8RaHm_-DG--rCdlko4amAOX86D77u-oPYPyl1EjkKKBjtSd2-q5c6ADuJgeVCd2BWaGmKB7w3BuS-ax0N3RLBYDPlVi4pqxQ20Qe6KrC_BZHUzkWigN6WjQBcqZSPzfQdtDUQB9pNsQXdmAHrFFb73OmzzTwr9hgZWgiQ7iY8IksnFKVz6MW9xBlItCg0V-IWLsDbJ05g");'>
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="text-white text-sm font-bold truncate max-w-[120px]">Solar Pioneers</h3>
+                                <p class="text-[10px] text-primary font-bold tracking-tight">IFT-ID: 2024-004</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-[10px] font-bold text-gold uppercase tracking-tighter">Score</div>
+                            <div class="text-lg font-serif text-white">9.4</div>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-y-3 pt-4 border-t border-white/5">
+                        <div>
+                            <p class="data-label">Project Category</p>
+                            <p class="data-value">Infrastructure</p>
+                        </div>
+                        <div>
+                            <p class="data-label">Industry Focus</p>
+                            <p class="data-value">Real Estate</p>
+                        </div>
+                        <div>
+                            <p class="data-label">Innovation Score</p>
+                            <div class="w-full h-1 bg-white/10 rounded-full mt-1.5 overflow-hidden">
+                                <div class="h-full bg-gold w-[94%]"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="data-label">Market Ready</p>
+                            <p class="data-value text-green-400">Pilot Done</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="glass-card p-5 rounded-lg flex flex-col group">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="flex items-center gap-3">
+                            <div class="size-12 rounded-full border border-gold/20 overflow-hidden bg-white/5">
+                                <div class="w-full h-full bg-center bg-cover"
+                                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuD-Dbaooy2SRdC-EpKG_ixi9G24f213KT4ysljsGiM-33GDMQhg4znv_AOW9at-BIrqnmRvrV4MkEeJnR5nXp4y6340PUevrp6yzc8rwCMSHUEOPEhrKOkCX1eHSXbSqCQhJpjPMpOkPDyYrGTdMg8D6bIAKPCUTK_egQb2XUItrob2rfOMF48nS5u3PCczA4cICHVP4W2qcevK7OjYN0MIEczN-LfHrsL3vzJ1QLE2Lk5nq8ehIY-LVTw0uT0T6Apt57A9YTJgo30");'>
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="text-white text-sm font-bold truncate max-w-[120px]">Green Tech</h3>
+                                <p class="text-[10px] text-primary font-bold tracking-tight">IFT-ID: 2024-005</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-[10px] font-bold text-gold uppercase tracking-tighter">Score</div>
+                            <div class="text-lg font-serif text-white">7.9</div>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-y-3 pt-4 border-t border-white/5">
+                        <div>
+                            <p class="data-label">Project Category</p>
+                            <p class="data-value">Agriculture</p>
+                        </div>
+                        <div>
+                            <p class="data-label">Industry Focus</p>
+                            <p class="data-value">Agritech</p>
+                        </div>
+                        <div>
+                            <p class="data-label">Innovation Score</p>
+                            <div class="w-full h-1 bg-white/10 rounded-full mt-1.5 overflow-hidden">
+                                <div class="h-full bg-gold w-[79%]"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="data-label">Market Ready</p>
+                            <p class="data-value text-[#929bc9]">Ideation</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="glass-card p-5 rounded-lg flex flex-col group">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="flex items-center gap-3">
+                            <div class="size-12 rounded-full border border-gold/20 overflow-hidden bg-white/5">
+                                <div class="w-full h-full bg-center bg-cover"
+                                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDDSjvEufnRuqTMpgZ4dpP0pi9Clh8yjUTSUrMQY2hVSCYekja6uSbt2TIvfsT--jjRqgMrUG1v75pMtVDs9kreWtbkdN5Db-h5vSXOpMPDGedr_KLYSlB3j85XBLwKEIfkVvlaXbF11yFWN-mY8acl3CT4AprvZBLcUxN2kbMKrjuLo8iPMI65ovmWMCIPG1sLOaJ4ki8g29UiuvVH9TNvDtnMS92xMipQU0WTs0UfAJJzZa_8stoW2kRWem6659LE_sQKotpNy9g");'>
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="text-white text-sm font-bold truncate max-w-[120px]">Future Builders</h3>
+                                <p class="text-[10px] text-primary font-bold tracking-tight">IFT-ID: 2024-006</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-[10px] font-bold text-gold uppercase tracking-tighter">Score</div>
+                            <div class="text-lg font-serif text-white">8.2</div>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-y-3 pt-4 border-t border-white/5">
+                        <div>
+                            <p class="data-label">Project Category</p>
+                            <p class="data-value">Logistics</p>
+                        </div>
+                        <div>
+                            <p class="data-label">Industry Focus</p>
+                            <p class="data-value">Supply Chain</p>
+                        </div>
+                        <div>
+                            <p class="data-label">Innovation Score</p>
+                            <div class="w-full h-1 bg-white/10 rounded-full mt-1.5 overflow-hidden">
+                                <div class="h-full bg-gold w-[82%]"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="data-label">Market Ready</p>
+                            <p class="data-value text-blue-400">Testing</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="glass-card p-5 rounded-lg flex flex-col group">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="flex items-center gap-3">
+                            <div class="size-12 rounded-full border border-gold/20 overflow-hidden bg-white/5">
+                                <div class="w-full h-full bg-center bg-cover"
+                                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDe_0AKZs2fuCAhhLBGLmH0ESmA-kOeRWLO5nh0rADknOtn40LPDuzVcmk7Tre0CWJiBc9ZyrFS-UxEL8_lqEcJgz0BA2F-kgMO4qjFPkUgr1X3C5GAriIF4sEtah1ccvKZve7kgyK8rMdetH-o3NX83jrG8vhJoMXl5et_9edljboAz6t6N_lbwZ-eGI6RIKFCUAw6zhDqUKgvO-WIyY32RJBh_kyUv-560tb_iLL4nGv8LYRbWO7bGrmhiEMrN93NR_Tk0cFu7SU");'>
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="text-white text-sm font-bold truncate max-w-[120px]">Tech Wizards</h3>
+                                <p class="text-[10px] text-primary font-bold tracking-tight">IFT-ID: 2024-007</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-[10px] font-bold text-gold uppercase tracking-tighter">Score</div>
+                            <div class="text-lg font-serif text-white">9.0</div>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-y-3 pt-4 border-t border-white/5">
+                        <div>
+                            <p class="data-label">Project Category</p>
+                            <p class="data-value">Web3 / Blockchain</p>
+                        </div>
+                        <div>
+                            <p class="data-label">Industry Focus</p>
+                            <p class="data-value">FinTech</p>
+                        </div>
+                        <div>
+                            <p class="data-label">Innovation Score</p>
+                            <div class="w-full h-1 bg-white/10 rounded-full mt-1.5 overflow-hidden">
+                                <div class="h-full bg-gold w-[90%]"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="data-label">Market Ready</p>
+                            <p class="data-value text-green-400">Launch Ready</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="glass-card p-5 rounded-lg flex flex-col group">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="flex items-center gap-3">
+                            <div class="size-12 rounded-full border border-gold/20 overflow-hidden bg-white/5">
+                                <div class="w-full h-full bg-center bg-cover"
+                                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBCs44xaAc_jlQbt4AIooOXHjioWbvND8Eb1ffIEYfLUO0-kabzP9vP4-Sx3KSynOZify5vcrp5DpsusEk4cANi9etS_xWs_07vqjT85_P7fWH_uvkXRi2jz_Ic9KbrkC1Y_HqJX6iR50zznOdN0r_dxMTkG9p220oTm83e7ykEoJBR9cpyAOdRUjetQV6jPtabc5CTm6pCp7Nq2qRG6ibphBYKCZhZC3y-dhG5ovcC45EJo7Pb00AeNoOxHFrfAM0GrqT3GTv1umQ");'>
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="text-white text-sm font-bold truncate max-w-[120px]">Smart Solutions</h3>
+                                <p class="text-[10px] text-primary font-bold tracking-tight">IFT-ID: 2024-008</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-[10px] font-bold text-gold uppercase tracking-tighter">Score</div>
+                            <div class="text-lg font-serif text-white">8.6</div>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-y-3 pt-4 border-t border-white/5">
+                        <div>
+                            <p class="data-label">Project Category</p>
+                            <p class="data-value">HealthTech</p>
+                        </div>
+                        <div>
+                            <p class="data-label">Industry Focus</p>
+                            <p class="data-value">Diagnostics</p>
+                        </div>
+                        <div>
+                            <p class="data-label">Innovation Score</p>
+                            <div class="w-full h-1 bg-white/10 rounded-full mt-1.5 overflow-hidden">
+                                <div class="h-full bg-gold w-[86%]"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="data-label">Market Ready</p>
+                            <p class="data-value text-blue-400">Validation</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="glass-card p-5 rounded-lg flex flex-col group">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="flex items-center gap-3">
+                            <div class="size-12 rounded-full border border-gold/20 overflow-hidden bg-white/5">
+                                <div class="w-full h-full bg-center bg-cover"
+                                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDkw7lfrLOc0E5TW-BB8mvBS7FdbwoOoVfMd6E1k4CJYfm54zMkwsXNHdBgZ2hT7Y8ppEQxbCBNd2qsWfV2eSphDoZ_7e0RQRNIBQN47294xD2PXg1oJEQDn1pId37L3T6uReC_MTBbeA21sm08T2YNYcYgdBpMa8MY2cfgkxMLEwEeDq2GtlSmeIYKzfclmVGg_-vwU0dcW-wCZ7X1I5gWh7z4M052HmspS1UiOpPI6fADS1weezCpVC-lPPvY080p6g2857XXnTA");'>
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="text-white text-sm font-bold truncate max-w-[120px]">Innova Team</h3>
+                                <p class="text-[10px] text-primary font-bold tracking-tight">IFT-ID: 2024-009</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-[10px] font-bold text-gold uppercase tracking-tighter">Score</div>
+                            <div class="text-lg font-serif text-white">8.1</div>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-y-3 pt-4 border-t border-white/5">
+                        <div>
+                            <p class="data-label">Project Category</p>
+                            <p class="data-value">IoT</p>
+                        </div>
+                        <div>
+                            <p class="data-label">Industry Focus</p>
+                            <p class="data-value">Smart Homes</p>
+                        </div>
+                        <div>
+                            <p class="data-label">Innovation Score</p>
+                            <div class="w-full h-1 bg-white/10 rounded-full mt-1.5 overflow-hidden">
+                                <div class="h-full bg-gold w-[81%]"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="data-label">Market Ready</p>
+                            <p class="data-value text-gold">Beta</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="glass-card p-5 rounded-lg flex flex-col group">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="flex items-center gap-3">
+                            <div class="size-12 rounded-full border border-gold/20 overflow-hidden bg-white/5">
+                                <div class="w-full h-full bg-center bg-cover"
+                                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAqZkSRNbUfADXj8aIpNtah-9E3RBfoRDD5ubQ0TvrTzwQGUf_6wKJvELAwYzZ-PvAK3fouLiRU_PyWcPVj9QIPQQb51sGZFdovliVJXDtyf7tkxJdC89S-2RuGlhms9pQH6TkwTOaMGQjOggdjtDeUv9KFhsu-4wsLvG6yzz6xyl6F1VLoNROPcRWfhaDVIXIIgNQALh-z7oeN3JPnAB4iXE709HjsN3Kwy4XSApgHbZsPIYRhq8EbfIdgFOIqMXnzRCngrudlDXU");'>
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="text-white text-sm font-bold truncate max-w-[120px]">Blue Horizons</h3>
+                                <p class="text-[10px] text-primary font-bold tracking-tight">IFT-ID: 2024-010</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-[10px] font-bold text-gold uppercase tracking-tighter">Score</div>
+                            <div class="text-lg font-serif text-white">8.9</div>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-y-3 pt-4 border-t border-white/5">
+                        <div>
+                            <p class="data-label">Project Category</p>
+                            <p class="data-value">MarineTech</p>
+                        </div>
+                        <div>
+                            <p class="data-label">Industry Focus</p>
+                            <p class="data-value">Logistics</p>
+                        </div>
+                        <div>
+                            <p class="data-label">Innovation Score</p>
+                            <div class="w-full h-1 bg-white/10 rounded-full mt-1.5 overflow-hidden">
+                                <div class="h-full bg-gold w-[89%]"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="data-label">Market Ready</p>
+                            <p class="data-value text-green-400">Scaling</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="glass-card p-5 rounded-lg flex flex-col group">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="flex items-center gap-3">
+                            <div class="size-12 rounded-full border border-gold/20 overflow-hidden bg-white/5">
+                                <div class="w-full h-full bg-center bg-cover"
+                                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBMQQh4zSF0dPD5bSR3l6_A15orCyHCeYNy6_j-kTdGRnaVXQoHo_-1INCelJYpI43TXPLabUXVcdf83BQ5XtncuR7kbfHeDE9p0-UCNBScQ4f4pvWEkOIH80hiDaWqVTSAr1w7AtHbO79pTAwmJkSF7Zw_6bcsOIP7pMvnORXpmvypDYBsGTEmq1fUBfAHCf3WIPq0Psj22pOuLKVfq6afOscMDp0wQuqSqOUW9MkBvjDMoN0NgULDuLigKj_xIE3qni_UtrDVP3c");'>
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="text-white text-sm font-bold truncate max-w-[120px]">Peak Performers</h3>
+                                <p class="text-[10px] text-primary font-bold tracking-tight">IFT-ID: 2024-011</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-[10px] font-bold text-gold uppercase tracking-tighter">Score</div>
+                            <div class="text-lg font-serif text-white">7.7</div>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-y-3 pt-4 border-t border-white/5">
+                        <div>
+                            <p class="data-label">Project Category</p>
+                            <p class="data-value">SportsTech</p>
+                        </div>
+                        <div>
+                            <p class="data-label">Industry Focus</p>
+                            <p class="data-value">Training</p>
+                        </div>
+                        <div>
+                            <p class="data-label">Innovation Score</p>
+                            <div class="w-full h-1 bg-white/10 rounded-full mt-1.5 overflow-hidden">
+                                <div class="h-full bg-gold w-[77%]"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="data-label">Market Ready</p>
+                            <p class="data-value text-gold">MVP</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="glass-card p-5 rounded-lg flex flex-col group">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="flex items-center gap-3">
+                            <div class="size-12 rounded-full border border-gold/20 overflow-hidden bg-white/5">
+                                <div class="w-full h-full bg-center bg-cover"
+                                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCYb4VRNMYYgzNQbP8VfiVMB2KVXVGaBYYUeVwXQS9rbnf0EUthuteWIytKZc7RRKYkrXyVJIFHI1A2QKcbePO0ES_vCb3wM2KnatgfEKU-TPPX956hzeT2WA3Y0wyr6Xd1GnYM0Vuuq97W_kCzxMnyHIu7SeGlVeGl65RykcdRALHUzwl0YNkeKGutVxJIJ5ERiScWW-KtXi3iAG3gWXVHrL89qi8dF5vQqnVy8LewQjl0QNdUDGIQSA0pBTy8XRZI-afqd5ECyOc");'>
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="text-white text-sm font-bold truncate max-w-[120px]">Growth Mindset</h3>
+                                <p class="text-[10px] text-primary font-bold tracking-tight">IFT-ID: 2024-012</p>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-[10px] font-bold text-gold uppercase tracking-tighter">Score</div>
+                            <div class="text-lg font-serif text-white">8.3</div>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-y-3 pt-4 border-t border-white/5">
+                        <div>
+                            <p class="data-label">Project Category</p>
+                            <p class="data-value">FinTech</p>
+                        </div>
+                        <div>
+                            <p class="data-label">Industry Focus</p>
+                            <p class="data-value">Micro-lending</p>
+                        </div>
+                        <div>
+                            <p class="data-label">Innovation Score</p>
+                            <div class="w-full h-1 bg-white/10 rounded-full mt-1.5 overflow-hidden">
+                                <div class="h-full bg-gold w-[83%]"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="data-label">Market Ready</p>
+                            <p class="data-value text-blue-400">Reg-Test</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="mt-auto border-t border-white/5 bg-black/60 backdrop-blur-xl">
+            <div class="max-w-[1600px] mx-auto px-10 py-8 flex flex-col md:flex-row justify-between items-center gap-6">
+                <div class="flex items-center gap-8">
+                    <p class="text-[#929bc9]/60 text-[11px] font-bold tracking-widest uppercase">© 2024 IFT STRATEGIC
+                        BOARD</p>
+                    <div class="flex gap-4">
+                        <a class="text-[#929bc9] hover:text-white transition-colors" href="#"><span
+                                class="material-symbols-outlined text-lg">description</span></a>
+                        <a class="text-[#929bc9] hover:text-white transition-colors" href="#"><span
+                                class="material-symbols-outlined text-lg">analytics</span></a>
+                        <a class="text-[#929bc9] hover:text-white transition-colors" href="#"><span
+                                class="material-symbols-outlined text-lg">hub</span></a>
+                    </div>
+                </div>
+                <div class="flex items-center gap-6">
+                    <p class="text-gold/40 text-[10px] font-bold tracking-[0.3em] uppercase">Confidential Investor
+                        Access</p>
+                </div>
+            </div>
+        </footer>
     </div>
 
-    <!-- Bootstrap JS Bundle -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
-    <script>
-        // Load sidebar and header
-        Promise.all([
-            fetch('sidebar.html').then(response => response.text()),
-            fetch('header.html').then(response => response.text())
-        ]).then(([sidebarHTML, headerHTML]) => {
-            document.getElementById('sidebar-container').innerHTML = sidebarHTML;
-            document.getElementById('header-container').innerHTML = headerHTML;
-
-            setTimeout(() => {
-                if (typeof initializeHeader === 'function') {
-                    initializeHeader();
-                }
-                document.getElementById('sidebar-container').classList.add('loaded');
-                document.getElementById('header-container').classList.add('loaded');
-                setActiveMenuItem();
-            }, 200);
-        });
-
-        function setActiveMenuItem() {
-            const navStudentList = document.getElementById('nav-student-list');
-            if (navStudentList) {
-                navStudentList.classList.add('active');
-            }
-        }
-
-        // Get student data from URL parameters
-        function getStudentDataFromURL() {
-            const urlParams = new URLSearchParams(window.location.search);
-            return {
-                id: urlParams.get('id') || '',
-                firstName: urlParams.get('firstName') || 'Aadhya',
-                middleName: urlParams.get('middleName') || 'Dev',
-                lastName: urlParams.get('lastName') || 'Das',
-                gender: urlParams.get('gender') || 'Male',
-                dateOfBirth: urlParams.get('dateOfBirth') || '2006-06-11',
-                nationality: urlParams.get('nationality') || 'Indian',
-                motherTongue: urlParams.get('motherTongue') || 'Telugu',
-                bloodGroup: urlParams.get('bloodGroup') || 'O-',
-                aadharNumber: urlParams.get('aadharNumber') || '4589 8417 6625',
-                schoolName: urlParams.get('schoolName') || 'Holy Model Academy',
-                class: urlParams.get('class') || 'Class 8',
-                division: urlParams.get('division') || 'Division D',
-                rollNumber: urlParams.get('rollNumber') || '38',
-                academicYear: urlParams.get('academicYear') || '2024-2025',
-                status: urlParams.get('status') || 'Active'
-            };
-        }
-
-        // Populate form with student data
-        function populateStudentForm() {
-            const studentData = getStudentDataFromURL();
-
-            document.getElementById('studentIdHeader').textContent = `Update information for ${studentData.firstName} ${studentData.middleName} ${studentData.lastName}`;
-            document.getElementById('firstName').value = studentData.firstName;
-            document.getElementById('middleName').value = studentData.middleName;
-            document.getElementById('lastName').value = studentData.lastName;
-            document.getElementById('gender').value = studentData.gender;
-            document.getElementById('dateOfBirth').value = studentData.dateOfBirth;
-            document.getElementById('nationality').value = studentData.nationality;
-            document.getElementById('motherTongue').value = studentData.motherTongue;
-            document.getElementById('bloodGroup').value = studentData.bloodGroup;
-            document.getElementById('aadharNumber').value = studentData.aadharNumber;
-            document.getElementById('schoolName').value = studentData.schoolName;
-            document.getElementById('studentClass').value = studentData.class;
-            document.getElementById('division').value = studentData.division;
-            document.getElementById('rollNumber').value = studentData.rollNumber;
-            document.getElementById('academicYear').value = studentData.academicYear;
-            document.getElementById('studentStatus').value = studentData.status;
-        }
-
-        // Format Aadhar number as user types
-        document.getElementById('aadharNumber').addEventListener('input', function(e) {
-            let value = e.target.value.replace(/\s/g, '');
-            if (value.length > 12) value = value.substr(0, 12);
-            
-            let formatted = value.match(/.{1,4}/g);
-            e.target.value = formatted ? formatted.join(' ') : value;
-        });
-
-        // Handle form submission
-        document.getElementById('editStudentForm').addEventListener('submit', function (e) {
-            e.preventDefault();
-
-            const firstName = document.getElementById('firstName').value.trim();
-            const lastName = document.getElementById('lastName').value.trim();
-
-            if (!firstName || !lastName) {
-                alert('Please fill in the required fields (First Name and Last Name)');
-                return;
-            }
-
-            alert(`✅ Student Updated Successfully!\n\n"${firstName} ${lastName}" has been updated.`);
-
-            // Redirect back to list
-            window.location.href = 'student-list.html';
-        });
-
-        // Cancel button
-        document.getElementById('cancelBtn').addEventListener('click', function () {
-            if (confirm('Are you sure you want to cancel? All unsaved changes will be lost.')) {
-                window.location.href = 'student-list.html';
-            }
-        });
-
-        // Load student data on page load
-        window.addEventListener('DOMContentLoaded', populateStudentForm);
-    </script>
 </body>
 
 </html>

@@ -1,0 +1,1246 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notices - Parent Dashboard</title>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+        rel="stylesheet" />
+
+    <!-- Sidebar & Header CSS -->
+    <link rel="stylesheet" href="sidebar.css">
+    <link rel="stylesheet" href="header.css">
+
+    <!-- Sidebar & Header JS -->
+    <script src="sidebar.js"></script>
+    <script src="header.js"></script>
+
+    <style>
+        /* Prevent FOUC - hide containers until loaded */
+        #sidebar-container:empty,
+        #header-container:empty {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        #sidebar-container.loaded,
+        #header-container.loaded {
+            opacity: 1;
+            visibility: visible;
+            transition: opacity 0.2s ease-in;
+        }
+
+        :root {
+            --primary: #6b277e;
+            --background-light: #f7f6f8;
+            --text-dark: #171019;
+            --text-muted: #80588d;
+            --border-color: #efe9f1;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--background-light);
+            color: var(--text-dark);
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .dashboard-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        .dashboard-page {
+            padding: 2rem;
+            flex: 1;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        /* Page Header */
+        .page-header {
+            margin-bottom: 32px;
+        }
+
+        .page-header h1 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .page-header h1 .material-symbols-outlined {
+            font-size: 36px;
+            color: var(--primary);
+        }
+
+        .page-header p {
+            font-size: 16px;
+            color: var(--text-muted);
+        }
+
+        /* Search Bar */
+        .search-container {
+            position: relative;
+            max-width: 500px;
+            margin-top: 20px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 14px 16px 14px 48px;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            background: white;
+            color: var(--text-dark);
+            font-size: 14px;
+            font-family: inherit;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(107, 39, 126, 0.1);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            pointer-events: none;
+        }
+
+        /* Notices Grid */
+        .notices-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            gap: 24px;
+            margin-top: 32px;
+        }
+
+        /* Notice Card */
+        .notice-card {
+            background: white;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            padding: 24px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .notice-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--primary);
+        }
+
+        .notice-card:hover {
+            box-shadow: 0 8px 24px rgba(107, 39, 126, 0.15);
+            transform: translateY(-4px);
+            border-color: var(--primary);
+        }
+
+        .notice-card.unread {
+            background: linear-gradient(to bottom, rgba(107, 39, 126, 0.02), white);
+        }
+
+        .notice-card.unread::after {
+            content: '';
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 10px;
+            height: 10px;
+            background: var(--primary);
+            border-radius: 50%;
+        }
+
+        .notice-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .notice-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: rgba(107, 39, 126, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .notice-icon .material-symbols-outlined {
+            font-size: 24px;
+            color: var(--primary);
+        }
+
+        .notice-priority {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .notice-priority.high {
+            background: rgba(239, 68, 68, 0.1);
+            color: #dc2626;
+        }
+
+        .notice-priority.medium {
+            background: rgba(245, 158, 11, 0.1);
+            color: #d97706;
+        }
+
+        .notice-priority.normal {
+            background: rgba(59, 130, 246, 0.1);
+            color: #2563eb;
+        }
+
+        .notice-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+
+        .notice-content {
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--text-dark);
+            opacity: 0.85;
+            margin-bottom: 16px;
+        }
+
+        .notice-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            font-size: 13px;
+            color: var(--text-muted);
+            padding-top: 16px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .notice-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .notice-meta-item .material-symbols-outlined {
+            font-size: 16px;
+        }
+
+        .notice-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 16px;
+        }
+
+        .read-status-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            background: var(--background-light);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: inherit;
+            color: var(--text-dark);
+        }
+
+        .read-status-btn:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .read-status-btn .material-symbols-outlined {
+            font-size: 18px;
+        }
+
+        .view-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 10px 20px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: inherit;
+        }
+
+        .view-btn:hover {
+            background: #5b1f6f;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(107, 39, 126, 0.3);
+        }
+
+        .view-btn .material-symbols-outlined {
+            font-size: 18px;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 80px 20px;
+            background: white;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+        }
+
+        .empty-state .material-symbols-outlined {
+            font-size: 80px;
+            color: var(--text-muted);
+            opacity: 0.5;
+            margin-bottom: 20px;
+        }
+
+        .empty-state h3 {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+        }
+
+        .empty-state p {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .dashboard-page {
+                padding: 1.5rem;
+            }
+
+            .notices-grid {
+                grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+                gap: 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-page {
+                padding: 1rem;
+            }
+
+            .page-header h1 {
+                font-size: 26px;
+            }
+
+            .page-header h1 .material-symbols-outlined {
+                font-size: 30px;
+            }
+
+            .page-header p {
+                font-size: 14px;
+            }
+
+            .search-container {
+                max-width: 100%;
+            }
+
+            .search-input {
+                padding: 12px 14px 12px 44px;
+                font-size: 13px;
+            }
+
+            .notices-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+                margin-top: 24px;
+            }
+
+            .notice-card {
+                padding: 20px;
+            }
+
+            .notice-icon {
+                width: 44px;
+                height: 44px;
+            }
+
+            .notice-icon .material-symbols-outlined {
+                font-size: 22px;
+            }
+
+            .notice-title {
+                font-size: 16px;
+            }
+
+            .notice-content {
+                font-size: 13px;
+            }
+
+            .notice-meta {
+                gap: 12px;
+                font-size: 12px;
+            }
+
+            .notice-footer {
+                flex-direction: column;
+                gap: 12px;
+                align-items: stretch;
+            }
+
+            .read-status-btn,
+            .view-btn {
+                justify-content: center;
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .dashboard-page {
+                padding: 0.75rem;
+            }
+
+            .page-header h1 {
+                font-size: 22px;
+            }
+
+            .page-header h1 .material-symbols-outlined {
+                font-size: 26px;
+            }
+
+            .page-header p {
+                font-size: 13px;
+            }
+
+            .notice-card {
+                padding: 16px;
+            }
+
+            .notice-header {
+                gap: 12px;
+            }
+
+            .notice-icon {
+                width: 40px;
+                height: 40px;
+            }
+
+            .notice-icon .material-symbols-outlined {
+                font-size: 20px;
+            }
+
+            .notice-priority {
+                font-size: 10px;
+                padding: 4px 8px;
+            }
+
+            .notice-title {
+                font-size: 15px;
+            }
+
+            .notice-content {
+                font-size: 12px;
+            }
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 9998;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: fixed !important;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-container {
+            background: white;
+            border-radius: 20px;
+            max-width: 600px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: slideUp 0.3s ease;
+            position: relative;
+            z-index: 9999;
+        }
+
+        .modal-header {
+            padding: 24px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 16px;
+        }
+
+        .modal-header-content {
+            flex: 1;
+        }
+
+        .modal-header-top {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .modal-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: rgba(107, 39, 126, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-icon .material-symbols-outlined {
+            font-size: 24px;
+            color: var(--primary);
+        }
+
+        .modal-priority {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .modal-priority.high {
+            background: rgba(239, 68, 68, 0.1);
+            color: #dc2626;
+        }
+
+        .modal-priority.medium {
+            background: rgba(245, 158, 11, 0.1);
+            color: #d97706;
+        }
+
+        .modal-priority.normal {
+            background: rgba(59, 130, 246, 0.1);
+            color: #2563eb;
+        }
+
+        .modal-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--text-dark);
+            line-height: 1.3;
+        }
+
+        .modal-close-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: var(--background-light);
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+        }
+
+        .modal-close-btn:hover {
+            background: var(--border-color);
+        }
+
+        .modal-close-btn .material-symbols-outlined {
+            font-size: 22px;
+            color: var(--text-dark);
+        }
+
+        .modal-body {
+            padding: 24px;
+        }
+
+        .modal-content-text {
+            font-size: 15px;
+            line-height: 1.7;
+            color: var(--text-dark);
+            margin-bottom: 24px;
+        }
+
+        .modal-meta {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            padding: 20px;
+            background: var(--background-light);
+            border-radius: 12px;
+            margin-bottom: 24px;
+        }
+
+        .modal-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+        }
+
+        .modal-meta-item .material-symbols-outlined {
+            font-size: 20px;
+            color: var(--primary);
+        }
+
+        .modal-meta-label {
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .modal-meta-value {
+            color: var(--text-muted);
+        }
+
+        .modal-footer {
+            padding: 20px 24px;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+        }
+
+        .modal-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: inherit;
+            border: none;
+        }
+
+        .modal-btn-secondary {
+            background: var(--background-light);
+            color: var(--text-dark);
+            border: 1px solid var(--border-color);
+        }
+
+        .modal-btn-secondary:hover {
+            background: var(--border-color);
+        }
+
+        .modal-btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .modal-btn-primary:hover {
+            background: #5b1f6f;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(107, 39, 126, 0.3);
+        }
+
+        .modal-btn .material-symbols-outlined {
+            font-size: 18px;
+        }
+
+        @media (max-width: 768px) {
+            .modal-container {
+                max-width: 100%;
+                border-radius: 16px;
+            }
+
+            .modal-header {
+                padding: 20px;
+            }
+
+            .modal-title {
+                font-size: 18px;
+            }
+
+            .modal-body {
+                padding: 20px;
+            }
+
+            .modal-content-text {
+                font-size: 14px;
+            }
+
+            .modal-meta {
+                grid-template-columns: 1fr;
+                gap: 12px;
+                padding: 16px;
+            }
+
+            .modal-footer {
+                padding: 16px 20px;
+                flex-direction: column;
+            }
+
+            .modal-btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .notice-card.unread::after {
+                top: 12px;
+                right: 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .modal-overlay.active {
+                padding: 10px;
+            }
+
+            .modal-header {
+                padding: 16px;
+            }
+
+            .modal-header-top {
+                gap: 10px;
+            }
+
+            .modal-icon {
+                width: 40px;
+                height: 40px;
+            }
+
+            .modal-icon .material-symbols-outlined {
+                font-size: 20px;
+            }
+
+            .modal-title {
+                font-size: 16px;
+            }
+
+            .modal-close-btn {
+                width: 36px;
+                height: 36px;
+            }
+
+            .modal-close-btn .material-symbols-outlined {
+                font-size: 20px;
+            }
+
+            .modal-body {
+                padding: 16px;
+            }
+
+            .modal-content-text {
+                font-size: 13px;
+            }
+
+            .modal-footer {
+                padding: 12px 16px;
+            }
+
+            .modal-btn {
+                padding: 10px 20px;
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <!-- Include Sidebar Component -->
+        <div id="sidebar-container"></div>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Include Header Component -->
+            <div id="header-container"></div>
+
+            <!-- Page Content -->
+            <div class="dashboard-page">
+                <!-- Page Header -->
+                <div class="page-header">
+                    <h1>
+                        <span class="material-symbols-outlined">notifications_active</span>
+                        Important Notices
+                    </h1>
+                    <p>Stay informed about important updates and notifications from the school</p>
+
+                    <!-- Search Bar -->
+                    <div class="search-container">
+                        <span class="material-symbols-outlined search-icon">search</span>
+                        <input type="text" class="search-input" id="searchInput" placeholder="Search notices...">
+                    </div>
+                </div>
+
+                <!-- Notices Grid -->
+                <div class="notices-grid" id="noticesGrid">
+                    <!-- Notices will be dynamically loaded here -->
+                </div>
+
+                <!-- Empty State -->
+                <div class="empty-state" id="emptyState" style="display: none;">
+                    <span class="material-symbols-outlined">notifications_off</span>
+                    <h3>No Notices Found</h3>
+                    <p>There are no notices matching your search criteria.</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Notice Details Modal -->
+    <div class="modal-overlay" id="noticeModal">
+        <div class="modal-container">
+            <div class="modal-header">
+                <div class="modal-header-content">
+                    <div class="modal-header-top">
+                        <div class="modal-icon">
+                            <span class="material-symbols-outlined" id="modalIcon">notifications_active</span>
+                        </div>
+                        <div class="modal-priority" id="modalPriority">high Priority</div>
+                    </div>
+                    <h2 class="modal-title" id="modalTitle">Notice Title</h2>
+                </div>
+                <button class="modal-close-btn" onclick="closeModal()">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p class="modal-content-text" id="modalContent">Notice content will appear here...</p>
+                <div class="modal-meta">
+                    <div class="modal-meta-item">
+                        <span class="material-symbols-outlined">person</span>
+                        <div>
+                            <div class="modal-meta-label">Posted By</div>
+                            <div class="modal-meta-value" id="modalPostedBy">Admin</div>
+                        </div>
+                    </div>
+                    <div class="modal-meta-item">
+                        <span class="material-symbols-outlined">calendar_today</span>
+                        <div>
+                            <div class="modal-meta-label">Date</div>
+                            <div class="modal-meta-value" id="modalDate">Jan 14, 2025</div>
+                        </div>
+                    </div>
+                    <div class="modal-meta-item">
+                        <span class="material-symbols-outlined">schedule</span>
+                        <div>
+                            <div class="modal-meta-label">Time</div>
+                            <div class="modal-meta-value" id="modalTime">10:00 AM</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-btn modal-btn-secondary" onclick="closeModal()">
+                    <span class="material-symbols-outlined">close</span>
+                    Close
+                </button>
+                <button class="modal-btn modal-btn-primary" id="modalMarkReadBtn" onclick="markAsReadFromModal()">
+                    <span class="material-symbols-outlined">done_all</span>
+                    Mark as Read
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Load Sidebar and Header Components
+        document.addEventListener('DOMContentLoaded', function () {
+            Promise.all([
+                fetch('sidebar.html').then(response => response.text()),
+                fetch('header.html').then(response => response.text())
+            ]).then(([sidebarHTML, headerHTML]) => {
+                document.getElementById('sidebar-container').innerHTML = sidebarHTML;
+                document.getElementById('header-container').innerHTML = headerHTML;
+
+                setTimeout(() => {
+                    if (typeof initializeSidebar === 'function') {
+                        initializeSidebar();
+                    }
+                    if (typeof initializeHeader === 'function') {
+                        initializeHeader();
+                    }
+                    document.getElementById('sidebar-container').classList.add('loaded');
+                    document.getElementById('header-container').classList.add('loaded');
+                    setActiveMenuItem();
+                }, 200);
+            });
+
+            loadNotices();
+        });
+
+        function setActiveMenuItem() {
+            const navNotices = document.getElementById('nav-notices');
+            if (navNotices) {
+                navNotices.classList.add('active');
+                const eventsNoticesDropdown = document.getElementById('events-notices-dropdown');
+                if (eventsNoticesDropdown) {
+                    const dropdown = eventsNoticesDropdown.closest('.sidebar-dropdown');
+                    if (dropdown) {
+                        dropdown.classList.add('active');
+                    }
+                }
+            }
+        }
+
+        // Sample notices data
+        const noticesData = [
+            {
+                id: 1,
+                title: "School Closure Notification",
+                content: "The school will remain closed tomorrow (January 15th) due to severe weather conditions. All scheduled classes and exams are postponed. Alternative online sessions will be communicated separately.",
+                priority: "high",
+                icon: "warning",
+                isRead: false,
+                postedBy: "Administration",
+                postedDate: "2025-01-14",
+                postedTime: "07:00 AM"
+            },
+            {
+                id: 2,
+                title: "Parent-Teacher Meeting Schedule",
+                content: "The next Parent-Teacher meeting is scheduled for January 25th, 2025 from 3:00 PM to 6:00 PM. Please mark your calendars and plan to attend.",
+                priority: "high",
+                icon: "event",
+                isRead: false,
+                postedBy: "Academic Office",
+                postedDate: "2025-01-12",
+                postedTime: "10:30 AM"
+            },
+            {
+                id: 3,
+                title: "Fee Payment Reminder",
+                content: "This is a reminder that the quarterly fee payment is due by January 20th, 2025. Please ensure timely payment to avoid late fees. Payment can be made online or at the school office.",
+                priority: "medium",
+                icon: "payments",
+                isRead: true,
+                postedBy: "Accounts Department",
+                postedDate: "2025-01-10",
+                postedTime: "09:15 AM"
+            },
+            {
+                id: 4,
+                title: "Updated Health & Safety Guidelines",
+                content: "We have updated our health and safety protocols. All students must carry a hand sanitizer and wear masks in designated areas. Temperature checks will be mandatory at entry points.",
+                priority: "high",
+                icon: "health_and_safety",
+                isRead: true,
+                postedBy: "Health Committee",
+                postedDate: "2025-01-08",
+                postedTime: "02:45 PM"
+            },
+            {
+                id: 5,
+                title: "School Bus Route Changes",
+                content: "Due to road construction on Main Street, bus routes #3 and #7 will be temporarily modified. The updated routes and timings are available on the school website.",
+                priority: "medium",
+                icon: "directions_bus",
+                isRead: false,
+                postedBy: "Transport Department",
+                postedDate: "2025-01-06",
+                postedTime: "11:00 AM"
+            },
+            {
+                id: 6,
+                title: "Uniform Inspection Notice",
+                content: "There will be a uniform inspection on January 18th, 2025. Please ensure your child is wearing the complete school uniform including ID card, tie, and polished shoes.",
+                priority: "normal",
+                icon: "checkroom",
+                isRead: true,
+                postedBy: "Discipline Committee",
+                postedDate: "2025-01-05",
+                postedTime: "01:30 PM"
+            },
+            {
+                id: 7,
+                title: "Library Book Return Deadline",
+                content: "All borrowed library books must be returned by January 22nd, 2025. Late returns will incur a fine of $1 per day. Students with overdue books will not be allowed to borrow new ones.",
+                priority: "normal",
+                icon: "local_library",
+                isRead: true,
+                postedBy: "Library Department",
+                postedDate: "2025-01-03",
+                postedTime: "04:00 PM"
+            },
+            {
+                id: 8,
+                title: "Mid-Term Exam Schedule Released",
+                content: "The mid-term examination schedule for all grades has been uploaded to the student portal. Exams will begin from February 1st, 2025. Please review and prepare accordingly.",
+                priority: "high",
+                icon: "quiz",
+                isRead: false,
+                postedBy: "Examination Cell",
+                postedDate: "2025-01-02",
+                postedTime: "10:00 AM"
+            }
+        ];
+
+        let filteredNotices = [...noticesData];
+
+        function loadNotices() {
+            renderNotices();
+            setupSearch();
+        }
+
+        function renderNotices() {
+            const grid = document.getElementById('noticesGrid');
+            const emptyState = document.getElementById('emptyState');
+
+            if (filteredNotices.length === 0) {
+                grid.style.display = 'none';
+                emptyState.style.display = 'block';
+                return;
+            }
+
+            grid.style.display = 'grid';
+            emptyState.style.display = 'none';
+
+            grid.innerHTML = filteredNotices.map(notice => `
+                <div class="notice-card ${notice.isRead ? '' : 'unread'}">
+                    <div class="notice-header">
+                        <div class="notice-icon">
+                            <span class="material-symbols-outlined">${notice.icon}</span>
+                        </div>
+                        <div class="notice-priority ${notice.priority}">
+                            ${notice.priority} Priority
+                        </div>
+                    </div>
+                    <h3 class="notice-title">${notice.title}</h3>
+                    <p class="notice-content">${notice.content}</p>
+                    <div class="notice-meta">
+                        <div class="notice-meta-item">
+                            <span class="material-symbols-outlined">person</span>
+                            ${notice.postedBy}
+                        </div>
+                        <div class="notice-meta-item">
+                            <span class="material-symbols-outlined">calendar_today</span>
+                            ${formatDate(notice.postedDate)}
+                        </div>
+                        <div class="notice-meta-item">
+                            <span class="material-symbols-outlined">schedule</span>
+                            ${notice.postedTime}
+                        </div>
+                    </div>
+                    <div class="notice-footer">
+                        <button class="read-status-btn" onclick="toggleReadStatus(${notice.id})">
+                            <span class="material-symbols-outlined">${notice.isRead ? 'mark_email_unread' : 'done_all'}</span>
+                            Mark as ${notice.isRead ? 'Unread' : 'Read'}
+                        </button>
+                        <button class="view-btn" onclick="viewNotice(${notice.id})">
+                            <span class="material-symbols-outlined">visibility</span>
+                            View Details
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function setupSearch() {
+            document.getElementById('searchInput').addEventListener('input', (e) => {
+                const searchTerm = e.target.value.toLowerCase();
+                filteredNotices = noticesData.filter(notice =>
+                    notice.title.toLowerCase().includes(searchTerm) ||
+                    notice.content.toLowerCase().includes(searchTerm) ||
+                    notice.postedBy.toLowerCase().includes(searchTerm)
+                );
+                renderNotices();
+            });
+        }
+
+        function toggleReadStatus(id) {
+            const notice = noticesData.find(n => n.id === id);
+            if (notice) {
+                notice.isRead = !notice.isRead;
+                const searchInput = document.getElementById('searchInput');
+                const searchTerm = searchInput.value.toLowerCase();
+                filteredNotices = noticesData.filter(n =>
+                    n.title.toLowerCase().includes(searchTerm) ||
+                    n.content.toLowerCase().includes(searchTerm) ||
+                    n.postedBy.toLowerCase().includes(searchTerm)
+                );
+                renderNotices();
+            }
+        }
+
+        let currentNoticeId = null;
+
+        function viewNotice(id) {
+            const notice = noticesData.find(n => n.id === id);
+            if (notice) {
+                currentNoticeId = id;
+
+                // Populate modal with notice details
+                document.getElementById('modalIcon').textContent = notice.icon;
+                document.getElementById('modalPriority').textContent = `${notice.priority} Priority`;
+                document.getElementById('modalPriority').className = `modal-priority ${notice.priority}`;
+                document.getElementById('modalTitle').textContent = notice.title;
+                document.getElementById('modalContent').textContent = notice.content;
+                document.getElementById('modalPostedBy').textContent = notice.postedBy;
+                document.getElementById('modalDate').textContent = formatDate(notice.postedDate);
+                document.getElementById('modalTime').textContent = notice.postedTime;
+
+                // Update mark as read button
+                const markReadBtn = document.getElementById('modalMarkReadBtn');
+                if (notice.isRead) {
+                    markReadBtn.innerHTML = `
+                        <span class="material-symbols-outlined">mark_email_unread</span>
+                        Mark as Unread
+                    `;
+                } else {
+                    markReadBtn.innerHTML = `
+                        <span class="material-symbols-outlined">done_all</span>
+                        Mark as Read
+                    `;
+                }
+
+                // Show modal
+                document.getElementById('noticeModal').classList.add('active');
+                document.body.style.overflow = 'hidden';
+
+                // Mark as read automatically when viewed
+                if (!notice.isRead) {
+                    notice.isRead = true;
+                    renderNotices();
+                }
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('noticeModal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function markAsReadFromModal() {
+            if (currentNoticeId) {
+                const notice = noticesData.find(n => n.id === currentNoticeId);
+                if (notice) {
+                    notice.isRead = !notice.isRead;
+
+                    // Update button text
+                    const markReadBtn = document.getElementById('modalMarkReadBtn');
+                    if (notice.isRead) {
+                        markReadBtn.innerHTML = `
+                            <span class="material-symbols-outlined">mark_email_unread</span>
+                            Mark as Unread
+                        `;
+                    } else {
+                        markReadBtn.innerHTML = `
+                            <span class="material-symbols-outlined">done_all</span>
+                            Mark as Read
+                        `;
+                    }
+
+                    renderNotices();
+                }
+            }
+        }
+
+        // Close modal when clicking outside
+        document.addEventListener('click', function (e) {
+            const modal = document.getElementById('noticeModal');
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+        // Close modal on escape key
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        function formatDate(dateString) {
+            const options = { month: 'short', day: 'numeric', year: 'numeric' };
+            return new Date(dateString).toLocaleDateString('en-US', options);
+        }
+    </script>
+</body>
+
+</html>

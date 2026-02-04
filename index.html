@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enpower Skill Lab - Dashboard Portal</title>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+        rel="stylesheet" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="landing.css">
+</head>
+
+<body>
+    <div class="landing-container">
+        <!-- Logo Section -->
+        <div class="logo-section">
+            <div class="logo-wrapper">
+                <img src="assets/images/enpower-logo.svg" alt="Enpower Skill Lab"
+                    class="logo">
+            </div>
+            <h1 class="main-title">Welcome to Enpower Skill Lab</h1>
+            <p class="subtitle">Select your dashboard to continue</p>
+        </div>
+
+        <!-- Dashboard Cards Grid -->
+        <div class="dashboard-grid">
+            <!-- Student Dashboard -->
+            <a href="https://enpowerskilllab.vercel.app/student/dashboard.html" class="dashboard-card">
+                <div class="card-icon-wrapper student">
+                    <span class="material-symbols-outlined">school</span>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">Student Dashboard</h3>
+                    <p class="card-description">Access your courses, assignments, and progress</p>
+                </div>
+                <div class="card-arrow">
+                    <span class="material-symbols-outlined">arrow_forward</span>
+                </div>
+            </a>
+
+            <!-- Parent Dashboard -->
+            <a href="https://enpowerskilllab.vercel.app/parent/dashboard.html" class="dashboard-card">
+                <div class="card-icon-wrapper parent">
+                    <span class="material-symbols-outlined">family_restroom</span>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">Parent Dashboard</h3>
+                    <p class="card-description">Monitor your child's learning journey</p>
+                </div>
+                <div class="card-arrow">
+                    <span class="material-symbols-outlined">arrow_forward</span>
+                </div>
+            </a>
+
+            <!-- Thinking Coach Dashboard -->
+            <a href="https://enpowerskilllab.vercel.app/thinking-coach/dashboard.html" class="dashboard-card">
+                <div class="card-icon-wrapper coach">
+                    <span class="material-symbols-outlined">psychology</span>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">Thinking Coach</h3>
+                    <p class="card-description">Guide students and manage coaching sessions</p>
+                </div>
+                <div class="card-arrow">
+                    <span class="material-symbols-outlined">arrow_forward</span>
+                </div>
+            </a>
+
+            <!-- School Admin Dashboard -->
+            <a href="https://enpowerskilllab.vercel.app/school-admin/dashboard.html" class="dashboard-card">
+                <div class="card-icon-wrapper admin">
+                    <span class="material-symbols-outlined">admin_panel_settings</span>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">School Admin</h3>
+                    <p class="card-description">Manage school operations and resources</p>
+                </div>
+                <div class="card-arrow">
+                    <span class="material-symbols-outlined">arrow_forward</span>
+                </div>
+            </a>
+
+            <!-- Program Coordinator Dashboard -->
+            <a href="https://enpowerskilllab.vercel.app/program-coordinator/dashboard.html" class="dashboard-card">
+                <div class="card-icon-wrapper coordinator">
+                    <span class="material-symbols-outlined">event_note</span>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">Program Coordinator</h3>
+                    <p class="card-description">Coordinate programs and track activities</p>
+                </div>
+                <div class="card-arrow">
+                    <span class="material-symbols-outlined">arrow_forward</span>
+                </div>
+            </a>
+
+            <!-- Super Admin Dashboard -->
+            <a href="https://enpowerskilllab.vercel.app/super-admin/dashboard.html" class="dashboard-card">
+                <div class="card-icon-wrapper super-admin">
+                    <span class="material-symbols-outlined">shield</span>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">Super Admin</h3>
+                    <p class="card-description">Full system control and configuration</p>
+                </div>
+                <div class="card-arrow">
+                    <span class="material-symbols-outlined">arrow_forward</span>
+                </div>
+            </a>
+
+            <!-- Trustee Dashboard -->
+            <a href="https://enpowerskilllab.vercel.app/trustee/dashboard.html" class="dashboard-card">
+                <div class="card-icon-wrapper trustee">
+                    <span class="material-symbols-outlined">verified</span>
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">Trustee Dashboard</h3>
+                    <p class="card-description">View reports and institutional insights</p>
+                </div>
+                <div class="card-arrow">
+                    <span class="material-symbols-outlined">arrow_forward</span>
+                </div>
+            </a>
+        </div>
+
+        <!-- Footer Note -->
+        <div class="footer-note">
+            <p>Need help? Contact your administrator</p>
+        </div>
+    </div>
+
+    <script>
+        // Add smooth hover animations
+        document.querySelectorAll('.dashboard-card').forEach(card => {
+            card.addEventListener('mouseenter', function () {
+                this.style.transform = 'translateY(-8px)';
+            });
+
+            card.addEventListener('mouseleave', function () {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+
+        // Add ripple effect on click
+        document.querySelectorAll('.dashboard-card').forEach(card => {
+            card.addEventListener('click', function (e) {
+                const ripple = document.createElement('span');
+                ripple.classList.add('ripple');
+                this.appendChild(ripple);
+
+                const rect = this.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                ripple.style.width = ripple.style.height = size + 'px';
+                ripple.style.left = e.clientX - rect.left - size / 2 + 'px';
+                ripple.style.top = e.clientY - rect.top - size / 2 + 'px';
+
+                setTimeout(() => ripple.remove(), 600);
+            });
+        });
+    </script>
+</body>
+
+</html>

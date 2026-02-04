@@ -1,0 +1,802 @@
+/* ============================================
+   BULK UPLOAD PAGE STYLES
+   ============================================ */
+
+/* Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f7f6f8;
+    color: #171019;
+    min-height: 100vh;
+}
+
+/* Dashboard Container */
+.dashboard-container {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Main Content */
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    background-color: #f7f6f8;
+}
+
+.dashboard-page {
+    padding: 32px;
+    max-width: 1400px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+/* Page Header */
+.page-header {
+    margin-bottom: 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 24px;
+    flex-wrap: wrap;
+}
+
+.page-header-content h1.page-title {
+    font-size: 30px;
+    font-weight: 600;
+    color: #171019;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+}
+
+.page-title-icon {
+    font-size: 36px;
+    color: #6b277e;
+}
+
+.page-subtitle {
+    font-size: 16px;
+    color: #80588d;
+    margin: 0;
+}
+
+/* Progress Stepper */
+.stepper-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background-color: #ffffff;
+    padding: 16px 24px;
+    border-radius: 50px;
+    border: 1px solid #efe9f1;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.stepper-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    opacity: 0.4;
+}
+
+.stepper-item.active {
+    opacity: 1;
+}
+
+.stepper-number {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background-color: #f0f0f0;
+    border: 2px solid #d0d0d0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 700;
+    color: #80588d;
+}
+
+.stepper-item.active .stepper-number {
+    background-color: #6b277e;
+    border-color: #6b277e;
+    color: #ffffff;
+}
+
+.stepper-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #171019;
+}
+
+.stepper-line {
+    width: 32px;
+    height: 2px;
+    background-color: #efe9f1;
+}
+
+/* Cards */
+.card {
+    background-color: #ffffff;
+    border-radius: 16px;
+    border: 1px solid #efe9f1;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    overflow: hidden;
+}
+
+.card-header {
+    padding: 24px;
+    border-bottom: 1px solid #efe9f1;
+}
+
+.card-body {
+    padding: 24px;
+}
+
+/* Upload Card */
+.upload-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.upload-card::before {
+    content: '';
+    position: absolute;
+    top: -80px;
+    right: -80px;
+    width: 250px;
+    height: 250px;
+    background: linear-gradient(135deg, rgba(107, 39, 126, 0.05) 0%, rgba(107, 39, 126, 0.02) 100%);
+    border-radius: 50%;
+    filter: blur(40px);
+    pointer-events: none;
+}
+
+/* Form Styles */
+.form-label {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    color: #171019;
+    margin-bottom: 8px;
+}
+
+.form-select {
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: #171019;
+    border: 1px solid #efe9f1;
+    border-radius: 12px;
+    padding: 12px 16px;
+    background-color: #f7f6f8;
+    transition: all 0.2s ease;
+}
+
+.form-select:focus {
+    border-color: #6b277e;
+    box-shadow: 0 0 0 3px rgba(107, 39, 126, 0.1);
+    background-color: #ffffff;
+    outline: none;
+}
+
+/* Upload Area */
+.upload-area {
+    position: relative;
+    width: 100%;
+    height: 280px;
+    border: 2px dashed #d0d0d0;
+    border-radius: 16px;
+    background-color: #f7f6f8;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.upload-area:hover,
+.upload-area.dragover {
+    border-color: #6b277e;
+    background-color: rgba(107, 39, 126, 0.03);
+}
+
+.file-input {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.upload-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background-color: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+    transition: transform 0.3s ease;
+}
+
+.upload-area:hover .upload-icon {
+    transform: scale(1.1);
+}
+
+.upload-icon .material-symbols-outlined {
+    font-size: 32px;
+    color: #6b277e;
+}
+
+.upload-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #171019;
+    margin-bottom: 8px;
+}
+
+.upload-description {
+    font-size: 14px;
+    color: #80588d;
+    margin: 0;
+}
+
+/* Button Styles */
+.btn {
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 12px 24px;
+    border-radius: 10px;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-validate {
+    background-color: #6b277e;
+    border: none;
+    color: #ffffff;
+}
+
+.btn-validate:hover {
+    color: #ffffff;
+    background-color: #5b1f6f;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(107, 39, 126, 0.3);
+}
+
+.btn-action {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.btn-link {
+    background: rgb(241, 238, 238);
+    border: none;
+    text-decoration: none;
+    color: #000 !important;
+    padding: 12px 24px !important;
+}
+
+.btn-link:hover {
+    background: rgb(214, 214, 214);
+    text-decoration: none;
+}
+
+/* Instructions Card */
+.instruction-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background-color: rgba(107, 39, 126, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.instruction-icon .material-symbols-outlined {
+    font-size: 24px;
+    color: #6b277e;
+}
+
+.instruction-list {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.instruction-item {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+}
+
+.instruction-number {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background-color: #f7f6f8;
+    border: 1px solid #efe9f1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    color: #80588d;
+}
+
+.instruction-item code {
+    background-color: rgba(107, 39, 126, 0.08);
+    color: #6b277e;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-family: 'Courier New', monospace;
+}
+
+/* Download Template */
+.download-template {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+    border-radius: 12px;
+    border: 1px solid #efe9f1;
+    background-color: #f7f6f8;
+    text-decoration: none;
+    color: #171019;
+    transition: all 0.2s ease;
+}
+
+.download-template:hover {
+    border-color: #6b277e;
+    background-color: rgba(107, 39, 126, 0.03);
+    transform: translateY(-2px);
+}
+
+.download-template .material-symbols-outlined {
+    font-size: 28px;
+    color: #6b277e;
+}
+
+/* Table Styles */
+.table {
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+}
+
+.table thead {
+    background-color: #f7f6f8;
+}
+
+.table thead th {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #80588d;
+    padding: 16px 24px;
+    border-bottom: 1px solid #efe9f1;
+}
+
+.table tbody td {
+    padding: 16px 24px;
+    vertical-align: middle;
+    border-bottom: 1px solid #efe9f1;
+}
+
+.table tbody tr:hover {
+    background-color: #f7f6f8;
+}
+
+/* File Icon */
+.file-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.file-icon.success {
+    background-color: #E8F5E9;
+    color: #2E7D32;
+}
+
+.file-icon.error {
+    background-color: #FFEBEE;
+    color: #C62828;
+}
+
+.file-icon.info {
+    background-color: #E3F2FD;
+    color: #1565C0;
+}
+
+.file-icon .material-symbols-outlined {
+    font-size: 20px;
+}
+
+/* Status Badges */
+.badge-success,
+.badge-error,
+.badge-info {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.badge-success {
+    background-color: #E8F5E9;
+    color: #2E7D32;
+}
+
+.badge-error {
+    background-color: #FFEBEE;
+    color: #C62828;
+}
+
+.badge-info {
+    background-color: #E3F2FD;
+    color: #1565C0;
+}
+
+.badge-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+}
+
+.badge-success .badge-dot {
+    background-color: #2E7D32;
+}
+
+.badge-error .badge-dot {
+    background-color: #C62828;
+}
+
+.badge-info .badge-dot {
+    background-color: #1565C0;
+}
+
+/* Responsive Design */
+@media (max-width: 1023px) {
+    .dashboard-page {
+        padding: 24px 16px;
+    }
+
+    .page-header {
+        flex-direction: column;
+        align-items: flex-start;
+        margin-bottom: 24px;
+    }
+
+    .stepper-wrapper {
+        width: 100%;
+        overflow-x: auto;
+        padding: 12px 20px;
+    }
+
+    .card-body {
+        padding: 20px;
+    }
+
+    .card-header {
+        padding: 20px;
+    }
+}
+
+@media (max-width: 767px) {
+    .dashboard-page {
+        padding: 16px 12px;
+    }
+
+    .page-header {
+        margin-bottom: 20px;
+    }
+
+    .page-header-content h1.page-title {
+        font-size: 22px;
+        font-weight: 600;
+    }
+
+    .page-title-icon {
+        font-size: 26px;
+    }
+
+    .page-subtitle {
+        font-size: 14px;
+    }
+
+    .stepper-wrapper {
+        padding: 10px 16px;
+        gap: 8px;
+        border-radius: 40px;
+    }
+
+    .stepper-label {
+        display: none;
+    }
+
+    .stepper-number {
+        width: 32px;
+        height: 32px;
+        font-size: 13px;
+    }
+
+    .stepper-line {
+        width: 20px;
+    }
+
+    .card {
+        border-radius: 12px;
+    }
+
+    .card-body {
+        padding: 16px;
+    }
+
+    .card-header {
+        padding: 16px;
+    }
+
+    .card-header h3 {
+        font-size: 14px;
+    }
+
+    .form-label {
+        font-size: 11px;
+        margin-bottom: 6px;
+    }
+
+    .form-select {
+        font-size: 13px !important;
+        padding: 10px 14px;
+    }
+
+    .upload-area {
+        height: 200px;
+        border-radius: 12px;
+    }
+
+    .upload-icon {
+        width: 56px;
+        height: 56px;
+        margin-bottom: 12px;
+    }
+
+    .upload-icon .material-symbols-outlined {
+        font-size: 28px;
+    }
+
+    .upload-title {
+        font-size: 16px;
+    }
+
+    .upload-description {
+        font-size: 13px;
+        padding: 0 10px;
+    }
+
+    .btn {
+        font-size: 13px;
+        padding: 10px 20px;
+    }
+
+    .btn-action {
+        gap: 12px;
+        flex-wrap: wrap;
+    }
+
+    .btn-link,
+    .btn-validate {
+        width: 46%;
+        justify-content: center;
+    }
+
+    .vr-mob, .cbtn-mob, .vfbtn-mob{
+        width: 100%;
+    }
+
+    .instruction-icon {
+        width: 40px;
+        height: 40px;
+    }
+
+    .instruction-icon .material-symbols-outlined {
+        font-size: 20px;
+    }
+
+    .instruction-list {
+        gap: 20px;
+    }
+
+    .instruction-item {
+        gap: 12px;
+    }
+
+    .instruction-number {
+        width: 24px;
+        height: 24px;
+        font-size: 11px;
+    }
+
+    .instruction-item p {
+        font-size: 13px;
+    }
+
+    .download-template {
+        padding: 12px;
+    }
+
+    .download-template .material-symbols-outlined {
+        font-size: 24px;
+    }
+
+    .download-template div {
+        font-size: 13px;
+    }
+
+    .download-template small {
+        font-size: 11px;
+    }
+
+    .table {
+        font-size: 12px;
+    }
+
+    .table thead th {
+        padding: 12px;
+        font-size: 10px;
+    }
+
+    .table tbody td {
+        padding: 12px;
+    }
+
+    .file-icon {
+        width: 32px;
+        height: 32px;
+    }
+
+    .file-icon .material-symbols-outlined {
+        font-size: 18px;
+    }
+
+    .badge-success,
+    .badge-error,
+    .badge-info {
+        font-size: 10px;
+        padding: 4px 8px;
+    }
+
+    .badge-dot {
+        width: 5px;
+        height: 5px;
+    }
+
+    /* Hide some table columns on mobile for better readability */
+    .table thead th:nth-child(2),
+    .table tbody td:nth-child(2) {
+        display: none;
+    }
+}
+
+@media (max-width: 479px) {
+    .dashboard-page {
+        padding: 12px 8px;
+    }
+
+    .page-header-content h1.page-title {
+        font-size: 20px;
+    }
+
+    .page-title-icon {
+        font-size: 24px;
+    }
+
+    .page-subtitle {
+        font-size: 13px;
+    }
+
+    .stepper-wrapper {
+        padding: 8px 12px;
+        gap: 6px;
+    }
+
+    .stepper-number {
+        width: 28px;
+        height: 28px;
+        font-size: 12px;
+    }
+
+    .stepper-line {
+        width: 85px;
+    }
+
+    .card-body {
+        padding: 12px;
+    }
+
+    .card-header {
+        padding: 12px;
+    }
+
+    .upload-area {
+        height: 180px;
+    }
+
+    .upload-icon {
+        width: 48px;
+        height: 48px;
+    }
+
+    .upload-icon .material-symbols-outlined {
+        font-size: 24px;
+    }
+
+    .upload-title {
+        font-size: 14px;
+    }
+
+    .upload-description {
+        font-size: 12px;
+    }
+
+    .btn {
+        font-size: 12px;
+        padding: 8px 16px !important;
+    }
+
+    .table thead th {
+        padding: 8px;
+        font-size: 9px;
+    }
+
+    .table tbody td {
+        padding: 8px;
+        font-size: 11px;
+    }
+
+    /* Hide date column on very small screens */
+    .table thead th:nth-child(3),
+    .table tbody td:nth-child(3) {
+        display: none;
+    }
+
+    .instruction-item p.fw-bold {
+        font-size: 12px;
+    }
+
+    .instruction-item p.small {
+        font-size: 11px;
+    }
+}

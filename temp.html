@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Idea Corner Gallery - IFT</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;900&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2f0df2",
+                        "background-light": "#f6f5f8",
+                        "background-dark": "#131022",
+                    },
+                    fontFamily: {
+                        "display": ["Lexend", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+</head>
+
+<body
+    class="bg-background-light dark:bg-background-dark font-display text-[#0f0d1c] dark:text-white transition-colors duration-200">
+    <!-- Navbar -->
+    <header
+        class="sticky top-0 z-50 flex items-center justify-between border-b border-solid border-[#e9e7f4] dark:border-gray-800 bg-white/80 dark:bg-background-dark/80 backdrop-blur-md px-6 py-3 lg:px-10">
+        <div class="flex items-center gap-4 text-[#0f0d1c] dark:text-white">
+            <div class="size-10 bg-primary/10 rounded-xl flex items-center justify-center text-primary">
+                <span class="material-symbols-outlined text-2xl">diamond</span>
+            </div>
+            <h2 class="text-lg font-bold leading-tight tracking-tight hidden sm:block">IFT – India’s Future Tycoon</h2>
+            <h2 class="text-lg font-bold leading-tight tracking-tight sm:hidden">IFT</h2>
+        </div>
+        <div class="hidden md:flex flex-1 justify-end gap-8 items-center">
+            <nav class="flex items-center gap-6">
+                <a class="text-sm font-medium hover:text-primary transition-colors" href="#">Dashboard</a>
+                <a class="text-sm font-medium hover:text-primary transition-colors" href="#">My Idea</a>
+                <a class="text-sm font-bold text-primary relative after:absolute after:bottom-[-20px] after:left-0 after:w-full after:h-[2px] after:bg-primary"
+                    href="#">Gallery</a>
+                <a class="text-sm font-medium hover:text-primary transition-colors" href="#">Resources</a>
+            </nav>
+            <div class="flex items-center gap-4">
+                <button
+                    class="relative flex size-10 items-center justify-center rounded-xl bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                    <span class="material-symbols-outlined text-gray-600 dark:text-gray-300">notifications</span>
+                    <span
+                        class="absolute top-2.5 right-3 size-2 rounded-full bg-red-500 border-2 border-white dark:border-gray-800"></span>
+                </button>
+                <div class="h-8 w-px bg-gray-200 dark:bg-gray-700"></div>
+                <div class="flex items-center gap-3 cursor-pointer group">
+                    <div class="bg-center bg-no-repeat bg-cover rounded-full size-10 border-2 border-white dark:border-gray-700 shadow-sm group-hover:border-primary transition-colors"
+                        data-alt="User profile picture"
+                        style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBmamnl0f_43Nyb91vadvo6JHFx0YtTUoq13xCOoRxRuaf5qMpzprtL6KWAM8YKrByXQcsJMKsWrCaTNKbMXAUOxLKNcpbQ0EHA0iRJthQC3SGGh2fTAeuPyS_qMRshmQKLYvxPRlQxbZhjH90MXjak3z64YEfM5eXxKEPQJFywSOU8APZdN9k-PDczkFuXDwORwDzF2Q_Ksf5QETFYOujmGPoqnWf7Sl9mYcAjCtUuecZcpCZ0qDLAFRlDPLXYRPZaKNvwgKNd8jo");'>
+                    </div>
+                    <div class="hidden lg:block">
+                        <p class="text-sm font-bold leading-none group-hover:text-primary transition-colors">Alex S.</p>
+                        <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Student</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="md:hidden text-[#0f0d1c] dark:text-white flex items-center gap-4">
+            <div class="size-10 bg-gray-50 dark:bg-gray-800 rounded-full bg-center bg-cover"
+                data-alt="User profile picture mobile"
+                style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBzkA_Id4_DYMIg4A2oSBCtWQcSr6TFsgwEES1m8rqYCwKaK4Vr54-IV3ECDfmLtaBwmE7U7uUGxMYu8WJMkMcYVHeezpch0cyuK71YAXZ9JvQS28wbeeSvEdZJhdxhjnZpj1OZHwCoyxPexPmWVVtpQFFr6LhQ_6KSs7n-9QOOKPG92SeaT3FtQ3p7J6QhvuMtf0HvcmXBwLa114M7w4JoGqUnS3lkkIdXRLwEMsypsIWQ70fF4XcBqHLY3aL4ufsma_FJjjHhqsM");'>
+            </div>
+            <button class="flex items-center justify-center p-2 rounded-lg bg-gray-100 dark:bg-gray-800">
+                <span class="material-symbols-outlined">menu</span>
+            </button>
+        </div>
+    </header>
+    <main class="layout-container flex flex-col min-h-screen">
+        <div class="flex justify-center py-8 px-4 sm:px-6 lg:px-8">
+            <div class="w-full max-w-7xl flex flex-col gap-8">
+                <!-- Page Heading & Filters Area -->
+                <div class="flex flex-col gap-6">
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
+                        <div class="flex flex-col gap-2">
+                            <h1 class="text-3xl md:text-4xl font-black tracking-tight text-[#0f0d1c] dark:text-white">
+                                Idea Corner Gallery</h1>
+                            <p class="text-base text-gray-600 dark:text-gray-300 max-w-2xl">
+                                Explore innovation ideas from students across the country. Vote for your favorites and
+                                get inspired by the future tycoons.
+                            </p>
+                        </div>
+                        <button
+                            class="hidden md:flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-sm hover:shadow-md transition-all text-sm font-medium text-gray-700 dark:text-gray-200">
+                            <span class="material-symbols-outlined text-[20px]">tune</span>
+                            Advanced Filters
+                        </button>
+                    </div>
+                    <!-- Search Bar Section -->
+                    <div
+                        class="bg-white dark:bg-[#1e1b2e] p-2 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 flex flex-col lg:flex-row gap-2">
+                        <div class="relative flex-1">
+                            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                <span class="material-symbols-outlined text-gray-400">search</span>
+                            </div>
+                            <input
+                                class="block w-full pl-11 pr-3 py-3 border-none rounded-xl bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary/20 sm:text-base transition-shadow"
+                                placeholder="Search for ideas, teams, or keywords..." type="text" />
+                        </div>
+                        <div class="flex flex-wrap md:flex-nowrap gap-2">
+                            <div class="relative group min-w-[140px] flex-1 md:flex-none">
+                                <select
+                                    class="w-full appearance-none border-none bg-gray-50 dark:bg-gray-900 rounded-xl py-3 pl-4 pr-10 text-sm font-medium text-gray-700 dark:text-gray-300 focus:ring-2 focus:ring-primary/20 cursor-pointer transition-colors hover:bg-gray-100 dark:hover:bg-gray-800">
+                                    <option>All Categories</option>
+                                    <option>Sustainability</option>
+                                    <option>Health Tech</option>
+                                    <option>Smart Cities</option>
+                                </select>
+                                <div
+                                    class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-500">
+                                    <span class="material-symbols-outlined text-[20px]">expand_more</span>
+                                </div>
+                            </div>
+                            <div class="relative group min-w-[140px] flex-1 md:flex-none">
+                                <select
+                                    class="w-full appearance-none border-none bg-gray-50 dark:bg-gray-900 rounded-xl py-3 pl-4 pr-10 text-sm font-medium text-gray-700 dark:text-gray-300 focus:ring-2 focus:ring-primary/20 cursor-pointer transition-colors hover:bg-gray-100 dark:hover:bg-gray-800">
+                                    <option>Most Popular</option>
+                                    <option>Newest</option>
+                                    <option>Oldest</option>
+                                </select>
+                                <div
+                                    class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-500">
+                                    <span class="material-symbols-outlined text-[20px]">sort</span>
+                                </div>
+                            </div>
+                            <button
+                                class="flex-1 md:flex-none bg-primary hover:bg-blue-700 text-white px-8 py-3 rounded-xl font-bold text-sm transition-all shadow-lg shadow-primary/30 flex items-center justify-center gap-2">
+                                Search
+                            </button>
+                        </div>
+                    </div>
+                    <!-- Chips -->
+                    <div class="flex gap-3 flex-wrap items-center px-1">
+                        <span class="text-sm font-medium text-gray-500 dark:text-gray-400 mr-1">Trending:</span>
+                        <button
+                            class="group flex items-center gap-2 px-4 py-2 rounded-xl bg-white dark:bg-gray-800 hover:bg-primary/5 dark:hover:bg-primary/20 text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary text-sm font-medium transition-all border border-gray-200 dark:border-gray-700 hover:border-primary/30">
+                            Sustainability
+                        </button>
+                        <button
+                            class="group flex items-center gap-2 px-4 py-2 rounded-xl bg-white dark:bg-gray-800 hover:bg-primary/5 dark:hover:bg-primary/20 text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary text-sm font-medium transition-all border border-gray-200 dark:border-gray-700 hover:border-primary/30">
+                            Health Tech
+                        </button>
+                        <button
+                            class="group flex items-center gap-2 px-4 py-2 rounded-xl bg-white dark:bg-gray-800 hover:bg-primary/5 dark:hover:bg-primary/20 text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary text-sm font-medium transition-all border border-gray-200 dark:border-gray-700 hover:border-primary/30">
+                            AI &amp; Robotics
+                        </button>
+                        <button
+                            class="group flex items-center gap-2 px-4 py-2 rounded-xl bg-white dark:bg-gray-800 hover:bg-primary/5 dark:hover:bg-primary/20 text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary text-sm font-medium transition-all border border-gray-200 dark:border-gray-700 hover:border-primary/30">
+                            Education
+                        </button>
+                        <button
+                            class="ml-auto text-sm text-primary font-bold hover:text-primary/80 transition-colors flex items-center gap-1">
+                            <span class="material-symbols-outlined text-[18px]">close</span>
+                            Clear all
+                        </button>
+                    </div>
+                </div>
+                <!-- Featured Hero Card -->
+                <div
+                    class="w-full bg-gradient-to-br from-[#2f0df2] via-[#4f2bf5] to-[#7d5dfa] rounded-3xl p-6 md:p-10 text-white shadow-xl shadow-primary/20 relative overflow-hidden group cursor-pointer border border-white/10">
+                    <!-- Decorative background elements -->
+                    <div
+                        class="absolute top-0 right-0 w-[40rem] h-[40rem] bg-white opacity-5 rounded-full blur-3xl -mr-32 -mt-32 pointer-events-none mix-blend-overlay">
+                    </div>
+                    <div
+                        class="absolute bottom-0 left-0 w-[30rem] h-[30rem] bg-purple-500 opacity-20 rounded-full blur-3xl -ml-20 -mb-20 pointer-events-none mix-blend-overlay">
+                    </div>
+                    <div class="relative z-10 flex flex-col lg:flex-row gap-8 lg:gap-12 items-center">
+                        <div class="flex-1 space-y-6">
+                            <div
+                                class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/20 backdrop-blur-md border border-white/20 text-xs font-bold uppercase tracking-wider shadow-inner">
+                                <span class="material-symbols-outlined text-sm">award_star</span>
+                                Idea of the Week
+                            </div>
+                            <div class="space-y-3">
+                                <h2 class="text-3xl md:text-5xl font-black leading-tight tracking-tight">Autonomous
+                                    Drone for Reforestation</h2>
+                                <p
+                                    class="text-blue-100 text-lg md:text-xl font-light leading-relaxed max-w-xl opacity-90">
+                                    A scalable drone system capable of planting thousands of seed pods daily in
+                                    hard-to-reach areas, combatting deforestation effectively.
+                                </p>
+                            </div>
+                            <div class="flex flex-wrap items-center gap-6 pt-4">
+                                <div
+                                    class="flex items-center gap-3 bg-white/10 px-4 py-2 rounded-xl backdrop-blur-sm border border-white/5">
+                                    <div
+                                        class="size-8 rounded-full bg-gradient-to-tr from-green-400 to-emerald-600 flex items-center justify-center text-sm font-bold shadow-lg">
+                                        AG</div>
+                                    <div>
+                                        <p class="text-xs text-blue-200 font-medium">Created by</p>
+                                        <span class="font-bold text-sm">Team AeroGreen</span>
+                                    </div>
+                                </div>
+                                <div class="h-8 w-px bg-white/20"></div>
+                                <div class="flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-blue-200">category</span>
+                                    <span class="font-medium">Environment &amp; Sustainability</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            class="w-full lg:w-[45%] aspect-video rounded-2xl overflow-hidden shadow-2xl border-4 border-white/10 group-hover:scale-[1.02] group-hover:shadow-primary/40 transition-all duration-500 ease-out">
+                            <div class="w-full h-full bg-cover bg-center transform transition-transform duration-700 group-hover:scale-110"
+                                data-alt="Drone flying over a forest planting seeds in a green landscape"
+                                style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDAa15eP_XO-cgFrg5F4Bai7pU4aIIND6Dcb9I7MupepPOqUvsfvhx8w4wSbnqnWlNan2gkiM8UyfoKKMajtgA0GLAmvFEg3Vbi6M3rndDs1Vi2KGvZx2VF6n4FwzaJawcS1NVAn9LLxJvomp4TILQU2IOGy0mX1UruumFPG_Ec9B5RZddZEDRinlbfF2Z1y6cpU4_IzyVgMPeCWaexyq7IplDmEbTK6anxqjYCkqPmVAsccrU3kVldkeD9H9N84aGN_T65SZ0dEho");'>
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-60">
+                                </div>
+                            </div>
+                            <!-- Play button overlay idea -->
+                            <div
+                                class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                <div
+                                    class="size-16 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center border border-white/40">
+                                    <span class="material-symbols-outlined text-4xl text-white">play_arrow</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Grid of Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+                    <!-- Card 1 -->
+                    <div
+                        class="group flex flex-col bg-white dark:bg-[#1e1b2e] rounded-2xl overflow-hidden shadow-sm hover:shadow-[0_8px_30px_rgb(0,0,0,0.12)] hover:-translate-y-1 transition-all duration-300 border border-gray-100 dark:border-gray-800">
+                        <div class="relative aspect-[4/3] overflow-hidden">
+                            <div class="absolute top-4 left-4 z-10 flex gap-2">
+                                <span
+                                    class="px-3 py-1 rounded-lg bg-white/95 dark:bg-black/80 backdrop-blur-md text-xs font-bold text-[#0f0d1c] dark:text-white shadow-sm flex items-center gap-1">
+                                    <span class="size-2 rounded-full bg-green-500"></span>
+                                    Sustainability
+                                </span>
+                            </div>
+                            <div class="w-full h-full bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
+                                data-alt="Solar powered water purifier device outdoors"
+                                style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDmXLeMl3z0CCPR1hYVoTWDo7qFPAnajw_-pGDW_u3PWNzFYuvjZdcjTjSq3ZSTyclSVucIhNATgeT7FVbxMRKgGFJoPdexB3Bsq_uBt2t782L_Mk5gxC7yMh3_GEUU-boH_jki54wt45vg4nFJLVqYioAEt2QbR4ktIOcKe8YLI9vN31fg4F2qHmQk03irKf521YBXYFOubzf7RtpTZW5_HiR10_2dvKT34egiLYrPV9qr71aUCRCdhSfm7-S4xPPWoBGWM1h1vLw");'>
+                                <div
+                                    class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex flex-col flex-1 p-5 gap-3">
+                            <div class="flex-1 space-y-2">
+                                <h3
+                                    class="text-xl font-bold text-[#0f0d1c] dark:text-white leading-tight group-hover:text-primary transition-colors">
+                                    Solar-Powered Water Purifier</h3>
+                                <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed line-clamp-3">
+                                    A portable device utilizing solar energy to filter contaminants from rural water
+                                    sources without electricity grid dependency.
+                                </p>
+                            </div>
+                            <div
+                                class="pt-4 mt-auto flex items-center justify-between border-t border-gray-100 dark:border-gray-700/50">
+                                <div class="flex items-center gap-2">
+                                    <div
+                                        class="size-8 rounded-full bg-green-100 text-green-700 flex items-center justify-center text-xs font-black ring-2 ring-white dark:ring-[#1e1b2e]">
+                                        EW</div>
+                                    <div class="flex flex-col">
+                                        <span
+                                            class="text-[10px] text-gray-400 font-bold uppercase tracking-wider">Team</span>
+                                        <span
+                                            class="text-xs font-bold text-gray-700 dark:text-gray-300">EcoWarriors</span>
+                                    </div>
+                                </div>
+                                <button
+                                    class="size-8 rounded-full bg-gray-50 dark:bg-gray-800 group-hover:bg-primary text-gray-400 group-hover:text-white flex items-center justify-center transition-all">
+                                    <span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card 2 -->
+                    <div
+                        class="group flex flex-col bg-white dark:bg-[#1e1b2e] rounded-2xl overflow-hidden shadow-sm hover:shadow-[0_8px_30px_rgb(0,0,0,0.12)] hover:-translate-y-1 transition-all duration-300 border border-gray-100 dark:border-gray-800">
+                        <div class="relative aspect-[4/3] overflow-hidden">
+                            <div class="absolute top-4 left-4 z-10 flex gap-2">
+                                <span
+                                    class="px-3 py-1 rounded-lg bg-white/95 dark:bg-black/80 backdrop-blur-md text-xs font-bold text-[#0f0d1c] dark:text-white shadow-sm flex items-center gap-1">
+                                    <span class="size-2 rounded-full bg-blue-500"></span>
+                                    Education
+                                </span>
+                            </div>
+                            <div class="w-full h-full bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
+                                data-alt="Student wearing VR headset learning"
+                                style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuC2Y0n-1cAJaQp_uAZzik6RdrA7pogSlu6t6sCfXE50XuLpARzRKGR71gUYVHieCnURnnQtb6qBu3ShVraQyiD2Y1BDqRBZYiRIGVtyMm-_Rrpj0DU1uo9qB8HbXokRu-yc1LO8Dw_6ubOBnnvqeegcz9FHPyjiMEbgY_3pHizHSdMtlp9Du84nsicCaK_n3s-_JrhdCLlVRjCZ3tBhAwhV0jduV-n3eZvf31oWjdfAzvcDhxw1Yc1R067tA18nnvFnZiNTRLLkutY");'>
+                                <div
+                                    class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex flex-col flex-1 p-5 gap-3">
+                            <div class="flex-1 space-y-2">
+                                <h3
+                                    class="text-xl font-bold text-[#0f0d1c] dark:text-white leading-tight group-hover:text-primary transition-colors">
+                                    VR Classroom Experience</h3>
+                                <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed line-clamp-3">
+                                    Immersive virtual reality modules designed to make history and science classes
+                                    interactive for remote students.
+                                </p>
+                            </div>
+                            <div
+                                class="pt-4 mt-auto flex items-center justify-between border-t border-gray-100 dark:border-gray-700/50">
+                                <div class="flex items-center gap-2">
+                                    <div
+                                        class="size-8 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center text-xs font-black ring-2 ring-white dark:ring-[#1e1b2e]">
+                                        FL</div>
+                                    <div class="flex flex-col">
+                                        <span
+                                            class="text-[10px] text-gray-400 font-bold uppercase tracking-wider">Team</span>
+                                        <span
+                                            class="text-xs font-bold text-gray-700 dark:text-gray-300">FutureLearners</span>
+                                    </div>
+                                </div>
+                                <button
+                                    class="size-8 rounded-full bg-gray-50 dark:bg-gray-800 group-hover:bg-primary text-gray-400 group-hover:text-white flex items-center justify-center transition-all">
+                                    <span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card 3 -->
+                    <div
+                        class="group flex flex-col bg-white dark:bg-[#1e1b2e] rounded-2xl overflow-hidden shadow-sm hover:shadow-[0_8px_30px_rgb(0,0,0,0.12)] hover:-translate-y-1 transition-all duration-300 border border-gray-100 dark:border-gray-800">
+                        <div class="relative aspect-[4/3] overflow-hidden">
+                            <div class="absolute top-4 left-4 z-10 flex gap-2">
+                                <span
+                                    class="px-3 py-1 rounded-lg bg-white/95 dark:bg-black/80 backdrop-blur-md text-xs font-bold text-[#0f0d1c] dark:text-white shadow-sm flex items-center gap-1">
+                                    <span class="size-2 rounded-full bg-purple-500"></span>
+                                    Smart Cities
+                                </span>
+                            </div>
+                            <!-- Abstract gradient for variety -->
+                            <div class="w-full h-full bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 transition-transform duration-700 group-hover:scale-110"
+                                data-alt="Abstract gradient representing smart traffic flow network">
+                                <div
+                                    class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-30 mix-blend-overlay">
+                                </div>
+                                <div
+                                    class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex flex-col flex-1 p-5 gap-3">
+                            <div class="flex-1 space-y-2">
+                                <h3
+                                    class="text-xl font-bold text-[#0f0d1c] dark:text-white leading-tight group-hover:text-primary transition-colors">
+                                    AI Traffic Management</h3>
+                                <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed line-clamp-3">
+                                    Using computer vision at intersections to optimize traffic light timings and reduce
+                                    city congestion by 30%.
+                                </p>
+                            </div>
+                            <div
+                                class="pt-4 mt-auto flex items-center justify-between border-t border-gray-100 dark:border-gray-700/50">
+                                <div class="flex items-center gap-2">
+                                    <div
+                                        class="size-8 rounded-full bg-purple-100 text-purple-700 flex items-center justify-center text-xs font-black ring-2 ring-white dark:ring-[#1e1b2e]">
+                                        UM</div>
+                                    <div class="flex flex-col">
+                                        <span
+                                            class="text-[10px] text-gray-400 font-bold uppercase tracking-wider">Team</span>
+                                        <span
+                                            class="text-xs font-bold text-gray-700 dark:text-gray-300">UrbanMinds</span>
+                                    </div>
+                                </div>
+                                <button
+                                    class="size-8 rounded-full bg-gray-50 dark:bg-gray-800 group-hover:bg-primary text-gray-400 group-hover:text-white flex items-center justify-center transition-all">
+                                    <span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card 4 -->
+                    <div
+                        class="group flex flex-col bg-white dark:bg-[#1e1b2e] rounded-2xl overflow-hidden shadow-sm hover:shadow-[0_8px_30px_rgb(0,0,0,0.12)] hover:-translate-y-1 transition-all duration-300 border border-gray-100 dark:border-gray-800">
+                        <div class="relative aspect-[4/3] overflow-hidden">
+                            <div class="absolute top-4 left-4 z-10 flex gap-2">
+                                <span
+                                    class="px-3 py-1 rounded-lg bg-white/95 dark:bg-black/80 backdrop-blur-md text-xs font-bold text-[#0f0d1c] dark:text-white shadow-sm flex items-center gap-1">
+                                    <span class="size-2 rounded-full bg-yellow-500"></span>
+                                    Sustainability
+                                </span>
+                            </div>
+                            <div class="w-full h-full bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
+                                data-alt="Recycling bins with smart sorting technology"
+                                style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDrAHGmTjUczhcYTZCNuMKMKEfpJs-bQygi909CZi7iRHGlo6yceg5e43T3LcOc-hcVgmX0-jIYkE5rH_X-jz5g1J3V9nziFIKg5Op7DdqJShWh4mS5-npFk2l0FLqzQbPKkPWl4lncLRz_WdJk-KFXECB5UAojYxOSbi6iAPQlIAWhumj9BLImRPprdeLIFRrmRTlAllRnr6yrc0qUP28DkDbrDV09Mn_GhSHmk0xsBWT6Thx-b7k_7uqACq736eDT2dqcGwkj7Jw");'>
+                                <div
+                                    class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex flex-col flex-1 p-5 gap-3">
+                            <div class="flex-1 space-y-2">
+                                <h3
+                                    class="text-xl font-bold text-[#0f0d1c] dark:text-white leading-tight group-hover:text-primary transition-colors">
+                                    Smart Waste Sorter</h3>
+                                <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed line-clamp-3">
+                                    An automated bin that uses image recognition to segregate waste into recyclables,
+                                    compost, and landfill.
+                                </p>
+                            </div>
+                            <div
+                                class="pt-4 mt-auto flex items-center justify-between border-t border-gray-100 dark:border-gray-700/50">
+                                <div class="flex items-center gap-2">
+                                    <div
+                                        class="size-8 rounded-full bg-yellow-100 text-yellow-700 flex items-center justify-center text-xs font-black ring-2 ring-white dark:ring-[#1e1b2e]">
+                                        GG</div>
+                                    <div class="flex flex-col">
+                                        <span
+                                            class="text-[10px] text-gray-400 font-bold uppercase tracking-wider">Team</span>
+                                        <span class="text-xs font-bold text-gray-700 dark:text-gray-300">GreenGen</span>
+                                    </div>
+                                </div>
+                                <button
+                                    class="size-8 rounded-full bg-gray-50 dark:bg-gray-800 group-hover:bg-primary text-gray-400 group-hover:text-white flex items-center justify-center transition-all">
+                                    <span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card 5 -->
+                    <div
+                        class="group flex flex-col bg-white dark:bg-[#1e1b2e] rounded-2xl overflow-hidden shadow-sm hover:shadow-[0_8px_30px_rgb(0,0,0,0.12)] hover:-translate-y-1 transition-all duration-300 border border-gray-100 dark:border-gray-800">
+                        <div class="relative aspect-[4/3] overflow-hidden">
+                            <div class="absolute top-4 left-4 z-10 flex gap-2">
+                                <span
+                                    class="px-3 py-1 rounded-lg bg-white/95 dark:bg-black/80 backdrop-blur-md text-xs font-bold text-[#0f0d1c] dark:text-white shadow-sm flex items-center gap-1">
+                                    <span class="size-2 rounded-full bg-red-500"></span>
+                                    Health Tech
+                                </span>
+                            </div>
+                            <div class="w-full h-full bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
+                                data-alt="Smartwatch health monitor showing vital signs"
+                                style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDSu_SONzI9AOZrmsOF1w2PvnM9PIleMLJlcAjxjlVzplNKF9B6Z7julf96Wo3eIS8gk38tf11zt03JvlhbUqEcBHsGolGNkM9QENrBlfEg3mVIkqgm3ihvWcgtt2slpjellZ9NGtobwlglgxvyE7oRdyuuJNp36dmN2jRVQX39CAfl3ruvF9jlXy8TVrPsIitxOlVST8q16AjtYwm7EtgX7-fnPgtdjdsoZ3qA8Lbl8JQnfn_4NveCYVS3bGogsBx-UnBNFsN2tuM");'>
+                                <div
+                                    class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex flex-col flex-1 p-5 gap-3">
+                            <div class="flex-1 space-y-2">
+                                <h3
+                                    class="text-xl font-bold text-[#0f0d1c] dark:text-white leading-tight group-hover:text-primary transition-colors">
+                                    Elderly Care Assistant</h3>
+                                <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed line-clamp-3">
+                                    A wearable device that detects falls and monitors vital signs, alerting caregivers
+                                    instantly in emergencies.
+                                </p>
+                            </div>
+                            <div
+                                class="pt-4 mt-auto flex items-center justify-between border-t border-gray-100 dark:border-gray-700/50">
+                                <div class="flex items-center gap-2">
+                                    <div
+                                        class="size-8 rounded-full bg-red-100 text-red-700 flex items-center justify-center text-xs font-black ring-2 ring-white dark:ring-[#1e1b2e]">
+                                        CC</div>
+                                    <div class="flex flex-col">
+                                        <span
+                                            class="text-[10px] text-gray-400 font-bold uppercase tracking-wider">Team</span>
+                                        <span
+                                            class="text-xs font-bold text-gray-700 dark:text-gray-300">CareConnect</span>
+                                    </div>
+                                </div>
+                                <button
+                                    class="size-8 rounded-full bg-gray-50 dark:bg-gray-800 group-hover:bg-primary text-gray-400 group-hover:text-white flex items-center justify-center transition-all">
+                                    <span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card 6 -->
+                    <div
+                        class="group flex flex-col bg-white dark:bg-[#1e1b2e] rounded-2xl overflow-hidden shadow-sm hover:shadow-[0_8px_30px_rgb(0,0,0,0.12)] hover:-translate-y-1 transition-all duration-300 border border-gray-100 dark:border-gray-800">
+                        <div class="relative aspect-[4/3] overflow-hidden">
+                            <div class="absolute top-4 left-4 z-10 flex gap-2">
+                                <span
+                                    class="px-3 py-1 rounded-lg bg-white/95 dark:bg-black/80 backdrop-blur-md text-xs font-bold text-[#0f0d1c] dark:text-white shadow-sm flex items-center gap-1">
+                                    <span class="size-2 rounded-full bg-orange-500"></span>
+                                    AgriTech
+                                </span>
+                            </div>
+                            <div class="w-full h-full bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
+                                data-alt="Greenhouse with advanced agricultural sensors"
+                                style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDU1SSBFl-19bOSVt_tRuLNJoaiLK0PyZBYzOn2RgrR_wcZfLPkLHL56UI6IvaP68cFjtk4BIy3COBUC1QljkEOvP0h1T1at0r5jReMT1YKUi9eJdgHdjurwYN7aqvyPt4Y44ZSLxQziGi1zVzuctVcRRSMYjI_6OhLibhT53fygfx0eZ72d3DFT1lW-6HvGciEzzrbNwNwFEgoho2T90510yRt_oFubspbxy5hwmySmoTcMu9P2Bu2c9syLxy9-3dJm0m2gJZqll4");'>
+                                <div
+                                    class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex flex-col flex-1 p-5 gap-3">
+                            <div class="flex-1 space-y-2">
+                                <h3
+                                    class="text-xl font-bold text-[#0f0d1c] dark:text-white leading-tight group-hover:text-primary transition-colors">
+                                    Precision Farming Bot</h3>
+                                <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed line-clamp-3">
+                                    Small autonomous rovers that target weeds specifically, reducing the need for
+                                    widespread herbicide use.
+                                </p>
+                            </div>
+                            <div
+                                class="pt-4 mt-auto flex items-center justify-between border-t border-gray-100 dark:border-gray-700/50">
+                                <div class="flex items-center gap-2">
+                                    <div
+                                        class="size-8 rounded-full bg-orange-100 text-orange-700 flex items-center justify-center text-xs font-black ring-2 ring-white dark:ring-[#1e1b2e]">
+                                        AB</div>
+                                    <div class="flex flex-col">
+                                        <span
+                                            class="text-[10px] text-gray-400 font-bold uppercase tracking-wider">Team</span>
+                                        <span class="text-xs font-bold text-gray-700 dark:text-gray-300">AgriBots</span>
+                                    </div>
+                                </div>
+                                <button
+                                    class="size-8 rounded-full bg-gray-50 dark:bg-gray-800 group-hover:bg-primary text-gray-400 group-hover:text-white flex items-center justify-center transition-all">
+                                    <span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Load More / Pagination -->
+                <div class="flex flex-col items-center justify-center pt-8 pb-16 gap-4">
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Showing 6 of 42 ideas</p>
+                    <div class="w-64 h-1.5 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                        <div class="w-1/6 h-full bg-primary rounded-full"></div>
+                    </div>
+                    <button
+                        class="mt-2 flex items-center gap-2 px-8 py-3 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-sm hover:shadow-md hover:border-primary/50 dark:hover:border-primary/50 text-gray-700 dark:text-white font-bold transition-all group">
+                        Load More Ideas
+                        <span
+                            class="material-symbols-outlined group-hover:translate-y-1 transition-transform">expand_more</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>
